@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Boids</title>
+  <script src="js/lib/boids.js"></script>
+</head>
+<body>
+<canvas id="boids" width="1000" height="600"></canvas>
+<script>
+
+var canvasElement = document.getElementById("boids");
+arena = new Arena(canvasElement, 8, 8);
+
+for(var i=0; i<100; i++)
+{
+  var x = Math.random()*canvasElement.width;
+  var y = Math.random()*canvasElement.height;
+  
+  arena.newBoid(x,y); 
+}
+arena.simulate(20);
+
+canvasElement.addEventListener("click", 
+function(e)
+{
+  var x, y;
+  
+  if(e.pageX && e.pageY) {
+    x = e.pageX;
+    y = e.pageY;
+  }
+  else {
+    x = e.clientX + document.body.scrollLeft +
+      document.documentElement.scrollLeft;
+    y = e.clientY + document.body.scrollTop +
+      document.documentElement.scrollTop;
+  }
+  x -= canvasElement.offsetLeft;
+  y -= canvasElement.offsetTop;
+  
+  arena.newBoid(x,y);
+}, false);
+</script>
+</body>
+</html>

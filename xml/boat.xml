@@ -1,0 +1,366 @@
+<krpano version="1.0.8" onstart="startup();">
+
+<security>
+    <allowdomain domain="*" />
+</security>
+
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+	<action name="startup">
+		loadscene(platform, null, ignorekeep, BLEND(1))
+	</action>
+
+		<autorotate enabled="true"
+	            waittime="1.5"
+	            speed="3.0"
+	            />
+	            
+
+	
+  <action name="viewchange">
+  	    set(currentX,get(view.hlookat));
+	  	add(currentX,180);
+	</action>
+	 
+	<events 
+		onmousedown="action(globalmousedown)"
+		onviewchange="action(viewchange)" 
+		
+		/> 
+	 
+	<action name="globalmousedown">		
+		set(plugin[directions].visible,false);
+		set(autorotate.enabled,false);
+	</action>
+
+	<action name="initialize">
+		set(plugin[directions].visible,true);
+		tween(plugin[directions].alpha,1.0,3)
+	</action>
+	                   
+	<scene name="platform" onstart="">
+
+		<progress
+			showwait="none"
+			/>
+
+		<view 
+			hlookat="84.0"
+		  fov="65.0"
+		  fovmax="90.0"
+		  fovmin="45.0"
+		  />
+
+		<control usercontrol = "all"
+			mousetype="drag2d"
+		 	keycodesin  =""
+		 	keycodesout =""
+		 	/>
+	 	<image>
+				<cube url="../images/panos/boat/pano_%s.jpg" />
+
+		</image>
+<!--
+		<image devices="Desktop">     <cube url="../images/panos/boat/pano_%s.jpg"   /> </image>
+		<image devices="Mobile">      <cube url="../images/panos/boat/mobile_%s.jpg" /> </image>
+		<image devices="Tablet">      <cube url="../images/panos/boat/pano_%s.jpg../images/panos/boat/pano_%s.jpg" /> </image>
+-->
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			visible="true"
+			/>
+			
+
+		<hotspot name="into_sub" url="../images/hotspot.gif"
+			ath="90"
+			atv="-7.0"
+			distorted="true"
+			alpha="0.0"
+			height="60.0"
+			onclick="js(newPage(subhanger.php))"
+			scale="1.0"
+			capture="false"
+			/>
+
+		<hotspot name="going_up_stairs" url="../images/hotspot_diagonal.gif"
+			ath="75"
+			atv="-13"
+			distorted="true"
+			alpha="0"
+			height="140"
+			width="140"
+			onclick="js(newPage(hallway.php))"
+			scale="1.0"
+			capture="false"
+			/>
+
+			
+		<hotspot name="stairs back to hallway"
+			device="flash"
+			keep="false"
+			visible="true"
+			enabled="true"
+			handcursor="true"
+			zorder=""
+			style=""
+			alpha="1"
+			distorted="true"
+			fillcolor="0xFFFFFF" fillcolorhover="0xFFFFFF"
+			fillalpha="0" fillalphahover="0.1"
+			borderwidth="0.0" borderwidthhover="0"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			borderalpha="0.0" borderalphahover="0"
+			onclick="js(newPage(chemicalroom.php))"
+			onhover="js(hoverSound())"
+			onout="js(resetHoverSound())"
+		>
+	    <point ath="92" atv="-10.3" />
+	    <point ath="87.8" atv="-10.5" />
+	    <point ath="87.8" atv="-2.9" />
+	    <point ath="92" atv="-3" />
+		</hotspot>
+
+		<hotspot name="Capt_Shane_Text"
+			url="plugins/textfield.swf"
+			ath="20"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER : CAPT. SHANE[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Oysterman_capt_shane)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Capt_Shane_Gif" 
+			url="../images/icons/gif_icon2.gif"
+			ath="360"
+			atv="1"
+			distorted="true"
+			alpha=".4"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Oysterman_capt_shane)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+
+
+		<hotspot name="Rossina_Text"
+			url="plugins/textfield.swf"
+			ath="290"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER : ROSSINA[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/rossina_edited_720)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Rossina_Gif" 
+			url="../images/icons/gif_icon2.gif"
+			ath="270"
+			atv="1"
+			distorted="true"
+			alpha=".4"
+			height="60"
+			width="60"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/rossina_edited_720)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+
+		<hotspot name="Darla_Text"
+			url="plugins/textfield.swf"
+			ath="220"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER : DARLA[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darlas_life_720)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Darla_Gif" 
+			url="../images/icons/gif_icon2.gif"
+			ath="200"
+			atv="1"
+			distorted="true"
+			alpha=".4"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darlas_life_720)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+
+		
+<!--
+
+
+		<hotspot name="abouthotspot" url="../images/panos/platform/hotspots/about.png"
+			ath="72.15"
+			atv="8.2"
+			distorted="true"
+			alpha="0.75"
+			onclick="js(newPage(about.php))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_about].visible,false);"
+			scale="0.85"
+			/>
+
+
+		<hotspot name="go_about"
+			url="../images/panos/platform/hotspots/Text_About.png"
+      ath="68.15"
+      atv="0"
+			capture="false"
+			visible="false"
+			scale="0.55"
+			/>
+			
+		<hotspot name="entryhotspot" url="../images/panos/platform/hotspots/entry.png"
+			ath="-157.2"
+			atv="16.1"
+			distorted="true"
+			alpha="0.75"
+			onclick="js(newPage(noentry.php))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_entry].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_entry].visible,false);"
+			scale="0.6"
+			/>
+
+		<hotspot name="go_entry"
+			url="../images/panos/platform/hotspots/Text_Explore.png"
+			ath="-157.2"
+			atv="8"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>			
+			
+		<hotspot name="bloghotspot" url="../images/panos/platform/hotspots/blog.png"
+			ath="-84.6"
+			atv="13.0"
+			distorted="true"
+			alpha="0.75"
+			onclick="js(newPage(blog/index.php?from_rig=true~BLOG))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_blog].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_blog].visible,false);"			
+			scale="0.8"
+			/>
+
+		<hotspot name="go_blog"
+			url="../images/panos/platform/hotspots/Text_Blog.png"
+			ath="-84.6"
+			atv="5"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>	
+
+
+
+				
+			<hotspot name="creditshotspot" url="../images/panos/platform/hotspots/plane_overlay.png"
+			ath="40.6"
+			atv="8.0"
+			distorted="true"
+			alpha="0.4"
+			onclick="js(newPage(credits.php))"
+			onhover="js(hoverSound());tween(alpha,0.6);set(hotspot[go_credits].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.5);set(hotspot[go_credits].visible,false);"
+			scale="0.65"
+			/>		
+
+		<hotspot name="go_credits"
+			url="../images/panos/platform/hotspots/Text_Crew.png"
+			ath="40.6"
+			atv="0"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>
+			
+			
+-->
+
+		<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				font-size: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+		</data>
+			
+		<data name="nav_01">
+    <p><img src="images/panos/platform/hotspots/Text_About.png" /></p>
+		</data>
+
+
+		<data name="nav_02">
+    <p><img src="images/panos/platform/hotspots/Text_Explore.png" /></p>
+		</data>		
+	
+	
+		<data name="nav_03">
+    <p><img src="images/panos/platform/hotspots/Text_Blog.png" /></p>
+		</data>	
+
+
+		<data name="nav_04">
+    <p><img src="images/panos/platform/hotspots/Text_Crew.png" /></p>
+		</data>			
+
+		<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;
+				
+				leading: 7;
+
+			}
+		</data>
+							
+	</scene>
+		
+	<!--<include url="drill.xml" />-->
+
+</krpano>

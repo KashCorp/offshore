@@ -1,0 +1,207 @@
+<krpano version="1.0.8" onstart="startup();">
+
+<security>
+    <allowdomain domain="*" />
+</security>
+
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+	<action name="startup">
+		loadscene(platform, null, ignorekeep, BLEND(1))
+	</action>
+
+
+
+
+	<autorotate enabled="true"
+	            waittime="1.5"
+	            speed="3.0"
+	            />
+	 
+	<events 
+		onloadcomplete= "js(panoLoaded())"
+		onmousedown="action(globalmousedown)"
+		onviewchange="action(viewchange)" 
+		/> 
+
+	<action name="viewchange">
+		js(soundadjust(get(view.hlookat)));
+	</action>
+	 
+	<action name="globalmousedown">		
+		set(plugin[directions].visible,false);
+		set(autorotate.enabled,false);
+	</action>
+
+	<action name="initialize">
+		set(plugin[directions].visible,true);
+		tween(plugin[directions].alpha,1.0,3)
+	</action>
+	                   
+	<scene name="platform" onstart="">
+
+		<progress
+			showwait="none"
+			/>
+
+		<view 
+			hlookat="84.0"
+		  fov="90.0"
+		  fovmax="90.0"
+		  fovmin="1.0"
+		  />
+
+		<control usercontrol = "all"
+			mousetype="drag2d"
+		 	keycodesin  =""
+		 	keycodesout =""
+		 	/>
+	 	<image>
+				<cube url="../images/panos/platform/pano_%s.jpg" />
+			<mobile>
+				<cube url="../images/panos/platform/pano_%s.jpg" />
+			</mobile>
+		</image>
+
+
+
+
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			visible="true"
+
+			/>
+			
+		<hotspot name="entryhotspot" 
+			url="../images/hotspot.gif"
+			ath="74.5"
+			atv="11.2"
+			distorted="true"
+			alpha="0"
+			visible="true"
+			onclick="lookto(96,13,15,smooth(),true,true,js(newPage(lowerplatform_closed.php)))"
+			scale="1"
+			height="58"
+			width="83"
+			capture="false"
+			/>
+
+		<hotspot name="heli_hotspot" 
+			url="../images/hotspot.gif"
+			ath="-129"
+			atv="8.0"
+			distorted="true"
+			alpha="0"
+			onclick="lookto(-130,10,25,smooth(),true,true,js(newPage(helicopter.php)))"
+			onhover="js(hoverSound());tween(alpha,0.6);set(hotspot[go_credits].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.5);set(hotspot[go_credits].visible,false);"
+			scale="1"
+			height="80"
+			width="48"
+			capture="false"
+			/>	
+
+
+		<!--
+		
+		<hotspot name="abouthotspot" url="../images/panos/platform/hotspots/about.png"
+			ath="72.15"
+			atv="8.2"
+			distorted="true"
+			alpha="0.75"
+			onclick="js(newPage(about.php))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_about].visible,false);"
+			scale="0.85"
+			/>
+
+
+		<hotspot name="go_about"
+			url="../images/panos/platform/hotspots/Text_About.png"
+      ath="68.15"
+      atv="0"
+			capture="false"
+			visible="false"
+			scale="0.55"
+			/>
+			
+			
+
+	
+		<hotspot name="go_credits"
+			url="../images/panos/platform/hotspots/Text_Crew.png"
+			ath="-119.5"
+			atv="5.2"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>
+	
+		<hotspot name="go_entry"
+			url="../images/panos/platform/hotspots/Text_Explore.png"
+			ath="89.2"
+			atv="11.3"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>	
+			
+			
+		<hotspot name="bloghotspot" url="../images/panos/platform/hotspots/blog.png"
+			ath="-84.6"
+			atv="13.0"
+			distorted="true"
+			alpha="0.75"
+			onclick="js(newPage(blog/index.php?from_rig=true~BLOG))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_blog].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_blog].visible,false);"			
+			scale="0.8"
+			/>
+
+		<hotspot name="go_blog"
+			url="../images/panos/platform/hotspots/Text_Blog.png"
+			ath="-84.6"
+			atv="5"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>	
+
+	-->
+
+		
+		
+
+
+
+		
+				
+
+		
+			
+	
+
+		<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;
+				
+				leading: 7;
+
+			}
+		</data>
+							
+	</scene>
+		
+	<!--<include url="drill.xml" />-->
+
+</krpano>

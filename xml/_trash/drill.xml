@@ -1,0 +1,31 @@
+<scene name="drill">
+	<view hlookat="0.0"
+	  vlookat="0.0"
+	  fov="65.0"
+	  fovmax="90.0"
+	  />
+
+	<control usercontrol = "all"
+		mousetype="drag2d"
+	 	keycodesin  ="16,65,187"
+	 	keycodesout ="90,189"
+	 	/>
+
+
+	<image type="CUBE">
+		<left  url="../images/panos/drill/neg-x.jpg" />
+		<front url="../images/panos/drill/pos-z.jpg" />
+		<right url="../images/panos/drill/pos-x.jpg" />
+		<back  url="../images/panos/drill/neg-z.jpg" />
+		<up    url="../images/panos/drill/pos-y.jpg" />
+		<down  url="../images/panos/drill/neg-y.jpg" />
+		<tablet>
+			<left  url="../images/panos/drill/neg-x.jpg" />
+			<front url="../images/panos/drill/pos-z.jpg" />
+			<right url="../images/panos/drill/pos-x.jpg" />
+			<back  url="../images/panos/drill/neg-z.jpg" />
+			<up    url="../images/panos/drill/pos-y.jpg" />
+			<down  url="../images/panos/drill/neg-y.jpg" />
+		</tablet>
+	</image>
+</scene>

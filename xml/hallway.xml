@@ -1,0 +1,275 @@
+<krpano version="1.0.8" onstart="startup();">
+
+	<security>
+	    <allowdomain domain="*" />
+	</security>
+
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+
+
+	<autorotate enabled="true"
+        waittime="1.5"
+        speed="3.0"
+        />
+
+  <!--  -->
+	 
+	<events 
+
+		onloadcomplete= "js(panoLoaded())" 
+		onmousedown="action(globalmousedown)"
+		onviewchange="action(viewchange)"
+		
+		
+		/> 
+	 
+	<action name="globalmousedown">	
+
+		set(plugin[directions].visible,false);
+		set(autorotate.enabled,false);
+	</action>
+
+	<action name="initialize">
+
+	</action>
+	                   
+
+	  <action name="viewchange">
+	  	set(currentX,get(view.hlookat));
+	  	add(currentX,180);
+		js(soundadjust(get(view.hlookat), get(view.fov)));
+	  </action>
+
+		<progress
+			showwait="none"
+			/>
+
+		<view 
+			hlookat="270.0"
+		  fov="90.0"
+		  fovmax="180.0"
+		  fovmin="1.0"
+		  />
+
+		<control usercontrol = "all"
+			mousetype="drag2d"
+		 	keycodesin  =""
+		 	keycodesout =""
+		 	/>
+<!-- 	
+	 	<image>
+				<cube url="../images/panos/hallway/pano_%s.png" />
+			<mobile>
+				<cube url="../images/panos/hallway/mobile/pano_%s.png" />
+			</mobile>
+		</image>
+-->
+
+		<image>
+    <left  url="../images/panos/hallway/pano_l.jpg" />
+    <front url="../images/panos/hallway/pano_f.jpg" />
+    <right url="../images/panos/hallway/pano_r.png" />
+    <back  url="../images/panos/hallway/pano_b.jpg" />
+    <up    url="../images/panos/hallway/pano_u.png" />
+    <down  url="../images/panos/hallway/pano_d.jpg" />
+		</image>
+	
+	<image devices="Desktop">    
+    <left  url="../images/panos/hallway/pano_l.jpg" />
+    <front url="../images/panos/hallway/pano_f.jpg" />
+    <right url="../images/panos/hallway/pano_r.png" />
+    <back  url="../images/panos/hallway/pano_b.jpg" />
+    <up    url="../images/panos/hallway/pano_u.png" />
+    <down  url="../images/panos/hallway/pano_d.jpg" />
+
+
+	 </image>
+
+		
+		<!--<image devices="Desktop">     <cube url="../images/panos/hallway/pano_%s.png"   /> </image>
+		<image devices="Mobile">      <cube url="../images/panos/hallway/mobile_%s.png" /> </image>
+		<image devices="Tablet">      <cube url="../images/panos/hallway/pano_%s.png" /> </image>
+-->
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			visible="true"
+			/>
+
+		<hotspot name="passage_01" url="../images/hotspot.gif"
+			ath="5.15"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+            onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
+			scale="5.0"
+			capture="false"
+			/>
+
+
+ 		<hotspot name="passage_01_text"
+			url="plugins/textfield.swf"
+			ath="10.5"
+			atv="-6"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2] POISONED! [h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+            onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
+			
+		/>
+
+		<hotspot name="passage_02" url="../images/hotspot.gif"
+			ath="270"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+            onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
+			onout="js(resetHoverSound());"
+			scale="5.0"
+			capture="false"
+			/>
+
+ 		<hotspot name="passage_02_text"
+			url="plugins/textfield.swf"
+			ath="280"
+			atv="-6"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2] TRUTH AND CONSEQUENCES [h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+            onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
+            />
+
+
+		<hotspot name="passage_03" url="../images/hotspot.gif"
+			ath="180"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+ 			onclick="lookto(178,0,5,smooth(),true,true,js(newPage(controlroom.php)));)"
+			scale="3.0"
+			capture="false"
+			/>
+
+ 		<hotspot name="passage_03_text"
+			url="plugins/textfield.swf"
+			ath="178"
+			atv="-6"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2] CONTROL [h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+            onclick="lookto(178,0,5,smooth(),true,true,js(newPage(controlroom.php)));)"
+            />
+		<hotspot name="ladder" url="../images/hotspot.gif"
+			ath="105"
+			atv="-20"
+			distorted="true"
+			alpha="0.0"
+			height="80.0"
+			onclick="js(newPage(lowerplatform_closed.php))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="5.0"
+			capture="false"
+			/>		
+
+
+		<hotspot name="videoflag_02_icon"
+			url="../images/icons/gif_icon4a.gif"
+			ath="321"
+			atv="-5"
+			alpha=".3"
+			height="50"
+			width="50"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/keith_jones)));js(setCache(get(view.hlookat),90))"
+			capture="false"
+			/>
+
+		<hotspot name="videoflag_03_icon"
+			url="../images/icons/gif_icon4a.gif"
+			ath="53"
+			atv="-5"
+			alpha=".3"
+			height="50"
+			width="50"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/dean_blanchard_720)));js(setCache(get(view.hlookat),90))"
+			capture="false"
+			/>			
+
+
+<!--onclick="lookto(265,-80,1,tween(EaseOutQuad,3),true,true)"-->
+
+
+				<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+
+			h2 {
+				color: #333333;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 7;
+				line-height: 20px;
+				textAlign: center;
+				text-align: center;
+			}			
+		</data>
+
+		<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;				
+				leading: 7;
+			}
+		</data>
+							
+
+		
+	<!--<include url="drill.xml" />-->
+
+</krpano>

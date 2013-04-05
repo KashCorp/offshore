@@ -1,0 +1,179 @@
+<krpano version="1.0.8" onstart="action(loadfirstscene);">
+
+<security>
+    <allowdomain domain="*" />
+</security>
+
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+
+	<autorotate enabled="true"
+	            waittime="1.5"
+	            speed="3.0"
+	            />
+	 
+	<events 
+		onmousedown="action(globalmousedown)"
+		onloadcomplete= "js(panoLoaded())"  
+		/> 
+	 
+	<action name="globalmousedown">		
+		set(plugin[directions].visible,false);
+		set(autorotate.enabled,false);
+	</action>
+
+	<action name="initialize">
+		set(plugin[directions].visible,true);
+		tween(plugin[directions].alpha,1.0,3)
+	</action>
+
+	<action name="loadfirstscene">
+		loadscene(doorIsClosed, null, MERGE);
+	</action>
+
+	<action name="loadsecondscene">
+		loadscene(doorIsOpen, null, MERGE);
+	</action>
+	                   
+
+		<view 
+			hlookat="-65.0"
+		  fov="90.0"
+		  fovmax="90.0"
+		  fovmin="45.0"
+		  />
+
+		<control usercontrol = "all"
+			mousetype="drag2d"
+		 	keycodesin  =""
+		 	keycodesout =""
+		 	/>
+	<scene name="doorIsClosed" onstart="">	 	
+	 	<image>
+    <left  url="../images/panos/subhanger/pano_l.png" />
+    <front url="../images/panos/subhanger/pano_f.png" />
+    <right url="../images/panos/subhanger/pano_r.png" />
+    <back  url="../images/panos/subhanger/pano_b.jpg" />
+    <up    url="../images/panos/subhanger/pano_u.jpg" />
+    <down  url="../images/panos/subhanger/pano_d.png" />
+		</image>
+	
+	<image devices="Desktop">    
+    <left  url="../images/panos/subhanger/pano_l.png" />
+    <front url="../images/panos/subhanger/pano_f.png" />
+    <right url="../images/panos/subhanger/pano_r.png" />
+    <back  url="../images/panos/subhanger/pano_b.jpg" />
+    <up    url="../images/panos/subhanger/pano_u.jpg" />
+    <down  url="../images/panos/subhanger/pano_d.png" />
+		</image>
+
+		
+	
+	<hotspot name="engineroom" url="../images/hotspot.gif"
+			ath="103"
+			atv="1"
+		
+			alpha="0"
+			width="30"
+			height="60"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="js(loadsecondscene)"
+			scale="1.0"
+	/>
+
+	</scene>
+
+	<scene name="doorIsOpen" onstart="">	 	
+	 	<image>
+    <left  url="../images/panos/subhanger/pano_l.png" />
+    <front url="../images/panos/subhanger/pano_f2.png" />
+    <right url="../images/panos/subhanger/pano_r2.png" />
+    <back  url="../images/panos/subhanger/pano_b.jpg" />
+    <up    url="../images/panos/subhanger/pano_u.jpg" />
+    <down  url="../images/panos/subhanger/pano_d.png" />
+		</image>
+	
+	<image devices="Desktop">    
+    <left  url="../images/panos/subhanger/pano_l.png" />
+    <front url="../images/panos/subhanger/pano_f2.png" />
+    <right url="../images/panos/subhanger/pano_r2.png" />
+    <back  url="../images/panos/subhanger/pano_b.jpg" />
+    <up    url="../images/panos/subhanger/pano_u.jpg" />
+    <down  url="../images/panos/subhanger/pano_d.png" />
+		</image>
+
+
+
+	</scene>
+<!--
+		<image devices="Mobile">      <cube url="../images/panos/subhanger/mobile_%s.png" /> </image>
+		<image devices="Tablet">      <cube url="../images/panos/subhanger/pano_%s.png../images/panos/subhanger/pano_%s.png" /> </image>
+-->
+
+ 
+
+
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			visible="true"
+			/>
+			
+			
+		<hotspot name="hallway exit" url="../images/hotspot.gif"
+			ath="-35"
+			atv="-20"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(newPage(hallway))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			keep="true"
+			capture = "false"
+			/>	
+
+
+		<hotspot name="into_sub" url="../images/hotspot-circle.gif"
+			ath="-55.15"
+			atv="-5.0"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(newPage(interiorsub-wire.php))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="10.0"
+			keep="true"
+			capture = "false"
+			/>
+	
+
+		
+		
+
+			
+		
+
+		<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;
+				
+				leading: 7;
+
+			}
+		</data>
+							
+		
+	<!--<include url="drill.xml" />-->
+
+</krpano>

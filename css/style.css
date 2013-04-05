@@ -1,0 +1,1250 @@
+/* ========================================================================== *\
+  	RESET
+\* ========================================================================== */
+
+/*   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)  v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark  html5doctor.com/html-5-reset-stylesheet/*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, figure, footer, header, hgroup, menu, nav, section, menu,
+time, mark, audio, video {
+margin:0;
+padding:0;
+border:0;
+outline:0;
+font-size:100%;
+vertical-align:baseline;
+background:transparent;
+}
+
+html, body {
+	height:99%;
+}
+
+article, aside, figure, footer, header,
+hgroup, nav, section { display:block; }
+
+nav ul { list-style:none; }
+
+blockquote, q { quotes:none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content:''; content:none; }
+
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; }
+
+/* tables still need cellspacing="0" in the markup */
+table { border-collapse:collapse; border-spacing:0; }
+
+hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+
+input, select { vertical-align:middle; }
+/* END RESET CSS */
+
+/** Added **/
+
+/* maxvoltar.com/archive/-webkit-font-smoothing */
+html { -webkit-font-smoothing: antialiased; }
+
+.ie7 img { -ms-interpolation-mode: bicubic; }
+
+strong {font-weight: bold;}
+
+em {font-style: italic;}
+
+/* Add wrapping to coding sections */
+pre {
+padding: 15px;
+white-space: pre; /* CSS2 */
+white-space: pre-wrap; /* CSS 2.1 */
+white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+word-wrap: break-word; /* IE */
+}
+
+
+/* ========================================================================== *\
+  	TYPOGRAPHY
+\* ========================================================================== */
+
+@font-face {
+    font-family: 'DinRegular';
+    src: url('../fonts/din.eot');
+    src: url('../fonts/din.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/din.woff') format('woff'),
+         url('../fonts/din.ttf') format('truetype'),
+         url('../fonts/din.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+h1, h2, h3, p {margin-bottom: 10px;}
+
+header {font-family: 'DinRegular', Helvetica, Arial, sans-serif;}
+
+/* ========================================================================== *\
+  	HTML
+\* ========================================================================== */
+
+body {
+	background-color: #000;
+	color: #fff;
+	margin: 0; 
+	padding: 0;
+	color: #c2c0c0;
+	font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+	font-size: 80%; ;
+}
+
+/* ========================================================================== *\
+  	CLASSES
+\* ========================================================================== */
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+.none {display: none;}
+.hidden {position: absolute; top: -9999px; left: -9999px;}
+
+.center {text-align: center;}
+
+a.center {width: 100%; display: block;}
+
+.red {color: #aa1026;}
+
+.full {
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+/* ========================================================================== *\
+  	GENERAL
+\* ========================================================================== */
+
+/*#page {
+	position: absolute;
+	top: 10%;
+	left: 0;
+	right: 0;
+	margin: 0;
+	min-height: 80%;
+	max-width: 100%;
+	background: transparent;
+	display: none;
+	border: 1px solid blue;
+}*/
+
+body {
+	height: 100%;
+}
+
+a {
+	color: #fff;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ccc;
+}
+
+#wrapper, #wrapper-bookz {
+	position: absolute;
+	overflow:hidden;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	top: 0px;
+	display: none;
+}
+
+#overlay {
+    position: fixed;
+    z-index:100;
+    top: 40px;
+    left: 0px;
+    bottom:40px;
+    height:100%;
+    width:100%;
+    background: url(../images/bg_barred.gif);
+    display: none;
+}
+
+#container-frame {
+
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+#overlay_intro {	
+	left: 50%;
+	margin-left: -300px;
+	position: fixed;
+	top: 20%;
+	width: 600px;
+}
+
+#overlay_intro .title {
+	margin: 0 10%;
+}
+
+#overlay_intro .title img {
+	width: 100%;
+	height: auto;
+}
+
+#overlay_intro p {
+	color: #ddd;
+	line-height: 20px;
+}
+
+#comingsoon {
+		width: 500px;
+		position: fixed;
+		top: 20%;
+		left: 50%;
+		margin-left: -290px;
+		padding: 40px;
+}
+
+.splashbg {
+	width: 100%;
+	height: 100%;
+	background-color:#000;
+	/*background-size: 100%;*/
+}
+
+.splashbg-img {
+	position:absolute;
+	z-index:-1;
+	width: 100%;
+	height: 100%;
+	background: url(../images/splash_bg.jpg) no-repeat top center;
+	display:none;
+}
+
+#splashwrapper {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+
+}
+
+
+
+.breadcrumb-holder {
+	position: absolute;
+	width: 100%;
+	left:0;
+	bottom: 0;
+	height:40px;
+  overflow:hidden;
+}
+
+.breadcrumb {
+	display:none;
+	padding-top:10px;
+	position: absolute;
+	width: 100%;
+	left:0;
+	bottom: 0;
+	height:40px;
+	background: url(../images/bg_black_50.png);
+  overflow:hidden;
+	font-size:11px;
+	text-transform:uppercase;
+	z-index: 100;
+}
+
+#breadbox-container{
+	text-align:center;
+	width:100%
+}
+.breadbox, .breadbox-blog, .breadbox-rigmap {
+  /*position:absolute;*/
+  cursor:pointer;
+  display: inline-block;
+  margin: 0 1.5em;
+  padding: 0 5px;
+  top:10px;
+}
+
+.breadbox span,
+.breadbox-blog span,
+.breadbox-rigmap span {
+	color: #a2bac1;
+	font-size: 25px;
+	line-height: 16px;
+}
+
+.breadbox span.active,
+.breadbox-blog span.active,
+.breadbox-rigmap span.active{
+	color: #ead342;
+}
+
+/*.breadbox a,
+.breadbox-blog a {
+	cursor: default;
+}*/
+
+.watch {
+	display: none;
+	background: url(../images/watch.png) no-repeat center left;
+	background-size: 100%;
+	width: 24%;
+	height: 100%;
+	float: left;
+	min-height: 170px;
+	text-indent: -9999px;
+}
+
+.watch a {
+	position: absolute;
+	width: 24%;
+	height: 100%;
+	min-height: 170px;
+}
+
+.enter {
+	display: none;
+	float: right;
+	background: url(../images/enter.png) no-repeat center left;
+	width: 36%;
+	height: 100%;
+	min-height: 170px;
+	text-indent: -9999px;
+}
+
+.enter a {
+	position: absolute;
+	right: 0;
+	width: 36%;
+	height: 100%;
+	min-height: 170px;
+}
+
+.splashlogo {
+	display: none;
+	position: absolute;
+	width:720px;
+	top:0px;
+  left:50%;
+  top: 30%;
+  margin-left:-356px
+}
+
+.disclaimer {
+	font-size: .8em;
+	padding-top: 40px;
+	text-align: center;	
+}
+
+.mainenter {
+	display: block;
+	position: absolute;
+	background: url(../images/mainenter.png) center center no-repeat;
+	width:100%;
+	bottom:100px;	 
+	margin-top: 0;
+	min-height: 200px;
+}
+
+.mainenter a {
+	position: absolute; 
+	width: 40%;
+	left: 50%;
+	margin-left: -20%;
+	height: 50%;
+	text-indent: -9999px;
+}
+
+/* ========================================================================== *\
+  	HEADER
+\* ========================================================================== */
+
+/*header {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top: 0;
+	height: 40px;
+}*/
+
+header {
+	left: 0;
+	position: absolute;
+	top: 0;
+	z-index: 500;
+}
+
+header .volume-toggle {
+	color: #dbd9da;
+	font-size: 20px;
+	line-height: 45px;
+	position: absolute;
+	top:-5px;
+	left: 4px;
+	width: 30px;
+	z-index: 110;
+}
+
+.p-about header {
+	z-index: 1000;
+}
+
+#wrapper h1 {
+	background: url(../images/hd_offshore_clear_backup.png) center center no-repeat;	
+	left: 0px;
+	height: 40px;
+	position: absolute;
+	bottom: 30px;
+	width: 249px;
+	z-index: 105;
+}
+
+/*header h2 {
+	color: #dbd9da;
+	font-size: 26px;
+	left: 194px;
+	top: 6px;
+	position: absolute;
+}*/
+
+.countdown {
+	line-height: 40px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 500px;
+	margin-left:-250px;
+	text-align:center;
+}
+
+.comingsoon {
+	line-height: 40px;
+	position: absolute;
+	left: 50%;
+	top: 65%;
+	width: 500px;
+	margin-left:-250px;
+	text-align:center;
+	font-size: 26px;
+	opacity:.5;
+}
+
+
+.countdownhatch {
+
+	position: absolute;
+  width:100%;
+  top:20%;
+	text-align:center;
+}
+
+
+
+
+/* ========================================================================== *\
+  	HOME
+\* ========================================================================== */
+
+#panocontainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-size:10px;
+
+}
+
+#panocontainer #krpanoObject {
+
+	position: absolute;
+}
+
+/* ========================================================================== *\
+  	CONTENT
+\* ========================================================================== */
+
+.skiptrailer {
+	font-size: .8em;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background-color: black;
+}
+
+.platform-nav {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	text-indent: -9999px;
+	cursor:pointer;
+	width:60px;
+	height:60px;
+	background: url('../images/icons/close_icon.png');
+
+}
+
+
+/*.link-right-1,
+.link-right-2,
+.link-right-3 {
+	position: absolute;
+	right: 7%;
+}
+
+.link-left-1 {
+	position: absolute;
+	top: 60px;
+	left: 7%;
+}
+
+.link-right-1 {
+	top: 60px;
+}
+
+.link-right-2 {
+	top: 100px;
+}
+
+.link-right-3 {
+	top: 140px;
+}*/
+
+/* No Entry Page */
+
+.noaccess {
+	cursor: pointer;
+	height: 308px;
+	left: 50%;
+	margin-left: -218px;
+	position: absolute;
+	top: 8%;
+	width: 436px;
+	z-index: 1000;
+}
+
+ul.nav {
+	position: absolute;
+	bottom: 100px;
+	left: 50%;
+	list-style-type: none;
+	margin-left: -105px;
+	width: 210px;
+	z-index: 2000;
+}
+
+/*.p-waves ul.nav {
+	bottom: 10%;
+}*/
+
+ul.nav li {
+	float: left;
+	height: 80px;
+	margin: 0 10px;
+}
+
+ul.nav li img {
+	height: 100%;
+	width: auto;
+}
+
+/* ========================================================================== *\
+  	ABOUT
+\* ========================================================================== */
+
+.p-about #wrapper {
+	background: url(../images/bg_drillhead.jpg) top center no-repeat;
+	/*overflow: hidden;*/
+}
+
+.p-hatch #wrapper {
+	background: url(../images/bg_hatch_nu.jpg) center center no-repeat;
+}
+
+.blur-photo {
+	background: url(../images/bg_drillhead_blur.jpg) top center no-repeat;
+	display: block;
+}
+
+.p-about #wrapper,
+.blur-photo {
+	background-size: cover;
+}
+
+.slide {
+	background: url(../images/bg_cube_60.png) center center;
+	background-size: 100% 100%;
+	color: #fff;
+	font-size: 35px;	
+	left: 50%;
+	margin-left: -400px;
+	margin-top: -1500px;
+	position: absolute;
+	top: 15%;
+	width: 800px;
+	z-index: 10;
+
+	-webkit-backface-visibility: hidden;
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+}
+
+.slide p {
+	margin: 40px;
+}
+
+.slide-container {
+	bottom: 0;
+	display: none;
+	position:absolute;
+	z-index:1;
+	top:0;
+	left:0;
+	right:0;
+	overflow: visible; /* does not work well with Chrome */
+	/*-webkit-transform: perspective(300) rotateX(10deg);
+	-webkit-transform-style: preserve-3d;
+	-moz-perspective:300px;
+	-moz-transform: rotateX(10deg);
+	-moz-transform-style: preserve-3d;*/
+
+}
+.about_nav{
+	font-size:20px;
+	cursor:pointer;
+}
+
+/* ========================================================================== *\
+  	WAVES
+\* ========================================================================== */
+
+.gradient {
+	background: url(../images/bg_waves_gradient.png) top left repeat-x;
+	bottom: 15%;
+	height: 100px;
+	position: absolute;
+	width: 100%;
+}
+
+#wave-vid {
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	overflow:hidden;
+	display:none;
+}
+
+.stat {
+	font-size:80px
+}
+
+#wave-vid-inner {
+	width:100%;
+	height:2000px;
+}
+
+.wave-vid-vid {
+width:100%;
+height:100%;
+}
+
+/* ========================================================================== *\
+  	TRAILER
+\* ========================================================================== */
+
+
+#vimeo {
+	position: absolute;
+	top: 30px;
+	bottom: 30px;
+	width: 100%;
+}
+
+#vimeo iframe,  
+#vimeo object,  
+#vimeo embed {
+	height: 100%;
+	width: 100%;
+}
+
+
+/* ========================================================================== *\
+  	INFO
+\* ========================================================================== */
+
+#webgl_holder {
+	bottom: 0;
+	position: absolute;
+	overflow:hidden;
+	top: 0;
+	z-index: -1;
+}
+
+.info-container___BK {
+	color: #fff;
+	font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	left: 50%;
+	margin-left: -400px;
+	position: absolute;
+	text-align: center;
+	top: 30%;
+	width: 800px;
+
+	text-shadow: 1px 1px 3px #000;
+}
+
+.p-waves #inter-text {
+	font-size: 35px;
+	left: 50%;
+	margin-left: -30%;
+	width: 60%;
+}
+
+.p-waves #inter-text .stat {
+	display: block;
+	font-size: 50px;
+	margin-top: 40px;
+}
+
+.p-waves .screen {
+	background: url(../images/bg_black_50.png);
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+#inter-text, .info-container {
+	color: #fff;
+	font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+	font-size: 50px;
+	left: 0px;
+	
+	position: absolute;
+	text-align: center;
+	top: 30%;
+	width: 100%;
+}
+
+
+.info-item {
+	display: none;
+}
+
+
+/* ========================================================================== *\
+  	WALKTHROUGH
+\* ========================================================================== */
+
+#scroll-wrapper{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display:none;
+}
+
+
+#scroll-proxy {
+    height: 5000px;
+    display:none;
+}
+
+
+
+.scroll-nav {
+	font-size: 1.5em;
+	left: 50%;
+	margin-left: -300px;
+	position: absolute;
+	text-align: center;
+	top: 5px;
+	width: 600px;
+  	cursor:pointer;
+}
+
+#scroll-start {
+  	display:block;
+}
+
+#scroll-end {
+  	display:none;
+}
+
+
+
+/*.stat span {
+	background: url(../images/bg_black_50.png);
+	padding: 7px 7px 4px;
+}*/
+
+/* ========================================================================== *\
+  	BOOKLET
+\* ========================================================================== */
+
+.book {
+	position: absolute;
+	color: #2f2f2f;
+	font-size: 11px;
+	font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+	line-height: 1.4;
+}
+
+.book span {
+	font-weight: bold;
+}
+
+.bookpage {
+	margin: 30px 15px 30px 15px;
+	background:#e6e6e6;
+	bottom:20px;
+	padding:1px;
+
+}
+
+.bookpage img {
+   box-shadow: 2px 3px 5px rgba(0,0,0,.5);
+   border: 1px solid #e6e6e6;
+}
+
+.bookline {
+	padding-bottom: 25px;
+	margin-bottom: 25px;
+	border-bottom: 1px solid #6b6b6b;
+}
+
+body .booklet .b-page-cover {
+	background: url(../images/folder_front.png) no-repeat top left;
+	background-size: cover;
+	padding: 0;
+}
+
+body .booklet .b-page-cover-inside {
+	background: url(../images/folder_left.png) no-repeat top left;
+	background-size: cover;
+	padding: 0;
+}
+body .booklet .b-wrap-right {background:none;}
+
+body .booklet .b-wrap-left {background:none;}
+
+body .booklet .b-page-cover-back  {
+	background: url(../images/folder_back.png) no-repeat top left;
+	background-size: cover;
+	padding: 0;
+	right:0;
+}
+
+body .booklet .b-page-cover-back-inside  {
+	background: url(../images/folder_right.png) no-repeat top left;
+	background-size: cover;
+	padding: 0;
+}
+
+
+
+
+/* ========================================================================== *\
+  	HATCH
+\* ========================================================================== */
+.scanline {
+	background: url(../images/bg_scan_lines.png);	
+	left: 0px;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	opacity:0.2;
+}
+
+.table-wrapper {
+left: 50%;
+margin-left:-500px;
+position:absolute;
+width:1200px; 
+vertical-align:middle;
+font-size:20px;
+} 
+
+.left-column { 
+ 
+float:left; 
+text-align:center; 
+padding:10px; 
+} 
+.colon-column { 
+	position:relative;
+	font-size:150px;
+	font-weight:bold;
+	opacity:0.5;
+	
+float:left; 
+} 
+
+.colon-column-inside { 
+position:absolute;
+width:150px;
+bottom:65px;
+} 
+
+.rightcolumn { 
+  
+float:right; 
+text-align:center; 
+padding:10px; 
+ 
+} 
+
+.big-clock{
+	font-size:150px;
+	font-weight:bold;
+	opacity:0.6;
+}
+
+hr { 
+clear:both; 
+display:block; 
+visibility:hidden;}
+
+/* ========================================================================== *\
+  	PASSAGE TRANSITIONS
+\* ========================================================================== */
+
+#viewport {
+	-webkit-perspective: 500; 
+	-moz-perspective: 1000; 
+	-o-perspective: 1000; 
+	-webkit-perspective-origin: 50% 50%;
+
+
+
+		
+	position: absolute;
+	left: 0;
+	top:0;
+	/*top: -25% ;*/
+	right: 0;
+	bottom: 0;
+}
+
+#transition-container {
+	position: absolute;
+	
+	pointer-events: none;
+
+	height: 100%;
+	width: 100%;	
+
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+
+	-webkit-transform: translateZ(-10000px);
+
+}
+
+#ghost-canvas-trans{
+	position:absolute;
+	top:0;left:0;
+	pointer-events:none
+}
+
+
+.video-content-wrap {
+	background:  url(../images/bg_dotmatrix4x4.gif);
+	height:100%;
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	overflow: hidden;
+	top: 0;
+	width: 0;
+
+	-webkit-transition: width 200ms linear;
+	-moz-transition: width 200ms linear;
+	-o-transition: width 200ms linear;
+	-ms-transition: width 200ms linear;
+	transition: width 200ms linear;
+}
+
+.video-content-wrap-engine-room {
+
+	height:100%;
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	overflow: hidden;
+	top: 0;
+	width: 100%;
+	display:none;
+
+}
+
+.video-content-wrap-open {
+	width: 100%;
+}
+
+.video-content-wrap-close {
+	width: 0;
+}
+
+
+/* ========================================================================== *\
+  	VIGNETTE
+\* ========================================================================== */
+
+.vignette {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:url(../images/vignette.png);
+	background-size:100% 100%;
+	pointer-events: none;
+}
+
+.loading {
+	position: absolute;
+	top: 48%;
+	margin-top:-150px;
+	left: 0;
+	right: 0;
+
+	text-align:center;
+	pointer-events: none;
+}
+
+.compass {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	opacity:1.0;
+	cursor:pointer;
+}
+
+
+.underwater {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:url(../images/bg_linematrix2x2.gif);
+	
+	pointer-events: none;
+}
+
+.underwater-hanger {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background:url(../images/hanger_outside.jpg);
+		background-size:100% 100%;
+	
+	pointer-events: none;
+}
+
+.pano-underlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display:none;
+
+	
+	pointer-events: none;
+}
+
+
+.vignette-trans {
+
+	background:url(../images/vignette.png);
+	background-size:100% 100%;
+
+}
+
+#map-container-frame,  #book-container-frame{
+
+	position:absolute; 
+	width:100%; 
+	height: 100%; 
+	top:0; 
+	left:0;
+	display:none;
+
+
+}
+
+/* MENUS */
+
+ul.movie-menu {
+	position: absolute;
+	bottom: 100px;
+	left: 50%;
+	list-style-type: none;
+	margin-left: -105px;
+	width: 210px;
+	z-index: 2000;
+}
+
+/*.p-waves ul.nav {
+	bottom: 10%;
+}*/
+
+ul.movie-menu li {
+	float: left;
+	margin: 20px;
+}
+
+
+.movie-menu {
+	font-size: 1em;
+display:block;
+position:absolute;
+top:5px;
+}
+
+.movie-menu .vid-menu-nav{
+cursor:pointer;
+}
+
+/* directions */
+
+#scroll-directions{
+    height: 145px;
+    width: 60px;
+    background: url(../images/Hand_icon3.png);
+    position: absolute;
+    top:100px;
+    right: 5px;
+    opacity:1;
+
+}
+
+.pan-directions{
+    height: 200px;
+    width: 180px;
+    background: url(../images/directions.png);
+    position: absolute;
+    top:50%;
+    margin-top:-80px;
+    right:50%;
+    opacity:.5;
+
+}
+
+
+
+/* ========================================================================== *\
+  	FOOTER
+\* ========================================================================== */
+
+.p-about footer {
+	z-index: 1000;
+}
+
+footer.nav {
+	bottom: 0;
+	height: 40px;
+	background-color: none;
+	position: fixed;
+	width: 100%;
+	
+}
+
+footer.nav ul.primary{
+	float: left;
+}
+
+footer.nav ul.secondary{
+	float: right;
+}
+
+footer.nav ul.primary li {
+	margin-left: 40px;
+}
+
+footer.nav ul.secondary li {
+	margin-right: 40px;
+}
+
+footer.nav ul li {
+	float: left;
+	list-style-type: none;
+}
+
+footer.nav ul li a {
+	line-height: 40px;
+	font-size: 14px;
+	color: #dbd9da;
+}
+
+footer.nav ul li a:hover {
+	color: #fff;
+}
+
+iframe {
+	
+	height: 100%;
+}
+
+/* ========================================================================== *\
+  	MEDIA QUERIES
+\* ========================================================================== */
+
+@media screen and (max-width: 1024px) {
+
+	/* About */
+
+	.slide {
+		font-size: 30px;
+	}
+
+
+}
