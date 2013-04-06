@@ -2,7 +2,7 @@ var pano_master = function(){
   var that = this  
   console.log("HTML5 pano is loaded")
   var pano = $('#panocontainer').attr('class');    
-  var masterPath = "http://projects.heliozilla.com/offshore_dev",
+  var masterPath = ".",
       targetContainer = "panocontainer",
       xmlLoc = masterPath + "/xml/" + pano + ".xml?nocache="+Math.random()*5,
       swfLoc = masterPath + "/js/lib/krpano/krpano.swf"

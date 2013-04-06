@@ -95,13 +95,13 @@
 			alpha="0"
 			height="140"
 			width="140"
-			onclick="js(newPage(hallway.php))"
+			onclick="js(newPage(lowerplatform_closed.php))"
 			scale="1.0"
 			capture="false"
 			/>
 
 			
-		<hotspot name="stairs back to hallway"
+		<hotspot name="stairs back to platform"
 			device="flash"
 			keep="false"
 			visible="true"
@@ -116,7 +116,7 @@
 			borderwidth="0.0" borderwidthhover="0"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			borderalpha="0.0" borderalphahover="0"
-			onclick="js(newPage(chemicalroom.php))"
+			onclick="js(newPage(lowerplatform_closed.php))"
 			onhover="js(hoverSound())"
 			onout="js(resetHoverSound())"
 		>
