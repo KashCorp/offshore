@@ -158,7 +158,7 @@
 			height="95.0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darla_poisoned_720.webm)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darla_poisoned_720)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			/>
 
@@ -173,7 +173,7 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darla_poisoned_720.webm)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darla_poisoned_720)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			/>
 		
