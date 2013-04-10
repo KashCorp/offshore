@@ -1234,10 +1234,11 @@ function loadUnderWater(_id){
 	$("#video-underlay").css("display","none")
 	$(".underwater-hanger").fadeOut(1000, function() {
 		$("#video-underlay").fadeIn(1000)
-	    $('#video-underlay source').attr('src', "video/"+_id + videoType);
+	    $('#video-underlay source').attr('src', "video/"+_id + master.videoType);
 	    $('#video-underlay video').load();
 	    $("#video-underlay")[0].load()
 	    $("#video-underlay")[0].play()
+	    parent.audiomaster.mix.setGain(0.3)
 	})
 
 }
