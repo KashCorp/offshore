@@ -21,6 +21,7 @@
   <action name="viewchange">
   	    set(currentX,get(view.hlookat));
 	  	add(currentX,180);
+	  	js(soundadjust(get(view.hlookat)));
 	</action>
 	 
 	<events 

@@ -79,7 +79,7 @@
             </li>
 
             <li data-url="video/doc_content/MK_ExtremeFrontiers" data-popcorn="klare_01" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true" autoplay  preload="auto">
+              <video width="250" volume = "0" loop = "true"  preload="auto">
                   <source src="video/doc_content/MK_ExtremeFrontiers_thumb.webm" type="video/webm" />
               </video> 
               <br>
@@ -110,7 +110,7 @@
 
 
     <div id="inter-text" style="display: block"></div>
-
+<!--
    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
       <source src="audio/Bong.ogg" type="audio/ogg" />
     </audio>
@@ -124,7 +124,7 @@
       <source src="audio/whispers/rosemary_whisper_01.ogg" type="audio/ogg" />
   
     </audio>
-    <!---->
+    -->
 
 
 
@@ -189,11 +189,13 @@
 		}
 
    //console.log(Math.exp(soundVector2))
+   /*
     $('#whisper_01')[0].play()
      $('#whisper_02')[0].play()
    
 		$('#whisper_01')[0].volume = soundVector2;
 		$('#whisper_02')[0].volume = soundVector1;
+    */
 
 	}
 	

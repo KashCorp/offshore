@@ -117,9 +117,9 @@
         if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
           
            parent.audiomaster.mix.tracks[0].pan(soundVector2*2-1)
-           parent.audiomaster.mix.tracks[0].gain(soundVector2)
+           //parent.audiomaster.mix.tracks[0].gain(soundVector2)
        
-            parent.audiomaster.mix.getTrack('overlay_01').gain(soundVector1/3)
+            //parent.audiomaster.mix.getTrack('overlay_01').gain(soundVector1/3)
             parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
            }
  

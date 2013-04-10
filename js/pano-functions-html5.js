@@ -14,19 +14,39 @@ var pano_master = function(){
   this.viewer = viewer
   viewer.embed();
 
-  var overLayFile
+  var overLayFile, underlayFile
 
   switch(pano){
     case "helicopter" : 
-    overLayFile = 'audio/Helicopter_Voices1.mp3'
+    overLayFile = 'audio/Helicopter_Interior.mp3'
     break;
     case "platform" : 
     overLayFile = 'audio/Helipad_Ambience_Music.mp3'
     break;
 
-    case "lowerplatform_closed" : 
-    overLayFile = 'audio/About_Ambience.mp3'
+    case "boat" : 
+    overLayFile = 'audio/ocean_sounds.mp3'
+    underlayFile = 'audio/The_Zone.mp3'
     break;
+
+    case "lowerplatform_closed" : 
+    overLayFile = 'audio/About_Ambience.mp3' 
+    underlayFile = 'audio/Drone_1.mp3'
+    break;
+
+    case "hallway" : 
+    overLayFile = 'audio/Bong.mp3' 
+    underlayFile = 'audio/Drone_2.mp3'
+    break;
+
+    case "subhanger" : 
+    overLayFile = 'audio/Bong.mp3' 
+    underlayFile = 'audio/Drone_3.mp3'
+    break;
+
+    case "theater" : 
+    underlayFile = 'audio/Drone_3.mp3'
+    break;       
     //
 }
  
@@ -34,8 +54,38 @@ var pano_master = function(){
   $('.wrapper').append("<div class='pan-directions'/>")
 
  var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
+ var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
 
   $.getScript("js/lib/Tween.js", function(data, textStatus, jqxhr) {
+
+
+     if( underlayFile){
+
+      var dummysound = { fadeFrom:  1, fadeTo: 0.0001};
+
+      parent.audiomaster.loadAudio(underlayFile,'basetrack2',0,0)
+
+      var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
+                    .onUpdate( function() {
+                      parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+                      parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
+                    })
+                    .easing(TWEEN.Easing.Quadratic.Out )
+                    .onComplete(function() {
+                      parent.audiomaster.mix.removeTrack('basetrack')
+                      var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
+
+                      renameThis['name'] = 'basetrack';
+
+                      parent.audiomaster.mix.lookup['basetrack'] = renameThis
+
+                      console.log(renameThis)
+
+                    })
+                    .start(); 
+
+    }
+
 
     if( overlayTrack){
 
@@ -45,21 +95,19 @@ var pano_master = function(){
                     .onUpdate( function() {
                       master.isTweeningAudio = true
                       overlayTrack.gain(this.decayFrom)
-                    
                     })
                     .easing(TWEEN.Easing.Quadratic.Out )
                     .onComplete(function() {
                       parent.audiomaster.mix.removeTrack('overlay_01')
                       
                       if(overLayFile)
-                        console.log("good to go")  
-                        loadOverlayAudio(overLayFile);
+                        master.WAAloadAudio(overLayFile,'overlay_01',-1,0.1);
                     })
                     .start(); 
 
     }else{
         if(overLayFile)
-           loadOverlayAudio(overLayFile)
+            master.WAAloadAudio(overLayFile,'overlay_01',-1,0.1);
     }
 
           var mouse_start_x = 0,
@@ -89,28 +137,6 @@ var pano_master = function(){
 
             document.addEventListener( 'mouseup', actionUp, false );
             document.addEventListener( 'touchend', actionUp, false );
-
-            function loadOverlayAudio(_file){
-              parent.audiomaster.loadAudio(_file,'overlay_01',0.0001,-1)
-
-              var dummysounds = { s:  0};
-
-              var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: .01}, 4000 )
-                    .onUpdate( function() {
-                      master.isTweeningAudio = true
-                      console.log(this.s)
-                      parent.audiomaster.mix.getTrack('overlay_01').options.gainNode.gain.value = this.s
-                    
-                    })
-                    .easing(TWEEN.Easing.Quadratic.Out )
-                    .onComplete(function() {
-                      master.isTweeningAudio = false
-                      TWEEN.remove(driftTweenSounds); 
-                      driftTweenSounds = null
-                    })
-                    .start();               
-            }
-
 
 
 
@@ -198,8 +224,7 @@ var pano_master = function(){
 
             requestAnimationFrame(runFrameRunner);
      
-
-            TWEEN.update()
+            if(TWEEN) TWEEN.update()
 
             if(interactive){
 
@@ -212,9 +237,6 @@ var pano_master = function(){
             view_x += (mouse_x_diff*0.01)
               
             if(!parent.audiomaster) return
-            
-
-    
 
             for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                        
                parent.audiomaster.mix.tracks[i].play()                  

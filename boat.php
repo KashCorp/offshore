@@ -61,12 +61,6 @@
 
     <div id="inter-text" style="display: block"></div>
 
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/The_Zone.ogg" type="audio/ogg" />
-      <source src="audio/The_Zone.mp3" type="audio/mpeg" />
-    </audio>
-
-
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
@@ -78,9 +72,26 @@
 
     <script>
 
- 
+      var soundVector1 = soundVector2 = soundVector3 = 0,currentSoundVector;  
+      var soundadjust = function(coord) {
+
+        var convCoord =  Math.abs(coord%360);
+        var convCoord1 =  Math.abs((coord-270)%360);
+        currentSoundVector = convCoord
+
+        if(convCoord < 180 ){
+          soundVector1 = convCoord/180;
+        }else{
+          soundVector1 = (360-convCoord)/180;
+        } 
+         if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+            parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+        }                   
+      }
 
       $(document).ready(function(){
+
+
 
       //$('#inter-text' ).shuffleLetters();
         master.videoTrans("video/transitions/explosion")

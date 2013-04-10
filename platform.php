@@ -76,24 +76,28 @@ var soundadjust = function(coord) {
       var convCoord1 =  Math.abs((coord-120)%360);
 
         if(convCoord < 180 ){
-          soundVector1 = convCoord/180 *.07;
+          soundVector1 = convCoord/180;
         }else{
-          soundVector1 = (360-convCoord)/180 *.07;
+          soundVector1 = (360-convCoord)/180;
         }
-        if(soundVector1 < 0) soundVector1 = 0
-          console.log(soundVector1)
+
+        //console.log(soundVector1*2-1)
+       
+
+   
         if(convCoord1 < 180 ){
           soundVector2 = (convCoord1)/180;
         }else{
           soundVector2 = (360-(convCoord1))/180;
         }
 
+
         if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
 
-           parent.audiomaster.mix.tracks[0].pan(soundVector2*2-1)
-           parent.audiomaster.mix.tracks[0].gain(soundVector2)
+          // parent.audiomaster.mix.tracks[0].pan(soundVector2*2-1)
+          // parent.audiomaster.mix.tracks[0].gain(soundVector2)
        
-            parent.audiomaster.mix.getTrack('overlay_01').gain(soundVector1)
+            //parent.audiomaster.mix.getTrack('overlay_01').gain(soundVector1)
             parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
            }
 

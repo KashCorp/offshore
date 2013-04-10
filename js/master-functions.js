@@ -572,6 +572,48 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
 }
 
+this.loadOverlayAudio = function(_file){
+
+	console.log(_file)
+
+	parent.audiomaster.loadAudio(_file,'overlay_01',1,-1)
+
+	var dummysounds = { s:  0};
+
+	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: .5}, 4000 )
+		.onUpdate( function() {
+			master.isTweeningAudio = true
+			parent.audiomaster.mix.getTrack('overlay_01').options.gainNode.gain.value = this.s
+		})
+		.easing(TWEEN.Easing.Quadratic.Out )
+		.onComplete(function() {
+			master.isTweeningAudio = false
+			TWEEN.remove(driftTweenSounds); 
+			//driftTweenSounds = null
+		})
+		.start();               
+}
+
+this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume){
+
+
+	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan)
+
+	var dummysounds = { s:  0};
+
+	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 4000 )
+		.onUpdate( function() {
+			master.isTweeningAudio = true
+			parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
+		})
+		.easing(TWEEN.Easing.Quadratic.Out )
+		.onComplete(function() {
+			master.isTweeningAudio = false
+			TWEEN.remove(driftTweenSounds); 
+		})
+		.start();               
+}
+
 
 this.audioFadeAll = function(targetVolume){
  
@@ -1157,8 +1199,9 @@ function openBook(_url){
 }
 
 function launchVideo(_id){
-    console.log($(".video-content-wrap").width())
+
 	$(".video-content-wrap").addClass("video-content-wrap-open");
+
 	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
     $(".compass").fadeOut()
     var dynamicWidth = window.innerWidth;
@@ -1173,7 +1216,8 @@ function launchVideo(_id){
     	$('#video-overlay video').load();
     //$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
 
-    	master.audioFadeAll(0.5)
+    	//master.audioFadeAll(0.5)
+    	parent.audiomaster.mix.setGain(0.3)
     
     	$("#video-overlay")[0].load()
     	$("#video-overlay")[0].play()
@@ -1206,7 +1250,7 @@ function closeVideo(_id){
 		$("#video-overlay")[0].pause(); // can't hurt
     	krpano = document.getElementById("krpanoObject");
 		krpano.call("lookto(0,0,90,smooth(),true,true))")
-		//delete( $("#video-overlay")[0]);
+		parent.audiomaster.mix.setGain(1.0)
 		$(".video-content-wrap").removeClass("video-content-wrap-open");
 		}
 

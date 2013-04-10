@@ -80,11 +80,9 @@
       function checkHash(){
         var locationHash = location.hash
         if(locationHash){
-          console.log("GO to "+ locationHash)
-           $('#container-frame').attr('src',locationHash.replace('#',''))
+          $('#container-frame').attr('src',locationHash.replace('#',''))
         }else{
-          console.log("GO HOME")
-            $('#container-frame').attr('src','helicopter.php')
+          $('#container-frame').attr('src','helicopter.php')
         }
       }
       
@@ -107,7 +105,6 @@
           mix: mix,
           sources:[],
           loadAudio : function(_src,_name,gain,pan){
-            this.sources[this.sources.length] = {name: _name, src: _src}
             var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan});  
           }
 
@@ -117,7 +114,7 @@
 
       var audiomaster = new audioMaster();
       
-      audiomaster.loadAudio('audio/23_w.mp3','basetrack',0.5,1)
+      audiomaster.loadAudio('audio/Drone_1.mp3','basetrack',1,0)
 
 
 

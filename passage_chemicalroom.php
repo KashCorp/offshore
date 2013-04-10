@@ -53,7 +53,7 @@
     
 
     <div id="inter-text" style="display: block"></div>
-
+<!--
    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
       <source src="audio/Hatch_Ambience_Clock.ogg" type="audio/ogg" />
       <source src="audio/Hatch_Ambience_Clock.mp3" type="audio/mpeg" />
@@ -61,15 +61,16 @@
 
           <audio style="display: none" id="whisper_02" volume=0 preload="auto" class="whisper" loop="loop">
       <source src="audio/whispers/rossina_whisper.ogg" type="audio/ogg" />
-      <!--<source src="audio/whispers/deep_water_tech.mp3" type="audio/mpeg" />-->
+      <source src="audio/whispers/deep_water_tech.mp3" type="audio/mpeg" />
     </audio>
-
+-->
     <div id="scroll-proxy"></div>
 
     <!-- JavaScripts -->
 
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="js/lib/modernizr.min.js"></script>
+    <script type="text/javascript" src="js/lib/Tween.js"></script>
     <script type="text/javascript" src="js/master-functions.js"></script>
 
 
@@ -77,24 +78,44 @@
     <script>
       $(document).ready(function(){
 
-      //$('#inter-text').shuffleLetters();
-
        master.blankTrans(1)
-       //master.ghostTrans('2guys_walk_away',12,1)
-
-       document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
 
        master.setDeepLinking("passage_chemicalroom.php")
 
        $("#scroll-start").click(function(){
-
         newPage('hallway.php')
-          console.log("MOVE")
        });
 
        $("#scroll-end").click(function(){
         newPage("subhanger.php")
        });
+
+      var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01'), overLayFile = 'audio/Hatch_Ambience_Clock.mp3'
+
+        if( overlayTrack){
+
+          var dummysound = { decayFrom:  overlayTrack.options.gainNode.gain.value};
+
+          var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
+                      .onUpdate( function() {
+                        master.isTweeningAudio = true
+                        overlayTrack.gain(this.decayFrom)
+                      
+                      })
+                      .easing(TWEEN.Easing.Quadratic.Out )
+                      .onComplete(function() {
+                        parent.audiomaster.mix.removeTrack('overlay_01')
+                        
+                      if(overLayFile)
+                        console.log("good to go")  
+                        master.loadOverlayAudio(overLayFile);
+                      })
+                      .start(); 
+
+        }else{
+          if(overLayFile)
+             master.loadOverlayAudio(overLayFile)
+        }
 
        var setStage = function(){
 
@@ -117,6 +138,8 @@
 
          var scrollTrigger,scrollPercent = 0
 
+          parent.audiomaster.mix.getTrack('overlay_01').pan(1)
+
         function scrollerFunction(){
           
            if(walkthrough.scrollPos  > 40 && walkthrough.scrollPos  < 60){
@@ -128,13 +151,13 @@
           }           
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
-            if(!scrollTrigger) $('#whisper_02')[0].play()
+            //if(!scrollTrigger) $('#whisper_02')[0].play()
             scrollTrigger = true
-            $('#audio-1',parent.document)[0].volume = Math.abs(1-scrollPercent/100)
-            $('#whisper_02')[0].volume = scrollPercent/100
 
-           //walkthrough.scrollFunction();
-           //$("#scroll-directions").fadeOut(700)
+            if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+                parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)       
+            }  
+            
            if(walkthrough.scrollPos < 5){
              $("#scroll-start").fadeIn(1000)
            }else{
@@ -162,6 +185,20 @@
       setStage()
       }
 
+        var runFrameRunner = function(){
+
+            requestAnimationFrame(runFrameRunner);
+    
+            TWEEN.update()
+              
+            if(!parent.audiomaster) return
+
+            for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                        
+               parent.audiomaster.mix.tracks[i].play()                  
+            }  
+             
+        }
+        runFrameRunner()  
 
       })
 

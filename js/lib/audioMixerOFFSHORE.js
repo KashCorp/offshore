@@ -121,7 +121,7 @@
 		console.log("removing " + name)
 		var rest, arr = this.tracks, total = arr.length;
 		for ( var i = 0; i < total; i++ ){
-			if ( arr[i].name == name ){
+			if ( arr[i] && arr[i].name == name ){
 				rest = arr.slice(i + 1 || total);
 				arr.length = i < 0 ? total + i : i;
 				arr.push.apply( arr, rest );
@@ -142,7 +142,16 @@
 		
 	Mix.prototype.trigger = function(){
 		trigger.apply(this, arguments);
-	}		
+	}
+
+	// Set Master gain
+	Mix.prototype.setGain = function( gain ){
+		var total = this.tracks.length;
+		this.gain = gain;
+		for ( var i = 0; i < total; i++ )
+			this.tracks[i].gain( this.tracks[i].gain() );
+	};
+
 /////////////TRACKZ
 
 	Track = function(name, opts, mix){
@@ -167,15 +176,8 @@
 		this.set('panner', this.get('mix').context.createPanner());
 		this.get('panner').panningModel = webkitAudioPannerNode.EQUALPOWER;
 		this.get('panner').setPosition(this.pan(),0,.1);
-		this.set('analyser', this.get('mix').context.createAnalyser());
-		this.get('analyser').smoothingTimeConstant = 0.3;
-		this.get('analyser').fftSize = 128;
-		this.set('processor', this.get('mix').context.createJavaScriptNode(2048, 1, 1));
 		this.set('gainCache', this.gain());
-		this.set('freqByteData', new Uint8Array(this.get('analyser').frequencyBinCount));
-		this.get('processor').onaudioprocess = function(){
-	
-		}
+
 
 		if ( this.get('source') ) this.loadBuffer( this.get('source'));
 					
@@ -199,15 +201,12 @@
 
         	console.log("can play through")
 			self.set('source', self.get('mix').context.createBufferSource());
-			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData, true/* make mono */));
+			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,false));
 			self.get('source').buffer = self.get('sourceBuffer')
 			self.get('source').loop = true
 			self.get('source').connect(self.get('panner'));
 			self.get('panner').connect(self.get('gainNode'));
 			self.get('gainNode').connect(self.get('mix').context.destination);
-			self.get('source').connect(self.get('analyser'));
-			self.get('analyser').connect(self.get('processor'));
-			self.get('processor').connect(self.get('source').context.destination);
 			self.ready = true;
 			self.get('mix').trigger('load', self);
 

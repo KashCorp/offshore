@@ -58,10 +58,7 @@
 
     <div id="inter-text" style="display: block"></div>
 
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/23_w.ogg" type="audio/ogg" />
-      <source src="audio/Hatch_Ambience_Clock.mp3" type="audio/mpeg" />
-    </audio>
+
 
 
 

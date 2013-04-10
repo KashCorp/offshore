@@ -54,11 +54,12 @@
 
 
     <div id="inter-text" style="display: block"></div>
-
+<!--
     <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
       <source src="audio/ocean_sounds.ogg" type="audio/ogg" />
       <source src="audio/ocean_sounds.mp3" type="audio/mpeg" />
     </audio>
+  -->
 
     <div id="scroll-proxy"></div>
 
@@ -66,6 +67,7 @@
 
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
+    <script type="text/javascript" src="js/lib/Tween.js"></script>
 		<script type="text/javascript" src="js/master-functions.js"></script>
 
 
@@ -75,9 +77,8 @@
 
       //$('#inter-text').shuffleLetters();
 
-       master.blankTrans(1)
 
-       document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
+       master.blankTrans(1)
 
        master.setDeepLinking("outside_stairs_down.php")
 
@@ -90,6 +91,36 @@
        $("#scroll-end").click(function(){
        	newPage("boat.php")
        });
+
+
+
+
+      var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01'), overLayFile = 'audio/ocean_sounds.mp3'
+
+      if( overlayTrack){
+
+        var dummysound = { decayFrom:  overlayTrack.options.gainNode.gain.value};
+
+        var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
+                      .onUpdate( function() {
+                        master.isTweeningAudio = true
+                        overlayTrack.gain(this.decayFrom)
+                      
+                      })
+                      .easing(TWEEN.Easing.Quadratic.Out )
+                      .onComplete(function() {
+                        parent.audiomaster.mix.removeTrack('overlay_01')
+                        
+                      if(overLayFile)
+                        console.log("good to go")  
+                        master.loadOverlayAudio(overLayFile);
+                      })
+                      .start(); 
+
+      }else{
+          if(overLayFile)
+             master.loadOverlayAudio(overLayFile)
+      }
 
        var setStage = function(){
 
@@ -147,6 +178,21 @@
       window.onresize = function(event) {
       setStage()
       }
+
+        var runFrameRunner = function(){
+
+            requestAnimationFrame(runFrameRunner);
+    
+            TWEEN.update()
+              
+            if(!parent.audiomaster) return
+
+            for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                        
+               parent.audiomaster.mix.tracks[i].play()                  
+            }  
+             
+        }
+        runFrameRunner()  
 
 
       })
