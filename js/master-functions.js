@@ -1250,13 +1250,16 @@ function closeVideo(_id){
 		 $(".compass").fadeIn()
 		$("#video-overlay")[0].pause(); // can't hurt
     	krpano = document.getElementById("krpanoObject");
-		krpano.call("lookto(0,0,90,smooth(),true,true))")
+		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
 		parent.audiomaster.mix.setGain(1.0)
 		$(".video-content-wrap").removeClass("video-content-wrap-open");
 		}
 
 		)
 	
+}
+function showMapIcon(){
+	$(".compass").fadeIn()
 }
 
 var soundTrigger 

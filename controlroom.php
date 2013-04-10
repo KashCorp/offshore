@@ -180,7 +180,7 @@ var soundadjust = function(coord,fov) {
     $('#underlay-control-wrapper').fadeOut(500)
     $('.breadcrumb').fadeIn(500)
      $("#offshorelogo").fadeIn(500)
-     $(".compass").fadeIn()
+     //$(".compass").fadeIn()
   }
 
 }
@@ -229,7 +229,7 @@ $(document).ready(function(){
   $("#to-control-vid-menu").click(function(){
     $('.movie-menu').fadeOut(500,function(){
     krpano = document.getElementById("krpanoObject");
-    krpano.call('tween(view.fov,90,2,easeOutCubic)')
+    krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
     master.loadVideoUnderlay("video/transitions/oil_shot",null,true)   
     })
 
