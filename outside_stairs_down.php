@@ -95,7 +95,7 @@
 
 
 
-      var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01'), overLayFile = 'audio/ocean_sounds.mp3'
+      var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01'), overLayFile = 'audio/HeliPad.mp3'
 
       if( overlayTrack){
 
