@@ -39,17 +39,20 @@
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
-    <div id="wrapper" class="wrapper">
+    <div id="wrapper" class="wrapper" style="position:fixed">
+
+     
 
        <div class="pano-underlay">
         <video width="100%" autoplay loop = "true" style="position:absolute;" id="video-underlay" preload="auto">
            <source src="video/transitions/wireframe_waves.webm" type="video/webm" />
         </video> 
 
-      </div>
+      </div> 
+      <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
       <div class="underwater">  </div>
   		<div id="panocontainer" class="subhanger"></div>
-
+      <div id="scroll-directions"></div>
   		<div class="breadcrumb"></div>
 
   	</div>
@@ -72,23 +75,124 @@
 
     <script>
 
-     var krpano
-     var loadsecondscene = function() {
-      $('.wrapper').fadeOut(800, function() {
+      var krpano
+      var loadsecondscene = function() {
+        $('.wrapper').fadeOut(800, function() {
         krpano = document.getElementById("krpanoObject");
         krpano.call("action(loadsecondscene)")
-      })
-     }
-     
+        })
+      }
+      var soundadjust = function(coord,fov) {
+
+        var convCoord =  Math.abs(coord%360);
+
+    
+
+        if(convCoord > 100 && convCoord < 160){
+          $("#ghost-canvas").fadeIn(2500)
+        }else{
+          $("#ghost-canvas").fadeOut(2500)
+        }
+
+ 
+        if(fov <25) {
+          $('#scroll-directions').fadeIn()
+          $('#panocontainer').fadeOut(500)
+        }else{
+          $('#panocontainer').fadeIn(500)
+          $('#scroll-directions').fadeOut()
+          $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
+        }
+
+      }
       $(document).ready(function(){
 
-      //$('#inter-text' ).shuffleLetters();
-      $("#video-underlay")[0].playbackRate = 0.7
-		 //master.videoTrans("video/transitions/explosion.webm")
-     master.blankTrans()
+	
+        master.blankTrans()
         document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
-
         master.setDeepLinking("subhanger.php")
+
+ var setStage = function(){
+
+        var playTrigger = 0
+
+         var dynamicWidth = window.innerWidth;
+
+         var dynamicHeight = dynamicWidth * .5625;
+
+         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+
+          $("#video-overlay-engine-room").css("top",dynamicTop)
+
+          $("#video-overlay-engine-room").css("width",window.innerWidth)
+
+          $("#video-content-wrap-engine-room").css("width",window.innerWidth)
+          
+
+
+
+         $("#walking-canvas").css("top",dynamicTop)
+
+         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
+
+         scrollPos = walkthrough.scrollStopFunction()
+
+          var scrollTrigger,scrollPercent = 1
+          var _id = "video/doc_content/mr_jack_720.webm"
+
+          function scrollerFunction(){
+
+            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
+
+  
+           if(walkthrough.scrollPos < 5){
+             $("#scroll-start").fadeIn(1000)
+           }else{
+             $("#scroll-start").fadeOut(700)
+           }
+
+            if(walkthrough.scrollPos > 85 && playTrigger == 0){
+              console.log(_id)
+              $(".compass").fadeOut()
+
+              $(".video-content-wrap-engine-room").fadeIn(1500)
+              $('#video-overlay-engine-room source').attr('src', _id);
+              $('#video-overlay-engine-room video').load();
+              master.audioFadeAll(0.5)
+              $("#video-overlay-engine-room")[0].load()
+              $("#video-overlay-engine-room")[0].play()
+
+              $("#video-overlay-engine-room")[0].onended = function(e) {
+                //closeVideo()
+              }
+              playTrigger = 1
+           }
+
+            if(walkthrough.scrollPos < 85 && playTrigger == 1) {
+              //master.audioFadeInAll(0.7)
+              playTrigger = 0
+              console.log("OUTSIDE THE ZONE")
+              $(".compass").fadeIn()
+              $(".video-content-wrap-engine-room").fadeOut(1000,function(){
+              $("#video-overlay-engine-room")[0].pause()
+              })
+           }
+
+            requestAnimationFrame(scrollerFunction)
+        }
+       scrollerFunction()
+
+      $("#to-control").click(function(){
+        closeVideo()
+      })
+
+       }
+
+      setStage()
+
+      window.onresize = function(event) {
+      setStage()
+      }       
       })
 
     </script>

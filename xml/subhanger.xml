@@ -16,11 +16,16 @@
 	<events 
 		onmousedown="action(globalmousedown)"
 		onloadcomplete= "js(panoLoaded())"  
+		onviewchange="action(viewchange)"
 		/> 
 	 
 	<action name="globalmousedown">		
 		set(plugin[directions].visible,false);
 		set(autorotate.enabled,false);
+	</action>
+
+	<action name="viewchange">
+		js(soundadjust(get(view.hlookat),get(view.fov)));
 	</action>
 
 	<action name="initialize">
@@ -29,7 +34,7 @@
 	</action>
 
 	<action name="loadfirstscene">
-		loadscene(doorIsClosed, null, MERGE);
+		loadscene(doorIsOpen, null, MERGE);
 	</action>
 
 	<action name="loadsecondscene">
@@ -53,20 +58,13 @@
 	 	<image>
     <left  url="../images/panos/subhanger/pano_l.png" />
     <front url="../images/panos/subhanger/pano_f.png" />
-    <right url="../images/panos/subhanger/pano_r.png" />
+    <right url="../images/panos/subhanger/pano_r.jpg" />
     <back  url="../images/panos/subhanger/pano_b.jpg" />
     <up    url="../images/panos/subhanger/pano_u.jpg" />
     <down  url="../images/panos/subhanger/pano_d.png" />
 		</image>
 	
-	<image devices="Desktop">    
-    <left  url="../images/panos/subhanger/pano_l.png" />
-    <front url="../images/panos/subhanger/pano_f.png" />
-    <right url="../images/panos/subhanger/pano_r.png" />
-    <back  url="../images/panos/subhanger/pano_b.jpg" />
-    <up    url="../images/panos/subhanger/pano_u.jpg" />
-    <down  url="../images/panos/subhanger/pano_d.png" />
-		</image>
+
 
 		
 	
@@ -87,22 +85,14 @@
 
 	<scene name="doorIsOpen" onstart="">	 	
 	 	<image>
-    <left  url="../images/panos/subhanger/pano_l.png" />
+    <left  url="../images/panos/subhanger/pano_l.jpg" />
     <front url="../images/panos/subhanger/pano_f2.png" />
     <right url="../images/panos/subhanger/pano_r2.png" />
     <back  url="../images/panos/subhanger/pano_b.jpg" />
     <up    url="../images/panos/subhanger/pano_u.jpg" />
-    <down  url="../images/panos/subhanger/pano_d.png" />
+    <down  url="../images/panos/subhanger/pano_d.jpg" />
 		</image>
 	
-	<image devices="Desktop">    
-    <left  url="../images/panos/subhanger/pano_l.png" />
-    <front url="../images/panos/subhanger/pano_f2.png" />
-    <right url="../images/panos/subhanger/pano_r2.png" />
-    <back  url="../images/panos/subhanger/pano_b.jpg" />
-    <up    url="../images/panos/subhanger/pano_u.jpg" />
-    <down  url="../images/panos/subhanger/pano_d.png" />
-		</image>
 
 
 
