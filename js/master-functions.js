@@ -601,7 +601,7 @@ this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume){
 
 	var dummysounds = { s:  0};
 
-	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 4000 )
+	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 		.onUpdate( function() {
 			master.isTweeningAudio = true
 			parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
