@@ -25,7 +25,7 @@ var pano_master = function(){
     break;
 
     case "boat" : 
-    overLayFile = 'audio/HelioPad.mp3'
+    overLayFile = 'audio/HeliPad.mp3'
     underlayFile = 'audio/The_Zone.mp3'
     break;
 
