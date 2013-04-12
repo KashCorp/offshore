@@ -73,8 +73,8 @@
 			atv="0"
 		
 			alpha="0"
-			width="30"
-			height="60"
+			width="100"
+			height="100"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="js(loadsecondscene)"
@@ -178,23 +178,27 @@
 			/>
 		
 
-		<!-- <hotspot name="cabinet" 
+		 <hotspot name="open_cabinet" 
 			url="../images/panos/chemicalroom/hotspots/cabinet.png"
 			ath="54.4"
 			atv="-5.1"
 			distorted="true"
 			keep="true"
 			alpha="0"
-			onclick="tween(alpha,1)"
+			onclick="tween(alpha,1);set(hotspot[close_cabinet].enabled,true);set(hotspot[open_cabinet].enabled,false)"
 			scale="1.05"
-			/> -->
+			/> <!---->
 
-		<hotspot name="cabinet_closed" url="../images/hotspot.gif"
-			ath="0"
-			atv="0"
+		<hotspot name="close_cabinet" url="../images/hotspot.gif"
+			ath="54.4"
+			atv="-5.1"
 			distorted="true"
-			alpha="1"
-			onclick="js(cabinet_closed());set(hotspot[cabinet_open].alpha,1);set(hotspot[cabinet_open].enabled,true);"
+			keep="true"
+			alpha="0"
+			width="100"
+			height="100"
+			enabled="false"
+			onclick="set(hotspot[open_cabinet].alpha,0);set(hotspot[open_cabinet].enabled,true);set(hotspot[close_cabinet].enabled,false);"
 
 			scale="1"
 		/>

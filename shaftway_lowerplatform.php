@@ -42,6 +42,21 @@
     <div id="scroll-wrapper" class="wrapper">
     	<canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>
     	<div id="scroll-start" class="scroll-nav">Go Back On Deck?</div>
+
+      <div id="viewport" style="left:0px">
+
+         <div id='word-container'>
+          <ul>
+            <li class="drilling-depth">1000 ft</li>
+            <li class="drilling-depth" style="-webkit-transform: translateZ(-500px)">2000 ft</li>
+            <li class="drilling-depth" style="-webkit-transform: translateZ(-1000px)">3000 ft</li>
+            <li class="drilling-depth" style="-webkit-transform: translateZ(-1500px)">4000 ft</li>li>
+            <li class="drilling-depth" style="-webkit-transform: translateZ(-2500px)">9000 ft</li>
+          </ul>
+        </div> 
+
+      </div>
+
     	<!--<div id="scroll-end" class="scroll-nav">Continue?</div>-->
     	<div id="scroll-directions"></div>
   		<!--<div id="panocontainer" class="platform"></div>-->
@@ -139,10 +154,14 @@
 
           function scrollerFunction(){
 
-            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
+            scrollPercent = Math.ceil((walkthrough.scrollValue / (15000-$(window).height())) * 100);
 
-            //if(!scrollTrigger) $('#whisper_02')[0].play()
+            var zPos = walkthrough.scrollValue*.4
+            
+            $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+
             scrollTrigger = true
+
             //$('#audio-1',parent.document)[0].volume = Math.abs(1-scrollPercent/100)
             if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
                 parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)       
@@ -155,7 +174,9 @@
            }
 
             if(walkthrough.scrollPos > 95){
+
             	newPage("hallway.php")
+
             	console.log("end of passageway")
 
            	 $("#scroll-end").fadeIn(1000)

@@ -86,7 +86,7 @@
 			ath="-37"
 			atv="31.5"
 			distorted="true"
-			onclick="js(openBook(investigation_02.php))"
+			onclick="js(openBook(dossier.php))"
 			onhover="js(hoverSound())"
 			onout="js(resetHoverSound())"
 			alpha="0"

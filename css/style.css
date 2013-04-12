@@ -822,7 +822,7 @@ height:100%;
 
 /* ========================================================================== *\
   	BOOKLET
-\* ========================================================================== */
+\* ========================================================================== 
 
 .book {
 	position: absolute;
@@ -856,7 +856,7 @@ height:100%;
 }
 
 body .booklet .b-page-cover {
-	background: url(../images/folder_front.png) no-repeat top left;
+	background: url(../images/Green_Book.jpg) no-repeat top left;
 	background-size: cover;
 	padding: 0;
 }
@@ -883,7 +883,7 @@ body .booklet .b-page-cover-back-inside  {
 	padding: 0;
 }
 
-
+*/
 
 
 /* ========================================================================== *\
@@ -952,6 +952,34 @@ visibility:hidden;}
   	PASSAGE TRANSITIONS
 \* ========================================================================== */
 
+      #word-container  {
+        position: absolute;
+        width: 80%; 
+        height:100%;
+        right:0px;
+        text-align: center;
+        color:#ffffff;
+        display:block;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+       
+      }
+
+      #word-container ul li {
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        list-style-type: none;
+        padding:0;
+        text-align: center;
+        width:100%;
+        position: absolute;
+        top:45%; 
+        opacity:0px;
+ 
+      }
+
 #viewport {
 	-webkit-perspective: 500; 
 	-moz-perspective: 1000; 
@@ -1009,7 +1037,7 @@ visibility:hidden;}
 	transition: width 200ms linear;
 }
 
-.video-content-wrap-engine-room {
+.video-content-wrap-engine-room, .video-content-wrap-desktop{
 
 	height:100%;
 	bottom: 0;

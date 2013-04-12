@@ -39,6 +39,8 @@
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
+
+
     <div id="wrapper" class="wrapper" style="position:fixed">
 
      
@@ -49,10 +51,28 @@
         </video> 
 
       </div> 
-       <div class="underwater">  </div>
+      <div class="underwater">  </div>
       <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
       <div id="scroll-start" class="scroll-nav">Go Back?</div>
       <div id="scroll-end" class="scroll-nav">Continue?</div>
+<!--
+      <div class="video-content-desktop">
+        <video width="100%" style="position:absolute;display:block; -webkit-filter: brightness(300%);" id="video-overlay-desktop" loop="true" preload="auto">
+          <source/>
+        </video>
+             <svg id='video-filter' version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+            <filter id="inverse">
+            <feComponentTransfer>
+            <feFuncR type="table" tableValues="1 0"/>
+            <feFuncG type="table" tableValues="1 0"/>
+            <feFuncB type="table" tableValues="1 0"/>
+            </feComponentTransfer>
+            </filter>
+            </defs>
+            </svg>       
+      </div> 
+-->
   		<div id="panocontainer" class="subhanger"></div>
 
 
@@ -66,12 +86,12 @@
         <a id="to-control" class="platform-nav">Close</a>
       </div>
 
-       <div class="video-content-wrap-engine-room">
- 
+      <div class="video-content-wrap-engine-room">
         <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
           <source/>
         </video>
       </div>
+    
            
 <!-- END OVERLAY VIDEOS -->
 
@@ -101,12 +121,20 @@
       var krpano
       var loadsecondscene = function() { 
         $('#video-underlay').fadeOut()
-console.log("load second scene")
+        console.log("load second scene")
         $('.wrapper').fadeOut(800, function() {
         krpano = document.getElementById("krpanoObject");
         krpano.call("action(loadsecondscene)")
 
         })
+      }
+
+      var showIpad = function(){
+              $(".video-content-wrap-desktop").fadeIn(1500)
+              $('#video-overlay-desktop source').attr('src', "video/transitions/cloud_shot.webm");
+              $('#video-overlay-desktop video').load();
+              $("#video-overlay-desktop")[0].load()
+              $("#video-overlay-desktop")[0].play()
       }
       var soundadjust = function(coord,fov) {
 

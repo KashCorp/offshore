@@ -123,7 +123,7 @@
 			atv="16.4"
 			distorted="true"
 			alpha="0"
-			onclick="js(openBook(investigation_03.php))"
+			onclick="js(openBook(filingcabinet.php))"
 			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
 			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
 			scale=".68"

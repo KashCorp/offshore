@@ -41,6 +41,16 @@
 
     <div id="scroll-wrapper" class="wrapper">
       <canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>
+
+       <div id="viewport" style="left:0px">
+
+         <div id='word-container' style="left:0">
+          <ul>
+            <li id="word_01">... in the porches of my ears did pour the leperous distilment.</li>
+          </ul>
+        </div>       
+      </div>
+           
       <div id="scroll-start" class="scroll-nav">Go Back?</div>
       <div id="scroll-end" class="scroll-nav">Continue?</div>
       <div id="scroll-directions"></div>
@@ -141,6 +151,11 @@
           parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
         function scrollerFunction(){
+
+            var zPos = walkthrough.scrollValue*.4
+
+            $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+            $('#word_01').css('opacity', walkthrough.scrollPos/100);
           
            if(walkthrough.scrollPos  > 40 && walkthrough.scrollPos  < 60){
             $("#ghost-canvas").fadeIn(2500)

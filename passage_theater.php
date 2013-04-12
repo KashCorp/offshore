@@ -41,6 +41,14 @@
 
     <div id="scroll-wrapper" class="wrapper">
     	<canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>
+      <div id="viewport" style="left:0px">
+
+         <div id='word-container'>
+          <ul>
+            <li id="word_01">Reality exists in the human mind, and nowhere else.</li>
+          </ul>
+        </div>       
+      </div>
     	<div id="scroll-start" class="scroll-nav">Go Back?</div>
     	<div id="scroll-end" class="scroll-nav">Continue?</div>
     	<div id="scroll-directions"></div>
@@ -141,6 +149,11 @@
           function scrollerFunction(){
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
+
+            var zPos = walkthrough.scrollValue*.4
+
+            $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+            $('#word_01').css('opacity', walkthrough.scrollPos/100);
 
             if(walkthrough.scrollPos  >40 && walkthrough.scrollPos  < 60){
               $("#ghost-canvas").fadeIn(2500)

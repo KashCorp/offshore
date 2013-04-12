@@ -43,7 +43,7 @@
 	                   
 
 		<view 
-			hlookat="65.0"
+			hlookat="0.0"
 		  fov="90.0"
 		  fovmax="180.0"
 		  fovmin="4.0"
@@ -114,7 +114,20 @@
 			alpha="0.0"
 			visible="true"
 			/>
-			
+
+		<hotspot name="iPad" url="../images/hotspot.gif"
+			ath="24"
+			atv="25"
+			distorted="true"
+			alpha="0.0"
+			height="30.0"
+			onclick="js(openBook(investigation_02.php))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			keep="true"
+			capture = "false"
+			/>				
 			
 		<hotspot name="hallway exit" url="../images/hotspot.gif"
 			ath="-35"

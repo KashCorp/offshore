@@ -88,6 +88,18 @@
   right:0;
 }
 
+#image-container ul li div {
+  display: block;
+  width:100%;
+  padding:5px;
+  position: absolute; 
+  top:0; 
+  left:0; 
+  font-size: 20px;
+  text-align:left;
+  background: url(images/bg_black_50.png);
+}
+
 #photo-container ul li img { 
 vertical-align: middle; 
 
@@ -174,16 +186,16 @@ position: absolute;
 
     <div id="scroll-wrapper" class="wrapper" style="display:block">
       <div id="scan_image_holder">
-        <div id="scan_image_lines"></div>
+        <!--<div id="scan_image_lines"></div>-->
       </div>
       
       <div id="viewport" style="left:0px">
         <div id='image-container'>
           <ul>
-            <li id="leasemap_05"><img src="images/rig_map/leases/lease_05.jpg"></li>
-            <li id="leasemap_04"><img src="images/rig_map/leases/lease_04.jpg"></li>
-            <li id="leasemap_03"><img src="images/rig_map/leases/lease_03.jpg"></li>
-            <li id="leasemap_01"><img src="images/rig_map/leases/lease_01.jpg"></li>
+            <li id="leasemap_05"><img src="images/rig_map/leases/lease_05.jpg"><div>Contextual text goes here</div></li>
+            <li id="leasemap_04"><img src="images/rig_map/leases/lease_04.jpg"><div>Contextual text goes here</div></li>
+            <li id="leasemap_03"><img src="images/rig_map/leases/lease_03.jpg"><div>Contextual text goes here</div></li>
+            <li id="leasemap_01"><img src="images/rig_map/leases/lease_01.jpg"><div>Contextual text goes here</div></li>
           </ul>
         </div>
           <div id="map-container">
