@@ -34,7 +34,7 @@
 	</action>
 
 	<action name="loadfirstscene">
-		loadscene(doorIsOpen, null, MERGE);
+		loadscene(doorIsClosed, null, MERGE);
 	</action>
 
 	<action name="loadsecondscene">
@@ -43,10 +43,10 @@
 	                   
 
 		<view 
-			hlookat="-65.0"
+			hlookat="65.0"
 		  fov="90.0"
-		  fovmax="90.0"
-		  fovmin="45.0"
+		  fovmax="180.0"
+		  fovmin="4.0"
 		  />
 
 		<control usercontrol = "all"

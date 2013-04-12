@@ -49,9 +49,32 @@
         </video> 
 
       </div> 
+       <div class="underwater">  </div>
       <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
-      <div class="underwater">  </div>
+      <div id="scroll-start" class="scroll-nav">Go Back?</div>
+      <div id="scroll-end" class="scroll-nav">Continue?</div>
   		<div id="panocontainer" class="subhanger"></div>
+
+
+<!-- OVERLAY VIDEOS -->
+      <div class="video-content-wrap">
+ 
+        <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+          <source/>
+        </video>
+
+        <a id="to-control" class="platform-nav">Close</a>
+      </div>
+
+       <div class="video-content-wrap-engine-room">
+ 
+        <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
+          <source/>
+        </video>
+      </div>
+           
+<!-- END OVERLAY VIDEOS -->
+
       <div id="scroll-directions"></div>
   		<div class="breadcrumb"></div>
 
@@ -76,10 +99,13 @@
     <script>
 
       var krpano
-      var loadsecondscene = function() {
+      var loadsecondscene = function() { 
+        $('#video-underlay').fadeOut()
+console.log("load second scene")
         $('.wrapper').fadeOut(800, function() {
         krpano = document.getElementById("krpanoObject");
         krpano.call("action(loadsecondscene)")
+
         })
       }
       var soundadjust = function(coord,fov) {
@@ -112,15 +138,15 @@
         document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
         master.setDeepLinking("subhanger.php")
 
- var setStage = function(){
+        var setStage = function(){
 
-        var playTrigger = 0
+          var playTrigger = 0
 
-         var dynamicWidth = window.innerWidth;
+          var dynamicWidth = window.innerWidth;
 
-         var dynamicHeight = dynamicWidth * .5625;
+          var dynamicHeight = dynamicWidth * .5625;
 
-         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+          var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
           $("#video-overlay-engine-room").css("top",dynamicTop)
 
@@ -128,14 +154,17 @@
 
           $("#video-content-wrap-engine-room").css("width",window.innerWidth)
           
+          $("#walking-canvas").css("top",dynamicTop)
 
+          $("#scroll-start").click(function(){
+            scrollTrigger = 0
+            krpano = document.getElementById("krpanoObject");
+            krpano.call("lookto(0,0,90,smooth(),true,true))")
+          });         
 
+          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
 
-         $("#walking-canvas").css("top",dynamicTop)
-
-         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
-
-         scrollPos = walkthrough.scrollStopFunction()
+          scrollPos = walkthrough.scrollStopFunction()
 
           var scrollTrigger,scrollPercent = 1
           var _id = "video/doc_content/mr_jack_720.webm"
