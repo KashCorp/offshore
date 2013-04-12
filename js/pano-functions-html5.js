@@ -21,21 +21,21 @@ var pano_master = function(){
     overLayFile = 'audio/Helicopter_Interior.mp3'
     break;
     case "platform" : 
-    overLayFile = 'audio/Helipad_Ambience_Music.mp3'
+    overLayFile = 'audio/ocean_sounds.mp3'
     break;
 
     case "boat" : 
-    overLayFile = 'audio/ocean_sounds.mp3'
+    overLayFile = 'audio/HeliPad.mp3'
     underlayFile = 'audio/The_Zone.mp3'
     break;
 
     case "lowerplatform_closed" : 
-    overLayFile = 'audio/About_Ambience.mp3' 
+    overLayFile = 'audio/LowerPlatform.mp3' 
     underlayFile = 'audio/Drone_1.mp3'
     break;
 
     case "hallway" : 
-    overLayFile = 'audio/Bong.mp3' 
+    overLayFile = 'audio/Main_Hallway.mp3' 
     underlayFile = 'audio/Drone_2.mp3'
     break;
 
@@ -45,8 +45,17 @@ var pano_master = function(){
     break;
 
     case "theater" : 
+    overLayFile = 'audio/Chemical_Room.mp3'
     underlayFile = 'audio/Drone_3.mp3'
-    break;       
+    break; 
+
+    case "chemicalroom" : 
+    overLayFile = 'audio/Chemical_Room.mp3'
+    break;  
+
+    case "controlroom" : 
+    overLayFile = 'audio/Chemical_Room.mp3'
+    break;         
     //
 }
  

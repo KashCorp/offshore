@@ -91,7 +91,7 @@
        });
 
 
-      var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01'), overLayFile = 'audio/Hatch_Ambience_Clock.mp3'
+      var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01'), overLayFile = 'audio/Hatch_Alt2.mp3'
 
       if( overlayTrack){
 
