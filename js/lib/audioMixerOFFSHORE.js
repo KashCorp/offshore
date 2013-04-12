@@ -201,7 +201,7 @@
 
         	console.log("can play through")
 			self.set('source', self.get('mix').context.createBufferSource());
-			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,false));
+			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
 			self.get('source').buffer = self.get('sourceBuffer')
 			self.get('source').loop = true
 			self.get('source').connect(self.get('panner'));
@@ -257,13 +257,9 @@
 			return;
 		}
 		if ( this.options.playing ) return;
-
-		console.log("PLY")
-
-		this.gain(this.options.gain)
+		
+		//this.gain(this.options.gain)
 		this.options.playing = true;	
-
-		this.get('mix').startTime = 0;
 		this.options.source.noteOn(0);
 		
 		this.trigger('play');

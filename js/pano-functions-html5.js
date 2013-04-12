@@ -110,13 +110,13 @@ var pano_master = function(){
                       parent.audiomaster.mix.removeTrack('overlay_01')
                       
                       if(overLayFile)
-                        master.WAAloadAudio(overLayFile,'overlay_01',-1,0.1);
+                        master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
                     })
                     .start(); 
 
     }else{
         if(overLayFile)
-            master.WAAloadAudio(overLayFile,'overlay_01',-1,0.1);
+            master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
     }
 
           var mouse_start_x = 0,

@@ -63,7 +63,7 @@
             //dean_blanchard_720
 
             <li data-url="video/doc_content/dean_blanchard_720" class="vid-menu-nav">
-                <video width="250" volume = 0 loop = "true" autoplay preload="auto">
+                <video width="250" volume = 0 loop = "true" preload="auto">
                   <source src="video/doc_content/dean_blanchard_720_thumb.webm" type="video/webm" />
                 </video> 
                 <br>
@@ -71,7 +71,7 @@
             </li>
 
             <li data-url="video/transitions/3d_seismic_cube05_10sec" data-popcorn="seismic" class="vid-menu-nav">
-                <video width="250" volume = 0 loop = "true" autoplay preload="auto">
+                <video width="250" volume = 0 loop = "true" preload="auto">
                   <source src="video/transitions/3d_seismic_cube05_10sec.webm" type="video/webm" />
                 </video> 
                 <br>
@@ -206,7 +206,7 @@ $(document).ready(function(){
   var dynamicTop = (window.innerHeight - dynamicHeight)/2; 
   var closeTrigger = 0
 
-  master.ghostTrans('2guys_walk_away3',14)
+  master.ghostTrans('2guys_walk_away3',16)
   master.setDeepLinking("hallway.php")
 
 
