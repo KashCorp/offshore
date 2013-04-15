@@ -44,7 +44,7 @@
 
        <div id="viewport" style="left:0px">
 
-         <div id='word-container' style="left:0">
+         <div id='word-container' style='left:0;-webkit-transform:translateZ(-1400px)'>
           <ul>
             <li id="word_01">... in the porches of my ears did pour the leperous distilment.</li>
           </ul>

@@ -14,7 +14,7 @@ var pano_master = function(){
   this.viewer = viewer
   viewer.embed();
 
-  var overLayFile, underlayFile
+  var overLayFile, underlayFile, underlayMute, underlayMuted
 
   switch(pano){
     case "helicopter" : 
@@ -25,42 +25,51 @@ var pano_master = function(){
     break;
 
     case "boat" : 
-    overLayFile = 'audio/HeliPad.mp3'
+    overLayFile = 'audio/HeliPad_minus_minus.mp3'
     underlayFile = 'audio/The_Zone.mp3'
     break;
 
+    case "interiorsub-wire" : 
+    overLayFile = 'audio/Submersible.mp3'
+    underlayMute=true
+    break;
+
     case "lowerplatform_closed" : 
-    overLayFile = 'audio/LowerPlatform.mp3' 
-    underlayFile = 'audio/Drone_1.mp3'
+    overLayFile = 'audio/LowerPlatform_minus.mp3' 
+    underlayFile = 'audio/Drone_1_norm.mp3'
     break;
 
     case "hallway" : 
     overLayFile = 'audio/Main_Hallway.mp3' 
-    underlayFile = 'audio/Drone_2.mp3'
+    underlayFile = 'audio/Drone_2_norm.mp3'
     break;
 
     case "subhanger" : 
-    overLayFile = 'audio/Bong.mp3' 
+    overLayFile = 'audio/SubRoom.mp3' 
     underlayFile = 'audio/Drone_3.mp3'
     break;
 
     case "theater" : 
-    overLayFile = 'audio/Chemical_Room.mp3'
-    underlayFile = 'audio/Drone_3.mp3'
+    overLayFile = 'audio/Fluorescencent_Tone.mp3'
+    underlayMute=true
+   
     break; 
 
     case "chemicalroom" : 
-    overLayFile = 'audio/Chemical_Room.mp3'
+    overLayFile = 'audio/Chemical_Room.mp3' 
+    underlayFile = 'audio/Drone_3_norm.mp3'
     break;  
 
     case "controlroom" : 
-    overLayFile = 'audio/Chemical_Room.mp3'
+    overLayFile = 'audio/russian_radio.mp3'
     break;         
     //
 }
  
 
-  $('.wrapper').append("<div class='pan-directions'/>")
+  //$('.wrapper').append("<div class='pan-directions'/>")
+
+  $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
 
  var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
  var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
@@ -76,26 +85,50 @@ var pano_master = function(){
 
       var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
                     .onUpdate( function() {
-                      parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+                      if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
                       parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
                     })
                     .easing(TWEEN.Easing.Quadratic.Out )
                     .onComplete(function() {
+
                       parent.audiomaster.mix.removeTrack('basetrack')
+
                       var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
 
                       renameThis['name'] = 'basetrack';
 
                       parent.audiomaster.mix.lookup['basetrack'] = renameThis
 
-                      console.log(renameThis)
 
                     })
                     .start(); 
 
+    } else{
+      if(underlayMuted){
+       var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
+                    .onUpdate( function() {
+                     parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+                     })
+                     .easing(TWEEN.Easing.Quadratic.Out )
+                     .start()       
+      }
     }
 
+    if(underlayMute) {
 
+      var dummysound = { decayFrom:  underlayTrack.options.gainNode.gain.value};
+
+      var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
+          .onUpdate( function() {
+            master.isTweeningAudio = true
+            underlayTrack.gain(this.decayFrom)
+          })
+          .easing(TWEEN.Easing.Quadratic.Out )
+          .start(); 
+      
+      underlayMuted = true
+
+    } 
     if( overlayTrack){
 
       var dummysound = { decayFrom:  overlayTrack.options.gainNode.gain.value};
@@ -107,8 +140,7 @@ var pano_master = function(){
                     })
                     .easing(TWEEN.Easing.Quadratic.Out )
                     .onComplete(function() {
-                      parent.audiomaster.mix.removeTrack('overlay_01')
-                      
+                      parent.audiomaster.mix.removeTrack('overlay_01') 
                       if(overLayFile)
                         master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
                     })
@@ -126,17 +158,9 @@ var pano_master = function(){
           mouse_x_diff = 0,
           mouse_y_diff = 0,
           driftTweenH, driftTweenV,
-          cloudMove = 0,
+          panAmount = 0, yawAmount = 0,
           interactive = null,
-          view_x=0,view_y=0
-
-
-
-
-
-            
-
-            
+          view_x=0,view_y=0,krpano,panX,panY
 
             document.addEventListener( 'mousedown', actionDown, false );
             document.addEventListener( 'touchstart', actionDownTouch, false );     
@@ -148,6 +172,73 @@ var pano_master = function(){
             document.addEventListener( 'touchend', actionUp, false );
 
 
+
+
+            function finishPanX() {
+              var dummy = { decayX:  panAmount};
+              if(driftTweenH) TWEEN.remove(driftTweenH)
+              driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
+                .onUpdate( function() {
+                  panAmount  = this.decayX
+                    
+                })
+                .easing(TWEEN.Easing.Quadratic.Out )
+                .start(); 
+              }           
+
+            $('#fastpanleft').hover(
+              function(){
+                //mouse in
+                console.log("hover")
+                if(driftTweenH) TWEEN.remove(driftTweenH)
+                panAmount = -1
+              },
+               function(){
+                //mouse out
+               finishPanX()
+
+              }            
+            )
+
+            $('#fastpanright').hover(
+              function(){
+                //mouse in
+                if(driftTweenH) TWEEN.remove(driftTweenH)
+                panAmount = 1
+              },
+               function(){
+                //mouse out
+                finishPanX()
+
+              }           
+            )
+
+            $('#fastpanbottom').hover(
+              function(){
+                //mouse in
+                console.log("hover")
+                if(driftTweenH) TWEEN.remove(driftTweenH)
+                yawAmount = 1
+              },
+               function(){
+                //mouse out
+                yawAmount = 0
+
+              }            
+            )
+
+            $('#fastpantop').hover(
+              function(){
+                //mouse in
+                if(driftTweenH) TWEEN.remove(driftTweenH)
+                yawAmount = -1
+              },
+               function(){
+                //mouse out
+                yawAmount = 0
+
+              }           
+            )
 
             function actionDown( e ) {
                   
@@ -163,6 +254,8 @@ var pano_master = function(){
                 mouseMove = 0
                 mouse_y_diff = 0;
                 mouse_x_diff = 0;
+                panAmount = 0;
+                yawAmount = 0;
 
 
                 if(driftTweenH) TWEEN.remove(driftTweenH)
@@ -183,12 +276,10 @@ var pano_master = function(){
 
                 interactive = false;
 
-                var krpano = document.getElementById('krpanoObject')
-
                 var dummy = { decayX:  mouse_x_diff};
                 var dummyv = { decayY:  mouse_y_diff};
 
-                driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 3000 )
+                driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
                     .onUpdate( function() {
                       var currentX = krpano.get('view.hlookat') - this.decayX
                       krpano.set('view.hlookat',currentX)
@@ -196,10 +287,10 @@ var pano_master = function(){
                     
                     })
                     .easing(TWEEN.Easing.Quadratic.Out )
-                    .onComplete(function() {TWEEN.remove(driftTweenH); driftTweenH = null})
+                    //.onComplete(function() {TWEEN.remove(driftTweenH); driftTweenH = null})
                     .start(); 
 
-                driftTweenV = new TWEEN.Tween( dummyv ).to( {decayY: 0 }, 2000 )
+                driftTweenV = new TWEEN.Tween( dummyv ).to( {decayY: 0 }, 1000 )
                     .onUpdate( function() {
                       var currentY = krpano.get('view.vlookat') - this.decayY
                       krpano.set('view.vlookat',currentY)
@@ -207,7 +298,7 @@ var pano_master = function(){
 
                     })
                     .easing(TWEEN.Easing.Quadratic.Out )
-                    .onComplete(function() {TWEEN.remove(driftTweenV); driftTweenV = null})
+                    //.onComplete(function() {TWEEN.remove(driftTweenV); driftTweenV = null})
                     .start(); 
 
             } 
@@ -232,6 +323,23 @@ var pano_master = function(){
         var runFrameRunner = function(){
 
             requestAnimationFrame(runFrameRunner);
+
+            krpano = document.getElementById('krpanoObject')
+
+            if(krpano != null && panAmount !=0){
+
+              panX = krpano.get('view.hlookat') + panAmount
+              krpano.set('view.hlookat',panX)
+
+            }
+
+            if(krpano != null && yawAmount !=0){
+
+              panY = krpano.get('view.vlookat') + yawAmount*.3
+              krpano.set('view.vlookat',panY)
+
+            }
+
      
             if(TWEEN) TWEEN.update()
 
@@ -256,6 +364,11 @@ var pano_master = function(){
         }); //end get script
 
 
+}
+
+var loadAFXPano = function (_file){
+  console.log(_file)
+  master.AFXloadAudio(_file,'overlay_02',0,1.0)
 }
 
 var pano = new pano_master();

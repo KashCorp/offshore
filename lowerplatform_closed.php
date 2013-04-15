@@ -55,16 +55,44 @@
 
      JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.countdown.min.js"></script>
+    <script type="text/javascript" src="js/lib/Tween.js"></script>
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
 		<script type="text/javascript" src="js/master-functions.js"></script>
     <script type="text/javascript" src="js/lib/jquery.address.min.js"></script>
     <script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
     <script type="text/javascript" src="js/pano-functions-html5.js"></script>
-    <script type="text/javascript" src="js/lib/textualizer.js"></script>
 
     <script>
 
+      var soundVector1 = soundVector2 = soundVector3 = 0;
+      var soundadjust = function(coord) {
+        var convCoord =  Math.abs(coord+60%360);
+        var convCoord1 =  Math.abs((coord-120)%360);
+
+        if(convCoord < 180 ){
+          soundVector1 = convCoord/180;
+        }else{
+          soundVector1 = (360-convCoord)/180;
+        }
+
+              //console.log(soundVector1*2-1)
+             
+
+         
+        if(convCoord1 < 180 ){
+          soundVector2 = (convCoord1)/180;
+        }else{
+          soundVector2 = (360-(convCoord1))/180;
+        }
+
+
+        if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+          parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+          parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+        }
+
+
+      }
     var krpano
 
     var makeDecision = function() {
@@ -78,42 +106,23 @@
        
     }
 
-      $(document).ready(function(){
+  $(document).ready(function(){
 
 
- master.blankTrans()
-	 // master.videoTrans()
-   //console.log(master.getCookie("hatchStatus"))
+    master.blankTrans()
+
+    master.setDeepLinking("lowerplatform_closed.php")
+
+      
+    setTimeout(function(){
+        master.AFXloadAudio('audio/tannoy_01.mp3','overlay_02',1,1.0)
+      },6000)
 
 
-	var austDay = new Date();
-	austDay = new Date(austDay.getFullYear() + 1, 1 - 1, 26);
-	$('#defaultCountdown').countdown({until: austDay});
+    //setTimeout('tannoy',4000)
 
-	$('#year').text(austDay.getFullYear());
+  });
 
-
-
-var txt = $('#comingsoon');  // The container in which to render the list
-
-var options = {
-  duration: 2000,          // Time (ms) each blurb will remain on screen
-  rearrangeDuration: 500, // Time (ms) a character takes to reach its position
-  effect: 'slideLeft',
-  centered: true         // Centers the text relative to its container
-}
-
-$("#overlay").click(function() {
-  master.hideOverlay();
-});
-
-        //txt.textualizer(master.extreme_array, options); // textualize it!
-        //txt.textualizer('start'); // start
-
-
-         master.setDeepLinking("lowerplatform_closed.php")
-        document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
-      })
 
     </script>
 

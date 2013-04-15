@@ -151,12 +151,13 @@
 		 
 		var convCoord =  Math.abs(coord%360);
 		var convCoord1 =  Math.abs((coord-180)%360);
+
 		
 
        if(convCoord > 150 && convCoord < 180){
-          $("#ghost-canvas-trans").fadeIn(500)
+          $("#ghost-canvas-trans").fadeIn(300)
         }else{
-          $("#ghost-canvas-trans").fadeOut(500)
+          $("#ghost-canvas-trans").fadeOut(2500)
         }
 
     if(fov <5) {
@@ -208,6 +209,11 @@ $(document).ready(function(){
 
   master.ghostTrans('2guys_walk_away3',16)
   master.setDeepLinking("hallway.php")
+
+
+  setTimeout(function(){
+        master.AFXloadAudio('audio/tannoy_02.mp3','overlay_02',-1,1.0)
+  },6000)
 
 
   /// VIDEO LOGIC 

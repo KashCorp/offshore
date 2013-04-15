@@ -43,7 +43,7 @@
     	<canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>
       <div id="viewport" style="left:0px">
 
-         <div id='word-container'>
+         <div id='word-container' style='-webkit-transform:translateZ(-1400px)'>
           <ul>
             <li id="word_01">Reality exists in the human mind, and nowhere else.</li>
           </ul>

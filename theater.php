@@ -42,26 +42,19 @@
     <div id="wrapper" class="wrapper">
 
        <div class="pano-underlay">
-        <video width="100%" autoplay loop = "true" style="position:absolute;top:17%" id="video-underlay" preload="auto">
-           <source src="video/waves.webm" type="video/webm" />
+        <video width="100%" height:"100%" autoplay loop = "true" style="position:absolute;top:17%" id="video-underlay" preload="auto">
+           <source src="video/oil_shot.webm" type="video/webm" />
+           <source src="video/oil_shot.mp4" type="video/mp4" />
         </video> 
 
       </div>
       <div class="underwater">  </div>
 
   		<div id="panocontainer" class="theater"></div>
+      
   		<div class="breadcrumb"></div>
 
   	</div>
-
-
-
-    <div id="inter-text" style="display: block"></div>
-
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/w.ogg" type="audio/ogg" />
-    </audio>
-
 
 
     <!-- JavaScripts -->
@@ -75,11 +68,8 @@
     <script>
       $(document).ready(function(){
 
-      //$('#inter-text' ).shuffleLetters();
-		// master.videoTrans("video/transitions/explosion.webm")
         master.blankTrans()
-        document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
-
+    
         master.setDeepLinking("theater.php")
       })
 

@@ -14,8 +14,13 @@
 	<events 
 		onmousedown="action(globalmousedown)" 
 		onloadcomplete= "js(panoLoaded())"
+		onviewchange="action(viewchange)" 
 		/> 
-	 
+
+	<action name="viewchange">
+		js(soundadjust(get(view.hlookat)));
+	</action>
+		 
 	<action name="globalmousedown">
 		set(plugin[directions].visible,false);
 		set(autorotate.enabled,false);

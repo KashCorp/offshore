@@ -70,10 +70,10 @@
 
 
     <script>
-var soundVector1 = soundVector2 = soundVector3 = 0;
-var soundadjust = function(coord) {
-      var convCoord =  Math.abs(coord+60%360);
-      var convCoord1 =  Math.abs((coord-120)%360);
+      var soundVector1 = soundVector2 = soundVector3 = 0;
+      var soundadjust = function(coord) {
+        var convCoord =  Math.abs(coord+60%360);
+        var convCoord1 =  Math.abs((coord-120)%360);
 
         if(convCoord < 180 ){
           soundVector1 = convCoord/180;
@@ -81,10 +81,10 @@ var soundadjust = function(coord) {
           soundVector1 = (360-convCoord)/180;
         }
 
-        //console.log(soundVector1*2-1)
-       
+              //console.log(soundVector1*2-1)
+             
 
-   
+         
         if(convCoord1 < 180 ){
           soundVector2 = (convCoord1)/180;
         }else{
@@ -93,16 +93,12 @@ var soundadjust = function(coord) {
 
 
         if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-
-          // parent.audiomaster.mix.tracks[0].pan(soundVector2*2-1)
-          // parent.audiomaster.mix.tracks[0].gain(soundVector2)
-       
-            //parent.audiomaster.mix.getTrack('overlay_01').gain(soundVector1)
-            parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
-           }
+          parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+          parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+        }
 
 
-       }
+      }
 
        
 

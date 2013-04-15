@@ -41,7 +41,7 @@
     <div id="wrapper" class="wrapper">
 
        <div class="pano-underlay">
-        <video width="100%" hieght="100%" loop = "true" style="position:absolute" autoplay id="video-underlay">
+        <video width="100%" hieght="100%" loop = "true" autoplay style="position:absolute" id="video-underlay">
            <source src="video/transitions/oil_shot.webm" type="video/webm" />
            <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
         </video> 
@@ -61,7 +61,7 @@
             <!-- VIDEO THUMBS -->
 
             <li data-url="video/doc_content/MK_ExtremeFrontiers" data-popcorn="klare_01" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true" autoplay  preload="auto">
+              <video width="250" volume = "0" loop = "true"  preload="auto">
                   <source src="video/doc_content/MK_ExtremeFrontiers_thumb.webm" type="video/webm" />
               </video> 
               <br>
@@ -69,7 +69,7 @@
             </li>
                         
             <li data-url="video/transitions/3d_seismic_cube03_10sec" data-popcorn="seismic" class="vid-menu-nav">
-                <video width="250" volume = 0 loop = "true" autoplay preload="auto">
+                <video width="250" volume = 0 loop = "true" preload="auto">
                   <source src="video/transitions/3d_seismic_cube03_10sec.webm" type="video/webm" />
                 </video> 
                 <br>
@@ -77,7 +77,7 @@
             </li>
 
             <li data-url="video/doc_content/MK_EasyOil" data-popcorn="klare_01" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true" autoplay  preload="auto">
+              <video width="250" volume = "0" loop = "true"    preload="auto">
                   <source src="video/doc_content/MK_EasyOil_thumb.webm" type="video/webm" />
               </video> 
               <br>
@@ -107,11 +107,11 @@
 
 
     <div id="inter-text" style="display: block"></div>
-
+<!--
     <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
       <source src="audio/21_w.ogg" type="audio/ogg" />
-
     </audio>
+  -->
 
 
 
@@ -129,7 +129,6 @@
 
  var openHatch = function(closing){
 
-  console.log(closing)
 
    if(closing){
     
@@ -169,7 +168,40 @@
    })
  }
 
+
+var klaxxon = function(){
+  console.log("KLAXXON")
+  var krpano = document.getElementById('krpanoObject')
+  $('canvas').css('-webkit-filter', 'blur(12px) grayscale (.5) opacity(0.8) hue-rotate(120deg)')
+}
 var soundadjust = function(coord,fov) {
+  //console.log(coord)
+
+  var convCoord =  Math.abs(coord+60%360);
+  var convCoord1 =  Math.abs((coord-120)%360);
+
+  if(convCoord < 180 ){
+    soundVector1 = convCoord/180;
+  }else{
+    soundVector1 = (360-convCoord)/180;
+  }
+
+              //console.log(soundVector1*2-1)
+             
+
+         
+  if(convCoord1 < 180 ){
+    soundVector2 = (convCoord1)/180;
+  }else{
+    soundVector2 = (360-(convCoord1))/180;
+  }
+
+
+  if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+    parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+    parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+  }
+
   
   if(fov <5) {
     $('#underlay-control-wrapper').fadeIn(500)

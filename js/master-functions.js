@@ -566,7 +566,7 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 		}
 	} 	
 
-	if(_isNotPano) $('.wrapper').fadeIn(500)
+	if(_isNotPano) $('.wrapper').fadeIn()
 	$('.breadcrumb').fadeIn()
 
 
@@ -594,10 +594,10 @@ this.loadOverlayAudio = function(_file){
 		.start();               
 }
 
-this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume){
+this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 
 
-	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan)
+	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,_isLoop)
 
 	var dummysounds = { s:  0};
 
@@ -613,6 +613,32 @@ this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume){
 		})
 		.start();               
 }
+
+this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume){
+
+	console.log(_file)
+
+	if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
+
+	if(!_targetVolume) {_targetVolume = 1.0}
+
+	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true")
+
+	var dummysounds = { s:  0};
+
+	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
+		.onUpdate( function() {
+			master.isTweeningAudio = true
+			parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
+		})
+		.easing(TWEEN.Easing.Quadratic.Out )
+		.onComplete(function() {
+			master.isTweeningAudio = false
+			TWEEN.remove(driftTweenSounds); 
+		})
+		.start();               
+}
+
 
 
 this.audioFadeAll = function(targetVolume){
@@ -958,17 +984,18 @@ var walkthroughFunctions = function(w,h,canvasid,filePathPre,imageNumber) {
 			   	 });
 	   	});
 
-	   	    if ($("#scroll-wrapper")[0].addEventListener) {
+	if(document.getElementById('scroll-wrapper')){
+	   	if ($("#scroll-wrapper")[0].addEventListener) {
                 // IE9, Chrome, Safari, Opera
-                $("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false);
+        $("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false);
                 // Firefox
-                $("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false);
-		    }
+        $("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+		}
 		            // IE 6/7/8
-		            else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); 
-
-
-		    function MouseWheelHandler(e){
+		else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); 
+	}
+	
+	function MouseWheelHandler(e){
 		                var e = window.event || e; // old IE support
 		                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 		                scrollerPos += delta*10

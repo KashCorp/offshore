@@ -55,14 +55,6 @@
 
 
 
-    <div id="inter-text" style="display: block"></div>
-<!--
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/Helipad_Ambience_Music.ogg" type="audio/ogg" />
-      <source src="audio/Helipad_Ambience_Music.mp3" type="audio/mpeg" />
-    </audio>
-  -->
-
 
 
     <!-- JavaScripts -->
@@ -78,7 +70,7 @@
 
       master.blankTrans()
 
-        document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
+      
 
         master.setDeepLinking("interiorsub-wire.php")
       })

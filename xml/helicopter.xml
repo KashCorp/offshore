@@ -43,7 +43,7 @@
 			/>
 
 		<view 
-			hlookat="0.0"
+			hlookat="180.0"
 		  fov="90.0"
 		  fovmax="90.0"
 		  fovmin="10.0"
@@ -62,6 +62,18 @@
 				<cube url="../images/panos/helicopter/pano_%s.jpg" />
 			</mobile>
 		</image>
+
+		<hotspot name="headphones" url="../images/hotspot.gif"
+			ath="165"
+			atv="15"
+			distorted="true"
+			alpha="0."
+			width="555.0"
+			height="105.0"
+			onclick="js(loadAFXPano(audio/greetings.mp3))"
+			scale="1.0"
+			capture="false"
+			/>
 
 
 		<hotspot name="exit" url="../images/hotspot.gif"

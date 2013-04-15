@@ -46,8 +46,9 @@
      
 
        <div class="pano-underlay">
-        <video width="100%" autoplay loop = "true" style="position:absolute;" id="video-underlay" preload="auto">
-           <source src="video/transitions/wireframe_waves.webm" type="video/webm" />
+        <video width="100%" height="100%" autoplay loop = "true" style="position:absolute;" id="video-underlay" preload="auto">
+           <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
+           <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
         </video> 
 
       </div> 
@@ -55,24 +56,6 @@
       <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
       <div id="scroll-start" class="scroll-nav">Go Back?</div>
       <div id="scroll-end" class="scroll-nav">Continue?</div>
-<!--
-      <div class="video-content-desktop">
-        <video width="100%" style="position:absolute;display:block; -webkit-filter: brightness(300%);" id="video-overlay-desktop" loop="true" preload="auto">
-          <source/>
-        </video>
-             <svg id='video-filter' version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-            <filter id="inverse">
-            <feComponentTransfer>
-            <feFuncR type="table" tableValues="1 0"/>
-            <feFuncG type="table" tableValues="1 0"/>
-            <feFuncB type="table" tableValues="1 0"/>
-            </feComponentTransfer>
-            </filter>
-            </defs>
-            </svg>       
-      </div> 
--->
   		<div id="panocontainer" class="subhanger"></div>
 
 
@@ -96,17 +79,10 @@
 <!-- END OVERLAY VIDEOS -->
 
       <div id="scroll-directions"></div>
+      
   		<div class="breadcrumb"></div>
 
   	</div>
-
-
-
-    <div id="inter-text" style="display: block"></div>
-
-
-
-
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
@@ -119,6 +95,10 @@
     <script>
 
       var krpano
+      var soundVector1 = soundVector2 = soundVector3 = 0;
+
+
+
       var loadsecondscene = function() { 
         $('#video-underlay').fadeOut()
         console.log("load second scene")
@@ -139,8 +119,33 @@
       var soundadjust = function(coord,fov) {
 
         var convCoord =  Math.abs(coord%360);
+        var convCoord1 =  Math.abs((coord-120)%360);
 
-    
+        if(convCoord < 180 ){
+          soundVector1 = convCoord/180;
+        }else{
+          soundVector1 = (360-convCoord)/180;
+        }
+
+      if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+        parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+        parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+      }
+              //console.log(soundVector1*2-1)
+             
+
+         
+  if(convCoord1 < 180 ){
+    soundVector2 = (convCoord1)/180;
+  }else{
+    soundVector2 = (360-(convCoord1))/180;
+  }
+
+
+  if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+    parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+    parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+  } 
 
         if(convCoord > 100 && convCoord < 160){
           $("#ghost-canvas").fadeIn(2500)
@@ -151,9 +156,9 @@
  
         if(fov <25) {
           $('#scroll-directions').fadeIn()
-          $('#panocontainer').fadeOut(500)
+          $('#panocontainer, .fastpan').fadeOut(500)
         }else{
-          $('#panocontainer').fadeIn(500)
+          $('#panocontainer, .fastpan').fadeIn(500)
           $('#scroll-directions').fadeOut()
           $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
         }

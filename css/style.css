@@ -27,6 +27,8 @@ html, body {
 	height:99%;
 }
 
+
+
 article, aside, figure, footer, header,
 hgroup, nav, section { display:block; }
 
@@ -312,6 +314,37 @@ a:hover {
 	color: #ead342;
 }
 
+#fastpanleft, #fastpanright {
+	position: absolute;
+	width:10%;
+	top:20px;
+	bottom:20px;
+	cursor:pointer;
+
+}
+
+#fastpantop, #fastpanbottom {
+	position: absolute;
+	height:10%;
+	left:0;
+	right:0;
+	cursor:pointer;
+
+}
+
+#fastpanleft{
+	left:0px;
+}
+#fastpanright{
+	right:0px;
+}
+
+#fastpantop{
+	top:0px;
+}
+#fastpanbottom{
+	bottom:0px;
+}
 /*.breadbox a,
 .breadbox-blog a {
 	cursor: default;
@@ -1204,6 +1237,7 @@ cursor:pointer;
     margin-top:-80px;
     right:50%;
     opacity:.5;
+    display:none;
 
 }
 

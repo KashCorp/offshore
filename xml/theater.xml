@@ -58,17 +58,7 @@
     <up    url="../images/panos/theater/pano_u.jpg" />
     <down  url="../images/panos/theater/pano_d.jpg" />
 		</image>
-	
-	<image devices="Desktop">    
-    <left  url="../images/panos/theater/pano_l.jpg" />
-    <front url="../images/panos/theater/pano_f.png" />
-    <right url="../images/panos/theater/pano_r.jpg" />
-    <back  url="../images/panos/theater/pano_b.jpg" />
-    <up    url="../images/panos/theater/pano_u.jpg" />
-    <down  url="../images/panos/theater/pano_d.jpg" />
 
-
-	 </image>
 
 <!--	 	<image>
 				<cube url="../images/panos/theater/pano_%s.jpg" />

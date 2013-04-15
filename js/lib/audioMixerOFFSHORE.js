@@ -164,6 +164,7 @@
      
 
 		this.options = Mix.prototype.extend.call(this, defaults, opts || {});
+		console.log("NO LOOPING" + this.options.nolooping)
 		this.name = name;
 		this.events = {};
 		this.ready = false;
@@ -172,6 +173,7 @@
 		this.set('soloed', false);
 		this.set('afl', true);
 		this.set('currentTime', 0);
+		this.set('nolooping', this.options.nolooping);
 		this.set('gainNode', this.get('mix').context.createGainNode());
 		this.set('panner', this.get('mix').context.createPanner());
 		this.get('panner').panningModel = webkitAudioPannerNode.EQUALPOWER;
@@ -197,13 +199,13 @@
         request.onload = function() {
 
         var audioData = request.response;
- 
 
-        	console.log("can play through")
 			self.set('source', self.get('mix').context.createBufferSource());
 			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
 			self.get('source').buffer = self.get('sourceBuffer')
-			self.get('source').loop = true
+			console.log("self" + self.get('nolooping'))
+			if(!self.get('nolooping')) self.get('source').loop = true
+			
 			self.get('source').connect(self.get('panner'));
 			self.get('panner').connect(self.get('gainNode'));
 			self.get('gainNode').connect(self.get('mix').context.destination);

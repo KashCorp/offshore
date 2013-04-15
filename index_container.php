@@ -104,8 +104,8 @@
         return {
           mix: mix,
           sources:[],
-          loadAudio : function(_src,_name,gain,pan){
-            var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan});  
+          loadAudio : function(_src,_name,gain,pan,nolooping){
+            var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan, nolooping:nolooping});  
           }
 
         }
@@ -114,7 +114,7 @@
 
       var audiomaster = new audioMaster();
       
-      audiomaster.loadAudio('audio/Drone_1.mp3','basetrack',1,0)
+      audiomaster.loadAudio('audio/Drone_1_norm.mp3','basetrack',1,0)
 
 
 

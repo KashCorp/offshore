@@ -22,7 +22,6 @@
 		/> 
 	 
 	<action name="globalmousedown">		
-		set(plugin[directions].visible,false);
 		set(autorotate.enabled,false);
 	</action>
 
@@ -53,17 +52,6 @@
 
 		</image>
 
-
-
-		<plugin name="directions"
-			url="../images/panos/platform/hotspots/directions.png"
-			capture="false"
-			align="top"
-			edge="top"
-			y="60"
-			alpha="1.0"
-			visible="true"
-			/>
 			
 			
 

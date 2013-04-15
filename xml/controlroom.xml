@@ -48,7 +48,7 @@
 			/>
 
 		<view 
-			hlookat="85"
+			hlookat="-167"
 		  fov="90.0"
 		  fovmax="180.0"
 		  fovmin="1.0"
@@ -79,11 +79,23 @@
     <down  url="../images/panos/controlroom/pano_d.jpg" />
 		</image>
 
+		<hotspot name="video1"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="%SWFPATH%/../../../video/controlroom_walkthrough.webm"
+			ath="-160.1" atv="-13.5"
+			distorted="true"
+			scale="0.130" 
+			rx="15" 
+			ry="0" 
+			rz="5.5" 
 
-		<!--<image devices="Desktop">     <cube url="../images/panos/controlroom/pano_%s.png"   /> </image>
-		<image devices="Mobile">      <cube url="../images/panos/controlroom/mobile_%s.png" /> </image>
-		<image devices="Tablet">      <cube url="../images/panos/controlroom/pano_%s.png../images/panos/platform/pano_%s.png" /> </image>
--->
+			alpha="0.55"
+			onclick="lookto(-159,-12,20,smooth(),true,true)"
+			loop="true"
+			/>
+
 		<plugin name="directions"
 			url="../images/panos/platform/hotspots/directions.png"
 			capture="false"
@@ -101,7 +113,7 @@
 			atv="-9.82"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(startDrilling());set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);"
+			onclick="js(klaxxon());js(loadAFXPano(audio/klaxxon.mp3));js(startDrilling());set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);"
 			capture="false"
 			scale=".71"
 			/>
@@ -405,24 +417,7 @@
 			}
 		</data>
 			
-		<data name="nav_01">
-    <p><img src="images/panos/platform/hotspots/Text_About.png" /></p>
-		</data>
-
-
-		<data name="nav_02">
-    <p><img src="images/panos/platform/hotspots/Text_Explore.png" /></p>
-		</data>		
-	
-	
-		<data name="nav_03">
-    <p><img src="images/panos/platform/hotspots/Text_Blog.png" /></p>
-		</data>	
-
-
-		<data name="nav_04">
-    <p><img src="images/panos/platform/hotspots/Text_Crew.png" /></p>
-		</data>			
+		
 
 		<data name="cssdata1">
 			p {
