@@ -146,11 +146,11 @@
 			/>
 
 		<hotspot name="Capt_Shane_Gif" 
-			url="../images/icons/gif_icon2.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="360"
 			atv="1"
 			distorted="true"
-			alpha=".4"
+			alpha=".5"
 			height="75"
 			width="75"
 			scale="1.0"
@@ -179,11 +179,11 @@
 			/>
 
 		<hotspot name="Rossina_Gif" 
-			url="../images/icons/gif_icon2.gif"
+			url="../images/icons/gif_iconB.gif"
 			ath="270"
 			atv="1"
 			distorted="true"
-			alpha=".4"
+			alpha=".5"
 			height="60"
 			width="60"
 			scale="1.0"
@@ -211,13 +211,13 @@
 			/>
 
 		<hotspot name="Darla_Gif" 
-			url="../images/icons/gif_icon2.gif"
+			url="../images/icons/gif_iconC.gif"
 			ath="200"
 			atv="1"
 			distorted="true"
-			alpha=".4"
-			height="75"
-			width="75"
+			alpha=".5"
+			height="50"
+			width="50"
 			scale="1.0"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darlas_life_720)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
