@@ -1,0 +1,270 @@
+/* ========================================================================== *\
+  	RESET
+\* ========================================================================== */
+
+/*   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)  v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark  html5doctor.com/html-5-reset-stylesheet/*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, figure, footer, header, hgroup, menu, nav, section, menu,
+time, mark, audio, video {
+margin:0;
+padding:0;
+border:0;
+outline:0;
+font-size:100%;
+vertical-align:baseline;
+background:transparent;
+}
+
+html, body {
+	height:99%;
+}
+
+
+
+article, aside, figure, footer, header,
+hgroup, nav, section { display:block; }
+
+nav ul { list-style:none; }
+
+blockquote, q { quotes:none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content:''; content:none; }
+
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; }
+
+/* tables still need cellspacing="0" in the markup */
+table { border-collapse:collapse; border-spacing:0; }
+
+hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+
+input, select { vertical-align:middle; }
+
+/* maxvoltar.com/archive/-webkit-font-smoothing */
+html { -webkit-font-smoothing: antialiased; }
+
+.ie7 img { -ms-interpolation-mode: bicubic; }
+
+strong {font-weight: bold;}
+
+em {font-style: italic;}
+
+/* Add wrapping to coding sections */
+pre {
+padding: 15px;
+white-space: pre; /* CSS2 */
+white-space: pre-wrap; /* CSS 2.1 */
+white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+word-wrap: break-word; /* IE */
+}
+
+/* END RESET CSS */
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/shelf/icomoon.eot');
+	src:url('../fonts/shelf/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/shelf/icomoon.woff') format('woff'),
+		url('../fonts/shelf/icomoon.ttf') format('truetype'),
+		url('../fonts/shelf/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"] {
+
+.icon-about, .icon-blog, .icon-resources {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-about:before {
+	content: "\61";
+}
+.icon-blog:before {
+	content: "\62";
+}
+.icon-resources:before {
+	content: "\72";
+}
+*/
+
+
+
+body {
+	font-size: 1em;
+	
+}
+
+body,html {
+margin:0;
+padding:0;
+color:#000;
+background:url(../images/bg_platform_mockup.jpg) no-repeat center center fixed;
+background-repeat:no-repeat;
+background-attachment:fixed;
+background-position:center; 
+}
+
+
+
+/* ========================================================================== *\
+  	MAIN
+\* ========================================================================== */
+
+.footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:2.5em;   /* Height of the footer */
+   background:#000;
+   opacity: .5;
+   display: inline;
+}
+
+header img {
+	float: left;
+	height: 80%;
+	margin-top: .5em;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+ 
+.left {
+  
+  float: left;
+  display: inline;
+  height: 100%;
+  background-color: #222;
+  line-height: 2.3em;
+}
+
+ul {
+  overflow: auto;
+  list-style-type: none;
+  
+}
+ 
+li {
+  float: left;
+  margin: 0 1em 0 1em;
+}
+
+ul li a {
+
+	font-size: 1em;
+	text-decoration: none;
+	color: #fff;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 400; 
+	display: inline-block;
+}
+
+ul li a[href="about.html"]:before {
+	font-family: "icomoon";
+	content: "\61";
+	position: relative;
+	padding-right: .5em;
+}
+
+ul li a[href="blog.html"]:before {
+	font-family: "icomoon";
+	content: "\62";
+	position: relative;
+	padding-right: .5em;
+
+}
+
+ul li a[href="resources.html"]:before {
+	font-family: "icomoon";
+	content: "\72";
+	position: relative;
+	padding-right: .5em;
+}
+
+
+.info {
+	display: inline-block;
+	float: right;
+	overflow: auto;
+	height: 100%;
+}
+
+.title {
+	float: left;
+	font-size: .6em;
+	text-decoration: none;
+	color: #fff;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 700;
+	background-color: #3f3f3d;
+	height: 100%;
+	padding-left: .5em;
+	padding-right: 2em;
+}
+
+.price {
+	float: left;
+	font-size: 1.4em;
+	text-decoration: none;
+	color: #fff;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 300;
+	padding-left: .5em;
+	padding-right: .5em;
+	background-color: #606060;
+	height: 100%;
+	line-height: 2em;
+}
+
+.change {
+	float: left;
+	font-size: .8em;
+	text-decoration: none;
+	color: #06c506;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: 700;
+	background-color: #5d5d5d;
+	height: 100%;	
+	padding-left: .5em;
+	padding-right: .5em;
+	border-left: 2px solid #414141;
+}

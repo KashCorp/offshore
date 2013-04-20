@@ -325,13 +325,13 @@ header {
 	font-family: Helvetica;
 	font-size: 1.2em;
 	color: #33353a;
-	padding: 1.1em;
+	padding: .9em;
 }
 
 .sidebar h2:before {
 	font-family: "icomoon";
 	color: #33353a;
-	font-size: 1.5em;
+	font-size: 1.3em;
 	content: "\62";
 	position: relative;
 	top: .1em;
@@ -343,7 +343,8 @@ header {
 	font-weight: bold;
 	font-size: 10px;
 	font-family: Helvetica;
-	padding-bottom: .4em;
+	padding-left: 1.4em;
+	padding-top: 1em;
 }
 
 .sidebar .recent {
