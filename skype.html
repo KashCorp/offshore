@@ -1,10 +1,13 @@
 <!doctype html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="css/skype.css">
-	<link rel="stylesheet" type="text/css" href="css/skype.css">
+
+	<link rel="stylesheet" type="text/css" href="css/skype.css">	
+	<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/lib/turn/modernizr.2.5.3.min.js"></script>
 </head>
-<body>
+<body style="background:none">
 
 	<div class="ipad">
 		<img src="images/skype_ipad.png" alt="iPad Background">
@@ -16,6 +19,7 @@
 				<div class="subhead">
 					<h2>People</h2>
 				</div>
+				<div style="background: #e7f1f5; height:78%">	
 						<p>RECENT<p>
 						<ul class="recent">
 						<li><a href="#">Rolake</a></li>
@@ -25,6 +29,7 @@
 						<div class="history">
 							<a href="#">History</a>
 						</div>
+				</div>
 			</div>
 			
 			<div class="main">
@@ -39,7 +44,7 @@
 					</h2>
 				</div>
 				
-				<div>
+				<div style="background-color:#ffffff; height:100%">
 				  <ul>
 				    <li><a href="#"><img src="images/skype_contact.jpg"></a>Rolake 01</li>
 				    <li><a href="#"><img src="images/skype_contact.jpg"></a>Rolake 02</li>
@@ -57,8 +62,19 @@
 
 		</div>
 	</div>
+<a id="close-control" class="platform-nav">Close</a>
 
+<script type="text/javascript">
+
+$(".platform-nav").click(function(){
+	console.log("click")
+	parent.master.closeBook()
+
+})
+
+</script>
 	
 
 
 </body>
+</html>

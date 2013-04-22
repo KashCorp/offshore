@@ -117,9 +117,9 @@
  
       if(fov <25) {
         $('#scroll-directions').fadeIn()
-        $('#panocontainer').fadeOut(500)
+        $('#panocontainer, .fastpan').fadeOut(500)
       }else{
-        $('#panocontainer').fadeIn(500)
+        $('#panocontainer, .fastpan').fadeIn(500)
          $('#scroll-directions').fadeOut()
         $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
       }
