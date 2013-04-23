@@ -94,6 +94,29 @@ word-wrap: break-word; /* IE */
 
 }
 
+@font-face {
+    font-family: 'icomoon';
+    src:url('../fonts/shelf/icomoon.eot');
+    src:url('../fonts/shelf/icomoon.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/shelf/icomoon.woff') format('woff'),
+        url('../fonts/shelf/icomoon.ttf') format('truetype'),
+        url('../fonts/shelf/icomoon.svg#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'roboto';
+    src: url('../fonts/robotocondensed-regular-webfont.eot');
+    src: url('../fonts/robotocondensed-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/robotocondensed-regular-webfont.woff') format('woff'),
+         url('../fonts/robotocondensed-regular-webfont.ttf') format('truetype'),
+         url('../fonts/robotocondensed-regular-webfont.svg#roboto_condensedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 h1, h2, h3, p {margin-bottom: 10px;}
 
 header {font-family: 'DinRegular', Helvetica, Arial, sans-serif;}
@@ -269,7 +292,7 @@ a:hover {
 	left:0;
 	bottom: 0;
 	height:40px;
-  overflow:hidden;
+    overflow:hidden;
 }
 
 .breadcrumb {
@@ -283,7 +306,6 @@ a:hover {
 	background: url(../images/bg_black_50.png);
     overflow:hidden;
 	font-size:11px;
-	text-transform:uppercase;
 	z-index: 100;
 }
 
@@ -305,8 +327,9 @@ a:hover {
 
 
 .breadcrumb nav ul {
-  overflow: hidden;
-  list-style-type: none;
+    float: left;
+    overflow: hidden;
+    list-style-type: none;
 }
  
 .breadcrumb nav ul li {    
@@ -315,10 +338,10 @@ a:hover {
 
 .breadcrumb nav ul li a {
     background: url(../images/bg_white_30.png);
-    font-size: 1em;
+    font-size: 1.5em;
     text-decoration: none;
     color: #fff;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'roboto', sans-serif;
     font-weight: 400; 
     display: inline-block;
     padding: 0 1em;
@@ -326,7 +349,7 @@ a:hover {
 }
 
 .breadcrumb nav ul li a:before {
-    font: 1.5em "icomoon";
+    font: 1.5em 'icomoon';
     line-height: 40px;
     margin-right: 5px;
     position: relative;
@@ -354,25 +377,30 @@ a:hover {
     height: 100%;
 }
 
+.breadcrumb p {
+    margin: 0;
+}
+
 .breadcrumb .title {
     float: left;
-    font-size: .6em;
+    text-align: left;
     text-decoration: none;
     color: #fff;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 700;
+    font-family: 700 .8em 'roboto', sans-serif;
     background-color: #3f3f3d;
     height: 40px;
-    padding-left: .5em;
-    padding-right: 2em;
+    padding: .5em 2em .5em .5em; 
+    text-transform: uppercase;
 }
+
+
 
 .breadcrumb .price {
     float: left;
     font-size: 1.8em;
     text-decoration: none;
     color: #fff;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'roboto', sans-serif;
     font-weight: 300;
     padding-left: .5em;
     padding-right: .5em;
@@ -382,15 +410,14 @@ a:hover {
 
 .breadcrumb .change {
     float: left;
-    font-size: .8em;
+    font-size: .9em;
     text-decoration: none;
     color: #06c506;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'roboto', sans-serif;
     font-weight: 700;
     height: 40px;
     background-color: #5d5d5d;
-    padding-left: .5em;
-    padding-right: .5em;
+    padding: .5em;
     border-left: 2px solid #414141;
 }
 
@@ -560,7 +587,7 @@ header .volume-toggle {
 	z-index: 1000;
 }
 
-#wrapper h1 {
+/*#wrapper h1 {
 	background: url(../images/hd_offshore_clear_backup.png) center center no-repeat;	
 	left: 0px;
 	height: 40px;
@@ -568,7 +595,7 @@ header .volume-toggle {
 	bottom: 30px;
 	width: 249px;
 	z-index: 105;
-}
+}*/
 
 /*header h2 {
 	color: #dbd9da;

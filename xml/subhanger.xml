@@ -101,10 +101,6 @@
 		<image devices="Mobile">      <cube url="../images/panos/subhanger/mobile_%s.png" /> </image>
 		<image devices="Tablet">      <cube url="../images/panos/subhanger/pano_%s.png../images/panos/subhanger/pano_%s.png" /> </image>
 -->
-
- 
-
-
 		<plugin name="directions"
 			url="../images/panos/platform/hotspots/directions.png"
 			capture="false"

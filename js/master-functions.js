@@ -123,24 +123,54 @@ var masterFunctions = function() {
 		  	}) 
 		    
       		$(".breadcrumb").append('<div id="breadbox-container"></div>');
+
+            var insertNav = function(price, change, percent) {
+                var breadbox_string = '';
+                breadbox_string += '<h1><img src="images/splash_logo_backup.png" alt=""></h1>';
+                breadbox_string += '<nav class="left">';
+                breadbox_string += '<ul><li><a href="about.html">About</a></li>';
+                breadbox_string += '<li><a href="blog.html">Blog</a></li>';
+                breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
+                breadbox_string += '</nav>';
+
+                breadbox_string += '<div class="info"><div class="title"><p>Brent Crude Oil</p><p>USD / Barrel</p></div>';
+                breadbox_string += '<div class="price"><p>$' + price + '</p></div>';
+
+                breadbox_string += '<div class="change"><p>' + change + '</p><p>' + percent + '</p></div>';
+                
+
+                $('#breadbox-container').html(breadbox_string);
+            }
       
       		var hash = parent.window.location.hash
 
       		var placer = that.divider, temp_icon;
 
-            var breadbox_string = '';
-            breadbox_string += '<h1><img src="images/splash_logo_backup.png" alt=""></h1>';
-            breadbox_string += '<nav class="left">';
-            breadbox_string += '<ul><li><a href="about.html">About</a></li>';
-            breadbox_string += '<li><a href="blog.html">Blog</a></li>';
-            breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
-            breadbox_string += '</nav>';
+            var futureMonthsCode = ['F','G','H','J','K','L','M','N','Q','U','V','X','Z']
 
-            breadbox_string += '<div class="info"><div class="title"><p>Brent Crude Oil</p><p>USD / Barrel</p></div>';
-            breadbox_string += '<div class="price"><p>$103.11</p></div>';
+            var d = new Date();
+            var m = d.getMonth();
+            var y = d.getYear();
 
-            breadbox_string += '<div class="change"><p>+6.69</p><p>+6.80%</p></div>';
-      		
+            var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20LastTradePriceOnly,ChangeinPercent,Change%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22BZ' + futureMonthsCode[m-1] + '13.NYM%22%29%0A%09%09&format=xml&diagnostics=false&env=http%3A%2F%2Fdatatables.org%2Falltables.env'
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "xml",
+                success: function(xml){
+                    var price = $(xml).find("LastTradePriceOnly").text();
+                    var percent = $(xml).find("ChangeinPercent").text();
+                    var change = $(xml).find("Change").text();
+                    console.log(price);
+                    console.log(percent);
+                    insertNav(price, change, percent);
+                }
+            });
+
+            
+
+            
       		/*$(that.url_array).each(function(i,v){
      	 
       			var v_array = v.split("~") 
