@@ -103,6 +103,7 @@
 <!-- JavaScripts -->
 <script type="text/javascript" src="js/master-functions.js"></script>
 
+
 <script type="text/javascript">
 
 $(".platform-nav").click(function(){
@@ -120,8 +121,14 @@ $(document).ready(function(){
 
     $('.interface').fadeOut(500,function(){
     	$('.movie').css('display','table')
+    	console.log($(that).data('url'))
     	$('#skypeVideo').attr('src', $(that).data('url'));
-			document.getElementById("skypeVideo").play();
+    	$('#skypeVideo')[0].load();
+
+    	$('#skypeVideo').on('canplaythrough', function(){
+                     $('#skypeVideo')[0].play()
+       });
+			// document.getElementById("skypeVideo").play();
     })
   })
 
@@ -131,7 +138,7 @@ $(document).ready(function(){
 
   	document.getElementById("skypeVideo").pause();
   	$('.interface').fadeIn(500,function(){
-			$('#close-control').css('display','block')
+			$('#close-control').fadeIn(500)
   	})
   })
 

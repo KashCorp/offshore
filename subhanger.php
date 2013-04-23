@@ -110,11 +110,11 @@
       }
 
       var showIpad = function(){
-              $(".video-content-wrap-desktop").fadeIn(1500)
-              $('#video-overlay-desktop source').attr('src', "video/transitions/cloud_shot.webm");
-              $('#video-overlay-desktop video').load();
-              $("#video-overlay-desktop")[0].load()
-              $("#video-overlay-desktop")[0].play()
+        $(".video-content-wrap-desktop").fadeIn(1500)
+        $('#video-overlay-desktop source').attr('src', "video/transitions/cloud_shot.webm");
+        $('#video-overlay-desktop video').load();
+        $("#video-overlay-desktop")[0].load()
+        $("#video-overlay-desktop")[0].play()
       }
       var soundadjust = function(coord,fov) {
 

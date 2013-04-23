@@ -54,6 +54,8 @@
 		 	keycodesin  =""
 		 	keycodesout =""
 		 	/>
+
+	
 	<scene name="doorIsClosed" onstart="">	 	
 	 	<image>
     <left  url="../images/panos/subhanger/pano_l.png" />
@@ -63,10 +65,6 @@
     <up    url="../images/panos/subhanger/pano_u.jpg" />
     <down  url="../images/panos/subhanger/pano_d.png" />
 		</image>
-	
-
-
-		
 	
 	<hotspot name="engineroom" url="../images/hotspot.gif"
 			ath="103"
@@ -83,6 +81,7 @@
 
 	</scene>
 
+
 	<scene name="doorIsOpen" onstart="">	 	
 	 	<image>
     <left  url="../images/panos/subhanger/pano_l.jpg" />
@@ -93,7 +92,18 @@
     <down  url="../images/panos/subhanger/pano_d.jpg" />
 		</image>
 	
-
+		<hotspot name="requiem" url="../images/hotspot.gif"
+				ath="70"
+				atv="-7"
+			
+				alpha="0"
+				width="500.0"
+				height="450.0"
+				borderwidth="0.0" borderwidthhover="1"
+				bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+				onclick="lookto(70,0,5,tween(easeOutQuad,4),true,true);set(hotspot[requiem].enabled,false);"
+				scale="1.0"
+		/>
 
 
 	</scene>

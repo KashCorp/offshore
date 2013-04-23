@@ -233,8 +233,9 @@ header {
 	font-weight: bold;
 	font-size: 1em;
 	font-family: Helvetica;
-
+	cursor: pointer;
 }
+
 .main li img { width: 100%; height: auto; }
 
 .main li div {
