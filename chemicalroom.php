@@ -102,19 +102,17 @@
         krpano.call("action(loadsecondscene)")
       })
      }
+
     var soundadjust = function(coord,fov) {
 
-    var convCoord =  Math.abs(coord%360);
+      var convCoord =  Math.abs(coord%360);
 
-    
+     if(convCoord > 100 && convCoord < 160){
+        $("#ghost-canvas").fadeIn(2500)
+      }else{
+        $("#ghost-canvas").fadeOut(2500)
+      }
 
-       if(convCoord > 100 && convCoord < 160){
-          $("#ghost-canvas").fadeIn(2500)
-        }else{
-          $("#ghost-canvas").fadeOut(2500)
-        }
-
- 
       if(fov <25) {
         $('#scroll-directions').fadeIn()
         $('#panocontainer, .fastpan').fadeOut(500)
@@ -128,24 +126,24 @@
 
 
 
-      $(document).ready(function(){
+    $(document).ready(function(){
 
-		    //master.videoTrans("video/transitions/explosion.webm")
-        var playTrigger = 0
-        master.blankTrans(1) 
-        //master.ghostTrans('ghost_01',16)
-        
-        master.setDeepLinking("chemicalroom.php")
+	    //master.videoTrans("video/transitions/explosion.webm")
+      var playTrigger = 0
+      master.blankTrans(1) 
+      //master.ghostTrans('ghost_01',16)
+      
+      master.setDeepLinking("chemicalroom.php")
 
-       $("#scroll-start").click(function(){
-         scrollTrigger = 0
-        krpano = document.getElementById("krpanoObject");
-        krpano.call("lookto(0,0,90,smooth(),true,true))")
-       });
+     $("#scroll-start").click(function(){
+       scrollTrigger = 0
+      krpano = document.getElementById("krpanoObject");
+      krpano.call("lookto(0,0,90,smooth(),true,true))")
+     });
 
-       $("#scroll-end").click(function(){
-        newPage("theater.php")
-       });
+     $("#scroll-end").click(function(){
+      newPage("theater.php")
+     });
 
 
 
