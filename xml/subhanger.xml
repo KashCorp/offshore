@@ -101,10 +101,6 @@
 		<image devices="Mobile">      <cube url="../images/panos/subhanger/mobile_%s.png" /> </image>
 		<image devices="Tablet">      <cube url="../images/panos/subhanger/pano_%s.png../images/panos/subhanger/pano_%s.png" /> </image>
 -->
-
- 
-
-
 		<plugin name="directions"
 			url="../images/panos/platform/hotspots/directions.png"
 			capture="false"
@@ -121,7 +117,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="30.0"
-			onclick="js(openBook(investigation_02.php))"
+			onclick="js(openBook(skype.html))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
