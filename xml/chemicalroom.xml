@@ -148,7 +148,7 @@
 			scale="1.0"
 			/>
 
-		<hotspot name="yellowbarrel" url="../images/hotspot.gif"
+		<hotspot name="Darla_GIF" url="../images/hotspot.gif"
 			ath="250"
 			atv="28"
 		    distorted="true"

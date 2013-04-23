@@ -18,7 +18,8 @@
 	 
 	<events 
 		onmousedown="action(globalmousedown)"
-		onloadcomplete= "js(panoLoaded())"  
+		onloadcomplete= "js(panoLoaded());set(hotspot[video_close].visible,false);"
+		onviewchange="action(viewchange)"
 		/> 
 	 
 	<action name="globalmousedown">		
@@ -26,9 +27,15 @@
 		set(autorotate.enabled,false);
 	</action>
 
+	<action name="viewchange">
+        set(currentX,get(view.hlookat));
+	  	add(currentX,180);
+		js(soundadjust(get(view.hlookat),get(view.fov)));
+	</action>
+
 	<action name="initialize">
 		set(plugin[directions].visible,true);
-		tween(plugin[directions].alpha,1.0,3)
+		tween(plugin[directions].alpha,1.0,3);
 	</action>
 	                   
 	<scene name="platform" onstart="">
@@ -41,7 +48,7 @@
 			hlookat="0.0"
 		  fov="90.0"
 		  fovmax="90.0"
-		  fovmin="25.0"
+		  fovmin="20.0"
 		  />
 
 		<control usercontrol = "all"
@@ -89,7 +96,7 @@
 			ath="355.15" 
 			atv="1"
 			distorted="true"
-			scale="0.35" 
+			scale="0.230" 
 			volume="1.0"
 			alpha="0.75"
 			directionalsound="true"
@@ -102,9 +109,24 @@
 			onunsupported=""
 			/>
 
+
+		<hotspot name="video_close" 
+			url="../images/icons/close_icon.png"
+			ath="10"
+			atv="-6.5"
+			distorted="true"
+			alpha=".5"
+			height="25"
+			width="25"
+			handcursor="true"
+			scale="1.0"
+			onclick="hotspot[video1].stop();set(hotspot[video_close].visible,false);set(hotspot[video1].visible,false);lookto(0,0,90,smooth(),true,true)"
+			capture = "false"
+			/>
+
  		<hotspot name="videoflag_01"
 			url="plugins/textfield.swf"
-			ath="340"
+			ath="337"
 			atv="-5"
 			children="false"
 			edge="righttop"
@@ -113,18 +135,18 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3]DEATH OFFSHORE[h3]"
+			html="[h3]BP: The Gulf is Alright[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="hotspot[video1].playvideo(%SWFPATH%/../../../video/keith_gordon.webm)"
-			
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/webm_720/Theatre_BP.webm);set(hotspot[video_close].visible,true)"
+
 		/>
 
  		<hotspot name="videoflag_02"
 			url="plugins/textfield.swf"
-			ath="340"
+			ath="337"
 			atv="-3"
 			children="false"
 			edge="righttop"
@@ -133,18 +155,17 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3]MULTIPLIED RISK[h3]"
+			html="[h3]Shell: Alaska Response[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="hotspot[video1].playvideo(%SWFPATH%/../../../video/MK_MultipliedRisk.webm)"
-			
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/webm_720/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true)"
 		/>
 
  		<hotspot name="videoflag_03"
 			url="plugins/textfield.swf"
-			ath="340"
+			ath="337"
 			atv="-1"
 			children="false"
 			edge="righttop"
@@ -153,12 +174,12 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3]BIG MONEY[h3]"
+			html="[h3]GAZPROM: Bohrinsel[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="hotspot[video1].playvideo(%SWFPATH%/../../../video/MK_MultipliedRisk.webm)"
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/webm_720/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
 			
 		/>					
 

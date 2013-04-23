@@ -127,9 +127,9 @@
 	    <point ath="92" atv="-3" />
 		</hotspot>
 
-		<hotspot name="Capt_Shane_Text"
+		<hotspot name="Dean_Blanchard_Text"
 			url="plugins/textfield.swf"
-			ath="20"
+			ath="135"
 			children="false"
 			edge="righttop"
 			background="false"
@@ -137,27 +137,93 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3] ON THE WATER : CAPT. SHANE[h3]"
+			html="[h3] ON THE WATER: DEAN[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Oysterman_capt_shane)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
 			/>
 
-		<hotspot name="Capt_Shane_Gif" 
+		<hotspot name="Dean_Blanchard_Gif" 
 			url="../images/icons/gif_iconA.gif"
-			ath="360"
+			ath="115"
 			atv="1"
 			distorted="true"
 			alpha=".5"
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Oysterman_capt_shane)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
+
+
+			<hotspot name="Rajun_Cajun_Text"
+			url="plugins/textfield.swf"
+			ath="355"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER: TIMOTHY[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rajun_Cajun)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Rajun_Cajun_Gif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="335"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rajun_Cajun)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+
+
+
+		<hotspot name="Capt_Shane_Text"
+			url="plugins/textfield.swf"
+			ath="320"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER: CAPT. SHANE[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Shane)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Capt_Shane_Gif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="300"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Shane)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
 
 
 		<hotspot name="Rossina_Text"
@@ -170,12 +236,12 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3] ON THE WATER : ROSSINA[h3]"
+			html="[h3] ON THE WATER: ROSINA[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/rossina_edited_720)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rosina_Philippe)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Rossina_Gif" 
@@ -187,40 +253,40 @@
 			height="60"
 			width="60"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/rossina_edited_720)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rosina_Philippe)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
 
 		<hotspot name="Darla_Text"
 			url="plugins/textfield.swf"
-			ath="220"
+			ath="250"
+			height="30"
+			width="200"
 			children="false"
 			edge="righttop"
 			background="false"
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] ON THE WATER : DARLA[h3]"
+			html="[h3] ON THE WATER: DARLA[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
-			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darlas_life_720)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Darlas_Life)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Darla_Gif" 
 			url="../images/icons/gif_iconC.gif"
-			ath="200"
+			ath="230"
 			atv="1"
-			distorted="true"
-			alpha=".5"
 			height="50"
 			width="50"
+			distorted="true"
+			alpha=".5"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Darlas_life_720)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Darlas_Life)));js(setCache(get(view.hlookat),90))"
 			/>
 
 

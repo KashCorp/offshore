@@ -73,6 +73,25 @@
         master.setDeepLinking("theater.php")
       })
 
+
+
+      var soundadjust = function(coord,fov) {
+
+        // var convCoord =  Math.abs(coord%360);
+
+        if(fov <25) {
+          $('#scroll-directions').fadeIn()
+          $('.fastpan, .compass').fadeOut(100)
+        }else{
+          $('.fastpan, .compass').fadeIn(100)
+           $('#scroll-directions').fadeOut()
+          $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
+        }
+
+      }
+
+
+
     </script>
 
 
