@@ -22,49 +22,27 @@ font-size:100%;
 vertical-align:baseline;
 background:transparent;
 }
-
-html, body {
-	height:99%;
-}
-
-
-
+html, body { height:99%; }
 article, aside, figure, footer, header,
 hgroup, nav, section { display:block; }
-
 nav ul { list-style:none; }
-
 blockquote, q { quotes:none; }
-
 blockquote:before, blockquote:after,
 q:before, q:after { content:''; content:none; }
-
 a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
-
 ins { background-color:#ff9; color:#000; text-decoration:none; }
-
 mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
-
 del { text-decoration: line-through; }
-
 abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; }
-
 /* tables still need cellspacing="0" in the markup */
 table { border-collapse:collapse; border-spacing:0; }
-
 hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
-
 input, select { vertical-align:middle; }
-
 /* maxvoltar.com/archive/-webkit-font-smoothing */
 html { -webkit-font-smoothing: antialiased; }
-
 .ie7 img { -ms-interpolation-mode: bicubic; }
-
 strong {font-weight: bold;}
-
 em {font-style: italic;}
-
 /* Add wrapping to coding sections */
 pre {
 padding: 15px;
@@ -73,9 +51,7 @@ white-space: pre-wrap; /* CSS 2.1 */
 white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
 word-wrap: break-word; /* IE */
 }
-
 /* END RESET CSS */
-
 
 @font-face {
 	font-family: 'icomoon';
@@ -100,76 +76,62 @@ word-wrap: break-word; /* IE */
 	-webkit-font-smoothing: antialiased;
 }
 
-/* Use the following CSS code if you want to have a class per icon */
-/*
-Instead of a list of all class selectors,
-you can use the generic selector below, but it's slower:
-[class*="icon-"] {
-*/
-/*.icon-clock, .icon-check-alt, .icon-user, .icon-search, .icon-contacts, .icon-chevron {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-}
-.icon-clock:before {
-	content: "\63";
-}
-.icon-check-alt:before {
-	content: "\6d";
-}
-.icon-user:before {
-	content: "\75";
-}
-.icon-search:before {
-	content: "\73";
-}
-.icon-contacts:before {
-	content: "\62";
-}
-.icon-chevron:before {
-	content: "\61";
-}*/
 
+.platform-nav {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	text-indent: -9999px;
+	cursor: pointer;
+	width: 60px;
+	height: 60px;
+	background: url('../images/icons/close_icon.png');
+}
+
+/* ========================================================================== *\
+  	CONTAINER
+\* ========================================================================== */
 
 body {
-	font-size: 1em;
+	overflow: hidden;
 }
 
-body,html {
-margin:0;
-padding:0;
-color:#000;
-background:#ffffff;
+.container {
+	text-align: center;
+	width: 100%; height: 100%;
 }
 
+.ipad-container {
+	min-width: 800px;
+	min-height: 600px;
+	/*max-width: 90%;*/
+	/*max-height: 90%;*/
 
-.ipad {
-	margin: 0 auto;
-	margin-top: 2em;
+	display: inline-block;
 	position: relative;
 	width: 80%;
-	min-width: 500px;
+	margin-top: 2%;
 
+	background: url('../images/skype_ipad.svg') no-repeat;
+	background-size: 100% 100%;
+
+	text-align: left;
+	/*border: 1px solid red;*/
 }
 
-.ipad img {
-	height: auto;
-	width: 100%;
+/* maintain 4:3 aspect ratio */
+.ipad-container .dummy {
+	margin-top: 75%;
 }
 
 .ipad-screen {
-	bottom: 6.5%;
-	left: 6.5%;
 	position: absolute;
-	right: 9.5%;
-	top: 6.5%;
-	background-color: #fff;
-	overflow: auto;
+	overflow: hidden;
+
+	top: 10%;
+	bottom: 10%;
+	left: 10%;
+	right: 10%;
 }
 
 
@@ -179,9 +141,9 @@ background:#ffffff;
 
 .main {
 	float:right;
-	width:65%;
+	width:70%;
 	height: 100%;
-	background:#ffffff;
+	/*background:#ffffff;*/
 }
 
 header {
@@ -194,14 +156,15 @@ header {
 	padding: .5em;
 }
 
-
-
 .main h1 {
 	text-align: center;
 }
 .main h2 {
 	background:#dddddd;
 	padding: 1em;
+	/*font-size: 1.2em;*/
+	/*padding: .9em;*/
+
 }
 
 
@@ -250,9 +213,9 @@ header {
     transition: all 0.7s ease 0s;
     }
 
-#search input[type="text"]:focus {
-    width: 420px;
-    }
+#search input[type="text"]:focus { width: 50%; }
+
+/* MENU */
 
 .main ul {
 	padding:.5em;
@@ -260,26 +223,77 @@ header {
 }
 
 .main li  {
-	float: left;
+	/*float: left;*/
+	display: inline-block;
+
 	margin: 1%;
-	width: 23%;
-	height: auto;
+	width: 47%;
+	/*height: auto;*/
 	color: #333;
 	font-weight: bold;
 	font-size: 1em;
 	font-family: Helvetica;
 
 }
+.main li img { width: 100%; height: auto; }
 
-.main li:after {
+.main li div {
+	display: block;
+	width: 100%;
+	height: 1em;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.main li div:before {
 	font-family: "icomoon";
 	color: #7fba00;
 	font-size: .6em;
 	content: "\6d";
 	padding: .2em;
+	padding-right: .4em;
 	margin-left: .2em;
 	position: relative;
 	top: -.1em;
+}
+
+.content {
+	background-color: white;
+	height: 78%;
+}
+
+/* VIDEO */
+
+.movie {
+	width: 100%; height: 100%;
+	display: table;
+	display: none;
+	background-color: black;
+}
+
+.movie .tableCell {
+	display:table-cell;
+	vertical-align: middle;
+
+}
+
+.movie video {
+	width: 100%;
+	height: auto;
+}
+
+.movie #to-control-vid {
+	position: absolute;
+	display: inline-block;
+
+	right: 5px;
+	top: 5px;
+	text-indent: -9999px;
+	cursor: pointer;
+	width: 60px;
+	height: 60px;
+	background: url('../images/icons/close_icon.png');
 }
 
 /* ========================================================================== *\
@@ -289,9 +303,9 @@ header {
 
 .sidebar {
 	float:left;
-	width:35%;
+	width:30%;
 	height: 100%;
-	background: #e7f1f5;
+	/*background: #e7f1f5;*/
 }
 
 .editbutton {
@@ -324,8 +338,8 @@ header {
 	background:#c0dce6;
 	font-family: Helvetica;
 	font-size: 1.2em;
-	color: #33353a;
 	padding: .9em;
+	color: #33353a;
 }
 
 .sidebar h2:before {

@@ -60,33 +60,33 @@
           <ul class="movie-menu">
             <!-- VIDEO THUMBS -->
 
-            <li data-url="video/webm_720/ControlRoom_MK_Deadly_Encounters" data-popcorn="klare_01" class="vid-menu-nav">
+            <li data-url="video/doc_content/ControlRoom_MK_Deadly_Encounters" data-popcorn="klare_01" class="vid-menu-nav">
               <video width="250" volume = "0" loop = "true"  preload="auto">
-                  <source src="video/webm_720/ControlRoom_MK_Deadly_Encounters_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Deadly_Encounters_thumb.webm" type="video/webm" />
               </video> 
               <br>
               Michael Klare: Deadly Encounters
             </li>
 
-            <li data-url="video/webm_720/ControlRoom_MK_Disappearing_Fields" data-popcorn="klare_02" class="vid-menu-nav">
+            <li data-url="video/doc_content/ControlRoom_MK_Disappearing_Fields" data-popcorn="klare_02" class="vid-menu-nav">
               <video width="250" volume = "0" loop = "true"  preload="auto">
-                  <source src="video/webm_720/ControlRoom_MK_Disappearing_Fields_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Disappearing_Fields_thumb.webm" type="video/webm" />
               </video> 
               <br>
               Michael Klare: Disappearing Fields
             </li>
                         
-            <li data-url="video/webm_720/ControlRoom_MK_Nowhere_else_to_go" data-popcorn="klare_02" class="vid-menu-nav">
+            <li data-url="video/doc_content/ControlRoom_MK_Nowhere_else_to_go" data-popcorn="klare_03" class="vid-menu-nav">
               <video width="250" volume = "0" loop = "true"  preload="auto">
-                  <source src="video/webm_720/ControlRoom_MK_Nowhere_else_to_go_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Nowhere_else_to_go_thumb.webm" type="video/webm" />
               </video> 
               <br>
               Michael Klare: Nowhere else to go
             </li>
 
-            <li data-url="video/webm_720/ControlRoom_MK_Spaceship_to_Mars" data-popcorn="klare_02" class="vid-menu-nav">
+            <li data-url="video/doc_content/ControlRoom_MK_Spaceship_to_Mars" data-popcorn="klare_04" class="vid-menu-nav">
               <video width="250" volume = "0" loop = "true"  preload="auto">
-                  <source src="video/webm_720/ControlRoom_MK_Spaceship_to_Mars_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Spaceship_to_Mars_thumb.webm" type="video/webm" />
               </video> 
               <br>
               Michael Klare: Sending a Spaceship to Mars
@@ -138,20 +138,14 @@
  var openHatch = function(closing){
 
 
-   if(closing){
-    
-   master.loadVideoUnderlay("video/transitions/action_05",null,true)  
+   if(closing){ master.loadVideoUnderlay("video/transitions/action_05",null,true)  
+   } else { master.loadVideoUnderlay("video/transitions/oil_shot",null,true) }
 
-   }else{
-
-   master.loadVideoUnderlay("video/transitions/oil_shot",null,true)  
-
-   }
    var transition_audio = $('#transition', window.parent.document)
-   transition_audio[0].src = "audio/Hatch_Open.mp3"
-   transition_audio[0].play()
-   $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
-   $("#wrapper").animate({'bottom': '0','top': '0'}, 100)
+     transition_audio[0].src = "audio/Hatch_Open.mp3"
+     transition_audio[0].play()
+     $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
+      $("#wrapper").animate({'bottom': '0','top': '0'}, 100)
    })
  }
 
@@ -160,14 +154,11 @@
   console.log($(document))
 
    if(stopping){
-    
     master.loadVideoUnderlay("video/transitions/oil_shot",null,true)  
-
    }else{
-
     master.loadVideoUnderlay("video/transitions/action_04",null,true)  
-
    }
+
    var transition_audio = $('#transition', window.parent.document)
    transition_audio[0].src = "audio/Hatch_Open.mp3"
    transition_audio[0].play()
@@ -193,11 +184,7 @@ var soundadjust = function(coord,fov) {
   }else{
     soundVector1 = (360-convCoord)/180;
   }
-
-              //console.log(soundVector1*2-1)
-             
-
-         
+     
   if(convCoord1 < 180 ){
     soundVector2 = (convCoord1)/180;
   }else{
@@ -256,12 +243,6 @@ $(document).ready(function(){
   })
 
    
-
-
-
-
-
-
 
 
   $("#video-overlay").css("top",dynamicTop)

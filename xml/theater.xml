@@ -140,7 +140,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/webm_720/Theatre_BP.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_BP.webm);set(hotspot[video_close].visible,true)"
 
 		/>
 
@@ -160,7 +160,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/webm_720/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true)"
 		/>
 
  		<hotspot name="videoflag_03"
@@ -179,7 +179,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/webm_720/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
 			
 		/>					
 

@@ -195,12 +195,13 @@
             krpano.call("lookto(0,0,90,smooth(),true,true))")
           });         
 
-          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
+          // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
+          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/approaching_rig/",64)
 
           scrollPos = walkthrough.scrollStopFunction()
 
           var scrollTrigger,scrollPercent = 1
-          var _id = "video/doc_content/mr_jack_720.webm"
+          var _id = "video/doc_content/Submersible_Rig_Requiem.webm"
 
           function scrollerFunction(){
 

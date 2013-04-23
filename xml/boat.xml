@@ -142,7 +142,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Dean_Blanchard_Gif" 
@@ -154,7 +154,7 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -175,7 +175,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rajun_Cajun)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Rajun_Cajun)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Rajun_Cajun_Gif" 
@@ -187,7 +187,7 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rajun_Cajun)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Rajun_Cajun)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -209,7 +209,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Shane)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Shane)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Capt_Shane_Gif" 
@@ -221,7 +221,7 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Shane)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Shane)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -241,7 +241,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rosina_Philippe)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Rosina_Philippe)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Rossina_Gif" 
@@ -253,7 +253,7 @@
 			height="60"
 			width="60"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Rosina_Philippe)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Rosina_Philippe)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -273,7 +273,7 @@
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Darlas_Life)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Darlas_Life)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Darla_Gif" 
@@ -286,7 +286,7 @@
 			alpha=".5"
 			scale="1.0"
 			capture = "false"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/webm_720/BoatDeck_Darlas_Life)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/BoatDeck_Darlas_Life)));js(setCache(get(view.hlookat),90))"
 			/>
 
 
