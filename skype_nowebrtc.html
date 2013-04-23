@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <head>
 
@@ -20,16 +20,12 @@
 
 		<div class="ipad-screen">
 
-			
-
 				<div class="movie">
 					<div class="tableCell">
-				  	<video src="" loop="false" autoplay id="skypeVideo"></video>
- 				  	<video id="webcamVideo"></video>
+				  	<video src="" loop="false" autoplay id="skypeVideo">
+						</video>
 					</div>
 					<a id="to-control-vid" style="display:none">Close</a>
-
-
 			  </div>
 
 				<div class="interface sidebar">
@@ -115,48 +111,8 @@ $(".platform-nav").click(function(){
 	parent.master.closeBook()
 })
 
-
 $(document).ready(function(){
 
-	//detect if can use webRTC
-	function webRTC(){
-		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-		window.URL = window.URL || window.webkitURL;
-
-		var video = document.getElementById('webcamVideo')
-		console.log(video)
-
-		function successCallback(stream) {
-	        // Set the source of the video element with the stream from the camera
-	        if (video.mozSrcObject !== undefined) {
-	            video.mozSrcObject = stream;
-	        } else {
-	            video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
-	        }
-	        video.play();
-	    }
-	 
-	    function errorCallback(error) {
-	        console.error('An error occurred: [CODE ' + error.code + ']');
-	        // Display a friendly "sorry" message to the user
-	    }
-
-		if (navigator.getUserMedia) {
-	    // Call the getUserMedia method here
-	    console.log('WebRTC is available.');
-		    navigator.getUserMedia({video: true}, successCallback, errorCallback);
-		} else {
-		    console.log('WebRTC not supported in this browser.');
-		    // Display a friendly "sorry" message to the user.
-		}
-	}	
-
-	webRTC();
-
-
-
-
-	// play video
 	$(".vid-menu-nav").click(function(){
 		var that = this
 
@@ -173,19 +129,9 @@ $(document).ready(function(){
                      $('#skypeVideo')[0].play()
        });
 			// document.getElementById("skypeVideo").play();
-
-			// set up WebRTC
-			// navigator.getUserMedia({video: true}, function(localMediaStream) {
-			// 	console.log("Setting up WebRTC...")
-			// 	document.getElementById("webcamVideo").src = window.URL.createObjectURL(localMediaStream);
-			// 	console.log($('webcamVideo').attr('src'))
-			// }, function(error) {
-			//   console.log(error);
-			// });
     })
   })
 
-	// stop video
   $("#to-control-vid").click(function(){
   	$('.movie').css('display','none')
   	$('#to-control-vid').css('display','none')

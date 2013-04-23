@@ -276,13 +276,25 @@ header {
 .movie .tableCell {
 	display:table-cell;
 	vertical-align: middle;
-
+	width: 100%;
 }
 
-.movie video {
+.movie #skypeVideo {
+	display: inline-block;
 	width: 100%;
 	height: auto;
 }
+
+/* Webcam */
+
+.movie #webcamVideo {
+	width: 20%;
+	height: 20%;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
 
 .movie #to-control-vid {
 	position: absolute;
@@ -296,6 +308,7 @@ header {
 	height: 60px;
 	background: url('../images/icons/close_icon.png');
 }
+
 
 /* ========================================================================== *\
   	SIDEBAR
