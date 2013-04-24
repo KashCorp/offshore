@@ -171,23 +171,20 @@ position: absolute;
 
       </div>
       
-    	
+        <div id="map-container">
 
-
-          <div id="map-container">
-
-          <ul>
-            <li data-label="6"><img class="photo" style="top:220px" width="100%" src="images/report_01/alaska_horizon.jpg"></li>
-            <li data-label="5"><img class="photo" src="images/report_01/oil_leak.jpg"></li>
-            <li data-label="4"><img class="photo"style="top:180px" width="650" src="images/report_01/grating.jpg"></li>
-            <li data-label="3"><img class="photo" style="top:100px" width="560" src="images/report_01/offshore_anywhere.jpg"></li>
-            <li data-label="2"><img class="photo" width="520" src="images/report_01/spartan_map_sm.jpg"></li>
-            <li data-label="1" ><img src="images/folder_front.png"></li>
-          </ul>
+        <ul>
+          <li data-label="6"><img class="photo" style="top:220px" width="100%" src="images/report_01/alaska_horizon.jpg"></li>
+          <li data-label="5"><img class="photo" src="images/report_01/oil_leak.jpg"></li>
+          <li data-label="4"><img class="photo"style="top:180px" width="650" src="images/report_01/grating.jpg"></li>
+          <li data-label="3"><img class="photo" style="top:100px" width="560" src="images/report_01/offshore_anywhere.jpg"></li>
+          <li data-label="2"><img class="photo" width="520" src="images/report_01/spartan_map_sm.jpg"></li>
+          <li data-label="1" ><img src="images/folder_front.png"></li>
+        </ul>
 
 
 
-          </div>
+        </div>
       </div>
       
        <img id = "gradient" src = "images/overlay_gradient_blue" style="pointer-events:none;top:0px; display:block; position: absolute;width:100%;height:50%;opacity:0.7"/>

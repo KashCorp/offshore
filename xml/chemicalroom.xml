@@ -26,8 +26,8 @@
 	</action>
 
 	<action name="viewchange">
-        set(currentX,get(view.hlookat));
-	  	add(currentX,180);
+    set(currentX,get(view.hlookat));
+	  add(currentX,180);
 		js(soundadjust(get(view.hlookat),get(view.fov)));
 	</action>
 
@@ -62,11 +62,21 @@
 		 	keycodesin  =""
 		 	keycodesout =""
 		 	/>
-<scene name="doorIsClosed">
-	<image><cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
-	<image devices="Desktop">      <cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
-    <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
-	<image devices="Tablet">      <cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
+
+
+	<scene name="doorIsClosed">
+		<image>
+			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
+		</image>
+		<image devices="Desktop">
+			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
+		</image>
+	  <image devices="Mobile">
+	  	<cube url="../images/panos/chemicalroom/mobile_%s.jpg" />
+	  </image>
+		<image devices="Tablet">
+			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
+		</image>
 
 		<hotspot name="engineroom" url="../images/hotspot.gif"
 			ath="13"
@@ -84,6 +94,7 @@
 </scene>
 
 <scene name="doorIsOpen" onstart="">
+	
 		<image>
     <left  url="../images/panos/chemicalroom/pano_l.jpg" />
     <front url="../images/panos/chemicalroom/pano_f.png" />
@@ -116,7 +127,7 @@
 	/>
 
 
-    <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
+  <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
 	<image devices="Tablet">      <cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
 
 

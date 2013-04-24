@@ -67,9 +67,7 @@
 
     <script>
       $(document).ready(function(){
-
         master.blankTrans()
-    
         master.setDeepLinking("theater.php")
       })
 

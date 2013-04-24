@@ -41,7 +41,7 @@
     <div id="wrapper" class="wrapper">
 
        <div class="pano-underlay">
-        <video width="100%" hieght="100%" loop = "true" autoplay style="position:absolute" id="video-underlay">
+        <video width="100%" height="100%" loop = "true" autoplay style="position:absolute" id="video-underlay">
            <source src="video/transitions/oil_shot.webm" type="video/webm" />
            <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
         </video> 
