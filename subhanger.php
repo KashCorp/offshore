@@ -54,10 +54,11 @@
       </div> 
       <div class="underwater">  </div>
       <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
-      <div id="scroll-start" class="scroll-nav">Go Back?</div>
-      <div id="scroll-end" class="scroll-nav">Continue?</div>
+      <!-- <div id="scroll-start" class="scroll-nav">Go Back?</div> -->
+      <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
   		<div id="panocontainer" class="subhanger"></div>
 
+      <div id="walking-exit" class="platform-nav">Close</div>
 
 <!-- OVERLAY VIDEOS -->
       <div class="video-content-wrap">
@@ -65,6 +66,8 @@
         <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
           <source/>
         </video>
+        
+
 
         <a id="to-control" class="platform-nav">Close</a>
       </div>
@@ -109,6 +112,7 @@
         })
       }
 
+
       var showIpad = function(){
         $(".video-content-wrap-desktop").fadeIn(1500)
         $('#video-overlay-desktop source').attr('src', "video/transitions/cloud_shot.webm");
@@ -116,36 +120,36 @@
         $("#video-overlay-desktop")[0].load()
         $("#video-overlay-desktop")[0].play()
       }
-      var soundadjust = function(coord,fov) {
+      
 
+
+      var soundadjust = function(coord,fov) {
         var convCoord =  Math.abs(coord%360);
         var convCoord1 =  Math.abs((coord-120)%360);
 
         if(convCoord < 180 ){
           soundVector1 = convCoord/180;
-        }else{
+        } else {
           soundVector1 = (360-convCoord)/180;
         }
 
-      if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-        parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-        parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
-      }
-              //console.log(soundVector1*2-1)
-             
-
-         
-  if(convCoord1 < 180 ){
-    soundVector2 = (convCoord1)/180;
-  }else{
-    soundVector2 = (360-(convCoord1))/180;
-  }
+        if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+          parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+          parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+        }
+                //console.log(soundVector1*2-1)
+                      
+        if(convCoord1 < 180 ){
+          soundVector2 = (convCoord1)/180;
+        }else{
+          soundVector2 = (360-(convCoord1))/180;
+        }
 
 
-  if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-    parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-    parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
-  } 
+        if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+          parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+          parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+        } 
 
         if(convCoord > 100 && convCoord < 160){
           $("#ghost-canvas").fadeIn(2500)
@@ -153,20 +157,24 @@
           $("#ghost-canvas").fadeOut(2500)
         }
 
- 
+
         if(fov <25) {
-          $('#scroll-directions').fadeIn()
-          $('#panocontainer, .fastpan').fadeOut(500)
+          console.log('fov<25')
+          $('#scroll-directions, #walking-exit').fadeIn()
+          $('#panocontainer, .fastpan, .compass').fadeOut(500)
         }else{
-          $('#panocontainer, .fastpan').fadeIn(500)
-          $('#scroll-directions').fadeOut()
+          $('#panocontainer, .fastpan, .compass').fadeIn(500)
+          $('#scroll-directions, #walking-exit').fadeOut(function(){
+            $('#scroll-directions').css('top','100px') // reset scrubber position
+          })
           $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
         }
 
       }
+
+
       $(document).ready(function(){
 
-	
         master.blankTrans()
         document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
         master.setDeepLinking("subhanger.php")
@@ -175,25 +183,32 @@
 
           var playTrigger = 0
 
+          // position canvas
           var dynamicWidth = window.innerWidth;
-
           var dynamicHeight = dynamicWidth * .5625;
-
           var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
           $("#video-overlay-engine-room").css("top",dynamicTop)
-
           $("#video-overlay-engine-room").css("width",window.innerWidth)
-
           $("#video-content-wrap-engine-room").css("width",window.innerWidth)
-          
           $("#walking-canvas").css("top",dynamicTop)
 
-          $("#scroll-start").click(function(){
+          // Go Back
+          // $("#scroll-start").click(function(){
+          //   scrollTrigger = 0
+          //   krpano = document.getElementById("krpanoObject");
+          //   krpano.call("lookto(0,0,90,smooth(),true,true))")
+          // });
+          
+          // Exit button
+          $("#walking-exit").click(function(){
+            walkthrough.scrollPos = 0 // reset video playback
+            
             scrollTrigger = 0
             krpano = document.getElementById("krpanoObject");
             krpano.call("lookto(0,0,90,smooth(),true,true))")
-          });         
+
+          });     
 
           // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
           var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/approaching_rig/",121)
@@ -207,12 +222,12 @@
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
-  
-           if(walkthrough.scrollPos < 5){
-             $("#scroll-start").fadeIn(1000)
-           }else{
-             $("#scroll-start").fadeOut(700)
-           }
+          // fade in go back button
+          // if(walkthrough.scrollPos < 5){
+          //   $("#scroll-start").fadeIn(1000)
+          // }else{
+          //   $("#scroll-start").fadeOut(700)
+          // }
 
             if(walkthrough.scrollPos > 85 && playTrigger == 0){
               console.log(_id)
@@ -233,12 +248,13 @@
 
             if(walkthrough.scrollPos < 85 && playTrigger == 1) {
               //master.audioFadeInAll(0.7)
+              $(".video-content-wrap-engine-room").fadeOut(1000,function(){
+                $("#video-overlay-engine-room")[0].pause()
+              })
               playTrigger = 0
               console.log("OUTSIDE THE ZONE")
               $(".compass").fadeIn()
-              $(".video-content-wrap-engine-room").fadeOut(1000,function(){
-              $("#video-overlay-engine-room")[0].pause()
-              })
+              
            }
 
             requestAnimationFrame(scrollerFunction)

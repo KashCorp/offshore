@@ -43,9 +43,11 @@
 
     <div id="wrapper" class="wrapper" style="position:fixed">
       <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
-      <div id="scroll-start" class="scroll-nav">Go Back?</div>
-      <div id="scroll-end" class="scroll-nav">Continue?</div>
+      <!-- <div id="scroll-start" class="scroll-nav">Go Back?</div> -->
+      <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
   		<div id="panocontainer" class="chemicalroom"></div>
+
+      <div id="walking-exit" class="platform-nav">Close</div>
 
 
 
@@ -113,14 +115,17 @@
         $("#ghost-canvas").fadeOut(2500)
       }
 
+
       if(fov <25) {
-        $('#scroll-directions').fadeIn()
-        $('#panocontainer, .fastpan').fadeOut(500)
-      }else{
-        $('#panocontainer, .fastpan').fadeIn(500)
-         $('#scroll-directions').fadeOut()
-        $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
-      }
+          $('#scroll-directions, #walking-exit').fadeIn()
+          $('#panocontainer, .fastpan, .compass').fadeOut(500)
+        }else{
+          $('#panocontainer, .fastpan, .compass').fadeIn(500)
+          $('#scroll-directions, #walking-exit').fadeOut(function(){
+            $('#scroll-directions').css('top','100px') // reset scrubber position
+          })
+          $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
+        }
 
     }
 
@@ -135,42 +140,36 @@
       
       master.setDeepLinking("chemicalroom.php")
 
-     $("#scroll-start").click(function(){
-       scrollTrigger = 0
-      krpano = document.getElementById("krpanoObject");
-      krpano.call("lookto(0,0,90,smooth(),true,true))")
-     });
+     
 
-     $("#scroll-end").click(function(){
-      newPage("theater.php")
-     });
+     // $("#scroll-end").click(function(){
+     //  newPage("theater.php")
+     // });
 
 
 
         var setStage = function(){
 
-
-
-         var dynamicWidth = window.innerWidth;
-
-         var dynamicHeight = dynamicWidth * .5625;
-
-         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
+          var dynamicWidth = window.innerWidth;
+          var dynamicHeight = dynamicWidth * .5625;
+          var dynamicTop = (window.innerHeight - dynamicHeight)/2;
           $("#video-overlay-engine-room").css("top",dynamicTop)
-
           $("#video-overlay-engine-room").css("width",window.innerWidth)
-
           $("#video-content-wrap-engine-room").css("width",window.innerWidth)
-          
+          $("#walking-canvas").css("top",dynamicTop)
+
+          // Exit button
+          $("#walking-exit").click(function(){
+            walkthrough.scrollPos = 0 // reset video playback
+            scrollTrigger = 0
+            krpano = document.getElementById("krpanoObject");
+            krpano.call("lookto(0,0,90,smooth(),true,true))")
+          });
 
 
+          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
 
-         $("#walking-canvas").css("top",dynamicTop)
-
-         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
-
-         scrollPos = walkthrough.scrollStopFunction()
+          scrollPos = walkthrough.scrollStopFunction()
 
           var scrollTrigger,scrollPercent = 1
           var _id = "video/doc_content/EngineRoom_Mr_Jack.webm"
@@ -180,37 +179,37 @@
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
   
-           if(walkthrough.scrollPos < 5){
-             $("#scroll-start").fadeIn(1000)
-           }else{
-             $("#scroll-start").fadeOut(700)
-           }
+           // if(walkthrough.scrollPos < 5){
+           //   $("#scroll-start").fadeIn(1000)
+           // }else{
+           //   $("#scroll-start").fadeOut(700)
+           // }
 
-            if(walkthrough.scrollPos > 85 && playTrigger == 0){
-              console.log(_id)
-              $(".compass").fadeOut()
+          if(walkthrough.scrollPos > 85 && playTrigger == 0){
+            console.log(_id)
+            $(".compass").fadeOut()
 
-              $(".video-content-wrap-engine-room").fadeIn(1500)
-              $('#video-overlay-engine-room source').attr('src', _id);
-              $('#video-overlay-engine-room video').load();
-              master.audioFadeAll(0.5)
-              $("#video-overlay-engine-room")[0].load()
-              $("#video-overlay-engine-room")[0].play()
+            $(".video-content-wrap-engine-room").fadeIn(1500)
+            $('#video-overlay-engine-room source').attr('src', _id);
+            $('#video-overlay-engine-room video').load();
+            master.audioFadeAll(0.5)
+            $("#video-overlay-engine-room")[0].load()
+            $("#video-overlay-engine-room")[0].play()
 
-              $("#video-overlay-engine-room")[0].onended = function(e) {
-                //closeVideo()
-              }
-              playTrigger = 1
-           }
+            $("#video-overlay-engine-room")[0].onended = function(e) {
+              //closeVideo()
+            }
+            playTrigger = 1
+         }
 
             if(walkthrough.scrollPos < 85 && playTrigger == 1) {
               //master.audioFadeInAll(0.7)
               playTrigger = 0
               console.log("OUTSIDE THE ZONE")
-              $(".compass").fadeIn()
               $(".video-content-wrap-engine-room").fadeOut(1000,function(){
-              $("#video-overlay-engine-room")[0].pause()
+                $("#video-overlay-engine-room")[0].pause()
               })
+              $(".compass").fadeIn()
            }
 
             requestAnimationFrame(scrollerFunction)
