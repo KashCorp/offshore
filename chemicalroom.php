@@ -178,36 +178,39 @@
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
-  
+
            // if(walkthrough.scrollPos < 5){
            //   $("#scroll-start").fadeIn(1000)
            // }else{
            //   $("#scroll-start").fadeOut(700)
            // }
 
-          if(walkthrough.scrollPos > 85 && playTrigger == 0){
-            console.log(_id)
-            $(".compass").fadeOut()
+            if(walkthrough.scrollPos > 85 && playTrigger == 0){
+              console.log(_id)
+              $(".compass").fadeOut()
 
-            $(".video-content-wrap-engine-room").fadeIn(1500)
-            $('#video-overlay-engine-room source').attr('src', _id);
-            $('#video-overlay-engine-room video').load();
-            master.audioFadeAll(0.5)
-            $("#video-overlay-engine-room")[0].load()
-            $("#video-overlay-engine-room")[0].play()
+              $(".video-content-wrap-engine-room").fadeIn(1500)
+              $('#video-overlay-engine-room source').attr('src', _id);
+              $('#video-overlay-engine-room video').load();
+              master.audioFadeAll(0.5)
+              parent.audiomaster.mix.setGain(0.3)
+              $("#video-overlay-engine-room")[0].load()
+              $("#video-overlay-engine-room")[0].play()
 
-            $("#video-overlay-engine-room")[0].onended = function(e) {
-              //closeVideo()
-            }
-            playTrigger = 1
-         }
+              $("#video-overlay-engine-room")[0].onended = function(e) {
+                //closeVideo()
+              }
+              playTrigger = 1
+           }
 
             if(walkthrough.scrollPos < 85 && playTrigger == 1) {
               //master.audioFadeInAll(0.7)
               playTrigger = 0
               console.log("OUTSIDE THE ZONE")
               $(".video-content-wrap-engine-room").fadeOut(1000,function(){
-                $("#video-overlay-engine-room")[0].pause()
+
+              $("#video-overlay-engine-room")[0].pause()
+              parent.audiomaster.mix.setGain(1.0)
               })
               $(".compass").fadeIn()
            }

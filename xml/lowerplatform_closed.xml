@@ -99,6 +99,7 @@
 
 	</scene>
 
+
 		
 		
 		<hotspot name="helipad" url="../images/hotspot.gif"
@@ -128,6 +129,18 @@
 			/>
 			
 
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="150"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+			keep="true"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_LowerPlatform.mp3))"
+			scale="1.0"
+			capture="false"
+			/>	
 		
 
 	

@@ -271,7 +271,21 @@
 			distorted="true"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
 			capture="false"
-		/>			
+			/>
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="70"
+			atv="-7"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+			keep="true"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_Hallway.mp3))"
+			scale="1.0"
+			capture="false"
+			/>				
+
 
 
 <!--onclick="lookto(265,-80,1,tween(EaseOutQuad,3),true,true)"-->

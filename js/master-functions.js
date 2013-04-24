@@ -254,6 +254,7 @@ var masterFunctions = function() {
 		 $('body').append(this._bookFrame)
 		 $('.breadcrumb').after(this._bookFrame)
 		 $('#book-container-frame').fadeIn(500)
+		 parent.audiomaster.mix.setGain(0.3)
 
 		}
 	}
@@ -273,6 +274,7 @@ var masterFunctions = function() {
 			$('.compass').fadeIn(500)
 			that._frame = null;
 			that._bookFrame = null;
+			parent.audiomaster.mix.setGain(1.0)
 	 	})
 	}
 
