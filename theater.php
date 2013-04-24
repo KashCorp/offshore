@@ -77,7 +77,7 @@
 
         // var convCoord =  Math.abs(coord%360);
 
-        if(fov <25) {
+        if(fov <35) {
           $('#scroll-directions').fadeIn()
           $('.fastpan, .compass').fadeOut(100)
         }else{

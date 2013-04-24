@@ -87,11 +87,7 @@
 
 	 </image>
 
-		
-		<!--<image devices="Desktop">     <cube url="../images/panos/hallway/pano_%s.png"   /> </image>
-		<image devices="Mobile">      <cube url="../images/panos/hallway/mobile_%s.png" /> </image>
-		<image devices="Tablet">      <cube url="../images/panos/hallway/pano_%s.png" /> </image>
--->
+
 		<plugin name="directions"
 			url="../images/panos/platform/hotspots/directions.png"
 			capture="false"
@@ -101,6 +97,8 @@
 			alpha="0.0"
 			visible="true"
 			/>
+		
+		<!-- Passage 1: Chemical Room  -->
 
 		<hotspot name="passage_01" url="../images/hotspot.gif"
 			ath="5.15"
@@ -108,7 +106,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-            onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
+      onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
 			scale="5.0"
 			capture="false"
 			/>
@@ -117,7 +115,7 @@
  		<hotspot name="passage_01_text"
 			url="plugins/textfield.swf"
 			ath="10.5"
-			atv="-6"
+			atv="-10"
 			children="false"
 			edge="righttop"
 			background="false"
@@ -125,14 +123,16 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] POISONED! [h2]"
+			html="[h2]Oil is the lynchpin of our global energy system.[h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-            onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
-			
+      onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
 		/>
+
+
+		<!-- Passage 2: Theater  -->
 
 		<hotspot name="passage_02" url="../images/hotspot.gif"
 			ath="270"
@@ -140,7 +140,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-            onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
+      onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
@@ -157,14 +157,16 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] TRUTH AND CONSEQUENCES [h2]"
+			html="[h2] Meeting the world’s growing energy needs. [h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-            onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
-            />
+      onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
+      />
 
+
+		<!-- Passage 3: Control Room  -->
 
 		<hotspot name="passage_03" url="../images/hotspot.gif"
 			ath="180"
@@ -188,7 +190,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] CONTROL [h2]"
+			html="[h2] Unchallenged pre-eminence. [h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -197,10 +199,10 @@
             />
 		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
-			atv="-20"
+			atv="-40"
 			distorted="true"
 			alpha="0.0"
-			height="80.0"
+			height="120.0"
 			onclick="js(newPage(lowerplatform_closed.php))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
@@ -208,8 +210,28 @@
 			capture="false"
 			/>		
 
+		
+		<!-- Videos  -->
+		<hotspot name="video_01_text"
+			url="plugins/textfield.swf"
+			ath="321"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2] KEITH JONES [h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Keith_Jones)));js(setCache(get(view.hlookat),321))"
+    />
 
-		<hotspot name="videoflag_02_icon"
+		<hotspot name="video_01_icon"
 			url="../images/icons/gif_icon4a.gif"
 			ath="321"
 			atv="-5"
@@ -217,21 +239,39 @@
 			height="60"
 			width="60"
 			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/keith_jones)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Keith_Jones)));js(setCache(get(view.hlookat),321))"
 			capture="false"
-			/>
-
-		<hotspot name="videoflag_03_icon"
+		/>
+		
+		<hotspot name="video_02_text"
+			url="plugins/textfield.swf"
+			ath="220"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2] MR FLOYD [h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
+    />
+		<hotspot name="video_02_icon"
 			url="../images/icons/gif_icon2.gif"
-			ath="53"
+			ath="220"
 			atv="-5"
 			alpha=".3"
 			height="80"
 			width="80"
 			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/dean_blanchard_720)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
 			capture="false"
-			/>			
+		/>			
 
 
 <!--onclick="lookto(265,-80,1,tween(EaseOutQuad,3),true,true)"-->
