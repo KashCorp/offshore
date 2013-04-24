@@ -22,7 +22,7 @@ font-size:100%;
 vertical-align:baseline;
 background:transparent;
 }
-html, body { height:99%; }
+html, body { height:99%;background:#000; }
 article, aside, figure, footer, header,
 hgroup, nav, section { display:block; }
 nav ul { list-style:none; }
