@@ -26,8 +26,8 @@
 	</action>
 
 	<action name="viewchange">
-        set(currentX,get(view.hlookat));
-	  	add(currentX,180);
+    set(currentX,get(view.hlookat));
+	  add(currentX,180);
 		js(soundadjust(get(view.hlookat),get(view.fov)));
 	</action>
 
@@ -62,11 +62,21 @@
 		 	keycodesin  =""
 		 	keycodesout =""
 		 	/>
-<scene name="doorIsClosed">
-	<image><cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
-	<image devices="Desktop">      <cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
-    <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
-	<image devices="Tablet">      <cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
+
+
+	<scene name="doorIsClosed">
+		<image>
+			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
+		</image>
+		<image devices="Desktop">
+			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
+		</image>
+	  <image devices="Mobile">
+	  	<cube url="../images/panos/chemicalroom/mobile_%s.jpg" />
+	  </image>
+		<image devices="Tablet">
+			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
+		</image>
 
 		<hotspot name="engineroom" url="../images/hotspot.gif"
 			ath="13"
@@ -84,6 +94,7 @@
 </scene>
 
 <scene name="doorIsOpen" onstart="">
+	
 		<image>
     <left  url="../images/panos/chemicalroom/pano_l.jpg" />
     <front url="../images/panos/chemicalroom/pano_f.png" />
@@ -116,7 +127,7 @@
 	/>
 
 
-    <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
+  <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
 	<image devices="Tablet">      <cube url="../images/panos/chemicalroom/pano_%s.jpg" /> </image>
 
 
@@ -147,8 +158,11 @@
 			onclick="js(newPage(subhanger))"
 			scale="1.0"
 			/>
+		
 
-		<hotspot name="Darla_GIF" url="../images/hotspot.gif"
+		<!-- Darla -->
+
+		<hotspot name="Darla_Barrel" url="../images/hotspot.gif"
 			ath="250"
 			atv="28"
 		    distorted="true"
@@ -160,9 +174,9 @@
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Darla)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
-			/>
+		/>
 
-		<hotspot name="BlueGif"
+		<hotspot name="Darla_GIF"
 			url="../images/icons/gif_icon3.gif"
 			ath="250"
 			atv="10"
@@ -175,8 +189,10 @@
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Darla)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
-			/>
-		
+		/>
+
+
+		<!-- Medical Cabinet - Corexit -->
 
 		 <hotspot name="open_cabinet" 
 			url="../images/panos/chemicalroom/hotspots/cabinet.png"
@@ -185,11 +201,11 @@
 			distorted="true"
 			keep="true"
 			alpha="0"
-			onclick="tween(alpha,1);set(hotspot[close_cabinet].enabled,true);set(hotspot[open_cabinet].enabled,false)"
+			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false)"
 			scale="1.05"
-			/> <!---->
+			/>
 
-		<hotspot name="close_cabinet" url="../images/hotspot.gif"
+		<!-- <hotspot name="close_cabinet" url="../images/hotspot.gif"
 			ath="54.4"
 			atv="-5.1"
 			distorted="true"
@@ -201,9 +217,24 @@
 			onclick="set(hotspot[open_cabinet].alpha,0);set(hotspot[open_cabinet].enabled,true);set(hotspot[close_cabinet].enabled,false);"
 
 			scale="1"
+		/> -->
+
+		<hotspot name="Corexit_video" url="../images/hotspot.gif"
+			ath="54.4"
+			atv="-5.1"
+		  distorted="true"
+		  keep="true"
+			alpha="0"
+			width="100"
+			height="100"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Corexit)));js(setCache(get(view.hlookat),54))"
+			scale="1.0"
+			enabled="false"
 		/>
 
-		<hotspot name="cabinet_open" url="../images/panos/chemicalroom/hotspots/cabinet.png"
+		<!-- <hotspot name="cabinet_open_img" url="../images/panos/chemicalroom/hotspots/cabinet.png"
 			ath="54.4"
 			atv="-5.1"
 			distorted="true"
@@ -212,7 +243,7 @@
 			onclick="js(cabinet_closed(close));set(hotspot[cabinet_open].alpha,0);set(hotspot[cabinet_open].enabled,false);"
 
 			scale="1.05"
-		/>
+		/> -->
 
 
 		<data name="cssdata1">

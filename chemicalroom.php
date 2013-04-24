@@ -50,25 +50,25 @@
 
 
 
-<!-- OVERLAY VIDEOS -->
-      <div class="video-content-wrap">
- 
-        <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
-          <source/>
-        </video>
+    <!-- OVERLAY VIDEOS -->
+    <div class="video-content-wrap">
 
-        <a id="to-control" class="platform-nav">Close</a>
-      </div>
+      <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+        <source/>
+      </video>
 
-       <div class="video-content-wrap-engine-room">
- 
-        <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
-          <source/>
-        </video>
-      </div>
-           
-<!-- END OVERLAY VIDEOS -->
-<canvas id="ghost-canvas" width="1200" height="800" style="opacity:.4;position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
+      <a id="to-control" class="platform-nav">Close</a>
+    </div>
+
+    <div class="video-content-wrap-engine-room">
+
+      <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
+        <source/>
+      </video>
+    </div>
+    <!-- END OVERLAY VIDEOS -->
+
+    <canvas id="ghost-canvas" width="1200" height="800" style="opacity:.4;position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
   		<div class="breadcrumb"></div>
       <div id="scroll-directions"></div>
   	</div>

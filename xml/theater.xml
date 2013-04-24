@@ -123,6 +123,9 @@
 			onclick="hotspot[video1].stop();set(hotspot[video_close].visible,false);set(hotspot[video1].visible,false);lookto(0,0,90,smooth(),true,true)"
 			capture = "false"
 			/>
+		
+
+		<!-- Projection Screen Videos  -->
 
  		<hotspot name="videoflag_01"
 			url="plugins/textfield.swf"
@@ -181,31 +184,58 @@
 			width="300"
             onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
 			
-		/>					
+		/>
+
+		<hotspot name="videoflag_04"
+			url="plugins/textfield.swf"
+			ath="337"
+			atv="1"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]Port Fouchon[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="300"
+            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fouchon.webm);set(hotspot[video_close].visible,true)"
+			
+		/>
+
+
+
 
 			<hotspot name="passage_01" url="../images/hotspot.gif"
-			ath="35"
-			atv="2"
-			distorted="true"
-			alpha="0.0"
-			height="90.0"
-			onclick="lookto(35,0,5,smooth(),true,true,js(newPage(subhanger.php)))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
-			scale="3.0"
-			/>
+				ath="35"
+				atv="2"
+				distorted="true"
+				alpha="0.0"
+				height="90.0"
+				onclick="lookto(35,0,5,smooth(),true,true,js(newPage(subhanger.php)))"
+				onhover="js(hoverSound()) "
+				onout="js(resetHoverSound());"
+				scale="3.0"
+				/>
 
 			<hotspot name="redbook" url="../images/hotspot.gif"
-			ath="145"
-			atv="40"
-			distorted="true"
-			alpha="0.0"
-			height="50.0"
-			onclick="js(openBook(redbook.php))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
-			scale="3.0"
-			/>
+				ath="145"
+				atv="40"
+				distorted="true"
+				alpha="0.0"
+				height="50.0"
+				onclick="js(openBook(redbook.php))"
+				onhover="js(hoverSound()) "
+				onout="js(resetHoverSound());"
+				scale="3.0"
+				
+				keep="true"
+				capture="false"
+				/>
+		
 
 			<hotspot name="passage_02" url="../images/hotspot.gif"
 			ath="210"
