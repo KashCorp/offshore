@@ -260,7 +260,23 @@
 				keep="true"
 				capture="false"
 				/>
-		
+
+			<hotspot name="leasemap" url="../images/hotspot.gif"
+				ath="265"
+				atv="5"
+				distorted="true"
+				alpha="0.0"
+				height="70.0"
+				width="150.0"
+				onclick="js(openBook(leasemap.php))"
+				onhover="js(hoverSound()) "
+				onout="js(resetHoverSound());"
+				scale="3.0"
+				
+				keep="true"
+				capture="false"
+				/>
+
 
 			<hotspot name="passage_02" url="../images/hotspot.gif"
 			ath="210"
@@ -334,9 +350,10 @@
 				color: #ffffff;
 				font-family: Helvetica, Arial, sans-serif;
 				fontFamily: Helvetica, Arial, sans-serif;
-				fontSize: 8px;
-				font-size: 8px;
-				line-height: 30px;
+				fontSize: 12px;
+				font-size: 12px;
+				line-height: 40px;
+				lineHeight: 24px;
 				textAlign: right;
 				text-align: right;
 			}

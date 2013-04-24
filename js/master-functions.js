@@ -253,8 +253,13 @@ var masterFunctions = function() {
 		 this._bookFrame = '<iframe allowtransparency="true" id="book-container-frame" src="'+ _bookUrl+'"></iframe>'
 		 $('body').append(this._bookFrame)
 		 $('.breadcrumb').after(this._bookFrame)
-		 $('#book-container-frame').fadeIn(500)
-		 parent.audiomaster.mix.setGain(0.3)
+		 $('#book-container-frame').fadeIn(500,function(){
+			 krpano = document.getElementById("krpanoObject");
+			 krpano.call("tween(view.fov, 15.0, 1.0)")
+			 parent.audiomaster.mix.setGain(0.3)
+
+		 })
+
 
 		}
 	}
@@ -270,10 +275,13 @@ var masterFunctions = function() {
 	}
 
 	this.closeBook = function(){
+
 		$('#book-container-frame').fadeOut(1000, function(){
 			$('.compass').fadeIn(500)
 			that._frame = null;
 			that._bookFrame = null;
+			krpano = document.getElementById("krpanoObject");
+			krpano.call("tween(view.fov, 90.0, 1.0)")
 			parent.audiomaster.mix.setGain(1.0)
 	 	})
 	}

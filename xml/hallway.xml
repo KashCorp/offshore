@@ -232,7 +232,7 @@
     />
 
 		<hotspot name="video_01_icon"
-			url="../images/icons/gif_icon4a.gif"
+			url="../images/icons/gif_iconB.gif"
 			ath="321"
 			atv="-5"
 			alpha=".5"
@@ -262,7 +262,7 @@
       onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
     />
 		<hotspot name="video_02_icon"
-			url="../images/icons/gif_icon2.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="220"
 			atv="-5"
 			alpha=".3"

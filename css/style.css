@@ -947,7 +947,7 @@ height:100%;
 /* walkthrough X button */
 #walking-exit {
 	cursor:pointer;
-	z-index:1000
+	display:none;
 }
 
 #scroll-wrapper{

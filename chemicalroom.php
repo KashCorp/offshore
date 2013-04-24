@@ -42,16 +42,11 @@
 
 
     <div id="wrapper" class="wrapper" style="position:fixed">
-      <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
-      <!-- <div id="scroll-start" class="scroll-nav">Go Back?</div> -->
-      <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
+      
+      <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas> 
+
   		<div id="panocontainer" class="chemicalroom"></div>
-
-      <div id="walking-exit" class="platform-nav">Close</div>
-
-
-
-
+     
     <!-- OVERLAY VIDEOS -->
     <div class="video-content-wrap">
 
@@ -63,7 +58,6 @@
     </div>
 
     <div class="video-content-wrap-engine-room">
-
       <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
         <source/>
       </video>
@@ -73,18 +67,11 @@
     <canvas id="ghost-canvas" width="1200" height="800" style="opacity:.4;position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
   		<div class="breadcrumb"></div>
       <div id="scroll-directions"></div>
+      
+      <div id="walking-exit" class="platform-nav">Close</div>
   	</div>
 
 
-
-
-
-    <div id="inter-text" style="display: block"></div>
-
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/21_w.ogg" type="audio/ogg" />
-
-    </audio>
 
 
 
@@ -97,7 +84,7 @@
 
 
     <script>
-    var krpano
+     var krpano, isVideoPlaying
      var loadsecondscene = function() {
       $('.wrapper').fadeOut(800, function() {
         krpano = document.getElementById("krpanoObject");
@@ -107,7 +94,7 @@
 
     var soundadjust = function(coord,fov) {
 
-      var convCoord =  Math.abs(coord%360);
+     var convCoord =  Math.abs(coord%360);
 
      if(convCoord > 100 && convCoord < 160){
         $("#ghost-canvas").fadeIn(2500)
@@ -160,10 +147,13 @@
 
           // Exit button
           $("#walking-exit").click(function(){
-            walkthrough.scrollPos = 0 // reset video playback
+            walkthrough.scrollPos = 0
             scrollTrigger = 0
+            //scrollPercent =1
             krpano = document.getElementById("krpanoObject");
             krpano.call("lookto(0,0,90,smooth(),true,true))")
+            //walkthrough = null
+            //walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
           });
 
 
@@ -186,9 +176,7 @@
            // }
 
             if(walkthrough.scrollPos > 85 && playTrigger == 0){
-              console.log(_id)
               $(".compass").fadeOut()
-
               $(".video-content-wrap-engine-room").fadeIn(1500)
               $('#video-overlay-engine-room source').attr('src', _id);
               $('#video-overlay-engine-room video').load();
@@ -196,9 +184,7 @@
               parent.audiomaster.mix.setGain(0.3)
               $("#video-overlay-engine-room")[0].load()
               $("#video-overlay-engine-room")[0].play()
-
               $("#video-overlay-engine-room")[0].onended = function(e) {
-                //closeVideo()
               }
               playTrigger = 1
            }

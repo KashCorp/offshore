@@ -19,9 +19,33 @@
 	<div class="container">
 		<div class="flipbook">
 			<div class="hard" style="background-image:url(images/Red_Book.jpg)"></div>
-			<div class="hard" style="background-image:url(images/dossier/02.jpg)"></div>
-			<div style="background-image:url(images/dossier/03.jpg)"></div>
-			<div style="background-image:url(images/dossier/04.jpg)"></div>
+			<div class="hard" style="background-image:url(images/journal/techdrawing01.jpg)"></div>
+
+			<div style="background-image:url(images/journal/Journal01.jpg)"></div>
+			<div style="background-image:url(images/journal/techdrawing04.jpg)"></div>
+
+			<div style="background-image:url(images/journal/Journal02.jpg)"></div>
+			<div style="background-image:url(images/journal/techdrawing09.jpg)"></div>
+
+
+			<div style="background-image:url(images/journal/Journal03.jpg)"></div>
+			<div style="background-image:url(images/journal/techdrawing05.jpg)"></div>
+
+
+			<div style="background-image:url(images/journal/techdrawing10.jpg)"></div>
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>				
+
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>
+
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
+
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
+			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
+
+			<div class="hard" style="background-image:url(images/journal/blank_paper.jpg)"></div>
+			<div class="hard" style="background-image:url(images/Red_Book.jpg)"></div>										
 		</div>
 	</div>
 </div>
