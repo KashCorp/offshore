@@ -65,18 +65,10 @@
 
 
 	<scene name="doorIsClosed">
-		<image>
-			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
-		</image>
-		<image devices="Desktop">
-			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
-		</image>
-	  <image devices="Mobile">
-	  	<cube url="../images/panos/chemicalroom/mobile_%s.jpg" />
-	  </image>
-		<image devices="Tablet">
-			<cube url="../images/panos/chemicalroom/pano_%s.jpg" />
-		</image>
+		<image><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image>
+		<image devices="Desktop"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image>
+	  <image devices="Mobile"><cube url="../images/panos/chemicalroom/mobile_%s.jpg" /></image>
+		<image devices="Tablet"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image>
 
 		<hotspot name="engineroom" url="../images/hotspot.gif"
 			ath="13"
@@ -160,7 +152,7 @@
 			/>
 		
 
-		<!-- Darla -->
+		<!-- Darla (Barrel) -->
 
 		<hotspot name="Darla_Barrel" url="../images/hotspot.gif"
 			ath="250"
@@ -180,8 +172,8 @@
 			url="../images/icons/gif_icon3.gif"
 			ath="250"
 			atv="10"
-		    distorted="true"
-		    keep="true"
+	    distorted="true"
+	    keep="true"
 			alpha=".3"
 			width="140"
 			height="140"
@@ -190,6 +182,41 @@
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Darla)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 		/>
+
+
+
+		<!-- James (Barrel) -->
+
+		<hotspot name="James" url="../images/hotspot.gif"
+			ath="115"
+			atv="28"
+		    distorted="true"
+		    keep="true"
+			alpha="0"
+			width="220.0"
+			height="95.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_James)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+
+		<hotspot name="James_GIF"
+			url="../images/icons/gif_icon3.gif"
+			ath="115"
+			atv="10"
+	    distorted="true"
+	    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_James)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+
+
 
 
 		<!-- Medical Cabinet - Corexit -->

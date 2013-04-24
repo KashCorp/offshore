@@ -93,8 +93,13 @@
 			<hotspot name="video1"
 			url="plugins/videoplayer.swf"
 			alturl="plugins/videoplayer.js"
-			ath="355.15" 
-			atv="1"
+
+			ath="354.8" 
+			atv="1.2"
+			rx="0" 
+			ry="4" 
+			rz="0"
+
 			distorted="true"
 			scale="0.230" 
 			volume="1.0"
@@ -143,7 +148,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_BP.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_BP.webm);set(hotspot[video_close].visible,true)"
 
 		/>
 
@@ -163,7 +168,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true)"
 		/>
 
  		<hotspot name="videoflag_03"
@@ -182,7 +187,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
+        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
 			
 		/>
 
@@ -202,7 +207,27 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 20, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fouchon.webm);set(hotspot[video_close].visible,true)"
+        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fouchon.webm);set(hotspot[video_close].visible,true)"
+			
+		/>
+
+		<hotspot name="videoflag_05"
+			url="plugins/textfield.swf"
+			ath="337"
+			atv="3"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]Petrobras[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="300"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Petrobras.webm);set(hotspot[video_close].visible,true)"
 			
 		/>
 
