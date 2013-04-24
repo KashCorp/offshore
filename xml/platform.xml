@@ -77,7 +77,18 @@
 			visible="true"
 
 			/>
-			
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="40"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_FlightDeck.mp3))"
+			scale="1.0"
+			capture="false"
+			/>			
 		<hotspot name="entryhotspot" 
 			url="../images/hotspot.gif"
 			ath="74.5"

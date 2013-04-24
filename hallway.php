@@ -207,7 +207,7 @@ $(document).ready(function(){
   var dynamicTop = (window.innerHeight - dynamicHeight)/2; 
   var closeTrigger = 0
 
-  master.ghostTrans('2guys_walk_away3',16)
+  master.ghostTrans('2guys_walk_away3',14)
   master.setDeepLinking("hallway.php")
 
 

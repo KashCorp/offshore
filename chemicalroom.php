@@ -194,6 +194,7 @@
               $('#video-overlay-engine-room source').attr('src', _id);
               $('#video-overlay-engine-room video').load();
               master.audioFadeAll(0.5)
+              parent.audiomaster.mix.setGain(0.3)
               $("#video-overlay-engine-room")[0].load()
               $("#video-overlay-engine-room")[0].play()
 
@@ -210,6 +211,7 @@
               $(".compass").fadeIn()
               $(".video-content-wrap-engine-room").fadeOut(1000,function(){
               $("#video-overlay-engine-room")[0].pause()
+              parent.audiomaster.mix.setGain(1.0)
               })
            }
 

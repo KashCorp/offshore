@@ -20,8 +20,23 @@
     <div class="flipbook">
       <div class="hard" style="background-image:url(images/folder_front.png)"></div>
       <div class="hard" style="background-image:url(images/folder_left.png)"></div>
-      <div style="background-image:url(images/dossier/03.jpg)"></div>
-      <div style="background-image:url(images/dossier/04.jpg)"></div>
+      <div style="background-image:url(images/dossier/spartan_brief.jpg)"></div>
+      <div style="background-image:url(images/dossier/blank_paper.jpg)"></div>
+
+      <div style="background-image:url(images/dossier/01.jpg)"></div>
+      <div style="background-image:url(images/dossier/blank_paper.jpg)"></div>
+
+       <div style="background-image:url(images/dossier/02.jpg)"></div>
+      <div style="background-image:url(images/dossier/blank_paper.jpg)"></div>     
+
+
+       <div style="background-image:url(images/dossier/03.jpg)"></div>
+      <div style="background-image:url(images/dossier/blank_paper.jpg)"></div>   
+
+
+       <div style="background-image:url(images/dossier/04.jpg)"></div>
+      <div style="background-image:url(images/dossier/blank_paper.jpg)"></div>   
+
       <div class="hard" style="background-image:url(images/folder_right.png)"></div>
       <div class="hard" style="background-image:url(images/folder_back.png)"></div>
     </div>

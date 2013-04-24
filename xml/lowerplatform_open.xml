@@ -66,6 +66,19 @@
 			</mobile>
 		</image>
 
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="40"
+			atv="0"
+			distorted="true"
+			alpha="0.5"
+			width="105.0"
+			height="105.0"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_LowerPlatform.mp3))"
+			scale="1.0"
+			capture="false"
+			/>	
+			
 <!--
 		<hotspot url="../images/panos/noentry/hotspots/waves.png"
 			ath="142.25"
