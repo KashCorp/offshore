@@ -6,6 +6,9 @@ body{
 	margin:0;
 	padding:0;
 }
+#flipbook .page{
+	background: :none;
+}
 
 .flipbook-viewport{
 	overflow:hidden;
@@ -30,7 +33,7 @@ body{
 .flipbook-viewport .page{
 	width:461px;
 	height:600px;
-	background-color:white;
+	background-color:none;
 	background-repeat:no-repeat;
 	background-size:100% 100%;
 }

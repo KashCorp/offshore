@@ -64,13 +64,13 @@
 		</image>
 
 		<hotspot name="headphones" url="../images/hotspot.gif"
-			ath="165"
-			atv="15"
+			ath="110"
+			atv="0"
 			distorted="true"
-			alpha="0."
-			width="555.0"
+			alpha="0.0"
+			width="105.0"
 			height="105.0"
-			onclick="js(loadAFXPano(audio/greetings.mp3))"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_Helicopter.mp3))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -98,7 +98,7 @@
 			ath="-37"
 			atv="31.5"
 			distorted="true"
-			onclick="js(openBook(dossier.php))"
+			onclick="js(openBook(dossierbook.php))"
 			onhover="js(hoverSound())"
 			onout="js(resetHoverSound())"
 			alpha="0"

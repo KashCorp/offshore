@@ -196,7 +196,7 @@
           });         
 
           // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
-          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/approaching_rig/",64)
+          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/approaching_rig/",121)
 
           scrollPos = walkthrough.scrollStopFunction()
 
