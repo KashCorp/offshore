@@ -202,12 +202,12 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3]Port Fouchon[h3]"
+			html="[h3]Port Fourchon[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="300"
-        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fouchon.webm);set(hotspot[video_close].visible,true)"
+        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fourchon.webm);set(hotspot[video_close].visible,true)"
 			
 		/>
 
