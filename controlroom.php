@@ -114,12 +114,6 @@
 
 
 
-    <div id="inter-text" style="display: block"></div>
-<!--
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/21_w.ogg" type="audio/ogg" />
-    </audio>
-  -->
 
 
 
@@ -170,8 +164,6 @@
 
 var klaxxon = function(){
   console.log("KLAXXON")
-  var krpano = document.getElementById('krpanoObject')
-  $('canvas').css('-webkit-filter', 'blur(12px) grayscale (.5) opacity(0.8) hue-rotate(120deg)')
 }
 var soundadjust = function(coord,fov) {
   //console.log(coord)
@@ -253,6 +245,7 @@ $(document).ready(function(){
     $('.movie-menu').fadeOut(500,function(){
     krpano = document.getElementById("krpanoObject");
     krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
+    parent.audiomaster.mix.setGain(1.0)
     master.loadVideoUnderlay("video/transitions/oil_shot",null,true)   
     })
 

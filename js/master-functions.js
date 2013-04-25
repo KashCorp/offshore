@@ -549,7 +549,8 @@ if(!bgOnly){
 
 this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
     
-
+	parent.audiomaster.mix.setGain(0.3)
+	
     if( this.popcorn) Popcorn.destroy(  this.popcorn );
     $('#footnote-container').html('')
     if(_popcorn){

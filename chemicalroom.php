@@ -67,7 +67,7 @@
     <canvas id="ghost-canvas" width="1200" height="800" style="opacity:.4;position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
   		<div class="breadcrumb"></div>
       <div id="scroll-directions"></div>
-      
+
       <div id="walking-exit" class="platform-nav">Close</div>
   	</div>
 
@@ -96,13 +96,19 @@
 
      var convCoord =  Math.abs(coord%360);
 
-     if(convCoord > 100 && convCoord < 160){
-        $("#ghost-canvas").fadeIn(2500)
+
+
+      if(fov > 100) {
+       $("#ghost-canvas").fadeOut(500)
       }else{
-        $("#ghost-canvas").fadeOut(2500)
+  
+        if(convCoord > 100 && convCoord < 160){
+            $("#ghost-canvas").fadeIn(2500)
+          }else{
+            $("#ghost-canvas").fadeOut(2500)
+        }
+
       }
-
-
       if(fov <25) {
           $('#scroll-directions, #walking-exit').fadeIn()
           $('#panocontainer, .fastpan, .compass').fadeOut(500)
@@ -181,7 +187,7 @@
               $('#video-overlay-engine-room source').attr('src', _id);
               $('#video-overlay-engine-room video').load();
               master.audioFadeAll(0.5)
-              parent.audiomaster.mix.setGain(0.3)
+              parent.audiomaster.mix.setGain(0.1)
               $("#video-overlay-engine-room")[0].load()
               $("#video-overlay-engine-room")[0].play()
               $("#video-overlay-engine-room")[0].onended = function(e) {
