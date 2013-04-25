@@ -71,12 +71,12 @@
 		<image devices="Tablet"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image>
 
 		<hotspot name="engineroom" url="../images/hotspot.gif"
-			ath="13"
+			ath="18"
 			atv="0"
 		
 			alpha="0"
-			width="100"
-			height="100"
+			width="80"
+			height="120"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="js(loadsecondscene)"
@@ -105,18 +105,35 @@
     <down  url="../images/panos/chemicalroom/pano_d.jpg" />
 	 </image>
 
-	 		<hotspot name="engineroom" url="../images/hotspot.gif"
-			ath="335"
-			atv="-7"
-		
-			alpha="0.0"
-			width="500.0"
-			height="450.0"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
-			scale="1.0"
+	<hotspot name="engineroom" url="../images/hotspot.gif"
+		ath="335"
+		atv="-7"
+
+		alpha="0.0"
+		width="500.0"
+		height="450.0"
+		borderwidth="0.0" borderwidthhover="1"
+		bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+		onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+		scale="1.0"
 	/>
+
+	<hotspot name="opendoorgif"
+		url="../images/icons/gif_icon3.gif"
+		ath="345"
+		atv="0"
+    distorted="true"
+    keep="true"
+		alpha=".3"
+		width="140"
+		height="140"
+		borderwidth="0.0" borderwidthhover="1"
+		bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+		onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+		scale="1.0"
+	/>
+
+
 
 
   <image devices="Mobile">      <cube url="../images/panos/chemicalroom/mobile_%s.jpg" /> </image>
@@ -150,15 +167,35 @@
 			onclick="js(newPage(subhanger))"
 			scale="1.0"
 			/>
-		
 
 		<!-- Darla (Barrel) -->
+		
+		<hotspot name="Darla_Text"
+			url="plugins/textfield.swf"
+			ath="265"
+			atv="-5"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] DARLA POISONED [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Darla)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
 
-		<hotspot name="Darla_Barrel" url="../images/hotspot.gif"
+		<hotspot name="Darla_Barrel"
+			url="../images/hotspot.gif"
 			ath="250"
 			atv="28"
-		    distorted="true"
-		    keep="true"
+	    distorted="true"
+	    keep="true"
 			alpha="0"
 			width="220.0"
 			height="95.0"
@@ -186,6 +223,26 @@
 
 
 		<!-- James (Barrel) -->
+
+		<hotspot name="James_Text"
+			url="plugins/textfield.swf"
+			ath="130"
+			atv="-5"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] &quot;CATFISH&quot; MILLER [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_James)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
 
 		<hotspot name="James" url="../images/hotspot.gif"
 			ath="115"
@@ -228,9 +285,51 @@
 			distorted="true"
 			keep="true"
 			alpha="0"
-			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false)"
+			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
 			scale="1.05"
-			/>
+		/>
+
+		<hotspot name="Corexit_video" url="../images/hotspot.gif"
+			ath="54.4"
+			atv="-5.1"
+		  	distorted="true"
+		  	keep="true"
+			alpha="0"
+			width="100"
+			height="100"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Corexit)));js(setCache(get(view.hlookat),54))"
+			scale="1.0"
+			enabled="false"
+		/>
+	
+		<hotspot name="Corexit_Text"
+			url="plugins/textfield.swf"
+			ath="64.4"
+			atv="-5"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] COREXIT&#169; [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Corexit)));js(setCache(get(view.hlookat),54))"
+			enabled="false"
+			alpha="0"
+			keep="true"
+		/>
+
+
+
+
+
 
 		<!-- <hotspot name="close_cabinet" url="../images/hotspot.gif"
 			ath="54.4"
@@ -259,20 +358,7 @@
 			capture="false"
 			/>	
 
-		<hotspot name="Corexit_video" url="../images/hotspot.gif"
-			ath="54.4"
-			atv="-5.1"
-		  	distorted="true"
-		  	keep="true"
-			alpha="0"
-			width="100"
-			height="100"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/ChemicalStorage_Corexit)));js(setCache(get(view.hlookat),54))"
-			scale="1.0"
-			enabled="false"
-		/>
+		
 
 		<!-- <hotspot name="cabinet_open_img" url="../images/panos/chemicalroom/hotspots/cabinet.png"
 			ath="54.4"
@@ -284,6 +370,29 @@
 
 			scale="1.05"
 		/> -->
+
+			<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+
+			h2 {
+				color: #333333;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 7;
+				line-height: 20px;
+				textAlign: center;
+				text-align: center;
+			}			
+		</data>
+
 
 
 		<data name="cssdata1">

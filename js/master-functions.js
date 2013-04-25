@@ -128,9 +128,9 @@ var masterFunctions = function() {
                 var breadbox_string = '';
                 breadbox_string += '<h1><img src="images/splash_logo_backup.png" alt=""></h1>';
                 breadbox_string += '<nav class="left">';
-                breadbox_string += '<ul><li><a href="about.html">About</a></li>';
-                breadbox_string += '<li><a href="blog.html">Blog</a></li>';
-                breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
+                // breadbox_string += '<ul><li><a href="about.html">About</a></li>';
+                // breadbox_string += '<li><a href="blog.html">Blog</a></li>';
+                // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
                 breadbox_string += '</nav>';
 
                 breadbox_string += '<div class="info"><div class="title"><p>Brent Crude Oil</p><p>USD / Barrel</p></div>';

@@ -179,7 +179,7 @@
 			/>
 
 		<hotspot name="Rajun_Cajun_Gif" 
-			url="../images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconC.gif"
 			ath="335"
 			atv="1"
 			distorted="true"
@@ -213,7 +213,7 @@
 			/>
 
 		<hotspot name="Capt_Shane_Gif" 
-			url="../images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconB.gif"
 			ath="300"
 			atv="1"
 			distorted="true"
@@ -245,7 +245,7 @@
 			/>
 
 		<hotspot name="Rossina_Gif" 
-			url="../images/icons/gif_iconB.gif"
+			url="../images/icons/gif_iconC.gif"
 			ath="270"
 			atv="1"
 			distorted="true"
@@ -277,7 +277,7 @@
 			/>
 
 		<hotspot name="Darla_Gif" 
-			url="../images/icons/gif_iconC.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="230"
 			atv="1"
 			height="50"
