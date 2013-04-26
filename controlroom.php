@@ -57,36 +57,40 @@
 
           <a id="to-control-vid" class="platform-nav" style="display:none;right:90px">Close</a>
 
-          <ul class="movie-menu">
+          <ul class="movie-menu mk">
             <!-- VIDEO THUMBS -->
 
             <li data-url="video/doc_content/ControlRoom_MK_Deadly_Encounters" data-popcorn="klare_01" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true"  preload="auto">
+              <video volume = "0" autoplay loop = "true"  preload="auto">
                   <source src="video/doc_content/ControlRoom_MK_Deadly_Encounters_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Deadly_Encounters_thumb.mp4" type="video/mp4" />
               </video> 
               <br>
               Michael Klare: Deadly Encounters
             </li>
 
             <li data-url="video/doc_content/ControlRoom_MK_Disappearing_Fields" data-popcorn="klare_02" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true"  preload="auto">
+              <video volume = "0" autoplay loop = "true"  preload="auto">
                   <source src="video/doc_content/ControlRoom_MK_Disappearing_Fields_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Disappearing_Fields_thumb.mp4" type="video/mp4" />
               </video> 
               <br>
               Michael Klare: Disappearing Fields
             </li>
                         
             <li data-url="video/doc_content/ControlRoom_MK_Nowhere_else_to_go" data-popcorn="klare_03" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true"  preload="auto">
+              <video volume = "0" autoplay loop = "true"  preload="auto">
                   <source src="video/doc_content/ControlRoom_MK_Nowhere_else_to_go_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Nowhere_else_to_go_thumb.mp4" type="video/mp4" />
               </video> 
               <br>
               Michael Klare: Nowhere else to go
             </li>
 
             <li data-url="video/doc_content/ControlRoom_MK_Spaceship_to_Mars" data-popcorn="klare_04" class="vid-menu-nav">
-              <video width="250" volume = "0" loop = "true"  preload="auto">
+              <video volume = "0" autoplay loop = "true"  preload="auto">
                   <source src="video/doc_content/ControlRoom_MK_Spaceship_to_Mars_thumb.webm" type="video/webm" />
+                  <source src="video/doc_content/ControlRoom_MK_Spaceship_to_Mars_thumb.mp4" type="video/mp4" />
               </video> 
               <br>
               Michael Klare: Sending a Spaceship to Mars
@@ -223,15 +227,16 @@ $(document).ready(function(){
 
   $("#ghost-canvas").css("top",dynamicTop)
 
-  /// VIDEO LOGIC 
-  var movieMenuWidth = 800
+  /// Video menu placement
+  // var movieMenuWidth = 800
 
-  $('.movie-menu').css("width",movieMenuWidth)
-  $('.movie-menu').css("margin-left",-movieMenuWidth/2)
+  // $('.movie-menu').css("width",movieMenuWidth)
+  // $('.movie-menu').css("margin-left",-movieMenuWidth/2)
 
   $('.movie-menu li').each(function(i,v){
     $(this).find("video").prop('muted', true)
-    $(this).css("margin", 50);
+    // $(this).css("margin", '4%')
+    // $(this).css("width", '40%')
   })
 
    
