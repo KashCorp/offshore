@@ -125,7 +125,7 @@
 			width="25"
 			handcursor="true"
 			scale="1.0"
-			onclick="hotspot[video1].stop();set(hotspot[video_close].visible,false);set(hotspot[video1].visible,false);lookto(0,0,90,smooth(),true,true)"
+			onclick="hotspot[video1].stop();set(hotspot[video_close].visible,false);set(hotspot[video1].visible,false);lookto(0,0,90,smooth(),true,true);set(autorotate.enabled,true);"
 			capture = "false"
 			/>
 		
@@ -148,7 +148,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_BP.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_BP.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 
 		/>
 
@@ -168,7 +168,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 		/>
 
  		<hotspot name="videoflag_03"
@@ -187,7 +187,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true)"
+        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
 		/>
 
@@ -207,7 +207,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fourchon.webm);set(hotspot[video_close].visible,true)"
+        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fourchon.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
 		/>
 
@@ -227,7 +227,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Petrobras.webm);set(hotspot[video_close].visible,true)"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Petrobras.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
 		/>
 

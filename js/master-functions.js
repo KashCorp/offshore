@@ -256,7 +256,7 @@ var masterFunctions = function() {
 		 $('#book-container-frame').fadeIn(500,function(){
 			 krpano = document.getElementById("krpanoObject");
 			 krpano.call("tween(view.fov, 15.0, 1.0)")
-			 parent.audiomaster.mix.setGain(0.3)
+			 parent.audiomaster.mix.setGain(0.1)
 
 		 })
 
@@ -549,7 +549,7 @@ if(!bgOnly){
 
 this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
     
-	parent.audiomaster.mix.setGain(0.3)
+	parent.audiomaster.mix.setGain(0.1)
 	
     if( this.popcorn) Popcorn.destroy(  this.popcorn );
     $('#footnote-container').html('')
@@ -1298,7 +1298,7 @@ function launchVideo(_id){
     //$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
 
     	//master.audioFadeAll(0.5)
-    	parent.audiomaster.mix.setGain(0.3)
+    	parent.audiomaster.mix.setGain(0.1)
     
     	$("#video-overlay")[0].load()
     	$("#video-overlay")[0].play()
@@ -1319,7 +1319,7 @@ function loadUnderWater(_id){
 	    $('#video-underlay video').load();
 	    $("#video-underlay")[0].load()
 	    $("#video-underlay")[0].play()
-	    parent.audiomaster.mix.setGain(0.3)
+	    parent.audiomaster.mix.setGain(0.1)
 	})
 
 }
