@@ -105,6 +105,20 @@
 				scale="1.0"
 		/>
 
+		<hotspot name="requiemgif" url="../images/icons/gif_iconA.gif"
+		ath="60"
+		atv="-10"
+    distorted="true"
+    keep="true"
+		alpha=".3"
+		width="140"
+		height="140"
+		borderwidth="0.0" borderwidthhover="1"
+		bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+		onclick="lookto(70,0,5,tween(easeOutQuad,4),true,true);set(hotspot[requiem].enabled,false);"
+		scale="1.0"
+	/>
+
 
 	</scene>
 <!--

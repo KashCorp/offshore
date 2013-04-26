@@ -58,7 +58,6 @@
       <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
   		<div id="panocontainer" class="subhanger"></div>
 
-      <div id="walking-exit" class="platform-nav">Close</div>
 
 <!-- OVERLAY VIDEOS -->
       <div class="video-content-wrap">
@@ -84,6 +83,9 @@
       <div id="scroll-directions"></div>
       
   		<div class="breadcrumb"></div>
+
+      <div id="walking-exit" class="platform-nav">Close</div>
+
 
   	</div>
 
@@ -202,12 +204,11 @@
           
           // Exit button
           $("#walking-exit").click(function(){
-            walkthrough.scrollPos = 0 // reset video playback
-            
+            walkthrough.scrollPos = 0
             scrollTrigger = 0
+            //scrollPercent =1
             krpano = document.getElementById("krpanoObject");
             krpano.call("lookto(0,0,90,smooth(),true,true))")
-
           });     
 
           // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
@@ -230,31 +231,29 @@
           // }
 
             if(walkthrough.scrollPos > 85 && playTrigger == 0){
-              console.log(_id)
               $(".compass").fadeOut()
-
               $(".video-content-wrap-engine-room").fadeIn(1500)
               $('#video-overlay-engine-room source').attr('src', _id);
               $('#video-overlay-engine-room video').load();
               master.audioFadeAll(0.5)
+              parent.audiomaster.mix.setGain(0.1)
               $("#video-overlay-engine-room")[0].load()
               $("#video-overlay-engine-room")[0].play()
-
               $("#video-overlay-engine-room")[0].onended = function(e) {
-                //closeVideo()
               }
               playTrigger = 1
            }
 
             if(walkthrough.scrollPos < 85 && playTrigger == 1) {
               //master.audioFadeInAll(0.7)
-              $(".video-content-wrap-engine-room").fadeOut(1000,function(){
-                $("#video-overlay-engine-room")[0].pause()
-              })
               playTrigger = 0
               console.log("OUTSIDE THE ZONE")
+              $(".video-content-wrap-engine-room").fadeOut(1000,function(){
+
+              $("#video-overlay-engine-room")[0].pause()
+              parent.audiomaster.mix.setGain(1.0)
+              })
               $(".compass").fadeIn()
-              
            }
 
             requestAnimationFrame(scrollerFunction)
