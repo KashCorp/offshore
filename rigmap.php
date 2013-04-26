@@ -192,10 +192,11 @@ position: absolute;
       <div id="viewport" style="left:0px">
         <div id='image-container'>
           <ul>
-            <li id="leasemap_05"><img src="images/rig_map/leases/lease_05.jpg"><div>Contextual text goes here</div></li>
-            <li id="leasemap_04"><img src="images/rig_map/leases/lease_04.jpg"><div>Contextual text goes here</div></li>
-            <li id="leasemap_03"><img src="images/rig_map/leases/lease_03.jpg"><div>Contextual text goes here</div></li>
-            <li id="leasemap_01"><img src="images/rig_map/leases/lease_01.jpg"><div>Contextual text goes here</div></li>
+            <li id="leasemap_05"><img src="images/rig_map/leases/lease_05.jpg"><div>Caribbean</div></li>
+            <li id="leasemap_04"><img src="images/rig_map/leases/lease_04.jpg"><div>Brazil</div></li>
+            <li id="leasemap_03"><img src="images/rig_map/leases/lease_03.jpg"><div>Alaska</div></li>
+            <li id="leasemap_02"><img src="images/rig_map/leases/lease_02.jpg"><div>West Africa</div></li>
+            <li id="leasemap_01"><img src="images/rig_map/leases/lease_01.jpg"><div>Gulf of Mexico</div></li>
           </ul>
         </div>
           <div id="map-container">
@@ -204,7 +205,11 @@ position: absolute;
             <li style="cursor:default" id="rigmap_02"><img src="images/rig_map/rig_map_02.jpg"></li>
             <li data-url="platform" id="rigmap_03"><img src="images/rig_map/rig_map_03.jpg"></li>
             <li data-url="controlroom" id="rigmap_04"><img src="images/rig_map/rig_map_04.jpg"></li>
-            <li data-url="theater" id="rigmap_05"><img src="images/rig_map/rig_map_05.jpg"></li>
+
+            <!-- <li data-url="theater" id="rigmap_05"><img src="images/rig_map/rig_map_05.jpg"></li> -->
+            <li data-url="hallway" id="rigmap_05a"><img src="images/rig_map/rig_map_05a.jpg"></li>
+            <li data-url="theater" id="rigmap_05b"><img src="images/rig_map/rig_map_05b.jpg"></li>
+
             <li data-url="chemicalroom" id="rigmap_06"><img src="images/rig_map/rig_map_06.jpg"></li>
             <li data-url="subhanger" id="rigmap_07"><img src="images/rig_map/rig_map_07.jpg"></li>
             <li data-url="boat" id="rigmap_08"><img src="images/rig_map/rig_map_08.jpg"></li>
@@ -213,10 +218,11 @@ position: absolute;
               <div style="position:absolute;top:20%;left:10%">
                 <div data-url="platform" id="t3" class="textholder">1: Flight Deck</div>
                 <div data-url="controlroom" id="t4" class="textholder">2: Control Room</div>
-                <div data-url="theater" id="t5" class="textholder">3: Theatre</div>
+                <div data-url="hallway" id="t5b" class="textholder">3: Theatre</div>
                 <div data-url="chemicalroom" id="t6" class="textholder">4: Chem-Storage</div>
                 <div data-url="subhanger" id="t7" class="textholder">5: Submersible Hanger</div>
                 <div data-url="boat" id="t8" class="textholder">6: Boat Deck</div>
+                <div data-url="hallway" id="t5a" class="textholder">7: Hallway</div>
               </div>
 
 
@@ -320,17 +326,23 @@ position: absolute;
            //box-shadow: ;
           $("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
            $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * .6 + 'px)');
-           $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
-           $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
-           $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+           $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .75 + 'px)');
+           $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.0 + 'px)');
+           $('#leasemap_02').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
+           $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.8 + 'px)');
+
            $('#rigmap_01').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
            $('#rigmap_02').css('-webkit-transform', 'translateZ(' + zPos + 'px)');
-           $('#rigmap_05,#t5').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
+
+           $('#rigmap_05a,#t5a').css('-webkit-transform', 'translateZ(' + zPos * 1.3  + 'px)');
+           $('#rigmap_05b,#t5b').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
+
            $('#rigmap_04,#t4').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
            $('#rigmap_03,#t3').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
            $('#rigmap_06,#t6').css('-webkit-transform', 'translateZ(' + zPos * 1.4 + 'px)');
            $('#rigmap_08,#t8').css('-webkit-transform', 'translateZ(' + zPos * 1.5 + 'px)');
            $('#rigmap_07,#t7').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+
 
 
          }
