@@ -48,8 +48,13 @@
 		 	keycodesout =""
 		 	/>
 	 	<image>
-				<cube url="../images/panos/interiorsub-wire/pano_%s.png" />
-
+				<!-- <cube url="../images/panos/interiorsub-wire/pano_%s.png" /> -->
+			<left  url="../images/panos/interiorsub-wire/pano_l.jpg" />
+	    <front url="../images/panos/interiorsub-wire/pano_f.jpg" />
+	    <right url="../images/panos/interiorsub-wire/pano_r.png" />
+	    <back  url="../images/panos/interiorsub-wire/pano_b.jpg" />
+	    <up    url="../images/panos/interiorsub-wire/pano_u.jpg" />
+	    <down  url="../images/panos/interiorsub-wire/pano_d.png" />
 		</image>
 
 			

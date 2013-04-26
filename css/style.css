@@ -1343,14 +1343,39 @@ ul.movie-menu li {
 
 .movie-menu {
 	font-size: 1em;
-display:block;
-position:absolute;
-top:5px;
+	display:block;
+	position:absolute;
+	top:5px;
 }
 
 .movie-menu .vid-menu-nav{
-cursor:pointer;
+	cursor:pointer;
 }
+
+	/* MK Michael Klare movie-menu*/
+
+	ul.movie-menu.mk {
+		position: absolute;
+		min-width: 500px;
+		max-width: 900px;
+		width: 80%;
+		left: 50%;
+		margin-left: -40%;
+		z-index: 1000;
+		text-align: center;
+	}
+	ul.movie-menu.mk li {
+		display: inline-block;
+		max-width: 400px;
+		width: 39%;
+		margin: 5%;
+
+		text-align: left;
+		font-size: 1.3em;
+	}
+	ul.movie-menu.mk li video {
+		width: 100%; height: auto;
+	}
 
 /* directions */
 
