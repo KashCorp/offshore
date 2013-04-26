@@ -84,12 +84,12 @@
 
 	<scene name="doorIsOpen" onstart="">	 	
 	 	<image>
-    <left  url="../images/panos/subhanger/pano_l.jpg" />
+    <left  url="../images/panos/subhanger/pano_l.png" />
     <front url="../images/panos/subhanger/pano_f2.png" />
     <right url="../images/panos/subhanger/pano_r2.png" />
     <back  url="../images/panos/subhanger/pano_b.jpg" />
     <up    url="../images/panos/subhanger/pano_u.jpg" />
-    <down  url="../images/panos/subhanger/pano_d.jpg" />
+    <down  url="../images/panos/subhanger/pano_d.png" />
 		</image>
 	
 		<hotspot name="requiem" url="../images/hotspot.gif"
