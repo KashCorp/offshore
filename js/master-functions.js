@@ -1280,7 +1280,7 @@ function openBook(_url){
 }
 
 function launchVideo(_id){
-
+	
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 
 	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
