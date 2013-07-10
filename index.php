@@ -12,7 +12,8 @@
     <meta name="author" content="">
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+
+    <link href="css/video-js.css" rel="stylesheet">
 
     <script type="text/javascript">
 
@@ -30,43 +31,79 @@
 
   </head>
 
-  <body>
-  	<div id="splash-wrapper">
+  <body class="p-trailer">
+
+  <div id="wrapper">
+    <div id="vimeo">
+       <!-- <iframe id="player1" allowtransparency="true" src="http://player.vimeo.com/video/50174437?api=1&player_id=player1&autoplay=1" width="635" height="357" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> -->
+      <iframe id="player1" allowtransparency="true" src="http://player.vimeo.com/video/64732153?api=1&player_id=player1&autoplay=1" width="635" height="357" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+
+	</div>
+  <a href="#" class="skiptrailer" data-url="index_container.php">SKIP</a>
+
+
+    <!-- JavaScripts -->
+    <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
+		<script type="text/javascript" src="js/master-functions.js"></script>
+    <script type="text/javascript" src="js/lib/video-js/video.js"></script> 
+    
+    
+    <script>
+
+    // VIDEO
+
+    /*_V_("trailer").ready(function(){
+
+      var myPlayer = this;
+      var vidWidth = $('#wrapper').width();
+      var vidHeight = $('#wrapper').height();
+      // EXAMPLE: Start playing the video.
+      myPlayer.size(vidWidth, vidHeight);
+
+      myPlayer.addEvent('ended', function(){
+        $('#video-js').fadeOut(500);
+        master.pageChange('platform.php');
+      });
+
+    });*/
+
+$(document).ready(function(){   
+var iframe = $('#player1')[0],
+    player = $f(iframe),
+    status = $('.status');
+
+// When the player is ready, add listeners for pause, finish, and playProgress
+player.addEvent('ready', function() {
+    console.log('ready');
+    //player.api('play')
+    player.addEvent('pause', onPause);
+    player.addEvent('finish', onFinish);
+    player.addEvent('playProgress', onPlayProgress);
+});
+
+// Call the API when a button is pressed
+$('button').bind('click', function() {
+    player.api($(this).text().toLowerCase());
+});
+
+function onPause(id) {
+    console.log('paused');
+}
+
+function onFinish(id) {
+    console.log('finished');
+    master.pageChange('index_container.php')
+}
+
+function onPlayProgress(data, id) {
+    //console.log(data.seconds + 's played');
+}
    
-      <img src="images/splash_bg.jpg" class="splashbg-img" />
-    
-     
-		  <div class="splashlogo">
-        <img src="images/hd_splash_logo.png">
-        <a id="enter_site" href="#"><img src="images/nav_mainenter.png"></a>
-        <p class="disclaimer">Best viewed in Chrome and Firefox.</p>
-			</div>
-
-      
-    </div>		
-    <script type="text/javascript" src="js/lib/jquery.min.js"></script>		
-
-<script>
-$(document).ready(function(){  
- 
-    var fadeToBlack = function(){
- 		  $("#splash-wrapper").fadeOut(1000, function(){
- 		  	window.location="trailer_froog.php"
-		});	
-    }
-    
-    $("#enter_site").click(function(){
-      fadeToBlack()
-		}) 
-		
-		$(".splashbg-img").fadeIn(2000, function(){
- 		  $(".splashlogo").fadeIn(2000)
-		});	
-		 
-    		
-		    	})
-	</script>
-
-
+      $('#wrapper').show();
+    })
+  </script>
   </body>
 </html>

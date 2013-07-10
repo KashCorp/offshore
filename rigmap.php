@@ -32,145 +32,193 @@
 
 <style>
 
-#map-container, #image-container  {
-  position: absolute;
-  width: 1720px; 
-  text-align: center;
-  color:#ffffff;
-  display:block;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
+  #map-container, #image-container  {
+    position: absolute;
+    width: 1720px; 
+    text-align: center;
+    color:#ffffff;
+    display:block;
 
- 
-}
+    top: 50%;
+    margin-top: -663px;
+    left: 50%;
+    margin-left: -860px;
 
-#map-container  {
-    -webkit-transform: translateZ(-500px)
-}
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+  }
 
-#image-container  {
-    -webkit-transform: translateZ(-2500px)
-}
+  #map-container  {-webkit-transform: translateZ(-500px) }
+  #image-container  {-webkit-transform: translateZ(-2500px) }
 
-#map-container, #image-container ul {
-  position: absolute;
-  font-size: 0;
-}
+  #map-container, #image-container ul {
+    position: absolute;
+    font-size: 0;
+  }
 
-#map-container ul li {
-  float: left;
-  list-style-type: none;
-  box-shadow: 0px 0px 0px rgba(0,0,0,.5);*/
-  position:relative;
-  padding:0;
-  /*margin:-1px;*/
- -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
+  #map-container ul li {
+    float: left;
+    list-style-type: none;
+    box-shadow: 0px 0px 0px rgba(0,0,0,.5);*/
+    position:relative;
+    padding:0;
+    /*margin:-1px;*/
+   -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    
+    cursor: pointer;
+  }
+
+  #image-container ul li {
+    display: table;
+    width:100%;
+    text-align: center;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    list-style-type: none;
+    padding:0;
+    position: absolute; 
+    top:0; 
+    bottom:0; 
+    left:0; 
+    right:0;
+  }
+
+  #image-container ul li div {
+    display: block;
+    width:100%;
+    padding:5px;
+    position: absolute; 
+    top:0; 
+    left:0; 
+    font-size: 20px;
+    text-align:left;
+    background: url(images/bg_black_50.png);
+  }
+
+  #photo-container ul li img { 
+  vertical-align: middle; 
+
+  }
+
+
+  #scan_image_holder {
+    position: absolute;
+    width: 100%;
+    left:0px;
+    overflow:hidden;
+
+
+  }
+
+  #scan_image_lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left:0px;
+    opacity:.5;
+    background: url('images/bg_linematrix2x2_blue.gif');
+    overflow:hidden;
+
+  }
+
+  .lease_maps {
+    position: absolute;
+    opacity: .2;
+    left:0px;
+    width: 100%;
+  }
+
+  .word {
+    position: absolute;
+    width: 100%; 
+    text-align: center;
+    bottom: 40%;
+    color: #fff;
+    font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+    font-size: 50px;
+    text-shadow: 1px 1px 3px #000;
+
+
+  }
+
+  .cloud {
+    position: absolute;
+    width: 100%; 
+  }
+
+  .map_labels div {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: black;
+    border-radius: 50px;
+    cursor: pointer;
+    
+    font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 45px;
+    line-height: 55px;
+    color: #ecc60a;
+
+  }
+
+    .map_labels div:hover, .map_labels div.hover {
+      color: black;
+      background: #ecc60a;
+    }
   
-  cursor: pointer;
-}
+  .text_labels {
+    position:absolute;
+    top:300px;
+    left:100px
+  }
 
-#image-container ul li {
-  display: table;
-  width:100%;
-  text-align: center;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
-  list-style-type: none;
-  padding:0;
-  position: absolute; 
-  top:0; 
-  bottom:0; 
-  left:0; 
-  right:0;
-}
+    .text_labels div {
+      width: 445px;
+      -webkit-transform: translateZ(0px);
+      background:#000000;
+      margin-bottom: 30px;
+      padding: 5px 10px;
+      cursor:pointer;
+      
+      text-align:left;
+      font-size: 40px;
+      font-weight: bold;
+      color: #ecc60a;
+    }
 
-#image-container ul li div {
-  display: block;
-  width:100%;
-  padding:5px;
-  position: absolute; 
-  top:0; 
-  left:0; 
-  font-size: 20px;
-  text-align:left;
-  background: url(images/bg_black_50.png);
-}
+    .text_labels div span {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: #ecc60a;
+      border-radius: 50px;
+      
+      font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      text-align: center;
+      font-size: 45px;
+      line-height: 55px;
+      color: black;
+    }
 
-#photo-container ul li img { 
-vertical-align: middle; 
+    .text_labels div:hover, 
+    .text_labels div.hover {
+      color: black;
+      background: #ecc60a;
+    }
 
-}
+    .text_labels div:hover span, 
+    .text_labels div.hover span {
+      color: #ecc60a;
+      background: black;
+    }
 
-
-
-.textholder {
-/*position: absolute;
-top:40%;
-left:20%;
-*/
-text-align:left;
-color: #ffffff;
-font-size: 30px;
--webkit-transform: translateZ(0px);
-background:#000000;
-border:1px solid;
-margin-bottom: 20px;
-padding:5px;
-cursor:pointer;
-
-}
-
-
-
-#scan_image_holder {
-  position: absolute;
-  width: 100%;
-  left:0px;
-  overflow:hidden;
-
-
-}
-
-#scan_image_lines {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left:0px;
-  opacity:.5;
-  background: url('images/bg_linematrix2x2_blue.gif');
-  overflow:hidden;
-
-}
-
-.lease_maps {
-  position: absolute;
-  opacity: .2;
-  left:0px;
-  width: 100%;
-}
-
-.word {
-
-position: absolute;
-  width: 100%; 
-  text-align: center;
-  bottom: 40%;
-  color: #fff;
-  font-family: 'DinRegular', Helvetica, Arial, sans-serif;
-  font-size: 50px;
-  text-shadow: 1px 1px 3px #000;
-
-
-}
-
-.cloud {
-  position: absolute;
-  width: 100%; 
-}
 
 </style>
 
@@ -190,6 +238,8 @@ position: absolute;
       </div>
       
       <div id="viewport" style="left:0px">
+        
+        <!-- Lease Map -->
         <div id='image-container'>
           <ul>
             <li id="leasemap_05"><img src="images/rig_map/leases/lease_05.jpg"><div>Caribbean</div></li>
@@ -199,63 +249,60 @@ position: absolute;
             <li id="leasemap_01"><img src="images/rig_map/leases/lease_01.jpg"><div>Gulf of Mexico</div></li>
           </ul>
         </div>
-          <div id="map-container">
+        
+        <!-- Rig Map -->
+        <div id="map-container">
           <ul>
             <li style="cursor:default" id="rigmap_01"><img src="images/rig_map/rig_map_01.jpg"></li>
             <li style="cursor:default" id="rigmap_02"><img src="images/rig_map/rig_map_02.jpg"></li>
             <li data-url="platform" id="rigmap_03"><img src="images/rig_map/rig_map_03.jpg"></li>
             <li data-url="controlroom" id="rigmap_04"><img src="images/rig_map/rig_map_04.jpg"></li>
-
-            <!-- <li data-url="theater" id="rigmap_05"><img src="images/rig_map/rig_map_05.jpg"></li> -->
             <li data-url="hallway" id="rigmap_05a"><img src="images/rig_map/rig_map_05a.jpg"></li>
             <li data-url="theater" id="rigmap_05b"><img src="images/rig_map/rig_map_05b.jpg"></li>
-
             <li data-url="chemicalroom" id="rigmap_06"><img src="images/rig_map/rig_map_06.jpg"></li>
             <li data-url="subhanger" id="rigmap_07"><img src="images/rig_map/rig_map_07.jpg"></li>
             <li data-url="boat" id="rigmap_08"><img src="images/rig_map/rig_map_08.jpg"></li>
           </ul>
 
-              <div style="position:absolute;top:20%;left:10%">
-                <div data-url="platform" id="t3" class="textholder">1: Flight Deck</div>
-                <div data-url="controlroom" id="t4" class="textholder">2: Control Room</div>
-                <div data-url="hallway" id="t5b" class="textholder">3: Theatre</div>
-                <div data-url="chemicalroom" id="t6" class="textholder">4: Chem-Storage</div>
-                <div data-url="subhanger" id="t7" class="textholder">5: Submersible Hanger</div>
-                <div data-url="boat" id="t8" class="textholder">6: Boat Deck</div>
-                <div data-url="hallway" id="t5a" class="textholder">7: Hallway</div>
-              </div>
-
-
+          <div class="map_labels">
+            <div class="platform"     data-url="platform"     style="left:  740px; top:  310px;" data-url="platform">1</div>
+            <div class="controlroom"  data-url="controlroom"  style="left: 1020px; top:  215px;" data-url="controlroom">2</div>
+            <div class="theater"      data-url="theater"      style="left:  850px; top:  700px;" data-url="theater">3</div>
+            <div class="chemicalroom" data-url="chemicalroom" style="left:  940px; top:  930px;" data-url="chemicalroom">4</div>
+            <div class="subhanger"    data-url="subhanger"    style="left: 1150px; top: 1010px;" data-url="subhanger">5</div>
+            <div class="boat"         data-url="boat"         style="left: 1410px; top:  980px;" data-url="boat">6</div>
+            <div class="hallway"      data-url="hallway"      style="left:  970px; top:  590px;" data-url="hallway">7</div>
           </div>
-      </div>
-      
-      
 
-       <a id="to-control" class="platform-nav">Close</a>
+          <div class="text_labels">
+            <div class="platform"     data-url="platform"     id="t3"  ><span>1</span> Flight Deck</div>
+            <div class="controlroom"  data-url="controlroom"  id="t4"  ><span>2</span> Control Room</div>
+            <div class="theater"      data-url="theater"      id="t5b" ><span>3</span> Theatre</div>
+            <div class="chemicalroom" data-url="chemicalroom" id="t6"  ><span>4</span> Chem-Storage</div>
+            <div class="subhanger"    data-url="subhanger"    id="t7"  ><span>5</span> Submersible Hanger</div>
+            <div class="boat"         data-url="boat"         id="t8"  ><span>6</span> Boat Deck</div>
+            <div class="hallway"      data-url="hallway"      id="t5a" ><span>7</span> Terminus</div>
+          </div>
+
+
+        </div>
+
+      </div>
+
+      <a id="to-control" class="platform-nav">Close</a>
       <div id="scroll-directions"></div>
   		<div class="breadcrumb"></div>
-       
-     
        
   	</div>
      
     <div id="scroll-proxy"></div>
-
-
-
     <div id="inter-text" style="display: block"></div>
-
-
-
-  
 
     <!-- JavaScripts -->
 
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
-
-
 
 
     <script>
@@ -265,10 +312,29 @@ position: absolute;
         parent.master.closeMap()
       })
 
-      $("#map-container ul li,.textholder").click(function(){
+      $("#map-container ul li, .text_labels div, .map_labels div").click(function(){
         if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
        //window.history.back();
       })
+
+      // Map Labels corresponding hover
+      $('.text_labels div').on('mouseover',function(){
+        $('.map_labels').find('div.' + $(this).attr('class')).addClass('hover')
+      })
+
+      $('.text_labels div').on('mouseout',function(){
+        $('.map_labels').find('div.' + $(this).attr('class')).removeClass('hover')
+      })
+
+      $('.map_labels div').on('mouseover',function(){
+        // console.log($(this).attr('class'))
+        $('.text_labels').find('div.' + $(this).attr('class')).addClass('hover')
+      })
+
+      $('.map_labels div').on('mouseout',function(){
+        $('.text_labels').find('div.' + $(this).attr('class')).removeClass('hover')
+      })
+
 
 
 
@@ -318,34 +384,30 @@ position: absolute;
 
         function scrollFunction() {
 
-        scrollPercent =  scrollValue / (5000 - $(window).height()) * 100;
-  	       
+          scrollPercent =  scrollValue / (5000 - $(window).height()) * 100;
 
+          var zPos = scrollValue*.4
 
-           var zPos = scrollValue*.4
-           //box-shadow: ;
           $("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
-           $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * .6 + 'px)');
-           $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .75 + 'px)');
-           $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.0 + 'px)');
-           $('#leasemap_02').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
-           $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.8 + 'px)');
+          $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * .6 + 'px)');
+          $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .75 + 'px)');
+          $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.0 + 'px)');
+          $('#leasemap_02').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
+          $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.8 + 'px)');
 
-           $('#rigmap_01').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
-           $('#rigmap_02').css('-webkit-transform', 'translateZ(' + zPos + 'px)');
+          $('#rigmap_01').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
+          $('#rigmap_02').css('-webkit-transform', 'translateZ(' + zPos + 'px)');
 
-           $('#rigmap_05a,#t5a').css('-webkit-transform', 'translateZ(' + zPos * 1.3  + 'px)');
-           $('#rigmap_05b,#t5b').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
+          $('#rigmap_05a,#t5a').css('-webkit-transform', 'translateZ(' + zPos * 1.3  + 'px)');
+          $('#rigmap_05b,#t5b').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
 
-           $('#rigmap_04,#t4').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
-           $('#rigmap_03,#t3').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
-           $('#rigmap_06,#t6').css('-webkit-transform', 'translateZ(' + zPos * 1.4 + 'px)');
-           $('#rigmap_08,#t8').css('-webkit-transform', 'translateZ(' + zPos * 1.5 + 'px)');
-           $('#rigmap_07,#t7').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+          $('#rigmap_04,#t4').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
+          $('#rigmap_03,#t3').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
+          $('#rigmap_06,#t6').css('-webkit-transform', 'translateZ(' + zPos * 1.4 + 'px)');
+          $('#rigmap_08,#t8').css('-webkit-transform', 'translateZ(' + zPos * 1.5 + 'px)');
+          $('#rigmap_07,#t7').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
-
-
-         }
+        }
 
 
        }
