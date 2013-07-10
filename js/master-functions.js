@@ -1022,12 +1022,37 @@ var walkthroughFunctions = function(w,h,canvasid,filePathPre,imageNumber) {
     var that = this
     that.scrollValue = scrollValue
 
+    $('#walking-canvas-click').on('click',function(e){
+    	e.stopPropagation()
+    	playing = true
+    	play()
+    })
+
+    var playing = false
+
+    function play(){
+    	if(playing) {
+    		console.log('PLAYING')
+
+    		// 1 -> imageNumber
+
+
+
+    		// scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
+    		// that.scrollValue = scrollValue
+    		// that.scrollFunction()
+
+
+    	}
+    }
+
 
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
 	   		$( "#scroll-directions" ).draggable({ 
 	   			axis: "y",
 				drag: function() {
+					playing = false // stop autoplay
 					scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 					that.scrollValue = scrollValue
 					that.scrollFunction()
@@ -1038,36 +1063,35 @@ var walkthroughFunctions = function(w,h,canvasid,filePathPre,imageNumber) {
 			   	 });
 	   	});
 
-	if(document.getElementById('scroll-wrapper')){
-	   	if ($("#scroll-wrapper")[0].addEventListener) {
-                // IE9, Chrome, Safari, Opera
-        $("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false);
-                // Firefox
-        $("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false);
-		}
-		            // IE 6/7/8
-		else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); 
-	}
-	
-	function MouseWheelHandler(e){
-		                var e = window.event || e; // old IE support
-		                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-		                scrollerPos += delta*10
-		      			$( "#scroll-directions" ).css('top',scrollerPos)
-		      			scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
-						that.scrollValue = scrollValue
-						that.scrollFunction()
-
-						clearTimeout(mouseWheelTimeout)
-                		mouseWheelTimeout = null
-
-		                mouseWheelTimeout = setTimeout(function(){
-		                that.scrollStopFunction()
-		                },500)
-		/**/                
+		if(document.getElementById('scroll-wrapper')){
+		   	if ($("#scroll-wrapper")[0].addEventListener) {
+	                // IE9, Chrome, Safari, Opera
+	        $("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false);
+	                // Firefox
+	        $("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false);
 			}
+			            // IE 6/7/8
+			else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); 
+		}
+		
+		function MouseWheelHandler(e){
+	        var e = window.event || e; // old IE support
+	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+	        scrollerPos += delta*10
+				$( "#scroll-directions" ).css('top',scrollerPos)
+				scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
+			that.scrollValue = scrollValue
+			that.scrollFunction()
 
-	 }); 
+			clearTimeout(mouseWheelTimeout)
+			mouseWheelTimeout = null
+
+	        mouseWheelTimeout = setTimeout(function(){
+	        	that.scrollStopFunction()
+	        },500)
+		}
+
+	}); 
 
 	
     function zeroes(num, length) {
@@ -1084,67 +1108,54 @@ var walkthroughFunctions = function(w,h,canvasid,filePathPre,imageNumber) {
     canvas.height = h;
     
     var context = canvas.getContext('2d');
-    var imageSrc, scrollPercent, that = this, scrollPos
+    var imageSrc, scrollPercent, that = this
     
     scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
     this.scrollPercent = scrollPercent
     
+    imageSrc = filePathPre + "medsequence/frame-0001.jpg";
+
+    var img = new Image();
+	img.src = imageSrc
+	   
+	img.onload = function(){
+  		context.drawImage(img, 0, 0,w,h); 
+  	}
+
     this.scrollFunction = function(){
       
-      scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
-    
-      if (scrollPercent ==0){scrollPercent = 1}
-      
-      that.scrollPos = scrollPercent/imageNumber*100
-      
-      imageSrc = filePathPre + "smsequence/frame-"+zeroes(scrollPercent,4)+".jpg";
-
-      var img = new Image();
+		scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
+		
+		if(scrollPercent == 0) scrollPercent = 1
+		
+		imageSrc = filePathPre + "smsequence/frame-"+zeroes(scrollPercent,4)+".jpg";
+		
+		console.log(scrollValue + '\t' + (5000-$(window).height()) + '\t' + scrollPercent)
+		
+		var img = new Image();
 			    
-			img.src = imageSrc
+		img.src = imageSrc
 			   
-			img.onload = function(){
+		img.onload = function(){
 	      context.drawImage(img, 0, 0,w,h); 
-		  }  	
+		}  	
     }
-
-      imageSrc = filePathPre + "medsequence/frame-0001.jpg";
-
-      var img = new Image();
-			    
-			img.src = imageSrc
-			   
-			img.onload = function(){
-	      context.drawImage(img, 0, 0,w,h); 
-		  }  
 
     this.scrollStopFunction = function(){
     	
-       
-      
-      if (scrollPercent == 0){scrollPercent = 1}
-      
-      that.scrollPos = scrollPercent/imageNumber*100
-      
-     
-      
- 
-      
-      imageSrc = filePathPre + "medsequence/frame-"+zeroes(Math.ceil(scrollPercent),4)+".jpg";
-        	
-      var img = new Image();
-			    
-      img.src = imageSrc
-			   
-      img.onload = function(){
-      	
-        context.drawImage(img, 0, 0,w,h); 
+        if(scrollPercent == 0) scrollPercent = 1
         
-      } 
-      return(scrollPercent)	
+        imageSrc = filePathPre + "medsequence/frame-"+zeroes(Math.ceil(scrollPercent),4)+".jpg";
+          	
+        var img = new Image();
+        img.src = imageSrc
+		  	   
+        img.onload = function(){
+        	context.drawImage(img, 0, 0,w,h); 
+        } 
+      	
+      	return(scrollPercent)	
     }	
-    		   
-
               
 } /// end walkthrough
 
@@ -1280,6 +1291,7 @@ function openBook(_url){
 }
 
 function launchVideo(_id){
+	console.log('launchvideo: '+'\t'+_id)
 	
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 

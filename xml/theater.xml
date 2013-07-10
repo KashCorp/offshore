@@ -58,12 +58,12 @@
 		 	/>
 
 		 			<image>
-    <left  url="../images/panos/theater/pano_l.jpg" />
-    <front url="../images/panos/theater/pano_f.png" />
-    <right url="../images/panos/theater/pano_r.jpg" />
-    <back  url="../images/panos/theater/pano_b.jpg" />
-    <up    url="../images/panos/theater/pano_u.jpg" />
-    <down  url="../images/panos/theater/pano_d.jpg" />
+    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_l.jpg" />
+    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_f.png" />
+    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_r.jpg" />
+    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_b.jpg" />
+    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_u.jpg" />
+    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_d.jpg" />
 		</image>
 
 
@@ -75,8 +75,13 @@
 		</image>
 
 		<image devices="Desktop">     <cube url="../images/panos/theater/pano_%s.jpg"   /> </image>-->
-		<image devices="Mobile">      <cube url="../images/panos/theater/mobile_%s.jpg" /> </image>
-		<image devices="Tablet">      <cube url="../images/panos/theater/pano_%s.jpg../images/panos/platform/pano_%s.jpg" /> </image>
+		<image devices="Mobile">      
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_%s.jpg" /> 
+		</image>
+		
+		<image devices="Tablet">      
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_%s.jpg" /> 
+		</image>
 
 		<plugin name="directions"
 			url="../images/panos/platform/hotspots/directions.png"
@@ -148,7 +153,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_BP.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Theatre_BP.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 
 		/>
 
@@ -168,7 +173,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Theatre_Shell_Alaska.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 		/>
 
  		<hotspot name="videoflag_03"
@@ -187,11 +192,11 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
+        onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Theatre_GAZPROM.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
 		/>
 
-		<hotspot name="videoflag_04"
+		<!-- <hotspot name="videoflag_04"
 			url="plugins/textfield.swf"
 			ath="337"
 			atv="1"
@@ -209,12 +214,12 @@
 			width="300"
         onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Port_Fourchon.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
-		/>
+		/> -->
 
 		<hotspot name="videoflag_05"
 			url="plugins/textfield.swf"
 			ath="337"
-			atv="3"
+			atv="1"
 			children="false"
 			edge="righttop"
 			background="false"
@@ -227,7 +232,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="300"
-            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(%SWFPATH%/../../../video/doc_content/Theatre_Petrobras.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
+            onclick="looktohotspot(video1, 30, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Theatre_BP_Committment.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
 		/>
 

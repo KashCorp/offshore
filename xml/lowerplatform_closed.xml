@@ -18,8 +18,10 @@
 		/> 
 
 	<action name="viewchange">
-		js(soundadjust(get(view.hlookat)));
-	</action>
+	  	set(currentX,get(view.hlookat));
+	  	add(currentX,180);
+		js(soundadjust(get(view.hlookat), get(view.fov)));
+	  </action>
 		 
 	<action name="globalmousedown">
 		set(plugin[directions].visible,false);
@@ -74,12 +76,12 @@
 
 	<scene name="hatchIsOpen">
 	 	<image>
-		    <left  url="../images/panos/lowerplatform/pano_l.jpg" />
-		    <front url="../images/panos/lowerplatform/pano_f.jpg" />
-		    <right url="../images/panos/lowerplatform/pano_r2.jpg" />
-		    <back  url="../images/panos/lowerplatform/pano_b.jpg" />
-		    <up    url="../images/panos/lowerplatform/pano_u.jpg" />
-		    <down  url="../images/panos/lowerplatform/pano_d.jpg" />
+		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_l.jpg" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_f.jpg"/>
+		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_r2.jpg"/>
+		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_b.jpg"/>
+		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_u.jpg"/>
+		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_d.jpg"/>
 
 		</image>
 
@@ -97,7 +99,7 @@
 
 		/>
 
-	</scene>
+	
 
 
 		
@@ -129,6 +131,39 @@
 			/>
 			
 
+
+		<hotspot name="Port_Fourchon_text"
+			url="plugins/textfield.swf"
+			ath="261"
+			atv="-2"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]PORT FOURCHON[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="Port_Fourchon_gif"
+			url="../images/icons/gif_iconB.gif"
+			ath="265"
+			atv="-1"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
+
+
 		<hotspot name="klaxxon" url="../images/hotspot.gif"
 			ath="150"
 			atv="0"
@@ -143,7 +178,28 @@
 			/>	
 		
 
+	<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				font-size: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+		</data>
 	
-	
+	<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;
+				
+				leading: 7;
 
+			}
+		</data>
+</scene>
 </krpano>

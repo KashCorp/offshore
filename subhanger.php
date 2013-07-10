@@ -53,7 +53,9 @@
 
       </div> 
       <div class="underwater">  </div>
+
       <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
+      <div id="walking-canvas-click"></div>
       <!-- <div id="scroll-start" class="scroll-nav">Go Back?</div> -->
       <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
   		<div id="panocontainer" class="subhanger"></div>
@@ -161,7 +163,6 @@
 
 
         if(fov <25) {
-          console.log('fov<25')
           $('#scroll-directions, #walking-exit').fadeIn()
           $('#panocontainer, .fastpan, .compass').fadeOut(500)
         }else{

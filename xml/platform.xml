@@ -26,6 +26,8 @@
 		/> 
 
 	<action name="viewchange">
+  	    set(currentX,get(view.hlookat));
+	  	add(currentX,180);
 		js(soundadjust(get(view.hlookat)));
 	</action>
 	 
@@ -58,9 +60,9 @@
 		 	keycodesout =""
 		 	/>
 	 	<image>
-				<cube url="../images/panos/platform/pano_%s.jpg" />
+				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg"/>
 			<mobile>
-				<cube url="../images/panos/platform/pano_%s.jpg" />
+				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg" />
 			</mobile>
 		</image>
 
@@ -78,7 +80,8 @@
 
 			/>
 
-		<hotspot name="klaxxon" url="../images/hotspot.gif"
+		<hotspot name="FlightDeck_VO" 
+			url="../images/hotspot.gif"
 			ath="40"
 			atv="0"
 			distorted="true"
@@ -88,8 +91,9 @@
 			onclick="js(loadAFXPano(audio/voice_overs/VO_FlightDeck.mp3))"
 			scale="1.0"
 			capture="false"
-			/>			
-		<hotspot name="entryhotspot" 
+			/>
+
+		<hotspot name="entry_hotspot" 
 			url="../images/hotspot.gif"
 			ath="74.5"
 			atv="11.2"
@@ -117,6 +121,130 @@
 			width="48"
 			capture="false"
 			/>	
+
+		<hotspot name="Deep_Ultra_Deep_Text"
+			url="plugins/textfield.swf"
+			ath="186"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]DEEP ULTRA DEEP[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Deep_To_Ultra_Deep)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Deep_Ultra_Deep_gif" 
+			url="../images/icons/gif_iconC.gif"
+			ath="162"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Deep_To_Ultra_Deep)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+		<hotspot name="Sending_a_man_to_mars_Text"
+			url="plugins/textfield.swf"
+			ath="30"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]SENDING A MAN TO MARS[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Sending_a_man_to_mars_gif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="10"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+		<hotspot name="Hurricane_alley_Text"
+			url="plugins/textfield.swf"
+			ath="-5"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]HURRICANE ALLEY[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Hurricane_Alley_v02)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Hurricane_alley_gif" 
+			url="../images/icons/gif_iconB.gif"
+			ath="-25"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Hurricane_Alley_v02)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+		<hotspot name="Mr_floyd_Text"
+			url="plugins/textfield.swf"
+			ath="-55"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]MR.FLOYD[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Helipad_Mr_Floyd)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Mr_Floyd_gif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="-75"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Helipad_Mr_Floyd)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
 
 
 		<!--
@@ -191,7 +319,18 @@
 		
 		
 
-
+		<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				font-size: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+		</data>
 
 		
 				

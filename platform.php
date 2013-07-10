@@ -39,11 +39,21 @@
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
-    <div id="wrapper" class="wrapper">
-  		<div id="panocontainer" class="platform"></div>
-  		<div class="breadcrumb"></div>
+      <div id="wrapper" class="wrapper">
 
-  	</div>
+        <div id="panocontainer" class="platform"></div>
+        
+        <div class="video-content-wrap">
+          <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+            <source/>
+          </video>
+
+          <a id="to-control" class="platform-nav">Close</a>
+        </div>
+
+        <div class="breadcrumb"></div>
+
+      </div>
 
 
 
@@ -105,11 +115,29 @@
 
       $(document).ready(function(){
 
-      master.blankTrans()
-      master.setCookie('transition','0')
-		  //master.videoTrans("video/transitions/action_01.webm")
+        document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
 
-      master.setDeepLinking("platform.php")
+        master.blankTrans()
+        // master.setCookie('transition','0')
+  		  //master.videoTrans("video/transitions/action_01.webm")
+
+        master.setDeepLinking("platform.php")
+
+        var dynamicWidth = window.innerWidth;
+        var dynamicHeight = dynamicWidth * .5625;
+        var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+        var intervalKey,moviePlaying;
+
+        $("#video-overlay").css("top",dynamicTop)
+        $("#video-overlay").css("width",window.innerWidth)
+       
+
+        $("#to-control").click(function(){ 
+          var kpano = document.getElementById("krpanoObject");
+          console.log(kpano)
+          kpano.call("lookto(" + cachedAuth   + ",0," + cachedFov + ",smooth(),true,true))")
+          closeVideo()
+        })
       })
 
     </script>

@@ -33,21 +33,31 @@
 		tween(plugin[directions].alpha,1.0,3)
 	</action>
 
+
+	
+
 	<action name="loadfirstscene">
-		loadscene(doorIsClosed, null, MERGE);
+		loadscene(doorIsOpen, null, MERGE);
 	</action>
+
+
+
+
+	<!-- <action name="loadfirstscene">
+		loadscene(doorIsClosed, null, MERGE);
+	</action> -->
 
 	<action name="loadsecondscene">
 		loadscene(doorIsOpen, null, MERGE);
 	</action>
 	                   
 
-		<view 
-			hlookat="0.0"
-		  fov="90.0"
-		  fovmax="180.0"
-		  fovmin="4.0"
-		  />
+	<view 
+		hlookat="70.0"
+		fov="90.0"
+		fovmax="180.0"
+		fovmin="4.0"
+	/>
 
 		<control usercontrol = "all"
 			mousetype="drag2d"

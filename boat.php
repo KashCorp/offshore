@@ -71,7 +71,7 @@
 
 
     <script>
-
+    
       var soundVector1 = soundVector2 = soundVector3 = 0,currentSoundVector;  
       var soundadjust = function(coord) {
 

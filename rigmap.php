@@ -64,7 +64,7 @@
   box-shadow: 0px 0px 0px rgba(0,0,0,.5);*/
   position:relative;
   padding:0;
-  margin:-1px;
+  /*margin:-1px;*/
  -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;

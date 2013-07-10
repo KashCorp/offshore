@@ -64,12 +64,12 @@
 
 
 		<image>
-	    <left  url="../images/panos/controlroom/pano_l.jpg" />
-	    <front url="../images/panos/controlroom/pano_f.jpg" />
-	    <right url="../images/panos/controlroom/pano_r.jpg" />
-	    <back  url="../images/panos/controlroom/pano_b.png" />
-	    <up    url="../images/panos/controlroom/pano_u.jpg" />
-	    <down  url="../images/panos/controlroom/pano_d.jpg" />
+	    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_l.jpg" />
+	    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_f.jpg" />
+	    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_r.jpg" />
+	    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_b.png" />
+	    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_u.jpg" />
+	    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_d.jpg" />
 		</image>
 
 

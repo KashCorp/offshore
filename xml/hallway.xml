@@ -68,21 +68,21 @@
 -->
 
 		<image>
-    <left  url="../images/panos/hallway/pano_l.jpg" />
-    <front url="../images/panos/hallway/pano_f.jpg" />
-    <right url="../images/panos/hallway/pano_r.png" />
-    <back  url="../images/panos/hallway/pano_b.jpg" />
-    <up    url="../images/panos/hallway/pano_u.png" />
-    <down  url="../images/panos/hallway/pano_d.jpg" />
+    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_l.jpg" />
+    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_f.jpg" />
+    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_r.png" />
+    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_b.jpg" />
+    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_u.png" />
+    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_d.jpg" />
 		</image>
 	
-	<image devices="Desktop">    
-    <left  url="../images/panos/hallway/pano_l.jpg" />
-    <front url="../images/panos/hallway/pano_f.jpg" />
-    <right url="../images/panos/hallway/pano_r.png" />
-    <back  url="../images/panos/hallway/pano_b.jpg" />
-    <up    url="../images/panos/hallway/pano_u.png" />
-    <down  url="../images/panos/hallway/pano_d.jpg" />
+	<image devices="mobile">    
+    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_l.jpg" />
+    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_f.jpg" />
+    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_r.jpg" />
+    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_b.jpg" />
+    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_u.jpg" />
+    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_d.jpg" />
 
 
 	 </image>
@@ -197,6 +197,7 @@
 			width="200"
             onclick="lookto(178,0,5,smooth(),true,true,js(newPage(controlroom.php)));)"
             />
+		
 		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
 			atv="-40"
@@ -204,7 +205,6 @@
 			alpha="0.0"
 			height="120.0"
 			onclick="js(newPage(lowerplatform_closed.php))"
-			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
@@ -212,38 +212,8 @@
 
 		
 		<!-- Videos  -->
-		<hotspot name="video_01_text"
-			url="plugins/textfield.swf"
-			ath="321"
-			atv="-8"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h2] KEITH JONES [h2]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="200"
-      onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Keith_Jones)));js(setCache(get(view.hlookat),321))"
-    />
-
-		<hotspot name="video_01_icon"
-			url="../images/icons/gif_iconB.gif"
-			ath="321"
-			atv="-5"
-			alpha=".5"
-			height="60"
-			width="60"
-			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Keith_Jones)));js(setCache(get(view.hlookat),321))"
-			capture="false"
-		/>
-		
-		<hotspot name="video_02_text"
+			
+		<hotspot name="mr_floyd_text"
 			url="plugins/textfield.swf"
 			ath="220"
 			atv="-8"
@@ -259,9 +229,10 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-      onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
-    />
-		<hotspot name="video_02_icon"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Helipad_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
+    		/>
+
+		<hotspot name="mr_floyd_gif"
 			url="../images/icons/gif_iconA.gif"
 			ath="220"
 			atv="-5"
@@ -269,9 +240,165 @@
 			height="80"
 			width="80"
 			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/doc_content/Hallway_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Helipad_Mr_Floyd)));js(setCache(get(view.hlookat),220))"
 			capture="false"
 			/>
+
+
+		<hotspot name="simple_case_text"
+			url="plugins/textfield.swf"
+			ath="250"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2]A SIMPLE CASE[h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/A_Simple_Case)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="simple_case_gif"
+			url="../images/icons/gif_iconB.gif"
+			ath="250"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/A_Simple_Case)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
+
+		<hotspot name="keith_jones_text"
+			url="plugins/textfield.swf"
+			ath="335"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2]KEITH JONES[h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Terminus_Keith)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="keith_jones_gif"
+			url="../images/icons/gif_iconB.gif"
+			ath="335"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Terminus_Keith)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+		
+
+		<hotspot name="golden_rule_text"
+			url="plugins/textfield.swf"
+			ath="315"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2]GOLDEN RULES OF SAFETY[h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Golden_Rules_of_Safety)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="golden_rule_gif"
+			url="../images/icons/gif_iconA.gif"
+			ath="315"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Golden_Rules_of_Safety)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
+
+		<hotspot name="ricky_endeavour_text"
+			url="plugins/textfield.swf"
+			ath="140"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2]A RISKY ENDEAVOUR[h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/An_Inherently_Risky_Endeavour)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="risky_rendeavous_gif"
+			url="../images/icons/gif_iconC.gif"
+			ath="140"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/An_Inherently_Risky_Endeavour)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
+
+		<hotspot name="ball_of_fire_text"
+			url="plugins/textfield.swf"
+			ath="40"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h2]ONE BIG BALL OF FIRE[h2]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/One_Big_Ball_of_Fire)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="ball_of_fire_gif"
+			url="../images/icons/gif_iconC.gif"
+			ath="40"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/One_Big_Ball_of_Fire)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
 
 		<hotspot name="klaxxon" url="../images/hotspot.gif"
 			ath="70"

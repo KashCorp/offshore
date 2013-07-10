@@ -42,9 +42,20 @@
       <a class="volume-toggle"><i class="icon-volume-up"></i></a>
     </header>
     <div id="wrapper" class="wrapper">
-      <div id="panocontainer" class="lowerplatform_closed"></div>
-      <div class="breadcrumb"></div>
-    </div>
+
+        <div id="panocontainer" class="lowerplatform_closed"></div>
+        
+        <div class="video-content-wrap">
+          <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+            <source/>
+          </video>
+
+          <a id="to-control" class="platform-nav">Close</a>
+        </div>
+
+        <div class="breadcrumb"></div>
+
+      </div>
     <div id="inter-text"></div>
 <!--
     <audio id="audio-platform" volume=".6" preload="auto" class="ambient" loop="loop">
