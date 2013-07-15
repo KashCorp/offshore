@@ -33,7 +33,7 @@
 
   <body class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -50,15 +50,19 @@
             <li class="drilling-depth">1000 ft</li>
             <li class="drilling-depth" style="-webkit-transform: translateZ(-500px)">2000 ft</li>
             <li class="drilling-depth" style="-webkit-transform: translateZ(-1000px)">3000 ft</li>
-            <li class="drilling-depth" style="-webkit-transform: translateZ(-1500px)">4000 ft</li>li>
-            <li class="drilling-depth" style="-webkit-transform: translateZ(-2500px)">9000 ft</li>
+            <li class="drilling-depth" style="-webkit-transform: translateZ(-1500px)">4000 ft</li>
+            <li class="drilling-depth" style="-webkit-transform: translateZ(-2500px)">
+              8000 ft<br>
+              DEEPEST WELL<br>
+              EVER DRILLED
+            </li>
           </ul>
         </div> 
 
       </div>
 
     	<!--<div id="scroll-end" class="scroll-nav">Continue?</div>-->
-    	<div id="scroll-directions"></div>
+    	<div class="scroll-directions-container"><div id="scroll-directions"></div></div>
   		<!--<div id="panocontainer" class="platform"></div>-->
   		<div class="breadcrumb"></div>
 
@@ -96,13 +100,10 @@
 
        master.blankTrans("isNotPano")
 
-
        master.setDeepLinking("shaftway_lowerplatform.php")
 
        $("#scroll-start").click(function(){
-
         newPage('lowerplatform_closed.php')
- 
        });
 
 
@@ -113,20 +114,20 @@
         var dummysound = { decayFrom:  overlayTrack.options.gainNode.gain.value};
 
         var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
-                      .onUpdate( function() {
-                        master.isTweeningAudio = true
-                        overlayTrack.gain(this.decayFrom)
-                      
-                      })
-                      .easing(TWEEN.Easing.Quadratic.Out )
-                      .onComplete(function() {
-                        parent.audiomaster.mix.removeTrack('overlay_01')
-                        
-                      if(overLayFile)
-                        console.log("good to go")  
-                        master.loadOverlayAudio(overLayFile);
-                      })
-                      .start(); 
+          .onUpdate( function() {
+            master.isTweeningAudio = true
+            overlayTrack.gain(this.decayFrom)
+          
+          })
+          .easing(TWEEN.Easing.Quadratic.Out )
+          .onComplete(function() {
+            parent.audiomaster.mix.removeTrack('overlay_01')
+            
+          if(overLayFile)
+            console.log("good to go")  
+            master.loadOverlayAudio(overLayFile);
+          })
+          .start(); 
 
       }else{
           if(overLayFile)
@@ -144,17 +145,14 @@
 
          $("#walking-canvas").css("top",dynamicTop)
 
-         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/hatch_stepthrough/",65)
-
-         scrollPos = walkthrough.scrollStopFunction()
+         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","hatch",65,true)
+         walkthrough.preload()
 
         parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
          var scrollTrigger,scrollPercent = 0
 
           function scrollerFunction(){
-
-            scrollPercent = Math.ceil((walkthrough.scrollValue / (15000-$(window).height())) * 100);
 
             var zPos = walkthrough.scrollValue*.4
             
@@ -167,24 +165,24 @@
                 parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)       
             }    
             
-           if(walkthrough.scrollPos < 5){
-           	 $("#scroll-start").fadeIn(1000)
-           }else{
-           	 $("#scroll-start").fadeOut(700)
-           }
+            if(walkthrough.scrollPos < 5){
+            	$("#scroll-start").fadeIn(1000)
+            }else{
+            	$("#scroll-start").fadeOut(700)
+            }
 
             if(walkthrough.scrollPos > 95){
 
             	newPage("hallway.php")
-
             	console.log("end of passageway")
-
            	 $("#scroll-end").fadeIn(1000)
+
            }else{
            	 $("#scroll-end").fadeOut(1000)
            }
           requestAnimationFrame(scrollerFunction)
          } 
+
          scrollerFunction()
 
        }
@@ -192,7 +190,7 @@
       setStage()
 
       window.onresize = function(event) {
-      setStage()
+        setStage()
       }
 
         var runFrameRunner = function(){

@@ -33,7 +33,7 @@
 
   <body style="overflow:hidden" class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -44,7 +44,7 @@
         <div id="panocontainer" class="platform"></div>
         
         <div class="video-content-wrap">
-          <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+          <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
             <source/>
           </video>
 

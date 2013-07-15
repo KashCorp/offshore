@@ -39,57 +39,49 @@
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
+  <div id="wrapper" class="wrapper" style="position:fixed">
+
+     <div class="pano-underlay">
+      <video controls="true" width="100%" height="100%" autoplay loop = "true" style="position:absolute;" id="video-underlay" preload="auto">
+         <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
+         <!-- <source src="video/transitions/oil_shot.mp4" type="video/mp4" /> -->
+      </video> 
+
+    </div> 
+    <div class="underwater">  </div>
+
+    <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
+    <div id="walking-canvas-click"></div>
+    <!-- <div id="scroll-start" class="scroll-nav">Go Back?</div> -->
+    <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
+		<div id="panocontainer" class="subhanger"></div>
 
 
-    <div id="wrapper" class="wrapper" style="position:fixed">
+    <!-- OVERLAY VIDEOS -->
+    <div class="video-content-wrap">
+      <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+        <source/>
+      </video>
+      <a id="to-control" class="platform-nav">Close</a>
+    </div>
 
-     
-
-       <div class="pano-underlay">
-        <video width="100%" height="100%" autoplay loop = "true" style="position:absolute;" id="video-underlay" preload="auto">
-           <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
-           <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
-        </video> 
-
-      </div> 
-      <div class="underwater">  </div>
-
-      <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
-      <div id="walking-canvas-click"></div>
-      <!-- <div id="scroll-start" class="scroll-nav">Go Back?</div> -->
-      <!-- <div id="scroll-end" class="scroll-nav">Continue?</div> -->
-  		<div id="panocontainer" class="subhanger"></div>
+    <div class="video-content-wrap-engine-room">
+      <video controls="true" width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
+        <source/>
+      </video>
+    </div>
+  
+    <!-- END OVERLAY VIDEOS -->
 
 
-<!-- OVERLAY VIDEOS -->
-      <div class="video-content-wrap">
- 
-        <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
-          <source/>
-        </video>
-        
-
-
-        <a id="to-control" class="platform-nav">Close</a>
-      </div>
-
-      <div class="video-content-wrap-engine-room">
-        <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
-          <source/>
-        </video>
-      </div>
+    <div class="scroll-directions-container"><div id="scroll-directions"></div></div>
     
-           
-<!-- END OVERLAY VIDEOS -->
+		<div class="breadcrumb"></div>
 
-      <div id="scroll-directions"></div>
-      
-  		<div class="breadcrumb"></div>
-
-      <div id="walking-exit" class="platform-nav">Close</div>
+    <div id="walking-exit" class="platform-nav">Close</div>
 
 
-  	</div>
+	</div>
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
@@ -104,8 +96,6 @@
       var krpano
       var soundVector1 = soundVector2 = soundVector3 = 0;
 
-
-
       var loadsecondscene = function() { 
         $('#video-underlay').fadeOut()
         console.log("load second scene")
@@ -116,7 +106,6 @@
         })
       }
 
-
       var showIpad = function(){
         $(".video-content-wrap-desktop").fadeIn(1500)
         $('#video-overlay-desktop source').attr('src', "video/transitions/cloud_shot.webm");
@@ -124,7 +113,13 @@
         $("#video-overlay-desktop")[0].load()
         $("#video-overlay-desktop")[0].play()
       }
-      
+
+      var walkthrough;
+
+      var preload = function() {
+        walkthrough.preload()
+        console.log('walkthrough.preload()')
+      }
 
 
       var soundadjust = function(coord,fov) {
@@ -162,18 +157,22 @@
         }
 
 
-        if(fov <25) {
+        if(fov < 25) {
           $('#scroll-directions, #walking-exit').fadeIn()
           $('#panocontainer, .fastpan, .compass').fadeOut(500)
-        }else{
-          $('#panocontainer, .fastpan, .compass').fadeIn(500)
+        } else {
+          
+          if(!master.mapOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
+
           $('#scroll-directions, #walking-exit').fadeOut(function(){
             $('#scroll-directions').css('top','100px') // reset scrubber position
           })
+
           $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
         }
 
       }
+
 
 
       $(document).ready(function(){
@@ -191,6 +190,8 @@
           var dynamicHeight = dynamicWidth * .5625;
           var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
+          walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","approaching",119,true)
+
           $("#video-overlay-engine-room").css("top",dynamicTop)
           $("#video-overlay-engine-room").css("width",window.innerWidth)
           $("#video-content-wrap-engine-room").css("width",window.innerWidth)
@@ -207,71 +208,64 @@
           $("#walking-exit").click(function(){
             walkthrough.scrollPos = 0
             scrollTrigger = 0
-            //scrollPercent =1
             krpano = document.getElementById("krpanoObject");
             krpano.call("lookto(0,0,90,smooth(),true,true))")
           });     
 
-          // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/engineroom/",601)
-          var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/approaching_rig/",121)
+          var scrollTrigger, scrollPos
+          var _id = "video/doc_content/Submersible_Rig_Requiem"
 
-          scrollPos = walkthrough.scrollStopFunction()
-
-          var scrollTrigger,scrollPercent = 1
-          var _id = "video/doc_content/Submersible_Rig_Requiem.webm"
+          closeWalkthroughVid = function(){
+            playTrigger = 0
+            $(".video-content-wrap-engine-room").fadeOut(1000,function(){
+              $("#video-overlay-engine-room")[0].pause()
+              parent.audiomaster.mix.setGain(1.0)
+            })
+            $(".compass").fadeIn()
+          }
 
           function scrollerFunction(){
 
-            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
-
-          // fade in go back button
-          // if(walkthrough.scrollPos < 5){
-          //   $("#scroll-start").fadeIn(1000)
-          // }else{
-          //   $("#scroll-start").fadeOut(700)
-          // }
+            // fade in go back button
+            // if(walkthrough.scrollPos < 5){
+            //   $("#scroll-start").fadeIn(1000)
+            // }else{
+            //   $("#scroll-start").fadeOut(700)
+            // }
 
             if(walkthrough.scrollPos > 85 && playTrigger == 0){
+              // launchVideo(_id)
               $(".compass").fadeOut()
               $(".video-content-wrap-engine-room").fadeIn(1500)
-              $('#video-overlay-engine-room source').attr('src', _id);
-              $('#video-overlay-engine-room video').load();
-              master.audioFadeAll(0.5)
+              $('#video-overlay-engine-room source').attr('src', master.cdn_video + "Subhangar_RigRequiem" + master.videoType);
               parent.audiomaster.mix.setGain(0.1)
               $("#video-overlay-engine-room")[0].load()
               $("#video-overlay-engine-room")[0].play()
-              $("#video-overlay-engine-room")[0].onended = function(e) {
-              }
+              $("#video-overlay-engine-room")[0].onended = function(e) { closeWalkthroughVid() }
               playTrigger = 1
-           }
+            }
 
             if(walkthrough.scrollPos < 85 && playTrigger == 1) {
-              //master.audioFadeInAll(0.7)
-              playTrigger = 0
-              console.log("OUTSIDE THE ZONE")
-              $(".video-content-wrap-engine-room").fadeOut(1000,function(){
-
-              $("#video-overlay-engine-room")[0].pause()
-              parent.audiomaster.mix.setGain(1.0)
-              })
-              $(".compass").fadeIn()
-           }
+              console.log("Closing video...")
+              closeWalkthroughVid()
+            }
 
             requestAnimationFrame(scrollerFunction)
-        }
-       scrollerFunction()
+          }
+        scrollerFunction()
 
-      $("#to-control").click(function(){
-        closeVideo()
-      })
+        $("#to-control").click(function(){
+          closeVideo()
+        })
 
-       }
+      }
 
       setStage()
 
       window.onresize = function(event) {
-      setStage()
-      }       
+        setStage()
+      } 
+
       })
 
     </script>

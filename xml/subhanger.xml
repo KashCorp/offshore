@@ -33,73 +33,73 @@
 		tween(plugin[directions].alpha,1.0,3)
 	</action>
 
-
-	
-
 	<action name="loadfirstscene">
-		loadscene(doorIsOpen, null, MERGE);
-	</action>
-
-
-
-
-	<!-- <action name="loadfirstscene">
 		loadscene(doorIsClosed, null, MERGE);
-	</action> -->
+	</action>
 
 	<action name="loadsecondscene">
 		loadscene(doorIsOpen, null, MERGE);
 	</action>
-	                   
+
+	<action name="preloadaction">
+		js(preload());
+	</action>
+
 
 	<view 
-		hlookat="70.0"
+		hlookat="0.0"
 		fov="90.0"
-		fovmax="180.0"
+		fovmax="120.0"
 		fovmin="4.0"
 	/>
 
-		<control usercontrol = "all"
-			mousetype="drag2d"
-		 	keycodesin  =""
-		 	keycodesout =""
-		 	/>
+	<control 
+		usercontrol = "all"
+		mousetype="drag2d"
+	 	keycodesin  =""
+	 	keycodesout =""
+	 />
 
 	
 	<scene name="doorIsClosed" onstart="">	 	
-	 	<image>
-    <left  url="../images/panos/subhanger/pano_l.png" />
-    <front url="../images/panos/subhanger/pano_f.png" />
-    <right url="../images/panos/subhanger/pano_r.jpg" />
-    <back  url="../images/panos/subhanger/pano_b.jpg" />
-    <up    url="../images/panos/subhanger/pano_u.jpg" />
-    <down  url="../images/panos/subhanger/pano_d.png" />
+
+		<image>
+    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_l.jpg" />
+    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_f2.png" />
+    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_r2.png" />
+    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_b.jpg" />
+    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_u.jpg" />
+    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_d.jpg" />
 		</image>
-	
-	<hotspot name="engineroom" url="../images/hotspot.gif"
+		
+		<hotspot 
+			name="engineroom" 
+			url="../images/hotspot.gif"
 			ath="103"
 			atv="1"
 		
 			alpha="0"
 			width="30"
 			height="60"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			borderwidth="0.0" 
+			borderwidthhover="1"
+			bordercolor="0xFFFFFF" 
+			bordercolorhover="0xFFFFFF"
 			onclick="js(loadsecondscene)"
 			scale="1.0"
-	/>
+		/>
 
 	</scene>
 
 
-	<scene name="doorIsOpen" onstart="">	 	
+	<scene name="doorIsOpen" onstart="action(preloadaction)">	 	
 	 	<image>
-    <left  url="../images/panos/subhanger/pano_l.png" />
-    <front url="../images/panos/subhanger/pano_f2.png" />
-    <right url="../images/panos/subhanger/pano_r2.png" />
-    <back  url="../images/panos/subhanger/pano_b.jpg" />
-    <up    url="../images/panos/subhanger/pano_u.jpg" />
-    <down  url="../images/panos/subhanger/pano_d.png" />
+    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_l.jpg" />
+    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_f2.png" />
+    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_r2.png" />
+    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_b.jpg" />
+    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_u.jpg" />
+    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_d.jpg" />
 		</image>
 	
 		<hotspot name="requiem" url="../images/hotspot.gif"
@@ -115,19 +115,7 @@
 				scale="1.0"
 		/>
 
-		<hotspot name="requiemgif" url="../images/icons/gif_iconA.gif"
-		ath="60"
-		atv="-10"
-    distorted="true"
-    keep="true"
-		alpha=".3"
-		width="140"
-		height="140"
-		borderwidth="0.0" borderwidthhover="1"
-		bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-		onclick="lookto(70,0,5,tween(easeOutQuad,4),true,true);set(hotspot[requiem].enabled,false);"
-		scale="1.0"
-	/>
+		
 
 
 	</scene>
@@ -145,6 +133,8 @@
 			visible="true"
 			/>
 
+		<!-- iPad -->
+
 		<hotspot name="iPad" url="../images/hotspot.gif"
 			ath="24"
 			atv="25"
@@ -152,12 +142,26 @@
 			alpha="0.0"
 			height="30.0"
 			onclick="js(openBook(skype.html))"
-			onhover="js(hoverSound()) "
+			onhover="js(hoverSound())"
 			onout="js(resetHoverSound());"
 			scale="3.0"
 			keep="true"
 			capture = "false"
-			/>				
+			/>
+		
+		<hotspot name="iPad_gif" 
+			url="../images/icons/gif_iconB.gif"
+			ath="24"
+			atv="15"
+		    distorted="true"
+		    keep="true"
+			alpha=".5"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="js(openBook(skype.html))"
+			scale="0.7"
+		/>
+
 			
 		<hotspot name="hallway exit" url="../images/hotspot.gif"
 			ath="-35"
@@ -172,6 +176,41 @@
 			keep="true"
 			capture = "false"
 			/>	
+
+
+		<hotspot name="requiemgif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="60"
+			atv="-10"
+		    distorted="true"
+		    keep="true"
+			alpha=".5"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(70,0,5,tween(easeOutQuad,4),true,true);set(hotspot[requiem].enabled,false);"
+			scale="1.0"
+		/>
+		<hotspot name="requiem"
+			url="plugins/textfield.swf"
+			ath="85"
+			atv="-10"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]RIG REQUIEM[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Kindra_Activist)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
 
 
 		<hotspot name="into_sub" url="../images/hotspot-circle.gif"
@@ -192,7 +231,18 @@
 		
 		
 
-			
+		<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				font-size: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+		</data>
 		
 
 		<data name="cssdata1">

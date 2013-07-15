@@ -49,7 +49,7 @@
 		<view 
 			hlookat="270.0"
 		  fov="90.0"
-		  fovmax="180.0"
+		  fovmax="120.0"
 		  fovmin="1.0"
 		  />
 
@@ -106,13 +106,23 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-      onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
+      		onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
 			scale="5.0"
 			capture="false"
 			/>
 
+		<hotspot name="chemroom_sign" url="../images/hotspot.gif"
+			ath="-3"
+			atv="-21"
+			distorted="true"
+			alpha="0"
+			height="10"
+      		onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
+			scale="5.0"
+			capture="false"
+			/>
 
- 		<hotspot name="passage_01_text"
+ 		<!-- <hotspot name="passage_01_text"
 			url="plugins/textfield.swf"
 			ath="10.5"
 			atv="-10"
@@ -123,13 +133,13 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] POISONED [h2]"
+			html="[h3] POISONED [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
       onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
-		/>
+		/> -->
 
 
 		<!-- Passage 2: Theater  -->
@@ -146,7 +156,21 @@
 			capture="false"
 			/>
 
- 		<hotspot name="passage_02_text"
+
+		<hotspot name="theatre_sign" url="../images/hotspot.gif"
+			ath="270"
+			atv="-16"
+			distorted="true"
+			alpha="0"
+			height="10"
+      onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
+			onout="js(resetHoverSound());"
+			scale="5.0"
+			capture="false"
+			/>
+
+
+ 		<!-- <hotspot name="passage_02_text"
 			url="plugins/textfield.swf"
 			ath="280"
 			atv="-6"
@@ -157,13 +181,13 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] TRUTH AND CONSEQUENCES [h2]"
+			html="[h3] TRUTH AND CONSEQUENCES [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
       onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
-      />
+      /> -->
 
 
 		<!-- Passage 3: Control Room  -->
@@ -179,7 +203,20 @@
 			capture="false"
 			/>
 
- 		<hotspot name="passage_03_text"
+
+		<hotspot name="controlroom_sign" url="../images/hotspot.gif"
+			ath="174"
+			atv="-16.5"
+			distorted="true"
+			alpha="0"
+			height="10.0"
+ 			onclick="lookto(178,0,5,smooth(),true,true,js(newPage(controlroom.php)));)"
+			scale="4.0"
+			capture="false"
+			/>
+
+
+ 		<!-- <hotspot name="passage_03_text"
 			url="plugins/textfield.swf"
 			ath="178"
 			atv="-6"
@@ -190,13 +227,13 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] CONTROL [h2]"
+			html="[h3] CONTROL [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
             onclick="lookto(178,0,5,smooth(),true,true,js(newPage(controlroom.php)));)"
-            />
+            /> -->
 		
 		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
@@ -217,6 +254,7 @@
 			url="plugins/textfield.swf"
 			ath="220"
 			atv="-8"
+			alpha="0.8"
 			children="false"
 			edge="righttop"
 			background="false"
@@ -224,7 +262,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2] MR FLOYD [h2]"
+			html="[h3] MR FLOYD [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -256,7 +294,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2]A SIMPLE CASE[h2]"
+			html="[h3]A SIMPLE CASE[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -287,7 +325,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2]KEITH JONES[h2]"
+			html="[h3]KEITH JONES[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -318,7 +356,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2]GOLDEN RULES OF SAFETY[h2]"
+			html="[h3]GOLDEN RULES OF SAFETY[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -349,7 +387,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2]A RISKY ENDEAVOUR[h2]"
+			html="[h3]A RISKY ENDEAVOUR[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -380,7 +418,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h2]ONE BIG BALL OF FIRE[h2]"
+			html="[h3]ONE BIG BALL OF FIRE[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -418,26 +456,17 @@
 <!--onclick="lookto(265,-80,1,tween(EaseOutQuad,3),true,true)"-->
 
 
-				<data name="flag">
+		<data name="flag">
 			h3 {
 				color: #ffffff;
 				font-family: Helvetica, Arial, sans-serif;
 				fontFamily: Helvetica, Arial, sans-serif;
 				fontSize: 10;
+				font-size: 10;
 				line-height: 30px;
 				textAlign: center;
 				text-align: center;
 			}
-
-			h2 {
-				color: #333333;
-				font-family: Helvetica, Arial, sans-serif;
-				fontFamily: Helvetica, Arial, sans-serif;
-				fontSize: 7;
-				line-height: 20px;
-				textAlign: center;
-				text-align: center;
-			}			
 		</data>
 
 		<data name="cssdata1">

@@ -8,21 +8,20 @@
 	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
 
 
-
 	<action name="startup">
 		loadscene(platform, null, ignorekeep, BLEND(1))
 	</action>
 
-	<autorotate enabled="true"
-	            waittime="1.5"
-	            speed="3.0"
-	            />
+	<autorotate 
+		enabled="true"
+        waittime="1.5"
+        speed="3.0"
+    	/>
 	 
 	<events 
 		onmousedown="action(globalmousedown)"
 		onviewchange="action(viewchange)"
 	    onloadcomplete= "js(panoLoaded())" 
-		
 		/> 
  
 	<action name="globalmousedown">	
@@ -35,41 +34,39 @@
 		tween(plugin[directions].alpha,1.0,3)
 	</action>
 
-  <action name="viewchange">
-    set(currentX,get(view.hlookat));
-  	add(currentX,180);
+  	<action name="viewchange">
+	    set(currentX,get(view.hlookat));
+	  	add(currentX,180);
 		js(soundadjust(get(view.hlookat),get(view.fov)));
-	  </action>
+	</action>
 	                   
 	<scene name="platform" onstart="">
 
-		<progress
-			showwait="none"
-			/>
+		<progress showwait="none" />
 
 		<view 
 			hlookat="-167"
-		  fov="90.0"
-		  fovmax="150.0"
-		  fovmin="1.0"
-		  />
+			fov="90.0"
+			fovmax="120.0"
+			fovmin="1.0"
+			/>
 
 		<control usercontrol = "all"
 			mousetype="drag2d"
 			mousefriction ="0.9"
-			mouseaccelerate = "2.0"
+			mouseaccelerate = "0"
 		 	keycodesin  =""
 		 	keycodesout =""
 		 	/>
 
 
 		<image>
-	    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_l.jpg" />
-	    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_f.jpg" />
-	    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_r.jpg" />
-	    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_b.png" />
-	    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_u.jpg" />
-	    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_d.jpg" />
+		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_l.jpg" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_f.jpg" />
+		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_r.jpg" />
+		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_b.png" />
+		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_u.jpg" />
+		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_d.jpg" />
 		</image>
 
 
@@ -88,17 +85,16 @@
 			
 		<hotspot name="openhatch" url="../images/hotspot.gif"
 			ath="17.95"
-			atv="-9.82"
+			atv="-7.82"
 			distorted="true"
 			alpha="0.0"
 			onclick="js(klaxxon());js(loadAFXPano(audio/klaxxon.mp3));js(startDrilling());
-							 set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);
-							 set(hotspot[openhatch].enabled,false);
-							 set(hotspot[cctv0].alpha,0.55);set(hotspot[cctv0].enabled,true);
-							 set(hotspot[cctv1].alpha,0.55);set(hotspot[cctv1].enabled,true);
-							 set(hotspot[cctv2].alpha,0.55);set(hotspot[cctv2].enabled,true);"
+					 set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);
+					 set(hotspot[openhatch].enabled,false);
+					 lookto(190,0,60,smooth(),true,true);"
 			capture="false"
-			scale=".71"
+			width="150"
+			height="200"
 			/>
 
 
@@ -109,26 +105,24 @@
 			alpha="0"
 			enabled="false"
 			onclick="js(startDrilling(stop));
-							 set(hotspot[closehatch].alpha,0);set(hotspot[closehatch].enabled,false);
-							 set(hotspot[openhatch].enabled,true);
-							 set(hotspot[cctv0].alpha,0);set(hotspot[cctv0].enabled,false);
-							 set(hotspot[cctv1].alpha,0);set(hotspot[cctv1].enabled,false);
-							 set(hotspot[cctv2].alpha,0);set(hotspot[cctv2].enabled,false);"
+					 set(hotspot[closehatch].alpha,0);set(hotspot[closehatch].enabled,false);
+					 set(hotspot[openhatch].enabled,true);"
 			capture="false"
-			scale=".71"
+			width="150"
+			height="200"
 			/>
-
 
 
 		
 
 
 			<!-- CCTV -->
+
 			<hotspot name="cctv0"
 				url="plugins/videoplayer_offshore_01.js"
 				alturl="plugins/videoplayer_offshore_01.js"
 				volume="0.00001"
-				videourl="%SWFPATH%/../../../video/controlroom_walkthrough.webm"
+				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.webm"
 				ath="-160.1" atv="-13.5"
 				distorted="true"
 				scale="0.130" 
@@ -146,19 +140,18 @@
 				url="plugins/videoplayer_offshore_01.js"
 				alturl="plugins/videoplayer_offshore_01.js"
 				volume="0.00001"
-				videourl="%SWFPATH%/../../../video/controlroom_CCTV_1.webm"
+				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
 				ath="-199.25" atv="-0.8"
 				distorted="true"
-				scale="0.94" 
+				scale="0.24" 
 				rx="0" 
 				ry="16" 
 				rz="0" 
-				width="210"
-				height="150"
+				
 
-				enabled="false"
-				alpha="0.0"
-				onclick="lookto(-199.25,-0.8,30,smooth(),true,true)"
+				enabled="true"
+				alpha="0.5"
+				onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
 				loop="true"
 			/>
 
@@ -167,19 +160,17 @@
 				url="plugins/videoplayer_offshore_01.js"
 				alturl="plugins/videoplayer_offshore_01.js"
 				volume="0.00001"
-				videourl="%SWFPATH%/../../../video/controlroom_CCTV_2.webm"
+				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
 				ath="-142.5" atv="-0.5"
 				distorted="true"
-				scale="0.76" 
+				scale="0.195" 
 				rx="0" 
 				ry="-35" 
 				rz="0"
-				width="210"
-				height="150"
 
-				enabled="false"
-				alpha="0.0"
-				onclick="lookto(-142.5,-0.5,30,smooth(),true,true)"
+				enabled="true"
+				alpha="0.5"
+				onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
 				loop="true"
 			/>
 
@@ -188,30 +179,30 @@
 				url="plugins/videoplayer_offshore_01.js"
 				alturl="plugins/videoplayer_offshore_01.js"
 				volume="0.00001"
-				videourl="%SWFPATH%/../../../video/doc_content/ControlRoom_NYMEX.webm"
-				ath="247" atv="-4.2"
+				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_Nymex.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_Nymex.webm"
+				ath="247.05" 
+				atv="-3.2"
 				distorted="true"
-				scale="0.76" 
+				scale="0.105" 
 				rx="0" 
 				ry="-35" 
 				rz="0"
-				width="100"
-				height="85"
 
 				enabled="true"
 				alpha="0.8"
-				onclick="lookto(247,-4.5,30,smooth(),true,true)"
+				onclick="lookto(247,-3,10,smooth(),true,true);
+						 js(zoomOut());"
 				loop="true"
 			/>
 
 
 
 
-		<!-- Main Monitors, Michael Klare -->
+		<!-- Michael Klare -->
 
 		<hotspot name="Michael Klare Videos"
 			url="../images/icons/gif_iconA.gif"
-			alpha=".5"
+			alpha=".7"
 			height="70"
 			width="70"
 			ath="191"
@@ -220,6 +211,28 @@
 			capture="false"
 			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
 			/>
+
+		<hotspot name="MK_Text"
+			url="plugins/textfield.swf"
+			ath="202"
+			atv="20"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] MONEY AND POWER [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
+			keep="true"
+			/>
+
+		<!-- Main Monitors (all zoom to MK vids) -->
 
 		<hotspot name="Monitor Big" 
 			url="../images/hotspot.gif"
@@ -266,20 +279,60 @@
 			capture="false"
 			/>
 
+		
+		<!-- Dossier -->
 
-
-		<hotspot name="Filing cabinet" 
+		<hotspot name="Filing_cabinet" 
 			url="../images/panos/controlroom/hotspots/cabinet.png"
 			ath="126.9"
 			atv="16.4"
 			distorted="true"
 			alpha="0"
 			onclick="js(openBook(dossierbook.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
 			scale=".68"
 			/>
-	
+
+		<!-- onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
+		onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);" -->
+
+		<hotspot name="Filing_cabinet_text"
+			url="plugins/textfield.swf"
+			ath="130"
+			atv="16"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] INVESTIGATION [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="js(openBook(dossierbook.php))"
+			keep="true"
+		/>
+
+		<hotspot name="Filing_cabinet_icon" 
+			url="../images/icons/gif_documents.gif"
+			alpha=".5"
+			height="70"
+			width="70"
+			ath="120"
+			atv="20.4"
+			distorted="true"
+			capture="false"
+			onclick="js(openBook(dossierbook.php))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
+			/>
+
+
+
+
+		<!-- Door -->
 		
 		<hotspot name="Exit to hallway" 
 			url="../images/hotspot.gif"
@@ -296,28 +349,7 @@
 			scale="1.0"
 			/>
 			
-
-
-
-
-
 		
-
-
-		<hotspot name="Investigation" 
-			url="../images/icons/gif_iconC.gif"
-			alpha=".5"
-			height="70"
-			width="70"
-			ath="126.9"
-			atv="8.4"
-			distorted="true"
-			capture="false"
-			onclick="js(openBook(dossierbook.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
-
-			/>
 
 
 		<!--

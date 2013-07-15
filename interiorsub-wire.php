@@ -41,7 +41,7 @@
 
     <div id="wrapper" class="wrapper">
       <div class="pano-underlay">
-        <video width="100%" autoplay style="position:absolute;" id="video-underlay" preload="auto">
+        <video controls="true" width="100%" autoplay style="position:absolute;" id="video-underlay" preload="auto">
           <source/>
         </video> 
               <img id = "gradient" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:70%;"/>

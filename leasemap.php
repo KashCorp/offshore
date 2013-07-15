@@ -32,6 +32,10 @@
 
 <style>
 
+body {
+  background: rgba(0,0,0,0.5);
+}
+
 #map-container, #image-container  {
   position: absolute;
   width: 1720px; 
@@ -172,11 +176,18 @@ position: absolute;
   width: 100%; 
 }
 
+.scroll-directions-container {
+  height:    -moz-calc(100% - 100px);
+  height: -webkit-calc(100% - 100px);
+  height:         calc(100% - 100px);
+  margin-top: 100px;
+}
+
 </style>
 
   </head>
 
-  <body class="platform" style="background:none">
+  <body class="platform">
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
@@ -185,17 +196,15 @@ position: absolute;
 </header>
 
     <div id="scroll-wrapper" class="wrapper" style="display:block">
-      <div id="scan_image_holder">
-        <!--<div id="scan_image_lines"></div>-->
-      </div>
       
       <div id="viewport" style="left:0px">
         <div id='image-container'>
           <ul>
-            <li id="leasemap_05"><img src="images/rig_map/leases/lease_05.jpg"><div>Contextual text goes here</div></li>
-            <li id="leasemap_04"><img src="images/rig_map/leases/lease_04.jpg"><div>Contextual text goes here</div></li>
-            <li id="leasemap_03"><img src="images/rig_map/leases/lease_03.jpg"><div>Contextual text goes here</div></li>
-            <li id="leasemap_01"><img src="images/rig_map/leases/lease_01.jpg"><div>Contextual text goes here</div></li>
+            <li id="leasemap_05"><img src="images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
+            <li id="leasemap_04"><img src="images/lease_map/lease_04.jpg"><div>Brazil</div></li>
+            <li id="leasemap_02"><img src="images/lease_map/lease_02.jpg"><div>Alaska</div></li>
+            <li id="leasemap_03"><img src="images/lease_map/lease_03.jpg"><div>West Africa</div></li>
+            <li id="leasemap_01"><img src="images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
           </ul>
         </div>
       </div>
@@ -203,20 +212,12 @@ position: absolute;
       
 
       <a id="to-control" class="platform-nav">Close</a>
-      <div id="scroll-directions"></div>
-  		<div class="breadcrumb"></div>
-       
-     
+
+      <div class="scroll-directions-container"><div id="scroll-directions"></div></div>
        
   	</div>
      
     <div id="scroll-proxy"></div>
-
-
-
-
-
-
   
 
     <!-- JavaScripts -->
@@ -226,99 +227,87 @@ position: absolute;
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
 
 
-
-
     <script>
+
       $(document).ready(function(){
 
-      $(".platform-nav").click(function(){
-       parent.master.closeBook()
-      })
+        $(".platform-nav").click(function(){
+          parent.master.closeBook()
+        })
 
-      $("#map-container ul li,.textholder").click(function(){
-        if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
-       //window.history.back();
-      })
+        // $(function() {
+        //       $( "#viewport" ).draggable();
+        // });
 
+         var setStage = function(){
 
+           var dynamicWidth = window.innerWidth;
 
-    
+           var dynamicHeight = dynamicWidth * .5625;
 
+           var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
-    var  currentWebPos = 0
-
-      $(function() {
-            $( "#viewport" ).draggable();
-      });
-
-       var setStage = function(){
-
-         var dynamicWidth = window.innerWidth;
-
-         var dynamicHeight = dynamicWidth * .5625;
-
-         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-         var dynamicRatio = window.innerHeight/window.innerWidth
+           var dynamicRatio = window.innerHeight/window.innerWidth
 
 
-         
+           
 
-        // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/downstairs/",241)
-         //$("#words-container").css("top", -dynamicHeight*.5)
-         //scrollPos = walkthrough.scrollStopFunction()
-
-
-        var scrollValue = 0
-
-        $.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-           $( "#scroll-directions" ).draggable({ 
-              axis: "y",
-              drag: function() {
-                scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 10000 / (window.innerHeight -160)
-                 scrollFunction()
-              }
-             });
-         }); 
+          // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/downstairs/",241)
+           //$("#words-container").css("top", -dynamicHeight*.5)
+           //scrollPos = walkthrough.scrollStopFunction()
 
 
-        var scrollPercent = 0,transZPos = -4000
+          var scrollValue = 0
 
-        function scrollFunction() {
+          $.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+             $( "#scroll-directions" ).draggable({ 
+                axis: "y",
+                containment: 'parent',
+                drag: function() {
+                  scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 10000 / (window.innerHeight -160)
+                   scrollFunction()
+                }
+               });
+           }); 
 
-        scrollPercent =  scrollValue / (5000 - $(window).height()) * 100;
-  	       
+
+          var scrollPercent = 0,transZPos = -4000
+
+          function scrollFunction() {
+
+          scrollPercent =  scrollValue / (5000 - $(window).height()) * 100;
+    	       
 
 
-           var zPos = scrollValue*.4
-           //box-shadow: ;
-          //$("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
-           $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * .6 + 'px)');
-           $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
-           $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
-           $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-           /*
-           $('#rigmap_01').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
-           $('#rigmap_02').css('-webkit-transform', 'translateZ(' + zPos + 'px)');
-           $('#rigmap_05,#t5').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
-           $('#rigmap_04,#t4').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
-           $('#rigmap_03,#t3').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
-           $('#rigmap_06,#t6').css('-webkit-transform', 'translateZ(' + zPos * 1.4 + 'px)');
-           $('#rigmap_08,#t8').css('-webkit-transform', 'translateZ(' + zPos * 1.5 + 'px)');
-           $('#rigmap_07,#t7').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-           */
+             var zPos = scrollValue*.4
+             //box-shadow: ;
+            //$("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
+             $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * .6 + 'px)');
+             $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
+             $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
+             $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+             /*
+             $('#rigmap_01').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
+             $('#rigmap_02').css('-webkit-transform', 'translateZ(' + zPos + 'px)');
+             $('#rigmap_05,#t5').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
+             $('#rigmap_04,#t4').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
+             $('#rigmap_03,#t3').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
+             $('#rigmap_06,#t6').css('-webkit-transform', 'translateZ(' + zPos * 1.4 + 'px)');
+             $('#rigmap_08,#t8').css('-webkit-transform', 'translateZ(' + zPos * 1.5 + 'px)');
+             $('#rigmap_07,#t7').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+             */
+
+
+           }
 
 
          }
 
+        setStage()
 
-       }
-
-      setStage()
-
-      window.onresize = function(event) {
-      setStage()
-      }
+        window.onresize = function(event) {
+        setStage()
+        }
 
       })
 

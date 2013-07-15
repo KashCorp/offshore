@@ -6,12 +6,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>OFFSHORE | Preview</title>
+    <title>OFFSHORE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
+    <meta name="description" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
     <link rel="image_src" href="images/offshore_fb_thumb.jpg" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+    <meta property="og:image" content="images/offshore_fb_thumb.jpg"/>
+    <meta property="og:title" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation"/>
+    <meta property="og:url" content="http://offshore-interactive.com/"/>
+    <meta property="og:site_name" content="OFFSHORE"/>
+    <meta property="og:type" content="website"/>
 
 
 <script>
@@ -22,7 +28,7 @@
 
   <body class="p-credits" onload="checkHash()">
   	
-  	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  	<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
 
 <iframe id="container-frame" src="blank.php"></iframe>
 

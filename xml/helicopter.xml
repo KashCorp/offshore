@@ -11,10 +11,11 @@
 		loadscene(credits, null, ignorekeep, BLEND(1))
 	</action>
 
-	<autorotate enabled="true"
-	            waittime="1.5"
-	            speed="3.0"
-	            />
+	<!-- <autorotate 
+		enabled="true"
+        waittime="1.5"
+        speed="3.0"
+        /> -->
 	 
 	<events 
 		onloadcomplete= "js(panoLoaded())" 
@@ -38,28 +39,28 @@
 	                   
 <scene name="credits" onstart="">
 
-		<progress
-			showwait="none"
-			/>
+		<progress showwait="none" />
 
 		<view 
 			hlookat="180.0"
-		  fov="90.0"
-		  fovmax="90.0"
-		  fovmin="10.0"
-		  />
+			fov="90.0"
+			fovmax="120.0"
+			fovmin="10.0"
+			/>
 
-		<control usercontrol = "all"
+		<control 
+			usercontrol = "all"
 			mousetype="drag2d"
-			mousefriction="0.9999"
+			mousefriction="0"
+			mouseaccelerate="0"
 		    fovspeed="1.0"
-		 	keycodesin  =""
-		 	keycodesout =""
+		    headswing="0"
 		 	/>
+
 	 	<image>
-				<cube url="../images/panos/helicopter/pano_%s.jpg" />
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/helicopter_pano_%s.jpg" />
 			<mobile>
-				<cube url="../images/panos/helicopter/pano_%s.jpg" />
+				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/helicopter_pano_%s.jpg" />
 			</mobile>
 		</image>
 
@@ -69,7 +70,7 @@
 			distorted="true"
 			alpha="0.0"
 			width="105.0"
-			height="105.0"
+			height="150"
 			onclick="js(loadAFXPano(audio/voice_overs/VO_Helicopter.mp3))"
 			scale="1.0"
 			capture="false"

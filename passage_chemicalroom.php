@@ -53,7 +53,7 @@
            
       <div id="scroll-start" class="scroll-nav">Go Back?</div>
       <div id="scroll-end" class="scroll-nav">Continue?</div>
-      <div id="scroll-directions"></div>
+      <div class="scroll-directions-container"><div id="scroll-directions"></div></div>
       <!--<div id="panocontainer" class="platform"></div>-->
       <div class="breadcrumb"></div>
       <canvas id="ghost-canvas" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:15%;left:0;pointer-events:none"></canvas>
@@ -104,51 +104,47 @@
 
         if( overlayTrack){
 
-          var dummysound = { decayFrom:  overlayTrack.options.gainNode.gain.value};
+        var dummysound = { decayFrom:  overlayTrack.options.gainNode.gain.value};
 
-          var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
-                      .onUpdate( function() {
-                        master.isTweeningAudio = true
-                        overlayTrack.gain(this.decayFrom)
-                      
-                      })
-                      .easing(TWEEN.Easing.Quadratic.Out )
-                      .onComplete(function() {
-                        parent.audiomaster.mix.removeTrack('overlay_01')
-                        
-                      if(overLayFile)
-                        console.log("good to go")  
-                        master.loadOverlayAudio(overLayFile);
-                      })
-                      .start(); 
+        var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
+            .onUpdate( function() {
+                master.isTweeningAudio = true
+                overlayTrack.gain(this.decayFrom)
+            })
+            .easing(TWEEN.Easing.Quadratic.Out )
+            .onComplete(function() {
+            parent.audiomaster.mix.removeTrack('overlay_01')
+
+            if(overLayFile)
+            console.log("good to go")  
+            master.loadOverlayAudio(overLayFile);
+            })
+            .start(); 
 
         }else{
           if(overLayFile)
              master.loadOverlayAudio(overLayFile)
         }
 
-       var setStage = function(){
+        var setStage = function(){
 
-         var dynamicWidth = window.innerWidth;
+        var dynamicWidth = window.innerWidth;
 
-         var dynamicHeight = dynamicWidth * .5625;
+        var dynamicHeight = dynamicWidth * .5625;
 
-         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+        var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
-         $("#walking-canvas").css("top",dynamicTop)
+        $("#walking-canvas").css("top",dynamicTop)
 
-         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/corridor_01/",65)
+        var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","corridor",65)
 
-         var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","video/video_clips/walk_towards_camera2/frame-",12)
+        var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","ghost_walktowardscamera2_",16)
  
-         ghost.imageSequencer()
+        ghost.imageSequencer()
 
+        var scrollTrigger,scrollPercent = 0
 
-         scrollPos = walkthrough.scrollStopFunction()
-
-         var scrollTrigger,scrollPercent = 0
-
-          parent.audiomaster.mix.getTrack('overlay_01').pan(1)
+        parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
         function scrollerFunction(){
 
@@ -157,42 +153,43 @@
             $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
             $('#word_01').css('opacity', walkthrough.scrollPos/100);
           
-           if(walkthrough.scrollPos  > 40 && walkthrough.scrollPos  < 60){
-            $("#ghost-canvas").fadeIn(2500)
-            $("#ghost-controls").fadeIn(500)
-          }else{
-            $("#ghost-canvas").fadeOut(2500)
-            $("#ghost-controls").fadeOut(2500)
-          }           
+            if(walkthrough.scrollPos  > 40 && walkthrough.scrollPos < 60){
+                $("#ghost-canvas").fadeIn(2500)
+                $("#ghost-controls").fadeIn(500)
+            }else{
+                $("#ghost-canvas").fadeOut(2500)
+                $("#ghost-controls").fadeOut(2500)
+            }
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
             //if(!scrollTrigger) $('#whisper_02')[0].play()
             scrollTrigger = true
 
             if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-                parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)       
-            }  
+                parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)    
+            } 
             
-           if(walkthrough.scrollPos < 5){
-             $("#scroll-start").fadeIn(1000)
-           }else{
-             $("#scroll-start").fadeOut(700)
-           }
+            if(walkthrough.scrollPos < 5){
+                $("#scroll-start").fadeIn(1000)
+            }else{
+                $("#scroll-start").fadeOut(700)
+            }
 
-            if(walkthrough.scrollPos > 85){
-              newPage("chemicalroom.php")
-              console.log("end of passageway")
+             if(walkthrough.scrollPos > 85){
+                newPage("chemicalroom.php")
+                console.log("end of passageway")
 
-             $("#scroll-end").fadeIn(1000)
-           }else{
-             $("#scroll-end").fadeOut(1000)
-           }
-          requestAnimationFrame(scrollerFunction)
-         }
+                $("#scroll-end").fadeIn(1000)
+            }else{
+                $("#scroll-end").fadeOut(1000)
+            }
+
+            requestAnimationFrame(scrollerFunction)
+        }
 
         scrollerFunction()
 
-       }
+      }
 
       setStage()
 

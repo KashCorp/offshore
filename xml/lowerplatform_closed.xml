@@ -47,7 +47,7 @@
 	<view 
 		hlookat="90.0"
 	  fov="90.0"
-	  fovmax="90.0"
+	  fovmax="120.0"
 	  fovmin="15.0"
 	  />
 
@@ -68,7 +68,7 @@
 
 	<scene name="hatchIsClosed">
 	 	<image>
-				<cube url="../images/panos/lowerplatform/pano_%s.jpg" />
+				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_%s.jpg" />
 
 		</image>
 	</scene>
@@ -134,7 +134,7 @@
 
 		<hotspot name="Port_Fourchon_text"
 			url="plugins/textfield.swf"
-			ath="261"
+			ath="119"
 			atv="-2"
 			children="false"
 			edge="righttop"
@@ -152,7 +152,7 @@
     		/>
 		<hotspot name="Port_Fourchon_gif"
 			url="../images/icons/gif_iconB.gif"
-			ath="265"
+			ath="120"
 			atv="-1"
 			alpha=".3"
 			height="80"

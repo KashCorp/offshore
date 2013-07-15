@@ -1,6 +1,6 @@
 var pano_master = function(){
   var that = this  
-  console.log("HTML5 pano is loaded")
+  console.log("pano is loaded")
   var pano = $('#panocontainer').attr('class');    
   var masterPath = ".",
       targetContainer = "panocontainer",
@@ -189,7 +189,6 @@ var pano_master = function(){
             $('#fastpanleft').hover(
               function(){
                 //mouse in
-                console.log("hover")
                 if(driftTweenH) TWEEN.remove(driftTweenH)
                 panAmount = -1
               },

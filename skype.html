@@ -1,8 +1,445 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 
 <head>
 
-	<link rel="stylesheet" type="text/css" href="css/skype.css">
+	<style type="text/css">
+
+		/* ========================================================================== *\
+		  	RESET
+		\* ========================================================================== */
+
+		/*   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)  v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark  html5doctor.com/html-5-reset-stylesheet/*/
+		html, body, div, span, object, iframe,
+		h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+		abbr, address, cite, code,
+		del, dfn, em, img, ins, kbd, q, samp,
+		small, strong, sub, sup, var,
+		b, i,
+		dl, dt, dd, ol, ul, li,
+		fieldset, form, label, legend,
+		table, caption, tbody, tfoot, thead, tr, th, td,
+		article, aside, figure, footer, header, hgroup, menu, nav, section, menu,
+		time, mark, audio, video {
+		margin:0;
+		padding:0;
+		border:0;
+		outline:0;
+		font-size:100%;
+		vertical-align:baseline;
+		background:transparent;
+		}
+		html, body { height:99%; }
+		article, aside, figure, footer, header,
+		hgroup, nav, section { display:block; }
+		nav ul { list-style:none; }
+		blockquote, q { quotes:none; }
+		blockquote:before, blockquote:after,
+		q:before, q:after { content:''; content:none; }
+		a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+		ins { background-color:#ff9; color:#000; text-decoration:none; }
+		mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+		del { text-decoration: line-through; }
+		abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; }
+		/* tables still need cellspacing="0" in the markup */
+		table { border-collapse:collapse; border-spacing:0; }
+		hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+		input, select { vertical-align:middle; }
+		/* maxvoltar.com/archive/-webkit-font-smoothing */
+		html { -webkit-font-smoothing: antialiased; }
+		.ie7 img { -ms-interpolation-mode: bicubic; }
+		strong {font-weight: bold;}
+		em {font-style: italic;}
+		/* Add wrapping to coding sections */
+		pre {
+		padding: 15px;
+		white-space: pre; /* CSS2 */
+		white-space: pre-wrap; /* CSS 2.1 */
+		white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+		word-wrap: break-word; /* IE */
+		}
+		/* END RESET CSS */
+
+		@font-face {
+			font-family: 'icomoon';
+			src:url('fonts/icomoon.eot');
+			src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+				url('fonts/icomoon.woff') format('woff'),
+				url('fonts/icomoon.ttf') format('truetype'),
+				url('fonts/icomoon.svg#icomoon') format('svg');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		/* Use the following CSS code if you want to use data attributes for inserting your icons */
+		[data-icon]:before {
+			font-family: 'icomoon';
+			content: attr(data-icon);
+			speak: none;
+			font-weight: normal;
+			font-variant: normal;
+			text-transform: none;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+		}
+
+
+		.platform-nav {
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			text-indent: -9999px;
+			cursor: pointer;
+			width: 60px;
+			height: 60px;
+			background: url('images/icons/close_icon.png');
+		}
+
+		/* ========================================================================== *\
+		  	CONTAINER
+		\* ========================================================================== */
+
+		body {
+			overflow: hidden;
+		}
+
+		.container {
+			text-align: center;
+			width: 100%; height: 100%;
+			background: rgba(0,0,0,0.5);
+		}
+
+		.ipad-container {
+			min-width: 800px;
+			min-height: 600px;
+			/*max-width: 90%;*/
+			/*max-height: 90%;*/
+
+			display: inline-block;
+			position: relative;
+			width: 80%;
+			margin-top: 2%;
+
+			background: url('images/skype_ipad.svg') no-repeat;
+			background-size: 100% 100%;
+
+			text-align: left;
+			/*border: 1px solid red;*/
+		}
+
+		/* maintain 4:3 aspect ratio */
+		.ipad-container .dummy {
+			margin-top: 75%;
+		}
+
+		.ipad-screen {
+			position: absolute;
+			overflow: hidden;
+
+			top: 10%;
+			bottom: 10%;
+			left: 10%;
+			right: 10%;
+		}
+
+
+		/* ========================================================================== *\
+		  	MAIN
+		\* ========================================================================== */
+
+		.main {
+			float:right;
+			width:70%;
+			height: 100%;
+			/*background:#ffffff;*/
+		}
+
+		header {
+			border-top-left-radius:10px;
+			border-top-right-radius:10px;
+			background:#00aeef;
+			font-family: Helvetica;
+			font-size: 1.5em;
+			color: #ffffff;
+			padding: .5em;
+		}
+
+		.main h1 {
+			text-align: center;
+		}
+		.main h2 {
+			background:#dddddd;
+			padding: 1em;
+			/*font-size: 1.2em;*/
+			/*padding: .9em;*/
+
+		}
+
+
+		.allbutton {
+			-moz-box-shadow:inset -50px -50px 0px 50px #00afef;
+			-webkit-box-shadow:inset -50px -50px 0px 50px #00afef;
+			box-shadow:inset -50px -50px 0px 50px #00afef;
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #00afef), color-stop(1, #00afef) );
+			background:-moz-linear-gradient( center top, #00afef 5%, #00afef 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00afef', endColorstr='#00afef');
+			background-color:#00afef;
+			-moz-border-radius:42px;
+			-webkit-border-radius:42px;
+			border-radius:42px;
+			display:inline-block;
+			color:#ffffff;
+			font-family:Helvetica;
+			font-size:14px;
+			font-weight:bold;
+			padding:7px 24px;
+			text-decoration:none;
+		}
+
+		#search {
+			display: inline;
+			padding-left: .7em;
+		}
+
+		#search input[type="text"] {
+		    background: #fff;
+		    border: 0px;
+		    font: bold 12px Helvetica,Sans-serif;
+		    color: #bebebe;
+		    width: 150px;
+		    padding: 7px 15px 6px 15px;
+		    -webkit-border-radius: 20px;
+		    -moz-border-radius: 20px;
+		    border-radius: 20px;
+		    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+		    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+		    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+		    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
+		    -webkit-transition: all 0.7s ease 0s;
+		    -moz-transition: all 0.7s ease 0s;
+		    -o-transition: all 0.7s ease 0s;
+		    transition: all 0.7s ease 0s;
+		    }
+
+		#search input[type="text"]:focus { width: 50%; }
+
+		/* MENU */
+
+		.main ul {
+			padding:.5em;
+			list-style-type: none;
+		}
+
+		.main li  {
+			/*float: left;*/
+			display: inline-block;
+
+			margin: 1%;
+			width: 47%;
+			/*height: auto;*/
+			color: #333;
+			font-weight: bold;
+			font-size: 1em;
+			font-family: Helvetica;
+			cursor: pointer;
+		}
+
+		.main li img { width: 100%; height: auto; }
+
+		.main li div {
+			display: block;
+			width: 100%;
+			height: 1em;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.main li div:before {
+			font-family: "icomoon";
+			color: #7fba00;
+			font-size: .6em;
+			content: "\6d";
+			padding: .2em;
+			padding-right: .4em;
+			margin-left: .2em;
+			position: relative;
+			top: -.1em;
+		}
+
+		.content {
+			background-color: white;
+			height: 78%;
+		}
+
+		/* VIDEO */
+
+		.movie {
+			width: 100%; height: 100%;
+			display: table;
+			display: none;
+			background-color: black;
+		}
+
+		.movie .tableCell {
+			display:table-cell;
+			vertical-align: middle;
+			width: 100%;
+		}
+
+		.movie #skypeVideo {
+			display: inline-block;
+			width: 100%;
+			height: auto;
+		}
+
+		/* Webcam */
+
+		.movie #webcamVideo {
+			width: 20%;
+			height: 20%;
+			position: absolute;
+			top: 5%;
+			right: 5%;
+		}
+
+
+		.movie #to-control-vid {
+			position: absolute;
+			display: inline-block;
+
+			right: 5px;
+			top: 5px;
+			text-indent: -9999px;
+			cursor: pointer;
+			width: 60px;
+			height: 60px;
+			background: url('images/icons/close_icon.png');
+		}
+
+
+		/* ========================================================================== *\
+		  	SIDEBAR
+		\* ========================================================================== */
+
+
+		.sidebar {
+			float:left;
+			width:30%;
+			height: 100%;
+			/*background: #e7f1f5;*/
+		}
+
+		.editbutton {
+			-moz-box-shadow:inset -50px -50px 0px 50px #00afef;
+			-webkit-box-shadow:inset -50px -50px 0px 50px #00afef;
+			box-shadow:inset -50px -50px 0px 50px #00afef;
+			background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #00afef), color-stop(1, #00afef) );
+			background:-moz-linear-gradient( center top, #00afef 5%, #00afef 100% );
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00afef', endColorstr='#00afef');
+			background-color:#00afef;
+			-moz-border-radius:2px;
+			-webkit-border-radius:2px;
+			border-radius:2px;
+			border:1px solid #2b94f0;
+			color:#ffffff;
+			font-family:Helvetica;
+			font-size:11px;
+			font-weight:bold;
+			padding:5px 12px;
+			text-decoration:none;
+			display: inline;
+			float: right;
+		}
+
+		.sidebar h1 {
+			padding-left: .2em;
+		}
+
+		.sidebar h2 {
+			background:#c0dce6;
+			font-family: Helvetica;
+			font-size: 1.2em;
+			padding: .9em;
+			color: #33353a;
+		}
+
+		.sidebar h2:before {
+			font-family: "icomoon";
+			color: #33353a;
+			font-size: 1.3em;
+			content: "\62";
+			position: relative;
+			top: .1em;
+			left: -.15em;
+		}
+
+		.sidebar p {
+			color: #6d6d72;
+			font-weight: bold;
+			font-size: 10px;
+			font-family: Helvetica;
+			padding-left: 1.4em;
+			padding-top: 1em;
+		}
+
+		.sidebar .recent {
+			list-style-type: none;
+			padding: 1em;
+		}
+
+		.recent li {
+			margin-bottom:1em;
+		}
+
+		.recent li:before {
+			font-family: "icomoon";
+			color: #fff;
+			font-size: 1.3em;
+			content: "\75";
+			padding: .2em;
+			margin-right: .2em;
+			background: #aadbeb;
+			position: relative;
+			top: .1em;
+		}
+
+		.sidebar ul li a {
+			color: #ff8c00;
+			font-size: 1em;
+			font-family: Helvetica;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		.history {
+			padding: 1em;
+			margin-top: 2em;
+			border-top: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+		}
+
+		.history a{
+			color: #6d6d72;
+			font-size: 1em;
+			font-family: Helvetica;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		.history a:before {
+			font-family: "icomoon";
+			color: #6e6e73;
+			font-size: 1.3em;
+			content: "\63";
+			padding: .2em;
+			margin-right: .2em;
+			position: relative;
+			top: .1em;
+		}
+
+		
+	</style>
 
 	<script type="text/javascript" src="js/lib/jquery.min.js"></script>
 	<script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
@@ -24,7 +461,7 @@
 
 				<div class="movie">
 					<div class="tableCell">
-				  	<video src="" loop="false" autoplay id="skypeVideo"></video>
+				  	<video controls="true" src="" loop="false" autoplay id="skypeVideo"></video>
  				  	<video id="webcamVideo"></video>
 					</div>
 					<a id="to-control-vid" style="display:none">Close</a>
@@ -110,13 +547,16 @@
 
 <script type="text/javascript">
 
-$(".platform-nav").click(function(){
-	console.log("click")
-	parent.master.closeBook()
+$(window).load(function(){
+	$('.container').fadeIn(500)
 })
 
 
 $(document).ready(function(){
+
+	$("#to-control").click(function(){
+		parent.master.closeBook()
+	})
 
 	//detect if can use webRTC
 	function webRTC(){
@@ -137,7 +577,7 @@ $(document).ready(function(){
 	    }
 	 
 	    function errorCallback(error) {
-	        console.error('An error occurred: [CODE ' + error.code + ']');
+	        console.error('WebRTC error [CODE ' + error.code + ']');
 	        // Display a friendly "sorry" message to the user
 	    }
 
@@ -164,24 +604,16 @@ $(document).ready(function(){
 		$('#to-control-vid').css('display','block')
 
     $('.interface').fadeOut(500,function(){
+
     	$('.movie').css('display','table')
     	console.log($(that).data('url'))
     	$('#skypeVideo').attr('src', $(that).data('url'));
     	$('#skypeVideo')[0].load();
 
     	$('#skypeVideo').on('canplaythrough', function(){
-                     $('#skypeVideo')[0].play()
+            $('#skypeVideo')[0].play()
        });
-			// document.getElementById("skypeVideo").play();
 
-			// set up WebRTC
-			// navigator.getUserMedia({video: true}, function(localMediaStream) {
-			// 	console.log("Setting up WebRTC...")
-			// 	document.getElementById("webcamVideo").src = window.URL.createObjectURL(localMediaStream);
-			// 	console.log($('webcamVideo').attr('src'))
-			// }, function(error) {
-			//   console.log(error);
-			// });
     })
   })
 
@@ -192,10 +624,15 @@ $(document).ready(function(){
 
   	document.getElementById("skypeVideo").pause();
   	$('.interface').fadeIn(500,function(){
-			$('#close-control').fadeIn(500)
+		$('#close-control').fadeIn(500)
   	})
   })
 
+
+  $("#close-control").click(function(){
+  	console.log("click")
+  	parent.master.closeBook()
+  })
 
 })
 </script>

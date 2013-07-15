@@ -11,7 +11,7 @@
 		loadscene(platform, null, ignorekeep, BLEND(1))
 	</action>
 
-	<autorotate enabled="true"
+	<autorotate enabled="false"
 	            waittime="1.5"
 	            speed="3.0"
 	            />
@@ -38,7 +38,7 @@
 		<view 
 			hlookat="84.0"
 		  fov="65.0"
-		  fovmax="90.0"
+		  fovmax="120.0"
 		  fovmin="15.0"
 		  />
 
@@ -49,18 +49,18 @@
 		 	/>
 	 	<image>
 				<!-- <cube url="../images/panos/interiorsub-wire/pano_%s.png" /> -->
-			<left  url="../images/panos/interiorsub-wire/pano_l.jpg" />
-	    <front url="../images/panos/interiorsub-wire/pano_f.jpg" />
-	    <right url="../images/panos/interiorsub-wire/pano_r.png" />
-	    <back  url="../images/panos/interiorsub-wire/pano_b.jpg" />
-	    <up    url="../images/panos/interiorsub-wire/pano_u.jpg" />
-	    <down  url="../images/panos/interiorsub-wire/pano_d.png" />
+		<left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_l.jpg" />
+	    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_f.jpg" />
+	    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_r.png" />
+	    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_b.jpg" />
+	    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_u.jpg" />
+	    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_d.jpg" />
 		</image>
 
 			
 			
 
-
+		<!-- Videos + Text -->
 
 		<hotspot name="under_water_01" url="../images/hotspot.gif"
 			ath="67.15"
@@ -73,6 +73,26 @@
 			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>
+
+		<hotspot name="under_water_01_text"
+			url="plugins/textfield.swf"
+			ath="67.15"
+			atv="15.2"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] VID 1 [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="js(loadUnderWater(doc_content/ROV_Coral))"
+			keep="true"
+		/>
 
 
 		<hotspot name="under_water_02" url="../images/hotspot.gif"
@@ -98,7 +118,8 @@
 			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>	
-			<hotspot name="under_water_04" url="../images/hotspot.gif"
+
+		<hotspot name="under_water_04" url="../images/hotspot.gif"
 			ath="112.15"
 			atv="15.2"
 			distorted="true"
@@ -110,7 +131,12 @@
 			scale="1.0"
 			/>	
 
-			<hotspot name="exit" url="../images/hotspot.gif"
+		
+
+
+		<!-- Door -->
+
+		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="270"
 			atv="10"
 			distorted="true"

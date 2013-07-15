@@ -33,33 +33,32 @@
 
 <body style="overflow:hidden" class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-<header><a class="volume-toggle"><i class="icon-volume-up"></i></a></header>
+  <header>
+    <a class="volume-toggle"><i class="icon-volume-up"></i></a>
+  </header>
+
+  <div id="wrapper" class="wrapper">
+
+		<div id="panocontainer" class="boat"></div>
+    
+    <img id = "gradient" src = "images/overlay_gradient_blue.png" style="pointer-events:none;top:0px; display:block; position: absolute;width:100%;height:60%;opacity:0.7"/>
+
+    <div class="video-content-wrap">
+      <video width="100%" controls="true" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+        <source/>
+      </video>
+
+      <a id="to-control" class="platform-nav">Close</a>
+    </div>
+
+		<div class="breadcrumb"></div>
+
+	</div>
 
 
-
-    <div id="wrapper" class="wrapper">
-
-  		<div id="panocontainer" class="boat"></div>
-      
-      <img id = "gradient" src = "images/overlay_gradient_blue.png" style="pointer-events:none;top:0px; display:block; position: absolute;width:100%;height:60%;opacity:0.7"/>
-
-      <div class="video-content-wrap">
-        <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
-          <source/>
-        </video>
-
-        <a id="to-control" class="platform-nav">Close</a>
-      </div>
-
-  		<div class="breadcrumb"></div>
-
-  	</div>
-
-
-
-    <div id="inter-text" style="display: block"></div>
+  <div id="inter-text" style="display: block"></div>
 
 
     <!-- JavaScripts -->
@@ -90,15 +89,12 @@
       }
 
       $(document).ready(function(){
-
-
-
-      //$('#inter-text' ).shuffleLetters();
+        master.setDeepLinking("boat.php")
+        
         master.videoTrans("video/transitions/explosion")
 
-        document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
+        // document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
 
-        master.setDeepLinking("boat.php")
 
         var dynamicWidth = window.innerWidth;
         var dynamicHeight = dynamicWidth * .5625;

@@ -50,7 +50,7 @@
 		<view 
 			hlookat="84.0"
 		  fov="65.0"
-		  fovmax="90.0"
+		  fovmax="120.0"
 		  fovmin="45.0"
 		  />
 

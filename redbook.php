@@ -34,15 +34,7 @@
 
 			<div style="background-image:url(images/journal/techdrawing10.jpg)"></div>
 			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>				
-
-			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
-			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>
-
-			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
-			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
-
-			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
-			<div style="background-image:url(images/journal/blank_paper.jpg)"></div>	
+	
 
 			<div class="hard" style="background-image:url(images/journal/blank_paper.jpg)"></div>
 			<div class="hard" style="background-image:url(images/Red_Book.jpg)"></div>										
@@ -55,41 +47,22 @@
 
 <script type="text/javascript">
 
+function loadApp() {
 
-
+$("#to-control").click(function(){
+	parent.master.closeBook()
+})
 
 function loadApp() {
 
-
-$(".platform-nav").click(function(){
-	console.log("click")
-	parent.master.closeBook()
-
-})
-
 	// Create the flipbook
-
 	$('.flipbook').turn({
-			// Width
-
-			width:922,
-			
-			// Height
-
-			height:600,
-
-			// Elevation
-
-			elevation: 50,
-			
-			// Enable gradients
-
-			gradients: true,
-			
-			// Auto center this flipbook
-
-			autoCenter: true
-
+		width:922,
+		height:600,
+		elevation: 50,
+		gradients: true,
+		autoCenter: true,
+		pages: 4
 	});
 }
 

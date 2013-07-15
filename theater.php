@@ -42,7 +42,7 @@
     <div id="wrapper" class="wrapper">
 
        <div class="pano-underlay">
-        <video width="100%" height:"100%" autoplay loop = "true" style="position:absolute;top:17%" id="video-underlay" preload="auto">
+        <video controls="true" width="100%" height:"100%" autoplay loop = "true" style="position:absolute;top:17%" id="video-underlay" preload="auto">
            <source src="video/oil_shot.webm" type="video/webm" />
            <source src="video/oil_shot.mp4" type="video/mp4" />
         </video> 
@@ -77,12 +77,12 @@
 
         // var convCoord =  Math.abs(coord%360);
 
-        if(fov <35) {
+        if(fov <45) {
           $('#scroll-directions').fadeIn()
           $('.fastpan, .compass').fadeOut(100)
         }else{
-          $('.fastpan, .compass').fadeIn(100)
-           $('#scroll-directions').fadeOut()
+          if(!master.mapOpen) $('.fastpan, .compass').fadeIn(500)
+          $('#scroll-directions').fadeOut()
           $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
         }
 

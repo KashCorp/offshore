@@ -46,7 +46,7 @@
         <div id="panocontainer" class="lowerplatform_closed"></div>
         
         <div class="video-content-wrap">
-          <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+          <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
             <source/>
           </video>
 

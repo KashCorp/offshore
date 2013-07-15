@@ -51,7 +51,7 @@
       </div>
     	<div id="scroll-start" class="scroll-nav">Go Back?</div>
     	<div id="scroll-end" class="scroll-nav">Continue?</div>
-    	<div id="scroll-directions"></div>
+      <div class="scroll-directions-container"><div id="scroll-directions"></div></div>
   		<!--<div id="panocontainer" class="platform"></div>-->
   		<div class="breadcrumb"></div>
     <canvas id="ghost-canvas" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
@@ -124,38 +124,33 @@
              master.loadOverlayAudio(overLayFile)
         }
 
-       var setStage = function(){
+      var setStage = function(){
 
+        var dynamicWidth = window.innerWidth;
+        var dynamicHeight = dynamicWidth * .5625;
+        var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
-         var dynamicWidth = window.innerWidth;
+        $("#walking-canvas").css("top",dynamicTop)
 
-         var dynamicHeight = dynamicWidth * .5625;
+        var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","corridor",65)
 
-         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+        walkthrough.preload()
 
+        var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","hologram_rossina01_",16,true)
 
-
-         $("#walking-canvas").css("top",dynamicTop)
-
-         var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/corridor_01/",65)
-
-         scrollPos = walkthrough.scrollStopFunction()
-
-        var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","video/video_clips/ghost_02/hologram_rossina01_",16)
+        ghost.preload()
  
         ghost.imageSequencer()
 
 
           function scrollerFunction(){
 
-            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
-
             var zPos = walkthrough.scrollValue*.4
 
             $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
             $('#word_01').css('opacity', walkthrough.scrollPos/100);
 
-            if(walkthrough.scrollPos  >40 && walkthrough.scrollPos  < 60){
+            if(walkthrough.scrollPos > 40 && walkthrough.scrollPos  < 60){
               $("#ghost-canvas").fadeIn(2500)
               $("#ghost-controls").fadeIn(500)
             }else{
@@ -186,7 +181,7 @@
       setStage()
 
       window.onresize = function(event) {
-      setStage()
+        setStage()
       }
 
         var runFrameRunner = function(){
