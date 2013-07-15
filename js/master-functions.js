@@ -1233,7 +1233,7 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
     canvas.height = h;
     
     var context = canvas.getContext('2d');
-    var imageSrc, scrollPercent, that = this
+	var imageSrc, scrollPercent, that = this
     
     scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
     this.scrollPercent = scrollPercent

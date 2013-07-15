@@ -180,7 +180,6 @@ var pano_master = function(){
               driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
                 .onUpdate( function() {
                   panAmount  = this.decayX
-                    
                 })
                 .easing(TWEEN.Easing.Quadratic.Out )
                 .start(); 
@@ -190,7 +189,7 @@ var pano_master = function(){
               function(){
                 //mouse in
                 if(driftTweenH) TWEEN.remove(driftTweenH)
-                panAmount = -1
+                panAmount = -0.5
               },
                function(){
                 //mouse out
@@ -203,7 +202,7 @@ var pano_master = function(){
               function(){
                 //mouse in
                 if(driftTweenH) TWEEN.remove(driftTweenH)
-                panAmount = 1
+                panAmount = 0.5
               },
                function(){
                 //mouse out
@@ -217,7 +216,7 @@ var pano_master = function(){
                 //mouse in
                 console.log("hover")
                 if(driftTweenH) TWEEN.remove(driftTweenH)
-                yawAmount = 1
+                yawAmount = 0.5
               },
                function(){
                 //mouse out
@@ -230,7 +229,7 @@ var pano_master = function(){
               function(){
                 //mouse in
                 if(driftTweenH) TWEEN.remove(driftTweenH)
-                yawAmount = -1
+                yawAmount = -0.5
               },
                function(){
                 //mouse out
@@ -334,7 +333,7 @@ var pano_master = function(){
 
             if(krpano != null && yawAmount !=0){
 
-              panY = krpano.get('view.vlookat') + yawAmount*.3
+              panY = krpano.get('view.vlookat') + yawAmount //*.3
               krpano.set('view.vlookat',panY)
 
             }
