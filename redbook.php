@@ -42,16 +42,15 @@
 	</div>
 </div>
 
-<a id="close-control" class="platform-nav">Close</a>
+<a id="to-control" class="platform-nav">Close</a>
 
 
 <script type="text/javascript">
 
-function loadApp() {
-
 $("#to-control").click(function(){
 	parent.master.closeBook()
 })
+
 
 function loadApp() {
 

@@ -23,6 +23,7 @@ var masterFunctions = function() {
     }
 
     this.mute = false
+	that.overlayOpen = false // stops map icon, fastpan, etc from re-appearing when it shouldn't
 
     // CDN URLs
     this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
@@ -151,11 +152,11 @@ var masterFunctions = function() {
             breadbox_string += '<div class="price"><p>$' + price + '</p></div>';
             breadbox_string += '<div class="change"><p>' + change + '</p><p>' + percent + '</p></div>';
 			breadbox_string += '</div>'
-            
+
 
 			breadbox_string += '<div class="share">'
-			breadbox_string += '<div class="facebook"><a href="#"></a></div>'
-			breadbox_string += '<div class="twitter"><a href="#"></a></div>'
+			breadbox_string += '<div class="facebook"><a target="_BLANK" href="http://www.facebook.com/share.php?u='+window.location.href+'"></a></div>'
+			breadbox_string += '<div class="twitter"><a target="_BLANK" href="http://twitter.com/share?url='+'asdf.com'+'&text="></a></div>'
 			breadbox_string += '</div>'
 
             
@@ -259,13 +260,25 @@ var masterFunctions = function() {
 		})
 	}
 
-	that.mapOpen = false
+
+
+
+	/********************************************************************************
+		
+		Overlays
+
+	********************************************************************************/
+
 
 	this.loadMap = function(){
 		if(!this._frame){
-			master.mapOpen = true
+			krpano = document.getElementById("krpanoObject");
+			krpano.call("set(autorotate.enabled,false)")
+
+			master.overlayOpen = true
 			$('#scroll-directions').fadeOut(500)
 			$('.compass').fadeOut(500)
+			$("#panocontainer").fadeOut(500)
 			that._frame = '<iframe allowtransparency="true" id="map-container-frame" src="rigmap.php"></iframe>'
 			// $('body').append(this._frame)
 			$('.vignette').after(this._frame)
@@ -274,18 +287,24 @@ var masterFunctions = function() {
 	}
 
 	this.closeMap = function(){
-		$('#map-container-frame').fadeOut(1000, function(){
-			master.mapOpen = false
+		$('#map-container-frame').fadeOut(500, function(){
+			master.overlayOpen = false
 			that._frame = null;
 			$('#scroll-directions').fadeIn(500)
 			$('.compass').fadeIn(500)
+			$("#panocontainer").fadeIn(500)
 			that._bookFrame = null;
+
+			krpano = document.getElementById("krpanoObject");
+			krpano.call("set(autorotate.enabled,true)")
+
+			$('#to-control').off('click')
 	 	})
 	}
 
 	this.loadBook = function(_bookUrl){
 		$('.compass').fadeOut(500)
-		master.mapOpen = true
+		master.overlayOpen = true
 
 		// if first run, load the book data
 		if( !that._bookFrame ) {
@@ -301,22 +320,6 @@ var masterFunctions = function() {
 					parent.audiomaster.mix.setGain(0.1)
 			 	})
 			}, 500)
-
-			
-
-			// var inter = window.setInterval(function() {
-
-			//     if(document.getElementById("book-container-frame").contentWindow.ready) {
-			//     	window.clearInterval(inter);
-			      
-			//       		$('#book-container-frame').fadeIn(500,function(){
-			//       			krpano = document.getElementById("krpanoObject");
-			//       			// krpano.call("tween(view.fov, 15.0, 1.0)")
-			//       			krpano.call("set(autorotate.enabled,false)")
-			//       			parent.audiomaster.mix.setGain(0.1)
-			//       	 	})
-			//     }
-			// }, 100);
 
 		} 
 
@@ -334,7 +337,7 @@ var masterFunctions = function() {
 	}
 
 	this.closeBook = function(){
-		master.mapOpen = false
+		master.overlayOpen = false
 
 		$('#book-container-frame').fadeOut(1000, function(){
 			$('.compass').fadeIn(500)
@@ -1095,6 +1098,8 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 
 	filePathPre = master.cdn_imgseq
 
+	maxScrollerPos = $('.scroll-directions-container').height()
+
 	// preload
 	this.preload = function(){
 		console.log('preloading '+imageNumber+' images')
@@ -1125,22 +1130,47 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
     this.playing = false
 
     this.play = function(){
-    	if(playing) {
-    		console.log('PLAYING')
+    	if(that.playing) {
 
-    		// 1 -> imageNumber
+    		$("#scroll-directions").animate(
+    			{'top': top+10},
+    			50,
+    			function(){
+    				scrollerPos = parseInt($( "#scroll-directions" ).css('top'))
+    				scrollerPos += 10
 
+    				advance(scrollerPos)
 
-
-    		// scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
-    		// that.scrollValue = scrollValue
-    		// that.scrollFunction()
-
-
+    				that.play()
+    			}
+    		)
+    		
+    	} else {
+    		return
     	}
     }
 
     // end Autoplay functionality
+
+    advance = function(scrollerPos){
+	    if(scrollerPos > maxScrollerPos) {
+	    	scrollerPos = maxScrollerPos
+	    	that.scrollStopFunction()
+	    	clearTimeout(mouseWheelTimeout)
+	    	return
+	    } else if(scrollerPos < 100) {
+	    	scrollerPos = 100
+	    	that.scrollStopFunction()
+	    	clearTimeout(mouseWheelTimeout)
+	    	return
+	    }
+
+
+		$( "#scroll-directions" ).css('top',scrollerPos)
+		scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
+		that.scrollValue = scrollValue
+		that.scrollFunction()
+    }
 
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
@@ -1148,15 +1178,15 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 	   			axis: "y",
 	   			containment: 'parent',
 				drag: function() {
-					playing = false // stop autoplay
+					that.playing = false // stop autoplay
 					scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 					that.scrollValue = scrollValue
 					that.scrollFunction()
 				},
 				stop: function() {
-					 that.scrollStopFunction()
-					}
-			   	 });
+					that.scrollStopFunction()
+				}
+			});
 	   	});
 
 		if(document.getElementById('scroll-wrapper')){
@@ -1173,11 +1203,10 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 		function MouseWheelHandler(e){
 	        var e = window.event || e; // old IE support
 	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-	        scrollerPos += delta*10
-				$( "#scroll-directions" ).css('top',scrollerPos)
-				scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
-			that.scrollValue = scrollValue
-			that.scrollFunction()
+	        scrollerPos = parseInt($( "#scroll-directions" ).css('top'))
+	        scrollerPos -= delta*10
+
+	        advance(scrollerPos)
 
 			clearTimeout(mouseWheelTimeout)
 			mouseWheelTimeout = null
@@ -1227,7 +1256,7 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 		// imageSrc = filePathPre + "smsequence/frame-"+zeroes(scrollPercent,4)+".jpg";
 		imageSrc = filePathPre + name + "-sm-frame-"+zeroes(scrollPercent,4)+".jpg";
 		
-		console.log(scrollValue + '\t' + (5000-$(window).height()) + '\t' + scrollPercent)
+		// console.log(scrollValue + '\t' + (5000-$(window).height()) + '\t' + scrollPercent)
 		
 		var img = new Image();
 		img.src = imageSrc
@@ -1396,27 +1425,26 @@ function newPage(URL) {
 function panoLoaded(){
 	$('.loading').fadeOut(500)
 	$(".wrapper").fadeIn(1000,function(){
-	$(".pano-underlay").fadeIn(1000)
-	$("#ghost-canvas-trans").fadeOut(1000)		
+		$(".pano-underlay").fadeIn(1000)
+		$("#ghost-canvas-trans").fadeOut(1000)		
 	})	
-
 }
 
 var cachedAuth = 0, cachedFov = 90
 
 function openVideo(_ath, fov, id){
 
-		var krpano = document.getElementById("krpanoObject");
-		var ath =  parseInt(_ath) + 180
-	    //krpano.call("lookto(" + ath   + ",0," + fov + ",smooth(),true,true,js(launchVideo(" + id + ")))")    
+	var krpano = document.getElementById("krpanoObject");
+	var ath =  parseInt(_ath) + 180
+    //krpano.call("lookto(" + ath   + ",0," + fov + ",smooth(),true,true,js(launchVideo(" + id + ")))")    
     cachedAuth = _ath
     cachedFov = fov
 }
 
 function setCache(_ath,_fov) {
-		console.log(_ath)
- 		cachedAuth = _ath
-		cachedFov = _fov
+	console.log('[caching] ath: '+_ath+' fov: '+_fov)
+	cachedAuth = _ath
+	cachedFov = _fov
 }
 
 function openBook(_url){
@@ -1425,19 +1453,25 @@ function openBook(_url){
 
 function launchVideo(_id){
 	console.log('launchvideo: '+'\t'+_id)
-	
+
+	$("#to-control").on('click',function(){
+		closeVideo()
+	})
+
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 
-	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
-    $(".compass").fadeOut()
-    var dynamicWidth = window.innerWidth;
-    var dynamicHeight = dynamicWidth * .5625;
-    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+		master.overlayOpen = true
+	    $(".compass").fadeOut()
+	    var dynamicWidth = window.innerWidth;
+	    var dynamicHeight = dynamicWidth * .5625;
+	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
         $("#video-overlay").css("top",dynamicTop)
         $("#video-overlay").css("width",window.innerWidth)
         $("#video-overlay").css("height",dynamicHeight)
     	$("#video-overlay").fadeIn(1000)
+    	$('#panocontainer').fadeOut(1000)
     	$('#video-overlay source').attr('src', _id + master.videoType);
     	$('#video-overlay video').load();
     //$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
@@ -1449,7 +1483,7 @@ function launchVideo(_id){
     	$("#video-overlay")[0].play()
 
     	$("#video-overlay")[0].onended = function(e) {
-      	closeVideo()
+      		closeVideo()
     	}
 
 	 });
@@ -1470,18 +1504,19 @@ function loadUnderWater(_id){
 }
 
 function closeVideo(_id){
+	$('#to-control').off('click')
+	$("#panocontainer").fadeIn(700)
 	$(".video-content-wrap").unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
 	master.audioFadeInAll()
 	$("#video-overlay").fadeOut(700, function(){
+		master.overlayOpen = false
 		$(".compass").fadeIn()
 		$("#video-overlay")[0].pause(); // can't hurt
     	krpano = document.getElementById("krpanoObject");
 		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
 		parent.audiomaster.mix.setGain(1.0)
 		$(".video-content-wrap").removeClass("video-content-wrap-open");
-		}
-
-		)
+	})
 	
 }
 function showMapIcon(){

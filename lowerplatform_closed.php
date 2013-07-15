@@ -45,7 +45,17 @@
 
         <div id="panocontainer" class="lowerplatform_closed"></div>
         
+        <!-- <div class="video-content-wrap">
+          <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+            <source/>
+          </video>
+
+          <a id="to-control" class="platform-nav">Close</a>
+        </div> -->
+
+        <!-- OVERLAY VIDEOS -->
         <div class="video-content-wrap">
+
           <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
             <source/>
           </video>
@@ -53,6 +63,7 @@
           <a id="to-control" class="platform-nav">Close</a>
         </div>
 
+        
         <div class="breadcrumb"></div>
 
       </div>

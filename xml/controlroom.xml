@@ -132,7 +132,9 @@
 				enabled="true"
 
 				alpha="0.4"
-				onclick="lookto(-159,-12,20,smooth(),true,true)"
+				onclick="lookto(-160,-12,15,smooth(),true,true); 
+						 js(zoomIn());
+						 set(autorotate.enabled,false)"
 				loop="true"
 			/>
 
@@ -190,8 +192,9 @@
 
 				enabled="true"
 				alpha="0.8"
-				onclick="lookto(247,-3,10,smooth(),true,true);
-						 js(zoomOut());"
+				onclick="lookto(247,-3,10,smooth(),true,true); 
+						 js(zoomIn());
+						 set(autorotate.enabled,false)"
 				loop="true"
 			/>
 

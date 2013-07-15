@@ -349,8 +349,7 @@ a:hover {
     float: left;
 }
 
-.breadcrumb nav ul li a,
-.breadcrumb .share a {
+.breadcrumb nav ul li a {
     background: url(../images/bg_white_30.png);
     font-size: 1.5em;
     text-decoration: none;
@@ -382,6 +381,16 @@ a:hover {
 	overflow: auto;
 	height: 100%;
 }
+
+.breadcrumb .share a {
+	font-size: 1em;
+	text-decoration: none;
+	display: inline-block;
+	padding: 0 0.5em;
+	line-height: 40px;
+}
+
+.breadcrumb .share div { display: inline-block;}
 
 .breadcrumb .twitter  a:before { content: "\74"; }
 .breadcrumb .facebook a:before { content: "\66"; }

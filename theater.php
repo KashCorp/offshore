@@ -33,8 +33,6 @@
 
   <body style="overflow:hidden" class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
@@ -81,7 +79,7 @@
           $('#scroll-directions').fadeIn()
           $('.fastpan, .compass').fadeOut(100)
         }else{
-          if(!master.mapOpen) $('.fastpan, .compass').fadeIn(500)
+          if(!master.overlayOpen) $('.fastpan, .compass').fadeIn(500)
           $('#scroll-directions').fadeOut()
           $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)
         }

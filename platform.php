@@ -33,8 +33,6 @@
 
   <body style="overflow:hidden" class="platform">
 
-<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
-
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
@@ -131,13 +129,6 @@
         $("#video-overlay").css("top",dynamicTop)
         $("#video-overlay").css("width",window.innerWidth)
        
-
-        $("#to-control").click(function(){ 
-          var kpano = document.getElementById("krpanoObject");
-          console.log(kpano)
-          kpano.call("lookto(" + cachedAuth   + ",0," + cachedFov + ",smooth(),true,true))")
-          closeVideo()
-        })
       })
 
     </script>

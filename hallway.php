@@ -33,8 +33,6 @@
 
   <body style="overflow:hidden;"  class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
@@ -169,7 +167,7 @@
         $("#offshorelogo").fadeIn(500)
         $("#gradient").fadeIn()
         $(".vignette").fadeIn()
-        if(!master.mapOpen) $('.fastpan, .compass').fadeIn(500)
+        if(!master.overlayOpen) $('.fastpan, .compass').fadeIn(500)
       }
       
   		if(convCoord < 180 ){
@@ -283,11 +281,6 @@ $(document).ready(function(){
     
   })
 
-  $("#to-control").click(function(){
-    
-     console.log("close video")
-    closeVideo()
-  })
   ///END VIDEO LOGIC
         
 

@@ -33,8 +33,6 @@
 
 <body style="overflow:hidden" class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
- 
 <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
@@ -176,7 +174,7 @@
 	}
 
 	var soundadjust = function(coord,fov) {
-		console.log('coord: '+'\t'+coord+'\t'+'fov: '+'\t'+fov)
+		// console.log('coord: '+'\t'+coord+'\t'+'fov: '+'\t'+fov)
 
 		var convCoord = Math.abs(coord+60%360);
 		var convCoord1 =Math.abs((coord-120)%360);
@@ -198,18 +196,33 @@
 			$("#offshorelogo").fadeOut(500)
 			$(".compass").fadeOut()
 			$(".fastpan").fadeOut()
+			$('panocontainer').fadeOut()
 		}else{
+			$('panocontainer').fadeIn()
 			$('#underlay-control-wrapper').fadeOut(500)
 			$('.breadcrumb').fadeIn(500)
 			$("#offshorelogo").fadeIn(500)
-			if(!master.mapOpen) $('.fastpan, .compass').fadeIn(500)
+			if(!master.overlayOpen) $('.fastpan, .compass').fadeIn(500)
 		}
 
 	}
 
-	var zoomOut = function() {
-		$("#compass").fadeOut()
+	// X button functionality for videos within krpano (nymex, etc)
+	var zoomIn = function() {
+		master.overlayOpen = true
+		$('.fastpan, .compass').fadeOut()
 		$("#zoom-out").fadeIn()
+
+		$("#zoom-out").on('click',function(){
+			master.overlayOpen = false
+			$('.fastpan, .compass').fadeIn()
+			$("#zoom-out").fadeOut()
+
+			krpano = document.getElementById("krpanoObject");
+			krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
+			krpano.call('set(autorotate.enabled,true)')
+			$("#zoom-out").off('click')
+		})		
 	}
 
 	$(document).ready(function(){
@@ -279,9 +292,6 @@
 			
 		})
 
-		$("#to-control").click(function(){
-			closeVideo()
-		})
 		///END VIDEO LOGIC
 	})
 

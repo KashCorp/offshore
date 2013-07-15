@@ -33,8 +33,6 @@
 
   <body class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
@@ -143,36 +141,52 @@
         ghost.imageSequencer()
 
 
-          function scrollerFunction(){
+        // toggle autoplay
+        $("#viewport").on('click',function(){
 
-            var zPos = walkthrough.scrollValue*.4
+          if(walkthrough.playing) {
+            console.log('pause ||')
+            walkthrough.playing = false
+            walkthrough.scrollStopFunction()
+          } else {
+            console.log('play >')
+            walkthrough.playing = true
+            walkthrough.play()
+          }
+          
+        })
 
-            $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-            $('#word_01').css('opacity', walkthrough.scrollPos/100);
 
-            if(walkthrough.scrollPos > 40 && walkthrough.scrollPos  < 60){
-              $("#ghost-canvas").fadeIn(2500)
-              $("#ghost-controls").fadeIn(500)
-            }else{
-              $("#ghost-canvas").fadeOut(2500)
-              $("#ghost-controls").fadeOut(2500)
-            }
+        function scrollerFunction(){
 
-           if(walkthrough.scrollPos < 5){
-           	 $("#scroll-start").fadeIn(1000)
-           }else{
-           	 $("#scroll-start").fadeOut(700)
-           }
+          var zPos = walkthrough.scrollValue*.4
 
-            if(walkthrough.scrollPos > 95){
-            	 newPage("theater.php")
-            	console.log("end of passageway")
+          $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+          $('#word_01').css('opacity', walkthrough.scrollPos/100);
 
-           	 $("#scroll-end").fadeIn(1000)
-           }else{
-           	 $("#scroll-end").fadeOut(1000)
-           }
-         requestAnimationFrame(scrollerFunction)
+          if(walkthrough.scrollPos > 40 && walkthrough.scrollPos  < 60){
+            $("#ghost-canvas").fadeIn(2500)
+            $("#ghost-controls").fadeIn(500)
+          }else{
+            $("#ghost-canvas").fadeOut(2500)
+            $("#ghost-controls").fadeOut(2500)
+          }
+
+          if(walkthrough.scrollPos < 5){
+         	  $("#scroll-start").fadeIn(1000)
+          }else{
+         	  $("#scroll-start").fadeOut(700)
+          }
+
+          if(walkthrough.scrollPos > 95){
+          	newPage("theater.php")
+          	console.log("end of passageway")
+
+         	  $("#scroll-end").fadeIn(1000)
+          }else{
+         	  $("#scroll-end").fadeOut(1000)
+          }
+          requestAnimationFrame(scrollerFunction)
         }
          scrollerFunction()
 

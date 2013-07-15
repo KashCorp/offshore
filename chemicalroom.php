@@ -33,8 +33,6 @@
 
 <body class="platform">
 
-  <!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
-
   <header>
     <a class="volume-toggle"><i class="icon-volume-up"></i></a>
   </header>
@@ -51,7 +49,7 @@
     <!-- OVERLAY VIDEOS -->
     <div class="video-content-wrap">
 
-      <video width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+      <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
         <source/>
       </video>
 
@@ -59,7 +57,7 @@
     </div>
 
     <div class="video-content-wrap-engine-room">
-      <video width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
+      <video controls="true" width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
         <source/>
       </video>
     </div>
@@ -119,7 +117,7 @@
         $('#panocontainer, .fastpan, .compass').fadeOut(500)
 
       }else{
-        $('#panocontainer, .fastpan, .compass').fadeIn(500)
+        if(!master.overlayOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
         $('#scroll-directions, #walking-exit').fadeOut(function(){
           $('#scroll-directions').css('top','100px') // reset scrubber position
         })
@@ -203,28 +201,25 @@
 
             requestAnimationFrame(scrollerFunction)
         }
-       scrollerFunction()
+        scrollerFunction()
 
-       var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","hologram_ghost02_",13,true)
+        var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","hologram_ghost02_",13,true)
         ghost.imageSequencer()
 
-        $("#to-control").click(function(){
-          closeVideo()
-        })
 
-        }
+      }
 
-        setStage()
+      setStage()
 
-        window.onresize = function(event) { setStage() }
+      window.onresize = function(event) { setStage() }
 
-      })
+    })
 
 
     </script>
 
 
-<iframe style="position:absolute; width:100%; height: 100%; top:0; left:0;" width="100%" allowtransparency="true" id="map-container-frame" src="rigmap.php"></iframe>
+<!-- <iframe style="position:absolute; width:100%; height: 100%; top:0; left:0;" width="100%" allowtransparency="true" id="map-container-frame" src="rigmap.php"></iframe> -->
 
   </body>
 </html>

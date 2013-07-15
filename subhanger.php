@@ -33,8 +33,6 @@
 
   <body style="overflow:hidden;" class="platform">
 
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
@@ -162,7 +160,7 @@
           $('#panocontainer, .fastpan, .compass').fadeOut(500)
         } else {
           
-          if(!master.mapOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
+          if(!master.overlayOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
 
           $('#scroll-directions, #walking-exit').fadeOut(function(){
             $('#scroll-directions').css('top','100px') // reset scrubber position
@@ -210,6 +208,7 @@
             scrollTrigger = 0
             krpano = document.getElementById("krpanoObject");
             krpano.call("lookto(0,0,90,smooth(),true,true))")
+
           });     
 
           var scrollTrigger, scrollPos
@@ -253,10 +252,6 @@
             requestAnimationFrame(scrollerFunction)
           }
         scrollerFunction()
-
-        $("#to-control").click(function(){
-          closeVideo()
-        })
 
       }
 
