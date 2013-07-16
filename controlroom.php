@@ -196,9 +196,9 @@
 			$("#offshorelogo").fadeOut(500)
 			$(".compass").fadeOut()
 			$(".fastpan").fadeOut()
-			$('panocontainer').fadeOut()
+			$('#panocontainer').fadeOut()
 		}else{
-			$('panocontainer').fadeIn()
+			$('#panocontainer').fadeIn()
 			$('#underlay-control-wrapper').fadeOut(500)
 			$('.breadcrumb').fadeIn(500)
 			$("#offshorelogo").fadeIn(500)
