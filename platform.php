@@ -42,9 +42,13 @@
         <div id="panocontainer" class="platform"></div>
         
         <div class="video-content-wrap">
-          <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+          <video class="" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
             <source/>
           </video>
+          <div class="controls">
+            <div class="play ir">Play/Pause</div>
+            <div class="seek"></div>
+          </div>
 
           <a id="to-control" class="platform-nav">Close</a>
         </div>

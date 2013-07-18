@@ -122,7 +122,7 @@
 			capture="false"
 			/>	
 
-		<hotspot name="Deep_Ultra_Deep_Text"
+		<!-- <hotspot name="Deep_Ultra_Deep_Text"
 			url="plugins/textfield.swf"
 			ath="186"
 			children="false"
@@ -151,7 +151,7 @@
 			scale="1.0"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Deep_To_Ultra_Deep)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
-			/>
+			/> -->
 
 		<hotspot name="Sending_a_man_to_mars_Text"
 			url="plugins/textfield.swf"
@@ -215,7 +215,7 @@
 			capture = "false"
 			/>
 
-		<hotspot name="Mr_floyd_Text"
+		<!-- <hotspot name="Mr_floyd_Text"
 			url="plugins/textfield.swf"
 			ath="-55"
 			children="false"
@@ -245,7 +245,7 @@
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Helipad_Mr_Floyd)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
-
+ -->
 
 		<!--
 		

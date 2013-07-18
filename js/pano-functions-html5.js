@@ -17,32 +17,32 @@ var pano_master = function(){
   var overLayFile, underlayFile, underlayMute, underlayMuted
 
     $.ajax({
-            url: 'js/videoMatrix.json',
-            success: function(data){
+      url: 'js/videoMatrix.json',
+      success: function(data){
 
-              console.log("MOVIE LIST LOADED")
-              master.movieMenu = data.children
+        console.log("MOVIE LIST LOADED")
+        master.movieMenu = data.children
 
-              var menuContent = $.grep(data.children, function (element, index) { return element.location == pano});
+        var menuContent = $.grep(data.children, function (element, index) { return element.location == pano});
 
-              if(menuContent){
-                $('#video-overlay').after('<div class="movie-menu" id="movie-menu"/>')
-              }
+        if(menuContent){
+          $('#video-overlay').after('<div class="movie-menu" id="movie-menu"/>')
+        }
 
-              $(menuContent[0].movies).each(function(i,v){
-                console.log(v.title)
-                $('#movie-menu').append('<div data-file="' + v.file + '" class="movie-menu-item">' + v.title + '</div>')
-              })
+        $(menuContent[0].movies).each(function(i,v){
+          console.log(v.title)
+          $('#movie-menu').append('<div data-file="' + v.file + '" class="movie-menu-item">' + v.title + '</div>')
+        })
 
-              $('.movie-menu-item').click(function(){
-                console.log($(this).data('file'))
-              })  
+        $('.movie-menu-item').click(function(){
+          switchVideo($(this).data('file'))
+        })
 
-            },
-            error : function(request,error) {
-                        console.log(error)
-            }
-      });
+      },
+      error : function(request,error) {
+                  console.log(error)
+      }
+    });
 
 
   

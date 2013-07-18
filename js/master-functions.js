@@ -1498,6 +1498,9 @@ function openBook(_url){
 	master.loadBook(_url)
 }
 
+
+
+
 function launchVideo(_id){
 	console.log('launchvideo: '+'\t'+_id)
 
@@ -1505,11 +1508,14 @@ function launchVideo(_id){
 		closeVideo()
 	})
 
+	// $(window).on('resize',dynamicVideoOverlay())
+
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 
 	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
 		master.overlayOpen = true
 	    $(".compass").fadeOut()
+
 	    var dynamicWidth = window.innerWidth;
 	    var dynamicHeight = dynamicWidth * .5625;
 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
@@ -1517,11 +1523,13 @@ function launchVideo(_id){
         $("#video-overlay").css("top",dynamicTop)
         $("#video-overlay").css("width",window.innerWidth)
         $("#video-overlay").css("height",dynamicHeight)
+
     	$("#video-overlay").fadeIn(1000)
     	$('#panocontainer').fadeOut(1000)
-    	$('#video-overlay source').attr('src', _id + master.videoType);
+    	$('#video-overlay')[0].src = _id + master.videoType
+    	// $('#video-overlay').attr('src', _id + master.videoType);
     	$('#video-overlay video').load();
-    //$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
+    	//$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
 
     	//master.audioFadeAll(0.5)
     	parent.audiomaster.mix.setGain(0.1)
@@ -1533,9 +1541,208 @@ function launchVideo(_id){
       		closeVideo()
     	}
 
-	 });
+    	$(".video-content-wrap").unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	});
+
+	// Video resize ---------------------------------------------------------
+
+	// TODO: dynamic fit video to screen size
+
+	// videoResize = (function(){
+	// 	var timeout
+
+	// 	if (timeout) { clearTimeout(timeout); }
+
+	// 	timeout = setTimeout(function(){
+
+	// 		var dynamicWidth = window.innerWidth;
+	// 	    var dynamicHeight = dynamicWidth * .5625;
+	// 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+
+	//         $("#video-overlay").css("top",dynamicTop)
+	//         $("#video-overlay").css("width",window.innerWidth)
+	//         $("#video-overlay").css("height",dynamicHeight)
+	// 	}, 100);
+		
+	// })
+
+	// videoResize()
+
+	// $(window).on('resize',videoResize())
+
+
+
+
+	// Video Controls ---------------------------------------------------------
+
+	var videoControls = (function(){
+
+		var video = document.getElementById("video-overlay");
+		var play = $(".video-content-wrap .play")
+		var seek = $(".video-content-wrap .seek")
+		var wasplaying, time;
+
+		// Play/Pause
+		$(play).on("click", function() {
+
+		    if (video.paused) {
+
+		      video.play();
+		      $(play).removeClass('paused')
+
+		    } else {
+
+		        video.pause()
+		        $(play).addClass('paused')
+
+		    }
+		});
+
+		// Slider
+		$.getScript("js/lib/jquery-ui.min.js")
+		.done(function(script, textStatus){
+			console.log('done getScript')
+
+			$(seek).slider();
+
+			$(seek).slider({ start: function( event, ui ) {
+			    if(!video.paused) wasplaying = true;
+			    else wasplaying = false;
+			    video.pause()
+			    $(play).addClass('paused')
+			}});
+
+			$(seek).slider({ stop: function( event, ui ) {
+			    video.currentTime = time;
+			    if(wasplaying) {
+			        video.play()
+			        $(play).removeClass('paused')
+			    }
+			}});
+
+			// slider -> video
+			$(seek).slider({ slide: function( event, ui ) {
+			    time = video.duration * ($(seek).slider("value") / 100);
+			}});
+			
+			// video -> slider
+			video.addEventListener("timeupdate", function() {
+			    var value = (100 / video.duration) * video.currentTime;
+			    $(seek).slider("value", value);
+			});
+		})
+		.fail(function(jqxhr, settings, exception) {
+		  console.log('getScript FAIL')
+		});
+
+	})
+
+	videoControls()
+
+	
+	// Movie Menu autohide ---------------------------------------------
+
+	var autohide = (function(){
+		var timeout
+		var over=false
+
+		controls = $(".video-content-wrap .movie-menu, .video-content-wrap .controls")
+
+		$(controls).addClass('hide')
+
+		$(".video-content-wrap").on('mousemove',function(){
+
+			$(controls).removeClass('hide')
+
+			if(!over) {
+				window.clearTimeout(timeout)
+				timeout = window.setTimeout(function() {
+					$(controls).addClass('hide')
+				}, 2000)
+			}
+		})
+
+		$(controls).on('mouseover',function(){
+			over=true
+
+			$(controls).removeClass('hide')
+			window.clearTimeout(timeout)
+		})
+
+		$(controls).on('mouseout',function(){
+			over=false
+
+			window.clearTimeout(timeout)
+			timeout = window.setTimeout(function() {
+				$(controls).addClass('hide')
+			}, 2000)
+		})
+
+		$(document).on('mouseout',function(e){ 
+		    over=false
+
+		    window.clearTimeout(timeout)
+		    timeout = window.setTimeout(function() {
+		    	$(controls).addClass('hide')
+		    }, 2000)
+		})
+	})
+
+	autohide()
+
+} // launchVideo()
+
+
+
+
+function switchVideo(_id){
+	console.log('switchvideo: '+'\t'+_id)
+
+	$('#video-overlay').addClass('hide')
+	$('#video-overlay')[0].pause()
+
+	setTimeout(function() {
+		console.log('changing source...')
+
+		$('#video-overlay')[0].src = master.cdn_video + _id + master.videoType
+		$('#video-overlay')[0].load()
+
+	}, 500)
+
+	$('#video-overlay')[0].addEventListener('canplay', function(e) {
+		e.stopPropagation()
+
+		console.log('canplay')
+		$('#video-overlay').removeClass('hide')
+
+		this.play();
+	}, false);
 
 }
+
+
+
+function closeVideo(_id){
+	// $(window).off('resize',dynamicVideoOverlay())
+
+	$('#to-control').off('click')
+	$("#panocontainer").fadeIn(700)
+	$(".video-content-wrap").unon("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	master.audioFadeInAll()
+	$("#video-overlay").fadeOut(700, function(){
+		master.overlayOpen = false
+		$(".compass").fadeIn()
+		$("#video-overlay")[0].pause(); // can't hurt
+    	krpano = document.getElementById("krpanoObject");
+		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
+		parent.audiomaster.mix.setGain(1.0)
+		$(".video-content-wrap").removeClass("video-content-wrap-open");
+	})
+	
+}
+
+
+
 
 function loadUnderWater(_id){
 	$("#video-underlay").css("display","none")
@@ -1550,22 +1757,8 @@ function loadUnderWater(_id){
 
 }
 
-function closeVideo(_id){
-	$('#to-control').off('click')
-	$("#panocontainer").fadeIn(700)
-	$(".video-content-wrap").unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
-	master.audioFadeInAll()
-	$("#video-overlay").fadeOut(700, function(){
-		master.overlayOpen = false
-		$(".compass").fadeIn()
-		$("#video-overlay")[0].pause(); // can't hurt
-    	krpano = document.getElementById("krpanoObject");
-		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
-		parent.audiomaster.mix.setGain(1.0)
-		$(".video-content-wrap").removeClass("video-content-wrap-open");
-	})
-	
-}
+
+
 function showMapIcon(){
 	$(".compass").fadeIn()
 }

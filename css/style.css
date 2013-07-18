@@ -89,6 +89,20 @@ white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
 word-wrap: break-word; /* IE */
 }
 
+/* image replacement */
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
 
 /* ========================================================================== *\
   	TYPOGRAPHY
@@ -1263,20 +1277,6 @@ visibility:hidden;}
 
 }
 
-.movie-menu {
-	position:absolute;
-	height:60px;
-	width: 100%;
-	background:#666666;
-}
-
-.movie-menu div{
-	float:left;
-	padding-left:30px;
-	padding-top:10px;
-	cursor:pointer;
-}
-
 .video-content-wrap-open {
 	width: 100%;
 }
@@ -1376,6 +1376,128 @@ visibility:hidden;}
 
 /* MENUS */
 
+
+/* Video Menu --------------------------------------------------------- */
+
+.video-content-wrap video {
+	opacity: 1;
+	-webkit-transition: 0.5s opacity;
+	-moz-transition: 0.5s opacity;
+	-ms-transition: 0.5s opacity;
+	-o-transition: 0.5s opacity;
+	transition: 0.5s opacity;
+	
+}
+.video-content-wrap video.hide {opacity: 0; }
+
+.movie-menu {
+	font-size: 1em;
+	display:block;
+	position:absolute;
+	top:0px;
+
+	-webkit-transition: 0.5s top;
+	-moz-transition: 0.5s top;
+	-ms-transition: 0.5s top;
+	-o-transition: 0.5s top;
+	transition: 0.5s top;
+}
+.movie-menu.hide { top: -70px; }
+
+.movie-menu .vid-menu-nav {
+	cursor:pointer;
+}
+
+.movie-menu {
+	position:absolute;
+	height:70px;
+	width: 100%;
+	padding-left: 4em;
+	background: #666666;
+	/*background: rgb(36, 37, 39, 0.5);*/
+	/*background: rgb(186, 192, 178, 0.5);*/
+}
+
+.movie-menu div{
+	float: left;
+	padding: 0 2em;
+	cursor: pointer;
+	border-left: 1px solid gray;
+	height: 70px;
+	line-height: 70px;
+}
+.movie-menu div:hover { color: #ffffff; }
+
+
+ /* Controls */
+
+.video-content-wrap .controls {
+	height: 90px;
+	position: absolute;
+	left: 50%;
+	top: 60%;
+	margin-left: -340px;
+	padding-right: 25px;
+	/*background: rgba(0,0,0,0.5);*/
+	background: #666666;
+	border-radius: 5px;
+
+	opacity: 1;
+	-webkit-transition: 0.5s opacity;
+	-moz-transition: 0.5s opacity;
+	-ms-transition: 0.5s opacity;
+	-o-transition: 0.5s opacity;
+	transition: 0.5s opacity;
+}
+.video-content-wrap .controls.hide { opacity: 0; }
+
+	.video-content-wrap .controls .play,
+	.video-content-wrap .controls .seek {
+		height: 45px;
+		margin: 0; padding: 0;
+		display: inline-block;
+		float: left;
+	}
+
+
+	.video-content-wrap .controls .play {
+		width: 45px;
+		margin: 22px;
+		background: url('../images/movie-menu/pause.png') center center no-repeat;
+		background-size: contain;
+		cursor: pointer;
+	}
+	.video-content-wrap .controls .play.paused {
+		background: url('../images/movie-menu/play.png') center center no-repeat;
+		background-size: contain;
+	}
+
+	.video-content-wrap .controls .seek {
+		width: 620px;
+		position: relative;
+		float: left;
+		height: 6px;
+		margin: 41px 0;
+		background: rgba(255,255,255,0.3);
+	}
+
+	.video-content-wrap .controls .seek .ui-slider-handle {
+		position: absolute;
+		z-index: 2;
+		top: 0px;
+		width: 7px;
+		height: 20px;
+		margin-top: -7px;
+		background: white;
+	}
+
+
+
+
+
+
+/* MK Michael Klare movie-menu ------------------------------------------------- */
+
 ul.movie-menu {
 	position: absolute;
 	bottom: 100px;
@@ -1395,42 +1517,30 @@ ul.movie-menu li {
 	margin: 20px;
 }
 
-
-.movie-menu {
-	font-size: 1em;
-	display:block;
-	position:absolute;
-	top:5px;
+ul.movie-menu.mk {
+	position: absolute;
+	min-width: 500px;
+	max-width: 900px;
+	width: 80%;
+	left: 50%;
+	margin-left: -40%;
+	z-index: 1000;
+	text-align: center;
 }
+ul.movie-menu.mk li {
+	display: inline-block;
+	max-width: 400px;
+	width: 39%;
+	margin: 5%;
 
-.movie-menu .vid-menu-nav{
-	cursor:pointer;
+	text-align: left;
+	font-size: 1.3em;
 }
-
-	/* MK Michael Klare movie-menu*/
-
-	ul.movie-menu.mk {
-		position: absolute;
-		min-width: 500px;
-		max-width: 900px;
-		width: 80%;
-		left: 50%;
-		margin-left: -40%;
-		z-index: 1000;
-		text-align: center;
+ul.movie-menu.mk li video {
+	width: 100%; height: auto;
 	}
-	ul.movie-menu.mk li {
-		display: inline-block;
-		max-width: 400px;
-		width: 39%;
-		margin: 5%;
 
-		text-align: left;
-		font-size: 1.3em;
-	}
-	ul.movie-menu.mk li video {
-		width: 100%; height: auto;
-	}
+
 
 /* directions */
 
