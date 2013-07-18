@@ -115,6 +115,8 @@
 
         document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
 
+        console.log("ready")
+
         master.blankTrans()
         // master.setCookie('transition','0')
   		  //master.videoTrans("video/transitions/action_01.webm")

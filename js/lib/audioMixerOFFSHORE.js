@@ -164,7 +164,6 @@
      
 
 		this.options = Mix.prototype.extend.call(this, defaults, opts || {});
-		console.log("NO LOOPING" + this.options.nolooping)
 		this.name = name;
 		this.events = {};
 		this.ready = false;
@@ -203,7 +202,6 @@
 			self.set('source', self.get('mix').context.createBufferSource());
 			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
 			self.get('source').buffer = self.get('sourceBuffer')
-			console.log("self" + self.get('nolooping'))
 			if(!self.get('nolooping')) self.get('source').loop = true
 			
 			self.get('source').connect(self.get('panner'));

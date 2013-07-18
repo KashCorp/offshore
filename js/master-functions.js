@@ -30,11 +30,13 @@ var masterFunctions = function() {
     this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
     this.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
 
+    this.movieMenu = false
+
     isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
     this.isRetina = isRetinaFunction()
     console.log('[retina]: '+this.isRetina)
      
-     $('.wrapper').before('<div class="loading"><img src="images/loading-gif-animation.gif"></div>')
+     //$('.wrapper').before('<div class="loading"><img src="images/loading-gif-animation.gif"></div>')
      $('.wrapper').append('<div class="compass"><img src="images/icons/map_icon.png"></div>')
 
      $('.compass').click(function() {
@@ -109,6 +111,17 @@ var masterFunctions = function() {
       this.video_array.push({'video':'action_04'});
 
       this.video_array.push({'video':'action_05'});
+
+      this.ghost_array = []
+
+      this.ghost_array.push({'ghost':'ghost_1_','frames':16});
+      this.ghost_array.push({'ghost':'ghost_2_','frames':14});
+      this.ghost_array.push({'ghost':'ghost_3_','frames':16});
+      this.ghost_array.push({'ghost':'ghost_4_','frames':14});
+      this.ghost_array.push({'ghost':'ghost_5_','frames':16});
+      this.ghost_array.push({'ghost':'ghost_6_','frames':21});
+      this.ghost_array.push({'ghost':'ghost_7_','frames':20});
+      this.ghost_array.push({'ghost':'ghost_8_','frames':15});
 
 
 
@@ -193,8 +206,8 @@ var masterFunctions = function() {
         });
 
         
-  		/*
-
+  		
+/*
   		$(that.url_array).each(function(i,v){
  	 
   			var v_array = v.split("~") 
@@ -370,6 +383,8 @@ var masterFunctions = function() {
  
     		return "";
   		}
+
+
   		
   		master.krpano.call('action(initialize)')
 	}
@@ -416,7 +431,11 @@ this.overlayPlay = function (el,ogg,mp3){
 
  this.videoTrans = function(clip,bgOnly){
 
+ 	initAction()
+
  	var transitionDiv = document.createElement("div");
+
+ 	transitionDiv.id = "transitionDiv"
  	
  	transitionDiv.style.width = window.innerWidth  +"px";
 	
@@ -628,6 +647,13 @@ this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
 
 this.blankTrans = function(_isNotPano){
 
+	if(_isNotPano) {
+	$('.wrapper').fadeIn(500)
+
+	}else{
+	var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
+	this.ghostTrans(getGhost['ghost'],getGhost['frames'])		
+	}	
 	initAction()
 
 	if (Modernizr.audio) {
@@ -639,14 +665,15 @@ this.blankTrans = function(_isNotPano){
 		}
 	} 	
 
-	if(_isNotPano) $('.wrapper').fadeIn(500)
-	$('.breadcrumb').fadeIn()
+
+	//$('.breadcrumb').fadeIn()
 
 }
 
 this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
-	$(".loadin").hide()
+	$(".loading").hide()
+
 
 	initAction()
 
@@ -775,7 +802,7 @@ this.audioFadeInAll = function(){
 
 
 this.audiocontrol = function(act) {
-	console.log('[audiocontrol] action: '+act)
+
 
 	var audio = $('audio', window.parent.document)
 	var parent_audio = $('audio', window.parent.document)
@@ -797,7 +824,7 @@ this.audiocontrol = function(act) {
 	 			
 	 			// play
 				if (act == 'play') {
-					console.log('[parent audio] '+v.id+' playing...')
+			
 
 					if(audio_obj.src) {
 						if (audio_obj && audio_obj.canPlayType('audio/ogg') && $(v).attr('class') !== 'whisper'){
@@ -1074,9 +1101,13 @@ $(parent).bind('hashchange', function(){
 // STARTS THE EXPERIENCE
 
 var master = new masterFunctions();
+	master.init()
+	master.check_start()
 
-master.init()
-master.check_start()
+
+
+
+
 
 
 
@@ -1302,6 +1333,9 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 
 	filePathPre = master.cdn_imgseq // 'video/video_clips/'
 
+	w 
+	h 
+
 	function zeroes(num, length) {
 	  var str = '' + num;
 	  while (str.length < length) {
@@ -1317,8 +1351,11 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	var that = this;
 	
 	var canvas = document.getElementById(canvasid);
-	canvas.width  = w
-	canvas.height = h;
+	canvas.width  = 320
+	canvas.height = 180;
+
+	canvas.style.width = w + 'px'
+	canvas.style.height = h + 'px'
 	var context = canvas.getContext('2d');
 	//context.globalCompositeOperation = "source-atop"
 	var imageSrc;
@@ -1333,12 +1370,12 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	        var img = new Image();
 	        img.src = imageSrc
 
-            context.clearRect ( 0 , 0 , w , h );
-			canvas.style.opacity = map(Math.random(), 0.1,1, 0.05,0.4) // (Math.random()*.2) + 0.1
+            //context.clearRect ( 0 , 0 , w , h );
+			canvas.style.opacity = map(Math.random(), 0.1,0.3, 0.05,0.02) // (Math.random()*.2) + 0.1
 
 			that.playHead = playHead;
 			img.onload = function(){
-		        context.drawImage(img, 0, 0,w,h);
+		        context.drawImage(img, 0, 0,320,180);
 		         
 		        if(playHead < imageNumber){
 	        		playHead++
@@ -1413,7 +1450,7 @@ function newPage(URL) {
 		master.parentChange(URL);
 	} else {
 
-		$(".wrapper").fadeOut(1000, function(){
+		$(".wrapper").fadeOut(500, function(){
 			console.log("fade to new page")
 			master.pageChange(URL);
 		})
@@ -1423,11 +1460,21 @@ function newPage(URL) {
 }
 
 function panoLoaded(){
-	$('.loading').fadeOut(500)
+	//$('.loading').fadeOut(500)
+	//$('#ghost-canvas-trans').fadeOut(500)
+	
 	$(".wrapper").fadeIn(1000,function(){
 		$(".pano-underlay").fadeIn(1000)
-		$("#ghost-canvas-trans").fadeOut(1000)		
+		$("#ghost-canvas-trans").fadeOut(500)
+		//transitionDiv
+		$("#transitionDiv").fadeOut(500)		
 	})	
+}
+
+function xmlLoaded(){
+	
+	console.log("xml loaded")
+
 }
 
 var cachedAuth = 0, cachedFov = 90

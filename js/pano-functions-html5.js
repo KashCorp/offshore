@@ -1,6 +1,6 @@
 var pano_master = function(){
   var that = this  
-  console.log("pano is loaded")
+  console.log("pano is loading")
   var pano = $('#panocontainer').attr('class');    
   var masterPath = ".",
       targetContainer = "panocontainer",
@@ -9,12 +9,43 @@ var pano_master = function(){
   var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
   viewer.addVariable("xml", xmlLoc); 
   viewer.useHTML5("always")
-  viewer.addParam("wmode","transparent");
+  //viewer.addParam("wmode","transparent");
   viewer.passQueryParameters();
   this.viewer = viewer
   viewer.embed();
 
   var overLayFile, underlayFile, underlayMute, underlayMuted
+
+    $.ajax({
+            url: 'js/videoMatrix.json',
+            success: function(data){
+
+              console.log("MOVIE LIST LOADED")
+              master.movieMenu = data.children
+
+              var menuContent = $.grep(data.children, function (element, index) { return element.location == pano});
+
+              if(menuContent){
+                $('#video-overlay').after('<div class="movie-menu" id="movie-menu"/>')
+              }
+
+              $(menuContent[0].movies).each(function(i,v){
+                console.log(v.title)
+                $('#movie-menu').append('<div data-file="' + v.file + '" class="movie-menu-item">' + v.title + '</div>')
+              })
+
+              $('.movie-menu-item').click(function(){
+                console.log($(this).data('file'))
+              })  
+
+            },
+            error : function(request,error) {
+                        console.log(error)
+            }
+      });
+
+
+  
 
   switch(pano){
     case "helicopter" : 

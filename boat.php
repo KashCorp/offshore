@@ -89,7 +89,7 @@
       $(document).ready(function(){
         master.setDeepLinking("boat.php")
         
-        master.videoTrans("video/transitions/explosion")
+        master.videoTrans("video/transitions/oil_shot")
 
         // document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
 

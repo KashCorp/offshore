@@ -1263,6 +1263,20 @@ visibility:hidden;}
 
 }
 
+.movie-menu {
+	position:absolute;
+	height:60px;
+	width: 100%;
+	background:#666666;
+}
+
+.movie-menu div{
+	float:left;
+	padding-left:30px;
+	padding-top:10px;
+	cursor:pointer;
+}
+
 .video-content-wrap-open {
 	width: 100%;
 }

@@ -1,4 +1,4 @@
-<krpano version="1.0.8" onstart="action(loadsecondscene);">
+<krpano version="1.0.8" onstart="action(loadfirstscene);">
 
 	<security>
 	    <allowdomain domain="*" />
