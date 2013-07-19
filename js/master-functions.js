@@ -1584,16 +1584,28 @@ function videoPlayer(_id){
 	switchVideo(_id)
 
 
+	// On video end ---------------------------------------------------------
+
+	$('#video-overlay').on('ended',function(){
+
+		$('.movie-menu-item').each(function(i,v){
+
+			if($(v).hasClass('active')) {
+
+				if( $(v).next().length > 0 )
+					switchVideo( $(v).next().data('file') )
+				else
+					closeVideoPlayer()
+
+				return false;
+			}
+
+		})
+
+	})
+
+
 	// Video resize ---------------------------------------------------------
-
-	// TODO: dynamic fit video to screen size
-
-	// videoResize = (function(){
-		
-		
-	// })
-
-	// videoResize()
 
 	var vidtimeout
 
