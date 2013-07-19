@@ -1501,35 +1501,17 @@ function openBook(_url){
 
 // OLD FUNCTION
 function launchVideo(_id){
-
-} // launchVideo()
-
-
-// NEW FUNCTION
-function videoPlayer(_id){
 	console.log('launchvideo: '+'\t'+_id)
 
 	$("#to-control").on('click',function(){
 		closeVideo()
 	})
 
-	// set active item
-	console.log(_id)
-	$('.movie-menu-item').each(function(i,v){
-		console.log($(v).data('file'))
-		$(v).removeClass('active')
-		if($(v).data('file') == _id)
-			$(this).addClass('active')
-	})
-
-	// $(window).on('resize',dynamicVideoOverlay())
-
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 
 	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
 		master.overlayOpen = true
 	    $(".compass").fadeOut()
-
 	    var dynamicWidth = window.innerWidth;
 	    var dynamicHeight = dynamicWidth * .5625;
 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
@@ -1537,13 +1519,11 @@ function videoPlayer(_id){
         $("#video-overlay").css("top",dynamicTop)
         $("#video-overlay").css("width",window.innerWidth)
         $("#video-overlay").css("height",dynamicHeight)
-
     	$("#video-overlay").fadeIn(1000)
     	$('#panocontainer').fadeOut(1000)
-    	$('#video-overlay')[0].src = master.cdn_video + _id + master.videoType
-    	// $('#video-overlay').attr('src', _id + master.videoType);
+    	$('#video-overlay source').attr('src', _id + master.videoType);
     	$('#video-overlay video').load();
-    	//$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
+    //$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
 
     	//master.audioFadeAll(0.5)
     	parent.audiomaster.mix.setGain(0.1)
@@ -1555,36 +1535,85 @@ function videoPlayer(_id){
       		closeVideo()
     	}
 
-    	$(".video-content-wrap").unbind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
-	});
+	 });
+
+} // launchVideo()
+
+function closeVideo(_id){
+	// $(window).off('resize',dynamicVideoOverlay())
+
+	$('#to-control').off('click')
+	$("#panocontainer").fadeIn(700)
+	$(".video-content-wrap").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	master.audioFadeInAll()
+	$("#video-overlay").fadeOut(700, function(){
+		master.overlayOpen = false
+		$(".compass").fadeIn()
+		$("#video-overlay")[0].pause(); // can't hurt
+    	krpano = document.getElementById("krpanoObject");
+		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
+		parent.audiomaster.mix.setGain(1.0)
+		$(".video-content-wrap").removeClass("video-content-wrap-open");
+	})
+}
+
+
+/*************************************************************************
+
+	Video Player
+
+*************************************************************************/
+
+function videoPlayer(_id){
+	console.log('launchVideoPlayer: '+'\t'+_id)
+
+	$("#to-control").on('click',function(){
+		closeVideoPlayer()
+	})
+
+	// set active item
+	$('.movie-menu-item').each(function(i,v){
+		$(v).removeClass('active')
+		if($(v).data('file') == _id)
+			$(this).addClass('active')
+	})
+
+	$(".video-content-wrap").addClass("video-content-wrap-open");
+	$(".compass").fadeOut()
+
+	switchVideo(_id)
+
 
 	// Video resize ---------------------------------------------------------
 
 	// TODO: dynamic fit video to screen size
 
 	// videoResize = (function(){
-	// 	var timeout
-
-	// 	if (timeout) { clearTimeout(timeout); }
-
-	// 	timeout = setTimeout(function(){
-
-	// 		var dynamicWidth = window.innerWidth;
-	// 	    var dynamicHeight = dynamicWidth * .5625;
-	// 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-	//         $("#video-overlay").css("top",dynamicTop)
-	//         $("#video-overlay").css("width",window.innerWidth)
-	//         $("#video-overlay").css("height",dynamicHeight)
-	// 	}, 100);
+		
 		
 	// })
 
 	// videoResize()
 
-	// $(window).on('resize',videoResize())
+	var vidtimeout
 
+	function resize(){
+		console.log('resize')
+		if (vidtimeout) clearTimeout(vidtimeout)
 
+		vidtimeout = setTimeout(function(){
+			console.log('settimeout')
+			var dynamicWidth = window.innerWidth;
+		    var dynamicHeight = dynamicWidth * .5625;
+		    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+
+	        $("#video-overlay").css("top",dynamicTop)
+	        $("#video-overlay").css("width",window.innerWidth)
+	        $("#video-overlay").css("height",dynamicHeight)
+		}, 100);
+	}
+
+	window.addEventListener('resize', resize);
 
 
 	// Video Controls ---------------------------------------------------------
@@ -1714,18 +1743,18 @@ function videoPlayer(_id){
 } // videoPlayer()
 
 
-
 function switchVideo(_id){
 	console.log('switchvideo: '+'\t'+_id)
 
 	// set active item
 	$('.movie-menu-item').each(function(i,v){
-		console.log($(v))
 		$(v).removeClass('active')
 		if($(v).data('file') == _id)
 			$(this).addClass('active')
 	})
 	
+	// partial fade to pano
+	$('#panocontainer').removeClass('hide')
 	$('#video-overlay').addClass('hide')
 	$('#video-overlay')[0].pause()
 
@@ -1734,33 +1763,35 @@ function switchVideo(_id){
 		$('#video-overlay')[0].load()
 	}, 500)
 
-	$('#video-overlay')[0].addEventListener('canplay', function(e) {
+	$('#video-overlay')[0].addEventListener('canplaythrough', function(e) {
 		e.stopPropagation()
 		$('#video-overlay').removeClass('hide')
+		$('#panocontainer').addClass('hide')
 		this.play();
 	}, false);
 
 }
 
 
+function closeVideoPlayer(){
 
-function closeVideo(_id){
-	// $(window).off('resize',dynamicVideoOverlay())
-
+	// unbind
 	$('#to-control').off('click')
-	$("#panocontainer").fadeIn(700)
-	$(".video-content-wrap").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	$(".video-content-wrap").off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	
 	master.audioFadeInAll()
+	
 	$("#video-overlay").fadeOut(700, function(){
+		$('#panocontainer').removeClass('hide')
 		master.overlayOpen = false
 		$(".compass").fadeIn()
 		$("#video-overlay")[0].pause(); // can't hurt
-    	krpano = document.getElementById("krpanoObject");
-		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
 		parent.audiomaster.mix.setGain(1.0)
 		$(".video-content-wrap").removeClass("video-content-wrap-open");
+
+  		krpano = document.getElementById("krpanoObject");
+		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
 	})
-	
 }
 
 

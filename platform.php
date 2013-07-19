@@ -42,10 +42,10 @@
         <div id="panocontainer" class="platform"></div>
         
         <div class="video-content-wrap">
-          <video class="" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+          <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
             <source/>
           </video>
-          <div class="controls">
+          <div class="controls hide">
             <div class="play"></div>
             <div class="seek"></div>
             <div class="text"></div>
