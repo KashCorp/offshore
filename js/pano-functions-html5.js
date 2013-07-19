@@ -40,7 +40,7 @@ var pano_master = function(){
 
       },
       error : function(request,error) {
-                  console.log(error)
+        console.log(error)
       }
     });
 

@@ -122,6 +122,27 @@
 			capture="false"
 			/>	
 
+
+
+
+
+		<hotspot name="Sending_a_man_to_mars_gif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="10"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+
+
+
+
 		<!-- <hotspot name="Deep_Ultra_Deep_Text"
 			url="plugins/textfield.swf"
 			ath="186"
@@ -153,7 +174,7 @@
 			capture = "false"
 			/> -->
 
-		<hotspot name="Sending_a_man_to_mars_Text"
+		<!-- <hotspot name="Sending_a_man_to_mars_Text"
 			url="plugins/textfield.swf"
 			ath="30"
 			children="false"
@@ -182,9 +203,9 @@
 			scale="1.0"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
-			/>
+			/> -->
 
-		<hotspot name="Hurricane_alley_Text"
+		<!-- <hotspot name="Hurricane_alley_Text"
 			url="plugins/textfield.swf"
 			ath="-5"
 			children="false"
@@ -213,7 +234,7 @@
 			scale="1.0"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Hurricane_Alley_v02)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
-			/>
+			/> -->
 
 		<!-- <hotspot name="Mr_floyd_Text"
 			url="plugins/textfield.swf"

@@ -1499,13 +1499,27 @@ function openBook(_url){
 }
 
 
-
-
+// OLD FUNCTION
 function launchVideo(_id){
+
+} // launchVideo()
+
+
+// NEW FUNCTION
+function videoPlayer(_id){
 	console.log('launchvideo: '+'\t'+_id)
 
 	$("#to-control").on('click',function(){
 		closeVideo()
+	})
+
+	// set active item
+	console.log(_id)
+	$('.movie-menu-item').each(function(i,v){
+		console.log($(v).data('file'))
+		$(v).removeClass('active')
+		if($(v).data('file') == _id)
+			$(this).addClass('active')
 	})
 
 	// $(window).on('resize',dynamicVideoOverlay())
@@ -1526,7 +1540,7 @@ function launchVideo(_id){
 
     	$("#video-overlay").fadeIn(1000)
     	$('#panocontainer').fadeOut(1000)
-    	$('#video-overlay')[0].src = _id + master.videoType
+    	$('#video-overlay')[0].src = master.cdn_video + _id + master.videoType
     	// $('#video-overlay').attr('src', _id + master.videoType);
     	$('#video-overlay video').load();
     	//$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
@@ -1602,7 +1616,6 @@ function launchVideo(_id){
 		// Slider
 		$.getScript("js/lib/jquery-ui.min.js")
 		.done(function(script, textStatus){
-			console.log('done getScript')
 
 			$(seek).slider();
 
@@ -1631,7 +1644,6 @@ function launchVideo(_id){
 			    var value = (100 / video.duration) * video.currentTime;
 			    $(seek).slider("value", value);
 			    $(text).html(timeFormat(video.currentTime))
-			    // seekUpdate(video.currentTime)
 			});
 		})
 		.fail(function(jqxhr, settings, exception) {
@@ -1661,7 +1673,6 @@ function launchVideo(_id){
 		$(controls).addClass('hide')
 
 		$(".video-content-wrap").on('mousemove',function(){
-
 			$(controls).removeClass('hide')
 
 			if(!over) {
@@ -1698,33 +1709,34 @@ function launchVideo(_id){
 		})
 	})
 
-	// autohide()
+	autohide()
 
-} // launchVideo()
-
+} // videoPlayer()
 
 
 
 function switchVideo(_id){
 	console.log('switchvideo: '+'\t'+_id)
 
+	// set active item
+	$('.movie-menu-item').each(function(i,v){
+		console.log($(v))
+		$(v).removeClass('active')
+		if($(v).data('file') == _id)
+			$(this).addClass('active')
+	})
+	
 	$('#video-overlay').addClass('hide')
 	$('#video-overlay')[0].pause()
 
 	setTimeout(function() {
-		console.log('changing source...')
-
 		$('#video-overlay')[0].src = master.cdn_video + _id + master.videoType
 		$('#video-overlay')[0].load()
-
 	}, 500)
 
 	$('#video-overlay')[0].addEventListener('canplay', function(e) {
 		e.stopPropagation()
-
-		console.log('canplay')
 		$('#video-overlay').removeClass('hide')
-
 		this.play();
 	}, false);
 
@@ -1737,7 +1749,7 @@ function closeVideo(_id){
 
 	$('#to-control').off('click')
 	$("#panocontainer").fadeIn(700)
-	$(".video-content-wrap").unon("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	$(".video-content-wrap").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
 	master.audioFadeInAll()
 	$("#video-overlay").fadeOut(700, function(){
 		master.overlayOpen = false
