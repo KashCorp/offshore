@@ -46,8 +46,9 @@
             <source/>
           </video>
           <div class="controls">
-            <div class="play ir">Play/Pause</div>
+            <div class="play"></div>
             <div class="seek"></div>
+            <div class="text"></div>
           </div>
 
           <a id="to-control" class="platform-nav">Close</a>

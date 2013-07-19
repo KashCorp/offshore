@@ -1580,6 +1580,7 @@ function launchVideo(_id){
 		var video = document.getElementById("video-overlay");
 		var play = $(".video-content-wrap .play")
 		var seek = $(".video-content-wrap .seek")
+		var text = $(".video-content-wrap .text")
 		var wasplaying, time;
 
 		// Play/Pause
@@ -1629,11 +1630,20 @@ function launchVideo(_id){
 			video.addEventListener("timeupdate", function() {
 			    var value = (100 / video.duration) * video.currentTime;
 			    $(seek).slider("value", value);
+			    $(text).html(timeFormat(video.currentTime))
+			    // seekUpdate(video.currentTime)
 			});
 		})
 		.fail(function(jqxhr, settings, exception) {
 		  console.log('getScript FAIL')
 		});
+
+		// Time
+		var timeFormat = function(seconds){
+			var m=Math.floor(seconds/60)<10?"0"+Math.floor(seconds/60):Math.floor(seconds/60);
+			var s=Math.floor(seconds-(m*60))<10?"0"+Math.floor(seconds-(m*60)):Math.floor(seconds-(m*60));
+			return m+":"+s;
+		}
 
 	})
 
@@ -1688,7 +1698,7 @@ function launchVideo(_id){
 		})
 	})
 
-	autohide()
+	// autohide()
 
 } // launchVideo()
 
