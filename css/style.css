@@ -1400,7 +1400,7 @@ visibility:hidden;}
 
 .movie-menu {
 	font-size: 1em;
-	display:block;
+	display:none;
 	position:absolute;
 	top:0px;
 
@@ -1410,6 +1410,7 @@ visibility:hidden;}
 	-o-transition: 0.5s top;
 	transition: 0.5s top;
 }
+.movie-menu.active { display: block; }
 .movie-menu.hide { top: -70px; }
 
 .movie-menu .vid-menu-nav {

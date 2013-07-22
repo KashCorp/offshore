@@ -1564,31 +1564,34 @@ function closeVideo(_id){
 
 *************************************************************************/
 
-function videoPlayer(_id){
-	console.log('launchVideoPlayer(group: '+'\t'+_id+')')
+function videoPlayer(group){
+
+	group = "."+group
+	items = $('.movie-menu'+group+' .movie-menu-item')
+
+	$(group+'.movie-menu').addClass('active')
+
+	console.log('launchVideoPlayer: '+group+')')
 
 	$("#to-control").on('click',function(){
 		closeVideoPlayer()
 	})
 
-	// set active item
-	$(_id+' .movie-menu-item').each(function(i,v){
-		$(v).removeClass('active')
-		if($(v).data('file') == _id)
-			$(this).addClass('active')
-	})
+	$(items).first().addClass('active')
 
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 	$(".compass").fadeOut()
+	$('#video-overlay').removeClass('hide')
+	$('#panocontainer').addClass('hide')
 
-	switchVideo(_id)
+	switchVideo($(items).first().data('file'))
 
 
 	// On video end ---------------------------------------------------------
 
 	$('#video-overlay').on('ended',function(){
 
-		$('.movie-menu-item').each(function(i,v){
+		$(items).each(function(i,v){
 
 			if($(v).hasClass('active')) {
 
@@ -1640,6 +1643,7 @@ function videoPlayer(_id){
 
 		// Play/Pause
 		$(play).on("click", function() {
+			console.log('play/pause')
 
 		    if (video.paused) {
 
@@ -1758,8 +1762,11 @@ function videoPlayer(_id){
 function switchVideo(_id){
 	console.log('switchvideo: '+'\t'+_id)
 
+	// find active group
+	active = $('.movie-menu').hasClass('active')
+
 	// set active item
-	$('.movie-menu-item').each(function(i,v){
+	$(active).find($('.movie-menu-item')).each(function(i,v){
 		$(v).removeClass('active')
 		if($(v).data('file') == _id)
 			$(this).addClass('active')
@@ -1787,23 +1794,27 @@ function switchVideo(_id){
 
 function closeVideoPlayer(){
 
+	$('.movie-menu').removeClass('active')
+	$('.movie-menu-item').removeClass('active')
+
 	// unbind
 	$('#to-control').off('click')
+	$(".video-content-wrap .play").off('click')
 	$(".video-content-wrap").off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
 	
 	master.audioFadeInAll()
 	
-	$("#video-overlay").fadeOut(700, function(){
-		$('#panocontainer').removeClass('hide')
-		master.overlayOpen = false
-		$(".compass").fadeIn()
-		$("#video-overlay")[0].pause(); // can't hurt
-		parent.audiomaster.mix.setGain(1.0)
-		$(".video-content-wrap").removeClass("video-content-wrap-open");
+	$('#video-overlay').addClass('hide')
+	$('#panocontainer').removeClass('hide')
+	$(".compass").fadeIn()
 
-  		krpano = document.getElementById("krpanoObject");
-		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
-	})
+	master.overlayOpen = false
+	$("#video-overlay")[0].pause(); // can't hurt
+	parent.audiomaster.mix.setGain(1.0)
+	$(".video-content-wrap").removeClass("video-content-wrap-open");
+
+	krpano = document.getElementById("krpanoObject");
+	krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
 }
 
 

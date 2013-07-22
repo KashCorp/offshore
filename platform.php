@@ -31,7 +31,7 @@
 
   </head>
 
-  <body style="overflow:hidden" class="platform" data-videos="platform">
+  <body style="overflow:hidden" class="platform" data-videos="platform lowerplatform">
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>

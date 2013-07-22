@@ -135,7 +135,7 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -154,9 +154,42 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));js(setCache(get(view.hlookat),90))"
+			/>
+		
+
+
+
+		<hotspot name="Deep_Ultra_Deep_Text"
+			url="plugins/textfield.swf"
+			ath="80"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]LOWER PLATFORM[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('lowerplatform')));js(setCache(get(view.hlookat),90))"
 			/>
 
+		<hotspot name="Deep_Ultra_Deep_gif" 
+			url="../images/icons/gif_iconC.gif"
+			ath="90"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('lowerplatform')));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
 
 
 
