@@ -193,7 +193,12 @@
       })
 
       $("#map-container ul li, .map_legend div, .map_labels div").click(function(){
-        if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
+        // if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
+        if($(this).data("url")) {
+          parent.newPano($(this).data("url"))
+          parent.master.closeMap()
+        }
+
       })
 
       // Map Labels corresponding hover

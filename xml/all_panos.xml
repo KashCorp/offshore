@@ -31,6 +31,19 @@
 		js(soundadjust(get(view.hlookat),get(view.fov)));
 	</action>
 
+	<action name="initialize">
+		set(plugin[directions].visible,true);
+		tween(plugin[directions].alpha,1.0,3)
+	</action>
+
+	<action name="preload">
+		js(preload());
+	</action>
+
+
+
+	<!-- Scenes ====================================================================== -->
+
 	<action name="chemicalRoom">
 		loadscene(chemicalRoom, null, MERGE);
 	</action>
@@ -55,14 +68,19 @@
 		loadscene(controlroom, null, MERGE);
 	</action>
 
-	<action name="initialize">
-		set(plugin[directions].visible,true);
-		tween(plugin[directions].alpha,1.0,3)
+	<action name="subhangar">
+		loadscene(subhangar, null, MERGE);
 	</action>
 
-	<action name="preload">
-		js(preload());
+	<action name="submarine">
+		loadscene(submarine, null, MERGE);
 	</action>
+
+	<action name="theatre">
+		loadscene(theatre, null, MERGE);
+	</action>
+
+	
 	                   
 
 
@@ -81,6 +99,18 @@
 	 	keycodesin  =""
 	 	keycodesout =""
 	 />
+
+
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Helicopter
+	
+	###########################################################################
+	####################################################################### -->
+	
 
 	<scene name="helicopter">
 
@@ -143,11 +173,6 @@
 			capture="false" 
 			/>
 			
-			
-<!--
-			
-
--->
 
 			<hotspot name="entryhotspot" 
 			url="../images/panos/platform/hotspots/entry.png"
@@ -157,24 +182,35 @@
 			distorted="true"
 			alpha="0.75"
 			visible="false"
-			onclick="lookto(96,13,15,smooth(),true,true,js(newPage(lowerplatform_closed.php)))"
+			onclick="lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))"
 			scale="0.6"
 			/>
 
 	</scene>
 
-	<scene name="platform">
 
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Platform
+	
+	###########################################################################
+	####################################################################### -->
+
+	<scene name="platform">
 
 		<view 
 			hlookat="84.0"
-		  fov="90.0"
-		  fovmax="120.0"
-		  fovmin="1.0"
-		  />
+			fov="90.0"
+			fovmax="120.0"
+			fovmin="1.0"
+		/>
 
 	 	<image>
-				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg"/>
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg"/>
+
 			<mobile>
 				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg" />
 			</mobile>
@@ -215,8 +251,8 @@
 			distorted="true"
 			alpha="0"
 			onclick="lookto(-130,10,25,smooth(),true,true,js(newPano(helicopter)))"
-			onhover="js(hoverSound());tween(alpha,0.6);set(hotspot[go_credits].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.5);set(hotspot[go_credits].visible,false);"
+			onhover="js(hoverSound());"
+			onout="js(resetHoverSound());"
 			scale="1"
 			height="80"
 			width="48"
@@ -225,7 +261,7 @@
 
 
 
-
+		<!-- Video Player -->
 
 		<hotspot name="Videos_gif" 
 			url="../images/icons/gif_iconA.gif"
@@ -236,7 +272,8 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));
+					 js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -250,16 +287,27 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3]NEW FRONTIERS[h3]"
+			html="[h3] NEW FRONTIERS [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));js(setCache(get(view.hlookat),90))"
 			/>
+
 	</scene>
 
-<scene name="lowerplatform">
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Lower Platform
+	
+	###########################################################################
+	####################################################################### -->
+
+	<scene name="lowerplatform">
 
 		<view 
 			hlookat="90.0"
@@ -269,13 +317,7 @@
 	  	/>
 
 	 	<image>
-		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_f.jpg"/>
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_r2.jpg"/>
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_b.jpg"/>
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_u.jpg"/>
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_d.jpg"/>
-
+		    <cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_%s.jpg" />
 		</image>
 
 		<hotspot name="hatch_open"
@@ -283,18 +325,12 @@
 			ath="69"
 			atv="18"
 			distorted="true"
-			onclick="lookto(79,8,15,smooth(),true,true,js(newPano(shaftway_lowerplatform.php)))"
+			onclick="lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))"
 			width = "420"
-			height = "220"
-			
+			height = "220"			
 			capture="false"
 			alpha = "0"
-
 		/>
-
-	
-
-
 		
 		
 		<hotspot name="helipad" url="../images/hotspot.gif"
@@ -302,60 +338,11 @@
 			atv="2"
 			distorted="true"
 			alpha="0"
-			onclick="lookto(-100,3,15,smooth(),true,true,js(newPano(platform.php)))"
+			onclick="lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))"
 			scale="1"
 			height="100"
-			
 			capture="false"
 			/>
-		
-			
-		<hotspot name="controlroom" url="../images/hotspot.gif"
-			ath="-143"
-			atv="8"
-			distorted="true"
-			alpha="0"
-			onclick="lookto(-143,8,15,smooth(),true,true,js(newPano(outside_stairs_down.php)))"
-			scale="1"
-			width="70.0"
-			height="60.0"
-			
-			capture="false"
-			/>
-			
-
-
-		<hotspot name="Port_Fourchon_text"
-			url="plugins/textfield.swf"
-			ath="119"
-			atv="-2"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h3]PORT FOURCHON[h3]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="200"
-      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/LowerPlatform_PortFourchon)));js(setCache(get(view.hlookat),220))"
-    		/>
-		<hotspot name="Port_Fourchon_gif"
-			url="../images/icons/gif_iconB.gif"
-			ath="120"
-			atv="-1"
-			alpha=".3"
-			height="80"
-			width="80"
-			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/LowerPlatform_PortFourchon)));js(setCache(get(view.hlookat),220))"
-			capture="false"
-			/>
-
-
 
 		<hotspot name="klaxxon" url="../images/hotspot.gif"
 			ath="150"
@@ -368,9 +355,70 @@
 			onclick="js(loadAFXPano(audio/voice_overs/VO_LowerPlatform.mp3))"
 			scale="1.0"
 			capture="false"
-			/>	
+			/>
+		
+			
+		<hotspot name="controlroom" url="../images/hotspot.gif"
+			ath="-143"
+			atv="8"
+			distorted="true"
+			alpha="0"
+			onclick="lookto(-143,8,15,smooth(),true,true,js(newPano(sequence_outside_stairs_down)))"
+			scale="1"
+			width="70.0"
+			height="60.0"
+			
+			capture="false"
+			/>
+			
+
+
+		<hotspot name="Deep-Waters-text"
+			url="plugins/textfield.swf"
+			ath="119"
+			atv="-2"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]DEEP WATERS[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="Deep-Waters-GIF"
+			url="../images/icons/gif_iconB.gif"
+			ath="120"
+			atv="-1"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
 
 	</scene>
+
+
+	
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Chemical Room
+	
+	###########################################################################
+	####################################################################### -->
+	
+
+
 	<scene name="chemicalRoom">
 
 		<view 
@@ -380,18 +428,20 @@
 			fovmin="5.0"
 		/>
 
-		<image><cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_%s.jpg" /></image>
-		<image devices="Mobile"><cube url="../images/panos/chemicalroom/mobile_%s.jpg" /></image>
+		<image>
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_%s.jpg" />
+		</image>
 
-		<!-- <image devices="Desktop"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image> -->
-		<!-- <image devices="Tablet"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image> -->
+		<image devices="Mobile">
+			<cube url="../images/panos/chemicalroom/mobile_%s.jpg" />
+		</image>
 
 		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="30"
 			atv="-2"
 		    distorted="true"
 		    
-			alpha="0.5"
+			alpha="0"
 			width="100.0"
 			height="300.0"
 			borderwidth="0.0" borderwidthhover="1"
@@ -400,7 +450,119 @@
 			scale="0.7"
 			/>
 
+
+		<!-- Poisoned -->
+
+		<hotspot name="Poisoned-Text"
+			url="plugins/textfield.swf"
+			ath="260"
+			atv="0"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] POISONED [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+		/>
+
+		<hotspot name="Poisoned-GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="250"
+			atv="10"
+	    distorted="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			scale="0.7"
+		/>
+
+		<hotspot name="Poisoned-Barrel"
+			url="../images/hotspot.gif"
+			ath="250"
+			atv="28"
+		    distorted="true"
+			alpha="0"
+			width="220.0"
+			height="95.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+
+		
+		<!-- In the Bloodstream -->
+
+		<hotspot name="James_Text"
+			url="plugins/textfield.swf"
+			ath="125"
+			atv="-1"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] IN THE BLOODSTREAM [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+		/>
+
+		<hotspot name="James" 
+			url="../images/hotspot.gif"
+			ath="115"
+			atv="28"
+		    distorted="true"
+			alpha="0"
+			width="220.0"
+			height="95.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+
+		<hotspot name="James_GIF"
+			url="../images/icons/gif_iconC.gif"
+			ath="115"
+			atv="10"
+		    distorted="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			scale="0.7"
+		/>
+
+
 	</scene>
+
+
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Control Room
+	
+	###########################################################################
+	####################################################################### -->
 
 
 	<scene name="controlroom" onstart="">
@@ -424,148 +586,22 @@
 		</image>
 			
 		
-		<!-- Big Red Button -->
-			
-		<hotspot name="openhatch" url="../images/hotspot.gif"
-			ath="17.95"
-			atv="-7.82"
-			distorted="true"
-			
-			alpha="0.0"
-			onclick="js(klaxxon());js(loadAFXPano(audio/klaxxon.mp3));js(startDrilling());
-					 set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);
-					 set(hotspot[openhatch].enabled,false);
-					 lookto(190,0,60,smooth(),true,true);"
-			capture="false"
-			width="150"
-			height="200"
-			/>
+		<!-- Michael Klare video player -->
 
-
-		<hotspot name="closehatch" url="../images/panos/controlroom/hotspots/hatchbutton.png"
-			ath="17.95"
-			atv="-7.82"
-			distorted="true"
-			
-			alpha="0"
-			enabled="false"
-			onclick="js(startDrilling(stop));
-					 set(hotspot[closehatch].alpha,0);set(hotspot[closehatch].enabled,false);
-					 set(hotspot[openhatch].enabled,true);"
-			capture="false"
-			width="150"
-			height="200"
-			/>
-
-
-		
-
-
-			<!-- CCTV -->
-
-			<hotspot name="cctv0"
-				url="plugins/videoplayer_offshore_01.js"
-				alturl="plugins/videoplayer_offshore_01.js"
-				volume="0.00001"
-				
-				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.webm"
-				ath="-160.1" atv="-13.5"
-				distorted="true"
-				scale="0.130" 
-				rx="15" 
-				ry="0" 
-				rz="5.5" 
-				enabled="true"
-
-				alpha="0.4"
-				onclick="lookto(-160,-12,15,smooth(),true,true); 
-						 js(zoomIn());
-						 set(autorotate.enabled,false)"
-				loop="true"
-			/>
-
-			<hotspot name="cctv1"
-				url="plugins/videoplayer_offshore_01.js"
-				alturl="plugins/videoplayer_offshore_01.js"
-				
-				volume="0.00001"
-				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
-				ath="-199.25" atv="-0.8"
-				distorted="true"
-				scale="0.24" 
-				rx="0" 
-				ry="16" 
-				rz="0" 
-				
-
-				enabled="true"
-				alpha="0.5"
-				onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-				loop="true"
-			/>
-
-
-			<hotspot name="cctv2"
-				url="plugins/videoplayer_offshore_01.js"
-				alturl="plugins/videoplayer_offshore_01.js"
-				
-				volume="0.00001"
-				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
-				ath="-142.5" atv="-0.5"
-				distorted="true"
-				scale="0.195" 
-				rx="0" 
-				ry="-35" 
-				rz="0"
-
-				enabled="true"
-				alpha="0.5"
-				onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-				loop="true"
-			/>
-
-
-			<hotspot name="nymex"
-				url="plugins/videoplayer_offshore_01.js"
-				alturl="plugins/videoplayer_offshore_01.js"
-				volume="0.00001"
-				
-				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_Nymex.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_Nymex.webm"
-				ath="247.05" 
-				atv="-3.2"
-				distorted="true"
-				scale="0.105" 
-				rx="0" 
-				ry="-35" 
-				rz="0"
-
-				enabled="true"
-				alpha="0.8"
-				onclick="lookto(247,-3,10,smooth(),true,true); 
-						 js(zoomIn());
-						 set(autorotate.enabled,false)"
-				loop="true"
-			/>
-
-
-
-
-		<!-- Michael Klare -->
-
-		<hotspot name="Michael Klare Videos"
+		<hotspot name="MK-GIF"
 			url="../images/icons/gif_iconA.gif"
 			alpha=".7"
 			height="70"
-			
 			width="70"
 			ath="191"
 			atv="15"
 			distorted="true"
 			capture="false"
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
 			/>
 
-		<hotspot name="MK_Text"
+		<hotspot name="MK-Text"
 			url="plugins/textfield.swf"
 			ath="202"
 			atv="20"
@@ -576,12 +612,13 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3] MONEY AND POWER [h3]"
+			html="[h3] EXTREME OIL [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
 			/>
 
 		<!-- Main Monitors (all zoom to MK vids) -->
@@ -592,10 +629,10 @@
 			atv="0"
 			distorted="true"
 			alpha="0"
-			
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			width="220"
 			height="175"
@@ -608,10 +645,10 @@
 			atv="-15"
 			distorted="true"
 			alpha="0"
-			
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			width="93"
 			height="75"
@@ -626,12 +663,130 @@
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(192,0,1,tween(easeOutQuad,2),true,true)"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			width="93"
 			height="75"
 			capture="false"
 			/>
+
+		<hotspot name="cctv1"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
+			ath="-199.25" atv="-0.8"
+			distorted="true"
+			scale="0.24" 
+			rx="0" 
+			ry="16" 
+			rz="0" 
+			
+
+			enabled="true"
+			alpha="0.5"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
+			loop="true"
+		/>
+
+
+		<hotspot name="cctv2"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
+			ath="-142.5" atv="-0.5"
+			distorted="true"
+			scale="0.195" 
+			rx="0" 
+			ry="-35" 
+			rz="0"
+
+			enabled="true"
+			alpha="0.5"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+					 js(setCache(get(view.hlookat),90))"
+			loop="true"
+		/>
+			
+		
+		<!-- Big Red Button -->
+			
+		<hotspot name="openhatch" url="../images/hotspot.gif"
+			ath="17.95"
+			atv="-7.82"
+			distorted="true"
+			alpha="0.0"
+			onclick="js(loadAFXPano(audio/klaxxon.mp3));js(startDrilling());
+					 set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);
+					 set(hotspot[openhatch].enabled,false);
+					 lookto(190,0,60,smooth(),true,true);"
+			capture="false"
+			width="150"
+			height="200"
+		/>
+
+
+		<hotspot name="closehatch" url="../images/panos/controlroom/hotspots/hatchbutton.png"
+			ath="17.95"
+			atv="-7.82"
+			distorted="true"
+			alpha="0"
+			enabled="false"
+			onclick="js(startDrilling(stop));
+					 set(hotspot[closehatch].alpha,0);set(hotspot[closehatch].enabled,false);
+					 set(hotspot[openhatch].enabled,true);"
+			capture="false"
+			width="150"
+			height="200"
+		/>
+
+
+		<!-- CCTV -->
+
+		<hotspot name="cctv0"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.webm"
+			ath="-160.1" atv="-13.5"
+			distorted="true"
+			scale="0.130" 
+			rx="15" 
+			ry="0" 
+			rz="5.5" 
+			enabled="true"
+
+			alpha="0.4"
+			onclick="lookto(-160,-12,15,smooth(),true,true); 
+					 js(zoomIn());
+					 set(autorotate.enabled,false)"
+			loop="true"
+		/>
+
+
+		<hotspot name="nymex"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_Nymex.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_Nymex.webm"
+			ath="247.05" 
+			atv="-3.2"
+			distorted="true"
+			scale="0.105" 
+			rx="0" 
+			ry="-35" 
+			rz="0"
+
+			enabled="true"
+			alpha="0.8"
+			onclick="lookto(247,-3,10,smooth(),true,true); 
+					 js(zoomIn());
+					 set(autorotate.enabled,false)"
+			loop="true"
+		/>
 
 		
 		<!-- Dossier -->
@@ -645,9 +800,6 @@
 			onclick="js(openBook(dossierbook.php))"
 			scale=".68"
 			/>
-
-		<!-- onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-		onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);" -->
 
 		<hotspot name="Filing_cabinet_text"
 			url="plugins/textfield.swf"
@@ -671,7 +823,6 @@
 		<hotspot name="Filing_cabinet_icon" 
 			url="../images/icons/gif_documents.gif"
 			alpha=".5"
-			
 			height="70"
 			width="70"
 			ath="120"
@@ -681,7 +832,7 @@
 			onclick="js(openBook(dossierbook.php))"
 			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
 			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
-			/>
+		/>
 
 
 
@@ -701,9 +852,20 @@
 			capture="false"
 			onclick="lookto(260,0,15,smooth(),true,true,js(newPano(hallway)))"
 			scale="1.0"
-			/>
+		/>
 
 	</scene>
+
+
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Hallway
+	
+	###########################################################################
+	####################################################################### -->
 
 
 	<scene name="hallway">
@@ -733,6 +895,9 @@
 		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_d.jpg" />
 		</image>
 
+
+		<!-- Passage 1: Chemical Room  -->
+
 		<hotspot name="passage_01" url="../images/hotspot.gif"
 			ath="5.15"
 			atv="0"
@@ -741,7 +906,6 @@
 			height="50.0"
       		onclick="lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)"
 			scale="5.0"
-			
 			capture="false"
 			/>
 
@@ -753,7 +917,106 @@
 			height="10"
       		onclick="lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)"
 			scale="5.0"
-			
+			capture="false"
+			/>
+
+		<!-- Passage 2: Theatre  -->
+
+		<hotspot name="passage_02" url="../images/hotspot.gif"
+			ath="270"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+      onclick="lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)"
+			onout="js(resetHoverSound());"
+			scale="5.0"
+			capture="false"
+			/>
+
+
+		<hotspot name="theatre_sign" url="../images/hotspot.gif"
+			ath="270"
+			atv="-16"
+			distorted="true"
+			alpha="0"
+			height="10"
+      onclick="lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)"
+			onout="js(resetHoverSound());"
+			scale="5.0"
+			capture="false"
+			/>
+
+
+
+		<!-- Passage 3: Control Room  -->
+
+		<hotspot name="passage_03" url="../images/hotspot.gif"
+			ath="180"
+			atv="0"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+ 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)"
+			scale="3.0"
+			capture="false"
+			/>
+
+
+		<hotspot name="controlroom_sign" url="../images/hotspot.gif"
+			ath="174"
+			atv="-16.5"
+			distorted="true"
+			alpha="0"
+			height="10.0"
+ 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)"
+			scale="4.0"
+			capture="false"
+			/>
+		
+		<hotspot name="ladder" url="../images/hotspot.gif"
+			ath="105"
+			atv="-40"
+			distorted="true"
+			alpha="0.0"
+			height="120.0"
+			onclick="js(newPano(lowerplatform))"
+			onout="js(resetHoverSound());"
+			scale="5.0"
+			capture="false"
+			/>
+
+		
+
+		<!-- Video Player  -->
+
+		<hotspot name="Video-Player-Text"
+			url="plugins/textfield.swf"
+			ath="315"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]THE WELL FROM HELL[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(terminus)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="Video-Player-GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="315"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(terminus)));js(setCache(get(view.hlookat),220))"
 			capture="false"
 			/>
 
@@ -761,99 +1024,423 @@
 	</scene>
 
 
-	<scene name="doorIsOpen" onstart="action(preload)">
 
-		<image>
-		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_f.png" />
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_r.jpg" />
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_b.jpg" />
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_u.jpg" />
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_d.jpg" />
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Sub Hangar
+	
+	###########################################################################
+	####################################################################### -->
+
+
+
+	<scene name="subhangar">
+
+		<view 
+			hlookat="0.0"
+			fov="90.0"
+			fovmax="120.0"
+			fovmin="4.0"
+		/>
+	 	
+	 	<image>
+		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_l.jpg" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_f2.png" />
+		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_r2.png" />
+		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_b.jpg" />
+		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_u.jpg" />
+		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_d.jpg" />
 		</image>
 
-		<hotspot name="engineroom" url="../images/hotspot.gif"
-			ath="335"
-			atv="-7"
+
+		<hotspot name="hallway exit" url="../images/hotspot.gif"
+			ath="-30"
+			atv="-20"
+			distorted="true"
+			alpha="0"
+			height="50.0"
+			onclick="js(newPano(hallway))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			capture = "false"
+			/>
+
+		<hotspot name="into_sub" url="../images/hotspot-circle.gif"
+			ath="-55.15"
+			atv="-10.0"
+			distorted="true"
+			alpha="0"
+			height="50.0"
+			onclick="js(newPano(submarine))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="7.0"
+			capture = "false"
+		/>
+	
+		
+		<!-- iPad -->
+
+		<hotspot name="iPad" url="../images/hotspot.gif"
+			ath="24"
+			atv="25"
+			distorted="true"
 			alpha="0.0"
-			width="500.0"
-			height="450.0"
+			height="30.0"
+			onclick="js(openBook(skype.html))"
+			onhover="js(hoverSound())"
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			capture = "false"
+			/>
+		
+		<hotspot name="iPad_gif" 
+			url="../images/icons/gif_iconB.gif"
+			ath="24"
+			atv="15"
+		    distorted="true"
+			alpha=".5"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
-			scale="1.0"
+			onclick="js(openBook(skype.html))"
+			scale="0.7"
 		/>
 
-		<hotspot name="opendoorgif"
-			url="../images/icons/gif_iconC.gif"
-			ath="345"
-			atv="0"
+
+		<!-- Video Player -->
+
+		<hotspot name="requiemgif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="60"
+			atv="-10"
 		    distorted="true"
-		    
-			alpha=".3"
+			alpha=".5"
 			width="140"
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
-			scale="0.7"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhangar')));
+					 js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+		<hotspot name="requiem"
+			url="plugins/textfield.swf"
+			ath="85"
+			atv="-10"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhangar')));
+					 js(setCache(get(view.hlookat),90))"
 		/>
 
 	</scene>
 
 
-		<plugin name="directions"
-			url="../images/panos/platform/hotspots/directions.png"
-			capture="false"
-			align="top"
-			edge="top"
-			y="60"
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Submarine (ROV)
+	
+	###########################################################################
+	####################################################################### -->
+
+	
+	<scene name="submarine">
+		
+		<view 
+			hlookat="84.0"
+			fov="65.0"
+			fovmax="120.0"
+			fovmin="15.0"
+		/>
+
+		<image>
+			<left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_l.jpg" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_f.jpg" />
+		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_r.png" />
+		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_b.jpg" />
+		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_u.jpg" />
+		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_d.jpg" />
+		</image>
+
+
+		<!-- Videos + Text -->
+
+		<hotspot name="under_water_01" url="../images/hotspot.gif"
+			ath="67.15"
+			atv="15.2"
+			distorted="true"
 			alpha="0.0"
-			visible="true"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Coral))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>
+
+		<hotspot name="under_water_01_text"
+			url="plugins/textfield.swf"
+			ath="67.15"
+			atv="15.2"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] VID 1 [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="js(loadUnderWater(ROV_Coral))"
+			keep="true"
+		/>
+
+
+		<hotspot name="under_water_02" url="../images/hotspot.gif"
+			ath="75.15"
+			atv="16.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Wellhead_1))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>
+
+		<hotspot name="under_water_03" url="../images/hotspot.gif"
+			ath="105.15"
+			atv="16.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Wellhead_2))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>	
+
+		<hotspot name="under_water_04" url="../images/hotspot.gif"
+			ath="112.15"
+			atv="15.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Skate_Farm))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>	
+
+		
+
+
+		<!-- Door -->
+
+		<hotspot name="exit" url="../images/hotspot.gif"
+			ath="270"
+			atv="10"
+			distorted="true"
+			alpha="0.0"
+			onclick="js(newPano(subhangar))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="10.0"
+		/>
+
+	</scene>
+
+
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Theatre
+	
+	###########################################################################
+	####################################################################### -->
+
+	<scene name="theatre">
+
+		<view 
+			hlookat="0.0"
+			fov="90.0"
+			fovmax="120.0"
+			fovmin="20.0"
+		/>
+			
+		<image>
+		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_l.jpg" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_f.png" />
+		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_r.jpg" />
+		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_b.jpg" />
+		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_u.jpg" />
+		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_d.jpg" />
+		</image>
+
+		<image devices="Mobile">      
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_%s.jpg" /> 
+		</image>
+		
+		<image devices="Tablet">      
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_%s.jpg" /> 
+		</image>
+
+		<!-- Video Player -->
+
+		<hotspot name="Theatre-GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="355"
+			atv="-2"
+			alpha=".7"
+			height="70"
+			width="70"
+			distorted="true"
+			capture="false"
+			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
+		/>
+
+		<hotspot name="Theatre-Text"
+			url="plugins/textfield.swf"
+			ath="360"
+			atv="3"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] THEATRE MENU [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+
+		<!-- Investigations -->
+
+		<hotspot name="redbook" url="../images/hotspot.gif"
+			ath="145"
+			atv="40"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(openBook(redbook.php))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			
+			keep="true"
+			capture="false"
+		/>
+
+		<hotspot name="leasemap" url="../images/hotspot.gif"
+			ath="265"
+			atv="5"
+			distorted="true"
+			alpha="0.0"
+			height="70.0"
+			width="150.0"
+			onclick="js(openBook(leasemap.php))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			
+			keep="true"
+			capture="false"
+		/>
+
+		<!-- Exits -->
+
+		<hotspot name="passage_01" url="../images/hotspot.gif"
+			ath="35"
+			atv="2"
+			distorted="true"
+			alpha="0.0"
+			height="90.0"
+			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(subhanger)))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			/>
+
+
+		<hotspot name="passage_02" url="../images/hotspot.gif"
+			ath="210"
+			atv="2"
+			distorted="true"
+			alpha="0.0"
+			height="90.0"
+			onclick="js(newPano(hallway))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
 			/>
 
 
 
 
-		<!-- Darla (Barrel) -->
-		
-		
 
-			<data name="flag">
-			h3 {
-				color: #ffffff;
-				font-family: Helvetica, Arial, sans-serif;
-				fontFamily: Helvetica, Arial, sans-serif;
-				fontSize: 10;
-				line-height: 30px;
-				textAlign: center;
-				text-align: center;
-			}
 
-			h2 {
-				color: #333333;
-				font-family: Helvetica, Arial, sans-serif;
-				fontFamily: Helvetica, Arial, sans-serif;
-				fontSize: 7;
-				line-height: 20px;
-				textAlign: center;
-				text-align: center;
-			}			
-		</data>
+	</scene>
+	
 
 
 
-		<data name="cssdata1">
-			p {
-				color: #ffffff;
-				fontFamily: Helvetica, Arial, sans-serif;
-				fontSize: 16px;				
-				leading: 7;
-			}
-		</data>
-							
 
-		
-	<!--<include url="drill.xml" />-->
+
+	<data name="flag">
+		h3 {
+			color: #ffffff;
+			font-family: Helvetica, Arial, sans-serif;
+			fontFamily: Helvetica, Arial, sans-serif;
+			fontSize: 10;
+			line-height: 30px;
+			textAlign: center;
+			text-align: center;
+		}
+
+		h2 {
+			color: #333333;
+			font-family: Helvetica, Arial, sans-serif;
+			fontFamily: Helvetica, Arial, sans-serif;
+			fontSize: 7;
+			line-height: 20px;
+			textAlign: center;
+			text-align: center;
+		}			
+	</data>
+
+
+
+	<data name="cssdata1">
+		p {
+			color: #ffffff;
+			fontFamily: Helvetica, Arial, sans-serif;
+			fontSize: 16px;				
+			leading: 7;
+		}
+	</data>
 
 </krpano>

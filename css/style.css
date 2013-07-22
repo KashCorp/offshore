@@ -104,6 +104,19 @@ word-wrap: break-word; /* IE */
     height: 150%;
 }
 
+
+
+.hide { opacity: 0; }
+
+.fade {
+	-webkit-transition: opacity 500ms;
+	-moz-transition: opacity 500ms;
+	-ms-transition: opacity 500ms;
+	-o-transition: opacity 500ms;
+	transition: opacity 500ms;
+	
+}
+
 /* ========================================================================== *\
   	TYPOGRAPHY
 \* ========================================================================== */
@@ -232,6 +245,13 @@ a:hover {
 	right: 0;
 	top: 0px;
 	display: none;
+
+	-webkit-transition: opacity 500ms;
+	-moz-transition: opacity 500ms;
+	-ms-transition: opacity 500ms;
+	-o-transition: opacity 500ms;
+	transition: opacity 500ms;
+	
 }
 
 #overlay {
@@ -703,9 +723,6 @@ header .volume-toggle {
 	-o-transition: opacity 500ms;
 	transition: opacity 500ms;
 	
-}
-#panocontainer.hide {
-	opacity: 0;
 }
 
 #panocontainer #krpanoObject {
@@ -1396,7 +1413,6 @@ visibility:hidden;}
 	transition: 0.5s opacity;
 	
 }
-.video-content-wrap video.hide {opacity: 0; }
 
 .movie-menu {
 	font-size: 1em;

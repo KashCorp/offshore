@@ -259,17 +259,7 @@
 
 
 
-			<hotspot name="passage_01" url="../images/hotspot.gif"
-				ath="35"
-				atv="2"
-				distorted="true"
-				alpha="0.0"
-				height="90.0"
-				onclick="lookto(35,0,5,smooth(),true,true,js(newPage(subhanger.php)))"
-				onhover="js(hoverSound()) "
-				onout="js(resetHoverSound());"
-				scale="3.0"
-				/>
+			
 
 			<hotspot name="redbook" url="../images/hotspot.gif"
 				ath="145"
@@ -302,8 +292,20 @@
 				capture="false"
 				/>
 
+		<hotspot name="passage_01" url="../images/hotspot.gif"
+			ath="35"
+			atv="2"
+			distorted="true"
+			alpha="0.0"
+			height="90.0"
+			onclick="lookto(35,0,5,smooth(),true,true,js(newPage(subhanger.php)))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="3.0"
+			/>
 
-			<hotspot name="passage_02" url="../images/hotspot.gif"
+
+		<hotspot name="passage_02" url="../images/hotspot.gif"
 			ath="210"
 			atv="2"
 			distorted="true"
@@ -334,7 +336,6 @@
 			onclick="js(newPage(passage_theaterback.php))"
 			onhover="js(hoverSound())"
 			onout="js(resetHoverSound())"
-			>
 			>
 	    <point ath="39.5" atv="-8.95" />
 	    <point ath="31.2" atv="-7.5" />

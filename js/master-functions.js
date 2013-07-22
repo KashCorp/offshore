@@ -1464,38 +1464,39 @@ function newPage(URL) {
 
 }
 
+
+
 function newPano(_pano) {
-
-		$("#wrapper").fadeOut(500, function(){
-			parent.location.hash = _pano
-		})
-
-	 	
-
+	$('#wrapper').addClass('hide')
+	setTimeout(function() {
+		parent.location.hash = _pano
+	}, 500)
 }
 
 function panoLoaded(){
 	//$('.loading').fadeOut(500)
 	//$('#ghost-canvas-trans').fadeOut(500)
 
-	//console.log("GLOBAL PANO " + globalPano)
+	// console.log("GLOBAL PANO " + globalPano)
 
 	if(globalPano) {
 
-  		var krpano = document.getElementById("krpanoObject"); 
+		pano.loadPanoScene(globalPano)
 
-     	krpano.call('action(' + globalPano + ')')
+  		// var krpano = document.getElementById("krpanoObject"); 
+    	//  krpano.call('action(' + globalPano + ')')
+	
+		// $(".wrapper").fadeIn(1000,function(){
+		// 	$(".pano-underlay").fadeIn(1000)
+		// 	$("#ghost-canvas-trans").fadeOut(500)
+		// 	//transitionDiv
+		// 	$("#transitionDiv").fadeOut(500)		
+		// })
 
-	
-	
-	$(".wrapper").fadeIn(1000,function(){
-		$(".pano-underlay").fadeIn(1000)
-		$("#ghost-canvas-trans").fadeOut(500)
-		//transitionDiv
-		$("#transitionDiv").fadeOut(500)		
-	})	
+		globalPano = false
 	}
-	globalPano = false
+
+	
 }
 
 function xmlLoaded(){
@@ -1842,30 +1843,6 @@ function closeVideoPlayer(){
 	krpano = document.getElementById("krpanoObject");
 	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon()))")
 }
-
-
-
-
-function loadUnderWater(_id){
-	console.log('loadUnderWater() '+_id)
-
-	$("#video-underlay").addClass('hide')
-
-	$('#video-underlay')[0].src = master.cdn_video + _id + master.videoType
-	$('#video-underlay')[0].load()
-    $("#video-underlay")[0].play()
-
-    parent.audiomaster.mix.setGain(0.1)
-
-    $('#video-underlay')[0].addEventListener('canplaythrough', function(e) {
-    	console.log('canplaythrough')
-    	e.stopPropagation()
-    	$('#video-underlay').removeClass('hide')
-    	this.play();
-    }, false);
-
-}
-
 
 
 function showMapIcon(){

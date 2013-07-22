@@ -66,7 +66,7 @@
   </div>    
            
 
-  <div id="wrapper" class="wrapper">
+  <div id="wrapper" class="wrapper fade">
 
     <div id="panocontainer" class="platform"></div>
         
@@ -147,8 +147,6 @@
 
       $(document).ready(function(){
 
-        //document.addEventListener( 'mousedown', function(){$('#inter-text').fadeOut(350);}, false );
-
         console.log("ready")
 
         //master.blankTrans()
@@ -168,6 +166,76 @@
         $("#video-overlay").css("width",window.innerWidth)
        
       })
+
+
+
+      /**************************************************************************
+        
+        Misc Functions from individual scenes
+      
+      **************************************************************************/
+        
+      // Control Room
+      var startDrilling = function(stopping){
+
+        // if(stopping){
+        //   master.loadVideoUnderlay("video/transitions/oil_shot",null,true)
+        // }else{
+        //   master.loadVideoUnderlay("video/transitions/action_04",null,true) 
+        // }
+
+        var transition_audio = $('#transition', window.parent.document)
+        transition_audio[0].src = "audio/Hatch_Open.mp3"
+        transition_audio[0].play()
+        $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
+          $("#wrapper").animate({'bottom': '0','top': '0'}, 100)
+        })
+      }
+
+      // Control Room
+      var zoomIn = function() {
+        master.overlayOpen = true
+        $('.fastpan, .compass').fadeOut()
+
+        // create
+        $('#zoom-out').remove()
+        $('.vignette').after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
+        $("#zoom-out").removeClass('hide')
+
+        $("#zoom-out").on('click',function(){
+          master.overlayOpen = false
+          $('.fastpan, .compass').fadeIn()
+          $("#zoom-out").fadeOut()
+
+          krpano = document.getElementById("krpanoObject");
+          krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
+          krpano.call('set(autorotate.enabled,true)')
+          $("#zoom-out").off('click')
+          $('#zoom-out').remove()
+        })    
+      }
+
+      // Submarine
+      var loadUnderWater = function(_id){
+        console.log('loadUnderWater() '+_id)
+
+        $("#video-underwater").addClass('hide')
+
+        $('#video-underwater')[0].src = master.cdn_video + _id + master.videoType
+        $('#video-underwater')[0].load()
+
+        $('#video-underwater')[0].addEventListener('canplaythrough', function(e) {
+          e.stopPropagation()
+          $('#video-underwater').removeClass('hide')
+          $('#video-underwater')[0].play();
+        }, false);
+
+      }
+
+
+
+
+
 
     </script>
 
