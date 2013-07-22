@@ -273,6 +273,16 @@ var masterFunctions = function() {
 		})
 	}
 
+	this.hashChange = function(URL){
+    newPageTrigger = false
+		
+	  $('#wrapper').fadeOut(350, function(){
+			location = URL;
+		})
+	}
+
+
+
 
 
 
@@ -1087,12 +1097,7 @@ this.setDeepLinking = function(deepLink){
 
 
 
-$(parent).bind('hashchange', function(){ 
-	      if (!newPageTrigger) return
-          if (parent.location.hash.slice(1) =="") return
-            //newPage(parent.location.hash.slice(1))
-          newPageTrigger = true
-})  
+
 
 
 
@@ -1370,7 +1375,7 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	        var img = new Image();
 	        img.src = imageSrc
 
-            //context.clearRect ( 0 , 0 , w , h );
+            context.clearRect ( 0 , 0 , w , h );
 			canvas.style.opacity = map(Math.random(), 0.1,0.3, 0.05,0.02) // (Math.random()*.2) + 0.1
 
 			that.playHead = playHead;
@@ -1459,9 +1464,29 @@ function newPage(URL) {
 
 }
 
+function newPano(_pano) {
+
+		$("#wrapper").fadeOut(500, function(){
+			parent.location.hash = _pano
+		})
+
+	 	
+
+}
+
 function panoLoaded(){
 	//$('.loading').fadeOut(500)
 	//$('#ghost-canvas-trans').fadeOut(500)
+
+	//console.log("GLOBAL PANO " + globalPano)
+
+	if(globalPano) {
+
+  		var krpano = document.getElementById("krpanoObject"); 
+
+     	krpano.call('action(' + globalPano + ')')
+
+	
 	
 	$(".wrapper").fadeIn(1000,function(){
 		$(".pano-underlay").fadeIn(1000)
@@ -1469,6 +1494,8 @@ function panoLoaded(){
 		//transitionDiv
 		$("#transitionDiv").fadeOut(500)		
 	})	
+	}
+	globalPano = false
 }
 
 function xmlLoaded(){
