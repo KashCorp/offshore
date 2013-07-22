@@ -1,7 +1,74 @@
 {
-"children": [ 
-{"location": "platform", "movies": [{"title":"Sending a Man to Mars","file":"Sending_A_Man_To_Mars"},{"title":"Hurricane Alley","file":"Hurricane_Alley_v02"}]}
+  "children": [
 
-]
+    {
+      "group": "platform",
+      "title": "New Frontiers",
 
+      "movies": [
+        {
+          "title": "Sending a Man to Mars",
+          "file": "Platform_SendingAManToMars"
+        },
+        {
+          "title": "Hurricane Alley",
+          "file": "Platform_HurricaneAlley"
+        }
+      ]
+    },
+
+    {
+    	"group": "lowerplatform",
+    	"title": "Deep Waters",
+
+    	"movies": [
+    		{
+    			"title": "Deep to Ultra Deep",
+    			"file": "LowerPlatform_DeepToUltraDeep"
+    		},
+    		{
+    			"title": "Mr Floyd",
+    			"file": "LowerPlatform_Mr_Floyd"
+    		},
+    		{
+    			"title": "Port Fourchon: ",
+    			"file": "LowerPlatform_PortFourchon"
+    		}
+    	]
+    },
+
+    {
+      "group": "boatdeck",
+      "title": "Shrimps and Oysters",
+
+      "movies": [
+        {
+          "title": "Darla Rooks",
+          "file": "BoatDeck_Darlas_Life"
+        },
+        {
+          "title": "Timothy ‘Blimp’ Cheramie",
+          "file": "BoatDeck_Timothy"
+        },
+        {
+          "title": "Shane Bagala",
+          "file": "BoatDeck_Shane"
+        },
+        {
+          "title": "Rosina Philippe",
+          "file": "BoatDeck_Rosina_Philippe"
+        },
+        {
+          "title": "Dean Blanchard",
+          "file": "BoatDeck_Dean_Blanchard"
+        },
+        {
+          "title": "Byron Encalade",
+          "file": "BoatDeck_Byron"
+        }
+      ]
+    }
+
+
+  ]
 }

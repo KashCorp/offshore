@@ -1565,14 +1565,14 @@ function closeVideo(_id){
 *************************************************************************/
 
 function videoPlayer(_id){
-	console.log('launchVideoPlayer: '+'\t'+_id)
+	console.log('launchVideoPlayer(group: '+'\t'+_id+')')
 
 	$("#to-control").on('click',function(){
 		closeVideoPlayer()
 	})
 
 	// set active item
-	$('.movie-menu-item').each(function(i,v){
+	$(_id+' .movie-menu-item').each(function(i,v){
 		$(v).removeClass('active')
 		if($(v).data('file') == _id)
 			$(this).addClass('active')

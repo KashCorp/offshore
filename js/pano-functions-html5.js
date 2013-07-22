@@ -23,20 +23,35 @@ var pano_master = function(){
         console.log("MOVIE LIST LOADED")
         master.movieMenu = data.children
 
-        var menuContent = $.grep(data.children, function (element, index) { return element.location == pano});
+        // load video groups on this page from <body data-videos> attribute
+        var groups = $('body').data('videos').split(' ')
+        var menuContent = {}
 
+        $.each(groups, function(i,v){
+          array = $.grep(data.children, function (element, index) { return element.group == v})
+          menuContent[v] = array[0]
+        })
+
+        // build menus
         if(menuContent){
-          $('#video-overlay').after('<div class="movie-menu" id="movie-menu"/>')
+
+          $.each(menuContent, function(i,v){
+            console.log('group: '+i)
+            $('#video-overlay').after('<div class="movie-menu '+i+'" id="movie-menu"/>')
+
+            $(v.movies).each(function(index,movie){
+              console.log('-- '+movie.title)
+              $('#movie-menu').append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
+            })
+
+          })
+          
+          $('.movie-menu-item').click(function(){
+            switchVideo($(this).data('file'))
+          })
+
         }
-
-        $(menuContent[0].movies).each(function(i,v){
-          console.log(v.title)
-          $('#movie-menu').append('<div data-file="' + v.file + '" class="movie-menu-item">' + v.title + '</div>')
-        })
-
-        $('.movie-menu-item').click(function(){
-          switchVideo($(this).data('file'))
-        })
+        
 
       },
       error : function(request,error) {
