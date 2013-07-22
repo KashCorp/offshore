@@ -31,20 +31,20 @@
 
 </head>
 
-<body style="overflow:hidden" class="platform">
+<body style="overflow:hidden" class="platform" data-videos="extremeoil">
 
 <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
 	<div id="wrapper" class="wrapper">
 
-	 <div class="pano-underlay">
+	 <!-- <div class="pano-underlay">
 		<video controls="true" width="100%" height="100%" loop = "true" autoplay style="position:absolute" id="video-underlay">
 		 <source src="video/transitions/oil_shot.webm" type="video/webm" />
 		 <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
-		</video> 
-
-	</div>
+		</video>
+	</div> -->
+	
 	<!-- <div class="underwater"> </div> -->
 
 	<div id="panocontainer" class="controlroom"></div> 
@@ -52,71 +52,19 @@
 	<div id="zoom-out" class="platform-nav" style="display:none"></div>
 
 
-<!-- UNDERLAY VIDEOS -->
-	<div id="underlay-control-wrapper" style="position:absolute; display:none;bottom:0;right:0;top:0px;left:0px;">
-	
-		<a id="to-control-vid-menu" class="platform-nav" style="display:block">Close</a>
+	<!-- VIDEO PLAYER -->
+    <div class="video-content-wrap">
+      <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
+        <source/>
+      </video>
+      <div class="controls hide">
+        <div class="play"></div>
+        <div class="seek"></div>
+        <div class="text"></div>
+      </div>
 
-		<a id="to-control-vid" class="platform-nav" style="display:none;right:90px">Close</a>
-
-		<ul class="movie-menu mk">
-
-			<!-- VIDEO THUMBS -->
-
-			<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Deadly_Encounters" data-popcorn="klare_01" class="vid-menu-nav">
-			<video volume = "0" autoplay loop = "true"preload="auto">
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Deadly_Encounters_thumb.mp4" type="video/mp4" />
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Deadly_Encounters_thumb.webm" type="video/webm" />
-			</video> 
-			<br>
-			Michael Klare: Deadly Encounters
-			</li>
-
-			<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Disappearing_Fields" data-popcorn="klare_02" class="vid-menu-nav">
-			<video volume = "0" autoplay loop = "true"preload="auto">
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Disappearing_Fields_thumb.mp4" type="video/mp4" />
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Disappearing_Fields_thumb.webm" type="video/webm" />
-			</video> 
-			<br>
-			Michael Klare: Disappearing Fields
-			</li>
-						
-			<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Nowhere_else_to_go" data-popcorn="klare_03" class="vid-menu-nav">
-			<video volume = "0" autoplay loop = "true"preload="auto">
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Nowhere_else_to_go_thumb.mp4" type="video/mp4" />
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Nowhere_else_to_go_thumb.webm" type="video/webm" />
-			</video> 
-			<br>
-			Michael Klare: Nowhere else to go
-			</li>
-
-			<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Spaceship_to_Mars" data-popcorn="klare_04" class="vid-menu-nav">
-			<video volume = "0" autoplay loop = "true"preload="auto">
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Spaceship_to_Mars_thumb.mp4" type="video/mp4" />
-				<source src="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_MK_Spaceship_to_Mars_thumb.webm" type="video/webm" />
-			</video> 
-			<br>
-			Michael Klare: Sending a Spaceship to Mars
-			</li>
-			<!-- END VIDEO THUMBS -->
-
-		</ul>
-		<!-- POPCORN -->
-		<div id="footnote-container" style="position:absolute; bottom:20px;left:20px; right:20px;font-size:12pt;text-shadow: 1px 1px 3px #000;"></div>
-		
-	</div> 
-<!-- END UNDERLAY VIDEOS -->
-
-
-<!-- OVERLAY VIDEOS -->
-	<div class="video-content-wrap">
- 
-		<video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
-		<source/>
-		</video>
-
-		<a id="to-control" class="platform-nav">Close</a>
-	</div>
+      <a id="to-control" class="platform-nav">Close</a>
+    </div>
 	
 	<div class="breadcrumb"></div>
 
@@ -141,8 +89,8 @@
 
 	var openHatch = function(closing){
 
-		if(closing) master.loadVideoUnderlay("video/transitions/action_05",null,true) 
-		else 		master.loadVideoUnderlay("video/transitions/oil_shot", null,true)
+		// if(closing) master.loadVideoUnderlay("video/transitions/action_05",null,true) 
+		// else 		master.loadVideoUnderlay("video/transitions/oil_shot", null,true)
 
 		var transition_audio = $('#transition', window.parent.document)
 			transition_audio[0].src = "audio/Hatch_Open.mp3"
@@ -191,7 +139,7 @@
 		}
 
 		if(fov <5) {
-			$('#underlay-control-wrapper').fadeIn(500)
+			// $('#underlay-control-wrapper').fadeIn(500)
 			$('.breadcrumb').fadeOut(500)
 			$("#offshorelogo").fadeOut(500)
 			$(".compass").fadeOut()

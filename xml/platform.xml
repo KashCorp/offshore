@@ -135,7 +135,8 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));
+					 js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 
@@ -154,11 +155,9 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(Sending_A_Man_To_Mars)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));js(setCache(get(view.hlookat),90))"
 			/>
-
-
-
+		
 
 
 		<!-- <hotspot name="Deep_Ultra_Deep_Text"

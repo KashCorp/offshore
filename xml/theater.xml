@@ -95,7 +95,7 @@
 		
 
 
-		<hotspot name="video1"
+		<!-- <hotspot name="video1"
 			url="plugins/videoplayer.swf"
 			alturl="plugins/videoplayer.js"
 
@@ -132,12 +132,48 @@
 			scale="1.0"
 			onclick="hotspot[video1].stop();set(hotspot[video_close].visible,false);set(hotspot[video1].visible,false);lookto(0,0,90,smooth(),true,true);set(autorotate.enabled,true);"
 			capture = "false"
+			/> -->
+
+
+
+		<hotspot name="Theatre-GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="355"
+			atv="-2"
+			alpha=".7"
+			height="70"
+			width="70"
+			distorted="true"
+			capture="false"
+			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
 			/>
+
+		<hotspot name="Theatre-Text"
+			url="plugins/textfield.swf"
+			ath="360"
+			atv="3"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] THEATRE MENU [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
+			keep="true"
+			/>
+
+
 		
 
 		<!-- Projection Screen Videos  -->
 
- 		<hotspot name="videoflag_01"
+ 		<!-- <hotspot name="videoflag_01"
 			url="plugins/textfield.swf"
 			ath="337"
 			atv="-5"
@@ -218,7 +254,7 @@
 			width="300"
             onclick="looktohotspot(video1, 40, smooth(), true);set(hotspot[video1].visible,true);hotspot[video1].playvideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/Theatre_BP_Committment.webm);set(hotspot[video_close].visible,true);set(autorotate.enabled,false);"
 			
-		/>
+		/> -->
 
 
 

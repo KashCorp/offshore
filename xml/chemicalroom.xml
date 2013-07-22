@@ -158,7 +158,7 @@
 
 		<!-- Darla (Barrel) -->
 		
-		<hotspot name="Darla_Text"
+		<hotspot name="Poisoned-Text"
 			url="plugins/textfield.swf"
 			ath="260"
 			atv="0"
@@ -169,31 +169,16 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3] DARLA POISONED [h3]"
+			html="[h3] POISONED [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo('http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Darla')));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
 			keep="true"
 		/>
 
-		<hotspot name="Darla_Barrel"
-			url="../images/hotspot.gif"
-			ath="250"
-			atv="28"
-	    distorted="true"
-	    keep="true"
-			alpha="0"
-			width="220.0"
-			height="95.0"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo('http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Darla')));js(setCache(get(view.hlookat),90))"
-			scale="1.0"
-		/>
-
-		<hotspot name="Darla_GIF"
+		<hotspot name="Poisoned-GIF"
 			url="../images/icons/gif_iconA.gif"
 			ath="250"
 			atv="10"
@@ -204,8 +189,23 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo('http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Darla')));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
 			scale="0.7"
+		/>
+
+		<hotspot name="Poisoned-Barrel"
+			url="../images/hotspot.gif"
+			ath="250"
+			atv="28"
+		    distorted="true"
+		    keep="true"
+			alpha="0"
+			width="220.0"
+			height="95.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
 		/>
 
 
@@ -222,12 +222,12 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3] &quot;CATFISH&quot; MILLER [h3]"
+			html="[h3] IN THE BLOODSTREAM [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_James')));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
 			keep="true"
 		/>
 
@@ -242,7 +242,7 @@
 			height="95.0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_James)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 		/>
 
@@ -257,7 +257,7 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_James)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
 			scale="0.7"
 		/>
 
@@ -314,6 +314,12 @@
 			alpha="0"
 			keep="true"
 		/>
+
+
+
+
+
+		<!--
 
 
 		<hotspot name="kindra_Text"
@@ -490,6 +496,8 @@
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_DrMike)));js(setCache(get(view.hlookat),90))"
 			scale=".7"
 		/>
+
+		-->
 
 
 

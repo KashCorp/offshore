@@ -31,7 +31,7 @@
 
   </head>
 
-  <body style="overflow:hidden" class="platform">
+  <body style="overflow:hidden" class="platform" data-videos="theatre">
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -39,18 +39,32 @@
 
     <div id="wrapper" class="wrapper">
 
-       <div class="pano-underlay">
+       <!-- <div class="pano-underlay">
         <video controls="true" width="100%" height:"100%" autoplay loop = "true" style="position:absolute;top:17%" id="video-underlay" preload="auto">
            <source src="video/oil_shot.webm" type="video/webm" />
            <source src="video/oil_shot.mp4" type="video/mp4" />
         </video> 
+      </div> -->
 
-      </div>
       <div class="underwater">  </div>
 
   		<div id="panocontainer" class="theater"></div>
       
   		<div class="breadcrumb"></div>
+
+      <!-- VIDEO PLAYER -->
+      <div class="video-content-wrap">
+        <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
+          <source/>
+        </video>
+        <div class="controls hide">
+          <div class="play"></div>
+          <div class="seek"></div>
+          <div class="text"></div>
+        </div>
+
+        <a id="to-control" class="platform-nav">Close</a>
+      </div>
 
   	</div>
 
@@ -70,15 +84,12 @@
       })
 
 
-
       var soundadjust = function(coord,fov) {
-
-        // var convCoord =  Math.abs(coord%360);
 
         if(fov <45) {
           $('#scroll-directions').fadeIn()
           $('.fastpan, .compass').fadeOut(100)
-        }else{
+        } else {
           if(!master.overlayOpen) $('.fastpan, .compass').fadeIn(500)
           $('#scroll-directions').fadeOut()
           $('#walking-canvas').css('opacity', Math.abs(1-fov/90)+.1)

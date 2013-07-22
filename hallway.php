@@ -13,7 +13,7 @@
 
     <link rel="image_src" href="images/bg_drillhead.jpg" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/font-awesome.css"> -->
 
     <script type="text/javascript">
 
@@ -31,11 +31,11 @@
 
   </head>
 
-  <body style="overflow:hidden;"  class="platform">
+  <body style="overflow:hidden;"  class="platform" data-videos="terminus">
 
-<header>
-  <a class="volume-toggle"><i class="icon-volume-up"></i></a>
-</header>
+    <header>
+      <a class="volume-toggle"><i class="icon-volume-up"></i></a>
+    </header>
 
     <div id="wrapper" class="wrapper">
 
@@ -47,63 +47,25 @@
       <div class="underwater">  </div>
 
       <div id="panocontainer" class="hallway"></div>
+
       <img id = "gradient" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>
-  	
-
-
-<!-- UNDERLAY VIDEOS -->
-      <!-- <div id="underlay-control-wrapper" style="position:absolute; display:none;bottom:0;right:0;top:0px;left:0px;">
-      
-          <a id="to-control-vid-menu" class="platform-nav" style="display:block">Close</a>
-
-          <a id="to-control-vid" class="platform-nav" style="display:none;">Close</a>
-
-          <ul class="movie-menu">
-
-            <li data-url="video/doc_content/dean_blanchard_720" class="vid-menu-nav">
-                <video controls="true" width="250" volume = 0 loop = "true" preload="auto">
-                  <source src="video/doc_content/dean_blanchard_720_thumb.webm" type="video/webm" />
-                </video> 
-                <br>
-                Dean Blanchard: Mad as Hell
-            </li>
-
-            <li data-url="video/transitions/3d_seismic_cube05_10sec" data-popcorn="seismic" class="vid-menu-nav">
-                <video controls="true" width="250" volume = 0 loop = "true" preload="auto">
-                  <source src="video/transitions/3d_seismic_cube05_10sec.webm" type="video/webm" />
-                </video> 
-                <br>
-                Digital Imaging: Seismic Survey #2
-            </li>
-
-            <li data-url="video/doc_content/MK_ExtremeFrontiers" data-popcorn="klare_01" class="vid-menu-nav">
-              <video controls="true" width="250" volume = "0" loop = "true"  preload="auto">
-                  <source src="video/doc_content/MK_ExtremeFrontiers_thumb.webm" type="video/webm" />
-              </video> 
-              <br>
-              Michael Klare: At the Frontier of Extreme Oil
-            </li>
-
-          </ul>
-
-          <div id="footnote-container" style="position:absolute; bottom:20px;left:20px; right:20px;font-size:12pt;text-shadow: 1px 1px 3px #000;"></div>
-          
-      </div>   --> 
-<!-- UNDERLAY VIDEOS -->
-
-
-
 
       <div class="breadcrumb"></div>
 
+      <!-- VIDEO PLAYER -->
       <div class="video-content-wrap">
-       
-      <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
-        <source/>
-      </video>
+        <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
+          <source/>
+        </video>
+        <div class="controls hide">
+          <div class="play"></div>
+          <div class="seek"></div>
+          <div class="text"></div>
+        </div>
 
-       <a id="to-control" class="platform-nav">Close</a>
+        <a id="to-control" class="platform-nav">Close</a>
       </div>
+
 
   	</div>
 
@@ -203,17 +165,6 @@ $(document).ready(function(){
 
 
   /// VIDEO LOGIC 
-  var movieMenuWidth = 300 * $('.movie-menu video').length
-
-  $('.movie-menu').css("width",movieMenuWidth)
-  $('.movie-menu').css("margin-left",-movieMenuWidth/2)
-
-  $('.movie-menu li').each(function(i,v){
-    $(this).find("video").prop('muted', true)
-    $(this).css("margin-top", Math.random()*(window.innerHeight - 300) + 20)
-  })
-
-   
 
   function loadVideoUnderlay(_id,_popcorn,_load_menu){
     

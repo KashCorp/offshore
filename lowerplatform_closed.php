@@ -36,11 +36,12 @@
 
   </head>
 
-  <body>
-    <header>
+  <body data-videos="lowerplatform">
 
+    <header>
       <a class="volume-toggle"><i class="icon-volume-up"></i></a>
     </header>
+    
     <div id="wrapper" class="wrapper">
 
         <div id="panocontainer" class="lowerplatform_closed"></div>
@@ -53,12 +54,16 @@
           <a id="to-control" class="platform-nav">Close</a>
         </div> -->
 
-        <!-- OVERLAY VIDEOS -->
+        <!-- VIDEO PLAYER -->
         <div class="video-content-wrap">
-
-          <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+          <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
             <source/>
           </video>
+          <div class="controls hide">
+            <div class="play"></div>
+            <div class="seek"></div>
+            <div class="text"></div>
+          </div>
 
           <a id="to-control" class="platform-nav">Close</a>
         </div>

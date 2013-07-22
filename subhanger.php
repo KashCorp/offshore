@@ -31,7 +31,7 @@
 
   </head>
 
-  <body style="overflow:hidden;" class="platform">
+  <body style="overflow:hidden;" class="platform" data-videos="subhangar">
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -39,13 +39,14 @@
 
   <div id="wrapper" class="wrapper" style="position:fixed">
 
-     <div class="pano-underlay">
+    <!-- <div class="pano-underlay">
       <video controls="true" width="100%" height="100%" autoplay loop = "true" style="position:absolute;" id="video-underlay" preload="auto">
          <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
-         <!-- <source src="video/transitions/oil_shot.mp4" type="video/mp4" /> -->
+         <source src="video/transitions/oil_shot.mp4" type="video/mp4" />
       </video> 
+    </div> -->
 
-    </div> 
+
     <div class="underwater">  </div>
 
     <canvas id="walking-canvas" style="position:absolute;opacity:0" width="1200" width="800"></canvas>
@@ -55,21 +56,26 @@
 		<div id="panocontainer" class="subhanger"></div>
 
 
-    <!-- OVERLAY VIDEOS -->
-    <div class="video-content-wrap">
-      <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
-        <source/>
-      </video>
-      <a id="to-control" class="platform-nav">Close</a>
-    </div>
+    <!-- VIDEO PLAYER -->
+      <div class="video-content-wrap">
+        <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
+          <source/>
+        </video>
+        <div class="controls hide">
+          <div class="play"></div>
+          <div class="seek"></div>
+          <div class="text"></div>
+        </div>
 
-    <div class="video-content-wrap-engine-room">
+        <a id="to-control" class="platform-nav">Close</a>
+      </div>
+
+    <!-- <div class="video-content-wrap-engine-room">
       <video controls="true" width="100%" style="position:absolute;display:block" id="video-overlay-engine-room" preload="auto">
         <source/>
       </video>
-    </div>
+    </div> -->
   
-    <!-- END OVERLAY VIDEOS -->
 
 
     <div class="scroll-directions-container"><div id="scroll-directions"></div></div>

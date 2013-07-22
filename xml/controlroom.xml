@@ -79,6 +79,128 @@
 			alpha="0.0"
 			visible="true"
 			/>
+
+
+
+
+		<!-- Michael Klare video player -->
+
+		<hotspot name="MK-GIF"
+			url="../images/icons/gif_iconA.gif"
+			alpha=".7"
+			height="70"
+			width="70"
+			ath="191"
+			atv="15"
+			distorted="true"
+			capture="false"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="MK-Text"
+			url="plugins/textfield.swf"
+			ath="202"
+			atv="20"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] EXTREME OIL [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			keep="true"
+			/>
+
+		<!-- Main Monitors (all zoom to MK vids) -->
+
+		<hotspot name="Monitor Big" 
+			url="../images/hotspot.gif"
+			ath="190"
+			atv="0"
+			distorted="true"
+			alpha="0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+			width="220"
+			height="175"
+			capture="false"
+			/>
+
+		<hotspot name="Monitor Top Left" 
+			url="../images/hotspot.gif"
+			ath="185"
+			atv="-15"
+			distorted="true"
+			alpha="0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+			width="93"
+			height="75"
+			capture="false"
+			/>
+
+		<hotspot name="Monitor Top Right" 
+			url="../images/hotspot.gif"
+			ath="211"
+			atv="-13"
+			distorted="true"
+			alpha="0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+			width="93"
+			height="75"
+			capture="false"
+			/>
+
+		<hotspot name="cctv1"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
+			ath="-199.25" atv="-0.8"
+			distorted="true"
+			scale="0.24" 
+			rx="0" 
+			ry="16" 
+			rz="0" 
+			
+
+			enabled="true"
+			alpha="0.5"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			loop="true"
+		/>
+
+
+		<hotspot name="cctv2"
+			url="plugins/videoplayer_offshore_01.js"
+			alturl="plugins/videoplayer_offshore_01.js"
+			volume="0.00001"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
+			ath="-142.5" atv="-0.5"
+			distorted="true"
+			scale="0.195" 
+			rx="0" 
+			ry="-35" 
+			rz="0"
+
+			enabled="true"
+			alpha="0.5"
+			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil))); js(setCache(get(view.hlookat),90))"
+			loop="true"
+		/>
 			
 		
 		<!-- Big Red Button -->
@@ -138,44 +260,6 @@
 				loop="true"
 			/>
 
-			<hotspot name="cctv1"
-				url="plugins/videoplayer_offshore_01.js"
-				alturl="plugins/videoplayer_offshore_01.js"
-				volume="0.00001"
-				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
-				ath="-199.25" atv="-0.8"
-				distorted="true"
-				scale="0.24" 
-				rx="0" 
-				ry="16" 
-				rz="0" 
-				
-
-				enabled="true"
-				alpha="0.5"
-				onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-				loop="true"
-			/>
-
-
-			<hotspot name="cctv2"
-				url="plugins/videoplayer_offshore_01.js"
-				alturl="plugins/videoplayer_offshore_01.js"
-				volume="0.00001"
-				videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
-				ath="-142.5" atv="-0.5"
-				distorted="true"
-				scale="0.195" 
-				rx="0" 
-				ry="-35" 
-				rz="0"
-
-				enabled="true"
-				alpha="0.5"
-				onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-				loop="true"
-			/>
-
 
 			<hotspot name="nymex"
 				url="plugins/videoplayer_offshore_01.js"
@@ -196,90 +280,6 @@
 						 js(zoomIn());
 						 set(autorotate.enabled,false)"
 				loop="true"
-			/>
-
-
-
-
-		<!-- Michael Klare -->
-
-		<hotspot name="Michael Klare Videos"
-			url="../images/icons/gif_iconA.gif"
-			alpha=".7"
-			height="70"
-			width="70"
-			ath="191"
-			atv="15"
-			distorted="true"
-			capture="false"
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-			/>
-
-		<hotspot name="MK_Text"
-			url="plugins/textfield.swf"
-			ath="202"
-			atv="20"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h3] MONEY AND POWER [h3]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="200"
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-			keep="true"
-			/>
-
-		<!-- Main Monitors (all zoom to MK vids) -->
-
-		<hotspot name="Monitor Big" 
-			url="../images/hotspot.gif"
-			ath="190"
-			atv="0"
-			distorted="true"
-			alpha="0"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-			scale="1.0"
-			width="220"
-			height="175"
-			capture="false"
-			/>
-
-		<hotspot name="Monitor Top Left" 
-			url="../images/hotspot.gif"
-			ath="185"
-			atv="-15"
-			distorted="true"
-			alpha="0"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true)"
-			scale="1.0"
-			width="93"
-			height="75"
-			capture="false"
-			/>
-
-		<hotspot name="Monitor Top Right" 
-			url="../images/hotspot.gif"
-			ath="211"
-			atv="-13"
-			distorted="true"
-			alpha="0"
-			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(192,0,1,tween(easeOutQuad,2),true,true)"
-			scale="1.0"
-			width="93"
-			height="75"
-			capture="false"
 			/>
 
 		
@@ -354,146 +354,6 @@
 			
 		
 
-
-		<!--
-		
-		
-		<hotspot name="lowerplatform"
-			device="flash"
-			keep="false"
-			visible="true"
-			enabled="true"
-			handcursor="true"
-			zorder=""
-			style=""
-			alpha="1.0"
-			distorted="true"
-			fillcolor="0xFFFFFF" fillcolorhover="0xFFFFFF"
-			fillalpha="0.0" fillalphahover="0.1"
-			borderwidth="0.0" borderwidthhover="1.0"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			borderalpha="0.0" borderalphahover="0"
-			onclick="js(newPage(lowerplatform_closed.php))"
-			onhover="js(hoverSound())"
-			onout="js(resetHoverSound())"
-		>
-	    <point ath="-94" atv="-3.4" />
-	    <point ath="-103.5" atv="-3.5" />
-	    <point ath="-103.5" atv="14.7" />
-	    <point ath="-94" atv="15" />
-		</hotspot>	
-		onclick="lookto(get(currentX),0,get(view.fov),smooth(),true,true,js(launchVideo(video/big_story_01_crop.webm)));js(setCache(get(view.hlookat),90))"
-	-->	
-<!--			
-		<hotspot name="videoflag_02"
-			url="plugins/textfield.swf"
-			ath="0"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h3] SOMETHING HAS GONE WRONG[h3]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="240"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(video/something_has_gone_wrong.webm)));js(setCache(get(view.hlookat),90))"
-			/>
-
-			
-
-
-		<hotspot name="abouthotspot" url="../images/panos/platform/hotspots/about.png"
-			ath="72.15"
-			atv="8.2"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(about.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_about].visible,false);"
-			scale="0.85"
-			/>
-
-
-		<hotspot name="go_about"
-			url="../images/panos/platform/hotspots/Text_About.png"
-      ath="68.15"
-      atv="0"
-			capture="false"
-			visible="false"
-			scale="0.55"
-			/>
-			
-		<hotspot name="entryhotspot" url="../images/panos/platform/hotspots/entry.png"
-			ath="-157.2"
-			atv="16.1"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(noentry.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_entry].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_entry].visible,false);"
-			scale="0.6"
-			/>
-
-		<hotspot name="go_entry"
-			url="../images/panos/platform/hotspots/Text_Explore.png"
-			ath="-157.2"
-			atv="8"
-			background="false"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>			
-			
-		<hotspot name="bloghotspot" url="../images/panos/platform/hotspots/blog.png"
-			ath="-84.6"
-			atv="13.0"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(blog/index.php?from_rig=true~BLOG))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_blog].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_blog].visible,false);"			
-			scale="0.8"
-			/>
-
-		<hotspot name="go_blog"
-			url="../images/panos/platform/hotspots/Text_Blog.png"
-			ath="-84.6"
-			atv="5"
-			background="false"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>	
-
-
-
-				
-			<hotspot name="creditshotspot" url="../images/panos/platform/hotspots/plane_overlay.png"
-			ath="40.6"
-			atv="8.0"
-			distorted="true"
-			alpha="0.4"
-			onclick="js(newPage(credits.php))"
-			onhover="js(hoverSound());tween(alpha,0.6);set(hotspot[go_credits].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.5);set(hotspot[go_credits].visible,false);"
-			scale="0.65"
-			/>		
-
-		<hotspot name="go_credits"
-			url="../images/panos/platform/hotspots/Text_Crew.png"
-			ath="40.6"
-			atv="0"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>
-			
-			
--->
 
 		<data name="flag">
 			h3 {
