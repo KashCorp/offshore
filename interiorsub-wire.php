@@ -33,16 +33,19 @@
 
   <body style="overflow:hidden">
 
-<header>
-  <a class="volume-toggle"><i class="icon-volume-up"></i></a>
-</header>
+  <header>
+    <a class="volume-toggle"><i class="icon-volume-up"></i></a>
+  </header>
 
     <div id="wrapper" class="wrapper">
+
+      <video controls="true" width="100%" autoplay style="position:absolute;" id="video-underlay" preload="auto">
+        <source/>
+      </video>
+
       <div class="pano-underlay">
-        <video controls="true" width="100%" autoplay style="position:absolute;" id="video-underlay" preload="auto">
-          <source/>
-        </video> 
-              <img id = "gradient" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:70%;"/>
+        <img id="gradient" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:70%;"/>
+
         <div class="underwater"></div> 
         <div class="underwater-hanger"></div>    
       </div>
@@ -50,8 +53,6 @@
   		<div id="panocontainer" class="interiorsub-wire"></div>
   		<div class="breadcrumb"></div>
   	</div>
-
-
 
 
 
@@ -67,9 +68,6 @@
       $(document).ready(function(){
 
       master.blankTrans()
-
-      
-
         master.setDeepLinking("interiorsub-wire.php")
       })
 

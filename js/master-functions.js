@@ -1820,15 +1820,22 @@ function closeVideoPlayer(){
 
 
 function loadUnderWater(_id){
-	$("#video-underlay").css("display","none")
-	$(".underwater-hanger").fadeOut(1000, function() {
-		$("#video-underlay").fadeIn(1000)
-	    $('#video-underlay source').attr('src', "video/"+_id + master.videoType);
-	    $('#video-underlay video').load();
-	    $("#video-underlay")[0].load()
-	    $("#video-underlay")[0].play()
-	    parent.audiomaster.mix.setGain(0.1)
-	})
+	console.log('loadUnderWater() '+_id)
+
+	$("#video-underlay").addClass('hide')
+
+	$('#video-underlay')[0].src = master.cdn_video + _id + master.videoType
+	$('#video-underlay')[0].load()
+    $("#video-underlay")[0].play()
+
+    parent.audiomaster.mix.setGain(0.1)
+
+    $('#video-underlay')[0].addEventListener('canplaythrough', function(e) {
+    	console.log('canplaythrough')
+    	e.stopPropagation()
+    	$('#video-underlay').removeClass('hide')
+    	this.play();
+    }, false);
 
 }
 

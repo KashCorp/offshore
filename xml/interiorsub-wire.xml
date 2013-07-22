@@ -36,7 +36,7 @@
 			/>
 
 		<view 
-			hlookat="84.0"
+		  hlookat="84.0"
 		  fov="65.0"
 		  fovmax="120.0"
 		  fovmin="15.0"
@@ -68,7 +68,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(doc_content/ROV_Coral))"
+			onclick="js(loadUnderWater(ROV_Coral))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -90,7 +90,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="js(loadUnderWater(doc_content/ROV_Coral))"
+			onclick="js(loadUnderWater(ROV_Coral))"
 			keep="true"
 		/>
 
@@ -101,7 +101,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(doc_content/ROV_Wellhead_1))"
+			onclick="js(loadUnderWater(ROV_Wellhead_1))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -113,7 +113,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(doc_content/ROV_Wellhead_2))"
+			onclick="js(loadUnderWater(ROV_Wellhead_2))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -125,7 +125,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(doc_content/ROV_Skate_Farm))"
+			onclick="js(loadUnderWater(ROV_Skate_Farm))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -147,104 +147,20 @@
 			scale="10.0"
 			/>					
 
-<!--
-
-		<hotspot name="go_about"
-			url="../images/panos/platform/hotspots/Text_About.png"
-      ath="68.15"
-      atv="0"
-			capture="false"
-			visible="false"
-			scale="0.55"
-			/>
-			
-		<hotspot name="entryhotspot" url="../images/panos/platform/hotspots/entry.png"
-			ath="-157.2"
-			atv="16.1"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(noentry.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_entry].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_entry].visible,false);"
-			scale="0.6"
-			/>
-
-		<hotspot name="go_entry"
-			url="../images/panos/platform/hotspots/Text_Explore.png"
-			ath="-157.2"
-			atv="8"
-			background="false"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>			
-			
-		<hotspot name="bloghotspot" url="../images/panos/platform/hotspots/blog.png"
-			ath="-84.6"
-			atv="13.0"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(blog/index.php?from_rig=true~BLOG))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_blog].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_blog].visible,false);"			
-			scale="0.8"
-			/>
-
-		<hotspot name="go_blog"
-			url="../images/panos/platform/hotspots/Text_Blog.png"
-			ath="-84.6"
-			atv="5"
-			background="false"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>	
 
 
-
-				
-			<hotspot name="creditshotspot" url="../images/panos/platform/hotspots/plane_overlay.png"
-			ath="40.6"
-			atv="8.0"
-			distorted="true"
-			alpha="0.4"
-			onclick="js(newPage(credits.php))"
-			onhover="js(hoverSound());tween(alpha,0.6);set(hotspot[go_credits].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.5);set(hotspot[go_credits].visible,false);"
-			scale="0.65"
-			/>		
-
-		<hotspot name="go_credits"
-			url="../images/panos/platform/hotspots/Text_Crew.png"
-			ath="40.6"
-			atv="0"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>
-			
-			
--->
-
-			
-		<data name="nav_01">
-    <p><img src="images/panos/platform/hotspots/Text_About.png" /></p>
-		</data>
-
-
-		<data name="nav_02">
-    <p><img src="images/panos/platform/hotspots/Text_Explore.png" /></p>
+		<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				font-size: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
 		</data>		
-	
-	
-		<data name="nav_03">
-    <p><img src="images/panos/platform/hotspots/Text_Blog.png" /></p>
-		</data>	
-
-
-		<data name="nav_04">
-    <p><img src="images/panos/platform/hotspots/Text_Crew.png" /></p>
-		</data>			
 
 		<data name="cssdata1">
 			p {
@@ -258,7 +174,5 @@
 		</data>
 							
 	</scene>
-		
-	<!--<include url="drill.xml" />-->
 
 </krpano>
