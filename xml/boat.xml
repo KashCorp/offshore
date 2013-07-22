@@ -43,13 +43,11 @@
 	                   
 	<scene name="platform" onstart="">
 
-		<progress
-			showwait="none"
-			/>
+		<progress showwait="none"/>
 
 		<view 
-			hlookat="84.0"
-		  fov="65.0"
+		  hlookat="84.0"
+		  fov="90.0"
 		  fovmax="120.0"
 		  fovmin="45.0"
 		  />
@@ -60,7 +58,7 @@
 		 	keycodesout =""
 		 	/>
 	 	<image>
-				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_%s.jpg" />
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_%s.jpg" />
 
 		</image>
 <!--
@@ -130,6 +128,60 @@
 	    <point ath="92" atv="-3" />
 		</hotspot>
 
+
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="105"
+			atv="-10"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+			keep="true"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_BoatDeck.mp3))"
+			scale="1.0"
+			capture="false"
+			/>
+
+
+
+
+		<hotspot name="Boatdeck-Text"
+			url="plugins/textfield.swf"
+			ath="135"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			keep="true"
+			html="[h3]SHRIMP AND OYSTERS[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Boatdeck-GIF" 
+			url="../images/icons/gif_iconA.gif"
+			ath="115"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			keep="true"
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
+
+
+		<!-- 
+
 		<hotspot name="Dean_Blanchard_Text"
 			url="plugins/textfield.swf"
 			ath="135"
@@ -160,6 +212,11 @@
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/BoatDeck_Dean_Blanchard)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
+
+
+
+
+
 
 
 
@@ -321,112 +378,8 @@
 			capture = "false"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/BoatDeck_Byron)));js(setCache(get(view.hlookat),90))"
 			/>
+ -->
 
-
-		<hotspot name="klaxxon" url="../images/hotspot.gif"
-			ath="105"
-			atv="-10"
-			distorted="true"
-			alpha="0.0"
-			width="105.0"
-			height="105.0"
-			keep="true"
-			onclick="js(loadAFXPano(audio/voice_overs/VO_BoatDeck.mp3))"
-			scale="1.0"
-			capture="false"
-			/>	
-		
-<!--
-
-
-		<hotspot name="abouthotspot" url="../images/panos/platform/hotspots/about.png"
-			ath="72.15"
-			atv="8.2"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(about.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_about].visible,false);"
-			scale="0.85"
-			/>
-
-
-		<hotspot name="go_about"
-			url="../images/panos/platform/hotspots/Text_About.png"
-      ath="68.15"
-      atv="0"
-			capture="false"
-			visible="false"
-			scale="0.55"
-			/>
-			
-		<hotspot name="entryhotspot" url="../images/panos/platform/hotspots/entry.png"
-			ath="-157.2"
-			atv="16.1"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(noentry.php))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_entry].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_entry].visible,false);"
-			scale="0.6"
-			/>
-
-		<hotspot name="go_entry"
-			url="../images/panos/platform/hotspots/Text_Explore.png"
-			ath="-157.2"
-			atv="8"
-			background="false"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>			
-			
-		<hotspot name="bloghotspot" url="../images/panos/platform/hotspots/blog.png"
-			ath="-84.6"
-			atv="13.0"
-			distorted="true"
-			alpha="0.75"
-			onclick="js(newPage(blog/index.php?from_rig=true~BLOG))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_blog].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_blog].visible,false);"			
-			scale="0.8"
-			/>
-
-		<hotspot name="go_blog"
-			url="../images/panos/platform/hotspots/Text_Blog.png"
-			ath="-84.6"
-			atv="5"
-			background="false"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>	
-
-
-
-				
-			<hotspot name="creditshotspot" url="../images/panos/platform/hotspots/plane_overlay.png"
-			ath="40.6"
-			atv="8.0"
-			distorted="true"
-			alpha="0.4"
-			onclick="js(newPage(credits.php))"
-			onhover="js(hoverSound());tween(alpha,0.6);set(hotspot[go_credits].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0.5);set(hotspot[go_credits].visible,false);"
-			scale="0.65"
-			/>		
-
-		<hotspot name="go_credits"
-			url="../images/panos/platform/hotspots/Text_Crew.png"
-			ath="40.6"
-			atv="0"
-			capture="false"
-			visible="false"
-			scale="0.6"
-			/>
-			
-			
--->
 
 		<data name="flag">
 			h3 {

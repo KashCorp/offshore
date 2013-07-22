@@ -122,26 +122,6 @@
 			capture="false"
 			/>
 
- 		<!-- <hotspot name="passage_01_text"
-			url="plugins/textfield.swf"
-			ath="10.5"
-			atv="-10"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h3] POISONED [h3]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="200"
-      onclick="lookto(0,0,10,smooth(),true,true,js(newPage(passage_chemicalroom.php)));)"
-		/> -->
-
-
 		<!-- Passage 2: Theater  -->
 
 		<hotspot name="passage_02" url="../images/hotspot.gif"
@@ -170,25 +150,6 @@
 			/>
 
 
- 		<!-- <hotspot name="passage_02_text"
-			url="plugins/textfield.swf"
-			ath="280"
-			atv="-6"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h3] TRUTH AND CONSEQUENCES [h3]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="200"
-      onclick="lookto(270,0,5,smooth(),true,true,js(newPage(passage_theater.php)));)"
-      /> -->
-
 
 		<!-- Passage 3: Control Room  -->
 
@@ -214,26 +175,6 @@
 			scale="4.0"
 			capture="false"
 			/>
-
-
- 		<!-- <hotspot name="passage_03_text"
-			url="plugins/textfield.swf"
-			ath="178"
-			atv="-6"
-			children="false"
-			edge="righttop"
-			background="false"
-			capture="false"
-			color="0xffffff"
-			handcursor="true"
-			height="30"
-			html="[h3] CONTROL [h3]"
-			css="data:flag"
-			autoheight="false"
-			vcenter="true"
-			width="200"
-            onclick="lookto(178,0,5,smooth(),true,true,js(newPage(controlroom.php)));)"
-            /> -->
 		
 		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
@@ -245,11 +186,61 @@
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
-			/>		
+			/>
+
+		
+
+		<!-- Video Player  -->
+
+		<hotspot name="Video-Player-Text"
+			url="plugins/textfield.swf"
+			ath="315"
+			atv="-8"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]THE WELL FROM HELL[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(terminus)));js(setCache(get(view.hlookat),220))"
+    		/>
+		<hotspot name="Video-Player-GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="315"
+			atv="-5"
+			alpha=".3"
+			height="80"
+			width="80"
+			distorted="true"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(terminus)));js(setCache(get(view.hlookat),220))"
+			capture="false"
+			/>
+
+
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="70"
+			atv="-7"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+			keep="true"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_Hallway.mp3))"
+			scale="1.0"
+			capture="false"
+			/>	
 
 		
 		<!-- Videos  -->
-			
+
+		<!-- 	
 		<hotspot name="mr_floyd_text"
 			url="plugins/textfield.swf"
 			ath="220"
@@ -437,20 +428,7 @@
 			capture="false"
 			/>
 
-
-		<hotspot name="klaxxon" url="../images/hotspot.gif"
-			ath="70"
-			atv="-7"
-			distorted="true"
-			alpha="0.0"
-			width="105.0"
-			height="105.0"
-			keep="true"
-			onclick="js(loadAFXPano(audio/voice_overs/VO_Hallway.mp3))"
-			scale="1.0"
-			capture="false"
-			/>				
-
+		 -->
 
 
 <!--onclick="lookto(265,-80,1,tween(EaseOutQuad,3),true,true)"-->

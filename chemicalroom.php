@@ -31,7 +31,7 @@
 
   </head>
 
-<body class="platform">
+<body class="platform" data-videos="poisoned bloodstream">
 
   <header>
     <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -48,10 +48,14 @@
    
     <!-- OVERLAY VIDEOS -->
     <div class="video-content-wrap">
-
-      <video controls="true" width="100%" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+      <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
         <source/>
       </video>
+      <div class="controls hide">
+        <div class="play"></div>
+        <div class="seek"></div>
+        <div class="text"></div>
+      </div>
 
       <a id="to-control" class="platform-nav">Close</a>
     </div>

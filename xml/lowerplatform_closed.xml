@@ -132,7 +132,7 @@
 			
 
 
-		<hotspot name="Port_Fourchon_text"
+		<hotspot name="Deep-Waters-text"
 			url="plugins/textfield.swf"
 			ath="119"
 			atv="-2"
@@ -143,14 +143,14 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3]PORT FOURCHON[h3]"
+			html="[h3]DEEP WATERS[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
 			width="200"
-      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/LowerPlatform_PortFourchon)));js(setCache(get(view.hlookat),220))"
+      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),220))"
     		/>
-		<hotspot name="Port_Fourchon_gif"
+		<hotspot name="Deep-Waters-GIF"
 			url="../images/icons/gif_iconB.gif"
 			ath="120"
 			atv="-1"
@@ -158,7 +158,7 @@
 			height="80"
 			width="80"
 			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/LowerPlatform_PortFourchon)));js(setCache(get(view.hlookat),220))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),220))"
 			capture="false"
 			/>
 

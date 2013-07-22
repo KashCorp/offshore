@@ -16,6 +16,8 @@ var pano_master = function(){
 
   var overLayFile, underlayFile, underlayMute, underlayMuted
 
+  if( $('body').data('videos') ) {
+
     $.ajax({
       url: 'js/videoMatrix.json',
       success: function(data){
@@ -58,6 +60,10 @@ var pano_master = function(){
         console.log(error)
       }
     });
+
+  }
+
+    
 
 
   

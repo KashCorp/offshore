@@ -1565,17 +1565,16 @@ function closeVideo(_id){
 *************************************************************************/
 
 function videoPlayer(group){
+	console.log('launchVideoPlayer: '+group)
+
+	master.overlayOpen = true
 
 	group = "."+group
 	items = $('.movie-menu'+group+' .movie-menu-item')
 
 	$(group+'.movie-menu').addClass('active')
 
-	console.log('launchVideoPlayer: '+group+')')
-
-	$("#to-control").on('click',function(){
-		closeVideoPlayer()
-	})
+	$("#to-control").on('click',function(){ closeVideoPlayer() })
 
 	$(items).first().addClass('active')
 
@@ -1613,11 +1612,9 @@ function videoPlayer(group){
 	var vidtimeout
 
 	function resize(){
-		console.log('resize')
 		if (vidtimeout) clearTimeout(vidtimeout)
 
 		vidtimeout = setTimeout(function(){
-			console.log('settimeout')
 			var dynamicWidth = window.innerWidth;
 		    var dynamicHeight = dynamicWidth * .5625;
 		    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
@@ -1629,6 +1626,8 @@ function videoPlayer(group){
 	}
 
 	window.addEventListener('resize', resize);
+
+	resize()
 
 
 	// Video Controls ---------------------------------------------------------
@@ -1814,7 +1813,7 @@ function closeVideoPlayer(){
 	$(".video-content-wrap").removeClass("video-content-wrap-open");
 
 	krpano = document.getElementById("krpanoObject");
-	krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
+	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon()))")
 }
 
 

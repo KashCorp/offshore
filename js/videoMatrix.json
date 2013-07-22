@@ -3,7 +3,6 @@
 
     {
       "group": "platform",
-      "title": "New Frontiers",
 
       "movies": [
         {
@@ -17,9 +16,10 @@
       ]
     },
 
+
+
     {
     	"group": "lowerplatform",
-    	"title": "Deep Waters",
 
     	"movies": [
     		{
@@ -31,43 +31,204 @@
     			"file": "LowerPlatform_Mr_Floyd"
     		},
     		{
-    			"title": "Port Fourchon: ",
+    			"title": "Port Fourchon: Oil Capital",
     			"file": "LowerPlatform_PortFourchon"
     		}
     	]
     },
 
+
+
     {
       "group": "boatdeck",
-      "title": "Shrimps and Oysters",
 
       "movies": [
         {
           "title": "Darla Rooks",
-          "file": "BoatDeck_Darlas_Life"
+          "file": "BOAT-Darlas_Life"
         },
         {
           "title": "Timothy ‘Blimp’ Cheramie",
-          "file": "BoatDeck_Timothy"
+          "file": "BOAT-Timothy"
         },
         {
           "title": "Shane Bagala",
-          "file": "BoatDeck_Shane"
+          "file": "BOAT-Shane"
         },
         {
           "title": "Rosina Philippe",
-          "file": "BoatDeck_Rosina_Philippe"
+          "file": "BOAT-Rosina_Philippe"
         },
         {
           "title": "Dean Blanchard",
-          "file": "BoatDeck_Dean_Blanchard"
+          "file": "BOAT-Dean_Blanchard"
         },
         {
           "title": "Byron Encalade",
-          "file": "BoatDeck_Byron"
+          "file": "BOAT-Byron"
         }
       ]
+    },
+
+
+
+    {
+      "group": "terminus",
+
+      "movies": [
+        {
+          "title": "Big Ball of Fire",
+          "file": "Terminus_Big_Ball_of_Fire"
+        },
+        {
+          "title": "A Risky Endeavour",
+          "file": "Terminus_A_Risky_Endeavour"
+        },
+        {
+          "title": "Golden Rules of Safety",
+          "file": "Terminus_Golden_Rules_of_Safety"
+        },
+        {
+          "title": "A Simple Case",
+          "file": "Terminus_A_Simple_Case"
+        },
+        {
+          "title": "Keith Jones",
+          "file": "Terminus_Keith"
+        }
+        
+      ]
+    },
+
+
+
+    {
+      "group": "poisoned",
+
+      "movies": [
+        {
+          "title": "Darla Rooks",
+          "file": "ChemicalStorage_Darla"
+        },
+        {
+          "title": "Jorey Danos",
+          "file": "ChemicalStorage_Jorey"
+        },
+        {
+          "title": "Kindra and David Arneson",
+          "file": "CHEM-Kindra_and_David"
+        },
+        {
+          "title": "‘Catfish’ Miller",
+          "file": "ChemicalStorage_James"
+        }
+        
+      ]
+    },
+
+
+
+    {
+      "group": "bloodstream",
+
+      "movies": [
+        {
+          "title": "Dr. Mike Robichaux",
+          "file": "ChemicalStorage_DrMike"
+        },
+        {
+          "title": "Dr. Andrew Whitehead",
+          "file": "ChemicalStorage_DrAndrew"
+        }
+        
+      ]
+    },
+
+
+
+
+    {
+      "group": "extremeoil",
+
+      "movies": [
+        {
+          "title": "Michael Klare: Deadly Encounters",
+          "file": "MK-DeadlyEncounters"
+        },
+        {
+          "title": "Disappearing Fields",
+          "file": "MK-DisappearingFields"
+        },
+        {
+          "title": "Oil in Perpetuity",
+          "file": "MK-OilinPerpetuity"
+        },
+        {
+          "title": "Nowhere Else to Go",
+          "file": "MK-NowhereElseToGo"
+        }
+        
+      ]
+    },
+
+
+
+
+    {
+      "group": "theatre",
+
+      "movies": [
+        {
+          "title": "BP: The Gulf is All Right",
+          "file": "THEATRE-BP_Gulf"
+        },
+        {
+          "title": "Russia Gazprom: Sakhalin Island",
+          "file": "THEATRE-GAZPROM"
+        },
+        {
+          "title": "BP: American Jobs",
+          "file": "THEATRE-BP_Commitment"
+        },
+        {
+          "title": "Shell: Alaska Response",
+          "file": "THEATRE-Shell_Alaska"
+        },
+        {
+          "title": "Petrobras: The Alive Flag",
+          "file": "THEATRE-Petrobras"
+        }
+        
+      ]
+    },
+
+
+
+
+    {
+      "group": "subhangar",
+
+      "movies": [
+        {
+          "title": "Scott Porter",
+          "file": "HANGAR-Scott_Porter"
+        },
+        {
+          "title": "The Kulluk",
+          "file": "HANGAR-Kulluk"
+        },
+        {
+          "title": "Resistance",
+          "file": "HANGAR-Resistance"
+        },
+        {
+          "title": "Rig Requiem",
+          "file": "HANGAR-Requiem"
+        }
+        
+      ]
     }
+
 
 
   ]

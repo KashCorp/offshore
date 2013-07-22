@@ -31,7 +31,7 @@
 
   </head>
 
-  <body style="overflow:hidden" class="platform" data-videos="platform lowerplatform">
+  <body style="overflow:hidden" class="platform" data-videos="platform">
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -41,6 +41,7 @@
 
         <div id="panocontainer" class="platform"></div>
         
+        <!-- VIDEO PLAYER -->
         <div class="video-content-wrap">
           <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
             <source/>

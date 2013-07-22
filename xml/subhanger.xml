@@ -25,6 +25,8 @@
 	</action>
 
 	<action name="viewchange">
+		set(currentX,get(view.hlookat));
+	  	add(currentX,180);
 		js(soundadjust(get(view.hlookat),get(view.fov)));
 	</action>
 
@@ -34,12 +36,12 @@
 	</action>
 
 	<action name="loadfirstscene">
-		loadscene(doorIsClosed, null, MERGE);
-	</action>
-
-	<action name="loadsecondscene">
 		loadscene(doorIsOpen, null, MERGE);
 	</action>
+
+	<!-- <action name="loadsecondscene">
+		loadscene(doorIsOpen, null, MERGE);
+	</action> -->
 
 	<action name="preloadaction">
 		js(preload());
@@ -61,7 +63,7 @@
 	 />
 
 	
-	<scene name="doorIsClosed" onstart="">	 	
+	<!-- <scene name="doorIsClosed" onstart="">	 	
 
 		<image>
     <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_l.jpg" />
@@ -89,7 +91,7 @@
 			scale="1.0"
 		/>
 
-	</scene>
+	</scene> -->
 
 
 	<scene name="doorIsOpen" onstart="action(preloadaction)">	 	
@@ -103,26 +105,24 @@
 		</image>
 	
 		<hotspot name="requiem" url="../images/hotspot.gif"
-				ath="70"
-				atv="-7"
-			
-				alpha="0"
-				width="500.0"
-				height="450.0"
-				borderwidth="0.0" borderwidthhover="1"
-				bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-				onclick="lookto(70,0,5,tween(easeOutQuad,4),true,true);set(hotspot[requiem].enabled,false);"
-				scale="1.0"
+			ath="70"
+			atv="-7"
+		
+			alpha="0"
+			width="500.0"
+			height="450.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(70,0,5,tween(easeOutQuad,4),true,true);set(hotspot[requiem].enabled,false);"
+			scale="1.0"
 		/>
 
 		
 
 
 	</scene>
-<!--
-		<image devices="Mobile">      <cube url="../images/panos/subhanger/mobile_%s.png" /> </image>
-		<image devices="Tablet">      <cube url="../images/panos/subhanger/pano_%s.png../images/panos/subhanger/pano_%s.png" /> </image>
--->
+
+
 		<plugin name="directions"
 			url="../images/panos/platform/hotspots/directions.png"
 			capture="false"
@@ -162,6 +162,8 @@
 			scale="0.7"
 		/>
 
+
+
 			
 		<hotspot name="hallway exit" url="../images/hotspot.gif"
 			ath="-35"
@@ -169,7 +171,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(newPage(hallway))"
+			onclick="js(newPage(hallway.php))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
@@ -178,7 +180,46 @@
 			/>	
 
 
+		<!-- Video Player -->
+
 		<hotspot name="requiemgif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="60"
+			atv="-10"
+		    distorted="true"
+		    keep="true"
+			alpha=".5"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhangar')));
+					 js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+		<hotspot name="requiem"
+			url="plugins/textfield.swf"
+			ath="85"
+			atv="-10"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ON THE WATER [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhangar')));
+					 js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+
+
+		<!-- <hotspot name="requiemgif" 
 			url="../images/icons/gif_iconA.gif"
 			ath="60"
 			atv="-10"
@@ -210,7 +251,10 @@
 			width="200"
 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Kindra_Activist)));js(setCache(get(view.hlookat),90))"
 			keep="true"
-		/>
+		/> -->
+
+
+
 
 
 		<hotspot name="into_sub" url="../images/hotspot-circle.gif"

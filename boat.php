@@ -31,7 +31,7 @@
 
   </head>
 
-<body style="overflow:hidden" class="platform">
+<body style="overflow:hidden" class="platform" data-videos="boatdeck">
 
   <header>
     <a class="volume-toggle"><i class="icon-volume-up"></i></a>
@@ -44,9 +44,14 @@
     <img id = "gradient" src = "images/overlay_gradient_blue.png" style="pointer-events:none;top:0px; display:block; position: absolute;width:100%;height:60%;opacity:0.7"/>
 
     <div class="video-content-wrap">
-      <video width="100%" controls="true" style="position:absolute;display:none;" id="video-overlay" preload="auto">
+      <video class="hide" width="100%" style="position:absolute" id="video-overlay" preload="auto">
         <source/>
       </video>
+      <div class="controls hide">
+        <div class="play"></div>
+        <div class="seek"></div>
+        <div class="text"></div>
+      </div>
 
       <a id="to-control" class="platform-nav">Close</a>
     </div>
