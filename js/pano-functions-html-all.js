@@ -121,8 +121,10 @@ var pano_master = function(){
             }
 
             scrollerFunction()
-
     }
+
+
+
 
     this.loadPanoScene = function(_pano)    {
 
@@ -237,9 +239,10 @@ var pano_master = function(){
                 // build all possible menus - videoPlayer() function picks the one it needs
                 $.each(data.children, function(group_i,group){
                     $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
+                    console.log(group.group)
 
                     $.each(group.movies,function(movie_i,movie){
-                        $('#movie-menu').append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
+                        $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
                     })
                 })
 
