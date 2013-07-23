@@ -9,7 +9,14 @@ var pano_master = function(){
 
     var pano = 'helicopter'; 
 
-    if(parent.location.hash.slice(1).indexOf('sequence')==-1) globalPano = parent.location.hash.slice(1)
+    if(parent.location.hash.slice(1)) globalPano = parent.location.hash.slice(1)
+
+    if(!parent.location.hash.slice(1)) globalPano = "prologue"
+
+    $("#wrapper").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
+
+      console.log($('#wrapper').css('opacity'))
+    });
 
     
 
@@ -36,19 +43,53 @@ var pano_master = function(){
 
         switch(_sequence){
 
-        case "sequence_passage_chemicalroom" : 
+          case "sequence_passage_chemicalroom" : 
                 ImageSequenceFiles = 'corridor';
                 ImageSequenceFrames = 65;
-                ghost = 'ghost_walktowardscamera2_';
+                ghost = 'ghost_walkupstairs_';
+                ghostFrames = 12
+                linkBack = 'hallway'
+                linkForward = 'chemicalRoom'                
+          break;
+
+          case "sequence_passage_theatre" : 
+                ImageSequenceFiles = 'corridor';
+                ImageSequenceFrames = 65;
+                ghost = 'hologram_rossina01_';
                 ghostFrames = 16
                 linkBack = 'hallway'
-                linkForward = 'chemicalRoom'
-        break;
+                linkForward = 'theatre'                
+          break;
+
+          case "sequence_outside_stairs_down" : 
+                ImageSequenceFiles = 'downstairs';
+                ImageSequenceFrames = 241;
+                ghost = 'ghost_walktowardscamera2_';
+                ghostFrames = 16
+                linkBack = 'lowerplatform'
+                linkForward = 'boat'                
+
+          break;         
+
+          case "sequence_shaftway" : 
+                ImageSequenceFiles = 'hatch';
+                ImageSequenceFrames = 65;
+                linkBack = 'lowerplatform'
+                linkForward = 'hallway'
+                var wordHTL ='<li class="drilling-depth">1000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-500px)">2000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-1000px)">3000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-1500px)">4000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-2500px)">8000 ft<br>DEEPEST WELL<br>EVER DRILLED</li>'
+
+                $('#word-container ul').html(wordHTL)
+          break;       
 
         }
 
 
-        $('#wrapper').fadeOut()
+        //$('#wrapper').fadeOut()
+        $('#wrapper').addClass('hide')
         $('#scroll-wrapper').fadeIn()
 
         var dynamicWidth = window.innerWidth;
@@ -63,7 +104,7 @@ var pano_master = function(){
 
             if(ghost) {
 
-                var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas","ghost_walktowardscamera2_",16)
+                var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas",ghost,ghostFrames)
 
                 ghost.imageSequencer()
 
@@ -76,6 +117,8 @@ var pano_master = function(){
             function scrollerFunction(){
 
                 var zPos = walkthrough.scrollValue*.4
+
+                $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
                 $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
                 $('#word_01').css('opacity', walkthrough.scrollPos/100);
@@ -102,20 +145,25 @@ var pano_master = function(){
                         $("#scroll-start").fadeOut(700)
                 }
 
-                 if(walkthrough.scrollPos > 85){
+                 if(walkthrough.scrollPos > 95){
 
-                        newPano(linkForward)
+                        console.log('end of passage')
 
                         cancelAnimationFrame(scrollerFunction)
 
                         walkthrough.scrollPos = 0
 
-                        $("#scroll-end").fadeIn(1000)
+                        $('#scroll-wrapper').fadeOut()
+                        
+                        $('#wrapper').addClass('hide')
+
+                        newPano(linkForward)
+
                 }else{
                         $("#scroll-end").fadeOut(1000)
                 }
                 
-                console.log('scroll')
+                //console.log('scroll')
 
                 requestAnimationFrame(scrollerFunction)
             }
@@ -136,7 +184,7 @@ var pano_master = function(){
         console.log('loadPanoScene() '+_pano)
 
         $('#scroll-wrapper').fadeOut()
-        $('#wrapper').show()
+        //$('#wrapper').fadeIn(1000)
         $('#wrapper').removeClass('hide')
 
         krpano = document.getElementById("krpanoObject");
@@ -148,6 +196,13 @@ var pano_master = function(){
         $('.dynamic').remove()
 
         switch(_pano){
+
+            case "prologue" : 
+                videoPlayer('prologue')
+                //that.loadPanoScene('helicopter')
+                //$('#pano-container').addClass('hide')
+            break;
+
             case "helicopter" : 
                 overLayFile = 'audio/Helicopter_Interior.mp3'
             break;
@@ -174,6 +229,10 @@ var pano_master = function(){
             case "hallway" : 
                 overLayFile = 'audio/Main_Hallway.mp3' 
                 underlayFile = 'audio/Drone_2_norm.mp3'
+
+                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video controls="true" width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div>')
+
+                $('#panocontainer').after('<img id = "gradient" class="dynamic" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
             break;
 
             case "subhanger" : 
@@ -204,6 +263,8 @@ var pano_master = function(){
             break;                 
             //
         }
+
+        that.loadSceneAudio()
 } 
 
  
@@ -213,11 +274,9 @@ var pano_master = function(){
         that.loadPanoScene(parent.location.hash.slice(1))
     })
     
-    // if(parent.location.hash.slice(1)) {
-    //     loadPanoScene(parent.location.hash.slice(1));
-    // }
 
-    var that = this    
+
+
 
     console.log("pano all is loading")
 
@@ -265,10 +324,10 @@ var pano_master = function(){
 
     $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
 
+    this.loadSceneAudio = function(_pano)    {
+
  var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
  var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
-
-    $.getScript("js/lib/Tween.js", function(data, textStatus, jqxhr) {
 
 
          if( underlayFile){
@@ -344,6 +403,8 @@ var pano_master = function(){
                 if(overLayFile)
                         master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
         }
+
+      }
 
                     var mouse_start_x = 0,
                     mouse_start_y = 0,
@@ -553,7 +614,7 @@ var pano_master = function(){
                          
                 }
                 runFrameRunner()    
-                }); //end get script
+
 
 
 }

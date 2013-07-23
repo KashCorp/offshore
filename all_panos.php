@@ -66,7 +66,7 @@
   </div>    
            
 
-  <div id="wrapper" class="wrapper fade">
+  <div id="wrapper" class="wrapper">
 
     <div id="panocontainer" class="platform"></div>
         
@@ -83,13 +83,16 @@
           <a id="to-control" class="platform-nav">Close</a>
         </div>
 
-        <div class="breadcrumb"></div>
+        
 
       </div>
 
 
 
     <div id="inter-text" style="display: block"></div>
+
+    <canvas id="ghost-canvas-trans" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
+    <div class="breadcrumb">rrrrrrr</div>
 <!--
     <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
       <source src="audio/Bong.ogg" type="audio/ogg" />
@@ -107,6 +110,7 @@
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
 		<script type="text/javascript" src="js/master-functions.js"></script>
+    <script type="text/javascript" src="js/lib/Tween.js"></script>
   	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
   	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
 

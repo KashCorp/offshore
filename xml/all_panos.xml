@@ -16,6 +16,9 @@
 	 
 	<events 
 		onxmlcomplete= "js(panoLoaded())" 
+
+		onloadcomplete= "js(panoComplete())" 
+		
 		onmousedown="action(globalmousedown)" 
 		onviewchange="action(viewchange)"
 		/> 
@@ -60,6 +63,10 @@
 		loadscene(platform, null, MERGE);
 	</action>
 
+	<action name="boat">
+		loadscene(boat, null, MERGE);
+	</action>
+
 	<action name="lowerplatform">
 		loadscene(lowerplatform, null, MERGE);
 	</action>
@@ -68,8 +75,8 @@
 		loadscene(controlroom, null, MERGE);
 	</action>
 
-	<action name="subhangar">
-		loadscene(subhangar, null, MERGE);
+	<action name="subhanger">
+		loadscene(subhanger, null, MERGE);
 	</action>
 
 	<action name="submarine">
@@ -113,6 +120,10 @@
 	
 
 	<scene name="helicopter">
+
+
+
+
 
 		<view 
 			hlookat="180.0"
@@ -1036,7 +1047,7 @@
 
 
 
-	<scene name="subhangar">
+	<scene name="subhanger">
 
 		<view 
 			hlookat="0.0"
@@ -1122,7 +1133,7 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhangar')));
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhanger')));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 		/>
@@ -1142,7 +1153,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhangar')));
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('subhanger')));
 					 js(setCache(get(view.hlookat),90))"
 		/>
 
@@ -1209,7 +1220,6 @@
 			vcenter="true"
 			width="200"
 			onclick="js(loadUnderWater(ROV_Coral))"
-			keep="true"
 		/>
 
 
@@ -1259,7 +1269,7 @@
 			atv="10"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(newPano(subhangar))"
+			onclick="js(newPano(subhanger))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="10.0"
@@ -1335,7 +1345,6 @@
 			vcenter="true"
 			width="200"
 			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
-			keep="true"
 		/>
 
 		<!-- Investigations -->
@@ -1351,7 +1360,6 @@
 			onout="js(resetHoverSound());"
 			scale="3.0"
 			
-			keep="true"
 			capture="false"
 		/>
 
@@ -1366,8 +1374,7 @@
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
-			
-			keep="true"
+		
 			capture="false"
 		/>
 
@@ -1402,6 +1409,149 @@
 
 
 
+
+	</scene>
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Theatre
+	
+	###########################################################################
+	####################################################################### -->
+
+	<scene name="boat" onstart="">
+
+
+		<view 
+		  hlookat="84.0"
+		  fov="90.0"
+		  fovmax="120.0"
+		  fovmin="45.0"
+		  />
+
+	 	<image>
+			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_%s.jpg" />
+
+		</image>
+<!--
+		<image devices="Desktop">     <cube url="../images/panos/boat/pano_%s.jpg"   /> </image>
+		<image devices="Mobile">      <cube url="../images/panos/boat/mobile_%s.jpg" /> </image>
+		<image devices="Tablet">      <cube url="../images/panos/boat/pano_%s.jpg../images/panos/boat/pano_%s.jpg" /> </image>
+-->
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			visible="true"
+			/>
+			
+
+		<hotspot name="into_sub" 
+			url="../images/hotspot.gif"
+			ath="90"
+			atv="-7.0"
+			distorted="true"
+			alpha="0.0"
+			height="60.0"
+			onclick="js(newPano(subhanger))"
+			scale="1.0"
+			capture="false"
+			/>
+
+		<hotspot name="going_up_stairs" 
+			url="../images/hotspot_diagonal.gif"
+			ath="75"
+			atv="-13"
+			distorted="true"
+			alpha="0"
+			height="140"
+			width="140"
+			onclick="js(newPano(lowerplatform))"
+			scale="1.0"
+			capture="false"
+			/>
+
+			
+		<hotspot name="stairs back to platform"
+			device="flash"
+			keep="false"
+			visible="true"
+			enabled="true"
+			handcursor="true"
+			zorder=""
+			style=""
+			alpha="1"
+			distorted="true"
+			fillcolor="0xFFFFFF" fillcolorhover="0xFFFFFF"
+			fillalpha="0" fillalphahover="0.1"
+			borderwidth="0.0" borderwidthhover="0"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			borderalpha="0.0" borderalphahover="0"
+			onclick="js(newPage(lowerplatform_closed.php))"
+			onhover="js(hoverSound())"
+			onout="js(resetHoverSound())"
+		>
+	    <point ath="92" atv="-10.3" />
+	    <point ath="87.8" atv="-10.5" />
+	    <point ath="87.8" atv="-2.9" />
+	    <point ath="92" atv="-3" />
+		</hotspot>
+
+
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="105"
+			atv="-10"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+
+			onclick="js(loadAFXPano(audio/voice_overs/VO_BoatDeck.mp3))"
+			scale="1.0"
+			capture="false"
+			/>
+
+
+
+
+		<hotspot name="Boatdeck-Text"
+			url="plugins/textfield.swf"
+			ath="135"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			
+			html="[h3]SHRIMP AND OYSTERS[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
+			/>
+
+		<hotspot name="Boatdeck-GIF" 
+			url="../images/icons/gif_iconA.gif"
+			ath="115"
+			atv="1"
+			distorted="true"
+			alpha=".5"
+			height="75"
+			width="75"
+			
+			scale="1.0"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
+			capture = "false"
+			/>
 
 	</scene>
 	

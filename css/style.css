@@ -106,7 +106,7 @@ word-wrap: break-word; /* IE */
 
 
 
-.hide { opacity: 0; }
+.hide { opacity: 0; pointer-events:none;}
 
 .fade {
 	-webkit-transition: opacity 500ms;
@@ -244,13 +244,13 @@ a:hover {
 	left: 0;
 	right: 0;
 	top: 0px;
-	display: none;
+	display: block;
 
-	-webkit-transition: opacity 500ms;
-	-moz-transition: opacity 500ms;
-	-ms-transition: opacity 500ms;
-	-o-transition: opacity 500ms;
-	transition: opacity 500ms;
+	-webkit-transition: opacity 1500ms;
+	-moz-transition: opacity 1500ms;
+	-ms-transition: opacity 1500ms;
+	-o-transition: opacity 1500ms;
+	transition: opacity 1500ms;
 	
 }
 
@@ -342,7 +342,7 @@ a:hover {
 }
 
 .breadcrumb {
-	display:none;
+	display:block;
 	padding-top:10px;
 	position: absolute;
 	width: 100%;
@@ -357,7 +357,8 @@ a:hover {
 
 #breadbox-container{
 	text-align:center;
-	width:100%
+	width:100%;
+	display:block;
 }
 
 .breadcrumb h1 {

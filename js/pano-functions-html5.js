@@ -126,7 +126,7 @@ var pano_master = function(){
  var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
  var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
 
-  $.getScript("js/lib/Tween.js", function(data, textStatus, jqxhr) {
+
 
 
      if( underlayFile){

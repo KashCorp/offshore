@@ -137,6 +137,8 @@ var masterFunctions = function() {
 
   		this._frame = null
 
+  		console.log("INIT TOOLBAR")
+
   		//$("#wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
   		//$("#scroll-wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
      	
@@ -153,6 +155,8 @@ var masterFunctions = function() {
             	breadbox_string += '<h1><img src="images/splash_logo_small@2x.png" alt=""></h1>';
             else
             	breadbox_string += '<h1><img src="images/splash_logo_small.png" alt=""></h1>';
+
+           
 
             breadbox_string += '<nav class="left">';
             breadbox_string += '<ul><li><a href="about.html">About</a></li>';
@@ -172,9 +176,11 @@ var masterFunctions = function() {
 			breadbox_string += '<div class="twitter"><a target="_BLANK" href="http://twitter.com/share?url='+'asdf.com'+'&text="></a></div>'
 			breadbox_string += '</div>'
 
-            
+ /**/           
 
             $('#breadbox-container').html(breadbox_string);
+
+            console.log(breadbox_string)
         }
   
   		var hash = parent.window.location.hash
@@ -187,11 +193,13 @@ var masterFunctions = function() {
         var m = d.getMonth();
         var y = d.getYear();
 
+        console.log(m)
+
 
         // Oil price ticker
 
-        var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20LastTradePriceOnly,ChangeinPercent,Change%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22BZ' + futureMonthsCode[m-1] + '13.NYM%22%29%0A%09%09&format=xml&diagnostics=false&env=http%3A%2F%2Fdatatables.org%2Falltables.env'
-
+        var url = 'http://query.yahooapis.com/v1/public/yql?q=select%20LastTradePriceOnly,ChangeinPercent,Change%20from%20yahoo.finance.quotes%20where%20symbol%20in%20%28%22BZ' + futureMonthsCode[4] + '14.NYM%22%29%0A%09%09&format=xml&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env'
+ //console.log(url)
         $.ajax({
             type: "GET",
             url: url,
@@ -658,7 +666,7 @@ this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
 this.blankTrans = function(_isNotPano){
 
 	if(_isNotPano) {
-	$('.wrapper').fadeIn(500)
+	//$('.wrapper').fadeIn(500)
 
 	}else{
 	var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
@@ -693,7 +701,7 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
     var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
-    $('body').append('<canvas id="ghost-canvas-trans" />')
+    //$('body').append('<canvas id="ghost-canvas-trans" />')
 
 	var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas-trans",_id,numberOfFrames)
  
@@ -707,8 +715,8 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 			master.audiocontrol('play');
 		}
 	} 	
-
-	if(_isNotPano) $('.wrapper').fadeIn()
+	$('#ghost-canvas-trans').fadeIn()
+	//if(_isNotPano) $('.wrapper').fadeIn()
 	$('.breadcrumb').fadeIn()
 
 }
@@ -1467,11 +1475,25 @@ function newPage(URL) {
 
 
 function newPano(_pano) {
+/*
+	$('#wrapper').fadeOut(500, function(){
+		parent.location.hash = _pano
+        
+     }) 
+*/
 	$('#wrapper').addClass('hide')
+	
 	setTimeout(function() {
 		parent.location.hash = _pano
 	}, 500)
+
 }
+
+function panoComplete(){
+
+	console.log("complete")
+
+	}
 
 function panoLoaded(){
 	//$('.loading').fadeOut(500)
@@ -1494,6 +1516,8 @@ function panoLoaded(){
 		// })
 
 		globalPano = false
+	}else{
+		console.log("no direction home")
 	}
 
 	
@@ -1613,6 +1637,14 @@ function videoPlayer(group){
 
 	switchVideo($(items).first().data('file'))
 
+	$('#video-overlay').on('canplaythrough',function(){
+
+		if(group == 'prologue')
+
+		newPano('helicopter')
+
+	})
+
 
 	// On video end ---------------------------------------------------------
 
@@ -1715,7 +1747,7 @@ function videoPlayer(group){
 			video.addEventListener("timeupdate", function() {
 			    var value = (100 / video.duration) * video.currentTime;
 			    $(seek).slider("value", value);
-			    $(text).html(timeFormat(video.currentTime))
+			    $(text).html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
 			});
 		})
 		.fail(function(jqxhr, settings, exception) {
