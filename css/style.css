@@ -246,11 +246,11 @@ a:hover {
 	top: 0px;
 	display: block;
 
-	-webkit-transition: opacity 1500ms;
-	-moz-transition: opacity 1500ms;
-	-ms-transition: opacity 1500ms;
-	-o-transition: opacity 1500ms;
-	transition: opacity 1500ms;
+	-webkit-transition: opacity 500ms;
+	-moz-transition: opacity 500ms;
+	-ms-transition: opacity 500ms;
+	-o-transition: opacity 500ms;
+	transition: opacity 500ms;
 	
 }
 
@@ -1375,7 +1375,7 @@ visibility:hidden;}
 	left: 0;
 	right: 0;
 	bottom: 0;
-	display:none;
+	display:block;
 
 	
 	pointer-events: none;
@@ -1589,7 +1589,7 @@ ul.movie-menu.mk li video {
 
 /* directions */
 
-#scroll-directions{
+.scroll-directions{
     height: 150px;
     width: 60px;
     background: url(../images/icons/drag_icon.png) bottom no-repeat;

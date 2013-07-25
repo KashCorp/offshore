@@ -53,12 +53,7 @@
     <a  href="https://twitter.com/share" class="twitter-share-button" data-href="http://www.offshore-interactive.com" data-text="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation" data-via="OFFSHOREwebdoc">Tweet</a>
   </div>
 </div> 
-     
-    <audio id="audio-1" preload="auto" class="ambient" loop="loop"> </audio>
-   
-    <audio id="audio-2" class="ambient"></audio>
 
-    <audio id="audio-3" class="ambient"></audio>
 
     
     <!--

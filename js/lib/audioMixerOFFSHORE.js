@@ -219,32 +219,7 @@
 	   
 	};
 
-	Track.prototype.loadXXXXXX = function( source ){
- 
-		var self = this;
-		
-		self.set('element', document.createElement('audio'));
-				
-		self.get('element').src = source;
 
-		self.get('element').load();
-		
-		self.get('element').loop  = "loop"
-		
-		self.get('element').addEventListener('canplaythrough', function(){
-			console.log("can play through")
-			self.set('source', self.get('mix').context.createMediaElementSource(self.get('element')));
-			self.get('source').connect(self.get('panner'));
-			self.get('panner').connect(self.get('gainNode'));
-			self.get('gainNode').connect(self.get('mix').context.destination);
-			self.get('source').connect(self.get('analyser'));
-			self.get('analyser').connect(self.get('processor'));
-			self.get('processor').connect(self.get('source').context.destination);
-			self.ready = true;
-			self.get('mix').trigger('load', self);
-	   }, false);
-	   
-	};
 
 	
 	Track.prototype.play = function(){
@@ -259,6 +234,7 @@
 		if ( this.options.playing ) return;
 		
 		//this.gain(this.options.gain)
+		console.log("note on")
 		this.options.playing = true;	
 		this.options.source.noteOn(0);
 		
@@ -268,11 +244,11 @@
 
 
 	Track.prototype.pause = function(){
-		if(this.options.source.mediaElement){
-		this.options.source.mediaElement.pause();
-		this.options.playing = false;
-		this.trigger('pause');
-	}
+
+			this.options.playing = false;	
+			this.options.source.noteOff(0);
+			this.trigger('pause');
+	
 	};
 	
   ////////TRACKS UTILITIES

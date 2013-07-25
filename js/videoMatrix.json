@@ -88,10 +88,7 @@
       "group": "terminus",
 
       "movies": [
-        {
-          "title": "Big Ball of Fire",
-          "file": "Terminus_Big_Ball_of_Fire"
-        },
+
         {
           "title": "A Risky Endeavour",
           "file": "Terminus_A_Risky_Endeavour"

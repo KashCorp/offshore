@@ -7,6 +7,9 @@ var masterFunctions = function() {
 	newPageTrigger,
 	isParent ;
 	var videoType = ".webm";
+
+	this.ghostBuster = false
+
 	var v = document.createElement('video');
 	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) {
 	 	videoType = '.mp4';
@@ -34,7 +37,7 @@ var masterFunctions = function() {
 
     isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
     this.isRetina = isRetinaFunction()
-    console.log('[retina]: '+this.isRetina)
+    //console.log('[retina]: '+this.isRetina)
      
      //$('.wrapper').before('<div class="loading"><img src="images/loading-gif-animation.gif"></div>')
      $('.wrapper').append('<div class="compass"><img src="images/icons/map_icon.png"></div>')
@@ -114,14 +117,12 @@ var masterFunctions = function() {
 
       this.ghost_array = []
 
-      this.ghost_array.push({'ghost':'ghost_1_','frames':16});
-      this.ghost_array.push({'ghost':'ghost_2_','frames':14});
-      this.ghost_array.push({'ghost':'ghost_3_','frames':16});
-      this.ghost_array.push({'ghost':'ghost_4_','frames':14});
-      this.ghost_array.push({'ghost':'ghost_5_','frames':16});
-      this.ghost_array.push({'ghost':'ghost_6_','frames':21});
-      this.ghost_array.push({'ghost':'ghost_7_','frames':20});
-      this.ghost_array.push({'ghost':'ghost_8_','frames':15});
+      //hologram_drillhead-frame-
+      //hologram_guy_walks_away-frame
+      //hologram_helicopter-frame-
+
+      this.ghost_array.push({'ghost':'hologram_walk_towards_camera2-frame-','frames':16});
+
 
 
 
@@ -146,10 +147,13 @@ var masterFunctions = function() {
       		that.parentChange('index.php')
 	  	}) 
 	    
-  		$(".breadcrumb").append('<div id="breadbox-container"></div>');
+  		
 
         var insertNav = function(price, change, percent) {
-            var breadbox_string = '';
+
+        	$(".breadcrumb").html('');
+
+            var breadbox_string = '<div id="breadbox-container">';
             
             if(that.isRetina)
             	breadbox_string += '<h1><img src="images/splash_logo_small@2x.png" alt=""></h1>';
@@ -174,13 +178,13 @@ var masterFunctions = function() {
 			breadbox_string += '<div class="share">'
 			breadbox_string += '<div class="facebook"><a target="_BLANK" href="http://www.facebook.com/share.php?u='+window.location.href+'"></a></div>'
 			breadbox_string += '<div class="twitter"><a target="_BLANK" href="http://twitter.com/share?url='+'asdf.com'+'&text="></a></div>'
-			breadbox_string += '</div>'
+			breadbox_string += '</div></div>'
 
  /**/           
 
-            $('#breadbox-container').html(breadbox_string);
+            $('.breadcrumb').html(breadbox_string);
 
-            console.log(breadbox_string)
+           
         }
   
   		var hash = parent.window.location.hash
@@ -193,7 +197,7 @@ var masterFunctions = function() {
         var m = d.getMonth();
         var y = d.getYear();
 
-        console.log(m)
+        
 
 
         // Oil price ticker
@@ -230,38 +234,6 @@ var masterFunctions = function() {
 
 
 
-	$('.navlink, .skiptrailer').click(function(){
-		var URL = $(this).data('url');
-		master.pageChange(URL);
-	})
-
-	this.pageChange = function(URL){
-    newPageTrigger = false
-  	$('#scroll-wrapper').fadeOut(350, function(){
-			window.location = URL;
-		})
-		
-	  $('#wrapper').fadeOut(350, function(){
-			location = URL;
-		})
-	}
-
-  
-	this.parentChange = function(URL){
-			console.log('parentChange')
-            newPageTrigger = false
-			$('#wrapper').fadeOut(350, function(){
-			parent.window.location = URL;
-		})
-	}
-
-	this.hashChange = function(URL){
-    newPageTrigger = false
-		
-	  $('#wrapper').fadeOut(350, function(){
-			location = URL;
-		})
-	}
 
 
 
@@ -281,7 +253,7 @@ var masterFunctions = function() {
 			krpano.call("set(autorotate.enabled,false)")
 
 			master.overlayOpen = true
-			$('#scroll-directions').fadeOut(500)
+			$('.scroll-directions').fadeOut(500)
 			$('.compass').fadeOut(500)
 			$("#panocontainer").fadeOut(500)
 			that._frame = '<iframe allowtransparency="true" id="map-container-frame" src="rigmap.php"></iframe>'
@@ -295,7 +267,7 @@ var masterFunctions = function() {
 		$('#map-container-frame').fadeOut(500, function(){
 			master.overlayOpen = false
 			that._frame = null;
-			$('#scroll-directions').fadeIn(500)
+			$('.scroll-directions').fadeIn(500)
 			$('.compass').fadeIn(500)
 			$("#panocontainer").fadeIn(500)
 			that._bookFrame = null;
@@ -392,224 +364,27 @@ var masterFunctions = function() {
 	// Audio Functionality
 	$('.volume-toggle').click(function(){
 
+		 master.soundTrigger = true
+
 		var isMuted = getCookie('muted')
 		console.log('click -> isMuted: '+isMuted)
-		if (isMuted)
-			master.audiocontrol('play');
-		else
-			master.audiocontrol('pause');		
+		if (isMuted){
+			$('.volume-toggle').html('<i class="icon-volume-up"></i>')
+			delete_cookie('muted')	
+			$('video').each(function(i,v){
+			$(v).prop('muted', false)
+			})
+		}else{
+			$('.volume-toggle').html('<i class="icon-volume-off"></i>')
+			setCookie('muted',true)
+			$('video').each(function(i,v){
+			 $(v).prop('muted', true)	
+			})
+		}
+					
 	})
 	
-this.overlayPlay = function (el,ogg,mp3){
 
- 	var audioTarget;
-	if(isParent){
-		audioTarget = $(el, window.parent.document)
-	}else{
-	    audioTarget = $(el)  	
-	}
-
-	if (audioTarget[0].canPlayType('audio/ogg')){
-		audioTarget[0].src = ogg
-	} else {
-		audioTarget[0].src = mp3
-	}
-  
-	if(getCookie('muted')!="true"){
-	  	//console.log("OVERLAY VOLUME: " + audioTarget[0].volume)
-	  	audioTarget[0].volume = 1.0
-		audioTarget[0].play()
-	}
-}
-
- this.videoTrans = function(clip,bgOnly){
-
- 	initAction()
-
- 	var transitionDiv = document.createElement("div");
-
- 	transitionDiv.id = "transitionDiv"
- 	
- 	transitionDiv.style.width = window.innerWidth  +"px";
-	
-	transitionDiv.style.height = window.innerHeight +"px";
-	
-	transitionDiv.style.overflow = "hidden";
-	
-	transitionDiv.style.position ="fixed"
-
-	//transitionDiv.style.opacity ="0.7"
-
-	transitionDiv.style.zIndex = 5000
-	
-    transitionDiv.style.top = "0px"
-
-     transitionDiv.style.background = "#000"
-
-    $(transitionDiv).click(function(){master.fadeTransition(transitionDiv)})
-  
-  	transitionDiv.style.left = "5px"
-  	
-  	if(!bgOnly){
-  		transitionDiv.style.display = "none"
-  	}else{
-		transitionDiv.style.zIndex = -1
-	}
-  
-
-   
-	
-	$('body').append(transitionDiv);
-	
-	var transitionDivGrid = document.createElement("div");
-	
-	transitionDivGrid.style.position ="absolute"
- 	
- 	transitionDivGrid.style.width = "100%";
-	
-	transitionDivGrid.style.height = "100%";
-	
-	transitionDivGrid.style.background='url(images/bg_linematrix4x4.gif) repeat'
-
-
-	var transitionDivVignette = document.createElement("div");
-	
- 	transitionDivVignette.className = 'vignette'
-
- 	var dynamicWidth = window.innerWidth;
-       
-    var dynamicHeight = dynamicWidth * .5625;
-       
-    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-         
-	var vid = document.createElement("video");
-	
-	
-	vid.style.position ="absolute"
-	
-    vid.style.top = dynamicTop + "px"
-  
-    vid.style.left = "0px"
-	
-	vid.width = dynamicWidth
-	
-	vid.height = dynamicHeight
-	
-	vid.style.display= "block"
-	
-	
-	vid.autoplay = true
-
-	transitionDiv.appendChild(vid);
-
-	vid.volume = 1.0
-
-	transitionDiv.appendChild(transitionDivGrid);
-	transitionDiv.appendChild(transitionDivVignette);
-
-	if(bgOnly){
-		vid.volume = 0.0
-		vid.src= clip
-		vid.playbackrate = 0.2;
-		vid.loop = "true"
-    
-	} else {
-
-		if(!getCookie('transition')) setCookie('transition',0)
-
-	    var videoSelector = parseInt(getCookie('transition'))
-        if(clip) {
-			vid.src= clip + videoType
-        }else{
-        	vid.src= "video/transitions/" + master.video_array[videoSelector].video + videoType
-        }
-        
-
-        if(master.video_array[videoSelector].audio){ /// transition audio
-
-        	var _audio = document.createElement("audio");
-        	_audio.src = "audio/transitions/" + master.video_array[videoSelector].audio + ".ogg"
-        	_audio.volume = 1.0 
-        	_audio.play()
-        	vid.volume = 0
-        	master.audioFadeAll(0.5)
-        	_audio.addEventListener("ended", function () {
-
-		 		if (Modernizr.audio) {
-		            var ismuted = getCookie('muted');
-		         	if (ismuted == 'true') {
-		      	    	master.audiocontrol('pause');  
-		         	} else {
-		      	    	master.audiocontrol('play');
-		         	}
-				} 	   
-
-        	})
-        	  
-
-        } else { ///no transition audio
-        	vid.volume = 0
-        	vid.playbackrate = 0.6;
-		    if (Modernizr.audio) {
-	            var ismuted = getCookie('muted');
-	         	if (ismuted == 'true') {
-	      	    	master.audiocontrol('pause');  
-	         	} else {
-	      	    	master.audiocontrol('play');
-	         	}
-	        }
-        }
-
-
-        
-        if(videoSelector < this.video_array.length-1){
-        	videoSelector++
-        } else{
-        	videoSelector = 0
-        }
-
-        setCookie('transition',videoSelector)
-		 
-
-
-
-			
-
-
-	}
-	vid.play();
-if(!bgOnly){
-
-///////////FADE LOADED SCENE IN
-
-
-	vid.addEventListener("timeupdate", function () {
-   		
-   		var _duration = vid.duration
-   		//if(master.video_array[videoSelector-1].edittime) _duration = master.video_array[videoSelector-1].edittime
-   		if(vid.currentTime > _duration-2){
-   			//console.log(vid.currentTime)
-
-   			master.fadeTransition(transitionDiv)
-   		}
-  	}, false);
-	
-
-	$(transitionDiv).fadeIn(1500)
-	}
-	return transitionDiv
- }
-
- this.fadeTransition = function(div){
-	$(div).fadeOut(500, function(){
-		$('.breadcrumb').fadeIn()
-			$('.wrapper').fadeIn(500,function(){
-
-			}
-
-		)
-	})
- }
 
 this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
     
@@ -647,19 +422,7 @@ this.blankTrans = function(_isNotPano){
 	var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
 	this.ghostTrans(getGhost['ghost'],getGhost['frames'])		
 	}	
-	initAction()
 
-	if (Modernizr.audio) {
-		var ismuted = getCookie('muted');
-		if (ismuted == 'true') {
-			master.audiocontrol('pause');  
-		} else {
-			master.audiocontrol('play');
-		}
-	} 	
-
-
-	//$('.breadcrumb').fadeIn()
 
 }
 
@@ -668,7 +431,7 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 	$(".loading").hide()
 
 
-	initAction()
+	//initAction()
 
     var dynamicWidth = window.innerWidth;
 
@@ -682,17 +445,8 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
  
 	ghost.imageSequencer()
 
-	if (Modernizr.audio) {
-		var ismuted = getCookie('muted');
-		if (ismuted == 'true') {
-			master.audiocontrol('pause');  
-		} else {
-			master.audiocontrol('play');
-		}
-	} 	
 	$('#ghost-canvas-trans').fadeIn()
-	//if(_isNotPano) $('.wrapper').fadeIn()
-	$('.breadcrumb').fadeIn()
+
 
 }
 
@@ -712,7 +466,7 @@ this.loadOverlayAudio = function(_file){
 		.easing(TWEEN.Easing.Quadratic.Out )
 		.onComplete(function() {
 			master.isTweeningAudio = false
-			TWEEN.remove(driftTweenSounds); 
+			//TWEEN.remove(driftTweenSounds); 
 			//driftTweenSounds = null
 		})
 		.start();               
@@ -733,7 +487,7 @@ this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 		.easing(TWEEN.Easing.Quadratic.Out )
 		.onComplete(function() {
 			master.isTweeningAudio = false
-			TWEEN.remove(driftTweenSounds); 
+			//TWEEN.remove(driftTweenSounds); 
 		})
 		.start();               
 }
@@ -758,7 +512,7 @@ this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume){
 		.easing(TWEEN.Easing.Quadratic.Out )
 		.onComplete(function() {
 			master.isTweeningAudio = false
-			TWEEN.remove(driftTweenSounds); 
+			//TWEEN.remove(driftTweenSounds); 
 		})
 		.start();               
 }
@@ -781,173 +535,12 @@ this.audioFadeAll = function(targetVolume){
 }
 
 this.audioFadeInAll = function(){
-	if(isParent){
-		
-	var parent_audio = $('audio', window.parent.document)
-  
-	parent_audio.each(function(i,s){
-		var audio_obj = parent_audio[i]
-        audioFadeIn(audio_obj,0.7)
-	})
-   }
-}
-
-
-
-this.audiocontrol = function(act) {
-
-
-	var audio = $('audio', window.parent.document)
-	var parent_audio = $('audio', window.parent.document)
-
-	try      { isParent = parent.IS_PARENT; }
-	catch(e) { isParent = false; }
-
-	if(isParent){
-			
-		// var parent_audio = $('audio', window.parent.document)
-
-		audio.each(function(i,v) {
-
-			var audio_obj = parent_audio[i]
-
-			// console.log(audio_obj)
-				
-			if (Modernizr.audio && audio) {	
-	 			
-	 			// play
-				if (act == 'play') {
-			
-
-					if(audio_obj.src) {
-						if (audio_obj && audio_obj.canPlayType('audio/ogg') && $(v).attr('class') !== 'whisper'){
-							audio_obj.src = v.children[0].src
-						} else {
-							//audio_obj.src= v.children[1].src
-						}
-
-						if(audio_obj.id != "audio-2"){
-							audio_obj.volume = 0.0;
-							audio_obj.play();
-							audioFadeIn(audio_obj, 1.0)
-					    } else {
-							audio_obj.volume = 1.0;
-					    }
-					}
-				  	
-					$('.volume-toggle').html('<i class="icon-volume-up"></i>')
-					master.remove_mute();
-					that.mute = false;
-				} 
-
-				// transition
-				else if (act == 'transition'){
-					console.log('[parent audio] '+v.id+' transition...')
-					 
-					if(getCookie('muted')!="true"){
-					 	transition_audio[0].volume = .2
-			        	transition_audio[0].play()
-			        }
-	          				
-					  audioFadeOut(audio_obj,true)
-				} 
-
-				// else pause
-				else {
-					console.log('[parent audio] '+v.id+' muting...')
-					$('.volume-toggle').html('<i class="icon-volume-off"></i>')
-					audioFadeOut(audio_obj)
-					master.set_mute()
-			  }
-
-			}
-		})
-
-	} else {
-		console.log('[audiocontrol] !isParent')
-
-		audio.each(function(i,v){
-				 
-			if (Modernizr.audio && audio) {			
-				if (act == 'play') {
-					console.log('[child audio] '+v.id+' playing...')
-					v.volume = 0.7;
-					v.play();
-					$('.volume-toggle').html('<i class="icon-volume-off"></i>')
-					master.remove_mute();
-					that.mute = false;
-				} else {
-					console.log('[child audio] '+v.id+' muting...')
-		        	audioFadeOut(v)
-		        	master.set_mute()
-				}
-			}
-		})
-    }
-
-}
-
-function audioFadeIn(audioElement,targetVolume){
-
-    var vol = 0,
-    interval = 100; // 200ms interval
-    var intervalID = setInterval(function() {
-        if (vol <= targetVolume) {
-            vol += 0.05;
-            audioElement.volume = vol;
-        } else {
-            clearInterval(intervalID);
-        }
-    }, interval);
 
 }
 
 
 
 
-this.audioFadeIn = audioFadeIn
-
-function audioFadeOut(audioElement, istran){
-
-    var vol = audioElement.volume,
-    interval =200; // 200ms interval
-    var intervalIDs = setInterval(function() {
-
-        if (vol > 0.1) {
-            vol -= 0.1;
-            audioElement.volume = vol;
-        } else {
-            clearInterval(intervalIDs);
-
- 				    audioElement.volume = 0.0;
- 				    if(!istran){
-				    audioElement.pause();
-				    master.set_mute();
-				    mute = true; 
-				  }
-        }
-    }, interval);
-
-}
-
-this.audioFadeOut = audioFadeOut
-
-function audioFadeOutTo(audioElement, targetVolume){
-
-    var vol = audioElement.volume,
-    interval =200; // 200ms interval
-    var intervalIDs = setInterval(function() {
-
-        if (vol > targetVolume) {
-            vol -= 0.1;
-            if(vol > 0)audioElement.volume = vol;
-        } else {
-            clearInterval(intervalIDs);
-        }
-    }, interval);
-
-}
-this.audioFadeOutTo = audioFadeOutTo
 	
 function hasUserAgent(condition) {
     return navigator.userAgent.match(condition);
@@ -1129,8 +722,8 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 		}
 	}
 	
-    var scrollerPos = parseInt($( "#scroll-directions" ).css('top'))
-    var scrollerPosStart = scrollerPos
+    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
+    var scrollerPosStart = 100
     var scrollValue = ( scrollerPosStart - 80) * 5000 / (window.innerHeight - 220)
    
     var mouseWheelTimeout
@@ -1151,11 +744,11 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
     this.play = function(){
     	if(that.playing) {
 
-    		$("#scroll-directions").animate(
+    		$(".scroll-directions").animate(
     			{'top': top+10},
     			50,
     			function(){
-    				scrollerPos = parseInt($( "#scroll-directions" ).css('top'))
+    				scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
     				scrollerPos += 10
 
     				advance(scrollerPos)
@@ -1185,21 +778,26 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 	    }
 
 
-		$( "#scroll-directions" ).css('top',scrollerPos)
-		scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
+		$( ".scroll-directions" ).css('top',scrollerPos)
+		scrollValue =  (parseInt($( ".scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 		that.scrollValue = scrollValue
 		that.scrollFunction()
     }
 
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-	   		$( "#scroll-directions" ).draggable({ 
+	   		$( ".scroll-directions" ).draggable({ 
 	   			axis: "y",
 	   			containment: 'parent',
 				drag: function() {
+					
 					that.playing = false // stop autoplay
-					scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
+					scrollValue =  (parseInt($( this ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 					that.scrollValue = scrollValue
+
+					console.log(scrollValue)
+
+
 					that.scrollFunction()
 				},
 				stop: function() {
@@ -1222,7 +820,7 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 		function MouseWheelHandler(e){
 	        var e = window.event || e; // old IE support
 	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-	        scrollerPos = parseInt($( "#scroll-directions" ).css('top'))
+	        scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
 	        scrollerPos -= delta*10
 
 	        advance(scrollerPos)
@@ -1320,9 +918,7 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 
 	filePathPre = master.cdn_imgseq // 'video/video_clips/'
-
-	w 
-	h 
+	//filePathPre = 'video/newtransitions/'
 
 	function zeroes(num, length) {
 	  var str = '' + num;
@@ -1349,17 +945,19 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	var imageSrc;
 	var playHead=1;
 
+	master.ghostBuster = false
+
 	this.imageSequencer = function(){
         
-        that.vidplayback = setTimeout(function() {
         
-	        imageSrc = filePathPre + name + zeroes(playHead,5)+".png";
+        
+	        imageSrc = filePathPre + name + zeroes(playHead,4)+".png";
 	        
 	        var img = new Image();
 	        img.src = imageSrc
 
             context.clearRect ( 0 , 0 , w , h );
-			canvas.style.opacity = map(Math.random(), 0.1,0.3, 0.05,0.02) // (Math.random()*.2) + 0.1
+			canvas.style.opacity = (Math.random()*.2) + 0.1
 
 			that.playHead = playHead;
 			img.onload = function(){
@@ -1370,10 +968,20 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	          	} else{
 	        		playHead =  1
 	          	}
-	          	requestAnimationFrame(that.imageSequencer);
+
+				
+			if(!master.ghostBuster){
+				console.log('ghost maker')
+	          	that.vidplayback = setTimeout(function() {
+					that.imageSequencer()				
+	          	}, 1000 / 8);
+	        }else{
+	        	canvas.style.opacity = 0
+	        }
+	          	//requestAnimationFrame(that.imageSequencer);
 		    }         
 
-        }, 1000 / 8);
+        
 
    }//imageSequencer 
 
@@ -1450,13 +1058,9 @@ function newPage(URL) {
 
 
 function newPano(_pano) {
-/*
-	$('#wrapper').fadeOut(500, function(){
-		parent.location.hash = _pano
-        
-     }) 
-*/
+
 	$('#wrapper').addClass('hide')
+	$('.pano-underlay').addClass('hide')
 	
 	setTimeout(function() {
 		parent.location.hash = _pano
@@ -1466,7 +1070,12 @@ function newPano(_pano) {
 
 function panoComplete(){
 
-	console.log("complete")
+	$('#wrapper').removeClass('hide')
+
+	setTimeout(function() {
+		$('.pano-underlay').removeClass('hide')
+	}, 700)
+	
 
 	}
 
@@ -1592,7 +1201,14 @@ function closeVideo(_id){
 *************************************************************************/
 
 function videoPlayer(group){
+
 	console.log('launchVideoPlayer: '+group)
+
+	master.ghostBuster = true
+
+	master.soundTrigger = true
+
+	master.bgGain = 0.5
 
 	master.overlayOpen = true
 
@@ -1614,9 +1230,10 @@ function videoPlayer(group){
 
 	$('#video-overlay').on('canplaythrough',function(){
 
-		if(group == 'prologue')
 
-		newPano('helicopter')
+		if(group == '.prologue') newPano('helicopter')
+
+		
 
 	})
 
@@ -1835,8 +1452,8 @@ function closeVideoPlayer(){
 	$('#to-control').off('click')
 	$(".video-content-wrap .play").off('click')
 	$(".video-content-wrap").off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
-	
-	master.audioFadeInAll()
+
+	master.bgGain = 1.0
 	
 	$('#video-overlay').addClass('hide')
 	$('#panocontainer').removeClass('hide')
@@ -2063,6 +1680,8 @@ function showCS(selector) {
 	}
 	
 })(jQuery);
+
+
 
 
 
