@@ -100,7 +100,7 @@
 
     <div class="loading"></div>
 
-    <div class="breadcrumb"></div>
+    <div class="breadcrumb" id="toolbelt"></div>
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
@@ -109,6 +109,9 @@
     <script type="text/javascript" src="js/lib/Tween.js"></script>
   	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
   	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
+    <script type="text/javascript" src="js/lib/pxloader/PxLoader.js"></script>
+    <script type="text/javascript" src="js/lib/pxloader/PxLoaderImage.js"></script>
+    <script type="text/javascript" src="js/panoLoader.js"></script>
 
 
     <script>
