@@ -19,7 +19,7 @@
 <style>
 
   #map-container {
-    position: absolute;
+    position: relative;
     top: 100px;
     margin: 0 auto;
     width: auto; height: auto;
@@ -218,12 +218,6 @@
       $('.map_labels div').on('mouseout',function(){
         $('.map_legend').find('div.' + $(this).attr('class')).removeClass('hover')
       })
-
-      // center #map-container
-      var left = ($(window).width() / 2) - ($("#map-container").width() / 2)
-      var top  = 100
-      $('#map-container').css('left',left)
-      $('#map-container').css('top',top)
 
       $.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
         $( "#map-container" ).draggable({

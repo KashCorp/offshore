@@ -93,9 +93,12 @@
 
       <div class="compass"><img src="images/icons/map_icon.png"></div>
 
+
   </div>
 
     <canvas id="ghost-canvas-trans" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
+
+    <iframe allowtransparency="true" class="" id="overlay_frame" src=""></iframe>
     
 
     <div class="loading"></div>

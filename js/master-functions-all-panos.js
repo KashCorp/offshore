@@ -6,7 +6,8 @@ var masterFunctions = function() {
 		audio = document.getElementsByTagName('audio'),
 		newPageTrigger,
 		isParent,
-		videoType = ".webm";
+		videoType = ".webm",
+		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
 	this.ghostBuster = false
 	this.ghostMinc
@@ -283,40 +284,61 @@ var masterFunctions = function() {
 
 
 	this.loadMap = function(){
-		if(!this._frame){
-			krpano = document.getElementById("krpanoObject");
-			krpano.call("set(autorotate.enabled,false)")
 
-			master.overlayOpen = true
-			master.ghostBuster = true
+		// hide container
+		$("#panocontainer").addClass('hide')
+		$("#panocontainer").on(css3transitionend,function(){
+			console.log('transition end')
+			$("#panocontainer").hide()
+
 			$('.scroll-directions').fadeOut(500)
 			$('.compass').fadeOut(500)
-			$("#panocontainer").fadeOut(500)
-			that._frame = '<iframe allowtransparency="true" id="map-container-frame" src="rigmap.php"></iframe>'
-			// $('body').append(this._frame)
-			$('.vignette').after(this._frame)
-			$('#map-container-frame').fadeIn(1000)
-		}
+		})
+
+		krpano = document.getElementById("krpanoObject");
+		krpano.call("set(autorotate.enabled,false)")
+
+		master.overlayOpen = true
+		master.ghostBuster = true
+
+		// load map
+		$('#overlay_frame').attr('src','rigmap.php')
+		$('#overlay_frame').load(function(){
+			$('#overlay_frame').show()
+			$('#overlay_frame').addClass('show')
+		})
+
 	}
 
 	this.closeMap = function(){
-		$('#map-container-frame').fadeOut(500, function(){
+		console.log('close map')
+
+		$('#overlay_frame').removeClass('show')
+
+		$('#overlay_frame').on(css3transitionend,function(){
 			
+			$('#overlay_frame').hide()
+
+			$('#overlay_frame').attr('src','')
+
 			master.overlayOpen = false
 			master.ghostBuster = false
 
-			that._frame = null;
+			$('#to-control').off('click')
+
+			// that._frame = null;
+			// that._bookFrame = null;
 
 			$('.scroll-directions').fadeIn(500)
 			$('.compass').fadeIn(500)
-			$("#panocontainer").fadeIn(500)
-			that._bookFrame = null;
+
+			$("#panocontainer").show()
+			$("#panocontainer").removeClass('hide')
+
 
 			krpano = document.getElementById("krpanoObject");
 			krpano.call("set(autorotate.enabled,true)")
-
-			$('#to-control').off('click')
-	 	})
+		})
 	}
 
 	this.loadBook = function(_bookUrl){
@@ -1117,11 +1139,13 @@ function newPano(_pano) {
 	console.log('newPano')
 
 	if( $('#wrapper').hasClass('hide') ) {
+
 		console.log('has class hide')
 		$('.loading').show()
 		$('.loading').removeClass('hide')
 		
 	} else {
+
 		console.log('doesn’t have class hide')
 		$('#wrapper').addClass('hide')
 		$('#wrapper').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
@@ -1129,6 +1153,7 @@ function newPano(_pano) {
 			$('.loading').removeClass('hide')
 			$('#wrapper').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend')
 		})
+
 	}
 	
 	// $('.pano-underlay').addClass('hide')
