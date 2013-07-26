@@ -20,6 +20,7 @@
 		onloadcomplete= "js(panoComplete())"
 
 		onmousedown="action(globalmousedown)" 
+
 		onviewchange="action(viewchange)"
 		/> 
 	 
@@ -102,6 +103,11 @@
 		fov="90.0"
 		fovmax="120.0"
 		fovmin="5.0"
+		limitview ="lookat"
+		hlookatmin ="NAN"
+		hlookatmax ="NaN"
+		vlookatmin ="10"
+		vlookatmax ="-35"
 	/>
 
 	<control
@@ -123,7 +129,7 @@
 
 
 
-	 <scene name="credits" onstart="">
+	 <scene name="prologue" onstart="">
 
 	 		<progress showwait="none" />
 
@@ -155,7 +161,7 @@
 	 			ath="211"
 	 			atv="-13"
 	 			distorted="true"
-	 onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+	 onclick="lookto(get(currentX),0,90,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
 	 			scale="1.0"
 	 			capture="false"
 	 			/>
@@ -187,6 +193,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="10.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"
 			/>
 
 		<image>
@@ -274,6 +285,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="1.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 
 	 	<image>
@@ -382,6 +398,11 @@
 	  		fov="90.0"
 	  		fovmax="120.0"
 	  		fovmin="15.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"	  		
 	  	/>
 
 	 	<image>
@@ -494,6 +515,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="5.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 
 		<image>
@@ -661,6 +687,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="1.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 			/>
 
 		<image>
@@ -962,6 +993,11 @@
 		  fov="90.0"
 		  fovmax="120.0"
 		  fovmin="1.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"		  
 		 />		
 
 		<image>
@@ -1130,6 +1166,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="4.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 	 	
 	 	<image>
@@ -1254,6 +1295,11 @@
 			fov="65.0"
 			fovmax="120.0"
 			fovmin="15.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 
 		<image>
@@ -1372,6 +1418,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="20.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 			
 		<image>
@@ -1506,6 +1557,11 @@
 		  fov="90.0"
 		  fovmax="120.0"
 		  fovmin="45.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"		  
 		  />
 
 	 	<image>

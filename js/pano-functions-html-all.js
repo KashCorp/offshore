@@ -296,6 +296,8 @@ var pano_master = function(){
         krpano = document.getElementById("krpanoObject");
         krpano.call('action(' + _pano + ')')
 
+
+
         // should add a krpano lookto call here, sometimes loads looking at ceiling
 
         // remove leftover dynamic elements
@@ -316,6 +318,8 @@ var pano_master = function(){
             break;
 
             case "helicopter" :
+
+                krpano.call("lookto(180,0,90,smooth(),true,true))")
 
                 overLayFile = 'audio/Helicopter_Interior.mp3'
             break;
