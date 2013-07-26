@@ -20,7 +20,14 @@ var pano_master = function(){
 
     //Defualt to start if no has'h
 
-    if(!parent.location.hash.slice(1)) globalPano = "prologue"
+   panoXMLFile = './xml/all_panos.xml?nocache='+Math.random()*5
+
+    if(!parent.location.hash.slice(1)) {
+        globalPano = "prologue"; 
+        var panoXMLFile = './xml/prologue.xml?nocache='+Math.random()*5
+        
+    }
+
 
     // Build pano
 
@@ -30,7 +37,7 @@ var pano_master = function(){
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
     
     var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
-    viewer.addVariable("xml", xmlLoc);  
+    viewer.addVariable("xml", panoXMLFile);  
     viewer.useHTML5("always")
     viewer.passQueryParameters();
     viewer.addParam("wmode","transparent");
@@ -296,7 +303,9 @@ var pano_master = function(){
         switch(_pano){
 
             case "prologue" : 
-                videoPlayer('prologue')
+
+            preloader()
+                //videoPlayer('prologue')
                 //that.loadPanoScene('helicopter')
                 //$('#pano-container').addClass('hide')
             break;
