@@ -37,7 +37,7 @@
     <a class="volume-toggle"><i class="icon-volume-up"></i></a>
   </header>
 
-  <div class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div>
+  <!-- <div class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div> -->
 
   <div id="scroll-wrapper" class="wrapper">
     
@@ -55,7 +55,7 @@
 
     </div>
     
-    <canvas id="ghost-canvas" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
+    <!-- <canvas id="ghost-canvas" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas> -->
     
     <div id="scroll-start" class="scroll-nav">Go Back?</div>
       
@@ -89,15 +89,16 @@
 
       <div class="scroll-directions-container panoversion"><div class="scroll-directions"></div></div>
 
-      <div id="walking-exit" class="platform-nav">Close</div>      
+      <div id="walking-exit" class="platform-nav">Close</div>
 
-      </div>
+      <div class="compass"><img src="images/icons/map_icon.png"></div>
 
-
-
-
+  </div>
 
     <canvas id="ghost-canvas-trans" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
+    
+
+    <div class="loading"></div>
 
     <div class="breadcrumb"></div>
 
@@ -112,11 +113,14 @@
 
     <script>
       var soundVector1 = soundVector2 = soundVector3 = 0;
+
       var soundadjust = function(coord,fov) {
-        var convCoord =  Math.abs(coord+60%360);
+
+        var convCoord =  Math.abs( (coord+60) % 360);
         var convCoord1 =  Math.abs((coord-120)%360);
 
-      
+        // console.log('convCoord: '+'\t'+convCoord)
+
 
         if(convCoord < 180 ){
           soundVector1 = convCoord/180;
@@ -125,7 +129,6 @@
         }
 
               //console.log(soundVector1*2-1)
-             
 
          
         if(convCoord1 < 180 ){
@@ -143,6 +146,14 @@
         if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
           parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
         }
+
+        // show ghosts only in specific spot (recalculated every pano)
+        if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
+          master.ghostBuster = false
+        } else {
+          master.ghostBuster = true
+        }
+
 
         if(master.globalPano == 'chemicalroom' || master.globalPano == 'subhanger' ) {
           if(fov < 25) {

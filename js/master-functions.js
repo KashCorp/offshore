@@ -37,7 +37,7 @@ var masterFunctions = function() {
     console.log('[retina]: '+this.isRetina)
      
      //$('.wrapper').before('<div class="loading"><img src="images/loading-gif-animation.gif"></div>')
-     $('.wrapper').append('<div class="compass"><img src="images/icons/map_icon.png"></div>')
+     $('.wrapper').append('<div class="compass" style="display:none"><img src="images/icons/map_icon.png"></div>')
 
      $('.compass').click(function() {
      	$(this).fadeOut(500)
@@ -1596,6 +1596,9 @@ function videoPlayer(group){
 
 	master.overlayOpen = true
 
+	console.log('FUCKING FUCK')
+	$('.volume-toggle').css('line-height','80px')
+
 	group = "."+group
 	items = $('.movie-menu'+group+' .movie-menu-item')
 
@@ -1830,6 +1833,8 @@ function closeVideoPlayer(){
 
 	$('.movie-menu').removeClass('active')
 	$('.movie-menu-item').removeClass('active')
+
+	$('.volume-toggle').css('line-height','20px')
 
 	// unbind
 	$('#to-control').off('click')

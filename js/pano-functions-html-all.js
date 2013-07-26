@@ -9,7 +9,11 @@ var pano_master = function(){
 
     var panoWalkthrough
 
-    var ghostTransition
+    this.ghostTransition
+
+    this.dynamicWidth = window.innerWidth;
+    this.dynamicHeight = this.dynamicWidth * .5625;
+    this.dynamicTop = (window.innerHeight - this.dynamicHeight)/2;
 
     if(parent.location.hash.slice(1)) globalPano = parent.location.hash.slice(1)
 
@@ -23,6 +27,7 @@ var pano_master = function(){
         targetContainer = "panocontainer",
         xmlLoc = masterPath + "/xml/all_panos.xml?nocache="+Math.random()*5,
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
+    
     var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
     viewer.addVariable("xml", xmlLoc);  
     viewer.useHTML5("always")
@@ -36,13 +41,28 @@ var pano_master = function(){
 
     /// if pano, waits for onloadcomplete from krpano to remove hide class? 
 
-    /// Do we need loaing indicator?
+    /// Do we need loading indicator? -- done IC
+
+
+
+
+    /**************************************************************************
+        
+        Load Sequence Scene
+    
+    **************************************************************************/
+    
 
     var loadSequenceScene = function(_sequence)    {
+        console.log('loadSequenceScene')
 
         cancelAnimationFrame(runFrameRunner)
 
-        var ImageSequenceFiles,ghost, ghostFrames, linkBack, linkForward
+        var ImageSequenceFiles,
+            ghost,
+            ghostFrames,
+            linkBack,
+            linkForward
 
         // clear word container
 
@@ -108,121 +128,117 @@ var pano_master = function(){
         
         that.loadSceneAudio()
 
+        if(ghost) {
+            console.log('GHOST')
+            that.ghostTransition = new ghostFunctions(that.dynamicWidth,that.dynamicHeight,"ghost-canvas",ghost,ghostFrames)
+            that.ghostTransition.imageSequencer()
+        }
+
         $('#wrapper').addClass('hide')
+        $('#wrapper').hide()
 
         $('#scroll-wrapper').fadeIn()
 
-        $("#scroll-start").click(function(){
-          newPano(linkBack)
-        });
+        $("#scroll-start").click(function(){ newPano(linkBack) });
+        $("#scroll-end")  .click(function(){ newPano(linkForward) });
 
-        $("#scroll-end").click(function(){
-          newPano(linkForward)
-        });       
+        $("#walking-canvas").css("top",that.dynamicTop)
 
-        var dynamicWidth = window.innerWidth;
+        var walkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
 
-        var dynamicHeight = dynamicWidth * .5625;
+        walkthrough.scrollPos = 0;
+        walkthrough.scrollValue = 1;
 
-        var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-        $("#walking-canvas").css("top",dynamicTop)
-
-        var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
-
-        walkthrough.scrollPos = 0
-
-        walkthrough.scrollValue = 1
-
-        if(ghost) {
-
-            ghostTransition = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas",ghost,ghostFrames)
-
-            ghostTransition.imageSequencer()
-
-        }
-
-        var scrollTrigger,scrollPercent = 0
+        var scrollTrigger,
+            scrollPercent=0;
 
             //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
         function scrollerFunction(){
 
-                var zPos = walkthrough.scrollValue*.4
+            var zPos = walkthrough.scrollValue*.4
 
-                scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
+            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
-                $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+            $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
-                $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-                $('#word_01').css('opacity', scrollPercent/100);
-            
-                if(scrollPercent > 40 && ghostTransition){
-                        $("#ghost-canvas").fadeIn(500)
-                        $("#ghost-controls").fadeIn(500)
-                }else{
-                        $("#ghost-canvas").fadeOut(500)
-                        $("#ghost-controls").fadeOut(2500)
-                }
-
-                
-
-                if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-                        parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
-                } 
-                
-                if(scrollPercent < 5){
-                        $("#scroll-start").fadeIn(1000)
-                }else{
-                        $("#scroll-start").fadeOut(700)
-                }
-
-
-                 if(scrollPercent > 95 && !scrollTrigger){
-
-                        console.log('end of passage')
-
-                        scrollTrigger = true
-
-                        cancelAnimationFrame(scrollerFunction)
-
-                        walkthrough.scrollPos = 0
-
-                        $('#scroll-wrapper').fadeOut()
-                        
-                        $('#wrapper').addClass('hide')
-
-                        newPano(linkForward)
-
-                }else{
-                        $("#scroll-end").fadeOut(1000)
-                }
-
-                requestAnimationFrame(scrollerFunction)
+            $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+            $('#word_01').css('opacity', scrollPercent/100);
+        
+            if(scrollPercent > 40 && that.ghostTransition){
+                master.ghostBuster = false
+                // $("#ghost-controls").fadeIn(500)
+            }else{
+                master.ghostBuster = true
+                // $("#ghost-controls").fadeOut(2500)
             }
 
-            scrollerFunction()
+            if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+                    parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
+            } 
+            
+            if(scrollPercent < 5) $("#scroll-start").fadeIn(1000)
+            else                  $("#scroll-start").fadeOut(700)
+
+
+             if(scrollPercent > 95 && !scrollTrigger){
+
+                    console.log('end of passage')
+
+                    scrollTrigger = true
+
+                    cancelAnimationFrame(scrollerFunction)
+
+                    walkthrough.scrollPos = 0
+
+                    $('#scroll-wrapper').fadeOut()
+                    
+                    $('#wrapper').addClass('hide')
+
+                    newPano(linkForward)
+
+            }else{
+                    $("#scroll-end").fadeOut(1000)
+            }
+
+            requestAnimationFrame(scrollerFunction)
+
+        } // scrollerFunction
+
+        scrollerFunction()
+
+       $('.loading').addClass('hide')
+        $('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+            $(this).hide()
+        })
     }
 
 
 
 
-    this.loadPanoScene = function(_pano)    {
-
-      if(ghostTransition) {ghostTransition.kill();ghostTransition = false}
-
-      master.globalPano = _pano
-
-      var dynamicWidth = window.innerWidth;
-
-      var dynamicHeight = dynamicWidth * .5625;
-
-      var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-      $('.scroll-directions').css('top',100)
 
 
-      if(parent.audiomaster.mix.getTrack('overlay_02')){
+
+    /**************************************************************************
+        
+        Load Pano Scene
+    
+    **************************************************************************/
+    
+
+    this.loadPanoScene = function(_pano) {
+
+    if(that.ghostTransition) { that.ghostTransition = false; }
+
+    // calculate a random range for ghosts to appear
+    master.ghostMinCoord = Math.floor( Math.random() * 180 )
+    master.ghostMaxCoord = master.ghostMinCoord + 100
+
+    master.globalPano = _pano
+
+    $('.scroll-directions').css('top',100)
+
+    if(parent.audiomaster.mix.getTrack('overlay_02')){
 
         var dummysound = { fadeFrom: 1};
 
@@ -231,19 +247,17 @@ var pano_master = function(){
         console.log("has overlay 2")
 
         parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
-
         parent.audiomaster.mix.removeTrack('overlay_02')
 
-      }
+    }
 
 ///// Decision to divert to image sequence
         if(_pano.indexOf('sequence')!=-1) {
             loadSequenceScene(_pano);
-            return;
+            return false;
         }
 
         // start pano mouse interaction
-
         runFrameRunner() 
 
         console.log('loadPanoScene() '+_pano)
@@ -296,7 +310,7 @@ var pano_master = function(){
                 
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
-                ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
+                that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
 
                 overLayFile = 'audio/Main_Hallway.mp3' 
                 
@@ -315,11 +329,11 @@ var pano_master = function(){
                 underlayFile = 'audio/Drone_3.mp3'
 
                 $("#walking-canvas-pano").removeClass('hide')
-                $("#walking-canvas-pano").css("top",dynamicTop)
+                $("#walking-canvas-pano").css("top",that.dynamicTop)
 
                 var scrollTrigger,scrollPercent = 1
 
-                panoWalkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas-pano","approaching",119,true)
+                panoWalkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas-pano","approaching",119,true)
 
                 $("#walking-exit").click(function(){
                  panoWalkthrough.scrollPos = 0
@@ -371,51 +385,66 @@ var pano_master = function(){
         }
 
         that.loadSceneAudio()
-} 
-
- 
-
-$(parent).bind('hashchange', function(){
-    if (parent.location.hash.slice(1) =="") return
-    $("#walking-canvas-pano").addClass('hide')
-
-    that.loadPanoScene(parent.location.hash.slice(1))
-})
+    } 
 
 
 
+    /**************************************************************************
+        
+        Hash Change
+
+    **************************************************************************/
+
+     
+
+    $(parent).bind('hashchange', function(){
+        if (parent.location.hash.slice(1) =="") return
+        $("#walking-canvas-pano").addClass('hide')
+
+        that.loadPanoScene(parent.location.hash.slice(1))
+    })
 
 
-    
+
+
+
+
+
+
+    /**************************************************************************
+        
+        Load Video Matrix
+
+    **************************************************************************/
  
 
     var overLayFile, underlayFile, underlayMute, underlayMuted
 
-        $.ajax({
-            url: 'js/videoMatrix.json',
-            success: function(data){
+    $.ajax({
+        url: 'js/videoMatrix.json',
+        success: function(data){
 
-                console.log("MOVIE LIST LOADED")
-                // master.movieMenu = data.children
+            console.log("MOVIE LIST LOADED")
+            // master.movieMenu = data.children
 
-                // build all possible menus - videoPlayer() function picks the one it needs
-                $.each(data.children, function(group_i,group){
-                    $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
+            // build all possible menus - videoPlayer() function picks the one it needs
+            $.each(data.children, function(group_i,group){
+                $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
 
-                    $.each(group.movies,function(movie_i,movie){
-                        $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
-                    })
+                $.each(group.movies,function(movie_i,movie){
+                    $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
                 })
+            })
 
-                $('.movie-menu-item').click(function(){
-                    switchVideo($(this).data('file'))
-                })
+            $('.movie-menu-item').click(function(){
+                switchVideo($(this).data('file'))
+            })
 
-            },
-            error : function(request,error) {
-                console.log(error)
-            }
-        });
+        },
+        error : function(request,error) {
+            console.log(error)
+        }
+    });
 
 
 
@@ -424,7 +453,13 @@ $(parent).bind('hashchange', function(){
 
     //$('.wrapper').append("<div class='pan-directions'/>")
 
-    $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
+
+    /**************************************************************************
+        
+        Load Audio
+    
+    **************************************************************************/
+    
 
     this.loadSceneAudio = function(_pano)    {
 
@@ -439,33 +474,33 @@ $(parent).bind('hashchange', function(){
             parent.audiomaster.loadAudio(underlayFile,'basetrack2',0,0)
 
             var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
-                                        .onUpdate( function() {
-                                            if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
-                                            parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
-                                        })
-                                        .easing(TWEEN.Easing.Quadratic.Out )
-                                        .onComplete(function() {
+                .onUpdate( function() {
+                    if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+                    parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
+                })
+                .easing(TWEEN.Easing.Quadratic.Out )
+                .onComplete(function() {
 
-                                            parent.audiomaster.mix.removeTrack('basetrack')
+                    parent.audiomaster.mix.removeTrack('basetrack')
 
-                                            var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
+                    var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
 
-                                            renameThis['name'] = 'basetrack';
+                    renameThis['name'] = 'basetrack';
 
-                                            parent.audiomaster.mix.lookup['basetrack'] = renameThis
+                    parent.audiomaster.mix.lookup['basetrack'] = renameThis
 
 
-                                        })
-                                        .start(); 
+                })
+                .start(); 
 
         } else{
             if(underlayMuted){
              var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
-                                        .onUpdate( function() {
-                                         parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
-                                         })
-                                         .easing(TWEEN.Easing.Quadratic.Out )
-                                         .start()             
+                .onUpdate( function() {
+                 parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+                 })
+                 .easing(TWEEN.Easing.Quadratic.Out )
+                 .start()             
             }
         }
 
@@ -474,13 +509,13 @@ $(parent).bind('hashchange', function(){
             var dummysound = { decayFrom:    underlayTrack.options.gainNode.gain.value};
 
             var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
-                    .onUpdate( function() {
-                        master.isTweeningAudio = true
-                        underlayTrack.gain(this.decayFrom)
-                    })
-                    .easing(TWEEN.Easing.Quadratic.Out )
-                    .start(); 
-            
+                .onUpdate( function() {
+                    master.isTweeningAudio = true
+                    underlayTrack.gain(this.decayFrom)
+                })
+                .easing(TWEEN.Easing.Quadratic.Out )
+                .start(); 
+        
             underlayMuted = true
 
         } 
@@ -489,255 +524,276 @@ $(parent).bind('hashchange', function(){
             var dummysound = { decayFrom:    overlayTrack.options.gainNode.gain.value};
 
             var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
-                                        .onUpdate( function() {
-                                            master.isTweeningAudio = true
-                                            overlayTrack.gain(this.decayFrom)
-                                        })
-                                        .easing(TWEEN.Easing.Quadratic.Out )
-                                        .onComplete(function() {
-                                            parent.audiomaster.mix.removeTrack('overlay_01') 
-                                            if(overLayFile)
-                                                master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
-                                        })
-                                        .start(); 
+                .onUpdate( function() {
+                    master.isTweeningAudio = true
+                    overlayTrack.gain(this.decayFrom)
+                })
+                .easing(TWEEN.Easing.Quadratic.Out )
+                .onComplete(function() {
+                    parent.audiomaster.mix.removeTrack('overlay_01') 
+                    if(overLayFile)
+                        master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
+                })
+                .start(); 
 
         }else{
                 if(overLayFile)
                         master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
         }
 
-      }
-
-                    var mouse_start_x = 0,
-                    mouse_start_y = 0,
-                    mouse_start_x_end= 0,
-                    mouse_start_y_end = 0,
-                    mouse_x_diff = 0,
-                    mouse_y_diff = 0,
-                    driftTweenH, driftTweenV,
-                    panAmount = 0, yawAmount = 0,
-                    interactive = null,
-                    view_x=0,view_y=0,krpano,panX,panY
-
-                        document.addEventListener( 'mousedown', actionDown, false );
-                        document.addEventListener( 'touchstart', actionDownTouch, false );         
-                        
-                        document.addEventListener( 'mousemove', actionMove, false );
-                        document.addEventListener( 'touchmove', actionMoveTouch, false );
-
-                        document.addEventListener( 'mouseup', actionUp, false );
-                        document.addEventListener( 'touchend', actionUp, false );
+    }
 
 
 
 
-                        function finishPanX() {
-                            var dummy = { decayX:    panAmount};
-                            if(driftTweenH) TWEEN.remove(driftTweenH)
-                            driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
-                                .onUpdate( function() {
-                                    panAmount    = this.decayX
-                                })
-                                .easing(TWEEN.Easing.Quadratic.Out )
-                                .start(); 
-                            }                     
-
-                        $('#fastpanleft').hover(
-                            function(){
-                                //mouse in
-                                if(driftTweenH) TWEEN.remove(driftTweenH)
-                                panAmount = -0.5
-                            },
-                             function(){
-                                //mouse out
-                             finishPanX()
-
-                            }                        
-                        )
-
-                        $('#fastpanright').hover(
-                            function(){
-                                //mouse in
-                                if(driftTweenH) TWEEN.remove(driftTweenH)
-                                panAmount = 0.5
-                            },
-                             function(){
-                                //mouse out
-                                finishPanX()
-
-                            }                     
-                        )
-
-                        $('#fastpanbottom').hover(
-                            function(){
-                                //mouse in
-                                console.log("hover")
-                                if(driftTweenH) TWEEN.remove(driftTweenH)
-                                yawAmount = 0.5
-                            },
-                             function(){
-                                //mouse out
-                                yawAmount = 0
-
-                            }                        
-                        )
-
-                        $('#fastpantop').hover(
-                            function(){
-                                //mouse in
-                                if(driftTweenH) TWEEN.remove(driftTweenH)
-                                yawAmount = -0.5
-                            },
-                             function(){
-                                //mouse out
-                                yawAmount = 0
-
-                            }                     
-                        )
-
-                        function actionDown( e ) {
-                                    
-
-                            e.touches = [{clientX: e.clientX, clientY: e.clientY}];
-                            actionDownTouch(e);
-
-                        } 
-
-                         function actionDownTouch( e ) {
-
-                          $("#ghost-canvas-trans").css("display","none")
-                                    
-
-                                mouseMove = 0
-                                mouse_y_diff = 0;
-                                mouse_x_diff = 0;
-                                panAmount = 0;
-                                yawAmount = 0;
 
 
-                                if(driftTweenH) TWEEN.remove(driftTweenH)
-                                if(driftTweenV) TWEEN.remove(driftTweenV)
+    /**************************************************************************
+        
+        krpano mouse nav
+    
+    **************************************************************************/
+    
 
-                                interactive=true; 
-                                mouse_start_x = e.touches[0].clientX;
-                                mouse_start_y = e.touches[0].clientY;
-                                mouse_start_x_end=e.touches[0].clientX;
-                                mouse_start_y_end=e.touches[0].clientY;
+    $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
 
-                        }                        
+
+    var mouse_start_x = 0,
+        mouse_start_y = 0,
+        mouse_start_x_end= 0,
+        mouse_start_y_end = 0,
+        mouse_x_diff = 0,
+        mouse_y_diff = 0,
+        driftTweenH, driftTweenV,
+        panAmount = 0, yawAmount = 0,
+        interactive = null,
+        view_x=0,view_y=0,
+        krpano,panX,panY
+
+        document.addEventListener( 'mousedown', actionDown, false );
+        document.addEventListener( 'touchstart', actionDownTouch, false );         
+        
+        document.addEventListener( 'mousemove', actionMove, false );
+        document.addEventListener( 'touchmove', actionMoveTouch, false );
+
+        document.addEventListener( 'mouseup', actionUp, false );
+        document.addEventListener( 'touchend', actionUp, false );
 
 
 
+    function finishPanX() {
+        var dummy = { decayX:    panAmount};
+        if(driftTweenH) TWEEN.remove(driftTweenH)
+        driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
+            .onUpdate( function() {
+                panAmount = this.decayX
+            })
+            .easing(TWEEN.Easing.Quadratic.Out )
+            .start(); 
+    }
 
-                         function actionUp( e ) {
 
-                                interactive = false;
+    $('#fastpanleft').hover(
+        function(){
+            //mouse in
+            if(driftTweenH) TWEEN.remove(driftTweenH)
+            panAmount = -0.5
+        },
+         function(){
+            //mouse out
+         finishPanX()
 
-                                $("#ghost-canvas-trans").css("display","block")
+        }                        
+    )
 
-                                var dummy = { decayX:    mouse_x_diff};
-                                var dummyv = { decayY:    mouse_y_diff};
+    $('#fastpanright').hover(
+        function(){
+            //mouse in
+            if(driftTweenH) TWEEN.remove(driftTweenH)
+            panAmount = 0.5
+        },
+         function(){
+            //mouse out
+            finishPanX()
 
-                                driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
-                                        .onUpdate( function() {
-                                            var currentX = krpano.get('view.hlookat') - this.decayX
-                                            krpano.set('view.hlookat',currentX)
-                                            mouse_x_diff    = this.decayX*.01;
-                                        
-                                        })
-                                        .easing(TWEEN.Easing.Quadratic.Out )
-                                        //.onComplete(function() {TWEEN.remove(driftTweenH); driftTweenH = null})
-                                        .start(); 
+        }                     
+    )
 
-                                driftTweenV = new TWEEN.Tween( dummyv ).to( {decayY: 0 }, 1000 )
-                                        .onUpdate( function() {
-                                            var currentY = krpano.get('view.vlookat') - this.decayY
-                                            krpano.set('view.vlookat',currentY)
-                                            mouse_y_diff    = this.decayY*.01;
+    $('#fastpanbottom').hover(
+        function(){
+            //mouse in
+            console.log("hover")
+            if(driftTweenH) TWEEN.remove(driftTweenH)
+            yawAmount = 0.5
+        },
+         function(){
+            //mouse out
+            yawAmount = 0
 
-                                        })
-                                        .easing(TWEEN.Easing.Quadratic.Out )
-                                        //.onComplete(function() {TWEEN.remove(driftTweenV); driftTweenV = null})
-                                        .start(); 
+        }                        
+    )
 
-                        } 
+    $('#fastpantop').hover(
+        function(){
+            //mouse in
+            if(driftTweenH) TWEEN.remove(driftTweenH)
+            yawAmount = -0.5
+        },
+         function(){
+            //mouse out
+            yawAmount = 0
 
-                function actionMove( e ) {
-                    e.touches = [{clientX: e.clientX, clientY: e.clientY}];
-                    actionMoveTouch(e);
-                   
-                } 
+        }                     
+    )
 
-                 function actionMoveTouch( e ) {
- 
-                                mouseMove = 0
-                                if(interactive){
-                                     if(driftTweenH) TWEEN.remove(driftTweenH)
-                                     if(driftTweenV) TWEEN.remove(driftTweenV)
-                                     mouse_start_x = e.touches[0].clientX;
-                                     mouse_start_y = e.touches[0].clientY;
+    function actionDown( e ) {
+                
+        e.touches = [{clientX: e.clientX, clientY: e.clientY}];
+        actionDownTouch(e);
 
-                             }
-                    }     
+    } 
+
+     function actionDownTouch( e ) {
+
+        master.ghostBuster = true
+                
+        mouseMove = 0
+        mouse_y_diff = 0;
+        mouse_x_diff = 0;
+        panAmount = 0;
+        yawAmount = 0;
+
+        if(driftTweenH) TWEEN.remove(driftTweenH)
+        if(driftTweenV) TWEEN.remove(driftTweenV)
+
+        interactive=true; 
+        mouse_start_x = e.touches[0].clientX;
+        mouse_start_y = e.touches[0].clientY;
+        mouse_start_x_end=e.touches[0].clientX;
+        mouse_start_y_end=e.touches[0].clientY;
+
+    }                        
+
+
+
+
+     function actionUp( e ) {
+
+        interactive = false;
+
+        master.ghostBuster = false
+
+        var dummy = { decayX:    mouse_x_diff};
+        var dummyv = { decayY:    mouse_y_diff};
+
+        driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
+            .onUpdate( function() {
+                var currentX = krpano.get('view.hlookat') - this.decayX
+                krpano.set('view.hlookat',currentX)
+                mouse_x_diff    = this.decayX*.01;
             
-                var runFrameRunner = function(){
+            })
+            .easing(TWEEN.Easing.Quadratic.Out )
+            //.onComplete(function() {TWEEN.remove(driftTweenH); driftTweenH = null})
+            .start(); 
+
+        driftTweenV = new TWEEN.Tween( dummyv ).to( {decayY: 0 }, 1000 )
+            .onUpdate( function() {
+                var currentY = krpano.get('view.vlookat') - this.decayY
+                krpano.set('view.vlookat',currentY)
+                mouse_y_diff    = this.decayY*.01;
+
+            })
+            .easing(TWEEN.Easing.Quadratic.Out )
+            //.onComplete(function() {TWEEN.remove(driftTweenV); driftTweenV = null})
+            .start(); 
+
+    } 
+
+    function actionMove( e ) {
+        e.touches = [{clientX: e.clientX, clientY: e.clientY}];
+        actionMoveTouch(e);
+       
+    } 
+
+     function actionMoveTouch( e ) {
+
+                mouseMove = 0
+                if(interactive){
+                     if(driftTweenH) TWEEN.remove(driftTweenH)
+                     if(driftTweenV) TWEEN.remove(driftTweenV)
+                     mouse_start_x = e.touches[0].clientX;
+                     mouse_start_y = e.touches[0].clientY;
+
+             }
+    }     
 
 
-                    //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
 
-                        requestAnimationFrame(runFrameRunner);
+    /**************************************************************************
+        
+        FrameRunner
+    
+    **************************************************************************/
+    
+        
+    var runFrameRunner = function(){
 
-                        krpano = document.getElementById('krpanoObject')
+        //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
 
-                        if(krpano != null && panAmount !=0){
+            requestAnimationFrame(runFrameRunner);
 
-                            panX = krpano.get('view.hlookat') + panAmount
-                            krpano.set('view.hlookat',panX)
+            krpano = document.getElementById('krpanoObject')
 
-                        }
+            if(krpano != null && panAmount !=0){
 
-                        if(krpano != null && yawAmount !=0){
+                panX = krpano.get('view.hlookat') + panAmount
+                krpano.set('view.hlookat',panX)
 
-                            panY = krpano.get('view.vlookat') + yawAmount //*.3
-                            krpano.set('view.vlookat',panY)
+            }
 
-                        }
+            if(krpano != null && yawAmount !=0){
 
-         
-                        if(TWEEN) TWEEN.update()
+                panY = krpano.get('view.vlookat') + yawAmount //*.3
+                krpano.set('view.vlookat',panY)
 
-                        if(interactive){
+            }
 
-                            mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
-                            mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
 
-                        }
-                                        
-                        view_y += (mouse_y_diff)
-                        view_x += (mouse_x_diff*0.01)
+            if(TWEEN) TWEEN.update()
+
+            if(interactive){
+
+                mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
+                mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
+
+            }
                             
-                        if(!parent.audiomaster) return
-                        
-                        
-                        for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
-                            parent.audiomaster.mix.tracks[i].play()                                    
-                        } 
+            view_y += (mouse_y_diff)
+            view_x += (mouse_x_diff*0.01)
+                
+            if(!parent.audiomaster) return
+            
+            
+            for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
+                parent.audiomaster.mix.tracks[i].play()                                    
+            } 
 
-                        //console.log(master.soundTrigger)
-                          
-                        
-                        if(!master.getCookie('muted')){
-                          if (master.overlayOpen) parent.audiomaster.mix.setGain(0.5)
-                          if (!master.overlayOpen) parent.audiomaster.mix.setGain(1.0)
-                          //master.soundTrigger = false
-                        }else{
-                          
+            //console.log(master.soundTrigger)
+              
+            
+            if(!master.getCookie('muted')){
+              if (master.overlayOpen) parent.audiomaster.mix.setGain(0.5)
+              if (!master.overlayOpen) parent.audiomaster.mix.setGain(1.0)
+              //master.soundTrigger = false
+            }else{
+              
 
-                          parent.audiomaster.mix.setGain(0)
-                    
-                        }   
-                         
-                }
+              parent.audiomaster.mix.setGain(0)
+        
+            }   
+             
+    }
                   
 
 

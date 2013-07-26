@@ -1,14 +1,15 @@
 var masterFunctions = function() {
 	var fadeSpeed = 500,
-	pagepath = 'http://www.offshore-interactive.com/pages/',
-	that = this,
-	visitedPages = getCookie("visitedPages"),
-	audio = document.getElementsByTagName('audio'),
-	newPageTrigger,
-	isParent ;
-	var videoType = ".webm";
+		pagepath = 'http://www.offshore-interactive.com/pages/',
+		that = this,
+		visitedPages = getCookie("visitedPages"),
+		audio = document.getElementsByTagName('audio'),
+		newPageTrigger,
+		isParent,
+		videoType = ".webm";
 
 	this.ghostBuster = false
+	this.ghostMinc
 
 	var v = document.createElement('video');
 	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) {
@@ -37,11 +38,7 @@ var masterFunctions = function() {
 
     isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
     this.isRetina = isRetinaFunction()
-    //console.log('[retina]: '+this.isRetina)
      
-     //$('.wrapper').before('<div class="loading"><img src="images/loading-gif-animation.gif"></div>')
-     $('.wrapper').append('<div class="compass"><img src="images/icons/map_icon.png"></div>')
-
      $('.compass').click(function() {
      	$(this).fadeOut(500)
 		that.loadMap()
@@ -125,6 +122,40 @@ var masterFunctions = function() {
 
 
 
+    /**************************************************************************
+    	
+    	Dynamic Resizing
+    
+    **************************************************************************/
+    
+
+    var resizetimeout;
+
+    function resize(){
+
+    	if(resizetimeout) clearTimeout(resizetimeout);
+
+    	resizetimeout = setTimeout(function(){
+    		var dynamicWidth = window.innerWidth;
+    		var dynamicHeight = dynamicWidth * .5625;
+    		var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+
+    		// ghosts
+    		if(pano.ghostTransition) ghostTransition.resize(dynamicWidth,dynamicHeight,dynamicTop)
+
+    		// videos
+    		$("#video-overlay").css("top",dynamicTop)
+    		$("#video-overlay").css("width",window.innerWidth)
+    		$("#video-overlay").css("height",dynamicHeight)
+
+    		// image sequences
+    	})
+
+    	
+    }
+
+
+
 
   	/**********************************************************************
 		
@@ -133,6 +164,11 @@ var masterFunctions = function() {
   	**********************************************************************/
     	      
 	this.init = function(no_fade){
+
+		// dynamic resize of everything
+		window.addEventListener('resize', resize);
+
+		resize()
 
 
 
@@ -253,6 +289,7 @@ var masterFunctions = function() {
 			krpano.call("set(autorotate.enabled,false)")
 
 			master.overlayOpen = true
+			master.ghostBuster = true
 			$('.scroll-directions').fadeOut(500)
 			$('.compass').fadeOut(500)
 			$("#panocontainer").fadeOut(500)
@@ -265,8 +302,12 @@ var masterFunctions = function() {
 
 	this.closeMap = function(){
 		$('#map-container-frame').fadeOut(500, function(){
+			
 			master.overlayOpen = false
+			master.ghostBuster = false
+
 			that._frame = null;
+
 			$('.scroll-directions').fadeIn(500)
 			$('.compass').fadeIn(500)
 			$("#panocontainer").fadeIn(500)
@@ -428,15 +469,8 @@ this.blankTrans = function(_isNotPano){
 
 this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
-	$(".loading").hide()
-
-
-	//initAction()
-
     var dynamicWidth = window.innerWidth;
-
     var dynamicHeight = dynamicWidth * .5625;
-
     var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
     //$('body').append('<canvas id="ghost-canvas-trans" />')
@@ -733,6 +767,11 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
     that.scrollValue = scrollValue
 	that.scrollPos = 0
 
+	this.resize = function(w,h){
+		canvas.style.width = w + 'px'
+		canvas.style.height = h + 'px'
+	}
+
     // begin Autoplay functionality 
 
     $('#walking-canvas-click').on('click',function(e){
@@ -909,6 +948,8 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 
 	Ghost
 
+	set master.ghostBuster or master.overlayOpen to disable ghosts
+
 
 
 *************************************************************************/
@@ -942,24 +983,29 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	canvas.style.height = h + 'px'
 	var context = canvas.getContext('2d');
 	//context.globalCompositeOperation = "source-atop"
-	var imageSrc;
-	var playHead=1;
 
-	var killGhost
+	var imageSrc,
+		playHead=1,
+		ghostTimeout;
 
-	this.kill = function(){
-
-		console.log("KILLING HOLOGRAM")
-
-		that.vidplayback = null
-		canvas.style.opacity = 0
-		killGhost = true
-
+	this.resize = function(w,h){
+		canvas.style.width = w + 'px'
+		canvas.style.height = h + 'px'
 	}
 
 	this.imageSequencer = function(){
-        
-        	if(killGhost) return
+		// console.log('ghost imageSequencer')
+
+		if(master.ghostBuster || master.overlayOpen) {
+
+			// console.log("ghosts BUSTED")
+			canvas.style.opacity = 0
+
+		} else {
+
+			// console.log('wooooooooooooo')
+
+			clearTimeout(ghostTimeout)
         
 	        imageSrc = filePathPre + name + zeroes(playHead,4)+".png";
 	        
@@ -971,6 +1017,7 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 
 			that.playHead = playHead;
 			img.onload = function(){
+
 		        context.drawImage(img, 0, 0,320,180);
 		         
 		        if(playHead < imageNumber){
@@ -978,19 +1025,17 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	          	} else{
 	        		playHead =  1
 	          	}
-
-				
 			
-	          	that.vidplayback = setTimeout(function() {
-					that.imageSequencer()				
-	          	}, 1000 / 8);
-	     
 	          	//requestAnimationFrame(that.imageSequencer);
-		    }         
+		    }  
+		}
 
-        
 
-   }//imageSequencer 
+	  	ghostTimeout = setTimeout(function() {
+			that.imageSequencer()				
+	  	}, 1000 / 8);
+
+   } //imageSequencer 
 
    // preload
    this.preload = function(){
@@ -1067,7 +1112,10 @@ function newPage(URL) {
 function newPano(_pano) {
 
 	$('#wrapper').addClass('hide')
-	$('.pano-underlay').addClass('hide')
+	// $('.pano-underlay').addClass('hide')
+
+	$('.loading').show()
+	$('.loading').removeClass('hide')
 	
 	setTimeout(function() {
 		parent.location.hash = _pano
@@ -1077,36 +1125,23 @@ function newPano(_pano) {
 
 function panoComplete(){
 
+	$('.loading').addClass('hide')
+	$('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+		$(this).hide()
+	})
+
 	$('#wrapper').removeClass('hide')
 
-	setTimeout(function() {
-		$('.pano-underlay').removeClass('hide')
-	}, 700)
-	
-
-	}
+}
 
 function panoLoaded(){
-	//$('.loading').fadeOut(500)
-	//$('#ghost-canvas-trans').fadeOut(500)
-
-	// console.log("GLOBAL PANO " + globalPano)
+	
 
 	if(globalPano) {
 
 		pano.loadPanoScene(globalPano)
-
-  		// var krpano = document.getElementById("krpanoObject"); 
-    	//  krpano.call('action(' + globalPano + ')')
-	
-		// $(".wrapper").fadeIn(1000,function(){
-		// 	$(".pano-underlay").fadeIn(1000)
-		// 	$("#ghost-canvas-trans").fadeOut(500)
-		// 	//transitionDiv
-		// 	$("#transitionDiv").fadeOut(500)		
-		// })
-
 		globalPano = false
+
 	}else{
 		console.log("no direction home")
 	}
@@ -1201,9 +1236,13 @@ function closeVideo(_id){
 }
 
 
+
+
 /*************************************************************************
 
+
 	Video Player
+
 
 *************************************************************************/
 
@@ -1211,13 +1250,15 @@ function videoPlayer(group){
 
 	console.log('launchVideoPlayer: '+group)
 
+	$('.volume-toggle').css('line-height','80px')
+
+	$('.loading').show()
+	$('.loading').removeClass('hide')
+
 	master.ghostBuster = true
-
-	master.soundTrigger = true
-
-	master.bgGain = 0.5
-
 	master.overlayOpen = true
+	master.soundTrigger = true
+	master.bgGain = 0.5
 
 	group = "."+group
 	items = $('.movie-menu'+group+' .movie-menu-item')
@@ -1230,7 +1271,6 @@ function videoPlayer(group){
 
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 	$(".compass").fadeOut()
-	$('#video-overlay').removeClass('hide')
 	$('#panocontainer').addClass('hide')
 
 	switchVideo($(items).first().data('file'))
@@ -1270,25 +1310,25 @@ function videoPlayer(group){
 
 	// Video resize ---------------------------------------------------------
 
-	var vidtimeout
+	// var vidtimeout
 
-	function resize(){
-		if (vidtimeout) clearTimeout(vidtimeout)
+	// function resize(){
+	// 	if (vidtimeout) clearTimeout(vidtimeout)
 
-		vidtimeout = setTimeout(function(){
-			var dynamicWidth = window.innerWidth;
-		    var dynamicHeight = dynamicWidth * .5625;
-		    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+	// 	vidtimeout = setTimeout(function(){
+	// 		var dynamicWidth = window.innerWidth;
+	// 	    var dynamicHeight = dynamicWidth * .5625;
+	// 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
-	        $("#video-overlay").css("top",dynamicTop)
-	        $("#video-overlay").css("width",window.innerWidth)
-	        $("#video-overlay").css("height",dynamicHeight)
-		}, 100);
-	}
+	//         $("#video-overlay").css("top",dynamicTop)
+	//         $("#video-overlay").css("width",window.innerWidth)
+	//         $("#video-overlay").css("height",dynamicHeight)
+	// 	}, 100);
+	// }
 
-	window.addEventListener('resize', resize);
+	// window.addEventListener('resize', resize);
 
-	resize()
+	// resize()
 
 
 	// Video Controls ---------------------------------------------------------
@@ -1446,6 +1486,11 @@ function switchVideo(_id){
 		e.stopPropagation()
 		$('#video-overlay').removeClass('hide')
 		$('#panocontainer').addClass('hide')
+
+		$('.loading').addClass('hide')
+		$(".loading").on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+			$(this).hide()
+		})
 		this.play();
 	}, false);
 
@@ -1454,8 +1499,13 @@ function switchVideo(_id){
 
 function closeVideoPlayer(){
 
+	$('.volume-toggle').css('line-height','40px')
+
 	$('.movie-menu').removeClass('active')
 	$('.movie-menu-item').removeClass('active')
+
+	$('#video-overlay')[0].src = null
+	$('#video-overlay')[0].load()
 
 	// unbind
 	$('#to-control').off('click')
@@ -1463,7 +1513,8 @@ function closeVideoPlayer(){
 	$(".video-content-wrap").off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
 
 	master.bgGain = 1.0
-	
+	master.ghostBuster = false
+
 	$('#video-overlay').addClass('hide')
 	$('#panocontainer').removeClass('hide')
 	$(".compass").fadeIn()

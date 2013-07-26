@@ -648,6 +648,12 @@ header .volume-toggle {
 	left: 4px;
 	width: 30px;
 	z-index: 110;
+	-webkit-transition: line-height 500ms;
+	-moz-transition: line-height 500ms;
+	-ms-transition: line-height 500ms;
+	-o-transition: line-height 500ms;
+	transition: line-height 500ms;
+	
 }
 
 .p-about header {
@@ -1333,9 +1339,21 @@ visibility:hidden;}
 	margin-top:-150px;
 	left: 0;
 	right: 0;
+	height: 245px;
 
 	text-align:center;
 	pointer-events: none;
+	background: url('../images/loading-gif-animation.gif') center center no-repeat;
+	opacity: 1;
+	-webkit-transition: opacity 500ms;
+	-moz-transition: opacity 500ms;
+	-ms-transition: opacity 500ms;
+	-o-transition: opacity 500ms;
+	transition: opacity 500ms;
+	
+}
+.loading.hide {
+	opacity: 0;
 }
 
 .compass {

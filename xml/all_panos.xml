@@ -17,7 +17,7 @@
 	<events 
 		onxmlcomplete= "js(panoLoaded())" 
 
-		onloadcomplete= "js(panoComplete())" 
+		onloadcomplete= "js(panoComplete())"
 
 		onmousedown="action(globalmousedown)" 
 		onviewchange="action(viewchange)"
