@@ -156,7 +156,7 @@
 	 			ath="211"
 	 			atv="-13"
 	 			distorted="true"
-	 onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+	 onclick="lookto(get(currentX),0,90,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
 	 			scale="1.0"
 	 			capture="false"
 	 			/>
