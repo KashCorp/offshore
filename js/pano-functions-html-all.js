@@ -23,8 +23,9 @@ var pano_master = function(){
    panoXMLFile = './xml/all_panos.xml?nocache='+Math.random()*5
 
     if(!parent.location.hash.slice(1)) {
+        console.log('NO HASH > PROLOGUE')
         globalPano = "prologue"; 
-        var panoXMLFile = './xml/prologue.xml?nocache='+Math.random()*5
+        // var panoXMLFile = './xml/prologue.xml?nocache='+Math.random()*5
         
     }
 
@@ -305,12 +306,17 @@ var pano_master = function(){
             case "prologue" : 
 
                 // preloader()
+
+            //underlayFile = 'audio/The_Zone.mp3'
+
+            overLayFile = 'audio/HeliPad_minus_minus.mp3'
                 //videoPlayer('prologue')
                 //that.loadPanoScene('helicopter')
                 //$('#pano-container').addClass('hide')
             break;
 
-            case "helicopter" : 
+            case "helicopter" :
+
                 overLayFile = 'audio/Helicopter_Interior.mp3'
             break;
 
@@ -335,7 +341,6 @@ var pano_master = function(){
 
             case "hallway" : 
 
-                
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
                 that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   

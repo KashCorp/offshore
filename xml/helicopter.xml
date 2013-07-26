@@ -11,11 +11,11 @@
 		loadscene(credits, null, ignorekeep, BLEND(1))
 	</action>
 
-	<!-- <autorotate 
+	 <autorotate 
 		enabled="true"
-        waittime="1.5"
+        waittime="0.3"
         speed="3.0"
-        /> -->
+        />  
 	 
 	<events 
 		onloadcomplete= "js(panoLoaded())" 
@@ -28,7 +28,6 @@
 	</action>
 	 
 	<action name="globalmousedown">		
-		set(plugin[directions].visible,false);
 		set(autorotate.enabled,false);
 	</action>
 

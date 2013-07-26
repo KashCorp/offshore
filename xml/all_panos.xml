@@ -47,6 +47,10 @@
 
 	<!-- Scenes ====================================================================== -->
 
+	<action name="prologue">
+		loadscene(prologue, null, MERGE);
+	</action>
+
 	<action name="chemicalRoom">
 		loadscene(chemicalRoom, null, MERGE);
 	</action>
@@ -106,6 +110,59 @@
 	 	keycodesin  =""
 	 	keycodesout =""
 	 />
+
+
+	<!-- ######################################################################
+	###########################################################################
+		
+
+		Prologue
+	
+	###########################################################################
+	####################################################################### -->
+
+
+
+	 <scene name="credits" onstart="">
+
+	 		<progress showwait="none" />
+
+	 		<view 
+	 			hlookat="60.0"
+	 			fov="90.0"
+	 			fovmax="180.0"
+	 			fovmin="10.0"
+	 			/>
+
+	 		<control 
+	 			usercontrol = "all"
+	 			mousetype="drag2d"
+	 			mousefriction="0"
+	 			mouseaccelerate="0"
+	 		    fovspeed="1.0"
+	 		    headswing="0"
+	 		 	/>
+
+	 	 	<image>
+	 			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/prologue_pano_%s.jpg" />
+	 			<mobile>
+	 				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/prologue_pano_%s.jpg" />
+	 			</mobile>
+	 		</image>
+
+	 				<hotspot name="LOGO" 
+	 			url="../images/offshore_logo.png"
+	 			ath="211"
+	 			atv="-13"
+	 			distorted="true"
+	 onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+	 			scale="1.0"
+	 			capture="false"
+	 			/>
+
+	 		
+
+	 	</scene>
 
 
 
