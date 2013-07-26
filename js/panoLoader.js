@@ -1,4 +1,10 @@
-		var preloader = function() {
+	
+	var isPreloaded;
+
+
+	var preloader = function() {
+
+		isPreloaded = true;
 
 
 		var loaderArray = []

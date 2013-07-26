@@ -1155,28 +1155,18 @@ function newPage(URL) {
 
 
 
-function newPano(_pano) {
+function newPano(_pano, fromPrologue) {
 	console.log('newPano')
 
-	if( $('#wrapper').hasClass('hide') ) {
+	if(typeof fromPrologue === undefined) {
 
-		console.log('has class hide')
-		$('.loading').show()
-		$('.loading').removeClass('hide')
-		
-	} else {
-
-		console.log('doesn’t have class hide')
-		$('#wrapper').addClass('hide')
-		$('#wrapper').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+		$('#panocontainer').addClass('hide')
+		setTimeout(function() {
 			$('.loading').show()
 			$('.loading').removeClass('hide')
-			$('#wrapper').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend')
-		})
+		}, 500)
 
 	}
-	
-	// $('.pano-underlay').addClass('hide')
 	
 	setTimeout(function() {
 		parent.location.hash = _pano
@@ -1188,13 +1178,16 @@ function panoComplete(){
 
 	console.log('PANO COMPLETE')
 
+	if(!isPreloaded) {
+		preloader();
+	}
+
 	$('.loading').addClass('hide')
-	$('.loading').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-		console.log('asdf')
+	setTimeout(function() {
 		$('.loading').hide()
-		$('#wrapper').show()
-		$('#wrapper').removeClass('hide')
-	})
+		$('#panocontainer').show()
+		$('#panocontainer').removeClass('hide')
+	}, 500)
 
 }
 
@@ -1314,8 +1307,11 @@ function videoPlayer(group){
 
 	$('.volume-toggle').css('line-height','80px')
 
-	$('.loading').show()
-	$('.loading').removeClass('hide')
+	// $('#panocontainer').addClass('hide')
+	// $('#panocontainer').one(css3transitionend, function(){
+	// 	$('.loading').show()
+	// 	$('.loading').removeClass('hide')
+	// })
 
 	master.ghostBuster = true
 	master.overlayOpen = true
@@ -1333,19 +1329,16 @@ function videoPlayer(group){
 
 	$(".video-content-wrap").addClass("video-content-wrap-open");
 	$(".compass").fadeOut()
-	$('#panocontainer').addClass('hide')
 
 	switchVideo($(items).first().data('file'))
 
-	$('#video-overlay').on('canplaythrough',function(){
 
+	$('#video-overlay').one('canplaythrough',function(){
 		console.log(group)
-
-
-		if(group == '.prologue') newPano('helicopter')
-
-		
-
+		if(group == '.prologue') {
+			$('#panocontainer').addClass('hide')
+			newPano('helicopter',true)
+		}
 	})
 
 
@@ -1549,10 +1542,10 @@ function switchVideo(_id){
 		$('#video-overlay').removeClass('hide')
 		$('#panocontainer').addClass('hide')
 
-		$('.loading').addClass('hide')
-		$(".loading").on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-			$(this).hide()
-		})
+		// $('.loading').addClass('hide')
+		// $(".loading").on(css3transitionend,function(){
+		// 	$(this).hide()
+		// })
 		this.play();
 	}, false);
 

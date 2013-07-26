@@ -304,7 +304,7 @@ var pano_master = function(){
 
             case "prologue" : 
 
-            preloader()
+                // preloader()
                 //videoPlayer('prologue')
                 //that.loadPanoScene('helicopter')
                 //$('#pano-container').addClass('hide')
