@@ -20,6 +20,7 @@
 		onloadcomplete= "js(panoComplete())"
 
 		onmousedown="action(globalmousedown)" 
+
 		onviewchange="action(viewchange)"
 		/> 
 	 
@@ -123,7 +124,7 @@
 
 
 
-	 <scene name="credits" onstart="">
+	 <scene name="prologue" onstart="">
 
 	 		<progress showwait="none" />
 
