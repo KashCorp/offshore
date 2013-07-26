@@ -987,7 +987,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
- 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)"
+ 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)"
 			scale="3.0"
 			capture="false"
 			/>
@@ -999,7 +999,7 @@
 			distorted="true"
 			alpha="0"
 			height="10.0"
- 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)"
+ 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)"
 			scale="4.0"
 			capture="false"
 			/>

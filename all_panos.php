@@ -54,16 +54,16 @@
       </div>
 
     </div>
-
+    
+    <canvas id="ghost-canvas" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
+    
     <div id="scroll-start" class="scroll-nav">Go Back?</div>
       
     <div id="scroll-end" class="scroll-nav">Continue?</div>
     
     <div class="scroll-directions-container"><div class="scroll-directions"></div></div>
-
-    <div class="breadcrumb"></div>
     
-    <canvas id="ghost-canvas" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:15%;left:0;pointer-events:none"></canvas>
+    
 
   </div>    
            
@@ -87,7 +87,7 @@
           <a id="to-control" class="platform-nav">Close</a>
         </div>
 
-      <div class="scroll-directions-container"><div class="scroll-directions"></div></div>
+      <div class="scroll-directions-container panoversion"><div class="scroll-directions"></div></div>
 
       <div id="walking-exit" class="platform-nav">Close</div>      
 
@@ -99,20 +99,7 @@
 
     <canvas id="ghost-canvas-trans" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
 
-
     <div class="breadcrumb"></div>
-<!--
-    <audio style="display: none" id="audio-platform" preload="auto" class="ambient" loop="loop">
-      <source src="audio/Bong.ogg" type="audio/ogg" />
-      <source src="audio/Helipad_Ambience_Music.mp3" type="audio/mpeg" />
-    </audio>
-
-         <audio style="display: none" id="whisper_01" volume=0 preload="auto" class="whisper" loop="loop">
-      <source src="audio/Helipad_Ambiance_Music1.ogg" type="audio/ogg" />
- 
-    </audio>
-
--->
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>

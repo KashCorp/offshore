@@ -447,6 +447,8 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
 	$('#ghost-canvas-trans').fadeIn()
 
+	return ghost
+
 
 }
 
@@ -795,8 +797,6 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 					scrollValue =  (parseInt($( this ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 					that.scrollValue = scrollValue
 
-					console.log(scrollValue)
-
 
 					that.scrollFunction()
 				},
@@ -945,11 +945,21 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	var imageSrc;
 	var playHead=1;
 
-	master.ghostBuster = false
+	var killGhost
+
+	this.kill = function(){
+
+		console.log("KILLING HOLOGRAM")
+
+		that.vidplayback = null
+		canvas.style.opacity = 0
+		killGhost = true
+
+	}
 
 	this.imageSequencer = function(){
         
-        
+        	if(killGhost) return
         
 	        imageSrc = filePathPre + name + zeroes(playHead,4)+".png";
 	        
@@ -970,14 +980,11 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	          	}
 
 				
-			if(!master.ghostBuster){
-				console.log('ghost maker')
+			
 	          	that.vidplayback = setTimeout(function() {
 					that.imageSequencer()				
 	          	}, 1000 / 8);
-	        }else{
-	        	canvas.style.opacity = 0
-	        }
+	     
 	          	//requestAnimationFrame(that.imageSequencer);
 		    }         
 
@@ -1229,6 +1236,8 @@ function videoPlayer(group){
 	switchVideo($(items).first().data('file'))
 
 	$('#video-overlay').on('canplaythrough',function(){
+
+		console.log(group)
 
 
 		if(group == '.prologue') newPano('helicopter')
@@ -1690,6 +1699,9 @@ function showCS(selector) {
 
 
 // shim layer with setTimeout fallback
+
+var cancelAnimationFrame = window.webkitRequestAnimationFrame || window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+
 window.requestAnimationFrame = (function() {
 
 return  window.requestAnimationFrame       || 

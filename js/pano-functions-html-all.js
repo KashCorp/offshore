@@ -7,43 +7,46 @@ var pano_master = function(){
 
     var krpano
 
-    var pano = 'helicopter'; 
     var panoWalkthrough
+
+    var ghostTransition
 
     if(parent.location.hash.slice(1)) globalPano = parent.location.hash.slice(1)
 
-
+    //Defualt to start if no has'h
 
     if(!parent.location.hash.slice(1)) globalPano = "prologue"
 
-
-    $("#wrapper").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
-      console.log($('#wrapper').css('opacity'))
-    });
-
-    
-
-
-
+    // Build pano
 
     var masterPath = ".",
         targetContainer = "panocontainer",
         xmlLoc = masterPath + "/xml/all_panos.xml?nocache="+Math.random()*5,
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
     var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
-    viewer.addVariable("xml", xmlLoc);
-    viewer.addVariable("html5", "html5+css3d");  
+    viewer.addVariable("xml", xmlLoc);  
     viewer.useHTML5("always")
     viewer.passQueryParameters();
     viewer.addParam("wmode","transparent");
     this.viewer = viewer
     viewer.embed();
 
+
+    /// Nav sequence newPano -> hash change -> event listener -> LoadPanoScene > if image sequence - diverts to LoadSequenceScene
+
+    /// if pano, waits for onloadcomplete from krpano to remove hide class? 
+
+    /// Do we need loaing indicator?
+
     var loadSequenceScene = function(_sequence)    {
+
+        cancelAnimationFrame(runFrameRunner)
 
         var ImageSequenceFiles,ghost, ghostFrames, linkBack, linkForward
 
-        console.log('image sequence ' + _sequence)
+        // clear word container
+
+        $('#word-container ul').html('')
 
         switch(_sequence){
 
@@ -59,17 +62,27 @@ var pano_master = function(){
           case "sequence_passage_theatre" : 
                 ImageSequenceFiles = 'corridor';
                 ImageSequenceFrames = 65;
-                ghost = 'hologram_rossina01_';
-                ghostFrames = 16
+                ghost = 'hologram_2guys_walk_away 2-frame-';
+                ghostFrames = 12
                 linkBack = 'hallway'
                 linkForward = 'theatre'                
           break;
 
+
+           case "sequence_passage_controlroom" : 
+                ImageSequenceFiles = 'corridor';
+                ImageSequenceFrames = 65;
+                ghost = 'hologram_helicopter-frame-';
+                ghostFrames = 12
+                linkBack = 'hallway'
+                linkForward = 'controlroom'                
+          break;         
+
           case "sequence_outside_stairs_down" : 
                 ImageSequenceFiles = 'downstairs';
                 ImageSequenceFrames = 241;
-                ghost = 'ghost_walktowardscamera2_';
-                ghostFrames = 16
+                ghost = 'hologram_walk_up_stairs_2-frame-';
+                ghostFrames = 13
                 linkBack = 'lowerplatform'
                 linkForward = 'boat'                
 
@@ -87,20 +100,20 @@ var pano_master = function(){
                   wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-2500px)">8000 ft<br>DEEPEST WELL<br>EVER DRILLED</li>'
 
                 $('#word-container ul').html(wordHTL)
+ 
+                overLayFile = 'audio/Hatch_Alt2.mp3'
           break;       
 
         }
+        
+        that.loadSceneAudio()
 
-
-        //$('#wrapper').fadeOut()
         $('#wrapper').addClass('hide')
 
         $('#scroll-wrapper').fadeIn()
 
-
         $("#scroll-start").click(function(){
           newPano(linkBack)
-          console.log("MOVE")
         });
 
         $("#scroll-end").click(function(){
@@ -113,34 +126,38 @@ var pano_master = function(){
 
         var dynamicTop = (window.innerHeight - dynamicHeight)/2;
 
-            $("#walking-canvas").css("top",dynamicTop)
+        $("#walking-canvas").css("top",dynamicTop)
 
-            var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
+        var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
 
-            walkthrough.scrollPos = 0
+        walkthrough.scrollPos = 0
 
-            if(ghost) {
+        walkthrough.scrollValue = 1
 
-                var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas",ghost,ghostFrames)
+        if(ghost) {
 
-                ghost.imageSequencer()
+            ghostTransition = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas",ghost,ghostFrames)
 
-            }
+            ghostTransition.imageSequencer()
 
-            var scrollTrigger,scrollPercent = 0
+        }
+
+        var scrollTrigger,scrollPercent = 0
 
             //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
-            function scrollerFunction(){
+        function scrollerFunction(){
 
                 var zPos = walkthrough.scrollValue*.4
+
+                scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
                 $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
                 $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-                $('#word_01').css('opacity', walkthrough.scrollPos/100);
+                $('#word_01').css('opacity', scrollPercent/100);
             
-                if(walkthrough.scrollPos > 40 && walkthrough.scrollPos < 60){
+                if(scrollPercent > 40 && ghostTransition){
                         $("#ghost-canvas").fadeIn(500)
                         $("#ghost-controls").fadeIn(500)
                 }else{
@@ -148,21 +165,20 @@ var pano_master = function(){
                         $("#ghost-controls").fadeOut(2500)
                 }
 
-                scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
-                //if(!scrollTrigger) $('#whisper_02')[0].play()
                 
 
                 if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
                         parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
                 } 
                 
-                if(walkthrough.scrollPos < 5){
+                if(scrollPercent < 5){
                         $("#scroll-start").fadeIn(1000)
                 }else{
                         $("#scroll-start").fadeOut(700)
                 }
 
-                 if(walkthrough.scrollPos > 95 && !scrollTrigger){
+
+                 if(scrollPercent > 95 && !scrollTrigger){
 
                         console.log('end of passage')
 
@@ -181,8 +197,6 @@ var pano_master = function(){
                 }else{
                         $("#scroll-end").fadeOut(1000)
                 }
-                
-                //console.log('scroll')
 
                 requestAnimationFrame(scrollerFunction)
             }
@@ -195,7 +209,7 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano)    {
 
-      master.ghostBuster = true
+      if(ghostTransition) {ghostTransition.kill();ghostTransition = false}
 
       master.globalPano = _pano
 
@@ -204,6 +218,8 @@ var pano_master = function(){
       var dynamicHeight = dynamicWidth * .5625;
 
       var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+
+      $('.scroll-directions').css('top',100)
 
 
       if(parent.audiomaster.mix.getTrack('overlay_02')){
@@ -220,11 +236,15 @@ var pano_master = function(){
 
       }
 
-
+///// Decision to divert to image sequence
         if(_pano.indexOf('sequence')!=-1) {
             loadSequenceScene(_pano);
             return;
         }
+
+        // start pano mouse interaction
+
+        runFrameRunner() 
 
         console.log('loadPanoScene() '+_pano)
 
@@ -273,7 +293,10 @@ var pano_master = function(){
 
             case "hallway" : 
 
-                master.blankTrans()
+                
+                var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
+                
+                ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
 
                 overLayFile = 'audio/Main_Hallway.mp3' 
                 
@@ -356,16 +379,9 @@ $(parent).bind('hashchange', function(){
     if (parent.location.hash.slice(1) =="") return
     $("#walking-canvas-pano").addClass('hide')
 
-    console.log(parent.location.hash.slice(1))
-
     that.loadPanoScene(parent.location.hash.slice(1))
 })
-    
 
-
-
-
-    console.log("pano all is loading")
 
 
 
@@ -666,6 +682,9 @@ $(parent).bind('hashchange', function(){
             
                 var runFrameRunner = function(){
 
+
+                    //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
+
                         requestAnimationFrame(runFrameRunner);
 
                         krpano = document.getElementById('krpanoObject')
@@ -719,7 +738,7 @@ $(parent).bind('hashchange', function(){
                         }   
                          
                 }
-                runFrameRunner()    
+                  
 
 
 
