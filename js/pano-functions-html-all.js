@@ -305,12 +305,17 @@ var pano_master = function(){
             case "prologue" : 
 
             preloader()
+
+            //underlayFile = 'audio/The_Zone.mp3'
+
+            overLayFile = 'audio/HeliPad_minus_minus.mp3'
                 //videoPlayer('prologue')
                 //that.loadPanoScene('helicopter')
                 //$('#pano-container').addClass('hide')
             break;
 
-            case "helicopter" : 
+            case "helicopter" :
+
                 overLayFile = 'audio/Helicopter_Interior.mp3'
             break;
 
