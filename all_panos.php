@@ -43,7 +43,7 @@
     
     <canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>
 
-    <div id="viewport" style="left:0px">
+    <div id="viewport" class="no-pointer-events" style="left:0px">
       
       <div id='word-container' style='left:0;-webkit-transform:translateZ(-1400px)'>
         

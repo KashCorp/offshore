@@ -141,7 +141,7 @@ var pano_master = function(){
 
         if(ghost) {
             console.log('GHOST')
-            that.ghostTransition = new ghostFunctions(that.dynamicWidth,that.dynamicHeight,"ghost-canvas-trans",ghost,ghostFrames)
+            that.ghostTransition = new ghostFunctions("ghost-canvas-trans",ghost,ghostFrames)
             that.ghostTransition.imageSequencer()
         }
 
@@ -212,7 +212,7 @@ var pano_master = function(){
                     that.walkthrough.scrollPos = 0
 
                     $('#scroll-wrapper').fadeOut()
-                    $('#wrapper').addClass('hide')
+                    $('#panocontainer').addClass('hide')
 
                     newPano(linkForward)
 

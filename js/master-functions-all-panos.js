@@ -127,33 +127,34 @@ var masterFunctions = function() {
 
     /**************************************************************************
     	
-    	Dynamic Resizing
+    	Dynamic Resizing global variables
     
     **************************************************************************/
     
 
     var resizetimeout;
 
+    this.dynamicWidth;
+    this.dynamicHeight;
+    this.dynamicTop;
+
+
     function resize(){
 
     	if(resizetimeout) clearTimeout(resizetimeout);
 
     	resizetimeout = setTimeout(function(){
-    		var dynamicWidth = window.innerWidth;
-    		var dynamicHeight = dynamicWidth * .5625;
-    		var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+    		that.dynamicWidth = window.innerWidth;
+    		that.dynamicHeight = that.dynamicWidth * .5625;
+    		that.dynamicTop = (window.innerHeight - that.dynamicHeight)/2;
 
-    		// videos
-    		$("#video-overlay").css("top",dynamicTop)
-    		$("#video-overlay").css("width",window.innerWidth)
-    		$("#video-overlay").css("height",dynamicHeight)
-
-    		// image sequences
-    	})
-
+    	}, 50)
     	
     }
 
+    resize()
+
+    $(window).on('resize.global',resize)
 
 
 
@@ -516,7 +517,7 @@ this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
     //$('body').append('<canvas id="ghost-canvas-trans" />')
 
-	var ghost = new ghostFunctions(dynamicWidth,dynamicHeight,"ghost-canvas-trans",_id,numberOfFrames)
+	var ghost = new ghostFunctions("ghost-canvas-trans",_id,numberOfFrames)
  
 	ghost.imageSequencer()
 
@@ -809,10 +810,16 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
     this.scrollValue = scrollValue
 	this.scrollPos = 0
 
-	this.resize = function(w,h){
-		canvas.style.width = w + 'px'
-		canvas.style.height = h + 'px'
+
+	// auto resize ---------------------------------------------------------
+
+	resizeWalkthrough = function(){
+		canvas.style.width = master.dynamicWidth + 'px'
+		canvas.style.height = master.dynamicHeight + 'px'
 	}
+
+	$(window).off('resize.walkthrough');
+	$(window).on('resize.walkthrough', resizeWalkthrough);
 
     // begin Autoplay functionality 
 
@@ -1002,7 +1009,7 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 
 
 
-var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
+var ghostFunctions = function(canvasid,name,imageNumber) {
 
 	filePathPre = master.cdn_imgseq // 'video/video_clips/'
 	//filePathPre = 'video/newtransitions/'
@@ -1020,13 +1027,21 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 	}
 
 	var that = this;
+	var w,h;
+
+	resizeGhost = function(){
+		w = master.dynamicWidth
+		h = master.dynamicHeight
+		canvas.style.width = w + 'px'
+		canvas.style.height = h + 'px'
+	}
 	
 	var canvas = document.getElementById(canvasid);
 	canvas.width  = 320
 	canvas.height = 180;
 
-	canvas.style.width = w + 'px'
-	canvas.style.height = h + 'px'
+	resizeGhost();
+	
 	var context = canvas.getContext('2d');
 	//context.globalCompositeOperation = "source-atop"
 
@@ -1034,10 +1049,8 @@ var ghostFunctions = function(w,h,canvasid,name,imageNumber) {
 		playHead=1,
 		ghostTimeout;
 
-	this.resize = function(w,h){
-		canvas.style.width = w + 'px'
-		canvas.style.height = h + 'px'
-	}
+	$(window).off('resize.ghost')
+	$(window).on('resize.ghost',resizeGhost)
 
 	this.imageSequencer = function(){
 		// console.log('ghost imageSequencer')
@@ -1182,9 +1195,15 @@ function panoComplete(){
 		preloader();
 	}
 
+
+
 	$('.loading').addClass('hide')
 	setTimeout(function() {
 		$('.loading').hide()
+		if($('#wrapper').hasClass('hide')) {
+			$('#wrapper').show()
+			$('#wrapper').removeClass('hide')
+		}
 		$('#panocontainer').show()
 		$('#panocontainer').removeClass('hide')
 	}, 500)
@@ -1307,6 +1326,9 @@ function videoPlayer(group){
 
 	$('.volume-toggle').css('line-height','80px')
 
+	// disable mouse events on pano container
+	$("#panocontainer").addClass('no-pointer-events')
+
 	// $('#panocontainer').addClass('hide')
 	// $('#panocontainer').one(css3transitionend, function(){
 	// 	$('.loading').show()
@@ -1365,26 +1387,14 @@ function videoPlayer(group){
 
 	// Video resize ---------------------------------------------------------
 
-	// var vidtimeout
+	function resizeVideoPlayer(){
+		$("#video-overlay").css("top",master.dynamicTop)
+		$("#video-overlay").css("width",master.dynamicWidth)
+		$("#video-overlay").css("height",master.dynamicHeight)
+	}
 
-	// function resize(){
-	// 	if (vidtimeout) clearTimeout(vidtimeout)
-
-	// 	vidtimeout = setTimeout(function(){
-	// 		var dynamicWidth = window.innerWidth;
-	// 	    var dynamicHeight = dynamicWidth * .5625;
-	// 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-	//         $("#video-overlay").css("top",dynamicTop)
-	//         $("#video-overlay").css("width",window.innerWidth)
-	//         $("#video-overlay").css("height",dynamicHeight)
-	// 	}, 100);
-	// }
-
-	// window.addEventListener('resize', resize);
-
-	// resize()
-
+	$(window).off('resize.video')
+	$(window).on('resize.video',resizeVideoPlayer)
 
 	// Video Controls ---------------------------------------------------------
 
@@ -1572,6 +1582,7 @@ function closeVideoPlayer(){
 
 	$('#video-overlay').addClass('hide')
 	$('#panocontainer').removeClass('hide')
+	$("#panocontainer").removeClass('no-pointer-events')
 	$(".compass").fadeIn()
 
 	master.overlayOpen = false

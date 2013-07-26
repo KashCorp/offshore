@@ -116,6 +116,12 @@ word-wrap: break-word; /* IE */
 	
 }
 
+.no-pointer-events {
+	pointer-events: none !important;
+	-moz-pointer-events: none !important;
+	-webkit-pointer-events: none !important;
+}
+
 /* ========================================================================== *\
   	TYPOGRAPHY
 \* ========================================================================== */
@@ -721,7 +727,7 @@ header .volume-toggle {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	font-size:10px;
+	font-size: 10px;
 
 	-webkit-transition: opacity 500ms;
 	-moz-transition: opacity 500ms;
@@ -1262,10 +1268,6 @@ visibility:hidden;}
 	/*top: -25% ;*/
 	right: 0;
 	bottom: 0;
-
-	pointer-events: none;
-	-moz-pointer-events: none;
-	-webkit-pointer-events: none;
 }
 
 #transition-container {
