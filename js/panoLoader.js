@@ -1,3 +1,6 @@
+		var preloader = function() {
+
+
 		var loaderArray = []
 
 		loaderArray.push("http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/helicopter_pano_l.jpg");
@@ -96,6 +99,8 @@
 		})
 		 
 		loader.start();
+
+}
 
 
 
