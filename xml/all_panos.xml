@@ -103,6 +103,11 @@
 		fov="90.0"
 		fovmax="120.0"
 		fovmin="5.0"
+		limitview ="lookat"
+		hlookatmin ="NAN"
+		hlookatmax ="NaN"
+		vlookatmin ="10"
+		vlookatmax ="-35"
 	/>
 
 	<control
@@ -188,6 +193,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="10.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"
 			/>
 
 		<image>
@@ -275,6 +285,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="1.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 
 	 	<image>
@@ -383,6 +398,11 @@
 	  		fov="90.0"
 	  		fovmax="120.0"
 	  		fovmin="15.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"	  		
 	  	/>
 
 	 	<image>
@@ -495,6 +515,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="5.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 
 		<image>
@@ -662,6 +687,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="1.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 			/>
 
 		<image>
@@ -963,6 +993,11 @@
 		  fov="90.0"
 		  fovmax="120.0"
 		  fovmin="1.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"		  
 		 />		
 
 		<image>
@@ -1131,6 +1166,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="4.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 	 	
 	 	<image>
@@ -1255,6 +1295,11 @@
 			fov="65.0"
 			fovmax="120.0"
 			fovmin="15.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 
 		<image>
@@ -1373,6 +1418,11 @@
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="20.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"			
 		/>
 			
 		<image>
@@ -1507,6 +1557,11 @@
 		  fov="90.0"
 		  fovmax="120.0"
 		  fovmin="45.0"
+			limitview ="lookat"
+			hlookatmin ="NAN"
+			hlookatmax ="NaN"
+			vlookatmin ="20"
+			vlookatmax ="-45"		  
 		  />
 
 	 	<image>
