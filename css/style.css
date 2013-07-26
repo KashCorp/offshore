@@ -338,6 +338,7 @@ a:hover {
 	left:0;
 	bottom: 0;
 	height:40px;
+	display:none;
     overflow:hidden;
 }
 
@@ -955,6 +956,15 @@ height:100%;
 /* ========================================================================== *\
   	INFO
 \* ========================================================================== */
+
+#panoDownloadStatus {
+	position: absolute;
+	bottom:0px;
+	left:0px;
+	height:10px;
+	color:#ffffff;
+	background:#666666;
+}
 
 #webgl_holder {
 	bottom: 0;
