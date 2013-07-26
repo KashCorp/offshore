@@ -9,7 +9,8 @@ var pano_master = function(){
 
     var panoWalkthrough
 
-    this.ghostTransition
+    this.ghostTransition;
+    this.walkthrough;
 
     this.dynamicWidth = window.innerWidth;
     this.dynamicHeight = this.dynamicWidth * .5625;
@@ -62,10 +63,10 @@ var pano_master = function(){
             ghost,
             ghostFrames,
             linkBack,
-            linkForward
+            linkForward,
+            sequenceHasWords = false;
 
         // clear word container
-
         $('#word-container ul').html('')
 
         switch(_sequence){
@@ -113,6 +114,8 @@ var pano_master = function(){
                 ImageSequenceFrames = 65;
                 linkBack = 'lowerplatform'
                 linkForward = 'hallway'
+                
+                sequenceHasWords = true
                 var wordHTL ='<li class="drilling-depth">1000 ft</li>'
                   wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-500px)">2000 ft</li>'
                   wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-1000px)">3000 ft</li>'
@@ -130,12 +133,17 @@ var pano_master = function(){
 
         if(ghost) {
             console.log('GHOST')
-            that.ghostTransition = new ghostFunctions(that.dynamicWidth,that.dynamicHeight,"ghost-canvas",ghost,ghostFrames)
+            that.ghostTransition = new ghostFunctions(that.dynamicWidth,that.dynamicHeight,"ghost-canvas-trans",ghost,ghostFrames)
             that.ghostTransition.imageSequencer()
         }
 
         $('#wrapper').addClass('hide')
         $('#wrapper').hide()
+
+        $('.loading').addClass('hide')
+        $('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+            $('.loading').hide()
+        })
 
         $('#scroll-wrapper').fadeIn()
 
@@ -144,34 +152,38 @@ var pano_master = function(){
 
         $("#walking-canvas").css("top",that.dynamicTop)
 
-        var walkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
+        that.walkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
 
-        walkthrough.scrollPos = 0;
-        walkthrough.scrollValue = 1;
+        that.walkthrough.preload()
+
+        that.walkthrough.scrollPos = 0;
+        that.walkthrough.scrollValue = 1;
 
         var scrollTrigger,
             scrollPercent=0;
 
-            //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
+        //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
+
+
 
         function scrollerFunction(){
 
-            var zPos = walkthrough.scrollValue*.4
+            scrollPercent = Math.ceil((that.walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
-            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
+            if(sequenceHasWords) {
+                var zPos = that.walkthrough.scrollValue*.4
+                $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
-            $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-
-            $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-            $('#word_01').css('opacity', scrollPercent/100);
-        
-            if(scrollPercent > 40 && that.ghostTransition){
-                master.ghostBuster = false
-                // $("#ghost-controls").fadeIn(500)
-            }else{
-                master.ghostBuster = true
-                // $("#ghost-controls").fadeOut(2500)
+                $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+                $('#word_01').css('opacity', scrollPercent/100);
             }
+
+            
+        
+            if(scrollPercent > 40 && that.ghostTransition)
+                master.ghostBuster = false
+            else
+                master.ghostBuster = true
 
             if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
                     parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
@@ -181,36 +193,41 @@ var pano_master = function(){
             else                  $("#scroll-start").fadeOut(700)
 
 
-             if(scrollPercent > 95 && !scrollTrigger){
+            if(scrollPercent > 95 && !scrollTrigger){
 
                     console.log('end of passage')
 
                     scrollTrigger = true
 
-                    cancelAnimationFrame(scrollerFunction)
+                    // window.cancelAnimationFrame(sequenceAnimFrame)
 
-                    walkthrough.scrollPos = 0
+                    that.walkthrough.scrollPos = 0
 
                     $('#scroll-wrapper').fadeOut()
-                    
                     $('#wrapper').addClass('hide')
 
                     newPano(linkForward)
 
-            }else{
-                    $("#scroll-end").fadeOut(1000)
+                    that.walkthrough = null
+
+                    return false;
+
+            } else {
+                $("#scroll-end").fadeOut(1000)
             }
 
-            requestAnimationFrame(scrollerFunction)
+            if(that.walkthrough.autoplay) {
+                that.walkthrough.play();
+            }
+
+            var sequenceAnimFrame = requestAnimationFrame(scrollerFunction)
 
         } // scrollerFunction
 
-        scrollerFunction()
 
-       $('.loading').addClass('hide')
-        $('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-            $(this).hide()
-        })
+
+        scrollerFunction()
+        
     }
 
 
@@ -228,7 +245,9 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano) {
 
-    if(that.ghostTransition) { that.ghostTransition = false; }
+    if(that.ghostTransition) that.ghostTransition = false;
+    if(that.walkthrough) that.walkthrough = false;
+
 
     // calculate a random range for ghosts to appear
     master.ghostMinCoord = Math.floor( Math.random() * 180 )

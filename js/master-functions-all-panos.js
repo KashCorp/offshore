@@ -11,6 +11,7 @@ var masterFunctions = function() {
 	this.ghostBuster = false
 	this.ghostMinc
 
+	// webm or h264
 	var v = document.createElement('video');
 	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) {
 	 	videoType = '.mp4';
@@ -19,7 +20,8 @@ var masterFunctions = function() {
 	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) {
 	 	videoType = '.webm';
 	}		
-	this.videoType = videoType	
+	this.videoType = videoType
+
     try {
       isParent = parent.IS_PARENT;
     }catch(e){
@@ -139,9 +141,6 @@ var masterFunctions = function() {
     		var dynamicWidth = window.innerWidth;
     		var dynamicHeight = dynamicWidth * .5625;
     		var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-    		// ghosts
-    		if(pano.ghostTransition) ghostTransition.resize(dynamicWidth,dynamicHeight,dynamicTop)
 
     		// videos
     		$("#video-overlay").css("top",dynamicTop)
@@ -744,6 +743,8 @@ var master = new masterFunctions();
 
 var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 
+    var that = this
+
 	filePathPre = master.cdn_imgseq
 
 	maxScrollerPos = $('.scroll-directions-container').height()
@@ -763,9 +764,8 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
     var scrollValue = ( scrollerPosStart - 80) * 5000 / (window.innerHeight - 220)
    
     var mouseWheelTimeout
-    var that = this
-    that.scrollValue = scrollValue
-	that.scrollPos = 0
+    this.scrollValue = scrollValue
+	this.scrollPos = 0
 
 	this.resize = function(w,h){
 		canvas.style.width = w + 'px'
@@ -774,38 +774,41 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 
     // begin Autoplay functionality 
 
-    $('#walking-canvas-click').on('click',function(e){
+    this.autoplay = false
+    var autoPlaySpeed = 3
+
+    $('#walking-canvas').on('click',function(e){
     	e.stopPropagation()
-    	playing = true
-    	play()
+
+    	if(that.autoplay)
+    		that.autoplay=false
+    	else {
+    		that.autoplay = true
+    		that.play()
+    	}
+    	
     })
 
-    this.playing = false
-
     this.play = function(){
-    	if(that.playing) {
 
-    		$(".scroll-directions").animate(
-    			{'top': top+10},
-    			50,
-    			function(){
-    				scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    				scrollerPos += 10
+    	if(that.autoplay) {
+    		var top = $(".scroll-directions").css('top')
+    		$(".scroll-directions").css('top', top + autoPlaySpeed )
 
-    				advance(scrollerPos)
+    		scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
+    		scrollerPos += autoPlaySpeed
 
-    				that.play()
-    			}
-    		)
-    		
+    		advance(scrollerPos)
     	} else {
-    		return
+    		return false;
     	}
+
     }
 
     // end Autoplay functionality
 
     advance = function(scrollerPos){
+
 	    if(scrollerPos > maxScrollerPos) {
 	    	scrollerPos = maxScrollerPos
 	    	that.scrollStopFunction()
@@ -818,12 +821,13 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 	    	return
 	    }
 
-
 		$( ".scroll-directions" ).css('top',scrollerPos)
 		scrollValue =  (parseInt($( ".scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 		that.scrollValue = scrollValue
 		that.scrollFunction()
     }
+
+
 
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
@@ -832,7 +836,7 @@ var walkthroughFunctions = function(w,h,canvasid,name,imageNumber) {
 	   			containment: 'parent',
 				drag: function() {
 					
-					that.playing = false // stop autoplay
+					that.autoplay = false // stop autoplay
 					scrollValue =  (parseInt($( this ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
 					that.scrollValue = scrollValue
 
@@ -1110,12 +1114,24 @@ function newPage(URL) {
 
 
 function newPano(_pano) {
+	console.log('newPano')
 
-	$('#wrapper').addClass('hide')
+	if( $('#wrapper').hasClass('hide') ) {
+		console.log('has class hide')
+		$('.loading').show()
+		$('.loading').removeClass('hide')
+		
+	} else {
+		console.log('doesn’t have class hide')
+		$('#wrapper').addClass('hide')
+		$('#wrapper').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+			$('.loading').show()
+			$('.loading').removeClass('hide')
+			$('#wrapper').off('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend')
+		})
+	}
+	
 	// $('.pano-underlay').addClass('hide')
-
-	$('.loading').show()
-	$('.loading').removeClass('hide')
 	
 	setTimeout(function() {
 		parent.location.hash = _pano
@@ -1125,27 +1141,28 @@ function newPano(_pano) {
 
 function panoComplete(){
 
-	$('.loading').addClass('hide')
-	$('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-		$(this).hide()
-	})
+	console.log('PANO COMPLETE')
 
-	$('#wrapper').removeClass('hide')
+	$('.loading').addClass('hide')
+	$('.loading').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+		console.log('asdf')
+		$('.loading').hide()
+		$('#wrapper').show()
+		$('#wrapper').removeClass('hide')
+	})
 
 }
 
 function panoLoaded(){
-	
 
 	if(globalPano) {
 
 		pano.loadPanoScene(globalPano)
 		globalPano = false
 
-	}else{
+	} else {
 		console.log("no direction home")
 	}
-
 	
 }
 
@@ -1698,16 +1715,15 @@ function showCS(selector) {
 					el.data('animated',false);
 					if(options.loop){
 						setTimeout(function() {
-	          $('#inter-text').shuffleLetters({
-	      	    "loop": true,
-	      	    "stats": true
-	          });
-          }, 6000);
+		          $('#inter-text').shuffleLetters({
+		      	    "loop": true,
+		      	    "stats": true
+		          });
+	          }, 6000);
 						
 					}else{
 						master.init()
 						master.check_start()
-						
 				  }
 
 					options.callback(el);
@@ -1755,12 +1771,12 @@ var cancelAnimationFrame = window.webkitRequestAnimationFrame || window.cancelAn
 
 window.requestAnimationFrame = (function() {
 
-return  window.requestAnimationFrame       || 
-        window.webkitRequestAnimationFrame || 
-        window.mozRequestAnimationFrame    || 
-        window.oRequestAnimationFrame      || 
-        window.msRequestAnimationFrame     || 
-        function(/* function */ callback, /* DOMElement */ element){
-	        window.setTimeout(callback, 1000 / 60);
-	    };
+	return  window.requestAnimationFrame       || 
+	        window.webkitRequestAnimationFrame || 
+	        window.mozRequestAnimationFrame    || 
+	        window.oRequestAnimationFrame      || 
+	        window.msRequestAnimationFrame     || 
+	        function(/* function */ callback, /* DOMElement */ element){
+		        window.setTimeout(callback, 1000 / 60);
+		    };
 })();

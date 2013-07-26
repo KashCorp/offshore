@@ -1239,9 +1239,6 @@ visibility:hidden;}
 	-moz-perspective: 1000; 
 	-o-perspective: 1000; 
 	-webkit-perspective-origin: 50% 50%;
-
-
-
 		
 	position: absolute;
 	left: 0;
@@ -1249,6 +1246,10 @@ visibility:hidden;}
 	/*top: -25% ;*/
 	right: 0;
 	bottom: 0;
+
+	pointer-events: none;
+	-moz-pointer-events: none;
+	-webkit-pointer-events: none;
 }
 
 #transition-container {
