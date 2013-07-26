@@ -44,7 +44,7 @@ var masterFunctions = function() {
      
      $('.compass').click(function() {
      	$(this).fadeOut(500)
-		that.loadMap()
+		that.loadOverlay('rigmap.php')
      });
 
 	 $('#panocontainer').after('<div class="vignette"/>')
@@ -260,7 +260,7 @@ var masterFunctions = function() {
 	  	}) 
 
       	$(".breadbox-rigmap").click(function(){
-			that.loadMap()
+			that.loadOverlay('rigmap.php')
 		})
 
  		// Disable iOS overscroll
@@ -280,11 +280,17 @@ var masterFunctions = function() {
 		
 		Overlays
 
+
+
+		there should only ever be one overlay at a time.
+
+		loadOverlay('example.php')
+		closeOverlay
+
 	********************************************************************************/
 
 
-	this.loadMap = function(){
-
+	this.loadOverlay = function(overlayURL){
 		// hide container
 		$("#panocontainer").addClass('hide')
 		$("#panocontainer").on(css3transitionend,function(){
@@ -302,32 +308,30 @@ var masterFunctions = function() {
 		master.ghostBuster = true
 
 		// load map
-		$('#overlay_frame').attr('src','rigmap.php')
-		$('#overlay_frame').load(function(){
+		$('#overlay_frame').attr('src',overlayURL)
+		$('#overlay_frame').one('load',function(){
+			// $("#overlay_frame").off('load')
 			$('#overlay_frame').show()
 			$('#overlay_frame').addClass('show')
 		})
-
 	}
 
-	this.closeMap = function(){
-		console.log('close map')
+
+
+	this.closeOverlay = function(){
 
 		$('#overlay_frame').removeClass('show')
 
-		$('#overlay_frame').on(css3transitionend,function(){
-			
-			$('#overlay_frame').hide()
+		$('#overlay_frame').one(css3transitionend,function(){
 
+			// clear iframe
 			$('#overlay_frame').attr('src','')
+			$('#overlay_frame').css('display','none')
 
 			master.overlayOpen = false
 			master.ghostBuster = false
 
 			$('#to-control').off('click')
-
-			// that._frame = null;
-			// that._bookFrame = null;
 
 			$('.scroll-directions').fadeIn(500)
 			$('.compass').fadeIn(500)
@@ -335,15 +339,27 @@ var masterFunctions = function() {
 			$("#panocontainer").show()
 			$("#panocontainer").removeClass('hide')
 
-
 			krpano = document.getElementById("krpanoObject");
 			krpano.call("set(autorotate.enabled,true)")
+
 		})
 	}
 
+
+
+
+
 	this.loadBook = function(_bookUrl){
-		$('.compass').fadeOut(500)
-		master.overlayOpen = true
+
+		// hide container
+		$("#panocontainer").addClass('hide')
+		$("#panocontainer").on(css3transitionend,function(){
+			console.log('transition end')
+			$("#panocontainer").hide()
+
+			$('.scroll-directions').fadeOut(500)
+			$('.compass').fadeOut(500)
+		})
 
 		// if first run, load the book data
 		if( !that._bookFrame ) {
@@ -402,19 +418,6 @@ var masterFunctions = function() {
 		initAction();
 	}
 
-	var initAction = function() {
-		
-		master.krpano = document.getElementById("krpanoObject");
-  		if (!master.krpano || !master.krpano.get) {
- 
-    		return "";
-  		}
-
-
-  		
-  		master.krpano.call('action(initialize)')
-	}
-
 	this.showOverlay = function(selector) {
 		$('#overlay, ' + selector).fadeIn(1500);
 	}
@@ -422,6 +425,24 @@ var masterFunctions = function() {
 	this.hideOverlay = function() {
 		$('#overlay, .inner-overlay').fadeOut(1500);
 	}
+
+
+
+
+
+
+	var initAction = function() {
+		
+		master.krpano = document.getElementById("krpanoObject");
+  		if (!master.krpano || !master.krpano.get) {
+ 
+    		return "";
+  		}
+  		
+  		master.krpano.call('action(initialize)')
+	}
+
+	
 
 	// Audio Functionality
 	$('.volume-toggle').click(function(){
@@ -478,7 +499,6 @@ this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
 this.blankTrans = function(_isNotPano){
 
 	if(_isNotPano) {
-	//$('.wrapper').fadeIn(500)
 
 	}else{
 	var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
