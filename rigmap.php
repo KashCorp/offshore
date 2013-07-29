@@ -195,6 +195,10 @@
         parent.master.closeOverlay()
       })
 
+      $('body').click(function(){
+        parent.master.closeOverlay()
+      })
+
       $("#map-container ul li, .map_legend div, .map_labels div").click(function(){
         // if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
         if($(this).data("url")) {

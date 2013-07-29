@@ -22,8 +22,8 @@
       <div class="hard" style="background-image:url(images/debrief_front.png)"></div>
       <div class="hard" style="background-image:url(images/folder_left.png)"></div>
 
-      <div  class="hard" style="background-image:url(images/debrief/MatthewJacobs.jpg)"></div>
-      <div  class="hard" style="background-image:url(images/field_data/blank_paper.jpg)"></div>
+      <div class="hard" style="background-image:url(images/debrief/MatthewJacobs.jpg)"></div>
+      <div class="hard" style="background-image:url(images/field_data/blank_paper.jpg)"></div>
 
       <div class="hard"  style="background-image:url(images/debrief/MicahSandell.jpg)"></div>
       <div class="hard"  style="background-image:url(images/field_data/blank_paper.jpg)"></div>
@@ -56,9 +56,11 @@ function loadApp() {
 
 
 $(".platform-nav").click(function(){
-  console.log("click")
   parent.master.closeOverlay()
+})
 
+$('.flipbook-viewport').click(function(){
+  parent.master.closeOverlay()
 })
 
   // Create the flipbook

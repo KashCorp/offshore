@@ -1484,6 +1484,7 @@ visibility:hidden;}
 
 /* all overlays are loaded into this same iframe, one at a time */
 #overlay_frame {
+	background: url('../images/bg_dotmatrix4x4.gif');
 	position: absolute; 
 	width: 100%; 
 	height: 100%; 

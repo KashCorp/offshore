@@ -302,20 +302,6 @@ var masterFunctions = function() {
 
 
 	this.loadOverlay = function(overlayURL){
-		// hide container
-		/*
-		$("#panocontainer").addClass('hide')
-		$("#panocontainer").on(css3transitionend,function(){
-			console.log('transition end')
-			$("#panocontainer").hide()
-
-			$('.scroll-directions').fadeOut(500)
-			$('.compass').fadeOut(500)
-		})
-		*/
-
-		//krpano = document.getElementById("krpanoObject");
-		//krpano.call("set(autorotate.enabled,false)")
 
 		master.overlayOpen = true
 		master.ghostBuster = true
@@ -324,18 +310,18 @@ var masterFunctions = function() {
 		$('.scroll-directions').fadeOut(500)
 		$('.compass').fadeOut(500)
 
-		// load map
+		// load overlay
 
-		//$('#wrapper').fadeOut(1000, function(){
-			//console.log("wraper faded")
-			$('#overlay_frame').attr('src',overlayURL)
-			$('#overlay_frame').one('load',function(){
-				console.log('overlay frame loaded')
-				// $("#overlay_frame").off('load')
-				$('#overlay_frame').fadeIn()
+		$('#overlay_frame').attr('src',overlayURL)
+		$('#overlay_frame').one('load',function(){
+			console.log('overlay frame loaded')
+			$('#overlay_frame').fadeIn()
+		})
 
-			})
-		//})
+		$('#overlay_frame').contents().find('body').off('click')
+		$('#overlay_frame').contents().find('body').on('click',function(){
+			master.closeOverlay()
+		})
 	}
 
 
@@ -442,44 +428,39 @@ var masterFunctions = function() {
 	// Overlay Functionality
 	// >OLD?
 
-	$('.close-overlay').click(function(){
-		master.hideOverlay();
-		var parent = $(this).parent().attr('id');
-		if (parent == 'overlay_intro') {
-			initAction();
-		}	
-	})
+	// $('.close-overlay').click(function(){
+	// 	master.hideOverlay();
+	// 	var parent = $(this).parent().attr('id');
+	// 	if (parent == 'overlay_intro') {
+	// 		initAction();
+	// 	}	
+	// })
 
-	if (parent == 'overlay_intro') {
-		initAction();
-	}
+	// if (parent == 'overlay_intro') {
+	// 	initAction();
+	// }
 
-	this.showOverlay = function(selector) {
-		$('#overlay, ' + selector).fadeIn(1500);
-	}
+	// this.showOverlay = function(selector) {
+	// 	$('#overlay, ' + selector).fadeIn(1500);
+	// }
 
-	this.hideOverlay = function() {
-		$('#overlay, .inner-overlay').fadeOut(1500);
-	}
+	// this.hideOverlay = function() {
+	// 	$('#overlay, .inner-overlay').fadeOut(1500);
+	// }
 
+	// var initAction = function() {
 
-
-
-
-
-	var initAction = function() {
-
-		/*
 		
-		master.krpano = document.getElementById("krpanoObject");
-  		if (!master.krpano || !master.krpano.get) {
+		
+	// 	master.krpano = document.getElementById("krpanoObject");
+ //  		if (!master.krpano || !master.krpano.get) {
  
-    		return "";
-  		}
+ //    		return "";
+ //  		}
   		
-  		master.krpano.call('action(initialize)')
-  		*/
-	}
+ //  		master.krpano.call('action(initialize)')
+  		
+	// }
 
 	
 
@@ -508,7 +489,7 @@ var masterFunctions = function() {
 	
 
 
-this.loadVideoUnderlay =  function(_id,_popcorn,_load_menu){
+this.loadVideoUnderlay = function(_id,_popcorn,_load_menu){
     
 	parent.audiomaster.mix.setGain(0.1)
 	
@@ -737,10 +718,11 @@ this.check_start = function(){
     if (tag==null || tag==""){
     	$('body.platform').find('#overlay').delay(2000).fadeIn(500);
     	setCookie("seen_frontpage",true);
-    } else {
-    	initAction()
-    	//var t = setTimeout(initAction, 2000);
     }
+    // else {
+    // 	initAction()
+    // 	//var t = setTimeout(initAction, 2000);
+    // }
 }
 
 this.remove_start = function(){	  
@@ -1434,10 +1416,11 @@ function resetHoverSound(){
 	soundTrigger = false
 }
 
-function showCS(selector) {
-	pano.set("autorotate.enabled", true);
-	master.showOverlay(selector)
-}
+// >OLD
+// function showCS(selector) {
+// 	pano.set("autorotate.enabled", true);
+// 	master.showOverlay(selector)
+// }
 
 
 

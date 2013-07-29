@@ -22,8 +22,8 @@
       <div class="hard" style="background-image:url(images/field_data_front.png)"></div>
       <div class="hard" style="background-image:url(images/folder_left.png)"></div>
 
-      <div  class="hard" style="background-image:url(images/field_data/Atlantis.jpg)"></div>
-      <div  class="hard" style="background-image:url(images/field_data/blank_paper.jpg)"></div>
+      <div class="hard" style="background-image:url(images/field_data/Atlantis.jpg)"></div>
+      <div class="hard" style="background-image:url(images/field_data/blank_paper.jpg)"></div>
 
       <div class="hard"  style="background-image:url(images/field_data/Kaskida.jpg)"></div>
       <div class="hard"  style="background-image:url(images/field_data/blank_paper.jpg)"></div>
@@ -63,6 +63,10 @@ function loadApp() {
 $(".platform-nav").click(function(){
   parent.master.closeOverlay()
 
+})
+
+$('.flipbook-viewport').click(function(){
+  parent.master.closeOverlay()
 })
 
   // Create the flipbook
