@@ -204,7 +204,7 @@
 			alpha="0.0"
 			width="105.0"
 			height="150"
-			onclick="js(loadAFXPano(audio/voice_overs/VO_Helicopter.mp3))"
+			onclick="js(loadAFXPano(VO_Helicopter.mp3))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -299,7 +299,7 @@
 			alpha="0.0"
 			width="105.0"
 			height="105.0"
-			onclick="js(loadAFXPano(audio/voice_overs/VO_FlightDeck.mp3))"
+			onclick="js(loadAFXPano(VO_FlightDeck.mp3))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -431,7 +431,7 @@
 			width="105.0"
 			height="105.0"
 			
-			onclick="js(loadAFXPano(audio/voice_overs/VO_LowerPlatform.mp3))"
+			onclick="js(loadAFXPano(VO_LowerPlatform.mp3))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -908,8 +908,10 @@
 			atv="-7.82"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(loadAFXPano(audio/klaxxon.mp3));js(startDrilling());
-					 set(hotspot[closehatch].alpha,1);set(hotspot[closehatch].enabled,true);
+			onclick="js(loadAFXPano(klaxxon.mp3));
+					 js(startDrilling());
+					 set(hotspot[closehatch].alpha,1);
+					 set(hotspot[closehatch].enabled,true);
 					 set(hotspot[openhatch].enabled,false);
 					 lookto(190,0,60,smooth(),true,true);"
 			capture="false"
@@ -1751,7 +1753,7 @@
 			width="105.0"
 			height="105.0"
 
-			onclick="js(loadAFXPano(audio/voice_overs/VO_BoatDeck.mp3))"
+			onclick="js(loadAFXPano(VO_BoatDeck.mp3))"
 			scale="1.0"
 			capture="false"
 			/>

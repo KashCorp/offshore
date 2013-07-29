@@ -592,8 +592,7 @@ this.loadOverlayAudio = function(_file){
 
 this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 
-
-	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,_isLoop)
+	parent.audiomaster.loadAudio( master.cdn_video + 'audio/' + _file ,_trackName,0001,_pan,_isLoop)
 
 	var dummysounds = { s:  0};
 

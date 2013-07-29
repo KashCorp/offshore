@@ -205,35 +205,32 @@ var pano_master = function(){
         switch(_pano){
 
             case "prologue" : 
-
-            overLayFile = 'audio/HeliPad_minus_minus.mp3'
+                overLayFile = 'HeliPad_minus_minus.mp3'
 
             break;
 
             case "helicopter" :
-
                 krpano.call("lookto(180,0,90,smooth(),true,true))")
-
-                overLayFile = 'audio/Helicopter_Interior.mp3'
+                overLayFile = 'Helicopter_Interior.mp3'
             break;
 
             case "platform" : 
-                overLayFile = 'audio/ocean_sounds.mp3'
+                overLayFile = 'ocean_sounds.mp3'
             break;
 
             case "boat" : 
-                overLayFile = 'audio/HeliPad_minus_minus.mp3'
-                underlayFile = 'audio/The_Zone.mp3'
+                overLayFile = 'HeliPad_minus_minus.mp3'
+                underlayFile = 'The_Zone.mp3'
             break;
 
             case "interiorsub-wire" : 
-                overLayFile = 'audio/Submersible.mp3'
+                overLayFile = 'Submersible.mp3'
                 underlayMute=true
             break;
 
             case "lowerplatform_closed" : 
-                overLayFile = 'audio/LowerPlatform_minus.mp3' 
-                underlayFile = 'audio/Drone_1_norm.mp3'
+                overLayFile = 'LowerPlatform_minus.mp3' 
+                underlayFile = 'Drone_1_norm.mp3'
             break;
 
             case "hallway" : 
@@ -242,19 +239,17 @@ var pano_master = function(){
                 
                 that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
 
-                overLayFile = 'audio/Main_Hallway.mp3' 
-                underlayFile = 'audio/Drone_2_norm.mp3'
-                loadAFXPano('audio/One_Big_Ball_of_Fire.mp3')
-
-               // $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div>')
+                overLayFile = 'Main_Hallway.mp3' 
+                underlayFile = 'Drone_2_norm.mp3'
+                loadAFXPano('One_Big_Ball_of_Fire.mp3')
 
                 $('#panocontainer').after('<img id = "gradient" class="dynamic" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
             
             break;
 
             case "subhanger" : 
-                overLayFile = 'audio/SubRoom.mp3' 
-                underlayFile = 'audio/Drone_3.mp3'
+                overLayFile = 'SubRoom.mp3' 
+                underlayFile = 'Drone_3.mp3'
 
                 $("#walking-canvas-pano").removeClass('hide')
                 // $("#walking-canvas-pano").css("top",that.dynamicTop)
@@ -275,14 +270,14 @@ var pano_master = function(){
             break;
 
             case "theater" : 
-                overLayFile = 'audio/Fluorescencent_Tone.mp3'
+                overLayFile = 'Fluorescencent_Tone.mp3'
                 underlayMute=true
             break; 
 
             case "chemicalroom" :
                 //$('#panocontainer').before(' <canvas class="dynamic" id="walking-canvas" style="position:absolute;opacity:1" width="1200" width="800"></canvas>')
-                overLayFile = 'audio/Chemical_Room.mp3' 
-                underlayFile = 'audio/Drone_3_norm.mp3'
+                overLayFile = 'Chemical_Room.mp3' 
+                underlayFile = 'Drone_3_norm.mp3'
                 var scrollTrigger,scrollPercent = 1
                 
                 $("#walking-canvas-pano").removeClass('hide')
@@ -294,7 +289,7 @@ var pano_master = function(){
             break;    
 
             case "controlroom" : 
-                overLayFile = 'audio/russian_radio.mp3'
+                overLayFile = 'russian_radio.mp3'
                 $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
             break;                 
             //
@@ -381,7 +376,7 @@ var pano_master = function(){
 
                 $('#word-container ul').html(wordHTL)
  
-                overLayFile = 'audio/Hatch_Alt2.mp3'
+                overLayFile = 'Hatch_Alt2.mp3'
           break;       
 
         }
@@ -897,7 +892,8 @@ runFrameRunner()
 
 var loadAFXPano = function (_file){
     console.log("afx " + _file)
-    master.AFXloadAudio(_file,'overlay_02',0,1.0)
+    // master.AFXloadAudio(_file,'overlay_02',0,1.0)
+    master.AFXloadAudio( master.cdn_video + 'audio/' + _file,'overlay_02',0,1.0)
 }
 
 
