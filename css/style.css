@@ -1065,6 +1065,14 @@ height:100%;
     display:none;
 }
 
+#walking-canvas {
+	cursor: pointer;
+}
+
+.scroll-directions {
+	cursor: pointer;
+}
+
 
 #scroll-proxy {
     height: 5000px;
@@ -1563,6 +1571,11 @@ visibility:hidden;}
 }
 .movie-menu div:hover,
 .movie-menu div.active { color: #ffffff; }
+
+.movie-menu-item:before {
+	content: '\25BA';
+	margin-right: 0.5em;
+}
 
 
  /* Controls */

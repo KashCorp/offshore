@@ -719,10 +719,7 @@ this.check_start = function(){
     	$('body.platform').find('#overlay').delay(2000).fadeIn(500);
     	setCookie("seen_frontpage",true);
     }
-    // else {
-    // 	initAction()
-    // 	//var t = setTimeout(initAction, 2000);
-    // }
+    // e// }
 }
 
 this.remove_start = function(){	  
