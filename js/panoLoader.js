@@ -70,15 +70,14 @@
 		loaderArray.push("http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_u.jpg");
 		loaderArray.push("http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_d.jpg");
 
-		$('body').append('<div id="panoDownloadStatus"/>')
+		$('body').append('<div id="panoDownloadStatus"></div>')
+		$('body').append('<div id="panoDownloadStatusText"></div>')
 
-		$('#panoDownloadStatus').html('0 / ' + loaderArray.length)
+		$('#panoDownloadStatusText').html('Building SPARTAN 208 : ')
 
 		var loader = new PxLoader();
 
 		var increment = window.innerWidth / loaderArray.length
-
-		console.log("loading panaos")
 
 
 		for(var i=0; i < loaderArray.length; i++) { 
@@ -92,15 +91,29 @@
 
 		loader.addProgressListener(function(e) { 
 
+			$('.breadcrumb').css('display', 'none')
+			$('.breadcrumb').css('bottom', -40)
+
+			//$('.breadcrumb').css('opacity', 0)
+
 		   $('#panoDownloadStatus').css('width', e.completedCount * increment)
 
-		   $('#panoDownloadStatus').html(e.completedCount + ' / ' + e.totalCount)
+		   var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
+
+		   $('#panoDownloadStatusText').html('Building SPARTAN 208 : ' + progressPercent + '% complete.')
 		}); 
 
 		loader.addCompletionListener(function() { 
 
-			$('#panoDownloadStatus').fadeOut()
-			$('.breadcumb').fadeOut()
+			$('#panoDownloadStatusText').css('display', 'none')
+
+			$('#panoDownloadStatus').animate({'bottom': '-40px'}, 500, function() {
+				$('#panoDownloadStatus').css('display', 'block')
+				$('.breadcrumb').css('display', 'block')
+				$(".breadcrumb").animate({'bottom': '0'})	
+			})	
+
+
 
 		})
 		 

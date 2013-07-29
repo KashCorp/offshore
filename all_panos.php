@@ -78,6 +78,7 @@
           <video class="" width="100%" style="position:absolute" id="video-overlay" preload="auto">
             <source/>
           </video>
+          <div id="video-overlay-title"></div>
           <div class="controls hide">
             <div class="play"></div>
             <div class="seek"></div>
@@ -86,6 +87,12 @@
 
           <a id="to-control" class="platform-nav">Close</a>
         </div>
+
+    <div class="video-content-walkthrough">
+      <video controls="false" width="100%" style="position:absolute;display:block" id="video-overlay-walkthrough" preload="auto">
+        <source/>
+      </video>
+    </div>   
 
       <div class="scroll-directions-container panoversion"><div class="scroll-directions"></div></div>
 
@@ -164,14 +171,15 @@
 
         if(master.globalPano == 'chemicalroom' || master.globalPano == 'subhanger' ) {
           if(fov < 25) {
+            //$('.scroll-directions').css('opacity',1.0)
 
-            $('.scroll-directions, #walking-exit').fadeIn()
+            $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
             $('#panocontainer, .fastpan, .compass').fadeOut(500)
 
           }else{
 
             if(!master.overlayOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
-            $('.scroll-directions, #walking-exit').fadeOut(function(){
+            $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
               $('.scroll-directions').css('top','100px') // reset scrubber position
             })
             $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.1)

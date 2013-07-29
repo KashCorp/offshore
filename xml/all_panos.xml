@@ -10,12 +10,11 @@
 
 
 	<autorotate enabled="true"
-        waittime="1.5"
-        speed="3.0"
+        waittime="0.5"
+        speed="5.0"
         />
 	 
 	<events 
-		onxmlcomplete= "js(panoLoaded())" 
 
 		onloadcomplete= "js(panoComplete())"
 
@@ -96,28 +95,6 @@
 	                   
 
 
-	<progress showwait="none" />
-
-	<view 
-		hlookat="224.0"
-		fov="90.0"
-		fovmax="120.0"
-		fovmin="5.0"
-		limitview ="lookat"
-		hlookatmin ="NAN"
-		hlookatmax ="NaN"
-		vlookatmin ="10"
-		vlookatmax ="-35"
-	/>
-
-	<control
-		usercontrol = "all"
-		mousetype="drag2d"
-	 	keycodesin  =""
-	 	keycodesout =""
-	 />
-
-
 	<!-- ######################################################################
 	###########################################################################
 		
@@ -156,15 +133,28 @@
 	 			</mobile>
 	 		</image>
 
-	 				<hotspot name="LOGO" 
+	 			<hotspot name="LOGO" 
 	 			url="../images/offshore_logo.png"
 	 			ath="211"
 	 			atv="-13"
 	 			distorted="true"
-	 onclick="lookto(get(currentX),0,90,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+	 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
 	 			scale="1.0"
 	 			capture="false"
 	 			/>
+
+	 			<hotspot name="ENTER" 
+				url="../images/icons/gif_iconA.gif"
+				ath="211"
+				atv="-5"
+				distorted="true"
+				alpha=".5"
+				height="75"
+				width="75"
+				scale="1.0"
+				onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+				capture = "false"
+				/>
 
 	 		
 
@@ -544,6 +534,39 @@
 			scale="1.0"
 		/>
 
+
+		<hotspot name="engineroomgif" 
+			url="../images/icons/gif_iconA.gif"
+			ath="335"
+			atv="-7"
+		    distorted="true"
+			alpha=".5"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+			scale="1.0"
+		/>
+		<hotspot name="engineroomtext"
+			url="plugins/textfield.swf"
+			ath="335"
+			atv="-7"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] ENGINE ROOM [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+		/>		
+
 		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="30"
 			atv="-2"
@@ -559,6 +582,54 @@
 			scale="0.7"
 			/>
 
+		<!-- Medicine Cabinet -->
+
+
+		 <hotspot name="open_cabinet" 
+			url="../images/panos/chemicalroom/hotspots/cabinet.png"
+			ath="54.4"
+			atv="-5.1"
+			distorted="true"
+			alpha="0"
+			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
+			scale="1.05"
+		/>		
+
+		<hotspot name="Corexit_video" 
+			url="../images/hotspot.gif"
+			ath="54.4"
+			atv="-5.1"
+		  	distorted="true"
+			alpha="0"
+			width="100"
+			height="100"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(setCache(get(view.hlookat),54))"
+			scale="1.0"
+			enabled="false"
+		/>
+	
+		<hotspot name="Corexit_Text"
+			url="plugins/textfield.swf"
+			ath="64.4"
+			atv="-5"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] COREXIT&#169; [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(setCache(get(view.hlookat),54))"
+			enabled="false"
+			alpha="0"
+		/>
 
 		<!-- Poisoned -->
 
@@ -788,7 +859,7 @@
 			height="75"
 			capture="false"
 			/>
-
+<!--
 		<hotspot name="cctv1"
 			url="plugins/videoplayer_offshore_01.js"
 			alturl="plugins/videoplayer_offshore_01.js"
@@ -829,7 +900,7 @@
 			loop="true"
 		/>
 			
-		
+-->		
 		<!-- Big Red Button -->
 			
 		<hotspot name="openhatch" url="../images/hotspot.gif"
@@ -862,7 +933,7 @@
 		/>
 
 
-		<!-- CCTV -->
+		<!-- CCTV 
 
 		<hotspot name="cctv0"
 			url="plugins/videoplayer_offshore_01.js"
@@ -884,7 +955,7 @@
 			loop="true"
 		/>
 
-
+-->
 		<hotspot name="nymex"
 			url="plugins/videoplayer_offshore_01.js"
 			alturl="plugins/videoplayer_offshore_01.js"
@@ -968,7 +1039,7 @@
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			capture="false"
-			onclick="lookto(260,0,15,smooth(),true,true,js(newPano(hallway)))"
+			onclick="lookto(260,0,20,smooth(),true,true,js(newPano(hallway)))"
 			scale="1.0"
 		/>
 
@@ -989,7 +1060,7 @@
 	<scene name="hallway">
 
 		<view 
-			hlookat="270.0"
+		  hlookat="0.0"
 		  fov="90.0"
 		  fovmax="120.0"
 		  fovmin="1.0"
@@ -1143,6 +1214,41 @@
 			capture="false"
 			/>
 
+		<!-- voices dossier -->
+
+		<hotspot name="Voices_Dossier_text"
+			url="plugins/textfield.swf"
+			ath="80"
+			atv="0"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] INCIDENT DEBRIEFING [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="js(openBook(debrief.php))"
+		/>
+
+		<hotspot name="Voices_Dossier_icon" 
+			url="../images/icons/gif_documents.gif"
+			alpha=".5"
+			height="70"
+			width="70"
+			ath="80"
+			atv="0"
+			distorted="true"
+			capture="false"
+			onclick="js(openBook(debrief.php))"
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
+		/>		
+
 
 	</scene>
 
@@ -1152,7 +1258,7 @@
 	###########################################################################
 		
 
-		Sub Hangar
+		Sub Hanger
 	
 	###########################################################################
 	####################################################################### -->

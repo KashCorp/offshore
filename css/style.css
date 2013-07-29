@@ -347,7 +347,7 @@ a:hover {
 }
 
 .breadcrumb {
-	display:block;
+	display:none;
 	padding-top:10px;
 	position: absolute;
 	width: 100%;
@@ -488,7 +488,9 @@ a:hover {
 }
 
 
-
+.backtostart {
+	cursor: pointer;
+}
 .breadbox, .breadbox-blog, .breadbox-rigmap {
   /*position:absolute;*/
   cursor:pointer;
@@ -728,13 +730,13 @@ header .volume-toggle {
 	right: 0;
 	bottom: 0;
 	font-size: 10px;
-
-	-webkit-transition: opacity 500ms;
-	-moz-transition: opacity 500ms;
-	-ms-transition: opacity 500ms;
-	-o-transition: opacity 500ms;
-	transition: opacity 500ms;
-	
+/*
+	-webkit-transition: opacity 1500ms;
+	-moz-transition: opacity 1500ms;
+	-ms-transition: opacity 1500ms;
+	-o-transition: opacity 1500ms;
+	transition: opacity 1500ms;
+*/	
 }
 
 #panocontainer #krpanoObject {
@@ -965,9 +967,21 @@ height:100%;
 	position: absolute;
 	bottom:0px;
 	left:0px;
-	height:10px;
+	height:40px;
 	color:#ffffff;
-	background:#666666;
+	background: rgba(128,128,128,0.5);
+
+}
+
+#panoDownloadStatusText {
+	position: absolute;
+	bottom:10px;
+	left:5px;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'roboto', sans-serif;
+    font-weight: 400;	
 }
 
 #webgl_holder {
@@ -1315,7 +1329,7 @@ visibility:hidden;}
 	transition: width 200ms linear;
 }
 
-.video-content-wrap-engine-room, .video-content-wrap-desktop{
+.video-content-walkthrough, .video-content-wrap-desktop{
 
 	height:100%;
 	bottom: 0;
@@ -1334,6 +1348,16 @@ visibility:hidden;}
 
 .video-content-wrap-close {
 	width: 0;
+}
+
+#video-overlay-title {
+	position: absolute;
+	width: 100%;
+	top:40%;
+	text-align:center;
+	font-size: 2.0em;
+	font-family: 'roboto'
+
 }
 
 
@@ -1366,7 +1390,7 @@ visibility:hidden;}
 	text-align:center;
 	pointer-events: none;
 	background: url('../images/loading-gif-animation.gif') center center no-repeat;
-	opacity: 1;
+	opacity: .5;
 	-webkit-transition: opacity 500ms;
 	-moz-transition: opacity 500ms;
 	-ms-transition: opacity 500ms;
@@ -1448,13 +1472,14 @@ visibility:hidden;}
 	height: 100%; 
 	top: 0; left: 0;
 	display:none;
-	opacity: 0;
-
+	opacity: 1;
+/*
 	-webkit-transition: opacity 1s;
 	-moz-transition: opacity 1s;
 	-ms-transition: opacity 1s;
 	-o-transition: opacity 1s;
 	transition: opacity 1s;
+	*/
 }
 
 
@@ -1505,7 +1530,7 @@ visibility:hidden;}
 	height:70px;
 	width: 100%;
 	padding-left: 4em;
-	background: #666666;
+	background: rgba(128,128,128,0.5);
 	/*background: rgb(36, 37, 39, 0.5);*/
 	/*background: rgb(186, 192, 178, 0.5);*/
 }

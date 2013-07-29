@@ -16,6 +16,9 @@ var pano_master = function(){
     this.dynamicHeight = this.dynamicWidth * .5625;
     this.dynamicTop = (window.innerHeight - this.dynamicHeight)/2;
 
+    var scrollTrigger,scrollPercent=0,sequenceHasWords,linkForward, linkBack;
+            
+
     if(parent.location.hash.slice(1)) globalPano = parent.location.hash.slice(1)
 
     //Defualt to start if no has'h
@@ -46,6 +49,11 @@ var pano_master = function(){
     viewer.embed();
 
 
+    // start frame animation
+    
+    
+
+
     /// Nav sequence newPano -> hash change -> event listener -> LoadPanoScene > if image sequence - diverts to LoadSequenceScene
 
     /// if pano, waits for onloadcomplete from krpano to remove hide class? 
@@ -64,15 +72,14 @@ var pano_master = function(){
 
     var loadSequenceScene = function(_sequence)    {
         console.log('loadSequenceScene')
+        sequenceHasWords = false;
 
-        cancelAnimationFrame(runFrameRunner)
+        //cancelAnimationFrame(runFrameRunner)
 
         var ImageSequenceFiles,
             ghost,
-            ghostFrames,
-            linkBack,
-            linkForward,
-            sequenceHasWords = false;
+            ghostFrames
+            
 
         // clear word container
         $('#word-container ul').html('')
@@ -167,74 +174,20 @@ var pano_master = function(){
         that.walkthrough.scrollPos = 0;
         that.walkthrough.scrollValue = 1;
 
-        var scrollTrigger,
-            scrollPercent=0;
+        scrollTrigger = false;
+        scrollPercent=0;
+
+ 
 
         //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
 
 
-        function scrollerFunction(){
-
-            scrollPercent = Math.ceil((that.walkthrough.scrollValue / (5000-$(window).height())) * 100);
-
-            if(sequenceHasWords) {
-                var zPos = that.walkthrough.scrollValue*.4
-                $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-
-                $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-                $('#word_01').css('opacity', scrollPercent/100);
-            }
-
-            
-        
-            if(scrollPercent > 40 && that.ghostTransition)
-                master.ghostBuster = false
-            else
-                master.ghostBuster = true
-
-            if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-                    parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
-            } 
-            
-            if(scrollPercent < 5) $("#scroll-start").fadeIn(1000)
-            else                  $("#scroll-start").fadeOut(700)
-
-
-            if(scrollPercent > 95 && !scrollTrigger){
-
-                    console.log('end of passage')
-
-                    scrollTrigger = true
-
-                    // window.cancelAnimationFrame(sequenceAnimFrame)
-
-                    that.walkthrough.scrollPos = 0
-
-                    $('#scroll-wrapper').fadeOut()
-                    $('#panocontainer').addClass('hide')
-
-                    newPano(linkForward)
-
-                    that.walkthrough = null
-
-                    return false;
-
-            } else {
-                $("#scroll-end").fadeOut(1000)
-            }
-
-            if(that.walkthrough.autoplay) {
-                that.walkthrough.play();
-            }
-
-            var sequenceAnimFrame = requestAnimationFrame(scrollerFunction)
-
-        } // scrollerFunction
 
 
 
-        scrollerFunction()
+
+        //scrollerFunction()
         
     }
 
@@ -253,17 +206,33 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano) {
 
-    if(that.ghostTransition) that.ghostTransition = false;
+    if(that.ghostTransition) that.ghostTransition.killGhost();
     if(that.walkthrough) that.walkthrough = false;
+
+    setTimeout(function(){
+
+        var canvas = document.getElementById('ghost-canvas-trans');
+
+        var context = canvas.getContext('2d');
+
+        context.clearRect(0, 0,320,180);
+
+        canvas.width = 0
+
+        canvas.width = 320
+    },1000)
 
 
     // calculate a random range for ghosts to appear
     master.ghostMinCoord = Math.floor( Math.random() * 180 )
+
     master.ghostMaxCoord = master.ghostMinCoord + 100
 
     master.globalPano = _pano
 
     $('.scroll-directions').css('top',100)
+
+    $('.panoversion').css('display','none')
 
     if(parent.audiomaster.mix.getTrack('overlay_02')){
 
@@ -284,17 +253,18 @@ var pano_master = function(){
             return false;
         }
 
-        // start pano mouse interaction
-        runFrameRunner() 
+
 
         console.log('loadPanoScene() '+_pano)
 
         $('#scroll-wrapper').fadeOut()
-        //$('#wrapper').fadeIn(1000)
-        //$('#wrapper').removeClass('hide')
 
         krpano = document.getElementById("krpanoObject");
+
         krpano.call('action(' + _pano + ')')
+
+        krpano.set('view.fov','90')
+        krpano.set('view.vlookat','0')
 
 
 
@@ -307,14 +277,8 @@ var pano_master = function(){
 
             case "prologue" : 
 
-                // preloader()
-
-            //underlayFile = 'audio/The_Zone.mp3'
-
             overLayFile = 'audio/HeliPad_minus_minus.mp3'
-                //videoPlayer('prologue')
-                //that.loadPanoScene('helicopter')
-                //$('#pano-container').addClass('hide')
+
             break;
 
             case "helicopter" :
@@ -376,6 +340,7 @@ var pano_master = function(){
                  panoWalkthrough.scrollPos = 0
                   scrollTrigger = 0
                   krpano = document.getElementById("krpanoObject");
+                  panoWalkthrough.closeWalkthroughVid()
                   krpano.call("lookto(0,0,90,smooth(),true,true))")
                  });
 
@@ -397,16 +362,17 @@ var pano_master = function(){
             case "chemicalroom" : 
                 //$('#panocontainer').before(' <canvas class="dynamic" id="walking-canvas" style="position:absolute;opacity:1" width="1200" width="800"></canvas>')
                 $("#walking-canvas-pano").removeClass('hide')
-                $("#walking-canvas-pano").css("top",dynamicTop)
+                $("#walking-canvas-pano").css("top",that.dynamicTop)
                 overLayFile = 'audio/Chemical_Room.mp3' 
                 underlayFile = 'audio/Drone_3_norm.mp3'
                 var scrollTrigger,scrollPercent = 1
                 
-                panoWalkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas-pano","engineroom",601,true)
+                panoWalkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas-pano","engineroom",601,true)
 
                 $("#walking-exit").click(function(){
                  panoWalkthrough.scrollPos = 0
                   scrollTrigger = 0
+                  panoWalkthrough.closeWalkthroughVid()
                   krpano = document.getElementById("krpanoObject");
                   krpano.call("lookto(0,0,90,smooth(),true,true))")
                  });
@@ -416,7 +382,7 @@ var pano_master = function(){
 
             case "controlroom" : 
                 overLayFile = 'audio/russian_radio.mp3'
-                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div>')
+                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
             break;                 
             //
         }
@@ -435,13 +401,24 @@ var pano_master = function(){
      
 
     $(parent).bind('hashchange', function(){
-        if (parent.location.hash.slice(1) =="") return
-        $("#walking-canvas-pano").addClass('hide')
+        if (parent.location.hash.slice(1) =="") {
+            that.loadPanoScene('prologue')
+            return false
+        }
 
+            
+        $("#walking-canvas-pano").addClass('hide')
         that.loadPanoScene(parent.location.hash.slice(1))
     })
 
+    setTimeout(function(){
+        if (parent.location.hash.slice(1) =="") {
+            that.loadPanoScene('prologue')
+        }
 
+        that.loadPanoScene(parent.location.hash.slice(1))
+
+    },1000)
 
 
 
@@ -474,7 +451,7 @@ var pano_master = function(){
             })
 
             $('.movie-menu-item').click(function(){
-                switchVideo($(this).data('file'))
+                switchVideo($(this).data('file'),$(this).text())
             })
 
         },
@@ -765,6 +742,74 @@ var pano_master = function(){
              }
     }     
 
+    /**************************************************************************
+        
+        Image Sequence Controller
+    
+    **************************************************************************/
+
+    function scrollerFunction(){
+
+        if(!that.walkthrough) return false
+
+        scrollPercent = Math.ceil((that.walkthrough.scrollValue / (5000-$(window).height())) * 100);
+
+            if(sequenceHasWords) {
+                var zPos = that.walkthrough.scrollValue*.4
+                $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+
+                $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+                $('#word_01').css('opacity', scrollPercent/100);
+            }
+
+            
+        
+            if(scrollPercent > 40 && that.ghostTransition)
+                master.ghostBuster = false
+            else
+                master.ghostBuster = true
+
+            if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+                    parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
+            } 
+            
+            if(scrollPercent < 5) $("#scroll-start").fadeIn(1000)
+            else                  $("#scroll-start").fadeOut(700)
+
+
+            if(scrollPercent > 95 && !scrollTrigger){
+
+                    console.log('end of passage')
+
+                    scrollTrigger = true
+
+                    // window.cancelAnimationFrame(sequenceAnimFrame)
+
+                    that.walkthrough.scrollPos = 0
+
+                    $('#scroll-wrapper').fadeOut(1000, function(){
+                    newPano(linkForward)
+
+                    that.walkthrough = null
+
+                    
+
+                    })
+                    //$('#panocontainer').addClass('hide')
+                    return false;
+
+
+            } else {
+                $("#scroll-end").fadeOut(1000)
+            }
+
+            if(that.walkthrough.autoplay) {
+                that.walkthrough.play();
+            }
+
+            //var sequenceAnimFrame = requestAnimationFrame(scrollerFunction)
+
+        } // scrollerFunction
 
 
     /**************************************************************************
@@ -779,6 +824,11 @@ var pano_master = function(){
         //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
 
             requestAnimationFrame(runFrameRunner);
+
+            if(parent.location.hash.slice(1).indexOf('sequence') != -1){
+                scrollerFunction()
+                return false
+            }
 
             krpano = document.getElementById('krpanoObject')
 
@@ -832,7 +882,7 @@ var pano_master = function(){
              
     }
                   
-
+runFrameRunner() 
 
 
 }

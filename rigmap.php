@@ -142,22 +142,26 @@
 
     <div class="map_labels">
       <div class="platform"     data-url="platform"     style="left: 390px; top: 155px;" data-url="platform">1</div>
-      <div class="controlroom"  data-url="controlroom"  style="left: 510px; top: 105px;" data-url="controlroom">2</div>
-      <div class="theater"      data-url="theatre"      style="left: 425px; top: 350px;" data-url="theater">3</div>
-      <div class="chemicalroom" data-url="chemicalroom" style="left: 470px; top: 465px;" data-url="chemicalroom">4</div>
-      <div class="subhanger"    data-url="subhanger"    style="left: 575px; top: 505px;" data-url="subhanger">5</div>
-      <div class="boat"         data-url="boat"         style="left: 705px; top: 490px;" data-url="boat">6</div>
-      <div class="hallway"      data-url="hallway"      style="left: 485px; top: 270px;" data-url="hallway">7</div>
+      <div class="hallway"      data-url="hallway"      style="left: 485px; top: 270px;" data-url="hallway">2</div>
+      <div class="boat"         data-url="boat"         style="left: 705px; top: 490px;" data-url="boat">3</div>
+      <div class="controlroom"  data-url="controlroom"  style="left: 510px; top: 105px;" data-url="controlroom">4</div>
+      <div class="theater"      data-url="theatre"      style="left: 425px; top: 350px;" data-url="theater">5</div>
+      <div class="chemicalroom" data-url="chemicalroom" style="left: 470px; top: 465px;" data-url="chemicalroom">6</div>
+      <div class="subhanger"    data-url="subhanger"    style="left: 575px; top: 505px;" data-url="subhanger">7</div>
+
+
     </div>
 
     <div class="map_legend">
       <div class="platform"     data-url="platform"     id="t3"  ><span>1</span> Flight Deck</div>
-      <div class="controlroom"  data-url="controlroom"  id="t4"  ><span>2</span> Control Room</div>
-      <div class="theater"      data-url="theatre"      id="t5b" ><span>3</span> Theatre</div>
-      <div class="chemicalroom" data-url="chemicalroom" id="t6"  ><span>4</span> Chem-Storage</div>
-      <div class="subhanger"    data-url="subhanger"    id="t7"  ><span>5</span> Submersible Hangar</div>
-      <div class="boat"         data-url="boat"         id="t8"  ><span>6</span> Boat Deck</div>
-      <div class="hallway"      data-url="hallway"      id="t5a" ><span>7</span> Terminus</div>
+      <div class="hallway"      data-url="hallway"      id="t5a" ><span>2</span> Terminus</div>
+      <div class="boat"         data-url="boat"         id="t8"  ><span>3</span> Boat Deck</div>     
+      <div class="controlroom"  data-url="controlroom"  id="t4"  ><span>4</span> Control Room</div>
+      <div class="theater"      data-url="theatre"      id="t5b" ><span>5</span> Theatre</div>
+      <div class="chemicalroom" data-url="chemicalroom" id="t6"  ><span>6</span> Chem-Storage</div>
+      <div class="subhanger"    data-url="subhanger"    id="t7"  ><span>7</span> Submersible Hanger</div>
+
+
     </div>
 
   </div>
