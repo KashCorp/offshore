@@ -49,16 +49,259 @@ var pano_master = function(){
     viewer.embed();
 
 
-    // start frame animation
+
+
+
+
+    /**************************************************************************
+        
+        New pano logic sequence:
+
+        1. hash change event listener
+        2. loadPanoScene
+        3. if image sequence - diverts to LoadSequenceScene
+
+
+    **************************************************************************/
     
+
+
+    /**************************************************************************
+        
+        Hash Change
+
+    **************************************************************************/
+
+     
+
+    $(parent).bind('hashchange', function(){
+        console.log('LOAD: hash change')
+        if (parent.location.hash.slice(1) =="") {
+            that.loadPanoScene('prologue')
+            return false
+        }
+            
+        $("#walking-canvas-pano").addClass('hide')
+        that.loadPanoScene(parent.location.hash.slice(1))
+    })
+
+    // coming in from a deeplink
+    var deeplinktimeout;
+
+    var deeplinkfunction = function(){
+
+        console.log('deeplinkfunction')
+
+        window.clearTimeout(deeplinktimeout)
+
+        deeplinktimeout = window.setTimeout(function(){
+
+            // make sure krpano has had a chance to load
+            krpano = document.getElementById("krpanoObject");
+
+            if(krpano) {
+                console.log('krpano loaded')
+
+                if (parent.location.hash.slice(1) =="")
+                    that.loadPanoScene('prologue')
+                else
+                    that.loadPanoScene(parent.location.hash.slice(1))
+
+                window.clearTimeout(deeplinktimeout)
+                return false;
+
+            } else {
+                console.log('waiting for krpano to load...')
+                deeplinkfunction()
+            }
+
+        },1000)
+    }
+
+    deeplinkfunction();
+
     
 
 
-    /// Nav sequence newPano -> hash change -> event listener -> LoadPanoScene > if image sequence - diverts to LoadSequenceScene
 
-    /// if pano, waits for onloadcomplete from krpano to remove hide class? 
+    /**************************************************************************
+        
+        Load Pano Scene
+    
+    **************************************************************************/
+    
 
-    /// Do we need loading indicator? -- done IC
+    this.loadPanoScene = function(_pano) {
+
+    // Ghost Functions
+    if(that.ghostTransition) that.ghostTransition.killGhost();
+    if(that.walkthrough) that.walkthrough = false;
+
+    setTimeout(function(){
+
+        var canvas = document.getElementById('ghost-canvas-trans');
+
+        var context = canvas.getContext('2d');
+
+        context.clearRect(0, 0,320,180);
+
+        canvas.width = 0
+
+        canvas.width = 320
+
+    },1000)
+
+
+    // calculate a random range for ghosts to appear
+    master.ghostMinCoord = Math.floor( Math.random() * 180 )
+    master.ghostMaxCoord = master.ghostMinCoord + 100
+
+
+    master.globalPano = _pano
+
+    $('.scroll-directions').css('top',100)
+
+    $('.panoversion').css('display','none')
+
+    if(parent.audiomaster.mix.getTrack('overlay_02')){
+
+        var dummysound = { fadeFrom: 1};
+
+        master.soundTrigger = null
+
+        console.log("has overlay 2")
+
+        parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
+        parent.audiomaster.mix.removeTrack('overlay_02')
+
+    }
+
+///// Decision to divert to image sequence
+        if(_pano.indexOf('sequence')!=-1) {
+            loadSequenceScene(_pano);
+            return false;
+        }
+
+
+        console.log('loadPanoScene() '+_pano)
+
+        $('#scroll-wrapper').fadeOut()
+
+
+
+        // load pano
+        krpano = document.getElementById("krpanoObject");
+        krpano.call('action(' + _pano + ')')
+
+        // should add a krpano lookto call here, sometimes loads looking at ceiling
+        // krpano.call('lookto(0,0,90)'); // lookto(horizontal, vertical, fov)
+        krpano.set('view.fov','90');
+        krpano.set('view.vlookat','0');
+
+        // remove leftover dynamic elements
+        $('.dynamic').remove()
+
+        // MASTER SWITCH
+        switch(_pano){
+
+            case "prologue" : 
+
+            overLayFile = 'audio/HeliPad_minus_minus.mp3'
+
+            break;
+
+            case "helicopter" :
+
+                krpano.call("lookto(180,0,90,smooth(),true,true))")
+
+                overLayFile = 'audio/Helicopter_Interior.mp3'
+            break;
+
+            case "platform" : 
+                overLayFile = 'audio/ocean_sounds.mp3'
+            break;
+
+            case "boat" : 
+                overLayFile = 'audio/HeliPad_minus_minus.mp3'
+                underlayFile = 'audio/The_Zone.mp3'
+            break;
+
+            case "interiorsub-wire" : 
+                overLayFile = 'audio/Submersible.mp3'
+                underlayMute=true
+            break;
+
+            case "lowerplatform_closed" : 
+                overLayFile = 'audio/LowerPlatform_minus.mp3' 
+                underlayFile = 'audio/Drone_1_norm.mp3'
+            break;
+
+            case "hallway" : 
+
+                var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
+                
+                that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
+
+                overLayFile = 'audio/Main_Hallway.mp3' 
+                underlayFile = 'audio/Drone_2_norm.mp3'
+                loadAFXPano('audio/One_Big_Ball_of_Fire.mp3')
+
+               // $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div>')
+
+                $('#panocontainer').after('<img id = "gradient" class="dynamic" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
+            
+            break;
+
+            case "subhanger" : 
+                overLayFile = 'audio/SubRoom.mp3' 
+                underlayFile = 'audio/Drone_3.mp3'
+
+                $("#walking-canvas-pano").removeClass('hide')
+                // $("#walking-canvas-pano").css("top",that.dynamicTop)
+
+                var scrollTrigger,scrollPercent = 1
+
+                panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
+                panoWalkthrough.preload()
+
+            break;
+
+            case "submarine" :
+                $('#panocontainer').before('<video autoplay class="dynamic hide fade" id="video-underwater" preload="auto"></video>')
+                $('#video-underwater').css({
+                    'position':'absolute',
+                    'width':'100%'
+                })
+            break;
+
+            case "theater" : 
+                overLayFile = 'audio/Fluorescencent_Tone.mp3'
+                underlayMute=true
+            break; 
+
+            case "chemicalroom" :
+                //$('#panocontainer').before(' <canvas class="dynamic" id="walking-canvas" style="position:absolute;opacity:1" width="1200" width="800"></canvas>')
+                overLayFile = 'audio/Chemical_Room.mp3' 
+                underlayFile = 'audio/Drone_3_norm.mp3'
+                var scrollTrigger,scrollPercent = 1
+                
+                $("#walking-canvas-pano").removeClass('hide')
+                // $("#walking-canvas-pano").css("top",that.dynamicTop)
+
+                panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
+                panoWalkthrough.preload()
+
+            break;    
+
+            case "controlroom" : 
+                overLayFile = 'audio/russian_radio.mp3'
+                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
+            break;                 
+            //
+        }
+
+        that.loadSceneAudio()
+    } 
 
 
 
@@ -79,7 +322,6 @@ var pano_master = function(){
         var ImageSequenceFiles,
             ghost,
             ghostFrames
-            
 
         // clear word container
         $('#word-container ul').html('')
@@ -167,7 +409,7 @@ var pano_master = function(){
 
         $("#walking-canvas").css("top",that.dynamicTop)
 
-        that.walkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
+        that.walkthrough = new walkthroughFunctions("walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
 
         that.walkthrough.preload()
 
@@ -182,243 +424,9 @@ var pano_master = function(){
         //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
 
 
-
-
-
-
-
         //scrollerFunction()
         
     }
-
-
-
-
-
-
-
-    /**************************************************************************
-        
-        Load Pano Scene
-    
-    **************************************************************************/
-    
-
-    this.loadPanoScene = function(_pano) {
-
-    if(that.ghostTransition) that.ghostTransition.killGhost();
-    if(that.walkthrough) that.walkthrough = false;
-
-    setTimeout(function(){
-
-        var canvas = document.getElementById('ghost-canvas-trans');
-
-        var context = canvas.getContext('2d');
-
-        context.clearRect(0, 0,320,180);
-
-        canvas.width = 0
-
-        canvas.width = 320
-    },1000)
-
-
-    // calculate a random range for ghosts to appear
-    master.ghostMinCoord = Math.floor( Math.random() * 180 )
-
-    master.ghostMaxCoord = master.ghostMinCoord + 100
-
-    master.globalPano = _pano
-
-    $('.scroll-directions').css('top',100)
-
-    $('.panoversion').css('display','none')
-
-    if(parent.audiomaster.mix.getTrack('overlay_02')){
-
-        var dummysound = { fadeFrom: 1};
-
-        master.soundTrigger = null
-
-        console.log("has overlay 2")
-
-        parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
-        parent.audiomaster.mix.removeTrack('overlay_02')
-
-    }
-
-///// Decision to divert to image sequence
-        if(_pano.indexOf('sequence')!=-1) {
-            loadSequenceScene(_pano);
-            return false;
-        }
-
-
-
-        console.log('loadPanoScene() '+_pano)
-
-        $('#scroll-wrapper').fadeOut()
-
-        krpano = document.getElementById("krpanoObject");
-
-        krpano.call('action(' + _pano + ')')
-
-        krpano.set('view.fov','90')
-        krpano.set('view.vlookat','0')
-
-
-
-        // should add a krpano lookto call here, sometimes loads looking at ceiling
-
-        // remove leftover dynamic elements
-        $('.dynamic').remove()
-
-        switch(_pano){
-
-            case "prologue" : 
-
-            overLayFile = 'audio/HeliPad_minus_minus.mp3'
-
-            break;
-
-            case "helicopter" :
-
-                krpano.call("lookto(180,0,90,smooth(),true,true))")
-
-                overLayFile = 'audio/Helicopter_Interior.mp3'
-            break;
-
-            case "platform" : 
-                overLayFile = 'audio/ocean_sounds.mp3'
-            break;
-
-            case "boat" : 
-                overLayFile = 'audio/HeliPad_minus_minus.mp3'
-                underlayFile = 'audio/The_Zone.mp3'
-            break;
-
-            case "interiorsub-wire" : 
-                overLayFile = 'audio/Submersible.mp3'
-                underlayMute=true
-            break;
-
-            case "lowerplatform_closed" : 
-                overLayFile = 'audio/LowerPlatform_minus.mp3' 
-                underlayFile = 'audio/Drone_1_norm.mp3'
-            break;
-
-            case "hallway" : 
-
-                var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
-                
-                that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
-
-                overLayFile = 'audio/Main_Hallway.mp3' 
-                
-                underlayFile = 'audio/Drone_2_norm.mp3'
-
-                loadAFXPano('audio/One_Big_Ball_of_Fire.mp3')
-
-               // $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div>')
-
-                $('#panocontainer').after('<img id = "gradient" class="dynamic" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
-            
-            break;
-
-            case "subhanger" : 
-                overLayFile = 'audio/SubRoom.mp3' 
-                underlayFile = 'audio/Drone_3.mp3'
-
-                $("#walking-canvas-pano").removeClass('hide')
-                $("#walking-canvas-pano").css("top",that.dynamicTop)
-
-                var scrollTrigger,scrollPercent = 1
-
-                panoWalkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas-pano","approaching",119,true)
-
-                $("#walking-exit").click(function(){
-                 panoWalkthrough.scrollPos = 0
-                  scrollTrigger = 0
-                  krpano = document.getElementById("krpanoObject");
-                  panoWalkthrough.closeWalkthroughVid()
-                  krpano.call("lookto(0,0,90,smooth(),true,true))")
-                 });
-
-            break;
-
-            case "submarine" :
-                $('#panocontainer').before('<video autoplay class="dynamic hide fade" id="video-underwater" preload="auto"></video>')
-                $('#video-underwater').css({
-                    'position':'absolute',
-                    'width':'100%'
-                })
-            break;
-
-            case "theater" : 
-                overLayFile = 'audio/Fluorescencent_Tone.mp3'
-                underlayMute=true
-            break; 
-
-            case "chemicalroom" : 
-                //$('#panocontainer').before(' <canvas class="dynamic" id="walking-canvas" style="position:absolute;opacity:1" width="1200" width="800"></canvas>')
-                $("#walking-canvas-pano").removeClass('hide')
-                $("#walking-canvas-pano").css("top",that.dynamicTop)
-                overLayFile = 'audio/Chemical_Room.mp3' 
-                underlayFile = 'audio/Drone_3_norm.mp3'
-                var scrollTrigger,scrollPercent = 1
-                
-                panoWalkthrough = new walkthroughFunctions(that.dynamicWidth,that.dynamicHeight,"walking-canvas-pano","engineroom",601,true)
-
-                $("#walking-exit").click(function(){
-                 panoWalkthrough.scrollPos = 0
-                  scrollTrigger = 0
-                  panoWalkthrough.closeWalkthroughVid()
-                  krpano = document.getElementById("krpanoObject");
-                  krpano.call("lookto(0,0,90,smooth(),true,true))")
-                 });
-
-
-            break;    
-
-            case "controlroom" : 
-                overLayFile = 'audio/russian_radio.mp3'
-                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
-            break;                 
-            //
-        }
-
-        that.loadSceneAudio()
-    } 
-
-
-
-    /**************************************************************************
-        
-        Hash Change
-
-    **************************************************************************/
-
-     
-
-    $(parent).bind('hashchange', function(){
-        if (parent.location.hash.slice(1) =="") {
-            that.loadPanoScene('prologue')
-            return false
-        }
-
-            
-        $("#walking-canvas-pano").addClass('hide')
-        that.loadPanoScene(parent.location.hash.slice(1))
-    })
-
-    setTimeout(function(){
-        if (parent.location.hash.slice(1) =="") {
-            that.loadPanoScene('prologue')
-        }
-
-        that.loadPanoScene(parent.location.hash.slice(1))
-
-    },1000)
 
 
 

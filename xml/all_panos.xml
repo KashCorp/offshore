@@ -12,7 +12,16 @@
 	<autorotate enabled="true"
         waittime="0.5"
         speed="5.0"
-        />
+    />
+
+    <control 
+       	usercontrol = "all"
+       	mousetype="drag2d"
+       	mousefriction="0"
+       	mouseaccelerate="0"
+        fovspeed="1.0"
+        headswing="0"
+    />
 	 
 	<events 
 
@@ -21,7 +30,7 @@
 		onmousedown="action(globalmousedown)" 
 
 		onviewchange="action(viewchange)"
-		/> 
+	/>
 	 
 	<action name="globalmousedown">		
 		set(plugin[directions].visible,false);
@@ -116,15 +125,6 @@
 	 			fovmax="180.0"
 	 			fovmin="10.0"
 	 			/>
-
-	 		<control 
-	 			usercontrol = "all"
-	 			mousetype="drag2d"
-	 			mousefriction="0"
-	 			mouseaccelerate="0"
-	 		    fovspeed="1.0"
-	 		    headswing="0"
-	 		 	/>
 
 	 	 	<image>
 	 			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/prologue_pano_%s.jpg" />
@@ -530,7 +530,7 @@
 			capture="false"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+			onclick="lookto(335,0,5,tween(easeOutQuad,3),true,true);set(hotspot[engineroom].enabled,false);"
 			scale="1.0"
 		/>
 
@@ -545,7 +545,7 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+			onclick="lookto(335,0,5,tween(easeOutQuad,3),true,true);set(hotspot[engineroom].enabled,false);"
 			scale="1.0"
 		/>
 		<hotspot name="engineroomtext"
@@ -564,7 +564,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+			onclick="lookto(335,0,5,tween(easeOutQuad,3),true,true);set(hotspot[engineroom].enabled,false);"
 		/>		
 
 		<hotspot name="exit" url="../images/hotspot.gif"
@@ -605,7 +605,7 @@
 			height="100"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(setCache(get(view.hlookat),54))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			enabled="false"
 		/>
@@ -626,7 +626,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(setCache(get(view.hlookat),54))"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(setCache(get(view.hlookat),90))"
 			enabled="false"
 			alpha="0"
 		/>

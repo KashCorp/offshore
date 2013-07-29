@@ -48,7 +48,7 @@
 <script type="text/javascript">
 
 $("#to-control").click(function(){
-	parent.master.closeBook()
+	parent.master.closeOverlay()
 })
 
 

@@ -214,7 +214,7 @@ position: absolute;
       $(document).ready(function(){
 
       $("#to-control").click(function(){
-        parent.master.closeBook()
+        parent.master.closeOverlay()
       })
 
       $("#map-container ul li").click(function(){

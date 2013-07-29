@@ -128,16 +128,16 @@
   <div id="map-container"> 
 
     <div class="map_images">
-      <div style="cursor:default"  id="rigmap_01"><img src="images/rig_map/rig_map_01"></div>
-      <div style="cursor:default"  id="rigmap_02"><img src="images/rig_map/rig_map_02"></div>
+      <div style="cursor:default"  id="rigmap_01"><img data-baseurl="./images/rig_map/rig_map_01"></div>
+      <div style="cursor:default"  id="rigmap_02"><img data-baseurl="./images/rig_map/rig_map_02"></div>
  
-      <div data-url="platform"     id="rigmap_03">  <img src="images/rig_map/rig_map_03">  </div>
-      <div data-url="controlroom"  id="rigmap_04">  <img src="images/rig_map/rig_map_04">  </div>
-      <div data-url="hallway"      id="rigmap_05a"> <img src="images/rig_map/rig_map_05a"> </div>
-      <div data-url="theater"      id="rigmap_05b"> <img src="images/rig_map/rig_map_05b"> </div>
-      <div data-url="chemicalroom" id="rigmap_06">  <img src="images/rig_map/rig_map_06">  </div>
-      <div data-url="subhanger"    id="rigmap_07">  <img src="images/rig_map/rig_map_07">  </div>
-      <div data-url="boat"         id="rigmap_08">  <img src="images/rig_map/rig_map_08">  </div>
+      <div data-url="platform"     id="rigmap_03">  <img data-baseurl="images/rig_map/rig_map_03">  </div>
+      <div data-url="controlroom"  id="rigmap_04">  <img data-baseurl="images/rig_map/rig_map_04">  </div>
+      <div data-url="hallway"      id="rigmap_05a"> <img data-baseurl="images/rig_map/rig_map_05a"> </div>
+      <div data-url="theater"      id="rigmap_05b"> <img data-baseurl="images/rig_map/rig_map_05b"> </div>
+      <div data-url="chemicalroom" id="rigmap_06">  <img data-baseurl="images/rig_map/rig_map_06">  </div>
+      <div data-url="subhanger"    id="rigmap_07">  <img data-baseurl="images/rig_map/rig_map_07">  </div>
+      <div data-url="boat"         id="rigmap_08">  <img data-baseurl="images/rig_map/rig_map_08">  </div>
     </div>
 
     <div class="map_labels">
@@ -148,7 +148,6 @@
       <div class="theater"      data-url="theatre"      style="left: 425px; top: 350px;" data-url="theater">5</div>
       <div class="chemicalroom" data-url="chemicalroom" style="left: 470px; top: 465px;" data-url="chemicalroom">6</div>
       <div class="subhanger"    data-url="subhanger"    style="left: 575px; top: 505px;" data-url="subhanger">7</div>
-
 
     </div>
 
@@ -183,12 +182,12 @@
       isRetina = function(){ var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
 
       if( isRetina() ) {
-        $('#map-container .map_images').find('img').each(function(){ this.src += '@2x.jpg' })
+        $('#map-container .map_images').find('img').each(function(){ this.src = $(this).data('baseurl') + '@2x.jpg' })
         $('#map-container').css('width','1700px')
       }
         
       else {
-        $('#map-container .map_images').find('img').each(function(){ this.src += '.jpg' })
+        $('#map-container .map_images').find('img').each(function(){ this.src += $(this).data('baseurl') + '.jpg' })
         $('#map-container').css('width','850px')
       }
 

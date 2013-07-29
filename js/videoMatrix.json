@@ -141,7 +141,7 @@
 
       "movies": [
         {
-          "title": "Corexit: ",
+          "title": "Corexit: A Deadly Dispersant",
           "file": "ChemicalStorage_Corexit"
         }
         
@@ -247,7 +247,33 @@
         }
         
       ]
+    },
+
+    {
+      "group": "engineroom",
+
+      "movies": [
+        {
+          "title": "Mr. Jack",
+          "file": "EngineRoom_Mr_Jack"
+        }
+        
+      ]
+    },
+
+    {
+      "group": "grequiem",
+
+      "movies": [
+        {
+          "title": "Rig Requiem",
+          "file": "HANGAR-Requiem"
+        }
+        
+      ]
     }
+
+
 
 
 

@@ -230,7 +230,7 @@ position: absolute;
       $(document).ready(function(){
 
         $(".platform-nav").click(function(){
-          parent.master.closeBook()
+          parent.master.closeOverlay()
         })
 
         // $(function() {

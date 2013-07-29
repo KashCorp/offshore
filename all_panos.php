@@ -126,67 +126,68 @@
 
 
     <script>
-      var soundVector1 = soundVector2 = soundVector3 = 0;
+      // var soundVector1 = soundVector2 = soundVector3 = 0;
 
-      var soundadjust = function(coord,fov) {
+      // var soundadjust = function(coord,fov) {
 
-        var convCoord =  Math.abs( (coord+60) % 360);
-        var convCoord1 =  Math.abs((coord-120)%360);
+      //   var convCoord =  Math.abs( (coord+60) % 360);
+      //   var convCoord1 =  Math.abs((coord-120)%360);
 
-        // console.log('convCoord: '+'\t'+convCoord)
+      //   // console.log('convCoord: '+'\t'+convCoord)
 
 
-        if(convCoord < 180 ){
-          soundVector1 = convCoord/180;
-        }else{
-          soundVector1 = (360-convCoord)/180;
-        }
+      //   if(convCoord < 180 ){
+      //     soundVector1 = convCoord/180;
+      //   }else{
+      //     soundVector1 = (360-convCoord)/180;
+      //   }
 
-              //console.log(soundVector1*2-1)
+      //         //console.log(soundVector1*2-1)
 
          
-        if(convCoord1 < 180 ){
-          soundVector2 = (convCoord1)/180;
-        }else{
-          soundVector2 = (360-(convCoord1))/180;
-        }
+      //   if(convCoord1 < 180 ){
+      //     soundVector2 = (convCoord1)/180;
+      //   }else{
+      //     soundVector2 = (360-(convCoord1))/180;
+      //   }
 
 
-        if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-          parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-          parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
-        }
+      //   if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+      //     parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+      //     parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+      //   }
 
-        if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-          parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
-        }
+      //   if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
+      //     parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
+      //   }
 
-        // show ghosts only in specific spot (recalculated every pano)
-        if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
-          master.ghostBuster = false
-        } else {
-          master.ghostBuster = true
-        }
+      //   // show ghosts only in specific spot (recalculated every pano)
+      //   if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
+      //     master.ghostBuster = false
+      //   } else {
+      //     master.ghostBuster = true
+      //   }
 
 
-        if(master.globalPano == 'chemicalroom' || master.globalPano == 'subhanger' ) {
-          if(fov < 25) {
-            //$('.scroll-directions').css('opacity',1.0)
+      //   /* sequences */
+      //   if(master.globalPano == 'chemicalroom' || master.globalPano == 'subhanger' ) {
+      //     if(fov < 25) {
+      //       //$('.scroll-directions').css('opacity',1.0)
 
-            $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
-            $('#panocontainer, .fastpan, .compass').fadeOut(500)
+      //       $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
+      //       $('#panocontainer, .fastpan, .compass').fadeOut(500)
 
-          }else{
+      //     }else{
 
-            if(!master.overlayOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
-            $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-              $('.scroll-directions').css('top','100px') // reset scrubber position
-            })
-            $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.1)
-          }
-        }
+      //       if(!master.overlayOpen) $('#panocontainer, .fastpan, .compass').fadeIn(500)
+      //       $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
+      //         $('.scroll-directions').css('top','100px') // reset scrubber position
+      //       })
+      //       $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.1)
+      //     }
+      //   }
 
-      }
+      // }
 
        
 

@@ -1237,38 +1237,38 @@ visibility:hidden;}
   	PASSAGE TRANSITIONS
 \* ========================================================================== */
 
-      #word-container  {
-        position: absolute;
-        width: 80%; 
-        height:100%;
-        right:0px;
-        text-align: center;
-        color:#ffffff;
-        display:block;
-        -webkit-transform-style: preserve-3d;
-        -moz-transform-style: preserve-3d;
-        -o-transform-style: preserve-3d;
-      	-webkit-touch-callout: none;
-      	-webkit-user-select: none;
-      	-khtml-user-select: none;
-      	-moz-user-select: moz-none;
-      	-ms-user-select: none;
-      	user-select: none;
-      }
+#word-container  {
+    position: absolute;
+    width: 80%; 
+    height:100%;
+    right:0px;
+    text-align: center;
+    color:#ffffff;
+    display:block;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+  	-webkit-touch-callout: none;
+  	-webkit-user-select: none;
+  	-khtml-user-select: none;
+  	-moz-user-select: moz-none;
+  	-ms-user-select: none;
+  	user-select: none;
+}
 
-      #word-container ul li {
-        -webkit-transform-style: preserve-3d;
-        -moz-transform-style: preserve-3d;
-        -o-transform-style: preserve-3d;
-        list-style-type: none;
-        padding:0;
-        text-align: center;
-        width:100%;
-        position: absolute;
-        top:45%; 
-        opacity:0px;
- 
-      }
+#word-container ul li {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    list-style-type: none;
+    padding:0;
+    text-align: center;
+    width:100%;
+    position: absolute;
+    top:45%; 
+    opacity:0px;
+
+}
 
 #viewport {
 	-webkit-perspective: 500; 
@@ -1312,22 +1312,46 @@ visibility:hidden;}
 }
 
 
+
+/* ========================================================================== *\
+  	VIDEO PLAYER
+\* ========================================================================== */
+
 .video-content-wrap {
 	background:  url(../images/bg_dotmatrix4x4.gif);
+	position: fixed;
 	height:100%;
 	bottom: 0;
-	position: fixed;
 	left: 0;
-	overflow: hidden;
 	top: 0;
+	overflow: hidden;
+	
 	width: 0;
-
-	-webkit-transition: width 200ms linear;
-	-moz-transition: width 200ms linear;
-	-o-transition: width 200ms linear;
-	-ms-transition: width 200ms linear;
-	transition: width 200ms linear;
+	opacity: 0;
 }
+	.video-content-wrap.transition-width {
+		opacity: 1;
+		-webkit-transition: width 200ms;
+		-moz-transition: width 200ms;
+		-o-transition: width 200ms;
+		-ms-transition: width 200ms;
+		transition: width 200ms;
+	}
+	.video-content-wrap.transition-opacity {
+		width: 100%;
+		-webkit-transition: opacity 500ms;
+		-moz-transition: opacity 500ms;
+		-o-transition: opacity 500ms;
+		-ms-transition: opacity 500ms;
+		transition: opacity 500ms;
+	}
+
+	.video-content-wrap.open {
+		opacity: 1 !important;
+		width: 100% !important;
+	}
+
+
 
 .video-content-walkthrough, .video-content-wrap-desktop{
 
@@ -1342,13 +1366,6 @@ visibility:hidden;}
 
 }
 
-.video-content-wrap-open {
-	width: 100%;
-}
-
-.video-content-wrap-close {
-	width: 0;
-}
 
 #video-overlay-title {
 	position: absolute;
@@ -1864,6 +1881,7 @@ li[class^="icon-"]:before, li[class*=" icon-"]:before {
 li[class^="icon-"].icon-large:before, li[class*=" icon-"].icon-large:before {
   text-indent: -1.3333333333333333em;
 }
+
 /*  Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
     readers do not read off random characters that represent icons */
 .icon-glass:before                { content: "\f000"; }

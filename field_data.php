@@ -61,8 +61,7 @@ function loadApp() {
 
 
 $(".platform-nav").click(function(){
-  console.log("click")
-  parent.master.closeBook()
+  parent.master.closeOverlay()
 
 })
 
