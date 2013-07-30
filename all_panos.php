@@ -81,7 +81,7 @@
     <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas>
     <div class="hotspot"></div>
 
-    <div id="panocontainer" class="platform hide"></div>
+    <div id="panocontainer" class="platform"></div>
         
         <div class="video-content-wrap">
           <video class="" width="100%" style="position:absolute" id="video-overlay" preload="auto">
@@ -107,7 +107,7 @@
 
       <div id="walking-exit" class="platform-nav">Close</div>
 
-      <div class="compass"><img src="images/icons/map_icon.png"></div>
+     
 
 
   </div>
@@ -121,7 +121,9 @@
     <iframe allowtransparency="true" class="" id="overlay_frame" src=""></iframe>
     
 
-    <div class="loading"></div>
+    <!--<div class="loading"></div>--> 
+
+    <div class="compass"><img src="images/icons/map_icon.png"></div>
 
     <div class="breadcrumb" id="toolbelt"></div>
 

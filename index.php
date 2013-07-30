@@ -107,10 +107,9 @@
           mix: mix,
           sources:[],
           loadAudio : function(_src,_name,gain,pan,nolooping,_start){
-            if(_start)
+            if(!_start) _start = 0
               var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan, nolooping:nolooping, start:_start});  
-            else
-              var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan, nolooping:nolooping});  
+
           }
 
         }

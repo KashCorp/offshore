@@ -110,15 +110,7 @@
 
 	};
 
-	Mix.prototype.play = function(){
-		console.log('play tracks')
-		var total = this.tracks.length;
-		this.playing = true;
-		for ( var i = 0; i < total; i++ ) {
-			if ( this.tracks[i].ready ) this.tracks[i].play();
-		}
-			
-	};
+
 	
 	Mix.prototype.extend = function(){
 		var output = {}, args = arguments, l = args.length;
@@ -186,6 +178,7 @@
 		this.set('afl', true);
 		this.set('currentTime', 0);
 		this.set('nolooping', this.options.nolooping);
+		this.set('start', this.options.start);
 		this.set('gainNode', this.get('mix').context.createGainNode());
 		this.set('panner', this.get('mix').context.createPanner());
 		this.get('panner').panningModel = webkitAudioPannerNode.EQUALPOWER;
@@ -237,10 +230,10 @@
 	
 	Track.prototype.play = function(){
 
-		console.log(this)
+		
 	
 		if ( !this.ready ){
-			console.log('track not ready')
+			
 			this.on('load', function(){
 				this.play();
 			});
@@ -248,22 +241,22 @@
 		}
 
 		if ( this.options.playing ) {
-			console.log('track already playing')
+			
 			return;
 		} 
 
 
 		if(this.ready && !this.options.playing) {
-			console.log('play track')
+			
 			this.options.playing = true;
 			this.play();
 		}
 		
 		//this.gain(this.options.gain)
-		console.log("note on")
+	
 		this.options.playing = true;
-		this.options.source.noteOn(this.options.start)	
-		//this.options.source.noteOn(0);
+			
+		this.options.source.start(0,this.options.start)	
 		
 		this.trigger('play');
 		/**/

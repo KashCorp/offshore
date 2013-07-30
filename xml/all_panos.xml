@@ -1177,7 +1177,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="120.0"
-			onclick="js(newPano(lowerplatform))"
+			onclick="lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))"
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
@@ -1670,7 +1670,7 @@
 		  hlookat="0.0"
 		  fov="90.0"
 		  fovmax="120.0"
-		  fovmin="45.0"
+		  fovmin="15.0"
 			limitview ="lookat"
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
@@ -1705,7 +1705,8 @@
 			distorted="true"
 			alpha="0.0"
 			height="60.0"
-			onclick="js(newPano(subhanger))"
+			onclick="lookto(90,-8,10,smooth(),true,true,js(newPano(subhanger)));js(setCache(get(view.hlookat),90))"
+
 			scale="1.0"
 			capture="false"
 			/>
@@ -1718,7 +1719,7 @@
 			alpha="0"
 			height="140"
 			width="140"
-			onclick="js(newPano(lowerplatform))"
+			onclick="lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -1783,7 +1784,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(400,0,180,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(20,0,10,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
 			/>
 
 		<hotspot name="Boatdeck-GIF" 
@@ -1796,7 +1797,7 @@
 			width="75"
 			
 			scale="1.0"
-			onclick="lookto(40,0,180,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(20,0,10,smooth(),true,true,js(videoPlayer(boatdeck)));js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
 

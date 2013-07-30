@@ -206,8 +206,8 @@
           if( $(this).data("url") == parent.master.globalPano ) {
             parent.master.closeOverlay()  
           } else {
-            parent.newPano($(this).data("url"))
-            parent.master.closeOverlay()
+            
+            parent.master.closeOverlay($(this).data("url"))
           }
           
         }

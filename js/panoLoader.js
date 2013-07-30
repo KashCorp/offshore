@@ -115,7 +115,7 @@
 			})
 
 			var krpano = document.getElementById("krpanoObject");
-			krpano.call("looktohotspot(LOGO,90,smooth())")
+			krpano.call("looktohotspot(LOGO,90,tween(easeOutQuad,4))")
 
 
 		})

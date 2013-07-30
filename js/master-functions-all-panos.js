@@ -57,7 +57,7 @@ var masterFunctions = function() {
 		that.loadOverlay('rigmap.php')
      });
 
-	 $('#panocontainer').after('<div class="vignette"/>')
+	// $('#panocontainer').after('<div class="vignette dynamic"/>')
     
 
     var delayNavSlide = function(){
@@ -345,7 +345,7 @@ var masterFunctions = function() {
 
 
 
-	this.closeOverlay = function(){
+	this.closeOverlay = function(_URL){
 
 		console.log('close overlay')
 
@@ -366,11 +366,9 @@ var masterFunctions = function() {
 			$('.compass').fadeIn(500)
 			$("#panocontainer").removeClass('no-pointer-events')
 
-			//$("#panocontainer").show()
-			//$("#panocontainer").removeClass('hide')
-
-			//krpano = document.getElementById("krpanoObject");
-			//krpano.call("set(autorotate.enabled,true)")
+			if(_URL){
+				newPano(_URL)
+			}
 
 		})
 	}
@@ -613,14 +611,13 @@ this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
 
 	console.log(_file)
 
+	if(!_start) _start = 0
+
 	if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
 
 	if(!_targetVolume) {_targetVolume = 1.0}
 
-	if(_start)
-		parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true")
-	else
-		parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true")
+	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true", _start)
 
 	var dummysounds = { s:  0};
 
@@ -861,6 +858,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	// (additional logic in scrollFunction and scrollStopFunction)
 
 	var walkthroughvideo = false;
+
 	if(globalPano =='chemicalroom' || globalPano =='subhanger') walkthroughvideo = true;
 
 	if(walkthroughvideo) {
@@ -1036,6 +1034,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     imageSrc = filePathPre + name + "-med-frame-0001.jpg";
 
     var img = new Image();
+
 	img.src = imageSrc
 	   
 	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
@@ -1048,10 +1047,12 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		if(scrollPercent <= 0) scrollPercent = 1
 		else if(scrollPercent > imageNumber) scrollPercent = imageNumber
 		
-		imageSrc = filePathPre + name + "-sm-frame-"+zeroes(scrollPercent,4)+".jpg";
+		if (scrollPercent%3 == 0) imageSrc = filePathPre + name + "-sm-frame-"+zeroes(scrollPercent,4)+".jpg";
 		
 		var img = new Image();
+
 		img.src = imageSrc
+
 		img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
 		if(walkthroughvideo) {
@@ -1165,12 +1166,15 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 		if(master.ghostBuster || master.overlayOpen) {
 
 			// console.log("ghosts BUSTED")
+			$('#'+ canvasid).css('display','none')
 			canvas.style.opacity = 0
 			context.clearRect(0, 0,320,180);
 
 		} else {
 
 			 // console.log('wooooooooooooo')
+
+			$('#'+ canvasid).css('display','block')
 	        imageSrc = filePathPre + name + zeroes(playHead,4)+".png";
 	        
 	        var img = new Image();
@@ -1282,13 +1286,11 @@ function newPano(_pano, fromPrologue) {
 	if(!fromPrologue) {
 
 		$('#video-underlay').hide()
-
-		$('#panocontainer, #scroll-wrapper').fadeOut(500)
-
-		setTimeout(function() {
-			$('.loading').show()
+		
+		$('#panocontainer').fadeOut(1000,function(){
 			parent.location.hash = _pano
-		}, 500)
+		})
+
 	}
 
 }
@@ -1302,22 +1304,11 @@ function panoComplete(){
 	if(!isPreloaded) {
 		preloader();
 	}
-
-	$('.loading').fadeOut(500)
-
-	setTimeout(function() {
-		if($('#wrapper').hasClass('hide')) {
-			$('#wrapper').show()
-			$('#wrapper').removeClass('hide')
-		}
-		//$('#panocontainer').show()
-		$('#panocontainer').fadeIn(1000)
-		$('#panocontainer').removeClass('hide')
-	}, 500)
-
-	setTimeout(function() {
+	//$('.loading').fadeOut(500)
+	$('#panocontainer').fadeIn(1000,function(){
 		$('#video-underlay').show()
-	}, 1500)
+	})
+
 
 }
 
@@ -1601,6 +1592,7 @@ function videoPlayer(group, playerFadeTransition){
 		$(".video-content-wrap").addClass("transition-fade");
 	else
 		$(".video-content-wrap").addClass("transition-width");
+
 	$(".video-content-wrap").show()
 	$(".video-content-wrap").addClass("open");
 
@@ -1784,6 +1776,16 @@ function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
+	if(parent.audiomaster.mix.getTrack('overlay_02')){
+
+
+        parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
+
+
+    }
+
+	$('#ghost-canvas-trans').fadeOut()
+
 	$('.controls').css('display','none')
 
 	// find active group
@@ -1842,6 +1844,14 @@ function switchVideo(_id,_text){
 function closeVideoPlayer(){
 
 	console.log("closing Video Player")
+
+	if(parent.audiomaster.mix.getTrack('overlay_02')){
+
+
+        parent.audiomaster.mix.getTrack('overlay_02').gain(1.0)
+
+
+    }
 
 	$('.volume-toggle').css('line-height','40px')
 
