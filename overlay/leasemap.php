@@ -233,6 +233,11 @@ position: absolute;
           parent.master.closeOverlay()
         })
 
+        $('body').click(function(e){
+          if( $(e.target).is('body') ) 
+            parent.master.closeOverlay()
+        })
+
         // $(function() {
         //       $( "#viewport" ).draggable();
         // });

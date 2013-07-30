@@ -80,6 +80,12 @@ var pano_master = function(){
 
     $(parent).bind('hashchange', function(){
         console.log('LOAD: hash change')
+
+        if(master.globalPano === parent.location.hash.slice(1)) {
+            console.log('#nowhere')
+            return false;
+        }
+
         if (parent.location.hash.slice(1) =="") {
             that.loadPanoScene('prologue')
             return false
@@ -174,10 +180,11 @@ var pano_master = function(){
         master.soundTrigger = null
 
         parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
-
         parent.audiomaster.mix.removeTrack('overlay_02')
 
     }
+
+    parent.audiomaster.mix.playing = true;
 
 ///// Decision to divert to image sequence
         if(_pano.indexOf('sequence')!=-1) {
@@ -240,19 +247,42 @@ var pano_master = function(){
 
             case "hallway" : 
 
+                // Big ball of fire voices
                 if(that.voiceCurrentTime == 0) that.voiceStartTimer = new Date()
+                console.log('that.voiceStartTimer: '+'\t'+that.voiceStartTimer)
+                loadAFXPano('One_Big_Ball_of_Fire.mp3', that.voiceStartTimer)
                 
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
                 that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
 
-                overLayFile = 'Main_Hallway.mp3' 
+                overLayFile = 'Main_Hallway.mp3'
                 underlayFile = 'Drone_2_norm.mp3'
-                loadAFXPano('One_Big_Ball_of_Fire.mp3')
 
                 $('#panocontainer').after('<img id = "gradient" class="dynamic" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
-                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
-            
+                
+
+
+                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
+                $(window).off('resize.oilshot')
+                $(window).on('resize.oilshot',function(){
+                    $('#video-underlay').css({
+                       'width': master.dynamicFillWidth,
+                        'height': master.dynamicFillHeight,
+                        'margin-left' : -master.dynamicFillWidth/2,
+                        'margin-top' : -master.dynamicFillHeight/2
+                    })
+                })
+                $('#video-underlay').css({
+                    'position':'absolute',
+                    'width': master.dynamicFillWidth,
+                    'height': master.dynamicFillHeight,
+                    'left' : '50%',
+                    'top' : '50%',
+                    'margin-left' : -master.dynamicFillWidth/2,
+                    'margin-top' : -master.dynamicFillHeight/2
+                })
+
             break;
 
             case "subhanger" : 
@@ -279,12 +309,20 @@ var pano_master = function(){
                 $('#panocontainer').before('<video autoplay class="dynamic hide fade" id="video-underwater" preload="auto"></video>')
                 $('#video-underwater').css({
                     'position':'absolute',
-                    'width':'100%'
+                    'width': master.dynamicFillWidth,
+                    'height': master.dynamicFillHeight,
+                    'left' : '50%',
+                    'top' : '50%',
+                    'margin-left' : -master.dynamicFillWidth/2,
+                    'margin-top' : -master.dynamicFillHeight/2
                 })
                 $(window).off('resize.underwater')
                 $(window).on('resize.underwater',function(){
                     $('#video-underwater').css({
-                        'top': master.dynamicTop
+                        'width': master.dynamicFillWidth,
+                        'height': master.dynamicFillHeight,
+                        'margin-left' : -master.dynamicFillWidth/2,
+                        'margin-top' : -master.dynamicFillHeight/2
                     })
 
                 })
@@ -420,10 +458,11 @@ var pano_master = function(){
         $('#wrapper').addClass('hide')
         $('#wrapper').hide()
 
-        $('.loading').addClass('hide')
-        $('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-            $('.loading').hide()
-        })
+        $('.loading').fadeOut()
+        // $('.loading').addClass('hide')
+        // $('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+        //     $('.loading').hide()
+        // })
 
         $('#scroll-wrapper').fadeIn()
 
@@ -866,13 +905,11 @@ var pano_master = function(){
 
             requestAnimationFrame(runFrameRunner);
 
+            // update current time for hallway voiceover
             if(master.globalPano == 'hallway' && pano) {
-
                 pano.voiceCurrentTime = new Date() - pano.voiceStartTimer
-
                //console.log(pano.voiceCurrentTime/1000)
             }
-
 
 
             if(parent.location.hash.slice(1).indexOf('sequence') != -1){
@@ -915,10 +952,12 @@ var pano_master = function(){
                 
             if(!parent.audiomaster) return
             
+            // if(parent.audiomaster.mix.playing) {
+            //     for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
+            //         parent.audiomaster.mix.tracks[i].play()                                    
+            //     }     
+            // }
             
-            for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
-                parent.audiomaster.mix.tracks[i].play()                                    
-            } 
 
             //console.log(master.soundTrigger)
               
@@ -941,10 +980,14 @@ runFrameRunner()
 
 }
 
-var loadAFXPano = function (_file){
+var loadAFXPano = function (_file, _start){
     console.log("afx " + _file)
     // master.AFXloadAudio(_file,'overlay_02',0,1.0)
-    master.AFXloadAudio( master.audio_path + _file,'overlay_02',0,1.0)
+
+    if(_start)
+        master.AFXloadAudio( master.audio_path + _file,'overlay_02',0,1.0, _start)
+    else
+        master.AFXloadAudio( master.audio_path + _file,'overlay_02',0,1.0)
 }
 
 

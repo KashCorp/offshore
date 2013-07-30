@@ -148,15 +148,33 @@ var masterFunctions = function() {
     this.dynamicHeight;
     this.dynamicTop;
 
+    this.dynamicFillWidth;
+    this.dynamicFillHeight;
 
     function resize(){
+
+    	var ratio = 0.5625;
 
     	if(resizetimeout) clearTimeout(resizetimeout);
 
     	resizetimeout = setTimeout(function(){
     		that.dynamicWidth = window.innerWidth;
-    		that.dynamicHeight = that.dynamicWidth * .5625;
+    		that.dynamicHeight = that.dynamicWidth * ratio;
     		that.dynamicTop = (window.innerHeight - that.dynamicHeight)/2;
+
+
+    		// wider than 16:9 -> use width
+    		if( (window.innerHeight/window.innerWidth) < ratio ) { 
+    			that.dynamicFillWidth = window.innerWidth;
+    			that.dynamicFillHeight = window.innerWidth * ratio
+    		}
+
+    		// taller than 16:9 -> use height
+    		else { 
+    			that.dynamicFillHeight = window.innerHeight;
+    			that.dynamicFillWidth = window.innerHeight / ratio;
+    			
+    		}
 
     	}, 50)
     	
@@ -591,7 +609,7 @@ this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 		.start();               
 }
 
-this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume){
+this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
 
 	console.log(_file)
 
@@ -599,7 +617,10 @@ this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume){
 
 	if(!_targetVolume) {_targetVolume = 1.0}
 
-	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true")
+	if(_start)
+		parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true")
+	else
+		parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true")
 
 	var dummysounds = { s:  0};
 
@@ -914,7 +935,6 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     this.play = function(){
 
     	if(that.autoplay) {
-    		console.log('playing...')
     		var top = $(".scroll-directions").css('top')
     		$(".scroll-directions").css('top', top + autoPlaySpeed )
 
@@ -1261,14 +1281,14 @@ function newPano(_pano, fromPrologue) {
 
 	if(!fromPrologue) {
 
-		$('#panocontainer').fadeOut(1000, function(){
+		$('#video-underlay').hide()
 
+		$('#panocontainer, #scroll-wrapper').fadeOut(500)
+
+		setTimeout(function() {
 			$('.loading').show()
-
-			$('.loading').removeClass('hide')
-
 			parent.location.hash = _pano
-		})
+		}, 500)
 	}
 
 }
@@ -1283,9 +1303,9 @@ function panoComplete(){
 		preloader();
 	}
 
-	$('.loading').addClass('hide')
+	$('.loading').fadeOut(500)
+
 	setTimeout(function() {
-		$('.loading').hide()
 		if($('#wrapper').hasClass('hide')) {
 			$('#wrapper').show()
 			$('#wrapper').removeClass('hide')
@@ -1294,6 +1314,10 @@ function panoComplete(){
 		$('#panocontainer').fadeIn(1000)
 		$('#panocontainer').removeClass('hide')
 	}, 500)
+
+	setTimeout(function() {
+		$('#video-underlay').show()
+	}, 1500)
 
 }
 
@@ -1560,7 +1584,7 @@ function videoPlayer(group, playerFadeTransition){
 	master.ghostBuster = true
 	master.overlayOpen = true
 	master.soundTrigger = true
-	
+
 	master.bgGain = 0.5
 
 	group = "."+group

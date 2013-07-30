@@ -138,7 +138,7 @@
 	 			ath="211"
 	 			atv="-13"
 	 			distorted="true"
-	 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+	 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),90))"
 	 			scale="1.0"
 	 			capture="false"
 	 			/>
@@ -152,7 +152,7 @@
 				height="75"
 				width="75"
 				scale="1.0"
-				onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),220))"
+				onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),90))"
 				capture = "false"
 				/>
 
@@ -346,7 +346,7 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));
+			onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer('platform')));
 					 js(setCache(get(view.hlookat),90))"
 			capture = "false"
 			/>
@@ -366,7 +366,8 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer('platform')));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer('platform')));
+					 js(setCache(get(view.hlookat),90))"
 			/>
 
 	</scene>
@@ -387,7 +388,7 @@
 			hlookat="90.0"
 	  		fov="90.0"
 	  		fovmax="120.0"
-	  		fovmin="15.0"
+	  		fovmin="1.0"
 			limitview ="lookat"
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
@@ -468,7 +469,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-      		onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),220))"
+      		onclick="lookto(110,0,0,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),90))"
     		/>
 		<hotspot name="Deep-Waters-GIF"
 			url="../images/icons/gif_iconB.gif"
@@ -478,7 +479,7 @@
 			height="80"
 			width="80"
 			distorted="true"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),220))"
+			onclick="lookto(110,0,0,smooth(),true,true,js(videoPlayer(lowerplatform)));js(setCache(get(view.hlookat),90))"
 			capture="false"
 			/>
 
@@ -649,7 +650,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
 		/>
 
 		<hotspot name="Poisoned-GIF"
@@ -663,7 +664,7 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
 			scale="0.7"
 		/>
 
@@ -678,7 +679,7 @@
 			height="95.0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 		/>
 
@@ -701,7 +702,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
 		/>
 
 		<hotspot name="James" 
@@ -715,7 +716,7 @@
 			height="95.0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 		/>
 
@@ -730,7 +731,7 @@
 			height="140"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
 			scale="0.7"
 		/>
 
@@ -1427,11 +1428,15 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(ROV_Skate_Farm))"
+			onclick="lookTo(90,0,40,smooth(),true,true);
+					 js(zoomIn());
+					 js(loadUnderWater(ROV_Skate_Farm));"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>
+
+
 
 
 		<hotspot name="under_water_02" url="../images/hotspot.gif"
@@ -1440,7 +1445,9 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(ROV_Wellhead_1))"
+			onclick="lookTo(90,0,40,smooth(),true,true);
+					 js(zoomIn());
+					 js(loadUnderWater(ROV_Wellhead_1))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -1452,7 +1459,9 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(ROV_Wellhead_2))"
+			onclick="lookTo(90,0,40,smooth(),true,true);
+					 js(zoomIn());
+					 js(loadUnderWater(ROV_Wellhead_2))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -1464,7 +1473,9 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(loadUnderWater(ROV_Coral))"
+			onclick="lookTo(90,0,40,smooth(),true,true);
+					 js(zoomIn());
+					 js(loadUnderWater(ROV_Coral))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -1534,20 +1545,20 @@
 
 		<hotspot name="Theatre-GIF"
 			url="../images/icons/gif_iconA.gif"
-			ath="355"
-			atv="-2"
+			ath="70"
+			atv="0"
 			alpha=".7"
 			height="70"
 			width="70"
 			distorted="true"
 			capture="false"
-			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
+			onclick="lookto(355,0,40,smooth(),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
 		/>
 
 		<hotspot name="Theatre-Text"
 			url="plugins/textfield.swf"
-			ath="360"
-			atv="3"
+			ath="90"
+			atv="0"
 			children="false"
 			edge="righttop"
 			background="false"
@@ -1560,7 +1571,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(355,0,60,tween(easeOutQuad,1),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
+			onclick="lookto(355,0,40,smooth(),true,true,js(videoPlayer(theatre))); js(setCache(get(view.hlookat),90))"
 		/>
 
 		<!-- Investigations -->
@@ -1758,7 +1769,7 @@
 
 		<hotspot name="Boatdeck-Text"
 			url="plugins/textfield.swf"
-			ath="285"
+			ath="280"
 			children="false"
 			edge="righttop"
 			background="false"

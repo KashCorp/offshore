@@ -101,11 +101,23 @@
 		
 	};	
 	
-		Mix.prototype.pause = function(){
+	Mix.prototype.pause = function(){
 		var total = this.tracks.length;
 		this.playing = false;
 		for ( var i = 0; i < total; i++ )
 			if ( this.tracks[i].ready ) this.tracks[i].pause();
+		console.log(audiomaster.tracks)
+
+	};
+
+	Mix.prototype.play = function(){
+		console.log('play tracks')
+		var total = this.tracks.length;
+		this.playing = true;
+		for ( var i = 0; i < total; i++ ) {
+			if ( this.tracks[i].ready ) this.tracks[i].play();
+		}
+			
 	};
 	
 	Mix.prototype.extend = function(){
@@ -225,20 +237,33 @@
 	
 	Track.prototype.play = function(){
 
+		console.log(this)
 	
 		if ( !this.ready ){
+			console.log('track not ready')
 			this.on('load', function(){
 				this.play();
 			});
 			return;
 		}
-		if ( this.options.playing ) return;
+
+		if ( this.options.playing ) {
+			console.log('track already playing')
+			return;
+		} 
+
+
+		if(this.ready && !this.options.playing) {
+			console.log('play track')
+			this.options.playing = true;
+			this.play();
+		}
 		
 		//this.gain(this.options.gain)
 		console.log("note on")
 		this.options.playing = true;
 		this.options.source.noteOn(this.options.start)	
-		//this.options.source.noteOn(0); // note on granular
+		//this.options.source.noteOn(0);
 		
 		this.trigger('play');
 		/**/
@@ -246,11 +271,10 @@
 
 
 	Track.prototype.pause = function(){
-
-			this.options.playing = false;	
-			this.options.source.noteOff(0);
-			this.trigger('pause');
-	
+		this.options.playing = false;	
+		this.options.source.noteOff(0);
+		this.trigger('pause');
+		console.log(this.options.playing)
 	};
 	
   ////////TRACKS UTILITIES
