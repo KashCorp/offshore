@@ -17,6 +17,9 @@ var pano_master = function(){
     this.dynamicHeight = this.dynamicWidth * .5625;
     this.dynamicTop = (window.innerHeight - this.dynamicHeight)/2;
 
+    this.voiceCurrentTime = 0
+    this.voiceStartTimer = 0
+
     var scrollTrigger,scrollPercent=0,sequenceHasWords,linkForward, linkBack;
             
 
@@ -170,9 +173,8 @@ var pano_master = function(){
 
         master.soundTrigger = null
 
-        console.log("has overlay 2")
-
         parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
+
         parent.audiomaster.mix.removeTrack('overlay_02')
 
     }
@@ -238,6 +240,7 @@ var pano_master = function(){
 
             case "hallway" : 
 
+                if(that.voiceCurrentTime == 0) that.voiceStartTimer = new Date()
                 
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
@@ -862,6 +865,15 @@ var pano_master = function(){
         //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
 
             requestAnimationFrame(runFrameRunner);
+
+            if(master.globalPano == 'hallway' && pano) {
+
+                pano.voiceCurrentTime = new Date() - pano.voiceStartTimer
+
+               //console.log(pano.voiceCurrentTime/1000)
+            }
+
+
 
             if(parent.location.hash.slice(1).indexOf('sequence') != -1){
                 scrollerFunction()

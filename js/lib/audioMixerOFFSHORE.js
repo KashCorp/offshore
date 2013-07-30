@@ -236,8 +236,9 @@
 		
 		//this.gain(this.options.gain)
 		console.log("note on")
-		this.options.playing = true;	
-		this.options.source.noteOn(0); // note on granular
+		this.options.playing = true;
+		this.options.source.noteOn(this.options.start)	
+		//this.options.source.noteOn(0); // note on granular
 		
 		this.trigger('play');
 		/**/
