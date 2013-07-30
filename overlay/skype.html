@@ -62,11 +62,11 @@
 
 		@font-face {
 			font-family: 'icomoon';
-			src:url('fonts/icomoon.eot');
-			src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-				url('fonts/icomoon.woff') format('woff'),
-				url('fonts/icomoon.ttf') format('truetype'),
-				url('fonts/icomoon.svg#icomoon') format('svg');
+			src:url('../fonts/icomoon.eot');
+			src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+				url('../fonts/icomoon.woff') format('woff'),
+				url('../fonts/icomoon.ttf') format('truetype'),
+				url('../fonts/icomoon.svg#icomoon') format('svg');
 			font-weight: normal;
 			font-style: normal;
 		}
@@ -92,7 +92,7 @@
 			cursor: pointer;
 			width: 60px;
 			height: 60px;
-			background: url('images/icons/close_icon.png');
+			background: url('../images/icons/close_icon.png');
 		}
 
 		/* ========================================================================== *\
@@ -106,7 +106,12 @@
 		.container {
 			text-align: center;
 			width: 100%; height: 100%;
-			background: rgba(0,0,0,0.5);
+			/*background: rgba(0,0,0,0.5);*/
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			
 		}
 
 		.ipad-container {
@@ -120,7 +125,7 @@
 			width: 80%;
 			margin-top: 2%;
 
-			background: url('images/skype_ipad.svg') no-repeat;
+			background: url('../images/skype_ipad.svg') no-repeat;
 			background-size: 100% 100%;
 
 			text-align: left;
@@ -172,7 +177,12 @@
 			padding: 1em;
 			/*font-size: 1.2em;*/
 			/*padding: .9em;*/
+			height: 65px;
 
+		}
+
+		.subhead {
+			height: 65px;
 		}
 
 
@@ -235,6 +245,7 @@
 			display: inline-block;
 
 			margin: 1%;
+			margin-bottom: 2%;
 			width: 47%;
 			/*height: auto;*/
 			color: #333;
@@ -244,7 +255,11 @@
 			cursor: pointer;
 		}
 
-		.main li img { width: 100%; height: auto; }
+		.main li img { 
+			width: 100%; 
+			height: auto;
+			margin-bottom: 5px;
+		}
 
 		.main li div {
 			display: block;
@@ -314,7 +329,7 @@
 			cursor: pointer;
 			width: 60px;
 			height: 60px;
-			background: url('images/icons/close_icon.png');
+			background: url('../images/icons/close_icon.png');
 		}
 
 
@@ -362,6 +377,7 @@
 			font-size: 1.2em;
 			padding: .9em;
 			color: #33353a;
+			height: 65px;
 		}
 
 		.sidebar h2:before {
@@ -410,6 +426,8 @@
 			font-family: Helvetica;
 			font-weight: bold;
 			text-decoration: none;
+			margin-left: 1%;
+			white-space: nowrap;
 		}
 
 		.history {
@@ -441,9 +459,9 @@
 		
 	</style>
 
-	<script type="text/javascript" src="js/lib/jquery.min.js"></script>
-	<script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/lib/turn/modernizr.2.5.3.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/lib/turn/modernizr.2.5.3.min.js"></script>
 
 </head>
 
@@ -481,7 +499,7 @@
 					<div class="content">	
 							<p>RECENT<p>
 							<ul class="recent">
-								<li><a href="#">Rolake</a></li>
+								<li><a href="#">Rolake Akinkugbe</a></li>
 							</ul>
 
 							<div class="history">
@@ -506,23 +524,23 @@
 					<div class="content">
 					  <ul class="movie-menu">
 
-            	<li data-url="video/doc_content/ControlRoom_RA_200_a_barrel.webm" data-popcorn="RA_1" class="vid-menu-nav">
-              	<img src="images/ControlRoom_RA_200_a_barrel_thumb.jpg"> 
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-200aBarrel.mp4" data-popcorn="RA_1" class="vid-menu-nav">
+              	<img src="../images/ControlRoom_RA_200_a_barrel_thumb.jpg"> 
               	<div>$200@Barrel</div>
             	</li>
 
-            	<li data-url="video/doc_content/ControlRoom_RA_New_Generation_of_Explorers.webm" data-popcorn="RA_2" class="vid-menu-nav">
-              	<img src="images/ControlRoom_RA_New_Generation_of_Explorers_thumb.jpg"> 
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-NewGenerationOfExplorers.mp4" data-popcorn="RA_2" class="vid-menu-nav">
+              	<img src="../images/ControlRoom_RA_New_Generation_of_Explorers_thumb.jpg"> 
               	<div>A New Generation of Explorers</div>
             	</li>
 
-            	<li data-url="video/doc_content/ControlRoom_RA_Offshore_plays_in_Africa.webm" data-popcorn="RA_3" class="vid-menu-nav">
-              	<img src="images/ControlRoom_RA_Offshore_plays_in_Africa_thumb.jpg">  
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-OffshoreInAfrica.mp4" data-popcorn="RA_3" class="vid-menu-nav">
+              	<img src="../images/ControlRoom_RA_Offshore_plays_in_Africa_thumb.jpg">  
               	<div>Offshore Plays in Africa</div>
             	</li>
 
-            	<li data-url="video/doc_content/ControlRoom_RA_Security_and_Terrorism.webm" data-popcorn="RA_4" class="vid-menu-nav">
-              	<img src="images/ControlRoom_RA_Security_and_Terrorism_thumb.jpg"> 
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-SecurityAndTerrorism.mp4" data-popcorn="RA_4" class="vid-menu-nav">
+              	<img src="../images/ControlRoom_RA_Security_and_Terrorism_thumb.jpg"> 
               	<div>Security and Terrorism</div>
             	</li>
 
@@ -542,7 +560,7 @@
 
 
 <!-- JavaScripts -->
-<script type="text/javascript" src="js/master-functions.js"></script>
+<script type="text/javascript" src="../js/master-functions.js"></script>
 
 
 <script type="text/javascript">
@@ -555,7 +573,7 @@ $(window).load(function(){
 $(document).ready(function(){
 
 	$("#to-control").click(function(){
-		parent.master.closeBook()
+		parent.master.closeOverlay()
 	})
 
 	//detect if can use webRTC
@@ -629,10 +647,17 @@ $(document).ready(function(){
   })
 
 
-  $("#close-control").click(function(){
+  $("#close-control").click(function(event){
   	console.log("click")
-  	parent.master.closeBook()
+  	parent.master.closeOverlay()
   })
+
+  $('body').click(function(e){
+  	if( $(e.target).is('.container') )
+  		parent.master.closeOverlay()
+  })
+
+
 
 })
 </script>

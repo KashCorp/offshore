@@ -33,11 +33,16 @@
 
   <body style="overflow:hidden" class="platform" data-videos="platform">
 
+
   <header>
     <a class="volume-toggle"><i class="icon-volume-up"></i></a>
   </header>
 
   <!-- <div class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div> -->
+
+
+
+
 
   <div id="scroll-wrapper" class="wrapper">
     
@@ -62,15 +67,19 @@
     <div id="scroll-end" class="scroll-nav">Continue?</div>
     
     <div class="scroll-directions-container"><div class="scroll-directions"></div></div>
-    
-    
 
-  </div>    
+    <div class="hotspot"></div>
+
+  </div>   
+
+
+
            
 
   <div id="wrapper" class="wrapper">
 
     <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas>
+    <div class="hotspot"></div>
 
     <div id="panocontainer" class="platform hide"></div>
         
@@ -102,6 +111,10 @@
 
 
   </div>
+
+
+
+
 
     <canvas id="ghost-canvas-trans" width="1200" height="800" style="position:absolute;display:none;position:absolute;top:0;left:0;pointer-events:none"></canvas>
 

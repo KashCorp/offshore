@@ -7,7 +7,8 @@ var pano_master = function(){
 
     var krpano
 
-    var panoWalkthrough
+    var panoWalkthrough;
+    this.walkthroughPlaying = false;
 
     this.ghostTransition;
     this.walkthrough;
@@ -200,6 +201,8 @@ var pano_master = function(){
 
         // remove leftover dynamic elements
         $('.dynamic').remove()
+        $('.hotspot').attr('class','hotspot')
+        panoWalkthrough = null;
 
         // MASTER SWITCH
         switch(_pano){
@@ -235,6 +238,7 @@ var pano_master = function(){
 
             case "hallway" : 
 
+                
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
                 that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
@@ -244,6 +248,7 @@ var pano_master = function(){
                 loadAFXPano('One_Big_Ball_of_Fire.mp3')
 
                 $('#panocontainer').after('<img id = "gradient" class="dynamic" src = "images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
+                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
             
             break;
 
@@ -258,6 +263,12 @@ var pano_master = function(){
 
                 panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
                 panoWalkthrough.preload()
+                $('.hotspot').addClass('requiem')
+                panoWalkthrough.scrollPos = 0;
+                panoWalkthrough.scrollValue = 1;
+
+                scrollTrigger = false;
+                scrollPercent=0;
 
             break;
 
@@ -266,6 +277,13 @@ var pano_master = function(){
                 $('#video-underwater').css({
                     'position':'absolute',
                     'width':'100%'
+                })
+                $(window).off('resize.underwater')
+                $(window).on('resize.underwater',function(){
+                    $('#video-underwater').css({
+                        'top': master.dynamicTop
+                    })
+
                 })
             break;
 
@@ -285,6 +303,12 @@ var pano_master = function(){
 
                 panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
                 panoWalkthrough.preload()
+                $('.hotspot').addClass('engineroom')
+                panoWalkthrough.scrollPos = 0;
+                panoWalkthrough.scrollValue = 1;
+
+                scrollTrigger = false;
+                scrollPercent=0;
 
             break;    
 
@@ -308,7 +332,8 @@ var pano_master = function(){
     **************************************************************************/
     
 
-    var loadSequenceScene = function(_sequence)    {
+    var loadSequenceScene = function(_sequence) {
+
         console.log('loadSequenceScene')
         sequenceHasWords = false;
 
@@ -316,7 +341,7 @@ var pano_master = function(){
 
         var ImageSequenceFiles,
             ghost,
-            ghostFrames
+            ghostFrames;
 
         // clear word container
         $('#word-container ul').html('')
@@ -329,7 +354,7 @@ var pano_master = function(){
                 ghost = 'hologram_2guys_walk_away 3-frame-';
                 ghostFrames = 12
                 linkBack = 'hallway'
-                linkForward = 'chemicalroom'                
+                linkForward = 'chemicalroom'  
           break;
 
           case "sequence_passage_theatre" : 
@@ -405,7 +430,6 @@ var pano_master = function(){
         $("#walking-canvas").css("top",that.dynamicTop)
 
         that.walkthrough = new walkthroughFunctions("walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
-
         that.walkthrough.preload()
 
         that.walkthrough.scrollPos = 0;
@@ -488,7 +512,7 @@ var pano_master = function(){
 
             var dummysound = { fadeFrom:    1, fadeTo: 0.0001};
 
-            parent.audiomaster.loadAudio(underlayFile,'basetrack2',0,0)
+            parent.audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
 
             var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
                 .onUpdate( function() {
@@ -549,13 +573,13 @@ var pano_master = function(){
                 .onComplete(function() {
                     parent.audiomaster.mix.removeTrack('overlay_01') 
                     if(overLayFile)
-                        master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
+                        master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1);
                 })
                 .start(); 
 
         }else{
                 if(overLayFile)
-                        master.WAAloadAudio(overLayFile,'overlay_01',-1,1);
+                        master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1);
         }
 
     }
@@ -753,18 +777,26 @@ var pano_master = function(){
 
     function scrollerFunction(){
 
-        if(!that.walkthrough) return false
+        if(!that.walkthrough && !that.walkthroughPlaying) return false
 
-        scrollPercent = Math.ceil((that.walkthrough.scrollValue / (5000-$(window).height())) * 100);
+        if(panoWalkthrough) {
+            walkthrough = panoWalkthrough;
+            if(walkthrough.autoplay) {
+                walkthrough.play();
+            }
+        }
+        else {
+            walkthrough = that.walkthrough; 
+
+            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
             if(sequenceHasWords) {
-                var zPos = that.walkthrough.scrollValue*.4
+                var zPos = walkthrough.scrollValue*.4
                 $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
                 $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
                 $('#word_01').css('opacity', scrollPercent/100);
             }
-
             
         
             if(scrollPercent > 40 && that.ghostTransition)
@@ -788,12 +820,12 @@ var pano_master = function(){
 
                     // window.cancelAnimationFrame(sequenceAnimFrame)
 
-                    that.walkthrough.scrollPos = 0
+                    walkthrough.scrollPos = 0
 
                     $('#scroll-wrapper').fadeOut(1000, function(){
                     newPano(linkForward)
 
-                    that.walkthrough = null
+                    walkthrough = null
 
                     
 
@@ -806,9 +838,12 @@ var pano_master = function(){
                 $("#scroll-end").fadeOut(1000)
             }
 
-            if(that.walkthrough.autoplay) {
-                that.walkthrough.play();
-            }
+            if(walkthrough.autoplay) {
+                walkthrough.play();
+            } 
+        } 
+
+        
 
             //var sequenceAnimFrame = requestAnimationFrame(scrollerFunction)
 
@@ -831,6 +866,10 @@ var pano_master = function(){
             if(parent.location.hash.slice(1).indexOf('sequence') != -1){
                 scrollerFunction()
                 return false
+            }
+
+            if(that.walkthroughPlaying) {
+                scrollerFunction()
             }
 
             krpano = document.getElementById('krpanoObject')
@@ -893,7 +932,7 @@ runFrameRunner()
 var loadAFXPano = function (_file){
     console.log("afx " + _file)
     // master.AFXloadAudio(_file,'overlay_02',0,1.0)
-    master.AFXloadAudio( master.cdn_video + 'audio/' + _file,'overlay_02',0,1.0)
+    master.AFXloadAudio( master.audio_path + _file,'overlay_02',0,1.0)
 }
 
 

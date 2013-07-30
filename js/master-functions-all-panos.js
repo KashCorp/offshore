@@ -45,6 +45,7 @@ var masterFunctions = function() {
     this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
     this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
     this.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
+    this.audio_path = 'audio/'
 
     this.movieMenu = false
 
@@ -98,7 +99,7 @@ var masterFunctions = function() {
       var hashouter = parent.window.location.hash;
       
       if( hashouter  == "#hatch.php"){
-      	transition_audio[0].src = "audio/Hatch_Open.ogg"
+      	transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
       }
       
       if(!visitedPages){
@@ -312,7 +313,7 @@ var masterFunctions = function() {
 
 		// load overlay
 
-		$('#overlay_frame').attr('src',overlayURL)
+		$('#overlay_frame').attr('src', 'overlay/' + overlayURL)
 		$('#overlay_frame').one('load',function(){
 			console.log('overlay frame loaded')
 			$('#overlay_frame').fadeIn()
@@ -553,7 +554,7 @@ this.loadOverlayAudio = function(_file){
 
 	console.log(_file)
 
-	parent.audiomaster.loadAudio(_file,'overlay_01',1,-1)
+	parent.audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
 
 	var dummysounds = { s:  0};
 
@@ -573,7 +574,7 @@ this.loadOverlayAudio = function(_file){
 
 this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 
-	parent.audiomaster.loadAudio( master.cdn_video + 'audio/' + _file ,_trackName,0001,_pan,_isLoop)
+	parent.audiomaster.loadAudio(_file ,_trackName,0001,_pan,_isLoop)
 
 	var dummysounds = { s:  0};
 
@@ -894,12 +895,16 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     this.autoplay = false
     var autoPlaySpeed = 3
 
-    $(canvas).on('click',function(e){
+	$('.hotspot').off('click')
+    $('.hotspot').on('click',function(e){
+    	console.log('click')
     	e.stopPropagation()
 
-    	if(that.autoplay)
+    	if(that.autoplay) {
+    		console.log('autopause ||')
     		that.autoplay=false
-    	else {
+    	} else {
+    		console.log('autoplay >')
     		that.autoplay = true
     		that.play()
     	}
@@ -909,6 +914,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     this.play = function(){
 
     	if(that.autoplay) {
+    		console.log('playing...')
     		var top = $(".scroll-directions").css('top')
     		$(".scroll-directions").css('top', top + autoPlaySpeed )
 
@@ -1216,9 +1222,9 @@ function newPage(URL) {
 	if(URL == "hatch.php"){
 
 		if (transition_audio[0].canPlayType('audio/ogg')){
-			transition_audio[0].src = "audio/Hatch_Open.ogg"
+			transition_audio[0].src = master.audio_path + "Hatch_Open.ogg"
 		} else {
-			transition_audio[0].src = "audio/Hatch_Open.mp3"
+			transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
 		}
 		
 	}else{
@@ -1352,7 +1358,8 @@ var soundadjust = function(coord,fov) {
   
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
 	        $('#panocontainer, .fastpan, .compass').fadeOut(500)
-  		
+	        pano.walkthroughPlaying = true;
+
   		// fade out walkthrough
 	    }else{
   
@@ -1364,6 +1371,7 @@ var soundadjust = function(coord,fov) {
 	        })
     
 	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.1)
+	        pano.walkthroughPlaying = false;
 	    }
 	}
 
@@ -1404,7 +1412,7 @@ var soundTrigger
 
 function hoverSound(){
 	if(!soundTrigger){
-	master.overlayPlay('#audio-2','audio/Rollover.ogg', 'audio/Rollover.mp3')
+	master.overlayPlay('#audio-2',master.audio_path + 'Rollover.ogg', master.audio_path + 'Rollover.mp3')
 	soundTrigger = true
   }
 }
@@ -1552,6 +1560,7 @@ function videoPlayer(group, playerFadeTransition){
 	master.ghostBuster = true
 	master.overlayOpen = true
 	master.soundTrigger = true
+	
 	master.bgGain = 0.5
 
 	group = "."+group

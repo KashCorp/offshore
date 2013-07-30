@@ -158,8 +158,9 @@
 		
 		var self = this,
 			defaults = {
-				gain:0,
-				pan: 0
+				gain:  0,
+				pan:   0,
+				start: 0
 			};
      
 
@@ -236,7 +237,7 @@
 		//this.gain(this.options.gain)
 		console.log("note on")
 		this.options.playing = true;	
-		this.options.source.noteOn(0);
+		this.options.source.noteOn(0); // note on granular
 		
 		this.trigger('play');
 		/**/

@@ -112,8 +112,10 @@
 				$('#panoDownloadStatus').css('display', 'block')
 				$('.breadcrumb').css('display', 'block')
 				$(".breadcrumb").animate({'bottom': '0'})	
-			})	
+			})
 
+			var krpano = document.getElementById("krpanoObject");
+			krpano.call("looktohotspot(LOGO,90,smooth())")
 
 
 		})

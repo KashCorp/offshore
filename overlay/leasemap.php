@@ -11,10 +11,10 @@
     <meta name="description" content="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
 
-    <link rel="image_src" href="images/bg_drillhead.jpg" />
+    <link rel="image_src" href="../images/bg_drillhead.jpg" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
 
     <script type="text/javascript">
 
@@ -101,7 +101,7 @@ body {
   left:0; 
   font-size: 20px;
   text-align:left;
-  background: url(images/bg_black_50.png);
+  background: url(../images/bg_black_50.png);
 }
 
 #photo-container ul li img { 
@@ -145,7 +145,7 @@ cursor:pointer;
   height: 100%;
   left:0px;
   opacity:.5;
-  background: url('images/bg_linematrix2x2_blue.gif');
+  background: url(../images/bg_linematrix2x2_blue.gif);
   overflow:hidden;
 
 }
@@ -198,11 +198,11 @@ position: absolute;
       <div id="viewport" style="left:0px">
         <div id='image-container'>
           <ul>
-            <li id="leasemap_05"><img src="images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
-            <li id="leasemap_04"><img src="images/lease_map/lease_04.jpg"><div>Brazil</div></li>
-            <li id="leasemap_02"><img src="images/lease_map/lease_02.jpg"><div>Alaska</div></li>
-            <li id="leasemap_03"><img src="images/lease_map/lease_03.jpg"><div>West Africa</div></li>
-            <li id="leasemap_01"><img src="images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
+            <li id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
+            <li id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>
+            <li id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>
+            <li id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>
+            <li id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
           </ul>
         </div>
       </div>
@@ -220,9 +220,9 @@ position: absolute;
 
     <!-- JavaScripts -->
 
-    <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-    <script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="../js/lib/modernizr.min.js"></script>
 
 
     <script>
@@ -257,7 +257,7 @@ position: absolute;
 
           var scrollValue = 0
 
-          $.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+          $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
              $( "#scroll-directions" ).draggable({ 
                 axis: "y",
                 containment: 'parent',

@@ -11,10 +11,10 @@
     <meta name="description" content="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
 
-    <link rel="image_src" href="images/bg_drillhead.jpg" />
+    <link rel="image_src" href="../images/bg_drillhead.jpg" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
 
 <style>
 
@@ -128,16 +128,16 @@
   <div id="map-container"> 
 
     <div class="map_images">
-      <div style="cursor:default"  id="rigmap_01"><img data-baseurl="./images/rig_map/rig_map_01"></div>
-      <div style="cursor:default"  id="rigmap_02"><img data-baseurl="./images/rig_map/rig_map_02"></div>
+      <div style="cursor:default"  id="rigmap_01"><img data-baseurl=".././images/rig_map/rig_map_01"></div>
+      <div style="cursor:default"  id="rigmap_02"><img data-baseurl=".././images/rig_map/rig_map_02"></div>
  
-      <div data-url="platform"     id="rigmap_03">  <img data-baseurl="images/rig_map/rig_map_03">  </div>
-      <div data-url="controlroom"  id="rigmap_04">  <img data-baseurl="images/rig_map/rig_map_04">  </div>
-      <div data-url="hallway"      id="rigmap_05a"> <img data-baseurl="images/rig_map/rig_map_05a"> </div>
-      <div data-url="theater"      id="rigmap_05b"> <img data-baseurl="images/rig_map/rig_map_05b"> </div>
-      <div data-url="chemicalroom" id="rigmap_06">  <img data-baseurl="images/rig_map/rig_map_06">  </div>
-      <div data-url="subhanger"    id="rigmap_07">  <img data-baseurl="images/rig_map/rig_map_07">  </div>
-      <div data-url="boat"         id="rigmap_08">  <img data-baseurl="images/rig_map/rig_map_08">  </div>
+      <div data-url="platform"     id="rigmap_03">  <img data-baseurl="../images/rig_map/rig_map_03">  </div>
+      <div data-url="controlroom"  id="rigmap_04">  <img data-baseurl="../images/rig_map/rig_map_04">  </div>
+      <div data-url="hallway"      id="rigmap_05a"> <img data-baseurl="../images/rig_map/rig_map_05a"> </div>
+      <div data-url="theater"      id="rigmap_05b"> <img data-baseurl="../images/rig_map/rig_map_05b"> </div>
+      <div data-url="chemicalroom" id="rigmap_06">  <img data-baseurl="../images/rig_map/rig_map_06">  </div>
+      <div data-url="subhanger"    id="rigmap_07">  <img data-baseurl="../images/rig_map/rig_map_07">  </div>
+      <div data-url="boat"         id="rigmap_08">  <img data-baseurl="../images/rig_map/rig_map_08">  </div>
     </div>
 
     <div class="map_labels">
@@ -170,9 +170,9 @@
 
   <!-- JavaScripts -->
 
-  <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-  <script type="text/javascript" src="js/lib/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
+  <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/lib/modernizr.min.js"></script>
 
 
   <script>
@@ -195,8 +195,9 @@
         parent.master.closeOverlay()
       })
 
-      $('body').click(function(){
-        parent.master.closeOverlay()
+      $('body').click(function(e){
+        if( $(e.target).is('body') ) 
+          parent.master.closeOverlay()
       })
 
       $("#map-container ul li, .map_legend div, .map_labels div").click(function(){
@@ -226,7 +227,7 @@
         $('.map_legend').find('div.' + $(this).attr('class')).removeClass('hover')
       })
 
-      $.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+      $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
         $( "#map-container" ).draggable({
           contain: "parent"
         });
