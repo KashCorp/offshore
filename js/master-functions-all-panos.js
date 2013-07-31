@@ -820,58 +820,88 @@ var master = new masterFunctions();
 *************************************************************************/
 
 
-
 var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	
-	var w = master.dynamicWidth, 
+	var that = this,
+		w = master.dynamicWidth,
 		h = master.dynamicHeight,
     	that = this,
-		filePathPre = master.cdn_imgseq,
 		maxScrollerPos = $('.scroll-directions-container').height()
 
 	var canvas = document.getElementById(canvasid);
-	
 	canvas.width  = w;
 	canvas.height = h;
+	var context = canvas.getContext('2d');
+    var mouseWheelTimeout;
+
+	
+		
+		
 
 	// preload
 	this.preload = function(){
 		console.log('preloading '+imageNumber+' images')
 		var img = new Image()
-		for (var i = 1; i < imageNumber; i++) {
-			imageSrc = filePathPre + name + "-sm-frame-"+zeroes(i,4)+".jpg";
+		for (var i = 1; i < imageNumber; i+=2) {
+			imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 			img.src = imageSrc
 		}
 	}
-	
+
+	// keep
     var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    var scrollerPosStart = 100
-    var scrollValue = ( scrollerPosStart - 80) * 5000 / (window.innerHeight - 220)
+    var scrollerPosStart = 0
+
+    // new
+    this.percent = 0
+
+
+
+
+    // ditch?
+    var scrollValue = scrollerPosStart * 5000 / (window.innerHeight - 220)
     var scrollPercent = 0
 
-    var mouseWheelTimeout;
     this.scrollValue = scrollValue
 	this.scrollPos = 0
 
+    var scrollPercent
+    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
+    this.scrollPercent = scrollPercent
+	// /ditch
+
+
+
+	var imageSrc
+    imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
+
+    var img = new Image();
+
+	img.src = imageSrc
+	   
+	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+
+
+	/**************************************************************************
+		Walkthrough Video
+		(additional logic in scrollFunction and scrollStopFunction)
+	**************************************************************************/
 	
-	// Walkthrough Video ********************************************************
-	// (additional logic in scrollFunction and scrollStopFunction)
-
 	var walkthroughvideo = false;
-
 	if(globalPano =='chemicalroom' || globalPano =='subhanger') walkthroughvideo = true;
 
 	if(walkthroughvideo) {
 		$("#walking-exit").off('click')
 		$("#walking-exit").on('click',function(){
+			console.log('walking exit')
 			that.closeWalkthroughVid()
 		});
 
 		$('#video-overlay').on('ended',function(){
 			// reset walkthrough
-		    scrollerPos = 100
+		    scrollerPos = 0
 		    $( ".scroll-directions" ).css('top',scrollerPos)
-		    scrollValue =  (parseInt($( ".scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
+		    scrollValue =  parseInt($( ".scroll-directions" ).css('top')) * 5000 / (window.innerHeight - 220)
 		    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
 			that.scrollValue = scrollValue
 			that.scrollFunction()
@@ -880,20 +910,35 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
     this.closeWalkthroughVid = function(){
 
-    	// reset walkthrough
-	    that.scrollValue = ( scrollerPosStart - 80) * 5000 / (window.innerHeight - 220)
-	    scrollPercent = 0
-	    $( ".scroll-directions" ).css('top',100)
-	    that.scrollFunction()
+    	console.log('CLOSE WALKTHROUGH')
 
-    	closeVideoPlayer()
+    	if(!master.overlayOpen) {
+			$('#panocontainer, .fastpan, .compass').fadeIn(500)
+
+			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
+		        that.percent = 0.01
+			    $( ".scroll-directions" ).css('top',0)
+			    that.scrollStopFunction()
+		    })
+    	} else {
+	        that.percent = 0.01
+		    $( ".scroll-directions" ).css('top',0)
+		    that.scrollStopFunction()
+    	}
+
+    	krpano = document.getElementById("krpanoObject");
+		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+
     }
 
 	// auto resize ---------------------------------------------------------
 
 	resizeWalkthrough = function(){
-		maxScrollerPos = $('.scroll-directions-container').height();
-		scrollValue = ( scrollerPosStart - 80) * 5000 / (window.innerHeight - 220);
+		maxScrollerPos = window.innerHeight - 250
+		// maxScrollerPos = $('.scroll-directions-container').height();
+
+
+		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
 		w = master.dynamicWidth;
 		h = master.dynamicHeight;
 
@@ -902,28 +947,25 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 			'height' : h,
 			'top' : master.dynamicTop
 		})
-
 	}
 
 	$(window).off('resize.walkthrough');
 	$(window).on('resize.walkthrough', resizeWalkthrough);
 	resizeWalkthrough();
 
-    // begin Autoplay functionality 
+    // Autoplay -----------------------------------------------------------
 
     this.autoplay = false
-    var autoPlaySpeed = 3
 
 	$('.hotspot').off('click')
     $('.hotspot').on('click',function(e){
-    	console.log('click')
     	e.stopPropagation()
 
     	if(that.autoplay) {
-    		console.log('autopause ||')
+    		console.log('AUTOPAUSE ||')
     		that.autoplay=false
     	} else {
-    		console.log('autoplay >')
+    		console.log('AUTOPAUSE >')
     		that.autoplay = true
     		that.play()
     	}
@@ -933,43 +975,45 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     this.play = function(){
 
     	if(that.autoplay) {
-    		var top = $(".scroll-directions").css('top')
-    		$(".scroll-directions").css('top', top + autoPlaySpeed )
 
-    		scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    		scrollerPos += autoPlaySpeed
+    		that.percent += 0.01
 
-    		advance(scrollerPos)
+    		advance()
+
     	} else {
     		return false;
     	}
 
     }
 
-    advance = function(scrollerPos){
+    // advance = function(scrollerPos){
+    advance = function(){
 
-	    if(scrollerPos > maxScrollerPos) {
-	    	scrollerPos = maxScrollerPos
-	    	that.scrollStopFunction()
-	    	clearTimeout(mouseWheelTimeout)
-	    	return
-	    } else if(scrollerPos < 100) {
-	    	scrollerPos = 100
-	    	that.scrollStopFunction()
-	    	clearTimeout(mouseWheelTimeout)
-	    	return
-	    }
+    	// sanity check
+    	if(that.percent > 1) {
+    		that.percent = 1;
+    		that.scrollStopFunction()
+    		clearTimeout(mouseWheelTimeout)
+    		return
+    	}
+    	else if(that.percent < 0) {
+    		that.percent = 0.01
+    		that.scrollStopFunction()
+    		clearTimeout(mouseWheelTimeout)
+    		return
+    	}
 
-		$( ".scroll-directions" ).css('top',scrollerPos)
-		scrollValue =  (parseInt($( ".scroll-directions" ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
-		that.scrollValue = scrollValue
+	    // update scroll thumb
+		$( ".scroll-directions" ).css('top', (that.percent * maxScrollerPos) )
+
 		that.scrollFunction()
     }
 
     // end Autoplay functionality
 
 
-    // Dragging Functionality ********************************************************
+    // Dragging/Mousewheel Functionality ********************************************************
+
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
 	   		$( ".scroll-directions" ).draggable({ 
@@ -978,9 +1022,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 				drag: function() {
 					
 					that.autoplay = false // stop autoplay
-					scrollValue =  (parseInt($( this ).css('top'))- 80) * 5000 / (window.innerHeight - 220)
-					that.scrollValue = scrollValue
-					scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * 100);
+					
+					that.percent = parseInt($(this).css('top')) / (window.innerHeight -250)
 
 					that.scrollFunction()
 				},
@@ -998,12 +1041,13 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		}
 		
 		function MouseWheelHandler(e){
+			console.log('mouse wheel')
 	        var e = window.event || e; // old IE support
-	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-	        scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-	        scrollerPos -= delta*10
+	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
 
-	        advance(scrollerPos)
+	        that.percent -= 0.03 * delta
+
+	        advance()
 
 			clearTimeout(mouseWheelTimeout)
 			mouseWheelTimeout = null
@@ -1024,30 +1068,25 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
       return str;
     }
  
-    var context = canvas.getContext('2d');
-	var imageSrc, scrollPercent, that = this
     
-    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
-    this.scrollPercent = scrollPercent
-    
-    // imageSrc = filePathPre + name + "medsequence/frame-0001.jpg";
-    imageSrc = filePathPre + name + "-med-frame-0001.jpg";
 
-    var img = new Image();
 
-	img.src = imageSrc
-	   
-	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+
+	/* ***** Scroll Function ***** */
 
     this.scrollFunction = function(){
-      
-		scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
-		that.scrollPos = Math.round(scrollPercent / imageNumber * 100)
+      	
+      	// sanity check
+		if(that.percent <= 0) that.percent = 0.01
+		else if(that.percent > 1) that.percent = 1
 
-		if(scrollPercent <= 0) scrollPercent = 1
-		else if(scrollPercent > imageNumber) scrollPercent = imageNumber
-		
-		if (scrollPercent%3 == 0) imageSrc = filePathPre + name + "-sm-frame-"+zeroes(scrollPercent,4)+".jpg";
+		var currentImage = Math.ceil(imageNumber * that.percent)
+		console.log('currentImage: '+'\t'+currentImage)
+
+		// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
+		if (currentImage % 2 !== 0 && currentImage < imageNumber) currentImage++
+
+		if (currentImage % 2 == 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
 		
 		var img = new Image();
 
@@ -1056,10 +1095,11 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
 		if(walkthroughvideo) {
-			if(that.scrollPos > 90 && !master.overlayOpen){
+			if(that.percent > 0.9 && !master.overlayOpen){
+				that.autoplay = false;
 				$('.scroll-directions').fadeOut()
-				if(globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(globalPano =='subhanger')    videoPlayer("requiem")
+				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
+				if(master.globalPano =='subhanger')    videoPlayer("requiem")
 			}	
 		} 
 
@@ -1067,23 +1107,30 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 
 
+    /* ***** Stop Function ***** */
+
     this.scrollStopFunction = function(){
 
-    	console.log('scrollStopFunction()' + '\t' + that.scrollPos)
+    	console.log('STOP' + '\t' + that.scrollPos)
 
-        if(scrollPercent <= 0) scrollPercent = 1
-		else if(scrollPercent > imageNumber) scrollPercent = imageNumber
-        
-        // imageSrc = filePathPre + "medsequence/frame-"+zeroes(Math.ceil(scrollPercent),4)+".jpg";
-        imageSrc = filePathPre + name + "-med-frame-"+zeroes(Math.ceil(scrollPercent),4)+".jpg";
-          	
+    	if(that.percent <= 0) that.percent = 0.01
+		else if(that.percent > 1) that.percent = 1
+
+		imageSrc = master.cdn_imgseq + name + "-med-frame-"+zeroes(Math.ceil(imageNumber * that.percent),4)+".jpg";
+
         var img = new Image();
         img.src = imageSrc
         img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
-    	// if(walkthroughvideo && that.scrollPos < 85 && master.overlayOpen) {
-	    // 	that.closeWalkthroughVid()
-    	// }
+        if(walkthroughvideo) {
+			if(that.percent > 0.9 && !master.overlayOpen){
+				that.autoplay = false;
+				$('.scroll-directions').fadeOut()
+				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
+				if(master.globalPano =='subhanger')    videoPlayer("requiem")
+			}	
+		}
+
     }
               
 } /// end walkthrough
@@ -1380,9 +1427,9 @@ var soundadjust = function(coord,fov) {
   
 	        if(!master.overlayOpen)
 	        	$('#panocontainer, .fastpan, .compass').fadeIn(500)
-    
+
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-	            $('.scroll-directions').css('top','100px') // reset scrubber position
+	            $('.scroll-directions').css('top','0px') // reset scrubber position
 	        })
     
 	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.1)
@@ -1846,11 +1893,12 @@ function closeVideoPlayer(){
 	console.log("closing Video Player")
 
 	if(parent.audiomaster.mix.getTrack('overlay_02')){
-
-
         parent.audiomaster.mix.getTrack('overlay_02').gain(1.0)
+    }
 
 
+    if(pano.panoWalkthrough) {
+    	pano.panoWalkthrough.closeWalkthroughVid()
     }
 
 	$('.volume-toggle').css('line-height','40px')

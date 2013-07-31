@@ -66,9 +66,12 @@
       
     <div id="scroll-end" class="scroll-nav">Continue?</div>
     
-    <div class="scroll-directions-container"><div class="scroll-directions"></div></div>
+    <div class="scroll-directions-container">
+      <div class="scroll-directions"></div>
+      <div class="hotspot"></div>
+    </div>
 
-    <div class="hotspot"></div>
+    
 
   </div>   
 
@@ -79,7 +82,7 @@
   <div id="wrapper" class="wrapper">
 
     <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas>
-    <div class="hotspot"></div>
+    
 
     <div id="panocontainer" class="platform"></div>
         
@@ -103,7 +106,10 @@
       </video>
     </div>   
 
-      <div class="scroll-directions-container panoversion"><div class="scroll-directions"></div></div>
+      <div class="scroll-directions-container panoversion">
+        <div class="scroll-directions"></div>
+        <div class="hotspot"></div>
+      </div>
 
       <div id="walking-exit" class="platform-nav">Close</div>
 

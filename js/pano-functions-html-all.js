@@ -7,7 +7,7 @@ var pano_master = function(){
 
     var krpano
 
-    var panoWalkthrough;
+    this.panoWalkthrough;
     this.walkthroughPlaying = false;
 
     this.ghostTransition;
@@ -145,6 +145,9 @@ var pano_master = function(){
 
     $('#wrapper').css('display','block')
 
+    that.panoWalkthrough = null;
+
+
     // Ghost Functions
     if(that.ghostTransition) that.ghostTransition.killGhost();
     if(that.walkthrough) that.walkthrough = false;
@@ -173,7 +176,7 @@ var pano_master = function(){
 
     master.globalPano = _pano
 
-    $('.scroll-directions').css('top',100)
+    $('.scroll-directions').css('top',0)
 
     $('.panoversion').css('display','none')
 
@@ -213,7 +216,6 @@ var pano_master = function(){
         // remove leftover dynamic elements
         $('.dynamic').remove()
         $('.hotspot').attr('class','hotspot')
-        panoWalkthrough = null;
 
         // MASTER SWITCH
         switch(_pano){
@@ -297,16 +299,17 @@ var pano_master = function(){
                 $("#walking-canvas-pano").removeClass('hide')
                 // $("#walking-canvas-pano").css("top",that.dynamicTop)
 
-                var scrollTrigger,scrollPercent = 1
+                var scrollTrigger
+                // ,scrollPercent
 
-                panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
-                panoWalkthrough.preload()
+                that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
+                that.panoWalkthrough.preload()
                 $('.hotspot').addClass('requiem')
-                panoWalkthrough.scrollPos = 0;
-                panoWalkthrough.scrollValue = 1;
+                // that.panoWalkthrough.scrollPos = 0;
+                // that.panoWalkthrough.scrollValue = 1;
 
-                scrollTrigger = false;
-                scrollPercent=0;
+                // scrollTrigger = false;
+                // scrollPercent=0;
 
             break;
 
@@ -342,19 +345,20 @@ var pano_master = function(){
                 //$('#panocontainer').before(' <canvas class="dynamic" id="walking-canvas" style="position:absolute;opacity:1" width="1200" width="800"></canvas>')
                 overLayFile = 'Chemical_Room.mp3' 
                 underlayFile = 'Drone_3_norm.mp3'
-                var scrollTrigger,scrollPercent = 1
+                var scrollTrigger
+                // scrollPercent = 1
                 
                 $("#walking-canvas-pano").removeClass('hide')
                 // $("#walking-canvas-pano").css("top",that.dynamicTop)
 
-                panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
-                panoWalkthrough.preload()
+                that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
+                that.panoWalkthrough.preload()
                 $('.hotspot').addClass('engineroom')
-                panoWalkthrough.scrollPos = 0;
-                panoWalkthrough.scrollValue = 1;
+                // that.panoWalkthrough.scrollPos = 0;
+                // that.panoWalkthrough.scrollValue = 1;
 
                 scrollTrigger = false;
-                scrollPercent=0;
+                // scrollPercent=0;
 
             break;    
 
@@ -645,7 +649,8 @@ var pano_master = function(){
     **************************************************************************/
     
 
-    $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
+    // $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
+    $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/>')
 
 
     var mouse_start_x = 0,
@@ -828,14 +833,16 @@ var pano_master = function(){
 
         if(!that.walkthrough && !that.walkthroughPlaying) return false
 
-        if(panoWalkthrough) {
-            walkthrough = panoWalkthrough;
+        if(that.panoWalkthrough) {
+            walkthrough = that.panoWalkthrough;
             if(walkthrough.autoplay) {
                 walkthrough.play();
             }
         }
         else {
             walkthrough = that.walkthrough; 
+
+            // JUST USE SCROLL PERCENT HERE
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
@@ -844,24 +851,25 @@ var pano_master = function(){
                 $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
 
                 $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-                $('#word_01').css('opacity', scrollPercent/100);
+                $('#word_01').css('opacity', walkthrough.percent);
             }
             
         
-            if(scrollPercent > 40 && that.ghostTransition)
+            // if(scrollPercent > 40 && that.ghostTransition)
+            if(walkthrough.percent > 0.4 && that.ghostTransition)
                 master.ghostBuster = false
             else
                 master.ghostBuster = true
 
             if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-                    parent.audiomaster.mix.getTrack('overlay_01').pan(1 - scrollPercent/50)        
+                    parent.audiomaster.mix.getTrack('overlay_01').pan(1 - walkthrough.percent * 2 )        
             } 
             
-            if(scrollPercent < 5) $("#scroll-start").fadeIn(1000)
-            else                  $("#scroll-start").fadeOut(700)
+            if(walkthrough.percent < 0.05) $("#scroll-start").fadeIn(1000)
+            else                           $("#scroll-start").fadeOut(700)
 
 
-            if(scrollPercent > 95 && !scrollTrigger){
+            if(walkthrough.percent > 0.95 && !scrollTrigger){
 
                     console.log('end of passage')
 
