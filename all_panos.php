@@ -251,29 +251,6 @@
         })
       }
 
-      // Control Room
-      var zoomIn = function() {
-        master.overlayOpen = true
-        $('.fastpan, .compass').fadeOut()
-
-        // create
-        $('#zoom-out').remove()
-        $('.vignette').after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
-        $("#zoom-out").removeClass('hide')
-
-        $("#zoom-out").on('click',function(){
-          master.overlayOpen = false
-          $('.fastpan, .compass').fadeIn()
-          $("#zoom-out").fadeOut()
-
-          krpano = document.getElementById("krpanoObject");
-          krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
-          krpano.call('set(autorotate.enabled,true)')
-          $("#zoom-out").off('click')
-          $('#zoom-out').remove()
-        })    
-      }
-
       // Submarine
       var loadUnderWater = function(_id){
         console.log('loadUnderWater() '+_id)

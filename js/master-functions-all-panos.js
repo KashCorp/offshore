@@ -838,7 +838,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		
 		
 
-	// preload
+	// ***** Preload ******
+	// odd numbered images only
 	this.preload = function(){
 		console.log('preloading '+imageNumber+' images')
 		var img = new Image()
@@ -859,15 +860,15 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 
     // ditch?
-    var scrollValue = scrollerPosStart * 5000 / (window.innerHeight - 220)
-    var scrollPercent = 0
+ //    var scrollValue = scrollerPosStart * 5000 / (window.innerHeight - 220)
+ //    var scrollPercent = 0
 
-    this.scrollValue = scrollValue
-	this.scrollPos = 0
+ //    this.scrollValue = scrollValue
+	// this.scrollPos = 0
 
-    var scrollPercent
-    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
-    this.scrollPercent = scrollPercent
+ //    var scrollPercent
+ //    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
+ //    this.scrollPercent = scrollPercent
 	// /ditch
 
 
@@ -888,12 +889,12 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	**************************************************************************/
 	
 	var walkthroughvideo = false;
-	if(globalPano =='chemicalroom' || globalPano =='subhanger') walkthroughvideo = true;
+	if(master.globalPano =='chemicalroom' || master.globalPano =='subhanger') walkthroughvideo = true;
+	console.log('walkthroughvideo: '+'\t'+walkthroughvideo)
 
 	if(walkthroughvideo) {
 		$("#walking-exit").off('click')
 		$("#walking-exit").on('click',function(){
-			console.log('walking exit')
 			that.closeWalkthroughVid()
 		});
 
@@ -924,6 +925,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	        that.percent = 0.01
 		    $( ".scroll-directions" ).css('top',0)
 		    that.scrollStopFunction()
+		    // closeVideoPlayer() // INFINITE LOOOOOOP
     	}
 
     	krpano = document.getElementById("krpanoObject");
@@ -934,7 +936,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	// auto resize ---------------------------------------------------------
 
 	resizeWalkthrough = function(){
-		maxScrollerPos = window.innerHeight - 250
+		maxScrollerPos = window.innerHeight - 300
 		// maxScrollerPos = $('.scroll-directions-container').height();
 
 
@@ -981,6 +983,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     		advance()
 
     	} else {
+    		console.log('autoplay: false')
     		return false;
     	}
 
@@ -1023,7 +1026,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 					
 					that.autoplay = false // stop autoplay
 					
-					that.percent = parseInt($(this).css('top')) / (window.innerHeight -250)
+					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
 
 					that.scrollFunction()
 				},
@@ -1081,13 +1084,14 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		else if(that.percent > 1) that.percent = 1
 
 		var currentImage = Math.ceil(imageNumber * that.percent)
-		console.log('currentImage: '+'\t'+currentImage)
 
 		// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
-		if (currentImage % 2 !== 0 && currentImage < imageNumber) currentImage++
+		if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
 
-		if (currentImage % 2 == 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+		if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
 		
+		console.log('currentImage: '+'\t'+currentImage)
+
 		var img = new Image();
 
 		img.src = imageSrc
@@ -1099,7 +1103,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 				that.autoplay = false;
 				$('.scroll-directions').fadeOut()
 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhanger')    videoPlayer("requiem")
+				if(master.globalPano =='subhanger')    videoPlayer("subhangar")
 			}	
 		} 
 
@@ -1111,7 +1115,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
     this.scrollStopFunction = function(){
 
-    	console.log('STOP' + '\t' + that.scrollPos)
+
+    	console.log('STOP' + '\t' + that.percent + '% \t overlayOpen: ' + master.overlayOpen)
 
     	if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
@@ -1127,7 +1132,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 				that.autoplay = false;
 				$('.scroll-directions').fadeOut()
 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhanger')    videoPlayer("requiem")
+				if(master.globalPano =='subhanger')    videoPlayer("subhangar")
 			}	
 		}
 
@@ -1348,15 +1353,44 @@ function panoComplete(){
 
 	console.log('PANO COMPLETE')
 
-	if(!isPreloaded) {
+	if(!isPreloaded)
 		preloader();
-	}
+
+	if(pano.panoWalkthrough)
+		pano.panoWalkthrough.preload()
+
 	//$('.loading').fadeOut(500)
 	$('#panocontainer').fadeIn(1000,function(){
 		$('#video-underlay').show()
 	})
 
 
+}
+
+
+
+// Control Room
+function zoomIn() {
+  console.log('ZOOM IN')
+  master.overlayOpen = true
+  $('.fastpan, .compass').fadeOut()
+
+  // create
+  $('#zoom-out').remove()
+  $('#panocontainer').after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
+  $("#zoom-out").removeClass('hide')
+
+  $("#zoom-out").on('click',function(){
+    master.overlayOpen = false
+    $('.fastpan, .compass').fadeIn()
+    $("#zoom-out").fadeOut()
+
+    krpano = document.getElementById("krpanoObject");
+    krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
+    krpano.call('set(autorotate.enabled,true)')
+    $("#zoom-out").off('click')
+    $('#zoom-out').remove()
+  })    
 }
 
 

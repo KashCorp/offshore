@@ -296,20 +296,12 @@ var pano_master = function(){
                 overLayFile = 'SubRoom.mp3' 
                 underlayFile = 'Drone_3.mp3'
 
+                // walkthrough
                 $("#walking-canvas-pano").removeClass('hide')
-                // $("#walking-canvas-pano").css("top",that.dynamicTop)
-
-                var scrollTrigger
-                // ,scrollPercent
-
+                var scrollTrigger=false;
                 that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
-                that.panoWalkthrough.preload()
+                // that.panoWalkthrough.preload()
                 $('.hotspot').addClass('requiem')
-                // that.panoWalkthrough.scrollPos = 0;
-                // that.panoWalkthrough.scrollValue = 1;
-
-                // scrollTrigger = false;
-                // scrollPercent=0;
 
             break;
 
@@ -332,7 +324,6 @@ var pano_master = function(){
                         'margin-left' : -master.dynamicFillWidth/2,
                         'margin-top' : -master.dynamicFillHeight/2
                     })
-
                 })
             break;
 
@@ -342,23 +333,15 @@ var pano_master = function(){
             break; 
 
             case "chemicalroom" :
-                //$('#panocontainer').before(' <canvas class="dynamic" id="walking-canvas" style="position:absolute;opacity:1" width="1200" width="800"></canvas>')
                 overLayFile = 'Chemical_Room.mp3' 
                 underlayFile = 'Drone_3_norm.mp3'
-                var scrollTrigger
-                // scrollPercent = 1
                 
+                // walkthrough
+                var scrollTrigger=false;
                 $("#walking-canvas-pano").removeClass('hide')
-                // $("#walking-canvas-pano").css("top",that.dynamicTop)
-
                 that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
-                that.panoWalkthrough.preload()
+                // that.panoWalkthrough.preload()
                 $('.hotspot').addClass('engineroom')
-                // that.panoWalkthrough.scrollPos = 0;
-                // that.panoWalkthrough.scrollValue = 1;
-
-                scrollTrigger = false;
-                // scrollPercent=0;
 
             break;    
 

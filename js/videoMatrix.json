@@ -102,6 +102,10 @@
           "file": "Terminus_A_Simple_Case"
         },
         {
+          "title": "Justice",
+          "file": "Terminus_Justice"
+        },
+        {
           "title": "Keith Jones",
           "file": "Terminus_Keith"
         }
@@ -230,8 +234,8 @@
 
       "movies": [
         {
-          "title": "Scott Porter",
-          "file": "HANGAR-Scott_Porter"
+          "title": "Rig Requiem",
+          "file": "HANGAR-Requiem"
         },
         {
           "title": "The Kulluk",
@@ -240,12 +244,7 @@
         {
           "title": "Resistance",
           "file": "HANGAR-Resistance"
-        },
-        {
-          "title": "Rig Requiem",
-          "file": "HANGAR-Requiem"
         }
-        
       ]
     },
 
