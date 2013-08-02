@@ -524,22 +524,22 @@
 					<div class="content">
 					  <ul class="movie-menu">
 
-            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-200aBarrel.mp4" data-popcorn="RA_1" class="vid-menu-nav">
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-200aBarrel" data-popcorn="RA_1" class="vid-menu-nav">
               	<img src="../images/ControlRoom_RA_200_a_barrel_thumb.jpg"> 
-              	<div>$200@Barrel</div>
+              	<div>$200 a Barrel</div>
             	</li>
 
-            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-NewGenerationOfExplorers.mp4" data-popcorn="RA_2" class="vid-menu-nav">
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-NewGenerationOfExplorers" data-popcorn="RA_2" class="vid-menu-nav">
               	<img src="../images/ControlRoom_RA_New_Generation_of_Explorers_thumb.jpg"> 
               	<div>A New Generation of Explorers</div>
             	</li>
 
-            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-OffshoreInAfrica.mp4" data-popcorn="RA_3" class="vid-menu-nav">
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-OffshoreInAfrica" data-popcorn="RA_3" class="vid-menu-nav">
               	<img src="../images/ControlRoom_RA_Offshore_plays_in_Africa_thumb.jpg">  
               	<div>Offshore Plays in Africa</div>
             	</li>
 
-            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-SecurityAndTerrorism.mp4" data-popcorn="RA_4" class="vid-menu-nav">
+            	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-SecurityAndTerrorism" data-popcorn="RA_4" class="vid-menu-nav">
               	<img src="../images/ControlRoom_RA_Security_and_Terrorism_thumb.jpg"> 
               	<div>Security and Terrorism</div>
             	</li>
@@ -572,7 +572,25 @@ $(window).load(function(){
 
 $(document).ready(function(){
 
-	$("#to-control").click(function(){
+	// link to the right video type
+
+	$('.vid-menu-nav').each(function(i,v){
+		console.log($(v).data('url'))
+		var newurl = ''
+
+		if(parent.Modernizr.video.h264)
+			newurl = $(v).data('url') + '.mp4';
+		else
+			newurl = $(v).data('url') + '.webm';
+
+		$(v).data('url', newurl)
+
+	})
+
+
+
+	$("#to-control").click(function(e){
+		e.stopPropagation();
 		parent.master.closeOverlay()
 	})
 
@@ -615,7 +633,8 @@ $(document).ready(function(){
 
 
 	// play video
-	$(".vid-menu-nav").click(function(){
+	$(".vid-menu-nav").click(function(e){
+		e.stopPropagation();
 		var that = this
 
 		$('#close-control').css('display','none')
@@ -636,7 +655,8 @@ $(document).ready(function(){
   })
 
 	// stop video
-  $("#to-control-vid").click(function(){
+  $("#to-control-vid").click(function(e){
+  	e.stopPropagation();
   	$('.movie').css('display','none')
   	$('#to-control-vid').css('display','none')
 
@@ -648,11 +668,13 @@ $(document).ready(function(){
 
 
   $("#close-control").click(function(event){
+  	event.stopPropagation();
   	console.log("click")
   	parent.master.closeOverlay()
   })
 
   $('body').click(function(e){
+  	e.stopPropagation();
   	if( $(e.target).is('.container') )
   		parent.master.closeOverlay()
   })

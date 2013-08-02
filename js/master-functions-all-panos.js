@@ -85,9 +85,24 @@ var masterFunctions = function() {
     }); 
 
 
-    document.addEventListener('touchstart', function(e) {
-        $('.pan-directions').fadeOut(500)
-    }, false);
+
+    /* iPad Functions */
+
+    if(Modernizr.touch) {
+
+    	console.log('[MODERNIZR] Touch detected, enabling touch events')
+
+    	document.addEventListener('touchstart', function(e) {
+    	    $('.pan-directions').fadeOut(500)
+    	}, false);	
+
+
+    	$(document).bind('touchend', function(e) {
+		    $(e.target).trigger('click');
+		});
+    }
+
+    
 
  
 
@@ -183,7 +198,7 @@ var masterFunctions = function() {
     resize()
 
     $(window).on('resize.global',resize)
-
+    window.addEventListener('onorientationchange', resize());
 
 
 
@@ -338,7 +353,9 @@ var masterFunctions = function() {
 		})
 
 		$('#overlay_frame').contents().find('body').off('click')
-		$('#overlay_frame').contents().find('body').on('click',function(){
+		$('#overlay_frame').contents().find('body').on('click',function(e){
+			e.preventDefault();
+			e.stopPropagation()
 			master.closeOverlay()
 		})
 	}
@@ -842,11 +859,18 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	// odd numbered images only
 	this.preload = function(){
 		console.log('preloading '+imageNumber+' images')
+
+		var i = 1;
+
 		var img = new Image()
-		for (var i = 1; i < imageNumber; i+=2) {
-			imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
-			img.src = imageSrc
+
+		img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
+
+		img.onload = function(){
+			i+=2;
+			img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 		}
+
 	}
 
 	// keep
@@ -1261,10 +1285,16 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
    // preload
    this.preload = function(){
    	console.log('preloading '+imageNumber+' ghost images')
+
+   	var i = 1;
+
    	var img = new Image()
-   	for (var i = 1; i < imageNumber; i++) {
-   		imageSrc = filePathPre + name + zeroes(imageNumber,5)+".png";
-   		img.src = imageSrc
+
+   	img.src = filePathPre + name + zeroes(imageNumber,5)+".png";
+
+   	img.onload = function(){
+   		i+=2;
+   		img.src = filePathPre + name + zeroes(imageNumber,5)+".png";
    	}
    }
    
@@ -1412,31 +1442,23 @@ var soundadjust = function(coord,fov) {
 
 	// console.log('convCoord: '+'\t'+convCoord)
 
-
-	if(convCoord < 180 ){
-	  soundVector1 = convCoord/180;
-	}else{
-	  soundVector1 = (360-convCoord)/180;
-	}
-
-	      //console.log(soundVector1*2-1)
-
+	if(convCoord < 180 )  soundVector1 = convCoord/180;
+	else  				  soundVector1 = (360-convCoord)/180;
 	 
-	if(convCoord1 < 180 ){
-	  soundVector2 = (convCoord1)/180;
-	}else{
-	  soundVector2 = (360-(convCoord1))/180;
-	}
+	if(convCoord1 < 180 ) soundVector2 = (convCoord1)/180;
+	else  				  soundVector2 = (360-(convCoord1))/180;
 
+	if(Modernizr.webaudio === true) {
+		if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+		  parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+		  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+		}
 
-	if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-	  parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-	  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+		if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
+		  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
+		}
 	}
-
-	if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-	  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
-	}
+	
 
 	// show ghosts only in specific spot (recalculated every pano)
 	if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
@@ -1808,7 +1830,7 @@ function videoPlayer(group, playerFadeTransition){
 
 		$(controls).addClass('hide')
 
-		$(".video-content-wrap").on('mousemove',function(){
+		$(".video-content-wrap").on('mousemove, touchstart',function(){
 			$(controls).removeClass('hide')
 
 			if(!over) {

@@ -69,7 +69,9 @@
    
 
   -->
-     <audio id="transition" preload="auto" class="ambient"><source/></audio>  
+      <audio id="transition" preload="auto" class="ambient"><source/></audio>  
+      
+      <script type="text/javascript" src="js/lib/modernizr.min.js"></script>
       <script type="text/javascript" src="js/lib/jquery.min.js"></script>
       <script type="text/javascript" src="js/lib/audioMixerOFFSHORE.js"></script> 
       <script type="text/javascript" src="js/lib/Tween.js"></script>

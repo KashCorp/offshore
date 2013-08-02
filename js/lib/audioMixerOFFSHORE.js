@@ -51,10 +51,17 @@
 	  this.events = {};
 	  this.lookup = {};
 
-		if ( typeof AudioContext === 'function' ) 
-			this.context = new AudioContext();
-		else 
-			this.context = new webkitAudioContext();
+	  if(Modernizr.webaudio === true) {
+	  	console.log('[MODERNIZR] Web Audio Supported')
+	  	if ( typeof AudioContext === 'function' ) 
+	  		this.context = new AudioContext();
+	  	else 
+	  		this.context = new webkitAudioContext();
+	  } else {
+	  	console.log('[MODERNIZR] Web Audio NOT SUPPORTED')
+	  }
+
+		
 		
 							
 	}
@@ -78,12 +85,23 @@
 	}
 	
 	Mix.prototype.createTrack = function(name, opts){
-		//if ( !name || this.lookup[name] ) return;
-		var track = new Track(name, opts, this);
+
+		if(Modernizr.webaudio === true) {
+
+			console.log('[MODERNIZR] Creating web audio track')
+
+			//if ( !name || this.lookup[name] ) return;
+			var track = new Track(name, opts, this);
+			
+			this.tracks.push( track );
+			this.lookup[name] = track;
+			return track;
+		} else {
+			console.log('[MODERNIZR] no web audio, NOT creatin track')
+
+			return false;
+		}
 		
-		this.tracks.push( track );
-		this.lookup[name] = track;
-		return track;
 		
 	};
 

@@ -129,7 +129,7 @@
 
     <!--<div class="loading"></div>--> 
 
-    <div class="compass"><img src="images/icons/map_icon.png"></div>
+    <div class="compass" style="display:none"><img src="images/icons/map_icon.png"></div>
 
     <div class="breadcrumb" id="toolbelt"></div>
 

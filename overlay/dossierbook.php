@@ -53,15 +53,16 @@
 
 function loadApp() {
 
-
 $(".platform-nav").click(function(){
-  console.log("click")
   parent.master.closeOverlay()
 })
 
-$('.flipbook-viewport').click(function(){
-  parent.master.closeOverlay()
-})
+var isFF = !!window.sidebar;
+if(!isFF) {
+  $('.flipbook-viewport').click(function(e){
+    parent.master.closeOverlay()
+  })
+}
 
   // Create the flipbook
 

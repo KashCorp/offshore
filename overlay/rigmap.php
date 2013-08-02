@@ -191,16 +191,19 @@
         $('#map-container').css('width','850px')
       }
 
-      $("#to-control").click(function(){
+      $("#to-control").click(function(e){
+        e.stopPropagation();
         parent.master.closeOverlay()
       })
 
       $('body').click(function(e){
+        e.stopPropagation();
         if( $(e.target).is('body') ) 
           parent.master.closeOverlay()
       })
 
-      $("#map-container ul li, .map_legend div, .map_labels div").click(function(){
+      $("#map-container ul li, .map_legend div, .map_labels div").click(function(e){
+        e.stopPropagation();
         // if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
         if($(this).data("url")) {
           if( $(this).data("url") == parent.master.globalPano ) {

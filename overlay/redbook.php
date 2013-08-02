@@ -44,12 +44,14 @@
 
 <script type="text/javascript">
 
-$("#to-control").click(function(){
+$("#to-control").click(function(e){
+	e.stopPropagation();
 	parent.master.closeOverlay()
 })
 
-$('.flipbook-viewport').click(function(){
-  parent.master.closeOverlay()
+$('body').click(function(e){
+  if( $(e.target).is('body') ) 
+    parent.master.closeOverlay()
 })
 
 

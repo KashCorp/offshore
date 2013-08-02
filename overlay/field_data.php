@@ -65,9 +65,12 @@ $(".platform-nav").click(function(){
 
 })
 
-$('.flipbook-viewport').click(function(){
-  parent.master.closeOverlay()
-})
+var isFF = !!window.sidebar;
+if(!isFF) {
+  $('.flipbook-viewport').click(function(e){
+    parent.master.closeOverlay()
+  })
+}
 
   // Create the flipbook
 

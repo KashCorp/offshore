@@ -54,14 +54,17 @@
 
 function loadApp() {
 
-
-$(".platform-nav").click(function(){
+$(".platform-nav").click(function(e){
+  e.stopPropagation();
   parent.master.closeOverlay()
 })
 
-$('.flipbook-viewport').click(function(){
-  parent.master.closeOverlay()
-})
+var isFF = !!window.sidebar;
+if(!isFF) {
+  $('.flipbook-viewport').click(function(e){
+    parent.master.closeOverlay()
+  })
+}
 
   // Create the flipbook
 
