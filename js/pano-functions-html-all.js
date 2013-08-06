@@ -154,7 +154,7 @@ var pano_master = function(){
 
     $('#ghost-canvas-trans').fadeOut()
 
-    $('.compass').show()
+    if(!master.overlayOpen) $('.compass').show()
 
     setTimeout(function(){
 

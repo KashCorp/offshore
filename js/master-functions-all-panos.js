@@ -1830,7 +1830,7 @@ function videoPlayer(group, playerFadeTransition){
 
 		$(controls).addClass('hide')
 
-		$(".video-content-wrap").on('mousemove, touchstart',function(){
+		$(".video-content-wrap").on('mousemove',function(){
 			$(controls).removeClass('hide')
 
 			if(!over) {
