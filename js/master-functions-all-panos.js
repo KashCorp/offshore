@@ -851,12 +851,25 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	var context = canvas.getContext('2d');
     var mouseWheelTimeout;
 
-	
-		
-		
+    var oddOnly = false;
+    if(imageNumber > 200) oddOnly = true;
 
-	// ***** Preload ******
-	// odd numbered images only
+    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
+    var scrollerPosStart = 0
+
+    this.percent = 0 // MASTER VARIABLE (everything runs off this)
+
+    var playSpeed = (100/imageNumber)/100;
+    if(!oddOnly) playSpeed = playSpeed / 2;
+
+	var imageSrc
+    imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
+    var img = new Image();
+	img.src = imageSrc
+	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+
+	// Preload ********************************************************
+	// (odd numbered images only)
 	this.preload = function(){
 		console.log('preloading '+imageNumber+' images')
 
@@ -867,44 +880,12 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 
 		img.onload = function(){
+			// i+= (oddOnly ? 2 : 1); 
 			i+=2;
 			img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 		}
 
 	}
-
-	// keep
-    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    var scrollerPosStart = 0
-
-    // new
-    this.percent = 0
-
-
-
-
-    // ditch?
- //    var scrollValue = scrollerPosStart * 5000 / (window.innerHeight - 220)
- //    var scrollPercent = 0
-
- //    this.scrollValue = scrollValue
-	// this.scrollPos = 0
-
- //    var scrollPercent
- //    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
- //    this.scrollPercent = scrollPercent
-	// /ditch
-
-
-
-	var imageSrc
-    imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
-
-    var img = new Image();
-
-	img.src = imageSrc
-	   
-	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
 
 	/**************************************************************************
@@ -1002,7 +983,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
     	if(that.autoplay) {
 
-    		that.percent += 0.01
+    		// that.percent += 0.01
+    		that.percent += playSpeed
 
     		advance()
 
@@ -1072,7 +1054,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	        var e = window.event || e; // old IE support
 	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
 
-	        that.percent -= 0.03 * delta
+	        that.percent -= playSpeed * delta
 
 	        advance()
 
@@ -1109,10 +1091,17 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 		var currentImage = Math.ceil(imageNumber * that.percent)
 
-		// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
-		if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
+		// if(oddOnly) {
+			// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
+			if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
 
-		if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+			if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+		// }
+		// else {
+		// 	imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+		// }
+
+		
 		
 		console.log('currentImage: '+'\t'+currentImage)
 
