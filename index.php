@@ -103,6 +103,10 @@
   
       var audioMaster = function() {
 
+        this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+
+        console.log(this.isIOS)
+
         var thisMixer = this;
         var mix = new Mix();
         return {

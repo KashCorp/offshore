@@ -963,10 +963,11 @@ var pano_master = function(){
                 
             if(!parent.audiomaster) return
             
-
-            for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
-                parent.audiomaster.mix.tracks[i].play()                                    
-            }     
+            if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
+                for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
+                    parent.audiomaster.mix.tracks[i].play()                                    
+                }  
+            }   
 
             
 

@@ -234,6 +234,8 @@
 			self.ready = true;
 			self.get('mix').trigger('load', self);
 
+			console.log("loading")
+
 
         };
 
@@ -273,8 +275,14 @@
 		//this.gain(this.options.gain)
 	
 		this.options.playing = true;
-			
-		this.options.source.start(0,this.options.start)	
+
+		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+		if(isIOS){
+			this.options.source.noteOn(0)
+		}else{
+			this.options.source.start(0,this.options.start)	
+		}
+		
 		
 		this.trigger('play');
 		/**/

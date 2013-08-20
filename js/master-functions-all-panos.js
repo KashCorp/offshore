@@ -16,9 +16,13 @@ var masterFunctions = function() {
 		isParent,
 		videoType = ".webm",
 		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
+		
+
+		this.isIOS =navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
 	this.ghostBuster = false
 	this.ghostMinc
+
 	//this.ghostBuster
 
 	// webm or h264
@@ -93,6 +97,9 @@ var masterFunctions = function() {
     	console.log('[MODERNIZR] Touch detected, enabling touch events')
 
     	document.addEventListener('touchstart', function(e) {
+    		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                              
+                parent.audiomaster.mix.tracks[i].play()                                    
+            }    
     	    $('.pan-directions').fadeOut(500)
     	}, false);	
 
@@ -816,6 +823,8 @@ this.setDeepLinking = function(deepLink){
 var master = new masterFunctions();
 	master.init()
 	master.check_start()
+
+
 
 
 
@@ -1812,6 +1821,9 @@ function videoPlayer(group, playerFadeTransition){
 	// Movie Menu autohide ---------------------------------------------
 
 	var autohide = (function(){
+
+		if(master.isIOS) return
+
 		var timeout
 		var over=false
 
@@ -1868,6 +1880,14 @@ function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
+	//
+
+	if(master.isIOS) {
+		var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
+		iosControls.removeClass('hide')
+		//iosControls.css('display','block')
+	}
+
 	if(parent.audiomaster.mix.getTrack('overlay_02')){
 
 
@@ -1906,6 +1926,13 @@ function switchVideo(_id,_text){
 	setTimeout(function() {
 		$('#video-overlay')[0].src = master.cdn_video + _id + master.videoType
 		$('#video-overlay')[0].load()
+
+		if(master.isIOS){
+
+			$('#video-overlay')[0].controls = true
+			$('#video-overlay').removeClass('hide')
+
+		}
 	}, 500)
 
 	$('#video-overlay')[0].addEventListener('loadedmetadata', function(e) {
@@ -1963,6 +1990,7 @@ function closeVideoPlayer(){
 
 	$('#video-overlay').addClass('hide')
 	$('#panocontainer').fadeIn(1000)
+	$(".video-content-wrap").fadeOut(1000)
 	$('#walking-canvas-pano').css('display','block')
 	$("#panocontainer").removeClass('no-pointer-events')
 	$(".compass").fadeIn()
@@ -1974,6 +2002,7 @@ function closeVideoPlayer(){
 	$(".video-content-wrap").removeClass("open");
 	$(".video-content-wrap").removeClass("transtion-width");
 	$(".video-content-wrap").removeClass("transition-opacity");
+	//$(".video-content-wrap").addClass("no-pointer-events");
 
 	krpano = document.getElementById("krpanoObject");
 	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
