@@ -54,21 +54,6 @@
   </div>
 </div> 
 
-
-    
-    <!--
-    <audio id="vo" preload="auto" class="ambient" autoplay>
-      <source src="audio/Klare_01_Risk.ogg" type="audio/ogg" />
-    </audio>  
-
-    
-
-    
-    	<source src="audio/Transition_Sound.ogg" type="audio/ogg" />
-      <source src="audio/Transition_Sound.mp3" type="audio/mpeg" />
-   
-
-  -->
       <audio id="transition" preload="auto" class="ambient"><source/></audio>  
       
       <script type="text/javascript" src="js/lib/modernizr.min.js"></script>
@@ -92,13 +77,6 @@
       function setHash(locationHash){
          location.hash = locationHash
       }   
-      
-
- 
-
-
-
-    
 
   
       var audioMaster = function() {

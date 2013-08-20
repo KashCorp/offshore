@@ -813,7 +813,7 @@
 			atv="15"
 			distorted="true"
 			capture="false"
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			/>
 
@@ -833,7 +833,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			/>
 
@@ -847,7 +847,7 @@
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			width="220"
@@ -863,7 +863,7 @@
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			width="93"
@@ -879,7 +879,7 @@
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
-			onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
+			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
 			width="93"
@@ -1230,7 +1230,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-      		onclick="lookto(315,-100,0,smooth(),true,true,js(videoPlayer(terminus)));js(setCache(get(view.hlookat),90))"
+      		onclick="lookto(315,-100,0,smooth(),true,true, js(videoPlayer(terminus)));js(setCache(get(view.hlookat),90))"
     		/>
 		<hotspot name="Video-Player-GIF"
 			url="../images/icons/gif_iconA.gif"

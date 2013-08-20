@@ -5,28 +5,29 @@
 
 	Sections
 
-		> masterFunctions
-			> Init
-			> Overlay
-			> Audio
-			> Utilities
+		masterFunctions
+			Init
+			Overlay
+			Audio
+			Utilities
 
-		> Walkthrough
+		Walkthrough
 
-		> Ghost
+		Ghost
 
-		> Root Functions (used in XML)
+		Root Functions (used in XML)
 
-		> Sound Adjust
+		Sound Adjust
 
-		> Video Player
+		Video Player
 
-		> jQuery Extension
+		jQuery Extension
 
 
 	Objects
 
 		master = new masterFunctions()
+
 
 **************************************************************************/
 
@@ -43,9 +44,8 @@ var masterFunctions = function() {
 		isParent,
 		videoType = ".webm",
 		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
-		
 
-		this.isIOS =navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
 	this.ghostBuster = false
 	this.ghostMinc
@@ -156,8 +156,7 @@ var masterFunctions = function() {
       	setCookie("visitedPages",visitedPages,365)
       }
       
-      //this.url_array = ["rigmap.php~Map","greenbook.php~Briefing Dossier","filecabinetcontents.php~Filing Cabinet"];
-       this.url_array = [];
+      this.url_array = [];
       
       this.divider = ((window.innerWidth-168) / this.url_array.length)
 
@@ -189,51 +188,65 @@ var masterFunctions = function() {
     	Dynamic Resizing (globals)
 
     **************************************************************************/
-    
+
+    that.globals = {
+	    cover:   {}, // fill screen at all times
+	    contain: {}  // maintain visibility of entire element
+	};
 
     var resizetimeout;
 
-    this.dynamicWidth;
-    this.dynamicHeight;
-    this.dynamicTop;
-
-    this.dynamicFillWidth;
-    this.dynamicFillHeight;
-
     function resize(){
-
-    	var ratio = 0.5625;
 
     	if(resizetimeout) clearTimeout(resizetimeout);
 
     	resizetimeout = setTimeout(function(){
-    		that.dynamicWidth = window.innerWidth;
-    		that.dynamicHeight = that.dynamicWidth * ratio;
-    		that.dynamicTop = (window.innerHeight - that.dynamicHeight)/2;
 
+		    var ratio = 9/16,
+		    	w, h, t, l;
+			
+		    /***** CONTAIN *****/
+		    w = window.innerWidth;
+	    	h = w * ratio;
+	    
+	    	if(h > window.innerHeight) {
+	    		h = window.innerHeight;
+	    		w = h / ratio;
+	    	}
+	    
+	    	t = (window.innerHeight - h) / 2;
+		    l = (window.innerWidth - w) / 2;
+	    
+	    	that.globals.contain.w = Math.round(w)
+	      	that.globals.contain.h = Math.round(h)
+	      	that.globals.contain.t = Math.round(t)
+	      	that.globals.contain.l = Math.round(l)
+	    	
+	    	/***** COVER *****/
+	    	w = window.innerWidth;
+		    h = w * ratio;
+		    
+		    if(h < window.innerHeight) {
+		        h = window.innerHeight;
+		        w = h / ratio;
+		    }
 
-    		// wider than 16:9 -> use width
-    		if( (window.innerHeight/window.innerWidth) < ratio ) { 
-    			that.dynamicFillWidth = window.innerWidth;
-    			that.dynamicFillHeight = window.innerWidth * ratio
-    		}
-
-    		// taller than 16:9 -> use height
-    		else { 
-    			that.dynamicFillHeight = window.innerHeight;
-    			that.dynamicFillWidth = window.innerHeight / ratio;
-    			
-    		}
+		    t = (window.innerHeight - h) / 2;
+		    l = (window.innerWidth - w) / 2;
+		    	
+	    	that.globals.cover.w = Math.round(w)
+	      	that.globals.cover.h = Math.round(h)
+	      	that.globals.cover.t = Math.round(t)
+	      	that.globals.cover.l = Math.round(l)
 
     	}, 50)
     	
     }
 
-    resize()
+    resize();
 
     $(window).on('resize.global',resize)
     window.addEventListener('onorientationchange', resize());
-
 
 
 
@@ -370,6 +383,11 @@ var masterFunctions = function() {
 
 
 	this.loadOverlay = function(overlayURL){
+
+		if(master.overlayOpen === true) {
+			console.log('[WARNING] Overlay already present')
+			return;
+		}
 
 		master.overlayOpen = true
 		master.ghostBuster = true
@@ -599,10 +617,6 @@ var masterFunctions = function() {
 
 	this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
 
-	    var dynamicWidth = window.innerWidth;
-	    var dynamicHeight = dynamicWidth * .5625;
-	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
 	    //$('body').append('<canvas id="ghost-canvas-trans" />')
 
 		var ghost = new ghostFunctions("ghost-canvas-trans",_id,numberOfFrames)
@@ -784,8 +798,8 @@ master.check_start();
 var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	
 	var that = this,
-		w = master.dynamicWidth,
-		h = master.dynamicHeight,
+		w = master.globals.contain.w,
+		h = master.globals.contain.h,
     	that = this,
 		maxScrollerPos = $('.scroll-directions-container').height()
 
@@ -824,13 +838,14 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 
 		img.onload = function(){
-			// i+= (oddOnly ? 2 : 1); 
-			i+=2;
-			img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
+			i += (oddOnly) ? 2 : 1;
+
+			if(i<imageNumber)
+				img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
+
 		}
 
 	}
-
 
 	// keep
     var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
@@ -903,15 +918,12 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		maxScrollerPos = window.innerHeight - 300
 		// maxScrollerPos = $('.scroll-directions-container').height();
 
-
 		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
-		w = master.dynamicWidth;
-		h = master.dynamicHeight;
 
 		$(canvas).css({
-			'width' : w,
-			'height' : h,
-			'top' : master.dynamicTop
+			'width' :  master.globals.contain.w,
+			'height' : master.globals.contain.h,
+			'top' :    master.globals.contain.t
 		})
 	}
 
@@ -1042,7 +1054,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	/* ***** Scroll Function ***** */
 
     this.scrollFunction = function(){
-      	
+
+
       	// sanity check
 		if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
@@ -1054,6 +1067,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 			if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
 
 			if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+
 		// }
 		// else {
 		// 	imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
@@ -1151,8 +1165,8 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 	var w,h;
 
 	resizeGhost = function(){
-		w = master.dynamicWidth
-		h = master.dynamicHeight
+		w = master.globals.contain.w;
+		h = master.globals.contain.h;
 		canvas.style.width = w + 'px'
 		canvas.style.height = h + 'px'
 	}
@@ -1345,6 +1359,30 @@ function panoComplete(){
 }
 
 
+/**************************************************************************
+  
+  Misc Functions from individual scenes
+
+**************************************************************************/
+  
+// Control Room
+var startDrilling = function(stopping){
+
+  // if(stopping){
+  //   master.loadVideoUnderlay("video/transitions/oil_shot",null,true)
+  // }else{
+  //   master.loadVideoUnderlay("video/transitions/action_04",null,true) 
+  // }
+
+  var transition_audio = $('#transition', window.parent.document)
+  transition_audio[0].src = "audio/Hatch_Open.mp3"
+  transition_audio[0].play()
+  $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
+    $("#wrapper").animate({'bottom': '0','top': '0'}, 100)
+  })
+}
+
+
 
 // Control Room
 function zoomIn() {
@@ -1369,6 +1407,25 @@ function zoomIn() {
     $('#zoom-out').remove()
   })    
 }
+
+
+// Submarine
+var loadUnderWater = function(_id){
+  console.log('loadUnderWater() '+_id)
+
+  $("#video-underwater").addClass('hide')
+
+  $('#video-underwater')[0].src = master.cdn_video + _id + master.videoType
+  $('#video-underwater')[0].load()
+
+  $('#video-underwater')[0].addEventListener('canplaythrough', function(e) {
+    e.stopPropagation()
+    $('#video-underwater').removeClass('hide')
+    $('#video-underwater')[0].play();
+  }, false);
+
+}
+
 
 
 
@@ -1502,6 +1559,12 @@ function resetHoverSound(){
 
 function videoPlayer(group, playerFadeTransition){
 
+	if(master.overlayOpen === true) return;
+
+	master.ghostBuster = true
+	master.overlayOpen = true
+	master.soundTrigger = true
+
 	console.log('launchVideoPlayer: '+group)
 
 	$('.volume-toggle').css('line-height','80px')
@@ -1509,16 +1572,6 @@ function videoPlayer(group, playerFadeTransition){
 	// disable mouse events on pano container
 	$("#panocontainer").addClass('no-pointer-events')
 	$(".compass").fadeOut()
-
-	// $('#panocontainer').addClass('hide')
-	// $('#panocontainer').one(css3transitionend, function(){
-	// 	$('.loading').show()
-	// 	$('.loading').removeClass('hide')
-	// })
-
-	master.ghostBuster = true
-	master.overlayOpen = true
-	master.soundTrigger = true
 
 	master.bgGain = 0.5
 
@@ -1576,9 +1629,12 @@ function videoPlayer(group, playerFadeTransition){
 	// Video resize ---------------------------------------------------------
 
 	function resizeVideoPlayer(){
-		$("#video-overlay").css("top",master.dynamicTop)
-		$("#video-overlay").css("width",master.dynamicWidth)
-		$("#video-overlay").css("height",master.dynamicHeight)
+		$("#video-overlay").css({
+			'top' : master.globals.contain.t,
+			'left' : master.globals.contain.l,
+			'width' : master.globals.contain.w,
+			'height' : master.globals.contain.h
+		})
 	}
 
 	$(window).off('resize.video')
