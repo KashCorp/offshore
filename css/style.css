@@ -1540,6 +1540,7 @@ visibility:hidden;}
 
 .video-content-wrap video {
 	opacity: 1;
+	
 	-webkit-transition: 0.5s opacity;
 	-moz-transition: 0.5s opacity;
 	-ms-transition: 0.5s opacity;
