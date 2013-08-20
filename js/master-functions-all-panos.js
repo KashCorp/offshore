@@ -1,8 +1,35 @@
 /**************************************************************************
 	
-	old functions marked with >OLD
+	Master Functions
+	
+
+	Sections
+
+		> masterFunctions
+			> Init
+			> Overlay
+			> Audio
+			> Utilities
+
+		> Walkthrough
+
+		> Ghost
+
+		> Root Functions (used in XML)
+
+		> Sound Adjust
+
+		> Video Player
+
+		> jQuery Extension
+
+
+	Objects
+
+		master = new masterFunctions()
 
 **************************************************************************/
+
 
 
 
@@ -152,7 +179,7 @@ var masterFunctions = function() {
 
     /**************************************************************************
     	
-    	Dynamic Resizing (global)
+    	Dynamic Resizing (globals)
 
     **************************************************************************/
     
@@ -324,10 +351,10 @@ var masterFunctions = function() {
 
 	/********************************************************************************
 		
-		Overlays
+		> Overlay Functionality
 
 
-		there is only one overlay at a time.
+		there is only one overlay at a time (map, book, etc)
 
 		loadOverlay('example.php');
 		closeOverlay();
@@ -392,111 +419,13 @@ var masterFunctions = function() {
 
 
 
-	// >OLD
-	/*
-	this.loadBook = function(_bookUrl){
 
-		// hide container
-		$("#panocontainer").addClass('hide')
-		$("#panocontainer").on(css3transitionend,function(){
-			console.log('transition end')
-			$("#panocontainer").hide()
 
-			$('.scroll-directions').fadeOut(500)
-			$('.compass').fadeOut(500)
-		})
-
-		// if first run, load the book data
-		if( !that._bookFrame ) {
-			console.log('load book')
-			this._bookFrame = '<iframe style="display:none" allowtransparency="true" id="book-container-frame" src="'+ _bookUrl+'"></iframe>'
-			$('body').append(this._bookFrame)
-
-			setTimeout(function() {
-				$('#book-container-frame').fadeIn(500,function(){
-					krpano = document.getElementById("krpanoObject");
-					// krpano.call("tween(view.fov, 15.0, 1.0)")
-					krpano.call("set(autorotate.enabled,false)")
-					parent.audiomaster.mix.setGain(0.1)
-			 	})
-			}, 500)
-
-		} 
-
-		// otherwise just fade it back in
-		else {
-			console.log('fade in book')
-			$('#book-container-frame').fadeIn(500,function(){
-				krpano = document.getElementById("krpanoObject");
-				// krpano.call("tween(view.fov, 15.0, 1.0)")
-				krpano.call("set(autorotate.enabled,false)")
-				parent.audiomaster.mix.setGain(0.1)
-		 	})
-		}
+	/**************************************************************************
 		
-	}
-	*/
-
-	 /*
-	this.closeBook = function(){
-		// master.overlayOpen = false
-		master.closeOverlay()
-
-		
-
-		// $('#book-container-frame').fadeOut(1000, function(){
-		// 	$('.compass').fadeIn(500)
-		// 	that._frame = null;
-		// 	// that._bookFrame = null;
-		// 	krpano = document.getElementById("krpanoObject");
-		// 	krpano.call("tween(view.fov, 90.0, 1.0)")
-		// 	parent.audiomaster.mix.setGain(1.0)
-	 // 	})
-		
-	}
-	*/
-
-
-
-
-	// Overlay Functionality
-	// >OLD?
-
-	// $('.close-overlay').click(function(){
-	// 	master.hideOverlay();
-	// 	var parent = $(this).parent().attr('id');
-	// 	if (parent == 'overlay_intro') {
-	// 		initAction();
-	// 	}	
-	// })
-
-	// if (parent == 'overlay_intro') {
-	// 	initAction();
-	// }
-
-	// this.showOverlay = function(selector) {
-	// 	$('#overlay, ' + selector).fadeIn(1500);
-	// }
-
-	// this.hideOverlay = function() {
-	// 	$('#overlay, .inner-overlay').fadeOut(1500);
-	// }
-
-	// var initAction = function() {
-
-		
-		
-	// 	master.krpano = document.getElementById("krpanoObject");
- //  		if (!master.krpano || !master.krpano.get) {
- 
- //    		return "";
- //  		}
-  		
- //  		master.krpano.call('action(initialize)')
-  		
-	// }
-
+		Audio
 	
+	**************************************************************************/
 
 	// Audio Functionality
 	$('.volume-toggle').click(function(){
@@ -520,302 +449,308 @@ var masterFunctions = function() {
 		}
 					
 	})
-	
-
-
-this.loadVideoUnderlay = function(_id,_popcorn,_load_menu){
-    
-	parent.audiomaster.mix.setGain(0.1)
-	
-    if( this.popcorn) Popcorn.destroy(  this.popcorn );
-    $('#footnote-container').html('')
-    if(_popcorn){
-       this.popcorn = Popcorn("#video-underlay");
-       this.popcorn.parseJSON( "json/"+_popcorn+".json?rnd="+Math.random()*10, function() {
-
-        console.log( _popcorn + " parsed successfully" );
-      });
-    }
-
-    $("#video-underlay").fadeOut(1000, function() {        
-        $('#video-underlay source').attr('src', _id + videoType);
-        $('#video-underlay video').load();
-        $("#video-underlay")[0].load()
-        $("#video-underlay")[0].play()
-        $("#video-underlay").fadeIn(500)
-        if(_load_menu) $('.movie-menu').css('display','block')
-       // }
-        
-    })
-
-  }
-
-this.blankTrans = function(_isNotPano){
-
-	if(_isNotPano) {
-
-	}else{
-	var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
-	this.ghostTrans(getGhost['ghost'],getGhost['frames'])		
-	}	
-
-
-}
-
-this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
-
-    var dynamicWidth = window.innerWidth;
-    var dynamicHeight = dynamicWidth * .5625;
-    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-    //$('body').append('<canvas id="ghost-canvas-trans" />')
-
-	var ghost = new ghostFunctions("ghost-canvas-trans",_id,numberOfFrames)
- 
-	ghost.imageSequencer()
-
-	$('#ghost-canvas-trans').fadeIn()
-
-	console.log("make ghost")
-
-	return ghost
-
-
-}
-
-this.loadOverlayAudio = function(_file){
-
-	console.log(_file)
-
-	parent.audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
-
-	var dummysounds = { s:  0};
-
-	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: .5}, 4000 )
-		.onUpdate( function() {
-			master.isTweeningAudio = true
-			parent.audiomaster.mix.getTrack('overlay_01').options.gainNode.gain.value = this.s
-		})
-		.easing(TWEEN.Easing.Quadratic.Out )
-		.onComplete(function() {
-			master.isTweeningAudio = false
-			//TWEEN.remove(driftTweenSounds); 
-			//driftTweenSounds = null
-		})
-		.start();               
-}
-
-this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
-
-	parent.audiomaster.loadAudio(_file ,_trackName,0001,_pan,_isLoop)
-
-	var dummysounds = { s:  0};
-
-	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
-		.onUpdate( function() {
-			master.isTweeningAudio = true
-			parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
-		})
-		.easing(TWEEN.Easing.Quadratic.Out )
-		.onComplete(function() {
-			master.isTweeningAudio = false
-			//TWEEN.remove(driftTweenSounds); 
-		})
-		.start();               
-}
-
-this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
-
-	console.log(_file)
-
-	if(!_start) _start = 0
-
-	if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
-
-	if(!_targetVolume) {_targetVolume = 1.0}
-
-	parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true", _start)
-
-	var dummysounds = { s:  0};
-
-	var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
-		.onUpdate( function() {
-			master.isTweeningAudio = true
-			parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
-		})
-		.easing(TWEEN.Easing.Quadratic.Out )
-		.onComplete(function() {
-			master.isTweeningAudio = false
-			//TWEEN.remove(driftTweenSounds); 
-		})
-		.start();               
-}
-
-
-
-this.audioFadeAll = function(targetVolume){
- 
-	if(isParent){
-		
-	var parent_audio = $('audio', window.parent.document)
-     
-	parent_audio.each(function(i,s){
-		
-		var audio_obj = parent_audio[i]
-        audioFadeOutTo(audio_obj,targetVolume)
-
-	})
-   }
-}
-
-this.audioFadeInAll = function(){
-
-}
-
-
-
 
 	
-function hasUserAgent(condition) {
-    return navigator.userAgent.match(condition);
-}
 
-function setCookie(c_name,value,exdays)
-{
-var exdate=new Date();
-exdate.setDate(exdate.getDate() + exdays);
-var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-document.cookie=c_name + "=" + c_value;
-}
+	this.loadOverlayAudio = function(_file){
 
-this.setCookie = setCookie
+		console.log(_file)
 
+		parent.audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
 
-function getCookie(c_name)
-{
-var i,x,y,ARRcookies=document.cookie.split(";");
-for (i=0;i<ARRcookies.length;i++)
-{
-  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-  x=x.replace(/^\s+|\s+$/g,"");
-  if (x==c_name)
-    {
-    return unescape(y);
-    }
-  }
-}
+		var dummysounds = { s:  0};
 
-this.getCookie = getCookie
-
-function delete_cookie(name){
-	document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-}
-
-this.delete_cookie = delete_cookie
-
-this.get_tag = function() {
-    var tag=getCookie("offshore_tag");
-    if(that.tag_array)
-    var return_value = that.tag_array[0]
-    if (tag==null || tag==""){
-
-        that.tag_array.sort(function(){ return Math.random()-0.5; });
-        return_value =  that.tag_array.pop();
-        setCookie("offshore_tag",that.tag_array.join('~') ,365);
-
-    }else{
-
-        var a = tag.split("~")
-        return_value =  a.pop();
-        setCookie("offshore_tag",a.join('~') ,365);
-
-  }
-  //console.log(return_value)
-  return return_value
-}
-var stat_num= 0
-this.get_stat = function() {
-    var tag=getCookie("offshore_stat");
-    var return_value = that.stat_array[stat_num]
-     stat_num++
-if(stat_num == that.stat_array.length){
-	stat_num =0
-}
-
-  return return_value
-}
-
-
-this.check_start = function(){
-
-	var tag=getCookie("seen_frontpage");
-
-    if (tag==null || tag==""){
-    	$('body.platform').find('#overlay').delay(2000).fadeIn(500);
-    	setCookie("seen_frontpage",true);
-    }
-    // e// }
-}
-
-this.remove_start = function(){	  
-   delete_cookie("seen_frontpage");
-}
-
-this.set_mute = function() {
-	console.log('set_mute()')
-	// var tag = getCookie("muted");
-	// if (tag==null || tag==""){
-		setCookie('muted',true)
-	// }
-}
-
-this.remove_mute = function() {
-	delete_cookie('muted')
-}
-
-
-this.setDeepLinking = function(deepLink){
-	var isParent 
-	
-	if(visitedPages.indexOf(deepLink)== -1){
-	 	visitedPages += "~" + deepLink
-	 	setCookie("visitedPages",visitedPages,365)
+		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: .5}, 4000 )
+			.onUpdate( function() {
+				master.isTweeningAudio = true
+				parent.audiomaster.mix.getTrack('overlay_01').options.gainNode.gain.value = this.s
+			})
+			.easing(TWEEN.Easing.Quadratic.Out )
+			.onComplete(function() {
+				master.isTweeningAudio = false
+				//TWEEN.remove(driftTweenSounds); 
+				//driftTweenSounds = null
+			})
+			.start();               
 	}
 
-    try {
-        isParent = parent.IS_PARENT;
-    }catch(e){
-        isParent = false;
-    }
-  
-  if(isParent){
-  	//var transition_audio = $('#transition', window.parent.document)
-	if(getCookie('muted')!="true"){
-		//transition_audio[0].volume = .2
-     //transition_audio[0].play()
+	this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
+
+		parent.audiomaster.loadAudio(_file ,_trackName,0001,_pan,_isLoop)
+
+		var dummysounds = { s:  0};
+
+		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
+			.onUpdate( function() {
+				master.isTweeningAudio = true
+				parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
+			})
+			.easing(TWEEN.Easing.Quadratic.Out )
+			.onComplete(function() {
+				master.isTweeningAudio = false
+				//TWEEN.remove(driftTweenSounds); 
+			})
+			.start();               
+	}
+
+	this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
+
+		console.log(_file)
+
+		if(!_start) _start = 0
+
+		if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
+
+		if(!_targetVolume) {_targetVolume = 1.0}
+
+		parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true", _start)
+
+		var dummysounds = { s:  0};
+
+		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
+			.onUpdate( function() {
+				master.isTweeningAudio = true
+				parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
+			})
+			.easing(TWEEN.Easing.Quadratic.Out )
+			.onComplete(function() {
+				master.isTweeningAudio = false
+				//TWEEN.remove(driftTweenSounds); 
+			})
+			.start();               
+	}
+
+
+
+	this.audioFadeAll = function(targetVolume){
+	 
+		if(isParent){
+			
+		var parent_audio = $('audio', window.parent.document)
+	     
+		parent_audio.each(function(i,s){
+			
+			var audio_obj = parent_audio[i]
+	        audioFadeOutTo(audio_obj,targetVolume)
+
+		})
+	   }
+	}
+
+	this.audioFadeInAll = function(){
+
+	}
+
+
+
+
+
+
+	/**************************************************************************
+		
+		Utilities
+	
+	**************************************************************************/
+
+	this.loadVideoUnderlay = function(_id,_popcorn,_load_menu){
+	    
+		parent.audiomaster.mix.setGain(0.1)
+		
+	    if( this.popcorn) Popcorn.destroy(  this.popcorn );
+	    $('#footnote-container').html('')
+	    if(_popcorn){
+	       this.popcorn = Popcorn("#video-underlay");
+	       this.popcorn.parseJSON( "json/"+_popcorn+".json?rnd="+Math.random()*10, function() {
+
+	        console.log( _popcorn + " parsed successfully" );
+	      });
+	    }
+
+	    $("#video-underlay").fadeOut(1000, function() {        
+	        $('#video-underlay source').attr('src', _id + videoType);
+	        $('#video-underlay video').load();
+	        $("#video-underlay")[0].load()
+	        $("#video-underlay")[0].play()
+	        $("#video-underlay").fadeIn(500)
+	        if(_load_menu) $('.movie-menu').css('display','block')
+	       // }
+	        
+	    })
+
+	}
+
+	this.blankTrans = function(_isNotPano){
+
+		if(_isNotPano) {
+
+		}else{
+		var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
+		this.ghostTrans(getGhost['ghost'],getGhost['frames'])		
+		}	
+
+	}
+
+	this.ghostTrans = function(_id,numberOfFrames,_isNotPano){
+
+	    var dynamicWidth = window.innerWidth;
+	    var dynamicHeight = dynamicWidth * .5625;
+	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+
+	    //$('body').append('<canvas id="ghost-canvas-trans" />')
+
+		var ghost = new ghostFunctions("ghost-canvas-trans",_id,numberOfFrames)
+	 
+		ghost.imageSequencer()
+
+		$('#ghost-canvas-trans').fadeIn()
+
+		console.log("make ghost")
+
+		return ghost
+
+	}
+
+	
+
+
+
+
+		
+	function hasUserAgent(condition) {
+	    return navigator.userAgent.match(condition);
+	}
+
+	function setCookie(c_name,value,exdays)
+	{
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+	document.cookie=c_name + "=" + c_value;
+	}
+
+	this.setCookie = setCookie
+
+
+	function getCookie(c_name)
+	{
+	var i,x,y,ARRcookies=document.cookie.split(";");
+	for (i=0;i<ARRcookies.length;i++)
+	{
+	  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+	  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+	  x=x.replace(/^\s+|\s+$/g,"");
+	  if (x==c_name)
+	    {
+	    return unescape(y);
+	    }
 	  }
-	  	parent.setHash(deepLink)
+	}
 
-  }else{
-  	
-  }
-  
-}
+	this.getCookie = getCookie
+
+	function delete_cookie(name){
+		document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+	}
+
+	this.delete_cookie = delete_cookie
+
+	this.get_tag = function() {
+	    var tag=getCookie("offshore_tag");
+	    if(that.tag_array)
+	    var return_value = that.tag_array[0]
+	    if (tag==null || tag==""){
+
+	        that.tag_array.sort(function(){ return Math.random()-0.5; });
+	        return_value =  that.tag_array.pop();
+	        setCookie("offshore_tag",that.tag_array.join('~') ,365);
+
+	    }else{
+
+	        var a = tag.split("~")
+	        return_value =  a.pop();
+	        setCookie("offshore_tag",a.join('~') ,365);
+
+	  }
+	  //console.log(return_value)
+	  return return_value
+	}
+	var stat_num= 0
+	this.get_stat = function() {
+	    var tag=getCookie("offshore_stat");
+	    var return_value = that.stat_array[stat_num]
+	     stat_num++
+	if(stat_num == that.stat_array.length){
+		stat_num =0
+	}
+
+	  return return_value
+	}
 
 
+	this.check_start = function(){
+
+		var tag=getCookie("seen_frontpage");
+
+	    if (tag==null || tag==""){
+	    	$('body.platform').find('#overlay').delay(2000).fadeIn(500);
+	    	setCookie("seen_frontpage",true);
+	    }
+	    // e// }
+	}
+
+	this.remove_start = function(){	  
+	   delete_cookie("seen_frontpage");
+	}
+
+	this.set_mute = function() {
+		console.log('set_mute()')
+		// var tag = getCookie("muted");
+		// if (tag==null || tag==""){
+			setCookie('muted',true)
+		// }
+	}
+
+	this.remove_mute = function() {
+		delete_cookie('muted')
+	}
 
 
+	this.setDeepLinking = function(deepLink){
+		var isParent 
+		
+		if(visitedPages.indexOf(deepLink)== -1){
+		 	visitedPages += "~" + deepLink
+		 	setCookie("visitedPages",visitedPages,365)
+		}
 
+	    try {
+	        isParent = parent.IS_PARENT;
+	    }catch(e){
+	        isParent = false;
+	    }
+	  
+		if(isParent){
+				//var transition_audio = $('#transition', window.parent.document)
+			if(getCookie('muted')!="true"){
+				//transition_audio[0].volume = .2
+				//transition_audio[0].play()
+				}
+			  	
+			parent.setHash(deepLink)
 
+		}else{
+			
+		}
+	  
+	}
 
-}
+} // end master
 
 // STARTS THE EXPERIENCE
 
 var master = new masterFunctions();
-	master.init()
-	master.check_start()
+master.init();
+master.check_start();
 
 
 
@@ -830,7 +765,7 @@ var master = new masterFunctions();
 
 	
 
-	Walkthrough
+	> Walkthrough
 
 
 
@@ -850,8 +785,6 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	canvas.height = h;
 	var context = canvas.getContext('2d');
     var mouseWheelTimeout;
-
-	
 		
 		
 
@@ -877,33 +810,14 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
     var scrollerPosStart = 0
 
-    // new
+    // MASTER CONTROL VARIABLE
     this.percent = 0
-
-
-
-
-    // ditch?
- //    var scrollValue = scrollerPosStart * 5000 / (window.innerHeight - 220)
- //    var scrollPercent = 0
-
- //    this.scrollValue = scrollValue
-	// this.scrollPos = 0
-
- //    var scrollPercent
- //    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
- //    this.scrollPercent = scrollPercent
-	// /ditch
-
-
 
 	var imageSrc
     imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
 
     var img = new Image();
-
 	img.src = imageSrc
-	   
 	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
 
@@ -1003,7 +917,6 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     	if(that.autoplay) {
 
     		that.percent += 0.01
-
     		advance()
 
     	} else {
@@ -1173,7 +1086,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 	
 
-	Ghost
+	> Ghost
 
 	set master.ghostBuster or master.overlayOpen to disable ghosts
 
@@ -1310,7 +1223,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 	
 
-	Root Functions Passed from XML
+	> Root Functions Passed from XML
 
 
 
@@ -1428,7 +1341,9 @@ function zoomIn() {
 
 /**************************************************************************
 
-	Sound Adjust
+
+	> Sound Adjust
+
 
 **************************************************************************/
 
@@ -1539,114 +1454,6 @@ function resetHoverSound(){
 	soundTrigger = false
 }
 
-// >OLD
-// function showCS(selector) {
-// 	pano.set("autorotate.enabled", true);
-// 	master.showOverlay(selector)
-// }
-
-
-
-
-
-
-
-// >OLD
-// function panoLoaded(){
-// 	console.log('panoloaded()')
-
-// 	if(globalPano) {
-		
-// 		console.log("xml is loaded")
-// 		//pano.loadPanoScene(globalPano)
-// 		pano.initPano(globalPano)
-// 		globalPano = false
-
-// 	} 
-// }
-
-// >OLD
-// function xmlLoaded(){
-	
-// 	console.log("xml loaded")
-
-// }
-
-
-
-
-// >OLD (not referenced anywhere else)
-// function openVideo(_ath, fov, id){
-
-// 	var krpano = document.getElementById("krpanoObject");
-// 	var ath =  parseInt(_ath) + 180
-//     //krpano.call("lookto(" + ath   + ",0," + fov + ",smooth(),true,true,js(launchVideo(" + id + ")))")    
-//     cachedAuth = _ath
-//     cachedFov = fov
-// }
-
-
-
-
-// >OLD
-// function launchVideo(_id){
-// 	console.log('launchvideo: '+'\t'+_id)
-
-// 	$("#to-control").on('click',function(){
-// 		closeVideo()
-// 	})
-
-// 	$(".video-content-wrap").addClass("video-content-wrap-open");
-
-// 	$(".video-content-wrap").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){
-// 		master.overlayOpen = true
-// 	    $(".compass").fadeOut()
-// 	    var dynamicWidth = window.innerWidth;
-// 	    var dynamicHeight = dynamicWidth * .5625;
-// 	    var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-//         $("#video-overlay").css("top",dynamicTop)
-//         $("#video-overlay").css("width",window.innerWidth)
-//         $("#video-overlay").css("height",dynamicHeight)
-//     	$("#video-overlay").fadeIn(1000)
-//     	$('#panocontainer').fadeOut(1000)
-//     	$('#video-overlay source').attr('src', _id + master.videoType);
-//     	$('#video-overlay video').load();
-//     //$("video-overlay").html('<source src="'+_id+'" type="video/webm"></source>' );
-
-//     	//master.audioFadeAll(0.5)
-//     	parent.audiomaster.mix.setGain(0.1)
-    
-//     	$("#video-overlay")[0].load()
-//     	$("#video-overlay")[0].play()
-
-//     	$("#video-overlay")[0].onended = function(e) {
-//       		closeVideo()
-//     	}
-
-// 	 });
-
-// } // launchVideo()
-
-
-// // >OLD
-// function closeVideo(_id){
-// 	// $(window).off('resize',dynamicVideoOverlay())
-
-// 	$('#to-control').off('click')
-// 	$("#panocontainer").fadeIn(700)
-// 	$(".video-content-wrap").on("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
-// 	master.audioFadeInAll()
-// 	$("#video-overlay").fadeOut(700, function(){
-// 		master.overlayOpen = false
-// 		$(".compass").fadeIn()
-// 		$("#video-overlay")[0].pause(); // can't hurt
-//     	krpano = document.getElementById("krpanoObject");
-// 		krpano.call("lookto(0,0,90,smooth(),true,true),js(showMapIcon()))")
-// 		parent.audiomaster.mix.setGain(1.0)
-// 		$(".video-content-wrap").removeClass("video-content-wrap-open");
-// 	})
-// }
 
 
 
@@ -1654,7 +1461,7 @@ function resetHoverSound(){
 /*************************************************************************
 
 
-	Video Player
+	> Video Player
 
 
 *************************************************************************/
@@ -2014,7 +1821,7 @@ function closeVideoPlayer(){
 
 	
 
-	jQuery Extension
+	> jQuery Extension
 
 
 
@@ -2192,7 +1999,11 @@ function closeVideoPlayer(){
 
 
 
+/**************************************************************************
+	
+	> RAF
 
+**************************************************************************/
 
 
 // shim layer with setTimeout fallback

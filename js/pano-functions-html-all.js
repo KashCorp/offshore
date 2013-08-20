@@ -1,5 +1,39 @@
+/**************************************************************************
+    
+    Pano Functions
+    
 
-var globalPano
+    Sections
+
+        Pano Load Sequence:
+            Hash Change
+            Load Pano Scene
+            (Load Sequence Scene)
+
+        Load Video Matrix
+
+        Load Audio
+
+        Krpano Mouse Nav
+
+        Image Sequence Controller
+
+        FrameRunner
+
+
+
+    Objects
+
+        pano = new pano_master()
+
+
+
+
+**************************************************************************/
+
+
+
+var globalPano;
 
 var pano_master = function(){
 
@@ -59,7 +93,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        New pano logic sequence:
+        New pano load logic sequence:
 
         1. hash change event listener
         2. loadPanoScene
@@ -72,7 +106,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        Hash Change
+        > Hash Change
 
     **************************************************************************/
 
@@ -136,7 +170,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        Load Pano Scene
+        > Load Pano Scene
     
     **************************************************************************/
     
@@ -367,7 +401,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        Load Sequence Scene
+        > Load Sequence Scene
     
     **************************************************************************/
     
@@ -497,7 +531,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        Load Video Matrix
+        > Load Video Matrix
 
     **************************************************************************/
  
@@ -540,7 +574,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        Load Audio
+        > Load Audio
     
     **************************************************************************/
     
@@ -640,7 +674,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        krpano mouse nav
+        > krpano mouse nav
     
     **************************************************************************/
     
@@ -819,11 +853,16 @@ var pano_master = function(){
              }
     }     
 
+
+
+
+
     /**************************************************************************
         
-        Image Sequence Controller
+        > Image Sequence Controller
     
     **************************************************************************/
+
 
     function scrollerFunction(){
 
@@ -905,7 +944,7 @@ var pano_master = function(){
 
     /**************************************************************************
         
-        FrameRunner
+        > FrameRunner
     
     **************************************************************************/
     
@@ -991,6 +1030,8 @@ runFrameRunner()
 
 }
 
+
+
 var loadAFXPano = function (_file, _start){
 
     if(!_start) _start = 0
@@ -1001,8 +1042,6 @@ var loadAFXPano = function (_file, _start){
         console.log('[MODERNIZR] No web audio, NOT loading AFX')
     }
     
-    
-
 }
 
 
