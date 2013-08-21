@@ -15,6 +15,8 @@
 </head>
 <body style="background:none">
 
+<div class="close-overlay"></div>
+
 <div class="flipbook-viewport">
 	<div class="container">
 		<div class="flipbook">
@@ -49,8 +51,8 @@ $("#to-control").click(function(e){
 	parent.master.closeOverlay()
 })
 
-$('body').click(function(e){
-  if( $(e.target).is('body') ) 
+$('.close-overlay').click(function(e){
+  // if( $(e.target).is('body') ) 
     parent.master.closeOverlay()
 })
 

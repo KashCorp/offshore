@@ -50,6 +50,18 @@ var pano_master = function(){
     this.voiceCurrentTime = 0
     this.voiceStartTimer = 0
 
+    this.panDirectionsShown = false;
+
+    this.visited = {
+        platform : false,
+        hallway : false,
+        boat: false,
+        controlroom : false,
+        theatre : false,
+        chemicalroom : false,
+        subhanger : false
+    }
+
     var scrollTrigger,scrollPercent=0,sequenceHasWords,linkForward, linkBack;
             
 
@@ -180,6 +192,10 @@ var pano_master = function(){
         var video_underlay = false;
 
 
+        $('.pan-directions').hide();
+        if(that.panDirectionsShown === false) $('.pan-directions').show();
+
+
         // Ghost Functions
         if(that.ghostTransition) that.ghostTransition.killGhost();
         if(that.walkthrough) that.walkthrough = false;
@@ -265,15 +281,16 @@ var pano_master = function(){
             break;
 
             case "helicopter" :
-                krpano.call("lookto(180,0,90,smooth(),true,true))")
                 overLayFile = 'Helicopter_Interior.mp3'
             break;
 
-            case "platform" : 
+            case "platform" :
+                that.visited.platform = true;
                 overLayFile = 'ocean_sounds.mp3'
             break;
 
             case "boat" : 
+                that.visited.boat = true;
                 overLayFile = 'HeliPad_minus_minus.mp3'
                 underlayFile = 'The_Zone.mp3'
             break;
@@ -289,6 +306,7 @@ var pano_master = function(){
             break;
 
             case "hallway" : 
+                that.visited.hallway = true;
 
                 // Big ball of fire voices
                 if(that.voiceCurrentTime == 0) that.voiceStartTimer = new Date()
@@ -307,11 +325,12 @@ var pano_master = function(){
 
                 $('#panocontainer').after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
 
-                //$('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
-                // video_underlay = true;
+                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
+                video_underlay = true;
             break;
 
             case "subhanger" : 
+                that.visited.subhanger = true;
                 overLayFile = 'SubRoom.mp3' 
                 underlayFile = 'Drone_3.mp3'
 
@@ -325,16 +344,18 @@ var pano_master = function(){
             break;
 
             case "submarine" :
-                $('#panocontainer').before('<video autoplay class="dynamic hide fade" class="video-underlay" id="video-underwater" preload="auto"></video>')
+                $('#panocontainer').before('<video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
                 video_underlay = true;
             break;
 
             case "theater" : 
+                that.visited.theatre = true;
                 overLayFile = 'Fluorescencent_Tone.mp3'
                 underlayMute=true
             break; 
 
             case "chemicalroom" :
+                that.visited.chemicalroom = true;
                 overLayFile = 'Chemical_Room.mp3' 
                 underlayFile = 'Drone_3_norm.mp3'
                 
@@ -348,6 +369,7 @@ var pano_master = function(){
             break;    
 
             case "controlroom" : 
+                that.visited.controlroom = true;
                 overLayFile = 'russian_radio.mp3'
                 
                 $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
@@ -359,7 +381,7 @@ var pano_master = function(){
 
         $(window).off('resize.underlay')
 
-        if(video_underlay) {
+        if(video_underlay && master.isIOS === false) {
 
             console.log('>>>>> VIDEO UNDERLAY PRESENT')
 

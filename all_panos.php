@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>OFFSHORE | Helipad</title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
 
@@ -112,6 +112,8 @@
       </div>
 
       <div id="walking-exit" class="platform-nav">Close</div>
+
+      <div class="pan-directions"></div>
 
   </div>
 

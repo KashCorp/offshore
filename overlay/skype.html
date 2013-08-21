@@ -469,13 +469,16 @@
 
 <div class="container">
 
+	<div class="close-overlay"></div>
+
+
+
+
 	<div class="ipad-container">
 
 		<div class="dummy"></div>
 
 		<div class="ipad-screen">
-
-			
 
 				<div class="movie">
 					<div class="tableCell">
@@ -483,7 +486,6 @@
  				  	<video id="webcamVideo"></video>
 					</div>
 					<a id="to-control-vid" style="display:none">Close</a>
-
 
 			  </div>
 
@@ -588,6 +590,14 @@ $(document).ready(function(){
 	})
 
 
+	function resize(){
+		var newh = (window.innerHeight - $('.ipad-container').height()) / 2;
+		$('.ipad-container').css({'margin-top': newh})
+	}
+
+	$(window).on('resize',resize)
+	resize();
+
 
 	$("#to-control").click(function(e){
 		e.stopPropagation();
@@ -673,7 +683,7 @@ $(document).ready(function(){
   	parent.master.closeOverlay()
   })
 
-  $('body').click(function(e){
+  $('.close-overlay').click(function(e){
   	e.stopPropagation();
   	if( $(e.target).is('.container') )
   		parent.master.closeOverlay()

@@ -189,6 +189,8 @@ position: absolute;
 
   <body class="platform">
 
+    <div class="close-overlay"></div>
+
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
@@ -235,8 +237,8 @@ position: absolute;
 
         var isFF = !!window.sidebar;
         if(!isFF) {
-          $('body').click(function(e){
-           if( $(e.target).is('body') ) 
+          $('.close-overlay').click(function(e){
+           // if( $(e.target).is('body') ) 
              parent.master.closeOverlay()
          })
         }

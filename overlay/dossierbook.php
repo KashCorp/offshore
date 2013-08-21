@@ -15,6 +15,8 @@
 </head>
 <body style="background:none">
 
+<div class="close-overlay"></div>
+
 <div class="flipbook-viewport">
   <div class="container">
 
@@ -59,7 +61,7 @@ $(".platform-nav").click(function(){
 
 var isFF = !!window.sidebar;
 if(!isFF) {
-  $('.flipbook-viewport').click(function(e){
+  $('.close-overlay').click(function(e){
     parent.master.closeOverlay()
   })
 }

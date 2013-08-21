@@ -113,6 +113,7 @@ var masterFunctions = function() {
 
     $('.wrapper').click(function() {
        $('.pan-directions').fadeOut(500)
+       pano.panDirectionsShown = true;
     }); 
 
 
@@ -137,49 +138,46 @@ var masterFunctions = function() {
     }
 
     
-
- 
-
      
 
                
-      var transition_audio = $('#transition', window.parent.document)
-      
-      var hashouter = parent.window.location.hash;
-      
-      if( hashouter  == "#hatch.php"){
-      	transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
-      }
-      
-      if(!visitedPages){
-      	visitedPages = "empty"
-      	setCookie("visitedPages",visitedPages,365)
-      }
-      
-      this.url_array = [];
-      
-      this.divider = ((window.innerWidth-168) / this.url_array.length)
+    var transition_audio = $('#transition', window.parent.document)
+    
+    var hashouter = parent.window.location.hash;
+    
+    if( hashouter  == "#hatch.php"){
+    	transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
+    }
+    
+    if(!visitedPages){
+    	visitedPages = "empty"
+    	setCookie("visitedPages",visitedPages,365)
+    }
+    
+    this.url_array = [];
+    
+    this.divider = ((window.innerWidth-168) / this.url_array.length)
 
-      
-      this.video_array = []
+    
+    this.video_array = []
 
-      this.video_array.push({'video':'action_06'});
+    this.video_array.push({'video':'action_06'});
 
-      this.video_array.push({'video':'action_02'});
+    this.video_array.push({'video':'action_02'});
 
-      this.video_array.push({'video':'action_03'});
+    this.video_array.push({'video':'action_03'});
 
-      this.video_array.push({'video':'action_04'});
+    this.video_array.push({'video':'action_04'});
 
-      this.video_array.push({'video':'action_05'});
+    this.video_array.push({'video':'action_05'});
 
-      this.ghost_array = []
+    this.ghost_array = []
 
-      //hologram_drillhead-frame-
-      //hologram_guy_walks_away-frame
-      //hologram_helicopter-frame-
+    //hologram_drillhead-frame-
+    //hologram_guy_walks_away-frame
+    //hologram_helicopter-frame-
 
-      this.ghost_array.push({'ghost':'hologram_walk_towards_camera2-frame-','frames':16});
+    this.ghost_array.push({'ghost':'hologram_walk_towards_camera2-frame-','frames':16});
 
 
 
@@ -196,57 +194,62 @@ var masterFunctions = function() {
 
     var resizetimeout;
 
+    function debounceResize(){
+    	if(resizetimeout) clearTimeout(resizetimeout);
+    	resizetimeout = setTimeout(resize, 50)
+    }
+
     function resize(){
 
-    	if(resizetimeout) clearTimeout(resizetimeout);
+    	// DYNAMIC ELEMENT LOGIC ********************************************************
 
-    	resizetimeout = setTimeout(function(){
+	    var ratio = 9/16,
+	    	w, h, t, l;
+		
+	    /***** CONTAIN *****/
+	    w = window.innerWidth;
+    	h = w * ratio;
+    
+    	if(h > window.innerHeight) {
+    		h = window.innerHeight;
+    		w = h / ratio;
+    	}
+    
+    	t = (window.innerHeight - h) / 2;
+	    l = (window.innerWidth - w) / 2;
+    
+    	that.globals.contain.w = Math.round(w)
+      	that.globals.contain.h = Math.round(h)
+      	that.globals.contain.t = Math.round(t)
+      	that.globals.contain.l = Math.round(l)
+    	
+    	/***** COVER *****/
+    	w = window.innerWidth;
+	    h = w * ratio;
+	    
+	    if(h < window.innerHeight) {
+	        h = window.innerHeight;
+	        w = h / ratio;
+	    }
 
-		    var ratio = 9/16,
-		    	w, h, t, l;
-			
-		    /***** CONTAIN *****/
-		    w = window.innerWidth;
-	    	h = w * ratio;
-	    
-	    	if(h > window.innerHeight) {
-	    		h = window.innerHeight;
-	    		w = h / ratio;
-	    	}
-	    
-	    	t = (window.innerHeight - h) / 2;
-		    l = (window.innerWidth - w) / 2;
-	    
-	    	that.globals.contain.w = Math.round(w)
-	      	that.globals.contain.h = Math.round(h)
-	      	that.globals.contain.t = Math.round(t)
-	      	that.globals.contain.l = Math.round(l)
+	    t = (window.innerHeight - h) / 2;
+	    l = (window.innerWidth - w) / 2;
 	    	
-	    	/***** COVER *****/
-	    	w = window.innerWidth;
-		    h = w * ratio;
-		    
-		    if(h < window.innerHeight) {
-		        h = window.innerHeight;
-		        w = h / ratio;
-		    }
+    	that.globals.cover.w = Math.round(w)
+      	that.globals.cover.h = Math.round(h)
+      	that.globals.cover.t = Math.round(t)
+      	that.globals.cover.l = Math.round(l)
 
-		    t = (window.innerHeight - h) / 2;
-		    l = (window.innerWidth - w) / 2;
-		    	
-	    	that.globals.cover.w = Math.round(w)
-	      	that.globals.cover.h = Math.round(h)
-	      	that.globals.cover.t = Math.round(t)
-	      	that.globals.cover.l = Math.round(l)
+      	console.log('*** RESIZE ***')
 
-    	}, 50)
+      	// comment ********************************************************
     	
     }
 
     resize();
 
-    $(window).on('resize.global',resize)
-    window.addEventListener('onorientationchange', resize());
+    $(window).on('resize.global',debounceResize)
+    window.addEventListener('onorientationchange', debounceResize());
 
 
 
@@ -257,11 +260,6 @@ var masterFunctions = function() {
   	**********************************************************************/
     	      
 	this.init = function(no_fade){
-
-		// set up global dynamic resize
-		window.addEventListener('resize', resize);
-		resize()
-
 
   		// this._frame = null
 
@@ -384,17 +382,19 @@ var masterFunctions = function() {
 
 	this.loadOverlay = function(overlayURL){
 
-		if(master.overlayOpen === true) {
-			console.log('[WARNING] Overlay already present')
-			return;
-		}
+		if(master.overlayOpen === true) return;
 
 		master.overlayOpen = true
 		master.ghostBuster = true
 
-		$("#panocontainer").addClass('no-pointer-events')
+		
+		$("#panocontainer").addClass('hide')
 		$('.scroll-directions').fadeOut(500)
-		$('.compass').fadeOut(500)
+		$('.compass').fadeOut(500,function(){
+			$("#panocontainer").addClass('no-pointer-events')
+			$("#panocontainer").hide();
+		})
+
 
 		// load overlay
 
@@ -420,7 +420,13 @@ var masterFunctions = function() {
 
 		//$('#overlay_frame').removeClass('show')
 
-		$('#overlay_frame').fadeOut(1000,function(){
+		$('#overlay_frame').fadeOut(500,function(){
+
+			krpano = document.getElementById("krpanoObject");
+			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+
+			$("#panocontainer").show();
+			$("#panocontainer").removeClass('hide') 
 
 			// clear iframe
 			$('#overlay_frame').attr('src','')
@@ -1062,16 +1068,16 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 		var currentImage = Math.ceil(imageNumber * that.percent)
 
-		// if(oddOnly) {
+		if(oddOnly) {
 			// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
 			if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
 
 			if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
 
-		// }
-		// else {
-		// 	imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
-		// }
+		}
+		else {
+			imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+		}
 
 		
 		
@@ -1401,7 +1407,8 @@ function zoomIn() {
     $("#zoom-out").fadeOut()
 
     krpano = document.getElementById("krpanoObject");
-    krpano.call('tween(view.fov,90,2,easeOutCubic,js(showMapIcon()))')
+    krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
+	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
     krpano.call('set(autorotate.enabled,true)')
     $("#zoom-out").off('click')
     $('#zoom-out').remove()
@@ -1442,6 +1449,8 @@ var loadUnderWater = function(_id){
 var soundVector1 = soundVector2 = soundVector3 = 0;
 
 var soundadjust = function(coord,fov) {
+
+	// console.log('horizontal: '+Math.round(coord)+' zoom: '+Math.round(fov))
 
 	var convCoord =  Math.abs( (coord+60) % 360);
 	var convCoord1 =  Math.abs((coord-120)%360);
@@ -1523,16 +1532,17 @@ function setCache(_ath,_fov) {
 	Other
 **************************************************************************/
 
-function openBook(_url){
-	master.loadOverlay(_url,true)
-	//master.loadBook(_url)
-}
+// function openBook(_url){
+// 	console.log('OPENBOOK')
+// 	master.loadOverlay(_url,true)
+// 	//master.loadBook(_url)
+// }
 
 function showMapIcon(){
 	$(".compass").fadeIn()
 }
 
-var soundTrigger 
+var soundTrigger;
 
 function hoverSound(){
 	if(!soundTrigger){
@@ -1877,7 +1887,8 @@ function closeVideoPlayer(){
 	$('.movie-menu').removeClass('active')
 	$('.movie-menu-item').removeClass('active')
 
-	$('#video-overlay')[0].src = ''
+
+	$('#video-overlay')[0].src = null;
 
 	// unbind
 	$('#to-control').off('click')
@@ -2131,3 +2142,92 @@ window.requestAnimationFrame = (function() {
 		        window.setTimeout(callback, 1000 / 60);
 		    };
 })();
+
+
+
+
+
+
+
+
+
+
+(function( $, window ) {
+	var win = $( window ),
+		event_name = "orientationchange",
+		get_orientation,
+		last_orientation,
+		initial_orientation_is_landscape,
+		initial_orientation_is_default,
+		portrait_map = { "0": true, "180": true },
+		ww, wh, landscape_threshold;
+
+	if ( $.support.orientation ) {
+
+		ww = window.innerWidth || win.width();
+		wh = window.innerHeight || win.height();
+		landscape_threshold = 50;
+
+		initial_orientation_is_landscape = ww > wh && ( ww - wh ) > landscape_threshold;
+
+		initial_orientation_is_default = portrait_map[ window.orientation ];
+
+		if ( ( initial_orientation_is_landscape && initial_orientation_is_default ) || ( !initial_orientation_is_landscape && !initial_orientation_is_default ) ) {
+			portrait_map = { "-90": true, "90": true };
+		}
+	}
+
+	$.event.special.orientationchange = $.extend( {}, $.event.special.orientationchange, {
+		setup: function() {
+			if ( $.support.orientation && !$.event.special.orientationchange.disabled ) {
+				return false;
+			}
+			last_orientation = get_orientation();
+			win.bind( "throttledresize", handler );
+		},
+		teardown: function() {
+			if ( $.support.orientation && !$.event.special.orientationchange.disabled ) {
+				return false;
+			}
+			win.unbind( "throttledresize", handler );
+		},
+		add: function( handleObj ) {
+			var old_handler = handleObj.handler;
+
+			handleObj.handler = function( event ) {
+				event.orientation = get_orientation();
+				return old_handler.apply( this, arguments );
+			};
+		}
+	});
+
+	function handler() {
+		var orientation = get_orientation();
+
+		if ( orientation !== last_orientation ) {
+			last_orientation = orientation;
+			win.trigger( event_name );
+		}
+	}
+
+	$.event.special.orientationchange.orientation = get_orientation = function() {
+		var isPortrait = true, elem = document.documentElement;
+
+		if ( $.support.orientation ) {
+			isPortrait = portrait_map[ window.orientation ];
+		} else {
+			isPortrait = elem && elem.clientWidth / elem.clientHeight < 1.1;
+		}
+
+		return isPortrait ? "portrait" : "landscape";
+	};
+
+	$.fn[ event_name ] = function( fn ) {
+		return fn ? this.bind( event_name, fn ) : this.trigger( event_name );
+	};
+
+	if ( $.attrFn ) {
+		$.attrFn[ event_name ] = true;
+	}
+
+}( jQuery, this ));

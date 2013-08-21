@@ -18,26 +18,38 @@
 
 <style>
 
+
   #map-container {
     position: relative;
-    top: 100px;
-    margin: 0 auto;
-    width: auto; height: auto;
+    
+    margin-top: 25px;
+    margin-left: 25px;
 
     text-align: center;
     color:#ffffff;
     display:block;
 
-    /*
-    top: 50%;
-    margin-top: -663px;
-    left: 50%;
-    margin-left: -860px;
-    */
-   
   }
 
-    .map_images {
+    /* Image */
+
+    .map_image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      background-image: url(../images/rig_map/RIGMAP.jpg);
+    }
+
+    @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi),(min-width: 1024px) {
+      .map_image {
+        background-image: url(../images/rig_map/RIGMAP@2x.jpg);
+      }
+    }
+
+    /*.map_images {
       position: absolute;
       font-size: 0;
     }
@@ -50,6 +62,8 @@
         
         cursor: pointer;
       }
+*/
+    /* Labels */
 
     .map_labels {
     }
@@ -58,7 +72,7 @@
       .map_legend div span {
         width: 25px;
         height: 25px;
-        border-radius: 25px;
+        border-radius: 100%;
         cursor: pointer;
         
         font: 20px/29px 'DinRegular', Helvetica, Arial, sans-serif;
@@ -73,30 +87,72 @@
         background: black;
       }
 
-        .map_labels div:hover, .map_labels div.hover {
+        .no-touch .map_labels div:hover, 
+        .no-touch .map_labels div.hover {
           color: black;
           background: #ecc60a;
         }
+
+      .map_labels .platform {
+        left: 45%;
+        top: 22.5%;
+      }
+
+      .map_labels .hallway {
+        left: 56%;
+        top: 44%;
+      }
+
+      .map_labels .boat {
+        left: 83%;
+        top: 78%;
+      }
+
+      .map_labels .controlroom {
+        left: 59%;
+        top: 18%;
+      }
+
+      .map_labels .theater {
+        left: 50%;
+        top: 56%;
+      }
+
+      .map_labels .chemicalroom {
+        left: 55%;
+        top: 74%;
+      }
+
+      .map_labels .subhanger {
+        left: 68%;
+        top: 80%;
+      }
+
+
+
+
+    /* Legend */
     
     .map_legend {
-      position:absolute;
-      top: 150px;
-      left: 50px;
+      position: absolute;
+      top: 23.659306%;
+      left: 5.8%;
+      width: 25.8823529%;
     }
 
       .map_legend div {
-        width: 220px;
+        width: 100%;
 
         background:#000000;
-        margin-bottom: 15px;
-        padding: 3px 5px;
+        margin-bottom: 10%;
+        padding: 2% 3%;
         cursor:pointer;
         
         text-align:left;
-        font-size: 20px;
         font-weight: bold;
         letter-spacing: -1px;
         color: #ecc60a;
+        white-space: nowrap;
       }
 
       .map_legend div span {
@@ -105,17 +161,130 @@
         color: black;
       }
 
-      .map_legend div:hover, 
-      .map_legend div.hover {
+      .no-touch .map_legend div:hover, 
+      .no-touch .map_legend div.hover {
         color: black;
         background: #ecc60a;
       }
 
-      .map_legend div:hover span, 
-      .map_legend div.hover span {
+      .no-touch .map_legend div:hover span, 
+      .no-touch .map_legend div.hover span {
         color: #ecc60a;
         background: black;
       }
+
+      .map_legend div.visited { background-color: #6B6661; } 
+      .map_legend div.visited span { color: #6B6661; }
+
+
+
+
+
+  /*
+
+    Images
+  
+    map: 850x634
+
+  */
+
+  /*.map_images div {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  .map_images { 
+      width: 100%;
+      height: 100%;
+  }
+
+  #rigmap_01 {
+      width: 38.58800%;
+      height: 100.00000%;
+      top: 0%;
+      left: 0%;
+  }
+
+  #rigmap_02 {
+      width: 61.41100%;
+      height: 16.87600%;
+      top: 0%;
+      left: 38.5%;
+  }
+
+  #rigmap_03 {
+      width: 20.11700%;
+      height: 29.17900%;
+      top: 16.87600%;
+      left: 38.5%;
+  }
+
+  #rigmap_04 {
+      width: 41.29400%;
+      height: 29.17900%;
+      top: 16.87600%;
+      left: 58.617%;
+  }
+
+  #rigmap_05a {
+      width: 61.41100%;
+      height: 6.62400%;
+      bottom: 47.318%;
+      left: 38.5%;
+  }
+
+  #rigmap_05b {
+      width: 61.41100%;
+      height: 11.35600%;
+      bottom: 35.96200%;
+      left: 38.5%;
+  }
+
+  #rigmap_06 {
+      width: 26.35200%;
+      height: 35.96200%;
+      bottom: 0%;
+      left: 38.588%;
+  }
+
+  #rigmap_07 {
+      width: 14.11700%;
+      height: 35.96200%;
+      bottom: 0%;
+      left: 64.852%;
+  }
+
+  #rigmap_08 {
+      width: 20.94100%;
+      height: 35.96200%;
+      bottom: 0%;
+      left: 78.969%;
+  }
+  
+  #rigmap_01  { background-image: url(../images/rig_map/rig_map_01.jpg) }
+  #rigmap_02  { background-image: url(../images/rig_map/rig_map_02.jpg) }
+  #rigmap_03  { background-image: url(../images/rig_map/rig_map_03.jpg) }
+  #rigmap_04  { background-image: url(../images/rig_map/rig_map_04.jpg) }
+  #rigmap_05a { background-image: url(../images/rig_map/rig_map_05a.jpg) }
+  #rigmap_05b { background-image: url(../images/rig_map/rig_map_05b.jpg) }
+  #rigmap_06  { background-image: url(../images/rig_map/rig_map_06.jpg) }
+  #rigmap_07  { background-image: url(../images/rig_map/rig_map_07.jpg) }
+  #rigmap_08  { background-image: url(../images/rig_map/rig_map_08.jpg) }
+
+  @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi),(min-width: 1024px) {
+    #rigmap_01  { background-image: url(../images/rig_map/rig_map_01@2x.jpg) }
+    #rigmap_02  { background-image: url(../images/rig_map/rig_map_02@2x.jpg) }
+    #rigmap_03  { background-image: url(../images/rig_map/rig_map_03@2x.jpg) }
+    #rigmap_04  { background-image: url(../images/rig_map/rig_map_04@2x.jpg) }
+    #rigmap_05a { background-image: url(../images/rig_map/rig_map_05a@2x.jpg) }
+    #rigmap_05b { background-image: url(../images/rig_map/rig_map_05b@2x.jpg) }
+    #rigmap_06  { background-image: url(../images/rig_map/rig_map_06@2x.jpg) }
+    #rigmap_07  { background-image: url(../images/rig_map/rig_map_07@2x.jpg) }
+    #rigmap_08  { background-image: url(../images/rig_map/rig_map_08@2x.jpg) }
+  }*/
+
 
 
 </style>
@@ -123,14 +292,14 @@
 </head>
 
 <body class="platform" style="background:none">
-        
+
   <!-- Rig Map -->
   <div id="map-container"> 
 
-    <div class="map_images">
+    <!-- <div class="map_images">
       <div style="cursor:default"  id="rigmap_01"><img data-baseurl=".././images/rig_map/rig_map_01"></div>
       <div style="cursor:default"  id="rigmap_02"><img data-baseurl=".././images/rig_map/rig_map_02"></div>
- 
+
       <div data-url="platform"     id="rigmap_03">  <img data-baseurl="../images/rig_map/rig_map_03">  </div>
       <div data-url="controlroom"  id="rigmap_04">  <img data-baseurl="../images/rig_map/rig_map_04">  </div>
       <div data-url="hallway"      id="rigmap_05a"> <img data-baseurl="../images/rig_map/rig_map_05a"> </div>
@@ -138,16 +307,18 @@
       <div data-url="chemicalroom" id="rigmap_06">  <img data-baseurl="../images/rig_map/rig_map_06">  </div>
       <div data-url="subhanger"    id="rigmap_07">  <img data-baseurl="../images/rig_map/rig_map_07">  </div>
       <div data-url="boat"         id="rigmap_08">  <img data-baseurl="../images/rig_map/rig_map_08">  </div>
-    </div>
+    </div> -->
+
+    <div class="map_image"></div>
 
     <div class="map_labels">
-      <div class="platform"     data-url="platform"     style="left: 390px; top: 155px;" data-url="platform">1</div>
-      <div class="hallway"      data-url="hallway"      style="left: 485px; top: 270px;" data-url="hallway">2</div>
-      <div class="boat"         data-url="boat"         style="left: 705px; top: 490px;" data-url="boat">3</div>
-      <div class="controlroom"  data-url="controlroom"  style="left: 510px; top: 105px;" data-url="controlroom">4</div>
-      <div class="theater"      data-url="theatre"      style="left: 425px; top: 350px;" data-url="theater">5</div>
-      <div class="chemicalroom" data-url="chemicalroom" style="left: 470px; top: 465px;" data-url="chemicalroom">6</div>
-      <div class="subhanger"    data-url="subhanger"    style="left: 575px; top: 505px;" data-url="subhanger">7</div>
+      <div class="platform"     data-url="platform"     data-url="platform">1</div>
+      <div class="hallway"      data-url="hallway"      data-url="hallway">2</div>
+      <div class="boat"         data-url="boat"         data-url="boat">3</div>
+      <div class="controlroom"  data-url="controlroom"  data-url="controlroom">4</div>
+      <div class="theater"      data-url="theatre"      data-url="theater">5</div>
+      <div class="chemicalroom" data-url="chemicalroom" data-url="chemicalroom">6</div>
+      <div class="subhanger"    data-url="subhanger"    data-url="subhanger">7</div>
 
     </div>
 
@@ -158,7 +329,7 @@
       <div class="controlroom"  data-url="controlroom"  id="t4"  ><span>4</span> Control Room</div>
       <div class="theater"      data-url="theatre"      id="t5b" ><span>5</span> Theatre</div>
       <div class="chemicalroom" data-url="chemicalroom" id="t6"  ><span>6</span> Chem-Storage</div>
-      <div class="subhanger"    data-url="subhanger"    id="t7"  ><span>7</span> Submersible Hanger</div>
+      <div class="subhanger"    data-url="subhanger"    id="t7"  ><span>7</span> Submersible Hangar</div>
 
 
     </div>
@@ -179,17 +350,14 @@
 
     $(document).ready(function(){
 
-      isRetina = function(){ var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
-
-      if( isRetina() ) {
-        $('#map-container .map_images').find('img').each(function(){ this.src = $(this).data('baseurl') + '@2x.jpg' })
-        $('#map-container').css('width','1700px')
-      }
-        
-      else {
-        $('#map-container .map_images').find('img').each(function(){ this.src += $(this).data('baseurl') + '.jpg' })
-        $('#map-container').css('width','850px')
-      }
+      console.log(parent.pano.visited)
+      if(parent.pano.visited.platform     === true) $('.map_legend > .platform').addClass('visited')
+      if(parent.pano.visited.hallway      === true) $('.map_legend > .hallway').addClass('visited')
+      if(parent.pano.visited.boat         === true) $('.map_legend > .boat').addClass('visited')
+      if(parent.pano.visited.controlroom  === true) $('.map_legend > .controlroom').addClass('visited')
+      if(parent.pano.visited.theatre      === true) $('.map_legend > .theatre').addClass('visited')
+      if(parent.pano.visited.chemicalroom === true) $('.map_legend > .chemicalroom').addClass('visited')
+      if(parent.pano.visited.subhanger    === true) $('.map_legend > .subhanger').addClass('visited')
 
       $("#to-control").click(function(e){
         e.stopPropagation();
@@ -204,17 +372,13 @@
 
       $("#map-container ul li, .map_legend div, .map_labels div").click(function(e){
         e.stopPropagation();
-        // if($(this).data("url")) parent.newPage($(this).data("url") + '.php')
         if($(this).data("url")) {
           if( $(this).data("url") == parent.master.globalPano ) {
             parent.master.closeOverlay()  
           } else {
-            
             parent.master.closeOverlay($(this).data("url"))
           }
-          
         }
-
       })
 
       // Map Labels corresponding hover
@@ -235,11 +399,75 @@
         $('.map_legend').find('div.' + $(this).attr('class')).removeClass('hover')
       })
 
-      $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-        $( "#map-container" ).draggable({
-          contain: "parent"
+      
+
+      if(parent.master.isIOS) {
+        $(document).on('touchmove', function(e) { e.preventDefault(); });  
+      }
+      else {
+        $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+          $( "#map-container" ).draggable({
+            contain: "parent"
+          });
         });
-      }); 
+        $('body').addClass('no-touch')
+      }
+
+
+
+      // RESPONSIVE FUNCTIONALITY ********************************************************
+
+      var resizetimeout;
+
+      function debounceResize(){
+        if(resizetimeout) clearTimeout(resizetimeout);
+        resizetimeout = setTimeout(resize, 50)
+      }
+
+      resize = function(){
+
+        var ratio = 634/850,
+            w, h, t, l;
+      
+        // CONTAIN
+        w = (window.innerWidth-50);
+        h = w * ratio;
+      
+        if(h > (window.innerHeight-50) ) {
+          h = (window.innerHeight-50);
+          w = h / ratio;
+        }
+      
+        t = ((window.innerHeight-50) - h) / 2;
+        l = ((window.innerWidth-50) - w) / 2;
+
+        // Apply dynamic sizing ********************************************************
+
+        $('#map-container').css({
+          width:  Math.round(w),
+          height: Math.round(h),
+          top:    Math.round(t),
+          left:   Math.round(l)
+        })
+
+        $('.map_legend').css({ // 20 px / 850
+          'font-size': w * .023529412
+        })
+
+        $('.map_labels > div, .map_legend > div > span').css({
+          width: w * .029411765,
+          height: w * .029411765,
+          'font-size' : w * .023529412,
+          'line-height' : '145%'
+        })
+
+      }
+
+      $(window).on('resize.global',debounceResize)
+      window.addEventListener('onorientationchange', debounceResize);
+
+      resize();
+      
 
     })
 
