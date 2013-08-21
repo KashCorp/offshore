@@ -482,7 +482,7 @@ var pano_master = function(){
                 ImageSequenceFrames = 65;
                 linkBack = 'lowerplatform'
                 linkForward = 'hallway'
-                
+
                 sequenceHasWords = true
                 var wordHTL ='<li class="drilling-depth">1000 ft</li>'
                   wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-500px)">2000 ft</li>'
@@ -878,6 +878,7 @@ var pano_master = function(){
     
     **************************************************************************/
 
+    var wordContainer = $('#word-container');
 
     function scrollerFunction(){
 
@@ -896,12 +897,18 @@ var pano_master = function(){
 
             scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
-            if(sequenceHasWords) {
-                var zPos = walkthrough.scrollValue*.4
-                $('#word-container').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
+            if(sequenceHasWords) { // SHAFTWAY
 
-                $('#word_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-                $('#word_01').css('opacity', walkthrough.percent);
+                // approx range: 0-2800px
+                var zPos = walkthrough.percent * 3000;
+                if(zPos>2800) zPos = 2800;
+
+                wordContainer.css('-webkit-transform', 'translateZ(' + zPos + 'px)');
+
+                // var index = Math.floor(walkthrough.percent * 5);
+                // console.log(index)
+                // console.log(wordContainer[0].children)
+                // wordContainer[0].children.children[index].style.opacity = 0;
             }
             
         
