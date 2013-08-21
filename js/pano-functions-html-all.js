@@ -37,9 +37,8 @@ var globalPano;
 
 var pano_master = function(){
 
-    var that = this
-
-    var krpano
+    var that = this;
+        krpano;
 
     this.panoWalkthrough;
     this.walkthroughPlaying = false;
@@ -52,6 +51,8 @@ var pano_master = function(){
 
     this.panDirectionsShown = false;
 
+    this.video_underlay = false;
+
     this.visited = {
         platform : false,
         hallway : false,
@@ -62,7 +63,11 @@ var pano_master = function(){
         subhanger : false
     }
 
-    var scrollTrigger,scrollPercent=0,sequenceHasWords,linkForward, linkBack;
+    var scrollTrigger,
+        scrollPercent=0,
+        sequenceHasWords,
+        linkForward, 
+        linkBack;
             
 
     if(parent.location.hash.slice(1)) globalPano = parent.location.hash.slice(1)
@@ -189,7 +194,7 @@ var pano_master = function(){
 
         that.panoWalkthrough = null;
 
-        var video_underlay = false;
+        that.video_underlay = false;
 
 
         $('.pan-directions').hide();
@@ -326,7 +331,7 @@ var pano_master = function(){
                 $('#panocontainer').after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
 
                 $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
-                video_underlay = true;
+                that.video_underlay = true;
             break;
 
             case "subhanger" : 
@@ -345,7 +350,7 @@ var pano_master = function(){
 
             case "submarine" :
                 $('#panocontainer').before('<video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
-                video_underlay = true;
+                that.video_underlay = true;
             break;
 
             case "theater" : 
@@ -373,7 +378,7 @@ var pano_master = function(){
                 overLayFile = 'russian_radio.mp3'
                 
                 $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
-                video_underlay = true;
+                that.video_underlay = true;
             break;                 
             //
         }
@@ -381,7 +386,7 @@ var pano_master = function(){
 
         $(window).off('resize.underlay')
 
-        if(video_underlay && master.isIOS === false) {
+        if(that.video_underlay && master.isIOS === false) {
 
             console.log('>>>>> VIDEO UNDERLAY PRESENT')
 

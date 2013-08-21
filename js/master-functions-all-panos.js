@@ -50,8 +50,6 @@ var masterFunctions = function() {
 	this.ghostBuster = false
 	this.ghostMinc
 
-	//this.ghostBuster
-
 	// webm or h264
 	var v = document.createElement('video');
 	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) {
@@ -60,7 +58,8 @@ var masterFunctions = function() {
 
 	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) {
 	 	videoType = '.webm';
-	}		
+	}
+
 	this.videoType = videoType
 
     try {
@@ -88,9 +87,6 @@ var masterFunctions = function() {
 		that.loadOverlay('rigmap.php')
      });
 
-	// $('#panocontainer').after('<div class="vignette dynamic"/>')
-    
-
     var delayNavSlide = function(){
     	$(".breadcrumb").animate({'bottom': '-40'}, 500)
     	$("#offshorelogo").animate({'bottom': '-10'}, 500)
@@ -115,6 +111,8 @@ var masterFunctions = function() {
        $('.pan-directions').fadeOut(500)
        pano.panDirectionsShown = true;
     }); 
+
+
 
 
 
@@ -395,6 +393,8 @@ var masterFunctions = function() {
 			$("#panocontainer").hide();
 		})
 
+		if(pano.video_underlay) $('.video-underlay').fadeOut(500)
+
 
 		// load overlay
 
@@ -427,6 +427,8 @@ var masterFunctions = function() {
 
 			$("#panocontainer").show();
 			$("#panocontainer").removeClass('hide') 
+
+			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
 
 			// clear iframe
 			$('#overlay_frame').attr('src','')
@@ -1645,6 +1647,8 @@ function videoPlayer(group, playerFadeTransition){
 			'width' : master.globals.contain.w,
 			'height' : master.globals.contain.h
 		})
+
+		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)
 	}
 
 	$(window).off('resize.video')
