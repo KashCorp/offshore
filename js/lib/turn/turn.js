@@ -113,6 +113,7 @@ turnMethods = {
   // $('#selector').turn([options]);
 
   init: function(options) {
+    console.log(options)
 
     // Define constants
     
@@ -129,6 +130,7 @@ turnMethods = {
       height: this.height(),
       direction: this.attr('dir') || this.css('direction') || 'ltr'
     }, turnOptions, options);
+
 
     data.opts = options;
     data.pageObjs = {};

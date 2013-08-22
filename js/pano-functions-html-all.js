@@ -275,7 +275,7 @@ var pano_master = function(){
         $('.dynamic').remove()
         $('.hotspot').attr('class','hotspot')
 
-        // MASTER SWITCH
+        // > Switch Pano
         switch(_pano){
 
             case "prologue" : 
@@ -339,12 +339,12 @@ var pano_master = function(){
                 overLayFile = 'SubRoom.mp3' 
                 underlayFile = 'Drone_3.mp3'
 
-                // walkthrough
-                $("#walking-canvas-pano").removeClass('hide')
-                var scrollTrigger=false;
-                that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
-                // that.panoWalkthrough.preload()
-                $('.hotspot').addClass('requiem')
+                // // walkthrough
+                // $("#walking-canvas-pano").removeClass('hide')
+                // var scrollTrigger=false;
+                // that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
+                // // that.panoWalkthrough.preload()
+                // $('.hotspot').addClass('requiem')
 
             break;
 
@@ -386,9 +386,7 @@ var pano_master = function(){
 
         $(window).off('resize.underlay')
 
-        if(that.video_underlay && master.isIOS === false) {
-
-            console.log('>>>>> VIDEO UNDERLAY PRESENT')
+        if(that.video_underlay) {
 
             $('.video-underlay').css({
                 'position':'absolute',
@@ -437,6 +435,7 @@ var pano_master = function(){
 
         $('#wrapper').css('display','none')
 
+        // > Switch Sequence
         switch(_sequence){
 
           case "sequence_passage_chemicalroom" : 

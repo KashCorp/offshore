@@ -348,9 +348,9 @@ var masterFunctions = function() {
 			// that.pageChange($(this).data('url'))
 	  // 	}) 
 
-      	$(".breadbox-rigmap").click(function(){
-			that.loadOverlay('rigmap.php')
-		})
+  //     	$(".breadbox-rigmap").click(function(){
+		// 	that.loadOverlay('rigmap.php')
+		// })
 
  		// Disable iOS overscroll
  		$(document).on('touchstart', function(e) { e.preventDefault(); });
@@ -797,7 +797,7 @@ master.check_start();
 	
 
 	> Walkthrough
-
+	
 
 
 *************************************************************************/
@@ -891,8 +891,10 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		    $( ".scroll-directions" ).css('top',scrollerPos)
 		    scrollValue =  parseInt($( ".scroll-directions" ).css('top')) * 5000 / (window.innerHeight - 220)
 		    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
+			that.percent = 
 			that.scrollValue = scrollValue
 			that.scrollFunction()
+
 		})
 	}
 
@@ -1063,7 +1065,6 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
     this.scrollFunction = function(){
 
-
       	// sanity check
 		if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
@@ -1075,12 +1076,10 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 			if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
 
 			if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
-
 		}
 		else {
 			imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
 		}
-
 		
 		
 		console.log('currentImage: '+'\t'+currentImage)

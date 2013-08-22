@@ -3,6 +3,9 @@
 
 <head>
 
+	<title>Overlay</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
 	<style type="text/css">
 
 		/* ========================================================================== *\
@@ -62,11 +65,11 @@
 
 		@font-face {
 			font-family: 'icomoon';
-			src:url('../fonts/icomoon.eot');
-			src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
-				url('../fonts/icomoon.woff') format('woff'),
-				url('../fonts/icomoon.ttf') format('truetype'),
-				url('../fonts/icomoon.svg#icomoon') format('svg');
+			src:url('../fonts/skype.eot');
+			src:url('../fonts/skype.eot?#iefix') format('embedded-opentype'),
+				url('../fonts/skype.woff') format('woff'),
+				url('../fonts/skype.ttf') format('truetype'),
+				url('../fonts/skype.svg#icomoon') format('svg');
 			font-weight: normal;
 			font-style: normal;
 		}
@@ -106,24 +109,21 @@
 		.container {
 			text-align: center;
 			width: 100%; height: 100%;
-			/*background: rgba(0,0,0,0.5);*/
+			position: absolute;
 			-webkit-user-select: none;
 			-moz-user-select: none;
 			-ms-user-select: none;
 			user-select: none;
-			
+		}
+
+		.close-overlay {
+			position: absolute;
+			width: 100%; height: 100%;
 		}
 
 		.ipad-container {
-			min-width: 800px;
-			min-height: 600px;
-			/*max-width: 90%;*/
-			/*max-height: 90%;*/
-
-			display: inline-block;
-			position: relative;
-			width: 80%;
-			margin-top: 2%;
+			/*display: inline-block;*/
+			position: absolute;
 
 			background: url('../images/skype_ipad.svg') no-repeat;
 			background-size: 100% 100%;
@@ -264,7 +264,6 @@
 		.main li div {
 			display: block;
 			width: 100%;
-			height: 1em;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
@@ -273,13 +272,11 @@
 		.main li div:before {
 			font-family: "icomoon";
 			color: #7fba00;
-			font-size: .6em;
-			content: "\6d";
-			padding: .2em;
-			padding-right: .4em;
-			margin-left: .2em;
-			position: relative;
-			top: -.1em;
+			content: "\2022";
+			margin-right: .1em;
+			display: inline-block;
+			font-size: 300%;
+			line-height: 39%;
 		}
 
 		.content {
@@ -305,7 +302,7 @@
 		.movie #skypeVideo {
 			display: inline-block;
 			width: 100%;
-			height: auto;
+			height: 78%;
 		}
 
 		/* Webcam */
@@ -412,7 +409,7 @@
 			font-family: "icomoon";
 			color: #fff;
 			font-size: 1.3em;
-			content: "\75";
+			content: "\0050";
 			padding: .2em;
 			margin-right: .2em;
 			background: #aadbeb;
@@ -448,8 +445,8 @@
 		.history a:before {
 			font-family: "icomoon";
 			color: #6e6e73;
-			font-size: 1.3em;
-			content: "\63";
+			font-size: 1em;
+			content: "\68";
 			padding: .2em;
 			margin-right: .2em;
 			position: relative;
@@ -562,7 +559,7 @@
 
 
 <!-- JavaScripts -->
-<script type="text/javascript" src="../js/master-functions.js"></script>
+<!-- <script type="text/javascript" src="../js/master-functions.js"></script> -->
 
 
 <script type="text/javascript">
@@ -572,12 +569,15 @@ $(window).load(function(){
 })
 
 
+
+
+
+
 $(document).ready(function(){
 
 	// link to the right video type
 
 	$('.vid-menu-nav').each(function(i,v){
-		console.log($(v).data('url'))
 		var newurl = ''
 
 		if(parent.Modernizr.video.h264)
@@ -590,9 +590,44 @@ $(document).ready(function(){
 	})
 
 
+
+
 	function resize(){
+
+		var ratio = 768/998,
+		    w, h, t, l, text;
+		
+		// CONTAIN
+		w = window.innerWidth * 0.9;
+		h = w * ratio;
+		
+		if(h > window.innerHeight) {
+		  h = window.innerHeight * 0.9;
+		  w = h / ratio;
+		}
+		
+		t = (window.innerHeight - h) / 2;
+		l = (window.innerWidth - w) / 2;
+
+		$('.flipbook').css({ left: l, top: t })
+
+		w = Math.floor(w)
+		h = Math.floor(h)
+		t = Math.floor(t)
+		l = Math.floor(l)
+
+		text = w * .016;
+
+		$('body').css('font-size',text)
+
+
 		var newh = (window.innerHeight - $('.ipad-container').height()) / 2;
-		$('.ipad-container').css({'margin-top': newh})
+		$('.ipad-container').css({
+			width: w,
+			height: h,
+			top: t,
+			left: l
+		})
 	}
 
 	$(window).on('resize',resize)
@@ -610,7 +645,6 @@ $(document).ready(function(){
 		window.URL = window.URL || window.webkitURL;
 
 		var video = document.getElementById('webcamVideo')
-		console.log(video)
 
 		function successCallback(stream) {
 	        // Set the source of the video element with the stream from the camera
@@ -630,8 +664,10 @@ $(document).ready(function(){
 		if (navigator.getUserMedia) {
 	    // Call the getUserMedia method here
 	    console.log('WebRTC is available.');
+	    	$('#webcamVideo').show();
 		    navigator.getUserMedia({video: true}, successCallback, errorCallback);
 		} else {
+			$('#webcamVideo').hide();
 		    console.log('WebRTC not supported in this browser.');
 		    // Display a friendly "sorry" message to the user.
 		}
@@ -644,28 +680,30 @@ $(document).ready(function(){
 
 	// play video
 	$(".vid-menu-nav").click(function(e){
+		console.log('CLIIIICK')
 		e.stopPropagation();
 		var that = this
 
 		$('#close-control').css('display','none')
 		$('#to-control-vid').css('display','block')
 
-    $('.interface').fadeOut(500,function(){
+	    $('.interface').fadeOut(500,function(){
 
-    	$('.movie').css('display','table')
-    	console.log($(that).data('url'))
-    	$('#skypeVideo').attr('src', $(that).data('url'));
-    	$('#skypeVideo')[0].load();
+	    	$('.movie').css('display','table')
+	    	console.log($(that).data('url'))
+	    	$('#skypeVideo').attr('src', $(that).data('url'));
+	    	$('#skypeVideo')[0].load();
 
-    	$('#skypeVideo').on('canplaythrough', function(){
-            $('#skypeVideo')[0].play()
-       });
+	    	$('#skypeVideo').on('canplaythrough', function(){
+	            $('#skypeVideo')[0].play()
+	       });
 
+	    })
     })
-  })
 
 	// stop video
   $("#to-control-vid").click(function(e){
+  	console.log('FUCK')
   	e.stopPropagation();
   	$('.movie').css('display','none')
   	$('#to-control-vid').css('display','none')
@@ -689,6 +727,8 @@ $(document).ready(function(){
   		parent.master.closeOverlay()
   })
 
+
+  $(document).on('touchmove', function(e) { e.preventDefault(); });
 
 
 })

@@ -18,16 +18,16 @@ body{
 
 .flipbook-viewport .container{
 	position:absolute;
-	top:50%;
+	/*top:50%;
 	left:50%;
-	margin:auto;
+	margin:auto;*/
 }
 
 .flipbook-viewport .flipbook{
-	width:922px;
+	/*width:922px;
 	height:600px;
 	left:-461px;
-	top:-300px;
+	top:-300px;*/
 }
 
 .flipbook-viewport .page{

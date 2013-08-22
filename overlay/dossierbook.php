@@ -18,7 +18,7 @@
 <div class="close-overlay"></div>
 
 <div class="flipbook-viewport">
-  <div class="container">
+  <!-- <div class="container"> -->
 
     <div class="flipbook">
       <div class="hard" style="background-image:url(../images/folder_front.png)"></div>
@@ -42,7 +42,8 @@
       <div class="hard" style="background-image:url(../images/folder_right.png)"></div>
       <div class="hard" style="background-image:url(../images/folder_back.png)"></div>
     </div>
-  </div>
+
+  <!-- </div> -->
 </div>
 
 <a id="close-control" class="platform-nav">Close</a>
@@ -51,45 +52,70 @@
 <script type="text/javascript">
 
 
-
+var init = false;
 
 function loadApp() {
 
-$(".platform-nav").click(function(){
-  parent.master.closeOverlay()
-})
 
-var isFF = !!window.sidebar;
-if(!isFF) {
-  $('.close-overlay').click(function(e){
+  $(".platform-nav").click(function(){
     parent.master.closeOverlay()
   })
-}
 
-  // Create the flipbook
+  var isFF = !!window.sidebar;
+  if(!isFF) {
+    $('.close-overlay').click(function(e){
+      parent.master.closeOverlay()
+    })
+  }
 
-  $('.flipbook').turn({
-      // Width
+  var w, h, t, l;
 
-      width:922,
-      
-      // Height
+  function resize(){
 
-      height:600,
+    var ratio = 600/922,
+        w, h, t, l;
+  
+    // CONTAIN
+    w = window.innerWidth * 0.9;
+    h = w * ratio;
+  
+    if(h > window.innerHeight) {
+      h = window.innerHeight * 0.9;
+      w = h / ratio;
+    }
+  
+    t = (window.innerHeight - h) / 2;
+    l = (window.innerWidth - w) / 2;
 
-      // Elevation
+    $('.flipbook').css({ left: l, top: t })
 
-      elevation: 50,
-      
-      // Enable gradients
+    w = Math.floor(w)
+    h = Math.floor(h)
+    t = Math.floor(t)
+    l = Math.floor(l)
 
-      gradients: true,
-      
-      // Auto center this flipbook
+    console.log('w: '+'\t'+w)
+    console.log('h: '+'\t'+h)
+    console.log('t: '+'\t'+t)
+    console.log('l: '+'\t'+l)
 
-      autoCenter: true
+    if(!init) {
+      init=true;
+      $('.flipbook').turn({
+          width: w,
+          height: h,
+          elevation: 50,
+          gradients: true,
+          autoCenter: true
+      });
+    }
+    
+  }
 
-  });
+  $(window).on('resize.turn',resize)
+  resize();
+
+  $(document).on('touchmove',  function(e) { e.preventDefault(); });
 }
 
 // Load the HTML4 version if there's not CSS transform

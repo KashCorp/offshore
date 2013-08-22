@@ -30,300 +30,299 @@
 
     </script>
 
-<style>
+  <style>
 
-body {
-  background: rgba(0,0,0,0.5);
-}
+        body {
+            background: rgba(0,0,0,0.5);
+        }
 
-#map-container, #image-container  {
-  position: absolute;
-  width: 1720px; 
-  text-align: center;
-  color:#ffffff;
-  display:block;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
+        #map-container, #image-container {
+            position: absolute;
+            width: 1720px; 
+            text-align: center;
+            color:#ffffff;
+            display:block;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+         
+        }
 
- 
-}
+        #map-container {
+                -webkit-transform: translateZ(-500px)
+        }
 
-#map-container  {
-    -webkit-transform: translateZ(-500px)
-}
+        #image-container {
+                -webkit-transform: translateZ(-1000px)
+        }
 
-#image-container  {
-    -webkit-transform: translateZ(-1000px)
-}
+        #map-container, #image-container ul {
+            position: absolute;
+            font-size: 0;
+        }
 
-#map-container, #image-container ul {
-  position: absolute;
-  font-size: 0;
-}
+        #map-container ul li {
+            float: left;
+            list-style-type: none;
+            box-shadow: 0px 0px 0px rgba(0,0,0,.5);*/
+            position:relative;
+            padding:0;
+            margin:-1px;
+         -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            
+            cursor: pointer;
+        }
 
-#map-container ul li {
-  float: left;
-  list-style-type: none;
-  box-shadow: 0px 0px 0px rgba(0,0,0,.5);*/
-  position:relative;
-  padding:0;
-  margin:-1px;
- -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
-  
-  cursor: pointer;
-}
+        #image-container ul li {
+            display: table;
+            width:100%;
+            text-align: center;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -o-transform-style: preserve-3d;
+            list-style-type: none;
+            padding:0;
+            position: absolute; 
+            top:0; 
+            bottom:0; 
+            left:0; 
+            right:0;
+        }
 
-#image-container ul li {
-  display: table;
-  width:100%;
-  text-align: center;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
-  list-style-type: none;
-  padding:0;
-  position: absolute; 
-  top:0; 
-  bottom:0; 
-  left:0; 
-  right:0;
-}
+        #image-container ul li div {
+            display: block;
+            width:100%;
+            padding:5px;
+            position: absolute; 
+            top:0; 
+            left:0; 
+            font-size: 20px;
+            text-align:left;
+            background: url(../images/bg_black_50.png);
+        }
 
-#image-container ul li div {
-  display: block;
-  width:100%;
-  padding:5px;
-  position: absolute; 
-  top:0; 
-  left:0; 
-  font-size: 20px;
-  text-align:left;
-  background: url(../images/bg_black_50.png);
-}
+        #photo-container ul li img { 
+            vertical-align: middle; 
 
-#photo-container ul li img { 
-vertical-align: middle; 
-
-}
-
-
-
-.textholder {
-/*position: absolute;
-top:40%;
-left:20%;
-*/
-text-align:left;
-color: #ffffff;
-font-size: 30px;
--webkit-transform: translateZ(0px);
-background:#000000;
-border:1px solid;
-margin-bottom: 20px;
-padding:5px;
-cursor:pointer;
-
-}
+        }
 
 
 
-#scan_image_holder {
-  position: absolute;
-  width: 100%;
-  left:0px;
-  overflow:hidden;
+        .textholder {
+            /*position: absolute;
+            top:40%;
+            left:20%;
+            */
+            text-align:left;
+            color: #ffffff;
+            font-size: 30px;
+            -webkit-transform: translateZ(0px);
+            background:#000000;
+            border:1px solid;
+            margin-bottom: 20px;
+            padding:5px;
+            cursor:pointer;
+
+        }
 
 
-}
 
-#scan_image_lines {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left:0px;
-  opacity:.5;
-  background: url(../images/bg_linematrix2x2_blue.gif);
-  overflow:hidden;
-
-}
-
-.lease_maps {
-  position: absolute;
-  opacity: .2;
-  left:0px;
-  width: 100%;
-}
-
-.word {
-
-position: absolute;
-  width: 100%; 
-  text-align: center;
-  bottom: 40%;
-  color: #fff;
-  font-family: 'DinRegular', Helvetica, Arial, sans-serif;
-  font-size: 50px;
-  text-shadow: 1px 1px 3px #000;
+        #scan_image_holder {
+            position: absolute;
+            width: 100%;
+            left:0px;
+            overflow:hidden;
 
 
-}
+        }
 
-.cloud {
-  position: absolute;
-  width: 100%; 
-}
+        #scan_image_lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left:0px;
+            opacity:.5;
+            background: url(../images/bg_linematrix2x2_blue.gif);
+            overflow:hidden;
 
-.scroll-directions-container {
-  height:    -moz-calc(100% - 100px);
-  height: -webkit-calc(100% - 100px);
-  height:         calc(100% - 100px);
-  margin-top: 100px;
-}
+        }
 
-</style>
+        .lease_maps {
+            position: absolute;
+            opacity: .2;
+            left:0px;
+            width: 100%;
+        }
 
-  </head>
+        .word {
+            position: absolute;
+            width: 100%; 
+            text-align: center;
+            bottom: 40%;
+            color: #fff;
+            font-family: 'DinRegular', Helvetica, Arial, sans-serif;
+            font-size: 50px;
+            text-shadow: 1px 1px 3px #000;
 
-  <body class="platform">
+        }
 
-    <div class="close-overlay"></div>
+        .cloud {
+            position: absolute;
+            width: 100%; 
+        }
+
+        .scroll-directions-container {
+            height:        -moz-calc(100% - 100px);
+            height: -webkit-calc(100% - 100px);
+            height:                 calc(100% - 100px);
+            margin-top: 100px;
+        }
+
+  </style>
+
+</head>
+
+
+
+
+
+
+<body>
+
+<div class="close-overlay"></div>
 
 <header>
   <a class="volume-toggle"><i class="icon-volume-up"></i></a>
 </header>
 
-    <div id="scroll-wrapper" class="wrapper" style="display:block">
-      
-      <div id="viewport" style="left:0px">
-        <div id='image-container'>
-          <ul>
-            <li id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
-            <li id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>
-            <li id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>
-            <li id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>
-            <li id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
-          </ul>
+  <div id="scroll-wrapper" class="wrapper" style="display:block">
+    
+    <div id="viewport">
+        <div id="image-container">
+            <ul>
+                <li id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
+                <li id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>
+                <li id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>
+                <li id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>
+                <li id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
+            </ul>
         </div>
-      </div>
-      
-      
+    </div>
+    
+    
 
-      <a id="to-control" class="platform-nav">Close</a>
+    <a id="to-control" class="platform-nav">Close</a>
 
-      <div class="scroll-directions-container"><div id="scroll-directions"></div></div>
-       
-  	</div>
+    <div class="scroll-directions-container">
+        <div class="scroll-directions"></div>
+    </div>
      
-    <div id="scroll-proxy"></div>
-  
+	</div>
+   
+  <div id="scroll-proxy"></div>
 
-    <!-- JavaScripts -->
+
+
+
+
+
+  <!-- JavaScripts -->
 
     <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="../js/lib/modernizr.min.js"></script>
+    <script type="text/javascript" src="../js/lib/modernizr.min.js"></script>
 
 
     <script>
 
-      $(document).ready(function(){
+        $(document).ready(function(){
 
-        $(".platform-nav").click(function(){
-          parent.master.closeOverlay()
-        })
+            $(".platform-nav").click(function(){
+                parent.master.closeOverlay()
+            })
 
-        var isFF = !!window.sidebar;
-        if(!isFF) {
-          $('.close-overlay').click(function(e){
-           // if( $(e.target).is('body') ) 
-             parent.master.closeOverlay()
-         })
-        }
+            var isFF = !!window.sidebar;
+            if(!isFF) {
+                $('.close-overlay').click(function(e){
+                     parent.master.closeOverlay()
+             })
+            }
 
-       
+         
 
-        // $(function() {
-        //       $( "#viewport" ).draggable();
-        // });
+            // $(function() {
+            //             $( "#viewport" ).draggable();
+            // });
 
-         var setStage = function(){
+            var setStage = function(){
 
-           var dynamicWidth = window.innerWidth;
-
-           var dynamicHeight = dynamicWidth * .5625;
-
-           var dynamicTop = (window.innerHeight - dynamicHeight)/2;
-
-           var dynamicRatio = window.innerHeight/window.innerWidth
+                var dynamicWidth = window.innerWidth;
+                var dynamicHeight = dynamicWidth * .5625;
+                var dynamicTop = (window.innerHeight - dynamicHeight)/2;
+                var dynamicRatio = window.innerHeight/window.innerWidth
 
 
-           
+                var percent = 0
 
-          // var walkthrough = new walkthroughFunctions(dynamicWidth,dynamicHeight,"walking-canvas","video/video_clips/downstairs/",241)
-           //$("#words-container").css("top", -dynamicHeight*.5)
-           //scrollPos = walkthrough.scrollStopFunction()
+                $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+                    $( ".scroll-directions" ).draggable({ 
+                        axis: "y",
+                        containment: 'parent',
+                        drag: function() {
+
+                            percent = parseInt($(this).css('top')) / (window.innerHeight-300)
+
+                            scrollFunction()
+                        }
+                    });
+                }); 
 
 
-          var scrollValue = 0
+                var transZPos = -4000
 
-          $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-             $( "#scroll-directions" ).draggable({ 
-                axis: "y",
-                containment: 'parent',
-                drag: function() {
-                  scrollValue =  (parseInt($( "#scroll-directions" ).css('top'))- 80) * 10000 / (window.innerHeight -160)
-                   scrollFunction()
+                function scrollFunction() {
+
+                    if(percent <= 0) percent = 0.01
+                    else if(percent > 1) percent = 1
+
+
+                    var zPos = percent * 1000
+
+                    //box-shadow: ;
+                    //$("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
+                    $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * 1 + 'px)');
+                    $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * 2 + 'px)');
+                    $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 3 + 'px)');
+                    $('#leasemap_02').css('-webkit-transform', 'translateZ(' + zPos * 4 + 'px)');
+                    $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 5 + 'px)');
+
+
+                    var current = 5 - Math.floor(percent*5)
+                    var opacity = 3 - (percent*5 % 1)*3
+
+                    // console.log('current: '+'\t'+current)
+
+                    console.log('percent: '+'\t'+percent)
+
+                    $('ul').children().eq(current).css('opacity',opacity)
                 }
-               });
-           }); 
 
 
-          var scrollPercent = 0,transZPos = -4000
+            }
 
-          function scrollFunction() {
+            setStage()
 
-          scrollPercent =  scrollValue / (5000 - $(window).height()) * 100;
-    	       
+            window.onresize = function(event) {
+            setStage()
+            }
 
-
-             var zPos = scrollValue*.4
-             //box-shadow: ;
-            //$("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
-             $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * .6 + 'px)');
-             $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
-             $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
-             $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-             /*
-             $('#rigmap_01').css('-webkit-transform', 'translateZ(' + zPos * .8 + 'px)');
-             $('#rigmap_02').css('-webkit-transform', 'translateZ(' + zPos + 'px)');
-             $('#rigmap_05,#t5').css('-webkit-transform', 'translateZ(' + zPos * 1.1  + 'px)');
-             $('#rigmap_04,#t4').css('-webkit-transform', 'translateZ(' + zPos * 1.2 + 'px)');
-             $('#rigmap_03,#t3').css('-webkit-transform', 'translateZ(' + zPos * 1.3 + 'px)');
-             $('#rigmap_06,#t6').css('-webkit-transform', 'translateZ(' + zPos * 1.4 + 'px)');
-             $('#rigmap_08,#t8').css('-webkit-transform', 'translateZ(' + zPos * 1.5 + 'px)');
-             $('#rigmap_07,#t7').css('-webkit-transform', 'translateZ(' + zPos * 1.6 + 'px)');
-             */
-
-
-           }
-
-
-         }
-
-        setStage()
-
-        window.onresize = function(event) {
-        setStage()
-        }
-
-      })
+        })
 
     </script>
 
 
 
-  </body>
+</body>
 </html>

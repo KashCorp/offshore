@@ -5,7 +5,7 @@
 <!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-<meta name="viewport" content="width = 1050, user-scalable = no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <!-- JavaScripts -->
@@ -45,29 +45,70 @@
 
 
 <script type="text/javascript">
-
-$("#to-control").click(function(e){
-	e.stopPropagation();
-	parent.master.closeOverlay()
-})
-
-$('.close-overlay').click(function(e){
-  // if( $(e.target).is('body') ) 
-    parent.master.closeOverlay()
-})
-
+var init = false;
 
 function loadApp() {
 
-	// Create the flipbook
-	$('.flipbook').turn({
-		width:922,
-		height:600,
-		elevation: 50,
-		gradients: true,
-		autoCenter: true,
-		pages: 4
-	});
+
+  $(".platform-nav").click(function(){
+    parent.master.closeOverlay()
+  })
+
+  var isFF = !!window.sidebar;
+  if(!isFF) {
+    $('.close-overlay').click(function(e){
+      parent.master.closeOverlay()
+    })
+  }
+
+  var w, h, t, l;
+
+  function resize(){
+
+    var ratio = 600/922,
+        w, h, t, l;
+  
+    // CONTAIN
+    w = window.innerWidth * 0.9;
+    h = w * ratio;
+  
+    if(h > window.innerHeight) {
+      h = window.innerHeight * 0.9;
+      w = h / ratio;
+    }
+  
+    t = (window.innerHeight - h) / 2;
+    l = (window.innerWidth - w) / 2;
+
+    $('.flipbook').css({ left: l, top: t })
+
+    w = Math.floor(w)
+    h = Math.floor(h)
+    t = Math.floor(t)
+    l = Math.floor(l)
+
+    console.log('w: '+'\t'+w)
+    console.log('h: '+'\t'+h)
+    console.log('t: '+'\t'+t)
+    console.log('l: '+'\t'+l)
+
+    if(!init) {
+      init=true;
+      $('.flipbook').turn({
+          width: w,
+          height: h,
+          elevation: 50,
+          gradients: true,
+          autoCenter: true
+      });
+    }
+    
+  }
+
+  $(window).on('resize.turn',resize)
+  resize();
+
+  $(document).on('touchmove',  function(e) { e.preventDefault(); });
 }
 
 // Load the HTML4 version if there's not CSS transform
