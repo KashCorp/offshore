@@ -339,12 +339,12 @@ var pano_master = function(){
                 overLayFile = 'SubRoom.mp3' 
                 underlayFile = 'Drone_3.mp3'
 
-                // // walkthrough
-                // $("#walking-canvas-pano").removeClass('hide')
-                // var scrollTrigger=false;
-                // that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
-                // // that.panoWalkthrough.preload()
-                // $('.hotspot').addClass('requiem')
+                // walkthrough
+                $("#walking-canvas-pano").removeClass('hide')
+                var scrollTrigger=false;
+                that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
+                that.panoWalkthrough.preload()
+                $('.hotspot').addClass('requiem')
 
             break;
 
@@ -367,13 +367,12 @@ var pano_master = function(){
                 // walkthrough
                 var scrollTrigger=false;
                 $("#walking-canvas-pano").removeClass('hide')
-                
                 that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
+                $('.hotspot').addClass('engineroom')
+                that.panoWalkthrough.preload()
 
                 // that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
 
-                // that.panoWalkthrough.preload()
-                $('.hotspot').addClass('engineroom')
 
             break;    
 

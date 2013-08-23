@@ -59,7 +59,7 @@
 		loaderArray.push(cdn + "interiorsub_pano_u.jpg");
 		loaderArray.push(cdn + "interiorsub_pano_d.jpg");
 		loaderArray.push(cdn + "theatre_pano_l.jpg");
-		loaderArray.push(cdn + "theatre_pano_f.png");
+		loaderArray.push(cdn + "theatre_pano_f.jpg");
 		loaderArray.push(cdn + "theatre_pano_r.jpg");
 		loaderArray.push(cdn + "theatre_pano_b.jpg");
 		loaderArray.push(cdn + "theatre_pano_u.jpg");
