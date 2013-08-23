@@ -181,7 +181,10 @@ var masterFunctions = function() {
 
     /**************************************************************************
     	
-    	Dynamic Resizing (globals)
+    	Dynamic Resizing
+
+    	- all resizing functionality needs to be triggered inside resizeFunction(),
+    	  in order to function properly on iOS devices
 
     **************************************************************************/
 
@@ -190,16 +193,23 @@ var masterFunctions = function() {
 	    contain: {}  // maintain visibility of entire element
 	};
 
+	that.resize = {
+		videoplayer : null,
+		walkthrough : null
+	}
+
     var resizetimeout;
 
-    function debounceResize(){
+    that.debouncedResize = function(){
     	if(resizetimeout) clearTimeout(resizetimeout);
-    	resizetimeout = setTimeout(resize, 50)
+    	resizetimeout = setTimeout(resizeFunction, 50)
     }
 
-    function resize(){
+    function resizeFunction(){
 
-    	// DYNAMIC ELEMENT LOGIC ********************************************************
+      	console.log('<<< Global Resize >>>')
+
+    	// Calculate ********************************************************
 
 	    var ratio = 9/16,
 	    	w, h, t, l;
@@ -238,23 +248,51 @@ var masterFunctions = function() {
       	that.globals.cover.t = Math.round(t)
       	that.globals.cover.l = Math.round(l)
 
-      	console.log('*** RESIZE ***')
 
-      	// comment ********************************************************
+      	// Apply ********************************************************
+
+      	if(master.resize.videoplayer) {
+      		$("#video-overlay").css({
+      			'top' : master.globals.contain.t,
+      			'left' : master.globals.contain.l,
+      			'width' : master.globals.contain.w,
+      			'height' : master.globals.contain.h
+      		})
+
+      		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)	
+      	}
+
+      	if(pano.panoWalkthrough) {
+      		pano.panoWalkthrough.resize();
+      	}
+      	if(pano.walkthrough) {
+      		pano.walkthrough.resize();
+      	}
+
+      	if(pano.ghostTransition) {
+      		pano.ghostTransition.resize();
+      	}
     	
     }
 
-    resize();
+    that.debouncedResize();
 
-    $(window).on('resize.global',debounceResize)
-    window.addEventListener('onorientationchange', debounceResize());
+    $(window).on('resize.global',that.debouncedResize)
+    window.addEventListener('onorientationchange', that.debouncedResize());
+
+
+
+
+
 
 
 
   	/**********************************************************************
+  	***********************************************************************
 		
 		init
 
+	***********************************************************************
   	**********************************************************************/
     	      
 	this.init = function(no_fade){
@@ -635,7 +673,7 @@ var masterFunctions = function() {
 
 		console.log("make ghost")
 
-		return ghost
+		return ghost;
 
 	}
 
@@ -808,8 +846,9 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	var that = this,
 		w = master.globals.contain.w,
 		h = master.globals.contain.h,
-    	that = this,
-		maxScrollerPos = $('.scroll-directions-container').height()
+    	that = this
+
+	this.maxScrollerPos = $('.scroll-directions-container').height()
 
 	var canvas = document.getElementById(canvasid);
 	canvas.width  = w;
@@ -924,9 +963,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 	// auto resize ---------------------------------------------------------
 
-	resizeWalkthrough = function(){
-		maxScrollerPos = window.innerHeight - 300
-		// maxScrollerPos = $('.scroll-directions-container').height();
+	this.resize = function(){
+		that.maxScrollerPos = window.innerHeight - 300
 
 		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
 
@@ -937,9 +975,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		})
 	}
 
-	$(window).off('resize.walkthrough');
-	$(window).on('resize.walkthrough', resizeWalkthrough);
-	resizeWalkthrough();
+	master.debouncedResize();
 
     // Autoplay -----------------------------------------------------------
 
@@ -993,7 +1029,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     	}
 
 	    // update scroll thumb
-		$( ".scroll-directions" ).css('top', (that.percent * maxScrollerPos) )
+		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
 
 		that.scrollFunction()
     }
@@ -1137,6 +1173,324 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 
 
 
+
+
+
+
+
+
+
+/*************************************************************************
+
+	
+
+	> Walkthrough
+
+	NEW VERSION USING VIDEO
+	
+
+
+*************************************************************************/
+
+
+var Walkthrough = function(canvasID,name,videoLength) {
+	
+	var that = this,
+		w = master.globals.contain.w,
+		h = master.globals.contain.h,
+    	that = this
+
+	this.maxScrollerPos = $('.scroll-directions-container').height()
+
+	var canvas = document.getElementById(canvasID);
+	canvas.width  = w;
+	canvas.height = h;
+	var context = canvas.getContext('2d');
+
+    var mouseWheelTimeout;
+
+    // var oddOnly = false;
+    // if(imageNumber > 200) oddOnly = true;
+
+    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
+    var scrollerPosStart = 0
+
+    this.percent = 0 // MASTER VARIABLE (everything runs off this)
+
+    var playSpeed = (100/videoLength)/100;
+    // if(!oddOnly) playSpeed = playSpeed / 2;
+
+	var video = document.getElementById('walkthrough-vid');
+	video.src=master.cdn_video + name + '.mp4'; // videoType
+	video.load();
+
+	video.oncanplaythrough = function(){
+		console.log('walkthrough vid LOADED')
+		context.drawImage(video,0,0,w,h);
+	}
+
+	// keep
+    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'));
+    var scrollerPosStart = 0;
+
+    // MASTER CONTROL VARIABLE
+    this.percent = 0;
+
+
+	// Walkthrough Video ---------------------------------------------------------
+	// (additional logic in scrollFunction and scrollStopFunction)
+	
+	var walkthroughvideo = false;
+	if(master.globalPano =='chemicalroom' || master.globalPano =='subhanger') walkthroughvideo = true;
+	console.log('walkthroughvideo: '+'\t'+walkthroughvideo)
+
+	if(walkthroughvideo) {
+		$("#walking-exit").off('click')
+		$("#walking-exit").on('click',function(){
+			that.closeWalkthroughVid()
+		});
+
+		$('#video-overlay').on('ended',function(){
+			// reset walkthrough
+			that.percent = 0.01
+		    $( ".scroll-directions" ).css('top',0)
+			that.scrollFunction()
+		})
+	}
+
+    this.closeWalkthroughVid = function(){
+
+    	console.log('CLOSE WALKTHROUGH')
+
+    	if(!master.overlayOpen) {
+			$('#panocontainer, .fastpan, .compass').fadeIn(500)
+
+			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
+		        that.percent = 0.01
+			    $( ".scroll-directions" ).css('top',0)
+			    // that.scrollStopFunction()
+		    })
+    	} else {
+	        that.percent = 0.01
+		    $( ".scroll-directions" ).css('top',0)
+		    // that.scrollStopFunction()
+		    // closeVideoPlayer() // INFINITE LOOOOOOP
+    	}
+
+    	krpano = document.getElementById("krpanoObject");
+		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+
+    }
+
+	// auto resize ---------------------------------------------------------
+
+	this.resize = function(){
+		that.maxScrollerPos = window.innerHeight - 300
+
+		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
+
+		$(canvas).css({
+			'width' :  master.globals.contain.w,
+			'height' : master.globals.contain.h,
+			'top' :    master.globals.contain.t
+		})
+	}
+
+	master.debouncedResize();
+
+    // Autoplay -----------------------------------------------------------
+
+    this.autoplay = false
+
+	$('.hotspot').off('click')
+    $('.hotspot').on('click',function(e){
+    	e.stopPropagation()
+
+    	if(that.autoplay) {
+    		console.log('AUTOPAUSE ||')
+    		that.autoplay=false
+    	} else {
+    		console.log('AUTOPAUSE >')
+    		that.autoplay = true
+    		that.play()
+    	}
+    	
+    })
+
+    this.play = function(){
+
+    	if(that.autoplay) {
+    		that.percent += playSpeed
+    		advance()
+    	} else {
+    		return false;
+    	}
+
+    }
+
+    // advance = function(scrollerPos){
+    advance = function(){
+
+    	// sanity check
+    	if(that.percent > 1) {
+    		that.percent = 1;
+    		// that.scrollStopFunction()
+    		clearTimeout(mouseWheelTimeout)
+    		return
+    	}
+    	else if(that.percent < 0) {
+    		that.percent = 0.01
+    		// that.scrollStopFunction()
+    		clearTimeout(mouseWheelTimeout)
+    		return
+    	}
+
+	    // update scroll thumb
+		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
+
+		that.scrollFunction()
+    }
+
+    // end Autoplay functionality
+
+
+    // Dragging/Mousewheel Functionality ********************************************************
+
+	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
+		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+	   		$( ".scroll-directions" ).draggable({ 
+	   			axis: "y",
+	   			containment: 'parent',
+				drag: function() {
+					
+					that.autoplay = false // stop autoplay
+					
+					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
+
+					that.scrollFunction()
+				},
+				stop: function() {
+					// that.scrollStopFunction()
+				}
+			});
+	   	});
+
+		if(document.getElementById('scroll-wrapper')){
+		   	if ($("#scroll-wrapper")[0].addEventListener) {
+	        	$("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false); // IE9, Chrome, Safari, Opera
+	        	$("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
+			} else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
+		}
+		
+		function MouseWheelHandler(e){
+			console.log('mouse wheel')
+	        var e = window.event || e; // old IE support
+	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
+
+	        that.percent -= playSpeed * delta
+
+	        advance()
+
+			clearTimeout(mouseWheelTimeout)
+			mouseWheelTimeout = null
+
+	        mouseWheelTimeout = setTimeout(function(){
+	        	// that.scrollStopFunction()
+	        },500)
+		}
+
+	});
+
+	
+    function zeroes(num, length) {
+        var str = '' + num;
+        while (str.length < length) str = '0' + str;
+        return str;
+    }
+    
+
+	/* ***** Scroll Function ***** */
+
+    this.scrollFunction = function(){
+
+      	// sanity check
+		if(that.percent <= 0) that.percent = 0.01
+		else if(that.percent > 1) that.percent = 1
+
+		var currentTime = Math.ceil(videoLength * that.percent)
+
+		// if(oddOnly) {
+		// 	// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
+		// 	if (currentTime % 2 == 0 && currentTime < videoLength) currentTime++
+
+		// 	if (currentTime % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentTime,4)+".jpg";
+		// }
+		// else {
+		// 	imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentTime,4)+".jpg";
+		// }
+
+		video.currentTime = currentTime;
+		context.drawImage(video, 0, 0,w,h);
+
+		console.log('currentTime: '+'\t'+currentTime)
+
+
+		if(walkthroughvideo) {
+			if(that.percent > 0.9 && !master.overlayOpen){
+				that.autoplay = false;
+				$('.scroll-directions').fadeOut()
+				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
+				if(master.globalPano =='subhanger')    videoPlayer("subhangar")
+			}	
+		} 
+
+    }
+
+
+
+    /* ***** Stop Function ***** */
+
+  //   this.scrollStopFunction = function(){
+
+
+  //   	console.log('STOP' + '\t' + that.percent + '% \t overlayOpen: ' + master.overlayOpen)
+
+  //   	if(that.percent <= 0) that.percent = 0.01
+		// else if(that.percent > 1) that.percent = 1
+
+		// imageSrc = master.cdn_imgseq + name + "-med-frame-"+zeroes(Math.ceil(videoLength * that.percent),4)+".jpg";
+
+  //      video.currentTime = currentTime;
+  //      context.drawImage(video, 0, 0,w,h);
+
+
+  //       if(walkthroughvideo) {
+		// 	if(that.percent > 0.9 && !master.overlayOpen){
+		// 		that.autoplay = false;
+		// 		$('.scroll-directions').fadeOut()
+		// 		if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
+		// 		if(master.globalPano =='subhanger')    videoPlayer("subhangar")
+		// 	}	
+		// }
+
+  //   }
+              
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*************************************************************************
 
 	
@@ -1168,21 +1522,22 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 	    return min2 + (max2 - min2) * ((value - min1) / (max2 - min1));
 	}
 
-	var that = this;
-	var w,h;
+	var that = this,
+		w,h;
 
-	resizeGhost = function(){
+	var canvas = document.getElementById(canvasid);
+	canvas.width  = 320
+	canvas.height = 180;
+
+
+	this.resize = function(){
 		w = master.globals.contain.w;
 		h = master.globals.contain.h;
 		canvas.style.width = w + 'px'
 		canvas.style.height = h + 'px'
 	}
-	
-	var canvas = document.getElementById(canvasid);
-	canvas.width  = 320
-	canvas.height = 180;
+	master.debouncedResize();
 
-	resizeGhost();
 	
 	var context = canvas.getContext('2d');
 	//context.globalCompositeOperation = "source-atop"
@@ -1191,8 +1546,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 		playHead=1,
 		ghostTimeout;
 
-	$(window).off('resize.ghost')
-	$(window).on('resize.ghost',resizeGhost)
+	
 
 	this.killGhost = function(){
 
@@ -1572,6 +1926,10 @@ function videoPlayer(group, playerFadeTransition){
 
 	if(master.overlayOpen === true) return;
 
+	// hook into global resize function
+	master.resize.videoplayer = true;
+	master.debouncedResize();
+
 	master.ghostBuster = true
 	master.overlayOpen = true
 	master.soundTrigger = true
@@ -1635,24 +1993,6 @@ function videoPlayer(group, playerFadeTransition){
 		})
 
 	})
-
-
-	// Video resize ---------------------------------------------------------
-
-	function resizeVideoPlayer(){
-		$("#video-overlay").css({
-			'top' : master.globals.contain.t,
-			'left' : master.globals.contain.l,
-			'width' : master.globals.contain.w,
-			'height' : master.globals.contain.h
-		})
-
-		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)
-	}
-
-	$(window).off('resize.video')
-	$(window).on('resize.video',resizeVideoPlayer)
-	resizeVideoPlayer();
 
 	// Video Controls ---------------------------------------------------------
 
@@ -1922,6 +2262,7 @@ function closeVideoPlayer(){
 
 	setTimeout(function() {
 		master.overlayOpen = false;
+		master.resize.videoplayer = false;
 	}, 500)
 }
 

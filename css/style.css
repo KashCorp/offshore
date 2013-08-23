@@ -1022,6 +1022,12 @@ height:100%;
   	WALKTHROUGH
 \* ========================================================================== */
 
+/* dummy dom element */
+#walkthrough-vid {
+	display: none;
+}
+
+
 /* walkthrough X button */
 #walking-exit {
 	cursor:pointer;

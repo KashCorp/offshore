@@ -100,6 +100,9 @@
 		loadscene(theatre, null, MERGE);
 	</action>
 
+
+
+	<!-- lookto(horizontal, vertical, fieldofview, motiontype, shortestway, nonblocking, callback) -->
 	
 	                   
 
@@ -138,7 +141,8 @@
 	 			ath="211"
 	 			atv="-13"
 	 			distorted="true"
-	 			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),90))"
+	 			onclick="lookto(0,40,180,smooth(),true,true,js(videoPlayer(prologue)));
+	 					 js(setCache(-9,90))"
 	 			scale="1.0"
 	 			capture="false"
 	 			/>
@@ -152,7 +156,8 @@
 				height="75"
 				width="75"
 				scale="1.0"
-				onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(prologue)));js(setCache(get(view.hlookat),90))"
+				onclick="lookto(0,40,180,smooth(),true,true,js(videoPlayer(prologue)));
+						 js(setCache(-9,90))"
 				capture = "false"
 				/>
 
@@ -166,7 +171,7 @@
 	###########################################################################
 		
 
-		Helicopter
+		> Helicopter
 	
 	###########################################################################
 	####################################################################### -->
@@ -179,7 +184,7 @@
 
 
 		<view 
-			hlookat="-9"
+			hlookat="160"
 			fov="90.0"
 			fovmax="120.0"
 			fovmin="10.0"
@@ -263,7 +268,7 @@
 	###########################################################################
 		
 
-		Platform
+		> Platform
 	
 	###########################################################################
 	####################################################################### -->
@@ -378,7 +383,7 @@
 	###########################################################################
 		
 
-		Lower Platform
+		> Lower Platform
 	
 	###########################################################################
 	####################################################################### -->
@@ -501,7 +506,7 @@
 		###########################################################################
 			
 
-			BOAT
+			> BOAT
 		
 		###########################################################################
 		####################################################################### -->
@@ -658,7 +663,7 @@
 		###########################################################################
 			
 
-			Sub Hanger
+			> Sub Hanger
 		
 		###########################################################################
 		####################################################################### -->
@@ -805,7 +810,7 @@
 	###########################################################################
 		
 
-		Chemical Room
+		> Chemical Room
 	
 	###########################################################################
 	####################################################################### -->
@@ -1074,7 +1079,7 @@
 	###########################################################################
 		
 
-		Control Room
+		> Control Room
 	
 	###########################################################################
 	####################################################################### -->
@@ -1397,7 +1402,7 @@
 	###########################################################################
 		
 
-		Hallway
+		> Hallway
 	
 	###########################################################################
 	####################################################################### -->
@@ -1612,7 +1617,7 @@
 	###########################################################################
 		
 
-		Submarine (ROV)
+		> Submarine (ROV)
 	
 	###########################################################################
 	####################################################################### -->
@@ -1741,7 +1746,7 @@
 	###########################################################################
 		
 
-		Theatre
+		> Theatre
 	
 	###########################################################################
 	####################################################################### -->
@@ -1762,7 +1767,7 @@
 			
 		<image>
 		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_f.png" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_f.jpg" />
 		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_r.jpg" />
 		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_b.jpg" />
 		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_u.jpg" />
@@ -1856,7 +1861,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="30.0"
-			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(subhanger)))"
+			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
@@ -1868,7 +1873,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="90.0"
-			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(subhanger)))"
+			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
@@ -1884,7 +1889,7 @@
 			alpha="0.0"
 			height="90.0"
 			width="50.0"
-			onclick="js(newPano(hallway))"
+			onclick="js(newPano(subhanger))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"

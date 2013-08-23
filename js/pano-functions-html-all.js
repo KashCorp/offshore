@@ -367,7 +367,11 @@ var pano_master = function(){
                 // walkthrough
                 var scrollTrigger=false;
                 $("#walking-canvas-pano").removeClass('hide')
+                
                 that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
+
+                // that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
+
                 // that.panoWalkthrough.preload()
                 $('.hotspot').addClass('engineroom')
 
@@ -893,8 +897,6 @@ var pano_master = function(){
             walkthrough = that.walkthrough; 
 
             // JUST USE SCROLL PERCENT HERE
-
-            scrollPercent = Math.ceil((walkthrough.scrollValue / (5000-$(window).height())) * 100);
 
             if(sequenceHasWords) { // SHAFTWAY
 
