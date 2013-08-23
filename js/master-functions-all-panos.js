@@ -95,9 +95,12 @@ var masterFunctions = function() {
     var navInterval = setTimeout(delayNavSlide, 5000); 
      
     $('.breadcrumb').mouseover(function() {
-     	clearInterval(navInterval);
-        $(".breadcrumb").animate({'bottom': '0'}, 500)
-       // $("#offshorelogo").animate({'bottom': '25'}, 500)
+    	if(!master.overlayOpen) {
+			clearInterval(navInterval);
+		   $(".breadcrumb").animate({'bottom': '0'}, 500)
+		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
+    	}
+
     });
  
  
