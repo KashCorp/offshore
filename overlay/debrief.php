@@ -21,26 +21,26 @@
   <div class="container">
 
     <div class="flipbook">
-      <div class="hard" style="background-image:url(../images/debrief_front.png)"></div>
-      <div class="hard" style="background-image:url(../images/folder_left.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/debrief/debrief_front.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_left.png)"></div>
 
-      <div class="hard" style="background-image:url(../images/debrief/MatthewJacobs.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/field_data/blank_paper.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/debrief/MatthewJacobs.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>
 
-      <div class="hard"  style="background-image:url(../images/debrief/MicahSandell.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/debrief/MicahSandell.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>
 
-      <div class="hard"  style="background-image:url(../images/debrief/MikeWilliams.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>     
+      <div class="hard"  style="background-image:url(../images/books/debrief/MikeWilliams.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>     
 
-      <div class="hard"  style="background-image:url(../images/debrief/SteveDavis.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>   
+      <div class="hard"  style="background-image:url(../images/books/debrief/SteveDavis.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>   
 
-      <div class="hard"  style="background-image:url(../images/debrief/TyroneBenton.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>     
+      <div class="hard"  style="background-image:url(../images/books/debrief/TyroneBenton.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>     
 
-      <div class="hard" style="background-image:url(../images/folder_right.png)"></div>
-      <div class="hard" style="background-image:url(../images/folder_back.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_right.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_back.png)"></div>
 
     </div>
   </div>

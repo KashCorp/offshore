@@ -179,10 +179,6 @@
 
 	<scene name="helicopter">
 
-
-
-
-
 		<view 
 			hlookat="160"
 			fov="90.0"
@@ -193,12 +189,12 @@
 			hlookatmax ="NaN"
 			vlookatmin ="20"
 			vlookatmax ="-45"
-			/>
+		/>
 
 		<image>
 			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/helicopter_pano_%s.jpg" />
 	    	<tablet>
-		        <cube  url="../images/panos/helicopter/512/pano_%s.jpg" /> 
+		        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/helicopter_pano_%s.jpg" /> 
     		</tablet>
 		</image>
 
@@ -248,7 +244,7 @@
 			/>
 			
 
-			<hotspot name="entryhotspot" 
+		<!-- <hotspot name="entryhotspot" 
 			url="../images/panos/platform/hotspots/entry.png"
 			alturl="../images/panos/platform/hotspots/entry.png"
 			ath="76"
@@ -258,7 +254,7 @@
 			visible="false"
 			onclick="lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))"
 			scale="0.6"
-			/>
+			/> -->
 
 	</scene>
 
@@ -291,7 +287,7 @@
 			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg"/>	
 
 			<tablet>
-		        <cube  url="../images/panos/platform/512/pano_%s.jpg" /> 
+		        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/platform_pano_%s.jpg" /> 
     		</tablet>
 
 		</image>
@@ -406,7 +402,7 @@
 		    <cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_%s.jpg" />
 
 			<tablet>
-		        <cube  url="../images/panos/lowerplatform/512/pano_%s.jpg" /> 
+		        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/lowerplatform_pano_%s.jpg" /> 
     		</tablet>		    
 		</image>
 
@@ -530,7 +526,7 @@
 				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_%s.jpg" />
 
 			    <tablet>
-			        <cube  url="../images/panos/boat/512/pano_%s.jpg" />
+			        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/boat_pano_%s.jpg" />
 	    		</tablet>	
 			</image>
 	<!--
@@ -693,12 +689,12 @@
 			    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_d.jpg" />
 
 			    <tablet>
-			        <left  url="../images/panos/subhanger/512/pano_l.png" />
-			        <front url="../images/panos/subhanger/512/pano_f2.png" />
-			        <right url="../images/panos/subhanger/512/pano_r2.png" />
-			        <back  url="../images/panos/subhanger/512/pano_b.jpg" />
-			        <up    url="../images/panos/subhanger/512/pano_u.jpg" />
-			        <down  url="../images/panos/subhanger/512/pano_d.png" />    
+			        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.png" />
+			        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f2.png" />
+			        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r2.png" />
+			        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
+			        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
+			        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.png" />    
 	    		</tablet>		    
 			</image>
 
@@ -840,12 +836,12 @@
 		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="../images/panos/chemicalroom/512/pano_l.jpg" />
-		        <front url="../images/panos/chemicalroom/512/pano_f.png" />
-		        <right url="../images/panos/chemicalroom/512/pano_r.jpg" />
-		        <back  url="../images/panos/chemicalroom/512/pano_b.jpg" />
-		        <up    url="../images/panos/chemicalroom/512/pano_u.jpg" />
-		        <down  url="../images/panos/chemicalroom/512/pano_d.jpg" />    
+		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
+		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.png" />
+		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.jpg" />
+		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
+		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
+		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.jpg" />    
     		</tablet>	    
 		</image>
 
@@ -916,7 +912,7 @@
 
 
 		 <hotspot name="open_cabinet" 
-			url="../images/panos/chemicalroom/hotspots/cabinet.png"
+			url="../images/hotspots/chemicalroom/cabinet.png"
 			ath="54.4"
 			atv="-5.1"
 			distorted="true"
@@ -1110,12 +1106,12 @@
 		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_d.jpg" />
 	    	
 	    	<tablet>
-		        <left  url="../images/panos/controlroom/512/pano_l.jpg" />
-		        <front url="../images/panos/controlroom/512/pano_f.jpg" />
-		        <right url="../images/panos/controlroom/512/pano_r.jpg" />
-		        <back  url="../images/panos/controlroom/512/pano_b.png" />
-		        <up    url="../images/panos/controlroom/512/pano_u.jpg" />
-		        <down  url="../images/panos/controlroom/512/pano_d.jpg" />    
+		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
+		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.jpg" />
+		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.jpg" />
+		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.png" />
+		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
+		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.jpg" />    
     		</tablet>	
 
 		</image>
@@ -1266,7 +1262,7 @@
 		/>
 
 
-		<hotspot name="closehatch" url="../images/panos/controlroom/hotspots/hatchbutton.png"
+		<hotspot name="closehatch" url="../images/hotspots/controlroom/hatchbutton.png"
 			ath="17.95"
 			atv="-7.82"
 			distorted="true"
@@ -1320,6 +1316,7 @@
 			enabled="true"
 			alpha="0.8"
 			onclick="lookto(247,-3,10,smooth(),true,true); 
+					 js(setCache(get(view.hlookat),90))
 					 js(zoomIn());
 					 set(autorotate.enabled,false)"
 			loop="true"
@@ -1327,9 +1324,8 @@
 
 		
 		<!-- Dossier -->
-
 		<hotspot name="Filing_cabinet" 
-			url="../images/panos/controlroom/hotspots/cabinet.png"
+			
 			ath="126.9"
 			atv="16.4"
 			distorted="true"
@@ -1431,12 +1427,12 @@
 		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="../images/panos/hallway/512/pano_l.jpg" />
-		        <front url="../images/panos/hallway/512/pano_f.jpg" />
-		        <right url="../images/panos/hallway/512/pano_r.png" />
-		        <back  url="../images/panos/hallway/512/pano_b.jpg" />
-		        <up    url="../images/panos/hallway/512/pano_u.png" />
-		        <down  url="../images/panos/hallway/512/pano_d.jpg" />    
+		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
+		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.jpg" />
+		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.png" />
+		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
+		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.png" />
+		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.jpg" />    
     		</tablet>	
 
 		</image>
@@ -1646,12 +1642,12 @@
 		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_d.jpg" />
 
 		    <tablet>
-		        <left  url="../images/panos/interiorsub/512/pano_l.jpg" />
-		        <front url="../images/panos/interiorsub/512/pano_f.jpg" />
-		        <right url="../images/panos/interiorsub/512/pano_r.png" />
-		        <back  url="../images/panos/interiorsub/512/pano_b.jpg" />
-		        <up    url="../images/panos/interiorsub/512/pano_u.jpg" />
-		        <down  url="../images/panos/interiorsub/512/pano_d.png" />    
+		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
+		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.jpg" />
+		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.png" />
+		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
+		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
+		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.png" />    
     		</tablet>
 
 		</image>
@@ -1774,12 +1770,12 @@
 		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_d.jpg" />
 
 		    <tablet>
-		        <left  url="../images/panos/theatre/512/pano_l.jpg" />
-		        <front url="../images/panos/theatre/512/pano_f.png" />
-		        <right url="../images/panos/theatre/512/pano_r.jpg" />
-		        <back  url="../images/panos/theatre/512/pano_b.jpg" />
-		        <up    url="../images/panos/theatre/512/pano_u.jpg" />
-		        <down  url="../images/panos/theatre/512/pano_d.jpg" />    
+		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_l.jpg" />
+		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_f.jpg" />
+		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_r.jpg" />
+		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_b.jpg" />
+		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_u.jpg" />
+		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_d.jpg" />    
     		</tablet>		    
 		</image>
 
@@ -1894,10 +1890,6 @@
 			onout="js(resetHoverSound());"
 			scale="3.0"
 			/>
-
-
-
-
 
 
 	</scene>

@@ -97,7 +97,7 @@ var masterFunctions = function() {
     $('.breadcrumb').mouseover(function() {
     	if(!master.overlayOpen) {
 			clearInterval(navInterval);
-		   $(".breadcrumb").animate({'bottom': '0'}, 500)
+		    $(".breadcrumb").animate({'bottom': '0'}, 500)
 		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
     	}
 
@@ -110,7 +110,7 @@ var masterFunctions = function() {
     }); 
 
 
-    $('.wrapper').click(function() {
+    $('.wrapper').on('mousedown',function(){
        $('.pan-directions').fadeOut(500)
        pano.panDirectionsShown = true;
     }); 
@@ -1944,6 +1944,10 @@ function videoPlayer(group, playerFadeTransition){
 	// disable mouse events on pano container
 	$("#panocontainer").addClass('no-pointer-events')
 	$(".compass").fadeOut()
+
+	// close breadcrumb
+	// clearInterval(navInterval);
+    $(".breadcrumb").animate({'bottom': '0'}, 500)
 
 	master.bgGain = 0.5
 

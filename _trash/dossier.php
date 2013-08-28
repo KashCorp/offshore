@@ -174,10 +174,10 @@ position: absolute;
           <div id="dossier-container">
 
           <ul>
-            <li data-label="5"><img class="photo" style="top:20px;width:70%;left:60%" src="images/dossier/04.jpg"></li>
-            <li data-label="4"><img class="photo" style="top:30px;width:70%;left:20%" width="650" src="images/dossier/03.jpg"></li>
-            <li data-label="3"><img class="photo" style="top:5px;width:70%;left:40%" width="560" src="images/dossier/02.jpg"></li>
-            <li data-label="2"><img class="photo" style="top:10px;width:70%;left:80%" src="images/dossier/01.jpg"></li>
+            <li data-label="5"><img class="photo" style="top:20px;width:70%;left:60%" src="images/books/dossier/04.jpg"></li>
+            <li data-label="4"><img class="photo" style="top:30px;width:70%;left:20%" width="650" src="images/books/dossier/03.jpg"></li>
+            <li data-label="3"><img class="photo" style="top:5px;width:70%;left:40%" width="560" src="images/books/dossier/02.jpg"></li>
+            <li data-label="2"><img class="photo" style="top:10px;width:70%;left:80%" src="images/books/dossier/01.jpg"></li>
             <li data-label="1" ><img src="images/folder_front.png"></li>
           </ul>
 

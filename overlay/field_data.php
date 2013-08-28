@@ -21,31 +21,31 @@
   <div class="container">
 
     <div class="flipbook">
-      <div class="hard" style="background-image:url(../images/field_data_front.png)"></div>
-      <div class="hard" style="background-image:url(../images/folder_left.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/field_data/field_data_front.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_left.png)"></div>
 
-      <div class="hard" style="background-image:url(../images/field_data/Atlantis.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/field_data/blank_paper.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/field_data/Atlantis.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>
 
-      <div class="hard"  style="background-image:url(../images/field_data/Kaskida.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/Kaskida.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>
 
-      <div class="hard"  style="background-image:url(../images/field_data/Perdido.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>     
-
-
-      <div class="hard"  style="background-image:url(../images/field_data/Stones.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>   
+      <div class="hard"  style="background-image:url(../images/books/field_data/Perdido.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>     
 
 
-      <div class="hard"  style="background-image:url(../images/field_data/ThunderHorse.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>   
+      <div class="hard"  style="background-image:url(../images/books/field_data/Stones.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>   
 
-      <div class="hard"  style="background-image:url(../images/field_data/Tiber.jpg)"></div>
-      <div class="hard"  style="background-image:url(../images/field_data/blank_paper.jpg)"></div>   
 
-      <div class="hard" style="background-image:url(../images/folder_right.png)"></div>
-      <div class="hard" style="background-image:url(../images/folder_back.png)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/ThunderHorse.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>   
+
+      <div class="hard"  style="background-image:url(../images/books/field_data/Tiber.jpg)"></div>
+      <div class="hard"  style="background-image:url(../images/books/field_data/blank_paper.jpg)"></div>   
+
+      <div class="hard" style="background-image:url(../images/books/folder_right.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_back.png)"></div>
 
     </div>
   </div>
@@ -98,11 +98,6 @@ function loadApp() {
     h = Math.floor(h)
     t = Math.floor(t)
     l = Math.floor(l)
-
-    console.log('w: '+'\t'+w)
-    console.log('h: '+'\t'+h)
-    console.log('t: '+'\t'+t)
-    console.log('l: '+'\t'+l)
 
     if(!init) {
       init=true;

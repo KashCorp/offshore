@@ -20,23 +20,23 @@
 <div class="flipbook-viewport">
 	<div class="container">
 		<div class="flipbook">
-			<div class="hard" style="background-image:url(../images/Red_Book.jpg)"></div>
-			<div class="hard" style="background-image:url(../images/journal/techdrawing01.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/Red_Book.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/techdrawing01.jpg)"></div>
 
-			<div class="hard" style="background-image:url(../images/journal/Journal01.jpg)"></div>
-			<div class="hard" style="background-image:url(../images/journal/techdrawing04.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/Journal01.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/techdrawing04.jpg)"></div>
 
-			<div class="hard" style="background-image:url(../images/journal/Journal02.jpg)"></div>
-			<div class="hard" style="background-image:url(../images/journal/techdrawing09.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/Journal02.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/techdrawing09.jpg)"></div>
 
-			<div class="hard" style="background-image:url(../images/journal/Journal03.jpg)"></div>
-			<div class="hard" style="background-image:url(../images/journal/techdrawing05.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/Journal03.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/techdrawing05.jpg)"></div>
 
-			<div class="hard" style="background-image:url(../images/journal/techdrawing10.jpg)"></div>
-			<div class="hard" style="background-image:url(../images/journal/blank_paper.jpg)"></div>				
+			<div class="hard" style="background-image:url(../images/books/redbook/techdrawing10.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/blank_paper.jpg)"></div>				
 
-			<div class="hard" style="background-image:url(../images/journal/blank_paper.jpg)"></div>
-			<div class="hard" style="background-image:url(../images/Red_Book.jpg)"></div>										
+			<div class="hard" style="background-image:url(../images/books/redbook/blank_paper.jpg)"></div>
+			<div class="hard" style="background-image:url(../images/books/redbook/Red_Book.jpg)"></div>										
 		</div>
 	</div>
 </div>
@@ -86,11 +86,6 @@ function loadApp() {
     h = Math.floor(h)
     t = Math.floor(t)
     l = Math.floor(l)
-
-    console.log('w: '+'\t'+w)
-    console.log('h: '+'\t'+h)
-    console.log('t: '+'\t'+t)
-    console.log('l: '+'\t'+l)
 
     if(!init) {
       init=true;

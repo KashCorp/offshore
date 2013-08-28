@@ -21,26 +21,26 @@
   <!-- <div class="container"> -->
 
     <div class="flipbook">
-      <div class="hard" style="background-image:url(../images/folder_front.png)"></div>
-      <div class="hard" style="background-image:url(../images/folder_left.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_front.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_left.png)"></div>
 
-      <div class="hard" style="background-image:url(../images/dossier/spartan_brief.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/dossier/blank_paper.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/spartan_brief.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>
 
-      <div class="hard" style="background-image:url(../images/dossier/01.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/dossier/blank_paper.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/01.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>
 
-      <div class="hard" style="background-image:url(../images/dossier/02.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/dossier/blank_paper.jpg)"></div>     
+      <div class="hard" style="background-image:url(../images/books/dossier/02.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>     
 
-      <div class="hard" style="background-image:url(../images/dossier/03.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/dossier/blank_paper.jpg)"></div>   
+      <div class="hard" style="background-image:url(../images/books/dossier/03.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>   
 
-      <div class="hard" style="background-image:url(../images/dossier/04.jpg)"></div>
-      <div class="hard" style="background-image:url(../images/dossier/blank_paper.jpg)"></div>   
+      <div class="hard" style="background-image:url(../images/books/dossier/04.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>   
 
-      <div class="hard" style="background-image:url(../images/folder_right.png)"></div>
-      <div class="hard" style="background-image:url(../images/folder_back.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_right.png)"></div>
+      <div class="hard" style="background-image:url(../images/books/folder_back.png)"></div>
     </div>
 
   <!-- </div> -->
@@ -93,11 +93,6 @@ function loadApp() {
     h = Math.floor(h)
     t = Math.floor(t)
     l = Math.floor(l)
-
-    console.log('w: '+'\t'+w)
-    console.log('h: '+'\t'+h)
-    console.log('t: '+'\t'+t)
-    console.log('l: '+'\t'+l)
 
     if(!init) {
       init=true;
