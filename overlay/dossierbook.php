@@ -51,77 +51,81 @@
 
 <script type="text/javascript">
 
+$(document).ready(function(){
 
-var init = false;
+  var init = false;
 
-function loadApp() {
+  function loadApp() {
 
 
-  $(".platform-nav").click(function(){
-    parent.master.closeOverlay()
-  })
-
-  var isFF = !!window.sidebar;
-  if(!isFF) {
-    $('.close-overlay').click(function(e){
+    $(".platform-nav").click(function(){
       parent.master.closeOverlay()
     })
-  }
 
-  var w, h, t, l;
-
-  function resize(){
-
-    var ratio = 600/922,
-        w, h, t, l;
-  
-    // CONTAIN
-    w = window.innerWidth * 0.9;
-    h = w * ratio;
-  
-    if(h > window.innerHeight) {
-      h = window.innerHeight * 0.9;
-      w = h / ratio;
+    var isFF = !!window.sidebar;
+    if(!isFF) {
+      $('.close-overlay').click(function(e){
+        parent.master.closeOverlay()
+      })
     }
-  
-    t = (window.innerHeight - h) / 2;
-    l = (window.innerWidth - w) / 2;
 
-    $('.flipbook').css({ left: l, top: t })
+    var w, h, t, l;
 
-    w = Math.floor(w)
-    h = Math.floor(h)
-    t = Math.floor(t)
-    l = Math.floor(l)
+    function resize(){
 
-    if(!init) {
-      init=true;
-      $('.flipbook').turn({
-          width: w,
-          height: h,
-          elevation: 50,
-          gradients: true,
-          autoCenter: true
-      });
-    }
+      var ratio = 600/922,
+          w, h, t, l;
     
+      // CONTAIN
+      w =  parent.window.innerWidth * 0.9;
+      h = w * ratio;
+    
+      if(h > parent.window.innerHeight) {
+        h =  parent.window.innerHeight * 0.9;
+        w = h / ratio;
+      }
+    
+      t = ( parent.window.innerHeight - h) / 2;
+      l = ( parent.window.innerWidth - w) / 2;
+
+      $('.flipbook').css({ left: l, top: t })
+
+      w = Math.floor(w)
+      h = Math.floor(h)
+      t = Math.floor(t)
+      l = Math.floor(l)
+
+      if(!init) {
+        init=true;
+        $('.flipbook').turn({
+            width: w,
+            height: h,
+            elevation: 50,
+            gradients: true,
+            autoCenter: true
+        });
+      }
+      
+    }
+
+    $(window).on('resize.turn',resize)
+    resize();
+
+    $(document).on('touchmove',  function(e) { e.preventDefault(); });
   }
 
-  $(window).on('resize.turn',resize)
-  resize();
+  // Load the HTML4 version if there's not CSS transform
 
-  $(document).on('touchmove',  function(e) { e.preventDefault(); });
-}
+  yepnope({
+    test : Modernizr.csstransforms,
+    yep: ['../js/lib/turn/turn.js'],
+    nope: ['../js/lib/turn/turn.html4.min.js'],
+    both: ['../css/basicbook.css'],
+    complete: loadApp
+  });
+})
 
-// Load the HTML4 version if there's not CSS transform
 
-yepnope({
-  test : Modernizr.csstransforms,
-  yep: ['../js/lib/turn/turn.js'],
-  nope: ['../js/lib/turn/turn.html4.min.js'],
-  both: ['../css/basicbook.css'],
-  complete: loadApp
-});
 
 </script>
 
