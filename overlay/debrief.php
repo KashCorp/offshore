@@ -76,16 +76,16 @@ function loadApp() {
         w, h, t, l;
   
     // CONTAIN
-    w = window.innerWidth * 0.9;
+    w = parent.window.innerWidth * 0.9;
     h = w * ratio;
   
-    if(h > window.innerHeight) {
-      h = window.innerHeight * 0.9;
+    if(h > parent.window.innerHeight) {
+      h = parent.window.innerHeight * 0.9;
       w = h / ratio;
     }
   
-    t = (window.innerHeight - h) / 2;
-    l = (window.innerWidth - w) / 2;
+    t = (parent.window.innerHeight - h) / 2;
+    l = (parent.window.innerWidth - w) / 2;
 
     $('.flipbook').css({ left: l, top: t })
 
