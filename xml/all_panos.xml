@@ -1262,7 +1262,7 @@
 		/>
 
 
-		<hotspot name="closehatch" url="../images/hotspots/controlroom/hatchbutton.png"
+		<hotspot name="closehatch" url="../images/hotspots/hatchbutton.png"
 			ath="17.95"
 			atv="-7.82"
 			distorted="true"

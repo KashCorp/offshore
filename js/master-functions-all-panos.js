@@ -265,16 +265,19 @@ var masterFunctions = function() {
       		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)	
       	}
 
-      	if(pano.panoWalkthrough) {
-      		pano.panoWalkthrough.resize();
-      	}
-      	if(pano.walkthrough) {
-      		pano.walkthrough.resize();
-      	}
+      	if(pano) {
+      		if(pano.panoWalkthrough) {
+      			pano.panoWalkthrough.resize();
+      		}
+      		if(pano.walkthrough) {
+      			pano.walkthrough.resize();
+      		}
 
-      	if(pano.ghostTransition) {
-      		pano.ghostTransition.resize();
+      		if(pano.ghostTransition) {
+      			pano.ghostTransition.resize();
+      		}
       	}
+      	
     	
     }
 

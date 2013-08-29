@@ -68,6 +68,8 @@ var pano_master = function(){
         sequenceHasWords,
         linkForward, 
         linkBack;
+
+    var overLayFile, underlayFile, underlayMute, underlayMuted
             
 
     if(parent.location.hash.slice(1)) globalPano = parent.location.hash.slice(1)
@@ -553,7 +555,6 @@ var pano_master = function(){
     **************************************************************************/
  
 
-    var overLayFile, underlayFile, underlayMute, underlayMuted
 
     $.ajax({
         url: 'js/videoMatrix.json',
