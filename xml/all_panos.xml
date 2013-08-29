@@ -88,8 +88,8 @@
 		loadscene(controlroom, null, MERGE);
 	</action>
 
-	<action name="subhanger">
-		loadscene(subhanger, null, MERGE);
+	<action name="subhangar">
+		loadscene(subhangar, null, MERGE);
 	</action>
 
 	<action name="submarine">
@@ -534,7 +534,7 @@
 			<image devices="Mobile">      <cube url="../images/panos/boat/mobile_%s.jpg" /> </image>
 			<image devices="Tablet">      <cube url="../images/panos/boat/pano_%s.jpg../images/panos/boat/pano_%s.jpg" /> </image>
 	-->
-			<plugin name="directions"
+			<!-- <plugin name="directions"
 				url="../images/panos/platform/hotspots/directions.png"
 				capture="false"
 				align="top"
@@ -542,7 +542,7 @@
 				y="60"
 				alpha="0.0"
 				visible="true"
-				/>
+				/> -->
 				
 
 			<hotspot name="into_sub" 
@@ -552,7 +552,7 @@
 				distorted="true"
 				alpha="0.0"
 				height="60.0"
-				onclick="lookto(90,-8,10,smooth(),true,true,js(newPano(subhanger)));js(setCache(get(view.hlookat),90))"
+				onclick="lookto(90,-8,10,smooth(),true,true,js(newPano(subhangar)));js(setCache(get(view.hlookat),90))"
 
 				scale="1.0"
 				capture="false"
@@ -666,7 +666,7 @@
 
 
 
-		<scene name="subhanger">
+		<scene name="subhangar">
 
 			<view 
 				hlookat="-10"
@@ -912,7 +912,7 @@
 
 
 		 <hotspot name="open_cabinet" 
-			url="../images/hotspots/chemicalroom/cabinet.png"
+			url="../images/hotspots/cabinet.png"
 			ath="54.4"
 			atv="-5.1"
 			distorted="true"
@@ -1262,7 +1262,7 @@
 		/>
 
 
-		<hotspot name="closehatch" url="../images/hotspots/controlroom/hatchbutton.png"
+		<hotspot name="closehatch" url="../images/hotspots/hatchbutton.png"
 			ath="17.95"
 			atv="-7.82"
 			distorted="true"
@@ -1728,7 +1728,7 @@
 			atv="10"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(newPano(subhanger))"
+			onclick="js(newPano(subhangar))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="10.0"
@@ -1885,7 +1885,7 @@
 			alpha="0.0"
 			height="90.0"
 			width="50.0"
-			onclick="js(newPano(subhanger))"
+			onclick="js(newPano(subhangar))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"

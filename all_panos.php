@@ -40,10 +40,6 @@
 
   <!-- <div class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div> -->
 
-  <video id="walkthrough-vid"></video>
-
-
-
   <div id="scroll-wrapper" class="wrapper">
     
     <canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>

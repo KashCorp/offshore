@@ -641,7 +641,7 @@ var masterFunctions = function() {
 	    }
 
 	    $("#video-underlay").fadeOut(1000, function() {        
-	        $('#video-underlay source').attr('src', _id + videoType);
+	        $('#video-underlay source').attr('src', _id + master.videoType);
 	        $('#video-underlay video').load();
 	        $("#video-underlay")[0].load()
 	        $("#video-underlay")[0].play()
@@ -918,7 +918,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	**************************************************************************/
 	
 	var walkthroughvideo = false;
-	if(master.globalPano =='chemicalroom' || master.globalPano =='subhanger') walkthroughvideo = true;
+	if(master.globalPano =='chemicalroom' || master.globalPano =='subhangar') walkthroughvideo = true;
 	console.log('walkthroughvideo: '+'\t'+walkthroughvideo)
 
 	if(walkthroughvideo) {
@@ -1134,7 +1134,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 				that.autoplay = false;
 				$('.scroll-directions').fadeOut()
 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhanger')    videoPlayer("subhangar")
+				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
 			}	
 		} 
 
@@ -1163,7 +1163,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 				that.autoplay = false;
 				$('.scroll-directions').fadeOut()
 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhanger')    videoPlayer("subhangar")
+				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
 			}	
 		}
 
@@ -1199,8 +1199,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 var Walkthrough = function(canvasID,name,videoLength) {
 	
 	var that = this,
-		w = master.globals.contain.w,
-		h = master.globals.contain.h,
+		w = master.globals.cover.w,
+		h = master.globals.cover.h,
     	that = this
 
 	this.maxScrollerPos = $('.scroll-directions-container').height()
@@ -1212,39 +1212,30 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
     var mouseWheelTimeout;
 
-    // var oddOnly = false;
-    // if(imageNumber > 200) oddOnly = true;
-
     var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
     var scrollerPosStart = 0
 
     this.percent = 0 // MASTER VARIABLE (everything runs off this)
 
-    var playSpeed = (100/videoLength)/100;
-    // if(!oddOnly) playSpeed = playSpeed / 2;
+    var playSpeed = 1/(videoLength*60) // in frames!
 
-	var video = document.getElementById('walkthrough-vid');
-	video.src=master.cdn_video + name + '.mp4'; // videoType
+    // Load Video ********************************************************
+	var video = document.createElement('video')
+	video.setAttribute('src', master.cdn_video + 'transition-' + name + master.videoType);
 	video.load();
 
-	video.oncanplaythrough = function(){
-		console.log('walkthrough vid LOADED')
-		context.drawImage(video,0,0,w,h);
-	}
+	video.removeEventListener('canplaythrough');
+	video.addEventListener('canplaythrough', function(e) {
+		e.stopPropagation()
+		context.drawImage(video,0,0,w+3,h+5);
+	})
 
-	// keep
-    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'));
-    var scrollerPosStart = 0;
-
-    // MASTER CONTROL VARIABLE
-    this.percent = 0;
-
-
-	// Walkthrough Video ---------------------------------------------------------
+	// Init/Close ********************************************************
+	
 	// (additional logic in scrollFunction and scrollStopFunction)
 	
 	var walkthroughvideo = false;
-	if(master.globalPano =='chemicalroom' || master.globalPano =='subhanger') walkthroughvideo = true;
+	if(master.globalPano =='chemicalroom' || master.globalPano =='subhangar') walkthroughvideo = true;
 	console.log('walkthroughvideo: '+'\t'+walkthroughvideo)
 
 	if(walkthroughvideo) {
@@ -1253,31 +1244,30 @@ var Walkthrough = function(canvasID,name,videoLength) {
 			that.closeWalkthroughVid()
 		});
 
+		$('#video-overlay').off('ended')
 		$('#video-overlay').on('ended',function(){
-			// reset walkthrough
-			that.percent = 0.01
-		    $( ".scroll-directions" ).css('top',0)
-			that.scrollFunction()
-		})
-	}
+			that.closeWalkthroughVid();
+		});
+	};
 
     this.closeWalkthroughVid = function(){
 
-    	console.log('CLOSE WALKTHROUGH')
+    	console.log('[X] Close Walkthrough')
 
     	if(!master.overlayOpen) {
 			$('#panocontainer, .fastpan, .compass').fadeIn(500)
 
 			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-		        that.percent = 0.01
-			    $( ".scroll-directions" ).css('top',0)
-			    // that.scrollStopFunction()
+		        that.percent = 0
+    			that.scrollFunction()
+    			scrollerPos = 0;
+    		    $( ".scroll-directions" ).css('top',0)
 		    })
     	} else {
-	        that.percent = 0.01
+	        that.percent = 0
+			that.scrollFunction()
+			scrollerPos = 0;
 		    $( ".scroll-directions" ).css('top',0)
-		    // that.scrollStopFunction()
-		    // closeVideoPlayer() // INFINITE LOOOOOOP
     	}
 
     	krpano = document.getElementById("krpanoObject");
@@ -1285,7 +1275,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
     }
 
-	// auto resize ---------------------------------------------------------
+	// Auto Resize ********************************************************
 
 	this.resize = function(){
 		that.maxScrollerPos = window.innerHeight - 300
@@ -1293,15 +1283,18 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
 
 		$(canvas).css({
-			'width' :  master.globals.contain.w,
-			'height' : master.globals.contain.h,
-			'top' :    master.globals.contain.t
+			'width' :  master.globals.cover.w,
+			'height' : master.globals.cover.h,
+			'top' :    master.globals.cover.t,
+			'left' :   master.globals.cover.l
 		})
 	}
 
 	master.debouncedResize();
 
-    // Autoplay -----------------------------------------------------------
+
+
+    // Autoplay Trigger ********************************************************
 
     this.autoplay = false
 
@@ -1310,13 +1303,15 @@ var Walkthrough = function(canvasID,name,videoLength) {
     	e.stopPropagation()
 
     	if(that.autoplay) {
-    		console.log('AUTOPAUSE ||')
-    		that.autoplay=false
+    		console.log('PAUSE ||')
+    		that.autoplay = false
     	} else {
-    		console.log('AUTOPAUSE >')
+    		console.log('PLAY >')
     		that.autoplay = true
-    		that.play()
+    		// video.play();
     	}
+
+  		that.play()
     	
     })
 
@@ -1324,42 +1319,21 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
     	if(that.autoplay) {
     		that.percent += playSpeed
+    		// that.percent = video.currentTime / videoLength;
     		advance()
     	} else {
+    		// video.pause();
     		return false;
     	}
 
     }
 
-    // advance = function(scrollerPos){
-    advance = function(){
 
-    	// sanity check
-    	if(that.percent > 1) {
-    		that.percent = 1;
-    		// that.scrollStopFunction()
-    		clearTimeout(mouseWheelTimeout)
-    		return
-    	}
-    	else if(that.percent < 0) {
-    		that.percent = 0.01
-    		// that.scrollStopFunction()
-    		clearTimeout(mouseWheelTimeout)
-    		return
-    	}
-
-	    // update scroll thumb
-		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
-
-		that.scrollFunction()
-    }
-
-    // end Autoplay functionality
-
-
-    // Dragging/Mousewheel Functionality ********************************************************
+    /* ***** Scroll Thumb/Mousewheel ***** */
 
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
+
+		/* ***** Scroll Thumb ***** */
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
 	   		$( ".scroll-directions" ).draggable({ 
 	   			axis: "y",
@@ -1378,6 +1352,8 @@ var Walkthrough = function(canvasID,name,videoLength) {
 			});
 	   	});
 
+		/* ***** Mouse Wheel ***** */
+
 		if(document.getElementById('scroll-wrapper')){
 		   	if ($("#scroll-wrapper")[0].addEventListener) {
 	        	$("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false); // IE9, Chrome, Safari, Opera
@@ -1390,7 +1366,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 	        var e = window.event || e; // old IE support
 	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
 
-	        that.percent -= playSpeed * delta
+	        that.percent -= (playSpeed*5) * delta
 
 	        advance()
 
@@ -1404,11 +1380,27 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 	});
 
-	
-    function zeroes(num, length) {
-        var str = '' + num;
-        while (str.length < length) str = '0' + str;
-        return str;
+
+    /* ***** Advance ***** */
+
+    advance = function(){
+
+    	// sanity check
+    	if(that.percent > 1) {
+    		that.percent = 1;
+    		clearTimeout(mouseWheelTimeout)
+    		return
+    	}
+    	else if(that.percent < 0) {
+    		that.percent = 0.01
+    		clearTimeout(mouseWheelTimeout)
+    		return
+    	}
+
+	    // update scroll thumb
+		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
+
+		that.scrollFunction()
     }
     
 
@@ -1420,63 +1412,21 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
 
-		var currentTime = Math.ceil(videoLength * that.percent)
-
-		// if(oddOnly) {
-		// 	// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
-		// 	if (currentTime % 2 == 0 && currentTime < videoLength) currentTime++
-
-		// 	if (currentTime % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentTime,4)+".jpg";
-		// }
-		// else {
-		// 	imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentTime,4)+".jpg";
-		// }
+		var currentTime = videoLength * that.percent
 
 		video.currentTime = currentTime;
-		context.drawImage(video, 0, 0,w,h);
-
-		console.log('currentTime: '+'\t'+currentTime)
-
+		context.drawImage(video,0,0,w+3,h+5);
 
 		if(walkthroughvideo) {
 			if(that.percent > 0.9 && !master.overlayOpen){
 				that.autoplay = false;
 				$('.scroll-directions').fadeOut()
 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhanger')    videoPlayer("subhangar")
+				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
 			}	
 		} 
 
     }
-
-
-
-    /* ***** Stop Function ***** */
-
-  //   this.scrollStopFunction = function(){
-
-
-  //   	console.log('STOP' + '\t' + that.percent + '% \t overlayOpen: ' + master.overlayOpen)
-
-  //   	if(that.percent <= 0) that.percent = 0.01
-		// else if(that.percent > 1) that.percent = 1
-
-		// imageSrc = master.cdn_imgseq + name + "-med-frame-"+zeroes(Math.ceil(videoLength * that.percent),4)+".jpg";
-
-  //      video.currentTime = currentTime;
-  //      context.drawImage(video, 0, 0,w,h);
-
-
-  //       if(walkthroughvideo) {
-		// 	if(that.percent > 0.9 && !master.overlayOpen){
-		// 		that.autoplay = false;
-		// 		$('.scroll-directions').fadeOut()
-		// 		if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-		// 		if(master.globalPano =='subhanger')    videoPlayer("subhangar")
-		// 	}	
-		// }
-
-  //   }
               
 }
 
@@ -1708,11 +1658,7 @@ function panoComplete(){
 
 	console.log('PANO COMPLETE')
 
-	if(!isPreloaded)
-		preloader();
-
-	if(pano.panoWalkthrough)
-		pano.panoWalkthrough.preload()
+	if(!isPreloaded) preloader();
 
 	//$('.loading').fadeOut(500)
 	$('#panocontainer').fadeIn(1000,function(){
@@ -1842,7 +1788,7 @@ var soundadjust = function(coord,fov) {
 
 
 	/* sequences */
-	if(master.globalPano === 'chemicalroom' || master.globalPano === 'subhanger' ) {
+	if(master.globalPano === 'chemicalroom' || master.globalPano === 'subhangar' ) {
 	
 		// fade in walkthrough	  
 		if(fov < 25 && !master.overlayOpen) {
@@ -1947,7 +1893,7 @@ function videoPlayer(group, playerFadeTransition){
 
 	// close breadcrumb
 	// clearInterval(navInterval);
-    $(".breadcrumb").animate({'bottom': '0'}, 500)
+    $(".breadcrumb").animate({'bottom': '-40px'}, 500)
 
 	master.bgGain = 0.5
 
@@ -2139,8 +2085,6 @@ function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
-	//
-
 	if(master.isIOS) {
 		var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
 		iosControls.removeClass('hide')
@@ -2149,9 +2093,7 @@ function switchVideo(_id,_text){
 
 	if(parent.audiomaster.mix.getTrack('overlay_02')){
 
-
         parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
-
 
     }
 

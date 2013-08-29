@@ -43,27 +43,22 @@
       background-image: url(../images/rig_map/RIGMAP.jpg);
     }
 
+    .overlay_image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+    }
+
     @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi),(min-width: 1024px) {
       .map_image {
         background-image: url(../images/rig_map/RIGMAP@2x.jpg);
       }
     }
 
-    /*.map_images {
-      position: absolute;
-      font-size: 0;
-    }
-
-      .map_images div {
-        position:relative;
-        float: left;
-        padding: 0;
-        margin: 0;
-        
-        cursor: pointer;
-      }
-*/
-    /* Labels */
+    /******* Labels *******/
 
     .map_labels {
     }
@@ -92,46 +87,113 @@
           color: black;
           background: #ecc60a;
         }
+      
 
-      .map_labels .platform {
-        left: 45%;
-        top: 22.5%;
+      /******* Here Label Positions *******/
+  
+      .hereLabel {
+        position: absolute;
+        display: none;
+        background: #ecc60a;
+        padding: 0.25% 0.5%;
+
+        -webkit-transition: opacity 1s ease-out;
+        -moz-transition: opacity 1s ease-out;
+        -ms-transition: opacity 1s ease-out;
+        -o-transition: opacity 1s ease-out;
+        transition: opacity 1s ease-out;
+        
       }
 
-      .map_labels .hallway {
-        left: 56%;
-        top: 44%;
+      .hereLabel .text {
+        
+        display: inline-block;
+        position: relative;
+
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+
+        text-align: left;
+        font-weight: bold;
+        letter-spacing: -1px;
+        white-space: nowrap;
+        text-align: center;
+        color: black;
+        font-size: 0.8em;
       }
 
-      .map_labels .boat {
-        left: 83%;
-        top: 78%;
+      .hereLabel .disc {
+        width: 0.8em;
+        height: 0.8em;
+        border-radius: 100%;
+        background: black;
+        display: inline-block;
+        position: relative;
       }
 
-      .map_labels .controlroom {
-        left: 59%;
-        top: 18%;
+      .hereLabel .arrow {
+        width: 0;
+        height: 0;
+        border-left: .3em solid transparent;
+        border-right: .3em solid transparent;
+        border-top: .6em solid #ecc60a;
+        margin: .2em auto;
       }
 
-      .map_labels .theater {
-        left: 50%;
-        top: 56%;
+      .hereLabel.platform {
+        left: 42.5%;
+        top: 15.5%;
+        display: block;
       }
 
-      .map_labels .chemicalroom {
+      .hereLabel.lowerplatform {
+        left: 47%;
+        top: 18.5%;
+        display: block;
+      }
+
+      .hereLabel.hallway {
         left: 55%;
-        top: 74%;
+        top: 36%;
+        display: block;
       }
 
-      .map_labels .subhanger {
-        left: 68%;
-        top: 80%;
+      .hereLabel.boat {
+        left: 76%;
+        top: 54%;
+        display: block;
+      }
+
+      .hereLabel.controlroom {
+        left: 57%;
+        top: 10%;
+        display: block;
+      }
+
+      .hereLabel.theatre {
+        left: 54%;
+        top: 45%;
+        display: block;
+      }
+
+      .hereLabel.chemicalroom {
+        left: 53%;
+        top: 54%;
+        display: block;
+      }
+
+      .hereLabel.subhangar {
+        left: 62%;
+        top: 60%;
+        display: block;
       }
 
 
 
 
-    /* Legend */
+    /******* Legend *******/
     
     .map_legend {
       position: absolute;
@@ -144,7 +206,7 @@
         width: 100%;
 
         background:#000000;
-        margin-bottom: 10%;
+        margin-bottom: 8%;
         padding: 2% 3%;
         cursor:pointer;
         
@@ -176,114 +238,10 @@
       .map_legend div.visited { background-color: #6B6661; } 
       .map_legend div.visited span { color: #6B6661; }
 
-
-
-
-
-  /*
-
-    Images
-  
-    map: 850x634
-
-  */
-
-  /*.map_images div {
-    position: absolute;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-  }
-
-  .map_images { 
-      width: 100%;
-      height: 100%;
-  }
-
-  #rigmap_01 {
-      width: 38.58800%;
-      height: 100.00000%;
-      top: 0%;
-      left: 0%;
-  }
-
-  #rigmap_02 {
-      width: 61.41100%;
-      height: 16.87600%;
-      top: 0%;
-      left: 38.5%;
-  }
-
-  #rigmap_03 {
-      width: 20.11700%;
-      height: 29.17900%;
-      top: 16.87600%;
-      left: 38.5%;
-  }
-
-  #rigmap_04 {
-      width: 41.29400%;
-      height: 29.17900%;
-      top: 16.87600%;
-      left: 58.617%;
-  }
-
-  #rigmap_05a {
-      width: 61.41100%;
-      height: 6.62400%;
-      bottom: 47.318%;
-      left: 38.5%;
-  }
-
-  #rigmap_05b {
-      width: 61.41100%;
-      height: 11.35600%;
-      bottom: 35.96200%;
-      left: 38.5%;
-  }
-
-  #rigmap_06 {
-      width: 26.35200%;
-      height: 35.96200%;
-      bottom: 0%;
-      left: 38.588%;
-  }
-
-  #rigmap_07 {
-      width: 14.11700%;
-      height: 35.96200%;
-      bottom: 0%;
-      left: 64.852%;
-  }
-
-  #rigmap_08 {
-      width: 20.94100%;
-      height: 35.96200%;
-      bottom: 0%;
-      left: 78.969%;
-  }
-  
-  #rigmap_01  { background-image: url(../images/rig_map/rig_map_01.jpg) }
-  #rigmap_02  { background-image: url(../images/rig_map/rig_map_02.jpg) }
-  #rigmap_03  { background-image: url(../images/rig_map/rig_map_03.jpg) }
-  #rigmap_04  { background-image: url(../images/rig_map/rig_map_04.jpg) }
-  #rigmap_05a { background-image: url(../images/rig_map/rig_map_05a.jpg) }
-  #rigmap_05b { background-image: url(../images/rig_map/rig_map_05b.jpg) }
-  #rigmap_06  { background-image: url(../images/rig_map/rig_map_06.jpg) }
-  #rigmap_07  { background-image: url(../images/rig_map/rig_map_07.jpg) }
-  #rigmap_08  { background-image: url(../images/rig_map/rig_map_08.jpg) }
-
-  @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi),(min-width: 1024px) {
-    #rigmap_01  { background-image: url(../images/rig_map/rig_map_01@2x.jpg) }
-    #rigmap_02  { background-image: url(../images/rig_map/rig_map_02@2x.jpg) }
-    #rigmap_03  { background-image: url(../images/rig_map/rig_map_03@2x.jpg) }
-    #rigmap_04  { background-image: url(../images/rig_map/rig_map_04@2x.jpg) }
-    #rigmap_05a { background-image: url(../images/rig_map/rig_map_05a@2x.jpg) }
-    #rigmap_05b { background-image: url(../images/rig_map/rig_map_05b@2x.jpg) }
-    #rigmap_06  { background-image: url(../images/rig_map/rig_map_06@2x.jpg) }
-    #rigmap_07  { background-image: url(../images/rig_map/rig_map_07@2x.jpg) }
-    #rigmap_08  { background-image: url(../images/rig_map/rig_map_08@2x.jpg) }
-  }*/
+      .map_legend div.here { 
+        background: #ecc60a !important;
+        color: black;
+      }
 
 
 
@@ -296,22 +254,17 @@
   <!-- Rig Map -->
   <div id="map-container"> 
 
-    <!-- <div class="map_images">
-      <div style="cursor:default"  id="rigmap_01"><img data-baseurl=".././images/rig_map/rig_map_01"></div>
-      <div style="cursor:default"  id="rigmap_02"><img data-baseurl=".././images/rig_map/rig_map_02"></div>
-
-      <div data-url="platform"     id="rigmap_03">  <img data-baseurl="../images/rig_map/rig_map_03">  </div>
-      <div data-url="controlroom"  id="rigmap_04">  <img data-baseurl="../images/rig_map/rig_map_04">  </div>
-      <div data-url="hallway"      id="rigmap_05a"> <img data-baseurl="../images/rig_map/rig_map_05a"> </div>
-      <div data-url="theater"      id="rigmap_05b"> <img data-baseurl="../images/rig_map/rig_map_05b"> </div>
-      <div data-url="chemicalroom" id="rigmap_06">  <img data-baseurl="../images/rig_map/rig_map_06">  </div>
-      <div data-url="subhanger"    id="rigmap_07">  <img data-baseurl="../images/rig_map/rig_map_07">  </div>
-      <div data-url="boat"         id="rigmap_08">  <img data-baseurl="../images/rig_map/rig_map_08">  </div>
-    </div> -->
-
     <div class="map_image"></div>
 
-    <div class="map_labels">
+    <div class="overlay_image"></div>
+
+    <div class="hereLabel">
+      <div class="text">You are here</div>
+      <div class="disc"><div class="arrow"></div></div>
+    </div>
+
+    
+    <!-- <div class="map_labels">
       <div class="platform"     data-url="platform"     data-url="platform">1</div>
       <div class="hallway"      data-url="hallway"      data-url="hallway">2</div>
       <div class="boat"         data-url="boat"         data-url="boat">3</div>
@@ -319,19 +272,18 @@
       <div class="theater"      data-url="theatre"      data-url="theater">5</div>
       <div class="chemicalroom" data-url="chemicalroom" data-url="chemicalroom">6</div>
       <div class="subhanger"    data-url="subhanger"    data-url="subhanger">7</div>
+    </div> -->
 
-    </div>
 
     <div class="map_legend">
-      <div class="platform"     data-url="platform"     id="t3"  ><span>1</span> Flight Deck</div>
-      <div class="hallway"      data-url="hallway"      id="t5a" ><span>2</span> Terminus</div>
-      <div class="boat"         data-url="boat"         id="t8"  ><span>3</span> Boat Deck</div>     
-      <div class="controlroom"  data-url="controlroom"  id="t4"  ><span>4</span> Control Room</div>
-      <div class="theater"      data-url="theatre"      id="t5b" ><span>5</span> Theatre</div>
-      <div class="chemicalroom" data-url="chemicalroom" id="t6"  ><span>6</span> Chem-Storage</div>
-      <div class="subhanger"    data-url="subhanger"    id="t7"  ><span>7</span> Submersible Hangar</div>
-
-
+      <div class="platform"      data-url="platform"      id="t3" >Flight Deck</div>
+      <div class="lowerplatform" data-url="lowerplatform" id="t1" >Lower Platform</div>
+      <div class="hallway"       data-url="hallway"       id="t5a">Terminus</div>
+      <div class="boat"          data-url="boat"          id="t8" >Boat Deck</div>     
+      <div class="controlroom"   data-url="controlroom"   id="t4" >Control Room</div>
+      <div class="theater"       data-url="theatre"       id="t5b">Theatre</div>
+      <div class="chemicalroom"  data-url="chemicalroom"  id="t6" >Chem-Storage</div>
+      <div class="subhangar"     data-url="subhangar"     id="t7" >Submersible Hangar</div>
     </div>
 
   </div>
@@ -350,6 +302,18 @@
 
     $(document).ready(function(){
 
+      var defaultOverlay = '';
+
+      // Preload ********************************************************
+
+      var img = new Image;
+      $('.map_legend').children().each(function(){
+        img.src = '../images/rig_map/overlay-' + $(this).data('url') + '.png'
+      })
+
+
+      // Visited ********************************************************
+
       console.log(parent.pano.visited)
       if(parent.pano.visited.platform     === true) $('.map_legend > .platform').addClass('visited')
       if(parent.pano.visited.hallway      === true) $('.map_legend > .hallway').addClass('visited')
@@ -358,6 +322,24 @@
       if(parent.pano.visited.theatre      === true) $('.map_legend > .theatre').addClass('visited')
       if(parent.pano.visited.chemicalroom === true) $('.map_legend > .chemicalroom').addClass('visited')
       if(parent.pano.visited.subhanger    === true) $('.map_legend > .subhanger').addClass('visited')
+
+      // You Are Here ********************************************************
+
+      $('.map_legend').children().each(function(){
+        var url = $(this).data('url')
+        if(url === parent.master.globalPano) {
+
+          $(this).addClass('here')
+          defaultOverlay = 'url(../images/rig_map/overlay-' + url + '.png)'
+          $('.overlay_image').css('background-image',defaultOverlay)
+
+          $('.hereLabel').addClass(url)
+        }
+      })
+      
+
+
+      // UI ********************************************************
 
       $("#to-control").click(function(e){
         e.stopPropagation();
@@ -381,25 +363,28 @@
         }
       })
 
-      // Map Labels corresponding hover
+
+      // Map Overlay Hovers ********************************************************
+
       $('.map_legend div').on('mouseover',function(){
-        $('.map_labels').find('div.' + $(this).attr('class')).addClass('hover')
+        $('.overlay_image').css('background-image','url(../images/rig_map/overlay-' + $(this).data('url') + '.png)')
       })
 
       $('.map_legend div').on('mouseout',function(){
-        $('.map_labels').find('div.' + $(this).attr('class')).removeClass('hover')
+        $('.overlay_image').css('background-image',defaultOverlay)
       })
 
-      $('.map_labels div').on('mouseover',function(){
-        // console.log($(this).attr('class'))
-        $('.map_legend').find('div.' + $(this).attr('class')).addClass('hover')
-      })
+      // $('.map_labels div').on('mouseover',function(){
+      //   // console.log($(this).attr('class'))
+      //   $('.map_legend').find('div.' + $(this).attr('class')).addClass('hover')
+      // })
 
-      $('.map_labels div').on('mouseout',function(){
-        $('.map_legend').find('div.' + $(this).attr('class')).removeClass('hover')
-      })
+      // $('.map_labels div').on('mouseout',function(){
+      //   $('.map_legend').find('div.' + $(this).attr('class')).removeClass('hover')
+      // })
 
-      
+
+      // jQuery UI Draggability ********************************************************
 
       if(parent.master.isIOS) {
         $(document).on('touchmove', function(e) { e.preventDefault(); });  
@@ -415,7 +400,7 @@
 
 
 
-      // RESPONSIVE FUNCTIONALITY ********************************************************
+      // Responsivity ********************************************************
 
       var resizetimeout;
 
@@ -426,7 +411,7 @@
 
       resize = function(){
 
-        var ratio = 634/850,
+        var ratio = 615/850,
             w, h, t, l;
       
         // CONTAIN
@@ -450,7 +435,7 @@
           left:   Math.round(l)
         })
 
-        $('.map_legend').css({ // 20 px / 850
+        $('body').css({ // 20 px / 850
           'font-size': w * .023529412
         })
 

@@ -55,12 +55,13 @@ var pano_master = function(){
 
     this.visited = {
         platform : false,
+        lowerplatform : false,
         hallway : false,
         boat: false,
         controlroom : false,
         theatre : false,
         chemicalroom : false,
-        subhanger : false
+        subhangar : false
     }
 
     var scrollTrigger,
@@ -334,16 +335,15 @@ var pano_master = function(){
                 that.video_underlay = true;
             break;
 
-            case "subhanger" : 
-                that.visited.subhanger = true;
+            case "subhangar" : 
+                that.visited.subhangar = true;
                 overLayFile = 'SubRoom.mp3' 
                 underlayFile = 'Drone_3.mp3'
 
                 // walkthrough
                 $("#walking-canvas-pano").removeClass('hide')
                 var scrollTrigger=false;
-                that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","approaching",119,true)
-                that.panoWalkthrough.preload()
+                that.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
                 $('.hotspot').addClass('requiem')
 
             break;
@@ -367,9 +367,8 @@ var pano_master = function(){
                 // walkthrough
                 var scrollTrigger=false;
                 $("#walking-canvas-pano").removeClass('hide')
-                that.panoWalkthrough = new walkthroughFunctions("walking-canvas-pano","engineroom",601,true)
+                that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",15);
                 $('.hotspot').addClass('engineroom')
-                that.panoWalkthrough.preload()
 
                 // that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
 
@@ -430,8 +429,11 @@ var pano_master = function(){
         //cancelAnimationFrame(runFrameRunner)
 
         var ImageSequenceFiles,
+            ImageSequenceFrames,
             ghost,
-            ghostFrames;
+            ghostFrames,
+            movieLength;
+
 
         // clear word container
         $('#word-container ul').html('')
@@ -443,6 +445,7 @@ var pano_master = function(){
 
           case "sequence_passage_chemicalroom" : 
                 ImageSequenceFiles = 'corridor';
+                movieLength = 5;
                 ImageSequenceFrames = 65;
                 ghost = 'hologram_2guys_walk_away 3-frame-';
                 ghostFrames = 12
@@ -452,6 +455,7 @@ var pano_master = function(){
 
           case "sequence_passage_theatre" : 
                 ImageSequenceFiles = 'corridor';
+                movieLength = 5;
                 ImageSequenceFrames = 65;
                 ghost = 'hologram_2guys_walk_away 2-frame-';
                 ghostFrames = 12
@@ -462,6 +466,8 @@ var pano_master = function(){
 
            case "sequence_passage_controlroom" : 
                 ImageSequenceFiles = 'corridor';
+                movieMode = true;
+                movieLength = 5;
                 ImageSequenceFrames = 65;
                 ghost = 'hologram_helicopter-frame-';
                 ghostFrames = 12
@@ -471,6 +477,7 @@ var pano_master = function(){
 
           case "sequence_outside_stairs_down" : 
                 ImageSequenceFiles = 'downstairs';
+                movieLength = 7;
                 ImageSequenceFrames = 241;
                 ghost = 'hologram_walk_up_stairs_2-frame-';
                 ghostFrames = 13
@@ -523,8 +530,11 @@ var pano_master = function(){
 
         $("#walking-canvas").css("top", master.globals.contain.t )
 
-        that.walkthrough = new walkthroughFunctions("walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
-        that.walkthrough.preload()
+
+        // that.walkthrough = new walkthroughFunctions("walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
+        // that.walkthrough.preload()
+
+        that.walkthrough = new Walkthrough("walking-canvas",ImageSequenceFiles,movieLength)
 
         that.walkthrough.scrollPos = 0;
         that.walkthrough.scrollValue = 1;
