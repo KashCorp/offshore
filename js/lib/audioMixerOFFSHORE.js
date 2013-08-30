@@ -141,14 +141,20 @@
 
 	Mix.prototype.removeTrack = function(name){
 		console.log("removing " + name)
-		var rest, arr = this.tracks, total = arr.length;
+
+		var rest, 
+			arr = this.tracks, 
+			total = arr.length;
+
 		for ( var i = 0; i < total; i++ ){
-			if ( arr[i] && arr[i].name == name ){
+			if ( arr[i] && arr[i].name == name ) {
 				rest = arr.slice(i + 1 || total);
 				arr.length = i < 0 ? total + i : i;
 				arr.push.apply( arr, rest );
 			}
 		}
+
+		this.lookup[name].pause()
 		delete this.lookup[name];
 	};	
 

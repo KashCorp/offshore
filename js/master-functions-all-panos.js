@@ -578,6 +578,8 @@ var masterFunctions = function() {
 
 		if(!_start) _start = 0
 
+		console.log('_trackName: '+'\t'+_trackName)
+
 		if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
 
 		if(!_targetVolume) {_targetVolume = 1.0}
