@@ -1688,8 +1688,7 @@ ul.movie-menu.mk li video {
     position: absolute;
     top: 50%;
     margin-top: -100px;
-    left: 50%;
-    margin-left: -90px;
+    right: 10%;
     opacity: .5;
     display:none;
 }
