@@ -1949,7 +1949,7 @@ function videoPlayer(group, playerFadeTransition){
 
 			if($(v).hasClass('active')) {
 
-				if( $(v).next().length > 0 )
+				if( $(v).next().length > 0 && $(v).next().data('file') )
 					switchVideo( $(v).next().data('file'),$(v).next().text() )
 				else
 					closeVideoPlayer()
@@ -1972,15 +1972,7 @@ function videoPlayer(group, playerFadeTransition){
 		var contentViewed = $('.movie-menu .viewedContentDiv')
 		var wasplaying, time;
 
-		var contentViewedSeconds = 1
 
-		$(master.viewedContentArray).each(function(i,v){
-
-			contentViewedSeconds += parseInt(v)
-
-		})
-
-		contentViewed.text('You have seen ' + Math.round( contentViewedSeconds/60 * 10 ) / 10 + " of 70 minutes of video" )
 
 		// Play/Pause
 		$(play).on("click", function() {
@@ -2137,7 +2129,7 @@ function switchVideo(_id,_text){
 
 	$(master.viewedContentArray).each(function(i,v){
 		
-		console.log(v['time'])
+		if (v['time'])
 		
 		contentViewedSeconds += parseInt(v['time'])
 
