@@ -150,7 +150,7 @@
 	 			<hotspot name="ENTER" 
 				url="../images/icons/gif_iconA.gif"
 				ath="211"
-				atv="-5"
+				atv="-10"
 				distorted="true"
 				alpha=".5"
 				height="75"

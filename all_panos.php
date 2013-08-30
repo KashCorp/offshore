@@ -91,6 +91,7 @@
             <div class="play"></div>
             <div class="seek"></div>
             <div class="text"></div>
+            <div class="content-viewed"></div>
           </div>
 
           <a id="to-control" class="platform-nav">Close</a>

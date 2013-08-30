@@ -43,12 +43,14 @@ var masterFunctions = function() {
 		newPageTrigger,
 		isParent,
 		videoType = ".webm",
+		
 		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
 	this.ghostBuster = false
 	this.ghostMinc
+	this.viewedContentArray = []
 
 	// webm or h264
 	var v = document.createElement('video');
@@ -1056,6 +1058,8 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 					
 					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
 
+					console.log(that.percent)
+
 					that.scrollFunction()
 				},
 				stop: function() {
@@ -1416,9 +1420,13 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		else if(that.percent > 1) that.percent = 1
 
 		var currentTime = videoLength * that.percent
+		
+		console.log(videoLength)
 
 		video.currentTime = currentTime;
 		context.drawImage(video,0,0,w+3,h+5);
+
+
 
 		if(walkthroughvideo) {
 			if(that.percent > 0.9 && !master.overlayOpen){
@@ -1934,6 +1942,9 @@ function videoPlayer(group, playerFadeTransition){
 	$('#video-overlay').off('ended')
 	$('#video-overlay').on('ended',function(){
 
+
+		console.log($('#video-overlay')[0].currentTime)
+
 		$(items).each(function(i,v){
 
 			if($(v).hasClass('active')) {
@@ -1958,7 +1969,18 @@ function videoPlayer(group, playerFadeTransition){
 		var play = $(".video-content-wrap .play")
 		var seek = $(".video-content-wrap .seek")
 		var text = $(".video-content-wrap .text")
+		var contentViewed = $('.movie-menu .viewedContentDiv')
 		var wasplaying, time;
+
+		var contentViewedSeconds = 1
+
+		$(master.viewedContentArray).each(function(i,v){
+
+			contentViewedSeconds += parseInt(v)
+
+		})
+
+		contentViewed.text('You have seen ' + Math.round( contentViewedSeconds/60 * 10 ) / 10 + " of 70 minutes of video" )
 
 		// Play/Pause
 		$(play).on("click", function() {
@@ -2088,6 +2110,43 @@ function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
+	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
+                 return element.srcString == $('#video-overlay')[0].src
+        });
+
+	if(viewedContent.length > 0 ){
+
+		if($('#video-overlay')[0].currentTime > parseFloat(viewedContent[0]['time'])){
+			viewedContent[0]['time'] = $('#video-overlay')[0].currentTime
+		}
+
+	} else {
+		 master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
+	}
+
+	
+		
+
+	var contentViewed = $('.movie-menu .viewedContentDiv')
+
+	var contentViewedSeconds = 1
+
+	console.log(viewedContent)
+
+
+
+	$(master.viewedContentArray).each(function(i,v){
+		
+		console.log(v['time'])
+		
+		contentViewedSeconds += parseInt(v['time'])
+
+	})
+
+	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 70 minutes of OFFSHORE video content." )
+
+
+
 	if(master.isIOS) {
 		var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
 		iosControls.removeClass('hide')
@@ -2165,6 +2224,22 @@ function switchVideo(_id,_text){
 // closevideoplayer ********************************************************
 
 function closeVideoPlayer(){
+
+
+	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
+                 return element.srcString == $('#video-overlay')[0].src
+        });	
+
+	if(viewedContent.length > 0 ){
+
+		if($('#video-overlay')[0].currentTime > parseFloat(viewedContent[0]['time'])){
+			viewedContent[0]['time'] = $('#video-overlay')[0].currentTime
+		}
+
+	} else {
+		 master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
+	}
+		
 
 	console.log("closing Video Player")
 

@@ -1588,6 +1588,17 @@ visibility:hidden;}
 		text-align: center;
 	}
 
+		.video-content-wrap .controls .content-viewed {
+		position: relative;
+		float: right;
+		width: 190px;
+		margin-left: -90px;
+
+		line-height: 75px;
+		font-weight: bold;
+		text-align: center;
+	}
+
 
 
 

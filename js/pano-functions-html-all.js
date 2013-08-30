@@ -493,6 +493,7 @@ var pano_master = function(){
                 ImageSequenceFrames = 65;
                 linkBack = 'lowerplatform'
                 linkForward = 'hallway'
+                movieLength = 5;
 
                 sequenceHasWords = true
                 var wordHTL ='<li class="drilling-depth">1000 ft</li>'
@@ -580,12 +581,14 @@ var pano_master = function(){
                 $.each(group.movies,function(movie_i,movie){
                     $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
                 })
+
+
             })
 
             $('.movie-menu-item').click(function(){
                 switchVideo($(this).data('file'),$(this).text())
             })
-
+            $('.movie-menu').append('<div class="viewedContentDiv">Viewed Content</div>')
         },
         error : function(request,error) {
             console.log(error)
