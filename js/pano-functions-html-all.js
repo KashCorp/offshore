@@ -148,10 +148,10 @@ var pano_master = function(){
         }
             
         $("#walking-canvas-pano").addClass('hide')
-        setTimeout(function(){
+        //setTimeout(function(){
 
         that.loadPanoScene(parent.location.hash.slice(1))
-        },1000)
+       // },1000)
     })
 
     // coming in from a deeplink
@@ -282,7 +282,7 @@ var pano_master = function(){
         
         krpano = document.getElementById("krpanoObject");
 
-        var loadPanoTimeout = window.setTimeout(function(){
+        //var loadPanoTimeout = window.setTimeout(function(){
 
         
 
@@ -294,7 +294,7 @@ var pano_master = function(){
         krpano.set('view.fov','90');
         krpano.set('view.vlookat','0');
 
-       },1000)
+       //},1000)
 
         // remove leftover dynamic elements
         $('.dynamic').remove()

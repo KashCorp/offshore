@@ -441,11 +441,12 @@ var masterFunctions = function() {
 		master.ghostBuster = true
 
 		
-		$("#panocontainer").addClass('hide')
+		//$("#panocontainer").addClass('hide')
+
 		$('.scroll-directions').fadeOut(500)
 		$('.compass').fadeOut(500,function(){
 			$("#panocontainer").addClass('no-pointer-events')
-			$("#panocontainer").hide();
+			//$("#panocontainer").hide();
 		})
 
 		if(pano.video_underlay) $('.video-underlay').fadeOut(500)
@@ -460,6 +461,7 @@ var masterFunctions = function() {
 		})
 
 		$('#overlay_frame').contents().find('body').off('click')
+
 		$('#overlay_frame').contents().find('body').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation()
@@ -475,12 +477,16 @@ var masterFunctions = function() {
 
 		//$('#overlay_frame').removeClass('show')
 
+		$('.compass').fadeIn(500)
+
 		$('#overlay_frame').fadeOut(500,function(){
 
-			//krpano = document.getElementById("krpanoObject");
+			krpano = document.getElementById("krpanoObject");
+			
 			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
 
 			$("#panocontainer").show();
+
 			$("#panocontainer").removeClass('hide') 
 
 			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
