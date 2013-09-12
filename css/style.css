@@ -104,8 +104,28 @@ word-wrap: break-word; /* IE */
     height: 150%;
 }
 
-.show { opacity: 1 !important; }
-.hide { opacity: 0 !important; }
+.show { 
+	opacity: 1 !important;
+	visibility: visible;
+	-webkit-touch-callout: default
+	-webkit-user-select: text
+	-khtml-user-select: text
+	-moz-user-select: text
+	-ms-user-select: text
+	user-select: text
+	pointer-events: auto
+}
+.hide { 
+	opacity: 0 !important;
+	visibility: hidden;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: moz-none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+}
 
 .fade {
 	-webkit-transition: opacity 500ms;
@@ -700,13 +720,14 @@ header .volume-toggle {
 	font-size: 10px;
 	border:1px solid;
 	opacity:1.0;
+	visibility: visible;
+	display: block;
 
 	-webkit-transition: opacity 500ms;
 	-moz-transition: opacity 500ms;
 	-ms-transition: opacity 500ms;
 	-o-transition: opacity 500ms;
 	transition: opacity 500ms;
-	
 }
 
 #panocontainer #krpanoObject {

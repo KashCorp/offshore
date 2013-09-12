@@ -31,7 +31,7 @@
 
 **************************************************************************/
 
-var krpano
+var krpano;
 
 function krpanoReady() {
 
@@ -41,6 +41,12 @@ function krpanoReady() {
         pano.loadPanoScene(parent.location.hash.slice(1))
 
 }
+
+// domz
+var $panocontainer = $('#panocontainer'),
+	$wrapper = $('#wrapper'),
+	$compass = $('.compass');
+
 
 
 var masterFunctions = function() {
@@ -52,8 +58,8 @@ var masterFunctions = function() {
 		newPageTrigger,
 		isParent,
 		videoType = ".webm",
-		
 		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
+
 
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
@@ -93,7 +99,7 @@ var masterFunctions = function() {
     isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
     this.isRetina = isRetinaFunction()
      
-     $('.compass').click(function() {
+     $compass.click(function() {
      	$(this).fadeOut(500)
 		that.loadOverlay('rigmap.php')
      });
@@ -441,12 +447,9 @@ var masterFunctions = function() {
 		master.ghostBuster = true
 
 		
-		//$("#panocontainer").addClass('hide')
-
 		$('.scroll-directions').fadeOut(500)
-		$('.compass').fadeOut(500,function(){
-			$("#panocontainer").addClass('no-pointer-events')
-			//$("#panocontainer").hide();
+		$compass.fadeOut(500,function(){
+			$panocontainer.addClass('hide')
 		})
 
 		if(pano.video_underlay) $('.video-underlay').fadeOut(500)
@@ -477,23 +480,20 @@ var masterFunctions = function() {
 
 		//$('#overlay_frame').removeClass('show')
 
-		$('.compass').fadeIn(500)
+		$compass.fadeIn(500)
 
 		$('#overlay_frame').fadeOut(500,function(){
 
 			krpano = document.getElementById("krpanoObject");
-
 			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
 
-			$("#panocontainer").show();
-
-			$("#panocontainer").removeClass('hide') 
+			$panocontainer.removeClass('hide') 
 
 			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
 
 			// clear iframe
 			$('#overlay_frame').attr('src','')
-			//$('#overlay_frame').css('display','none')
+			// $('#overlay_frame').css('display','none')
 
 			master.overlayOpen = false
 			master.ghostBuster = false
@@ -501,8 +501,7 @@ var masterFunctions = function() {
 			$('#to-control').off('click')
 
 			$('.scroll-directions').fadeIn(500)
-			$('.compass').fadeIn(500)
-			$("#panocontainer").removeClass('no-pointer-events')
+			$compass.fadeIn(500)
 
 			if(_URL){
 				newPano(_URL)
@@ -967,7 +966,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
     	console.log('CLOSE WALKTHROUGH')
 
     	if(!master.overlayOpen) {
-			$('#panocontainer, .fastpan, .compass').fadeIn(500)
+			$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
 			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
 		        that.percent = 0.01
@@ -981,7 +980,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		    // closeVideoPlayer() // INFINITE LOOOOOOP
     	}
 
-    	//krpano = document.getElementById("krpanoObject");
+    	// krpano = document.getElementById("krpanoObject");
 		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
     }
@@ -1282,7 +1281,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
     	console.log('[X] Close Walkthrough')
 
     	if(!master.overlayOpen) {
-			$('#panocontainer, .fastpan, .compass').fadeIn(500)
+			$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
 			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
 		        that.percent = 0
@@ -1678,8 +1677,10 @@ function newPano(_pano, fromPrologue) {
 		//pano.loadPanoScene(_pano)
 
 		parent.location.hash = _pano
+
+		$panocontainer.addClass('hide')
 		
-		//$('#panocontainer').fadeOut(1000,function(){
+		//$panocontainer.fadeOut(1000,function(){
 			//pano.loadPanoScene(_pano)
 
 
@@ -1699,9 +1700,11 @@ function panoComplete(){
 	if(!isPreloaded) preloader();
 
 	//$('.loading').fadeOut(500)
-	$('#panocontainer').fadeIn(1000,function(){
+	$panocontainer.removeClass('hide')
+
+	// $panocontainer.fadeIn(1000,function(){
 		$('#video-underlay').show()
-	})
+	// })
 
 
 }
@@ -1740,7 +1743,7 @@ function zoomIn() {
 
   // create
   $('#zoom-out').remove()
-  $('#panocontainer').after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
+  $panocontainer.after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
   $("#zoom-out").removeClass('hide')
 
   $("#zoom-out").on('click',function(){
@@ -1748,7 +1751,7 @@ function zoomIn() {
     $('.fastpan, .compass').fadeIn()
     $("#zoom-out").fadeOut()
 
-    //krpano = document.getElementById("krpanoObject");
+    // krpano = document.getElementById("krpanoObject");
     krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
 	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
     krpano.call('set(autorotate.enabled,true)')
@@ -1832,14 +1835,14 @@ var soundadjust = function(coord,fov) {
 		if(fov < 25 && !master.overlayOpen) {
   
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
-	        $('#panocontainer, .fastpan, .compass').fadeOut(500)
+	        $('#panocontainer, .fastpan, .compass').addClass('hide')
 	        pano.walkthroughPlaying = true;
 
   		// fade out walkthrough
 	    }else{
   
 	        if(!master.overlayOpen)
-	        	$('#panocontainer, .fastpan, .compass').fadeIn(500)
+	        	$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
 	            $('.scroll-directions').css('top','0px') // reset scrubber position
@@ -1881,7 +1884,7 @@ function setCache(_ath,_fov) {
 // }
 
 function showMapIcon(){
-	$(".compass").fadeIn()
+	$compass.fadeIn()
 }
 
 var soundTrigger;
@@ -1926,8 +1929,8 @@ function videoPlayer(group, playerFadeTransition){
 	$('.volume-toggle').css('line-height','80px')
 
 	// disable mouse events on pano container
-	$("#panocontainer").addClass('no-pointer-events')
-	$(".compass").fadeOut()
+	$panocontainer.addClass('hide')
+	$compass.fadeOut()
 
 	// close breadcrumb
 	// clearInterval(navInterval);
@@ -2193,7 +2196,7 @@ function switchVideo(_id,_text){
 	})
 	
 	// partial fade to pano
-	//$('#panocontainer').removeClass('hide')
+	// $panocontainer.removeClass('hide')
 	$('#video-overlay').addClass('hide')
 
 	$('#video-overlay')[0].pause()
@@ -2218,7 +2221,7 @@ function switchVideo(_id,_text){
 	}, 500)
 
 	$('#video-overlay')[0].addEventListener('loadedmetadata', function(e) {
-		//$('#panocontainer').fadeOut(1000)
+		//$panocontainer.fadeOut(1000)
 		$('#walking-canvas-pano').css('display','none')
 		
 		//.controls
@@ -2243,6 +2246,8 @@ function switchVideo(_id,_text){
 // closevideoplayer ********************************************************
 
 function closeVideoPlayer(){
+
+	var $videocontentwrap = $(".video-content-wrap")
 
 
 	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
@@ -2282,25 +2287,25 @@ function closeVideoPlayer(){
 	// unbind
 	$('#to-control').off('click')
 	$(".video-content-wrap .play").off('click')
-	$(".video-content-wrap").off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
+	$videocontentwrap.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
 
 	master.bgGain = 1.0
 	master.ghostBuster = false
 
 	$('#video-overlay').addClass('hide')
-	$('#panocontainer').fadeIn(1000)
-	$(".video-content-wrap").fadeOut(1000)
+	$panocontainer.removeClass('hide')
+	$videocontentwrap.fadeOut(1000)
 	$('#walking-canvas-pano').css('display','block')
-	$("#panocontainer").removeClass('no-pointer-events')
-	$(".compass").fadeIn()
+	// $panocontainer.removeClass('no-pointer-events')
+	$compass.fadeIn()
 
 	// master.overlayOpen = false
 	$("#video-overlay")[0].pause(); // can't hurt
 	parent.audiomaster.mix.setGain(1.0)
 	
-	$(".video-content-wrap").removeClass("open");
-	$(".video-content-wrap").removeClass("transtion-width");
-	$(".video-content-wrap").removeClass("transition-opacity");
+	$videocontentwrap.removeClass("open");
+	$videocontentwrap.removeClass("transtion-width");
+	$videocontentwrap.removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
 	krpano = document.getElementById("krpanoObject");

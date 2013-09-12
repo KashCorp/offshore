@@ -204,12 +204,10 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano) {
 
-        $('#wrapper').css('display','block')
+        $wrapper.removeClass('hide')
 
         that.panoWalkthrough = null;
-
         that.video_underlay = false;
-
 
         $('.pan-directions').hide();
         if(that.panDirectionsShown === false) $('.pan-directions').show();
@@ -221,7 +219,7 @@ var pano_master = function(){
 
         $('#ghost-canvas-trans').fadeOut()
 
-        if(!master.overlayOpen) $('.compass').show()
+        if(!master.overlayOpen) $compass.show()
 
         setTimeout(function(){
 
@@ -274,18 +272,16 @@ var pano_master = function(){
 
         $('#scroll-wrapper').fadeOut()
 
-        $('#panocontainer').css('display','')
 
-
+        $panocontainer.show()
+        $panocontainer.removeClass('hide')
 
         // load pano
         
-        krpano = document.getElementById("krpanoObject");
 
         //var loadPanoTimeout = window.setTimeout(function(){
-
         
-
+        krpano = document.getElementById("krpanoObject");
         krpano.call('action(' + _pano + ')')
 
         // should add a krpano lookto call here, sometimes loads looking at ceiling
@@ -306,7 +302,7 @@ var pano_master = function(){
             case "prologue" : 
                 overLayFile = 'HeliPad_minus_minus.mp3'
 
-                $('.compass').hide()
+                $compass.hide()
 
             break;
 
@@ -353,9 +349,9 @@ var pano_master = function(){
 
                 underlayFile = 'Drone_2_norm.mp3'
 
-                $('#panocontainer').after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
+                $panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
 
-                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
+                $panocontainer.before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
                 that.video_underlay = true;
             break;
 
@@ -373,7 +369,7 @@ var pano_master = function(){
             break;
 
             case "submarine" :
-                $('#panocontainer').before('<video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+                $panocontainer.before('<video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
                 that.video_underlay = true;
             break;
 
@@ -403,7 +399,7 @@ var pano_master = function(){
                 that.visited.controlroom = true;
                 overLayFile = 'russian_radio.mp3'
                 
-                $('#panocontainer').before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
+                $panocontainer.before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
                 that.video_underlay = true;
             break;                 
             //
@@ -458,11 +454,10 @@ var pano_master = function(){
             ghostFrames,
             movieLength;
 
-
         // clear word container
         $('#word-container ul').html('')
 
-        $('#wrapper').css('display','none')
+        $wrapper.addClass('hide')
 
         // > Switch Sequence
         switch(_sequence){
@@ -539,8 +534,8 @@ var pano_master = function(){
             that.ghostTransition.imageSequencer()
         }
 
-        //$('#wrapper').addClass('hide')
-        //$('#wrapper').hide()
+        //$wrapper.addClass('hide')
+        //$wrapper.hide()
 
         $('.loading').fadeOut()
         // $('.loading').addClass('hide')
@@ -732,8 +727,8 @@ var pano_master = function(){
     **************************************************************************/
     
 
-    // $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
-    $('#panocontainer').after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/>')
+    // $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
+    $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/>')
 
 
     var mouse_start_x = 0,
@@ -973,16 +968,12 @@ var pano_master = function(){
                     walkthrough.scrollPos = 0
 
                     $('#scroll-wrapper').fadeOut(1000, function(){
-                    newPano(linkForward)
-
-                    walkthrough = null
-
-                    
-
+                        newPano(linkForward)
+                        walkthrough = null
                     })
+
                     //$('#panocontainer').addClass('hide')
                     return false;
-
 
             } else {
                 $("#scroll-end").fadeOut(1000)
