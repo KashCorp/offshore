@@ -34,7 +34,12 @@
 var krpano
 
 function krpanoReady() {
-	console.log("KRPANOREADY")
+
+   	if (parent.location.hash.slice(1) =="")
+        pano.loadPanoScene('prologue')
+    else
+        pano.loadPanoScene(parent.location.hash.slice(1))
+
 }
 
 
@@ -2202,7 +2207,7 @@ function switchVideo(_id,_text){
 	}, 500)
 
 	$('#video-overlay')[0].addEventListener('loadedmetadata', function(e) {
-		$('#panocontainer').fadeOut(1000)
+		//$('#panocontainer').fadeOut(1000)
 		$('#walking-canvas-pano').css('display','none')
 		
 		//.controls
@@ -2287,7 +2292,7 @@ function closeVideoPlayer(){
 	$(".video-content-wrap").removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
-	//krpano = document.getElementById("krpanoObject");
+	krpano = document.getElementById("krpanoObject");
 	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
 	setTimeout(function() {

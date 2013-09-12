@@ -129,15 +129,10 @@ var pano_master = function(){
         > Hash Change
 
     **************************************************************************/
-
-    function krpano() 
-        {
-        return document.getElementById("krpanoObject");
-        };
-
-     
+   
 
     $(parent).bind('hashchange', function(){
+
         console.log('LOAD: hash change')
 
 
@@ -154,21 +149,21 @@ var pano_master = function(){
             
         $("#walking-canvas-pano").addClass('hide')
         setTimeout(function(){
-        
+
         that.loadPanoScene(parent.location.hash.slice(1))
         },1000)
     })
 
     // coming in from a deeplink
-    var deeplinktimeout;
     
-    krpano = document.getElementById("krpanoObject");
 
     var deeplinkfunction = function(){
 
         console.log('deeplinkfunction')
 
         window.clearTimeout(deeplinktimeout)
+
+        krpano = document.getElementById("krpanoObject");
 
         deeplinktimeout = window.setTimeout(function(){
 
@@ -194,7 +189,7 @@ var pano_master = function(){
        },1000)
     }
 
-    deeplinkfunction();
+   // deeplinkfunction();
 
     
 
@@ -279,15 +274,17 @@ var pano_master = function(){
 
         $('#scroll-wrapper').fadeOut()
 
+        $('#panocontainer').css('display','')
+
 
 
         // load pano
         
-
+        krpano = document.getElementById("krpanoObject");
 
         var loadPanoTimeout = window.setTimeout(function(){
 
-        krpano = document.getElementById("krpanoObject");
+        
 
         krpano.call('action(' + _pano + ')')
 
