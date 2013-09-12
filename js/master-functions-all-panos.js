@@ -1666,7 +1666,9 @@ function newPano(_pano, fromPrologue) {
 
 		$('#video-underlay').hide()
 
-		pano.loadPanoScene(_pano)
+		//pano.loadPanoScene(_pano)
+
+		parent.location.hash = _pano
 		
 		//$('#panocontainer').fadeOut(1000,function(){
 			//pano.loadPanoScene(_pano)
