@@ -482,7 +482,7 @@ var masterFunctions = function() {
 		$('#overlay_frame').fadeOut(500,function(){
 
 			krpano = document.getElementById("krpanoObject");
-			
+
 			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
 
 			$("#panocontainer").show();
@@ -1297,7 +1297,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		    $( ".scroll-directions" ).css('top',0)
     	}
 
-    	//krpano = document.getElementById("krpanoObject");
+    	krpano = document.getElementById("krpanoObject");
 		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
     }
