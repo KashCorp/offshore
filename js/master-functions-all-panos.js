@@ -42,10 +42,12 @@ function krpanoReady() {
 
 }
 
-// domz
+
+// let's cache some domz
 var $panocontainer = $('#panocontainer'),
 	$wrapper = $('#wrapper'),
-	$compass = $('.compass');
+	$compass = $('.compass'),
+	$videooverlay = $("#video-overlay")
 
 
 
@@ -127,9 +129,10 @@ var masterFunctions = function() {
     }); 
 
 
-    $('.wrapper').on('mousedown',function(){
+    $wrapper.on('mousedown',function(){
        $('.pan-directions').fadeOut(500)
        pano.panDirectionsShown = true;
+       $wrapper.off('mousedown');
     }); 
 
 
@@ -272,7 +275,7 @@ var masterFunctions = function() {
       	// Apply ********************************************************
 
       	if(master.resize.videoplayer) {
-      		$("#video-overlay").css({
+      		$videooverlay.css({
       			'top' : master.globals.contain.t,
       			'left' : master.globals.contain.l,
       			'width' : master.globals.contain.w,
@@ -2133,21 +2136,19 @@ function switchVideo(_id,_text){
 	console.log('switchvideo: '+'\t'+_id)
 
 	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
-                 return element.srcString == $('#video-overlay')[0].src
+                 return element.srcString == $videooverlay[0].src
         });
 
 	if(viewedContent.length > 0 ){
 
-		if($('#video-overlay')[0].currentTime > parseFloat(viewedContent[0]['time'])){
-			viewedContent[0]['time'] = $('#video-overlay')[0].currentTime
+		if($videooverlay[0].currentTime > parseFloat(viewedContent[0]['time'])){
+			viewedContent[0]['time'] = $videooverlay[0].currentTime
 		}
 
 	} else {
-		 master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
+		 master.viewedContentArray.push({'srcString' : $videooverlay[0].src, 'time' : $videooverlay[0].currentTime})
 	}
 
-	
-		
 
 	var contentViewed = $('.movie-menu .viewedContentDiv')
 
@@ -2197,11 +2198,11 @@ function switchVideo(_id,_text){
 	
 	// partial fade to pano
 	// $panocontainer.removeClass('hide')
-	$('#video-overlay').addClass('hide')
+	$videooverlay.addClass('hide')
 
-	$('#video-overlay')[0].pause()
+	$videooverlay[0].pause()
 
-	$('#video-overlay')[0].src = '';
+	$videooverlay[0].src = '';
 
 	$('#video-overlay-title').html(_text)
 
@@ -2209,18 +2210,18 @@ function switchVideo(_id,_text){
 
 
 	setTimeout(function() {
-		$('#video-overlay')[0].src = master.cdn_video + _id + master.videoType
-		$('#video-overlay')[0].load()
+		$videooverlay[0].src = master.cdn_video + _id + master.videoType
+		$videooverlay[0].load()
 
 		if(master.isIOS){
 
-			$('#video-overlay')[0].controls = true
-			$('#video-overlay').removeClass('hide')
+			$videooverlay[0].controls = true
+			$videooverlay.removeClass('hide')
 
 		}
 	}, 500)
 
-	$('#video-overlay')[0].addEventListener('loadedmetadata', function(e) {
+	$videooverlay[0].addEventListener('loadedmetadata', function(e) {
 		//$panocontainer.fadeOut(1000)
 		$('#walking-canvas-pano').css('display','none')
 		
@@ -2229,9 +2230,9 @@ function switchVideo(_id,_text){
 
 	
 
-	$('#video-overlay')[0].addEventListener('canplaythrough', function(e) {
+	$videooverlay[0].addEventListener('canplaythrough', function(e) {
 
-		$('#video-overlay').removeClass('hide')
+		$videooverlay.removeClass('hide')
 
 		$('#video-overlay-title').fadeOut(2000)
 
@@ -2292,7 +2293,7 @@ function closeVideoPlayer(){
 	master.bgGain = 1.0
 	master.ghostBuster = false
 
-	$('#video-overlay').addClass('hide')
+	$videooverlay.addClass('hide')
 	$panocontainer.removeClass('hide')
 	$videocontentwrap.fadeOut(1000)
 	$('#walking-canvas-pano').css('display','block')
@@ -2300,7 +2301,7 @@ function closeVideoPlayer(){
 	$compass.fadeIn()
 
 	// master.overlayOpen = false
-	$("#video-overlay")[0].pause(); // can't hurt
+	$videooverlay[0].pause(); // can't hurt
 	parent.audiomaster.mix.setGain(1.0)
 	
 	$videocontentwrap.removeClass("open");

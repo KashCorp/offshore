@@ -911,7 +911,7 @@ var pano_master = function(){
     
     **************************************************************************/
 
-    var wordContainer = $('#word-container');
+    var $wordContainer = $('#word-container');
 
     function scrollerFunction(){
 
@@ -934,12 +934,12 @@ var pano_master = function(){
                 var zPos = walkthrough.percent * 3000;
                 if(zPos>2800) zPos = 2800;
 
-                wordContainer.css('-webkit-transform', 'translateZ(' + zPos + 'px)');
+                $wordContainer.css('-webkit-transform', 'translateZ(' + zPos + 'px)');
 
                 // var index = Math.floor(walkthrough.percent * 5);
                 // console.log(index)
-                // console.log(wordContainer[0].children)
-                // wordContainer[0].children.children[index].style.opacity = 0;
+                // console.log($wordContainer[0].children)
+                // $wordContainer[0].children.children[index].style.opacity = 0;
             }
             
         
@@ -1010,7 +1010,6 @@ var pano_master = function(){
                //console.log(pano.voiceCurrentTime/1000)
             }
 
-
             if(parent.location.hash.slice(1).indexOf('sequence') != -1){
                 scrollerFunction()
                 return false
@@ -1036,18 +1035,19 @@ var pano_master = function(){
 
             }
 
-
             if(TWEEN) TWEEN.update()
 
             if(interactive){
-
                 mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
                 mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
-
             }
                             
             view_y += (mouse_y_diff)
             view_x += (mouse_x_diff*0.01)
+
+
+
+            // Audio ********************************************************
                 
             if(!parent.audiomaster) return
             
@@ -1074,9 +1074,9 @@ var pano_master = function(){
             }   
              
     }
-                  
-runFrameRunner() 
 
+                  
+    runFrameRunner();
 
 }
 

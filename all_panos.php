@@ -80,7 +80,7 @@
     <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas>
     
 
-    <div id="panocontainer" class="platform"></div>
+    <div id="panocontainer" class="platform show"></div>
         
         <div class="video-content-wrap">
           <video class="" width="100%" style="position:absolute" id="video-overlay" preload="auto">
