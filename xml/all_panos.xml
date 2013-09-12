@@ -1,4 +1,4 @@
-<krpano version="1.0.8">
+<krpano version="1.0.8" onstart="js(krpanoReady())" >
 
 	<security>
 	    <allowdomain domain="*" />

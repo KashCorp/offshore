@@ -38,7 +38,6 @@ var globalPano;
 var pano_master = function(){
 
     var that = this;
-        krpano;
 
     this.panoWalkthrough;
     this.walkthroughPlaying = false;
@@ -95,12 +94,17 @@ var pano_master = function(){
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
     
     var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
+
     viewer.addVariable("xml", panoXMLFile);  
-    viewer.useHTML5("always")
-    viewer.passQueryParameters();
-    viewer.addParam("wmode","transparent");
+    //viewer.useHTML5("always")
+    //viewer.passQueryParameters();
+    //viewer.addParam("wmode","transparent");
     this.viewer = viewer
     viewer.embed();
+
+    krpano = document.getElementById("krpanoObject");
+
+    
 
 
 
@@ -126,10 +130,17 @@ var pano_master = function(){
 
     **************************************************************************/
 
+    function krpano() 
+        {
+        return document.getElementById("krpanoObject");
+        };
+
      
 
     $(parent).bind('hashchange', function(){
         console.log('LOAD: hash change')
+
+
 
         if(master.globalPano === parent.location.hash.slice(1)) {
             console.log('#nowhere')
@@ -142,11 +153,16 @@ var pano_master = function(){
         }
             
         $("#walking-canvas-pano").addClass('hide')
+        setTimeout(function(){
+        
         that.loadPanoScene(parent.location.hash.slice(1))
+        },1000)
     })
 
     // coming in from a deeplink
     var deeplinktimeout;
+    
+    krpano = document.getElementById("krpanoObject");
 
     var deeplinkfunction = function(){
 
@@ -157,7 +173,7 @@ var pano_master = function(){
         deeplinktimeout = window.setTimeout(function(){
 
             // make sure krpano has had a chance to load
-            krpano = document.getElementById("krpanoObject");
+            //
 
             if(krpano) {
                 console.log('krpano loaded')
@@ -175,7 +191,7 @@ var pano_master = function(){
                 deeplinkfunction()
             }
 
-        },1000)
+       },1000)
     }
 
     deeplinkfunction();
@@ -266,13 +282,22 @@ var pano_master = function(){
 
 
         // load pano
+        
+
+
+        var loadPanoTimeout = window.setTimeout(function(){
+
         krpano = document.getElementById("krpanoObject");
+
         krpano.call('action(' + _pano + ')')
 
         // should add a krpano lookto call here, sometimes loads looking at ceiling
         // krpano.call('lookto(0,0,90)'); // lookto(horizontal, vertical, fov)
+
         krpano.set('view.fov','90');
         krpano.set('view.vlookat','0');
+
+       },1000)
 
         // remove leftover dynamic elements
         $('.dynamic').remove()
@@ -1007,7 +1032,7 @@ var pano_master = function(){
                 scrollerFunction()
             }
 
-            krpano = document.getElementById('krpanoObject')
+            //krpano = document.getElementById('krpanoObject')
 
             if(krpano != null && panAmount !=0){
 

@@ -31,7 +31,11 @@
 
 **************************************************************************/
 
+var krpano
 
+function krpanoReady() {
+	console.log("KRPANOREADY")
+}
 
 
 var masterFunctions = function() {
@@ -468,7 +472,7 @@ var masterFunctions = function() {
 
 		$('#overlay_frame').fadeOut(500,function(){
 
-			krpano = document.getElementById("krpanoObject");
+			//krpano = document.getElementById("krpanoObject");
 			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
 
 			$("#panocontainer").show();
@@ -966,7 +970,7 @@ var walkthroughFunctions = function(canvasid,name,imageNumber) {
 		    // closeVideoPlayer() // INFINITE LOOOOOOP
     	}
 
-    	krpano = document.getElementById("krpanoObject");
+    	//krpano = document.getElementById("krpanoObject");
 		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
     }
@@ -1279,7 +1283,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		    $( ".scroll-directions" ).css('top',0)
     	}
 
-    	krpano = document.getElementById("krpanoObject");
+    	//krpano = document.getElementById("krpanoObject");
 		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
     }
@@ -1656,10 +1660,15 @@ function newPano(_pano, fromPrologue) {
 	if(!fromPrologue) {
 
 		$('#video-underlay').hide()
+
+		pano.loadPanoScene(_pano)
 		
-		$('#panocontainer').fadeOut(1000,function(){
-			parent.location.hash = _pano
-		})
+		//$('#panocontainer').fadeOut(1000,function(){
+			//pano.loadPanoScene(_pano)
+
+
+			//parent.location.hash = _pano
+		//})
 
 	}
 
@@ -1723,7 +1732,7 @@ function zoomIn() {
     $('.fastpan, .compass').fadeIn()
     $("#zoom-out").fadeOut()
 
-    krpano = document.getElementById("krpanoObject");
+    //krpano = document.getElementById("krpanoObject");
     krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
 	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
     krpano.call('set(autorotate.enabled,true)')
@@ -2278,7 +2287,7 @@ function closeVideoPlayer(){
 	$(".video-content-wrap").removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
-	krpano = document.getElementById("krpanoObject");
+	//krpano = document.getElementById("krpanoObject");
 	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
 	setTimeout(function() {
