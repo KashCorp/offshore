@@ -1240,6 +1240,9 @@ var Walkthrough = function(canvasID,name,videoLength) {
     // Load Video ********************************************************
 	var video = document.createElement('video')
 	video.setAttribute('src', master.cdn_video + 'transition-' + name + master.videoType);
+
+	console.log (master.cdn_video + 'transition-' + name + master.videoType)
+
 	video.load();
 
 	video.removeEventListener('canplaythrough');
@@ -1947,7 +1950,7 @@ function videoPlayer(group, playerFadeTransition){
 	switchVideo($(items).first().data('file'),$(items).first().text())
 
 	$('#video-overlay').on('canplaythrough',function(){
-		
+		console.log('playing video')
 		if(parent.location.hash.slice(1) =="") {
 			console.log('switch to helicopter')
 			parent.location.hash = "helicopter"

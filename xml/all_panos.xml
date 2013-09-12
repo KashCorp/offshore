@@ -348,7 +348,7 @@
 			height="75"
 			width="75"
 			scale="1.0"
-			onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer('platform')));
+			onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer(platform)));
 					 js(setCache(90,90))"
 			capture = "false"
 			/>
@@ -368,7 +368,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer('platform')));
+			onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer(platform)));
 					 js(setCache(90,90))"
 			/>
 
