@@ -5,9 +5,14 @@
 	var preloader = function() {
 
 		isPreloaded = true;
-
+/*
 		var cdn = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/';
 		if(master.isIOS) cdn = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/';
+
+*/
+
+		var cdn = 'offshore_panos/';
+		if(master.isIOS) cdn = 'offshore_panos/512/';
 
 		var loaderArray = []
 

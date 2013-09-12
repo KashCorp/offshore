@@ -96,7 +96,7 @@ var pano_master = function(){
     
     var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
     viewer.addVariable("xml", panoXMLFile);  
-    viewer.useHTML5("always")
+    //viewer.useHTML5("always")
     viewer.passQueryParameters();
     viewer.addParam("wmode","transparent");
     this.viewer = viewer

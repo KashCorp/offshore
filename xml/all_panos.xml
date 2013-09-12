@@ -130,9 +130,9 @@
 	 			/>
 
 	 	 	<image>
-	 			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/prologue_pano_%s.jpg" />
+	 			<cube url="../offshore_panos/prologue_pano_%s.jpg" />
 	 			<mobile>
-	 				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/prologue_pano_%s.jpg" />
+	 				<cube url="../offshore_panos/prologue_pano_%s.jpg" />
 	 			</mobile>
 	 		</image>
 
@@ -192,9 +192,9 @@
 		/>
 
 		<image>
-			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/helicopter_pano_%s.jpg" />
+			<cube url="../offshore_panos/helicopter_pano_%s.jpg" />
 	    	<tablet>
-		        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/helicopter_pano_%s.jpg" /> 
+		        <cube  url="../offshore_panos/512/helicopter_pano_%s.jpg" /> 
     		</tablet>
 		</image>
 
@@ -284,10 +284,10 @@
 		/>
 
 	 	<image>
-			<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/platform_pano_%s.jpg"/>	
+			<cube url="../offshore_panos/platform_pano_%s.jpg"/>	
 
 			<tablet>
-		        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/platform_pano_%s.jpg" /> 
+		        <cube  url="../offshore_panos/512/platform_pano_%s.jpg" /> 
     		</tablet>
 
 		</image>
@@ -399,10 +399,10 @@
 	  	/>
 
 	 	<image>
-		    <cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/lowerplatform_pano_%s.jpg" />
+		    <cube url="../offshore_panos/lowerplatform_pano_%s.jpg" />
 
 			<tablet>
-		        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/lowerplatform_pano_%s.jpg" /> 
+		        <cube  url="../offshore_panos/512/lowerplatform_pano_%s.jpg" /> 
     		</tablet>		    
 		</image>
 
@@ -523,10 +523,10 @@
 			  />
 
 		 	<image>
-				<cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/boat_pano_%s.jpg" />
+				<cube url="../offshore_panos/boat_pano_%s.jpg" />
 
 			    <tablet>
-			        <cube  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/boat_pano_%s.jpg" />
+			        <cube  url="../offshore_panos/512/boat_pano_%s.jpg" />
 	    		</tablet>	
 			</image>
 	<!--
@@ -681,20 +681,20 @@
 			/>
 		 	
 		 	<image>
-			    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_l.jpg" />
-			    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_f2.png" />
-			    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_r2.png" />
-			    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_b.jpg" />
-			    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_u.jpg" />
-			    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/subhangar_pano_d.jpg" />
+			    <left  url="../offshore_panos/subhangar_pano_l.jpg" />
+			    <front url="../offshore_panos/subhangar_pano_f2.png" />
+			    <right url="../offshore_panos/subhangar_pano_r2.png" />
+			    <back  url="../offshore_panos/subhangar_pano_b.jpg" />
+			    <up    url="../offshore_panos/subhangar_pano_u.jpg" />
+			    <down  url="../offshore_panos/subhangar_pano_d.jpg" />
 
 			    <tablet>
-			        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.png" />
-			        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f2.png" />
-			        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r2.png" />
-			        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
-			        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
-			        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.png" />    
+			        <left  url="../offshore_panos/512/pano_l.png" />
+			        <front url="../offshore_panos/512/pano_f2.png" />
+			        <right url="../offshore_panos/512/pano_r2.png" />
+			        <back  url="../offshore_panos/512/pano_b.jpg" />
+			        <up    url="../offshore_panos/512/pano_u.jpg" />
+			        <down  url="../offshore_panos/512/pano_d.png" />    
 	    		</tablet>		    
 			</image>
 
@@ -828,20 +828,20 @@
 		/>
 
 		<image>
-		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_f.png" />
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_r.jpg" />
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_b.jpg" />
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_u.jpg" />
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_d.jpg" />
+		    <left  url="../offshore_panos/chemicalroom_pano_l.jpg" />
+		    <front url="../offshore_panos/chemicalroom_pano_f.png" />
+		    <right url="../offshore_panos/chemicalroom_pano_r.jpg" />
+		    <back  url="../offshore_panos/chemicalroom_pano_b.jpg" />
+		    <up    url="../offshore_panos/chemicalroom_pano_u.jpg" />
+		    <down  url="../offshore_panos/chemicalroom_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
-		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.png" />
-		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.jpg" />
-		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
-		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
-		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.jpg" />    
+		        <left  url="../offshore_panos/512/pano_l.jpg" />
+		        <front url="../offshore_panos/512/pano_f.png" />
+		        <right url="../offshore_panos/512/pano_r.jpg" />
+		        <back  url="../offshore_panos/512/pano_b.jpg" />
+		        <up    url="../offshore_panos/512/pano_u.jpg" />
+		        <down  url="../offshore_panos/512/pano_d.jpg" />    
     		</tablet>	    
 		</image>
 
@@ -1098,20 +1098,20 @@
 			/>
 
 		<image>
-		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_f.jpg" />
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_r.jpg" />
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_b.png" />
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_u.jpg" />
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/controlroom_pano_d.jpg" />
+		    <left  url="../offshore_panos/controlroom_pano_l.jpg" />
+		    <front url="../offshore_panos/controlroom_pano_f.jpg" />
+		    <right url="../offshore_panos/controlroom_pano_r.jpg" />
+		    <back  url="../offshore_panos/controlroom_pano_b.png" />
+		    <up    url="../offshore_panos/controlroom_pano_u.jpg" />
+		    <down  url="../offshore_panos/controlroom_pano_d.jpg" />
 	    	
 	    	<tablet>
-		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
-		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.jpg" />
-		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.jpg" />
-		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.png" />
-		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
-		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.jpg" />    
+		        <left  url="../offshore_panos/512/pano_l.jpg" />
+		        <front url="../offshore_panos/512/pano_f.jpg" />
+		        <right url="../offshore_panos/512/pano_r.jpg" />
+		        <back  url="../offshore_panos/512/pano_b.png" />
+		        <up    url="../offshore_panos/512/pano_u.jpg" />
+		        <down  url="../offshore_panos/512/pano_d.jpg" />    
     		</tablet>	
 
 		</image>
@@ -1419,20 +1419,20 @@
 		 />		
 
 		<image>
-		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_f.jpg" />
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_r.png" />
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_b.jpg" />
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_u.png" />
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/hallway_pano_d.jpg" />
+		    <left  url="../offshore_panos/hallway_pano_l.jpg" />
+		    <front url="../offshore_panos/hallway_pano_f.jpg" />
+		    <right url="../offshore_panos/hallway_pano_r.png" />
+		    <back  url="../offshore_panos/hallway_pano_b.jpg" />
+		    <up    url="../offshore_panos/hallway_pano_u.png" />
+		    <down  url="../offshore_panos/hallway_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
-		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.jpg" />
-		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.png" />
-		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
-		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.png" />
-		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.jpg" />    
+		        <left  url="../offshore_panos/512/pano_l.jpg" />
+		        <front url="../offshore_panos/512/pano_f.jpg" />
+		        <right url="../offshore_panos/512/pano_r.png" />
+		        <back  url="../offshore_panos/512/pano_b.jpg" />
+		        <up    url="../offshore_panos/512/pano_u.png" />
+		        <down  url="../offshore_panos/512/pano_d.jpg" />    
     		</tablet>	
 
 		</image>
@@ -1634,20 +1634,20 @@
 		/>
 
 		<image>
-			<left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_f.jpg" />
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_r.png" />
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_b.jpg" />
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_u.jpg" />
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_d.jpg" />
+			<left  url="../offshore_panos/interiorsub_pano_l.jpg" />
+		    <front url="../offshore_panos/interiorsub_pano_f.jpg" />
+		    <right url="../offshore_panos/interiorsub_pano_r.png" />
+		    <back  url="../offshore_panos/interiorsub_pano_b.jpg" />
+		    <up    url="../offshore_panos/interiorsub_pano_u.jpg" />
+		    <down  url="../offshore_panos/interiorsub_pano_d.jpg" />
 
 		    <tablet>
-		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_l.jpg" />
-		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_f.jpg" />
-		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_r.png" />
-		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_b.jpg" />
-		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_u.jpg" />
-		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/pano_d.png" />    
+		        <left  url="../offshore_panos/512/pano_l.jpg" />
+		        <front url="../offshore_panos/512/pano_f.jpg" />
+		        <right url="../offshore_panos/512/pano_r.png" />
+		        <back  url="../offshore_panos/512/pano_b.jpg" />
+		        <up    url="../offshore_panos/512/pano_u.jpg" />
+		        <down  url="../offshore_panos/512/pano_d.png" />    
     		</tablet>
 
 		</image>
@@ -1762,20 +1762,20 @@
 		/>
 			
 		<image>
-		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_l.jpg" />
-		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_f.jpg" />
-		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_r.jpg" />
-		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_b.jpg" />
-		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_u.jpg" />
-		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/theatre_pano_d.jpg" />
+		    <left  url="../offshore_panos/theatre_pano_l.jpg" />
+		    <front url="../offshore_panos/theatre_pano_f.jpg" />
+		    <right url="../offshore_panos/theatre_pano_r.jpg" />
+		    <back  url="../offshore_panos/theatre_pano_b.jpg" />
+		    <up    url="../offshore_panos/theatre_pano_u.jpg" />
+		    <down  url="../offshore_panos/theatre_pano_d.jpg" />
 
 		    <tablet>
-		        <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_l.jpg" />
-		        <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_f.jpg" />
-		        <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_r.jpg" />
-		        <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_b.jpg" />
-		        <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_u.jpg" />
-		        <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/pano_d.jpg" />    
+		        <left  url="../offshore_panos/pano_l.jpg" />
+		        <front url="../offshore_panos/pano_f.jpg" />
+		        <right url="../offshore_panos/pano_r.jpg" />
+		        <back  url="../offshore_panos/pano_b.jpg" />
+		        <up    url="../offshore_panos/pano_u.jpg" />
+		        <down  url="../offshore_panos/pano_d.jpg" />    
     		</tablet>		    
 		</image>
 
