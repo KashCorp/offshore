@@ -758,7 +758,7 @@ header .volume-toggle {
 	width:60px;
 	height:60px;
 	background: url('../images/icons/close_icon.png');
-
+	z-index: 99999;
 }
 
 
