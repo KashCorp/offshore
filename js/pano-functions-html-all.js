@@ -35,6 +35,15 @@
 
 var globalPano;
 
+function krpanoReady() {
+
+    if (parent.location.hash.slice(1) =="")
+        pano.loadPanoScene('prologue')
+    else
+        pano.loadPanoScene(parent.location.hash.slice(1))
+
+}
+
 var pano_master = function(){
 
     var that = this;
@@ -82,7 +91,6 @@ var pano_master = function(){
         console.log('NO HASH > PROLOGUE')
         globalPano = "prologue"; 
         // var panoXMLFile = './xml/prologue.xml?nocache='+Math.random()*5
-        
     }
 
 
@@ -93,10 +101,15 @@ var pano_master = function(){
         xmlLoc = masterPath + "/xml/all_panos.xml?nocache="+Math.random()*5,
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
     
-    var viewer = createPanoViewer({swf:swfLoc, id:"krpanoObject", target:"panocontainer"});
+    var viewer = createPanoViewer({
+        swf:swfLoc,
+        id:"krpanoObject",
+        target:"panocontainer"
+        // html:"prefer"
+    });
 
     viewer.addVariable("xml", panoXMLFile);  
-    //viewer.useHTML5("always")
+    viewer.useHTML5("prefer")
     //viewer.passQueryParameters();
     //viewer.addParam("wmode","transparent");
     this.viewer = viewer
@@ -104,7 +117,7 @@ var pano_master = function(){
 
     krpano = document.getElementById("krpanoObject");
 
-    
+    master.debouncedResize();
 
 
 

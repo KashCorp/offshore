@@ -67,11 +67,6 @@
 
       function checkHash(){
         var locationHash = location.hash
-        if(locationHash){
-          //$('#container-frame').attr('src',locationHash.replace('#',''))
-        }else{
-          //$('#container-frame').attr('src','all.php')
-        }
       }
       
       function setHash(locationHash){
