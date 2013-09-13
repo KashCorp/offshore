@@ -1440,12 +1440,8 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 		var currentTime = videoLength * that.percent
 		
-		console.log(videoLength)
-
 		video.currentTime = currentTime;
 		context.drawImage(video,0,0,w+3,h+5);
-
-
 
 		if(walkthroughvideo) {
 			if(that.percent > 0.9 && !master.overlayOpen){

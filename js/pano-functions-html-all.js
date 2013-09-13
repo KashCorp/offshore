@@ -218,6 +218,7 @@ var pano_master = function(){
     this.loadPanoScene = function(_pano) {
 
         $wrapper.removeClass('hide')
+        $panocontainer.removeClass('hide')
 
         that.panoWalkthrough = null;
         that.video_underlay = false;
@@ -471,6 +472,7 @@ var pano_master = function(){
         $('#word-container ul').html('')
 
         $wrapper.addClass('hide')
+        $panocontainer.addClass('hide')
 
         // > Switch Sequence
         switch(_sequence){

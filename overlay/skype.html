@@ -148,20 +148,20 @@
 		}
 
 		.broken-screen {
-			top: 10%;
-			right: 10%;
-			left: 10%;
-			bottom: 10%;
+			top: 1%;
+			right: 1%;
+			left: 2%;
+			bottom: 2%;
 			position: absolute;
 			background: url('../images/ipodSmash.png') center no-repeat;
 			background-size: cover;
-			-webkit-touch-callout: none
-			-webkit-user-select: none
-			-khtml-user-select: none
-			-moz-user-select: moz-none
-			-ms-user-select: none
-			user-select: none
-			pointer-events: none
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: moz-none;
+			-ms-user-select: none;
+			user-select: none;
+			pointer-events: none;
 		}
 
 
@@ -701,7 +701,6 @@ $(document).ready(function(){
 
 	// play video
 	$(".vid-menu-nav").click(function(e){
-		console.log('CLIIIICK')
 		e.stopPropagation();
 		var that = this
 
@@ -724,7 +723,6 @@ $(document).ready(function(){
 
 	// stop video
   $("#to-control-vid").click(function(e){
-  	console.log('FUCK')
   	e.stopPropagation();
   	$('.movie').css('display','none')
   	$('#to-control-vid').css('display','none')
