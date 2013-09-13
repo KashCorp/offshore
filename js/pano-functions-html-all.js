@@ -472,7 +472,7 @@ var pano_master = function(){
         $('#word-container ul').html('')
 
         $wrapper.addClass('hide')
-        $panocontainer.addClass('hide')
+        $panocontainer.removeClass('show').addClass('hide')
 
         // > Switch Sequence
         switch(_sequence){
