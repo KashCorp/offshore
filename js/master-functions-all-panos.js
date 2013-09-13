@@ -64,6 +64,9 @@ var masterFunctions = function() {
 
 
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+	this.isAndroid = navigator.userAgent.match(/Android/g) ? true : false;
+
+	console.log("is Android" +  this.isAndroid)
 
 	this.ghostBuster = false
 	this.ghostMinc
@@ -78,6 +81,7 @@ var masterFunctions = function() {
 	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) {
 	 	videoType = '.webm';
 	}
+
 
 	this.videoType = videoType
 
@@ -1698,7 +1702,7 @@ function newPano(_pano, fromPrologue) {
 
 function panoComplete(){
 
-	console.log('PANO COMPLETE')
+	console.log('PANO COMPLETE ' + master.isAndroid)
 
 	if(!isPreloaded) preloader();
 
@@ -2077,7 +2081,7 @@ function videoPlayer(group, playerFadeTransition){
 
 	var autohide = (function(){
 
-		if(master.isIOS) return
+		if(master.isIOS || master.isAndroid) return
 
 		var timeout
 		var over=false
@@ -2166,11 +2170,11 @@ function switchVideo(_id,_text){
 
 	})
 
-	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 70 minutes of OFFSHORE video content." )
+	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 71 minutes of OFFSHORE video content." )
 
 
 
-	if(master.isIOS) {
+	if(master.isIOS || master.isAndroid) {
 		var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
 		iosControls.removeClass('hide')
 		//iosControls.css('display','block')
@@ -2211,9 +2215,12 @@ function switchVideo(_id,_text){
 
 	setTimeout(function() {
 		$videooverlay[0].src = master.cdn_video + _id + master.videoType
+
 		$videooverlay[0].load()
 
-		if(master.isIOS){
+		console.log(master.cdn_video + _id + master.videoType)
+
+		if(master.isIOS || master.isAndroid){
 
 			$videooverlay[0].controls = true
 			$videooverlay.removeClass('hide')
@@ -2238,7 +2245,10 @@ function switchVideo(_id,_text){
 
 		$('.controls').css('display','block')
 
+		console.log("VIDEO PLAYING")
+
 		e.stopPropagation()
+
 		this.play();
 	}, false);
 

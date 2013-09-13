@@ -282,10 +282,16 @@
 	
 		this.options.playing = true;
 
-		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod|Safari)/g) ? true : false;
+
+		console.log(isIOS)
+
 		if(isIOS){
-			this.options.source.noteOn(0)
+			this.options.source.noteOn(this.options.start)
 		}else{
+
+			console.log(this.options.source)
+			//this.options.source.noteOn(this.options.start)
 			this.options.source.start(0,this.options.start)	
 		}
 		
