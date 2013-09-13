@@ -33,14 +33,7 @@
 
 var krpano;
 
-function krpanoReady() {
 
-   	if (parent.location.hash.slice(1) =="")
-        pano.loadPanoScene('prologue')
-    else
-        pano.loadPanoScene(parent.location.hash.slice(1))
-
-}
 
 
 // let's cache some domz
@@ -300,8 +293,6 @@ var masterFunctions = function() {
       	
     	
     }
-
-    that.debouncedResize();
 
     $(window).on('resize.global',that.debouncedResize)
     window.addEventListener('onorientationchange', that.debouncedResize());
@@ -857,345 +848,345 @@ master.check_start();
 
 
 
-/*************************************************************************
+// /*************************************************************************
 
 	
 
-	> Walkthrough
+// 	> Walkthrough
 	
 
 
-*************************************************************************/
+// *************************************************************************/
 
 
-var walkthroughFunctions = function(canvasid,name,imageNumber) {
+// var walkthroughFunctions = function(canvasid,name,imageNumber) {
 	
-	var that = this,
-		w = master.globals.contain.w,
-		h = master.globals.contain.h,
-    	that = this
+// 	var that = this,
+// 		w = master.globals.contain.w,
+// 		h = master.globals.contain.h,
+//     	that = this
 
-	this.maxScrollerPos = $('.scroll-directions-container').height()
+// 	this.maxScrollerPos = $('.scroll-directions-container').height()
 
-	var canvas = document.getElementById(canvasid);
-	canvas.width  = w;
-	canvas.height = h;
-	var context = canvas.getContext('2d');
-    var mouseWheelTimeout;
+// 	var canvas = document.getElementById(canvasid);
+// 	canvas.width  = w;
+// 	canvas.height = h;
+// 	var context = canvas.getContext('2d');
+//     var mouseWheelTimeout;
 
-    var oddOnly = false;
-    if(imageNumber > 200) oddOnly = true;
+//     var oddOnly = false;
+//     if(imageNumber > 200) oddOnly = true;
 
-    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    var scrollerPosStart = 0
+//     var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
+//     var scrollerPosStart = 0
 
-    this.percent = 0 // MASTER VARIABLE (everything runs off this)
+//     this.percent = 0 // MASTER VARIABLE (everything runs off this)
 
-    var playSpeed = (100/imageNumber)/100;
-    if(!oddOnly) playSpeed = playSpeed / 2;
+//     var playSpeed = (100/imageNumber)/100;
+//     if(!oddOnly) playSpeed = playSpeed / 2;
 
-	var imageSrc
-    imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
-    var img = new Image();
-	img.src = imageSrc
-	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+// 	var imageSrc
+//     imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
+//     var img = new Image();
+// 	img.src = imageSrc
+// 	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
-	// Preload ********************************************************
-	// (odd numbered images only)
-	this.preload = function(){
-		console.log('preloading '+imageNumber+' images')
+// 	// Preload ********************************************************
+// 	// (odd numbered images only)
+// 	this.preload = function(){
+// 		console.log('preloading '+imageNumber+' images')
 
-		var i = 1;
+// 		var i = 1;
 
-		var img = new Image()
+// 		var img = new Image()
 
-		img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
+// 		img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 
-		img.onload = function(){
-			i += (oddOnly) ? 2 : 1;
+// 		img.onload = function(){
+// 			i += (oddOnly) ? 2 : 1;
 
-			if(i<imageNumber)
-				img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
+// 			if(i<imageNumber)
+// 				img.src = master.cdn_imgseq + name + "-sm-frame-"+zeroes(i,4)+".jpg";
 
-		}
+// 		}
 
-	}
+// 	}
 
-	// keep
-    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    var scrollerPosStart = 0
+// 	// keep
+//     var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
+//     var scrollerPosStart = 0
 
-    // MASTER CONTROL VARIABLE
-    this.percent = 0
+//     // MASTER CONTROL VARIABLE
+//     this.percent = 0
 
-	var imageSrc
-    imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
+// 	var imageSrc
+//     imageSrc = master.cdn_imgseq + name + "-med-frame-0001.jpg";
 
-    var img = new Image();
-	img.src = imageSrc
-	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+//     var img = new Image();
+// 	img.src = imageSrc
+// 	img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
 
-	/**************************************************************************
-		Walkthrough Video
-		(additional logic in scrollFunction and scrollStopFunction)
-	**************************************************************************/
+// 	/**************************************************************************
+// 		Walkthrough Video
+// 		(additional logic in scrollFunction and scrollStopFunction)
+// 	**************************************************************************/
 	
-	var walkthroughvideo = false;
-	if(master.globalPano =='chemicalroom' || master.globalPano =='subhangar') walkthroughvideo = true;
-	console.log('walkthroughvideo: '+'\t'+walkthroughvideo)
+// 	var walkthroughvideo = false;
+// 	if(master.globalPano =='chemicalroom' || master.globalPano =='subhangar') walkthroughvideo = true;
+// 	console.log('walkthroughvideo: '+'\t'+walkthroughvideo)
 
-	if(walkthroughvideo) {
-		$("#walking-exit").off('click')
-		$("#walking-exit").on('click',function(){
-			that.closeWalkthroughVid()
-		});
+// 	if(walkthroughvideo) {
+// 		$("#walking-exit").off('click')
+// 		$("#walking-exit").on('click',function(){
+// 			that.closeWalkthroughVid()
+// 		});
 
-		$('#video-overlay').on('ended',function(){
-			// reset walkthrough
-		    scrollerPos = 0
-		    $( ".scroll-directions" ).css('top',scrollerPos)
-		    scrollValue =  parseInt($( ".scroll-directions" ).css('top')) * 5000 / (window.innerHeight - 220)
-		    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
-			that.percent = 
-			that.scrollValue = scrollValue
-			that.scrollFunction()
+// 		$('#video-overlay').on('ended',function(){
+// 			// reset walkthrough
+// 		    scrollerPos = 0
+// 		    $( ".scroll-directions" ).css('top',scrollerPos)
+// 		    scrollValue =  parseInt($( ".scroll-directions" ).css('top')) * 5000 / (window.innerHeight - 220)
+// 		    scrollPercent = Math.ceil((scrollValue / (5000-$(window).height())) * imageNumber);
+// 			that.percent = 
+// 			that.scrollValue = scrollValue
+// 			that.scrollFunction()
 
-		})
-	}
+// 		})
+// 	}
 
-    this.closeWalkthroughVid = function(){
+//     this.closeWalkthroughVid = function(){
 
-    	console.log('CLOSE WALKTHROUGH')
+//     	console.log('CLOSE WALKTHROUGH')
 
-    	if(!master.overlayOpen) {
-			$('#panocontainer, .fastpan, .compass').removeClass('hide')
+//     	if(!master.overlayOpen) {
+// 			$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
-			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-		        that.percent = 0.01
-			    $( ".scroll-directions" ).css('top',0)
-			    that.scrollStopFunction()
-		    })
-    	} else {
-	        that.percent = 0.01
-		    $( ".scroll-directions" ).css('top',0)
-		    that.scrollStopFunction()
-		    // closeVideoPlayer() // INFINITE LOOOOOOP
-    	}
+// 			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
+// 		        that.percent = 0.01
+// 			    $( ".scroll-directions" ).css('top',0)
+// 			    that.scrollStopFunction()
+// 		    })
+//     	} else {
+// 	        that.percent = 0.01
+// 		    $( ".scroll-directions" ).css('top',0)
+// 		    that.scrollStopFunction()
+// 		    // closeVideoPlayer() // INFINITE LOOOOOOP
+//     	}
 
-    	// krpano = document.getElementById("krpanoObject");
-		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+//     	// krpano = document.getElementById("krpanoObject");
+// 		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
-    }
+//     }
 
-	// auto resize ---------------------------------------------------------
+// 	// auto resize ---------------------------------------------------------
 
-	this.resize = function(){
-		that.maxScrollerPos = window.innerHeight - 300
+// 	this.resize = function(){
+// 		that.maxScrollerPos = window.innerHeight - 300
 
-		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
+// 		scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
 
-		$(canvas).css({
-			'width' :  master.globals.contain.w,
-			'height' : master.globals.contain.h,
-			'top' :    master.globals.contain.t
-		})
-	}
+// 		$(canvas).css({
+// 			'width' :  master.globals.contain.w,
+// 			'height' : master.globals.contain.h,
+// 			'top' :    master.globals.contain.t
+// 		})
+// 	}
 
-	master.debouncedResize();
+// 	master.debouncedResize();
 
-    // Autoplay -----------------------------------------------------------
+//     // Autoplay -----------------------------------------------------------
 
-    this.autoplay = false
+//     this.autoplay = false
 
-	$('.hotspot').off('click')
-    $('.hotspot').on('click',function(e){
-    	e.stopPropagation()
+// 	$('.hotspot').off('click')
+//     $('.hotspot').on('click',function(e){
+//     	e.stopPropagation()
 
-    	if(that.autoplay) {
-    		console.log('AUTOPAUSE ||')
-    		that.autoplay=false
-    	} else {
-    		console.log('AUTOPAUSE >')
-    		that.autoplay = true
-    		that.play()
-    	}
+//     	if(that.autoplay) {
+//     		console.log('AUTOPAUSE ||')
+//     		that.autoplay=false
+//     	} else {
+//     		console.log('AUTOPAUSE >')
+//     		that.autoplay = true
+//     		that.play()
+//     	}
     	
-    })
+//     })
 
-    this.play = function(){
+//     this.play = function(){
 
-    	if(that.autoplay) {
+//     	if(that.autoplay) {
 
-    		that.percent += playSpeed
+//     		that.percent += playSpeed
 
-    		advance()
+//     		advance()
 
-    	} else {
-    		console.log('autoplay: false')
-    		return false;
-    	}
+//     	} else {
+//     		console.log('autoplay: false')
+//     		return false;
+//     	}
 
-    }
+//     }
 
-    // advance = function(scrollerPos){
-    advance = function(){
+//     // advance = function(scrollerPos){
+//     advance = function(){
 
-    	// sanity check
-    	if(that.percent > 1) {
-    		that.percent = 1;
-    		that.scrollStopFunction()
-    		clearTimeout(mouseWheelTimeout)
-    		return
-    	}
-    	else if(that.percent < 0) {
-    		that.percent = 0.01
-    		that.scrollStopFunction()
-    		clearTimeout(mouseWheelTimeout)
-    		return
-    	}
+//     	// sanity check
+//     	if(that.percent > 1) {
+//     		that.percent = 1;
+//     		that.scrollStopFunction()
+//     		clearTimeout(mouseWheelTimeout)
+//     		return
+//     	}
+//     	else if(that.percent < 0) {
+//     		that.percent = 0.01
+//     		that.scrollStopFunction()
+//     		clearTimeout(mouseWheelTimeout)
+//     		return
+//     	}
 
-	    // update scroll thumb
-		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
+// 	    // update scroll thumb
+// 		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
 
-		that.scrollFunction()
-    }
+// 		that.scrollFunction()
+//     }
 
-    // end Autoplay functionality
+//     // end Autoplay functionality
 
 
-    // Dragging/Mousewheel Functionality ********************************************************
+//     // Dragging/Mousewheel Functionality ********************************************************
 
-	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
-		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-	   		$( ".scroll-directions" ).draggable({ 
-	   			axis: "y",
-	   			containment: 'parent',
-				drag: function() {
+// 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
+// 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
+// 	   		$( ".scroll-directions" ).draggable({ 
+// 	   			axis: "y",
+// 	   			containment: 'parent',
+// 				drag: function() {
 					
-					that.autoplay = false // stop autoplay
+// 					that.autoplay = false // stop autoplay
 					
-					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
+// 					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
 
-					console.log(that.percent)
+// 					console.log(that.percent)
 
-					that.scrollFunction()
-				},
-				stop: function() {
-					that.scrollStopFunction()
-				}
-			});
-	   	});
+// 					that.scrollFunction()
+// 				},
+// 				stop: function() {
+// 					that.scrollStopFunction()
+// 				}
+// 			});
+// 	   	});
 
-		if(document.getElementById('scroll-wrapper')){
-		   	if ($("#scroll-wrapper")[0].addEventListener) {
-	        	$("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false); // IE9, Chrome, Safari, Opera
-	        	$("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
-			} else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
-		}
+// 		if(document.getElementById('scroll-wrapper')){
+// 		   	if ($("#scroll-wrapper")[0].addEventListener) {
+// 	        	$("#scroll-wrapper")[0].addEventListener("mousewheel", MouseWheelHandler, false); // IE9, Chrome, Safari, Opera
+// 	        	$("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
+// 			} else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
+// 		}
 		
-		function MouseWheelHandler(e){
-			console.log('mouse wheel')
-	        var e = window.event || e; // old IE support
-	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
+// 		function MouseWheelHandler(e){
+// 			console.log('mouse wheel')
+// 	        var e = window.event || e; // old IE support
+// 	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
 
-	        that.percent -= playSpeed * delta
+// 	        that.percent -= playSpeed * delta
 
-	        advance()
+// 	        advance()
 
-			clearTimeout(mouseWheelTimeout)
-			mouseWheelTimeout = null
+// 			clearTimeout(mouseWheelTimeout)
+// 			mouseWheelTimeout = null
 
-	        mouseWheelTimeout = setTimeout(function(){
-	        	that.scrollStopFunction()
-	        },500)
-		}
+// 	        mouseWheelTimeout = setTimeout(function(){
+// 	        	that.scrollStopFunction()
+// 	        },500)
+// 		}
 
-	});
+// 	});
 
 	
-    function zeroes(num, length) {
-      var str = '' + num;
-      while (str.length < length) {
-        str = '0' + str;
-      } 
-      return str;
-    }
+//     function zeroes(num, length) {
+//       var str = '' + num;
+//       while (str.length < length) {
+//         str = '0' + str;
+//       } 
+//       return str;
+//     }
  
     
 
 
 
-	/* ***** Scroll Function ***** */
+// 	/* ***** Scroll Function ***** */
 
-    this.scrollFunction = function(){
+//     this.scrollFunction = function(){
 
-      	// sanity check
-		if(that.percent <= 0) that.percent = 0.01
-		else if(that.percent > 1) that.percent = 1
+//       	// sanity check
+// 		if(that.percent <= 0) that.percent = 0.01
+// 		else if(that.percent > 1) that.percent = 1
 
-		var currentImage = Math.ceil(imageNumber * that.percent)
+// 		var currentImage = Math.ceil(imageNumber * that.percent)
 
-		if(oddOnly) {
-			// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
-			if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
+// 		if(oddOnly) {
+// 			// make sure we actually display a frame (otherwise mousewheel sometimes sticks on odd numbers)
+// 			if (currentImage % 2 == 0 && currentImage < imageNumber) currentImage++
 
-			if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
-		}
-		else {
-			imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
-		}
+// 			if (currentImage % 2 !== 0) imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+// 		}
+// 		else {
+// 			imageSrc = master.cdn_imgseq + name + "-sm-frame-"+zeroes(currentImage,4)+".jpg";
+// 		}
 		
 		
-		console.log('currentImage: '+'\t'+currentImage)
+// 		console.log('currentImage: '+'\t'+currentImage)
 
-		var img = new Image();
+// 		var img = new Image();
 
-		img.src = imageSrc
+// 		img.src = imageSrc
 
-		img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+// 		img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
-		if(walkthroughvideo) {
-			if(that.percent > 0.9 && !master.overlayOpen){
-				that.autoplay = false;
-				$('.scroll-directions').fadeOut()
-				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
-			}	
-		} 
+// 		if(walkthroughvideo) {
+// 			if(that.percent > 0.9 && !master.overlayOpen){
+// 				that.autoplay = false;
+// 				$('.scroll-directions').fadeOut()
+// 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
+// 				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
+// 			}	
+// 		} 
 
-    }
-
-
-
-    /* ***** Stop Function ***** */
-
-    this.scrollStopFunction = function(){
+//     }
 
 
-    	console.log('STOP' + '\t' + that.percent + '% \t overlayOpen: ' + master.overlayOpen)
 
-    	if(that.percent <= 0) that.percent = 0.01
-		else if(that.percent > 1) that.percent = 1
+//     /* ***** Stop Function ***** */
 
-		imageSrc = master.cdn_imgseq + name + "-med-frame-"+zeroes(Math.ceil(imageNumber * that.percent),4)+".jpg";
+//     this.scrollStopFunction = function(){
 
-        var img = new Image();
-        img.src = imageSrc
-        img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
 
-        if(walkthroughvideo) {
-			if(that.percent > 0.9 && !master.overlayOpen){
-				that.autoplay = false;
-				$('.scroll-directions').fadeOut()
-				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
-			}	
-		}
+//     	console.log('STOP' + '\t' + that.percent + '% \t overlayOpen: ' + master.overlayOpen)
 
-    }
+//     	if(that.percent <= 0) that.percent = 0.01
+// 		else if(that.percent > 1) that.percent = 1
+
+// 		imageSrc = master.cdn_imgseq + name + "-med-frame-"+zeroes(Math.ceil(imageNumber * that.percent),4)+".jpg";
+
+//         var img = new Image();
+//         img.src = imageSrc
+//         img.onload = function(){ context.drawImage(img, 0, 0,w,h); }
+
+//         if(walkthroughvideo) {
+// 			if(that.percent > 0.9 && !master.overlayOpen){
+// 				that.autoplay = false;
+// 				$('.scroll-directions').fadeOut()
+// 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
+// 				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
+// 			}	
+// 		}
+
+//     }
               
-} /// end walkthrough
+// } /// end walkthrough
 
 
 
@@ -1245,7 +1236,9 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
     var playSpeed = 1/(videoLength*60) // in frames!
 
+
     // Load Video ********************************************************
+
 	var video = document.createElement('video')
 	video.setAttribute('src', master.cdn_video + 'transition-' + name + master.videoType);
 
@@ -1259,8 +1252,8 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		context.drawImage(video,0,0,w+3,h+5);
 	})
 
+
 	// Init/Close ********************************************************
-	
 	// (additional logic in scrollFunction and scrollStopFunction)
 	
 	var walkthroughvideo = false;
