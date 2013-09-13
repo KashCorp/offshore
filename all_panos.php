@@ -139,7 +139,7 @@
     <script type="text/javascript" src="js/lib/Tween.js"></script>
   	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
   	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
-    <script src="http://jsconsole.com/remote.js?F65C36F8-634F-45FF-8B34-7BCA6599F074"></script>
+
 
 
 
