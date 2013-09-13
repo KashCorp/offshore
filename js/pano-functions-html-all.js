@@ -111,7 +111,7 @@ var pano_master = function(){
     viewer.addVariable("xml", panoXMLFile);  
     viewer.useHTML5("prefer")
     //viewer.passQueryParameters();
-    //viewer.addParam("wmode","transparent");
+    viewer.addParam("wmode","transparent");
     this.viewer = viewer
     viewer.embed();
 
