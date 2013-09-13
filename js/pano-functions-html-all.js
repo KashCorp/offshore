@@ -313,35 +313,35 @@ var pano_master = function(){
         switch(_pano){
 
             case "prologue" : 
-                overLayFile = 'HeliPad_minus_minus.mp3'
+                overLayFile = 'HeliPad_minus_minus.m4a'
 
                 $compass.hide()
 
             break;
 
             case "helicopter" :
-                overLayFile = 'Helicopter_Interior.mp3'
+                overLayFile = 'Helicopter_Interior.m4a'
             break;
 
             case "platform" :
                 that.visited.platform = true;
-                overLayFile = 'ocean_sounds.mp3'
+                overLayFile = 'ocean_sounds.m4a'
             break;
 
             case "boat" : 
                 that.visited.boat = true;
-                overLayFile = 'HeliPad_minus_minus.mp3'
-                underlayFile = 'The_Zone.mp3'
+                overLayFile = 'HeliPad_minus_minus.m4a'
+                underlayFile = 'The_Zone.m4a'
             break;
 
             case "interiorsub-wire" : 
-                overLayFile = 'Submersible.mp3'
+                overLayFile = 'Submersible.m4a'
                 underlayMute=true
             break;
 
             case "lowerplatform_closed" : 
-                overLayFile = 'LowerPlatform_minus.mp3' 
-                underlayFile = 'Drone_1_norm.mp3'
+                overLayFile = 'LowerPlatform_minus.m4a' 
+                underlayFile = 'Drone_1_norm.m4a'
             break;
 
             case "hallway" : 
@@ -352,15 +352,15 @@ var pano_master = function(){
                 
                 console.log('that.voiceStartTimer: '+'\t'+ that.voiceCurrentTime)
 
-                loadAFXPano('One_Big_Ball_of_Fire.mp3', that.voiceCurrentTime)
+                loadAFXPano('One_Big_Ball_of_Fire.m4a', that.voiceCurrentTime)
                 
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
                 that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
 
-                overLayFile = 'Main_Hallway.mp3'
+                overLayFile = 'Main_Hallway.m4a'
 
-                underlayFile = 'Drone_2_norm.mp3'
+                underlayFile = 'Drone_2_norm.m4a'
 
                 $panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"/>')
 
@@ -370,8 +370,8 @@ var pano_master = function(){
 
             case "subhangar" : 
                 that.visited.subhangar = true;
-                overLayFile = 'SubRoom.mp3' 
-                underlayFile = 'Drone_3.mp3'
+                overLayFile = 'SubRoom.m4a' 
+                underlayFile = 'Drone_3.m4a'
 
                 // walkthrough
                 $("#walking-canvas-pano").removeClass('hide')
@@ -388,14 +388,14 @@ var pano_master = function(){
 
             case "theater" : 
                 that.visited.theatre = true;
-                overLayFile = 'Fluorescencent_Tone.mp3'
+                overLayFile = 'Fluorescencent_Tone.m4a'
                 underlayMute=true
             break; 
 
             case "chemicalroom" :
                 that.visited.chemicalroom = true;
-                overLayFile = 'Chemical_Room.mp3' 
-                underlayFile = 'Drone_3_norm.mp3'
+                overLayFile = 'Chemical_Room.m4a' 
+                underlayFile = 'Drone_3_norm.m4a'
                 
                 // walkthrough
                 var scrollTrigger=false;
@@ -410,7 +410,7 @@ var pano_master = function(){
 
             case "controlroom" : 
                 that.visited.controlroom = true;
-                overLayFile = 'russian_radio.mp3'
+                overLayFile = 'russian_radio.m4a'
                 
                 $panocontainer.before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
                 that.video_underlay = true;
@@ -534,7 +534,7 @@ var pano_master = function(){
 
                 $('#word-container ul').html(wordHTL)
  
-                overLayFile = 'Hatch_Alt2.mp3'
+                overLayFile = 'Hatch_Alt2.m4a'
           break;       
 
         }
