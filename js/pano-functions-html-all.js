@@ -100,27 +100,29 @@ var pano_master = function(){
         targetContainer = "panocontainer",
         xmlLoc = masterPath + "/xml/all_panos.xml?nocache="+Math.random()*5,
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
+
+        embedpano({swf:swfLoc,  id:"krpanoObject", xml:xmlLoc, wmode: "transparent", target:"panocontainer", html5:"auto", passQueryParameters:true}); 
+           
+    // var viewer = createPanoViewer({
+    //     swf:swfLoc,
+    //     id:"krpanoObject",
+    //     wmode: "transparent",
+    //     target:"panocontainer",
+    //     html5:"auto"
+    // });
+
+    // viewer.addVariable("xml", panoXMLFile);  
+    // viewer.useHTML5("auto")
     
-    var viewer = createPanoViewer({
-        swf:swfLoc,
-        id:"krpanoObject",
-        wmode: "transparent",
-        target:"panocontainer"
-        // html:"prefer"
-    });
+    // viewer.addParam("wmode","transparent");
 
-    viewer.addVariable("xml", panoXMLFile);  
-    viewer.useHTML5("prefer+css3d")
-    
-    viewer.addParam("wmode","transparent");
-
-    this.viewer = viewer
-    viewer.bgcolor= "#ff0000"
-    viewer.passQueryParameters();
-    viewer.embed();
+    // this.viewer = viewer
+    // viewer.bgcolor= "#ff0000"
+    // viewer.passQueryParameters();
+    // viewer.embed();
 
 
-    console.log(viewer)
+    // console.log(viewer)
 
     krpano = document.getElementById("krpanoObject");
 
@@ -394,7 +396,7 @@ var pano_master = function(){
             break;
 
             case "submarine" :
-                $panocontainer.before('<video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+                $panocontainer.before('<div class="underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
                 that.video_underlay = true;
             break;
 

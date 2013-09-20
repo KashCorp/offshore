@@ -64,6 +64,7 @@ var masterFunctions = function() {
 	this.ghostBuster = false
 	this.ghostMinc
 	this.viewedContentArray = []
+	this.isPlayingVO = false
 
 	// webm or h264
 	var v = document.createElement('video');
@@ -590,9 +591,24 @@ var masterFunctions = function() {
 
 		if(!_start) _start = 0
 
-		console.log('_trackName: '+'\t'+_trackName)
+		console.log('_trackName: '+'\t'+_trackName + " _ " + master.isPlayingVO)
 
 		if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
+		
+		/// toggle on/off logic 
+
+		if(master.isPlayingVO) {
+			master.isPlayingVO = false;
+			return;
+		}
+
+		if(_trackName == 'overlay_02'){
+
+			master.isPlayingVO = true
+
+		}
+
+
 
 		if(!_targetVolume) {_targetVolume = 1.0}
 
@@ -1666,6 +1682,8 @@ function newPano(_pano, fromPrologue) {
 
 	console.log('newPano')
 
+	master.isPlayingVO = false
+
 	if(!fromPrologue) {
 
 		$('#video-underlay').hide()
@@ -1687,7 +1705,13 @@ function newPano(_pano, fromPrologue) {
 
 }
 
+function removeBackgroundImage(divName){
 
+	console.log("remove " + divName)
+
+	$('.' + divName).remove()
+
+}
 
 function panoComplete(){
 

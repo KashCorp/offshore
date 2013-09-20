@@ -138,7 +138,7 @@
     <script type="text/javascript" src="js/panoLoader.js"></script>
 		<script type="text/javascript" src="js/master-functions-all-panos.js"></script>
     <script type="text/javascript" src="js/lib/Tween.js"></script>
-  	<script type="text/javascript" src="js/lib/krpano_old_2/swfkrpano.js"></script>
+  	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
   	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
 
 

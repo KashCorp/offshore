@@ -205,7 +205,7 @@
 			alpha="0.0"
 			width="105.0"
 			height="150"
-			onclick="js(loadAFXPano(VO_Helicopter.mp3))"
+			onclick="js(loadAFXPano(voice_overs/VO_01_Helicopter.m4a))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -301,7 +301,7 @@
 			alpha="0.0"
 			width="105.0"
 			height="105.0"
-			onclick="js(loadAFXPano(VO_FlightDeck.mp3))"
+			onclick="js(loadAFXPano(voice_overs/VO_02_Helipad.m4a))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -439,7 +439,7 @@
 			width="105.0"
 			height="105.0"
 			
-			onclick="js(loadAFXPano(VO_LowerPlatform.mp3))"
+			onclick="js(loadAFXPano(voice_overs/VO_03_Platform.m4a))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -546,7 +546,7 @@
 				/> -->
 				
 
-			<hotspot name="into_sub" 
+			<hotspot name="going_up_stairs1" 
 				url="../images/hotspot.gif"
 				ath="90"
 				atv="-7.0"
@@ -559,7 +559,7 @@
 				capture="false"
 				/>
 
-			<hotspot name="going_up_stairs" 
+			<hotspot name="going_up_stairs2" 
 				url="../images/hotspot_diagonal.gif"
 				ath="75"
 				atv="-13"
@@ -572,6 +572,34 @@
 				capture="false"
 				/>
 
+
+			<hotspot name="life_preserver_starboard" 
+				url="../images/hotspot.gif"
+				ath="320"
+				atv="35"
+				distorted="true"
+				alpha="0.0"
+				height="360.0"
+				width="360.0"
+				onclick="js(master.loadOverlay(lifepreserver_starboard.php))"
+
+				scale="1.0"
+				capture="false"
+				/>
+
+			<hotspot name="life_preserver_port" 
+				url="../images/hotspot.gif"
+				ath="90"
+				atv="35"
+				distorted="true"
+				alpha="0.0"
+				height="360.0"
+				width="360.0"
+				onclick="js(master.loadOverlay(lifepreserver_port.php))"
+
+				scale="1.0"
+				capture="false"
+				/>
 				
 			<hotspot name="stairs back to platform"
 				device="flash"
@@ -608,7 +636,7 @@
 				width="105.0"
 				height="105.0"
 
-				onclick="js(loadAFXPano(VO_BoatDeck.mp3))"
+				onclick="js(loadAFXPano(voice_overs/VO_04_BoatDeck.m4a))"
 				scale="1.0"
 				capture="false"
 				/>
@@ -1544,8 +1572,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3]THE WELL FROM HELL: STORIES FROM THE DEEPWATER HORIZON DISASTER[h3]"
+			height="60"
+			html="[h3]THE WELL FROM HELL:[br] STORIES FROM THE DEEPWATER HORIZON DISASTER[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1570,10 +1598,10 @@
 
 		<hotspot name="Voices_Dossier_text"
 			url="plugins/textfield.swf"
-			ath="-140"
-			atv="0"
+			ath="-110"
+			atv="25"
 			children="false"
-			edge="righttop"
+			edge="lefttop"
 			background="false"
 			capture="false"
 			color="0xffffff"
@@ -1593,8 +1621,8 @@
 			alpha=".5"
 			height="70"
 			width="70"
-			ath="-140"
-			atv="0"
+			ath="-110"
+			atv="30"
 			distorted="true"
 			capture="false"
 			onclick="js(master.loadOverlay(debrief.php));
@@ -1730,7 +1758,7 @@
 			atv="10"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(newPano(subhangar))"
+			onclick="js(newPano(subhangar));js(removeBackgroundImage(underwater-hanger))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="10.0"
@@ -1910,8 +1938,8 @@
 			fontFamily: Helvetica, Arial, sans-serif;
 			fontSize: 10;
 			line-height: 30px;
-			textAlign: center;
-			text-align: center;
+			textAlign: left;
+			text-align: left;
 		}
 
 		h2 {
@@ -1920,8 +1948,8 @@
 			fontFamily: Helvetica, Arial, sans-serif;
 			fontSize: 7;
 			line-height: 20px;
-			textAlign: center;
-			text-align: center;
+			textAlign: left;
+			text-align: left;
 		}			
 	</data>
 

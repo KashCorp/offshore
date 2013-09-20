@@ -266,8 +266,7 @@
 			return;
 		}
 
-		if ( this.options.playing ) {
-			
+		if ( this.options.playing ) {		
 			return;
 		} 
 
