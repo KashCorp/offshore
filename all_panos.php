@@ -77,11 +77,12 @@
 
   <div id="wrapper" class="wrapper">
 
-    <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas>
     
+    
+    <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas> 
 
-    <div id="panocontainer" class="platform show"></div>
-        
+    <div id="panocontainer" class="show"></div>
+      
         <div class="video-content-wrap">
           <video class="" width="100%" style="position:absolute" id="video-overlay" preload="auto">
             <source/>
@@ -137,7 +138,7 @@
     <script type="text/javascript" src="js/panoLoader.js"></script>
 		<script type="text/javascript" src="js/master-functions-all-panos.js"></script>
     <script type="text/javascript" src="js/lib/Tween.js"></script>
-  	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
+  	<script type="text/javascript" src="js/lib/krpano_old_2/swfkrpano.js"></script>
   	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
 
 

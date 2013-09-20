@@ -104,18 +104,27 @@ var pano_master = function(){
     var viewer = createPanoViewer({
         swf:swfLoc,
         id:"krpanoObject",
+        wmode: "transparent",
         target:"panocontainer"
         // html:"prefer"
     });
 
     viewer.addVariable("xml", panoXMLFile);  
-    viewer.useHTML5("prefer")
-    //viewer.passQueryParameters();
+    viewer.useHTML5("prefer+css3d")
+    
     viewer.addParam("wmode","transparent");
+
     this.viewer = viewer
+    viewer.bgcolor= "#ff0000"
+    viewer.passQueryParameters();
     viewer.embed();
 
+
+    console.log(viewer)
+
     krpano = document.getElementById("krpanoObject");
+
+
 
     master.debouncedResize();
 
@@ -287,8 +296,8 @@ var pano_master = function(){
         $('#scroll-wrapper').fadeOut()
 
 
-        $panocontainer.show()
-        $panocontainer.removeClass('hide')
+        //$panocontainer.show()
+        //$panocontainer.removeClass('hide')
 
         // load pano
         
@@ -297,6 +306,8 @@ var pano_master = function(){
         
         krpano = document.getElementById("krpanoObject");
         krpano.call('action(' + _pano + ')')
+
+        console.log(krpano)
 
         // should add a krpano lookto call here, sometimes loads looking at ceiling
         // krpano.call('lookto(0,0,90)'); // lookto(horizontal, vertical, fov)
@@ -357,7 +368,7 @@ var pano_master = function(){
                 
                 var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
                 
-                that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
+                //that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
 
                 overLayFile = 'Main_Hallway.m4a'
 

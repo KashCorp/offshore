@@ -24,6 +24,9 @@
       <div class="hard" style="background-image:url(../images/books/folder_front.png)"></div>
       <div class="hard" style="background-image:url(../images/books/folder_left.png)"></div>
 
+      <div class="hard" style="background-image:url(../images/books/dossier/AccidentInquest.jpg)"></div>
+      <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>
+
       <div class="hard" style="background-image:url(../images/books/dossier/spartan_brief.jpg)"></div>
       <div class="hard" style="background-image:url(../images/books/dossier/blank_paper.jpg)"></div>
 

@@ -345,8 +345,8 @@ var masterFunctions = function() {
            
 
             breadbox_string += '<nav class="left">';
-            // breadbox_string += '<ul><li><a href="about.html">About</a></li>';
-            // breadbox_string += '<li><a href="blog.html">Blog</a></li>';
+            breadbox_string += '<ul><li><a href="about.html">About</a></li>';
+            breadbox_string += '<li><a href="blog.html">Blog</a></li>';
             // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
             breadbox_string += '</nav>';
 
@@ -781,7 +781,7 @@ var masterFunctions = function() {
 		var tag=getCookie("seen_frontpage");
 
 	    if (tag==null || tag==""){
-	    	$('body.platform').find('#overlay').delay(2000).fadeIn(500);
+	    	//$('body.platform').find('#overlay').delay(2000).fadeIn(500);
 	    	setCookie("seen_frontpage",true);
 	    }
 	    // e// }
@@ -1843,8 +1843,10 @@ var soundadjust = function(coord,fov) {
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
 	            $('.scroll-directions').css('top','0px') // reset scrubber position
 	        })
+
+	        //$('#walking-canvas-pano').css('opacity',1.0)
     
-	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.1)
+	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.3)
 	        pano.walkthroughPlaying = false;
 	    }
 	}
