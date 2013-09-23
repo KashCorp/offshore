@@ -28,7 +28,7 @@ Brenda Longfellow, Glen Richards and Helios Design Lab.
 PRODUCER <br>
 Brenda Longfellow
 <br><br>
-INTERACTIVE DESIGN AND DEVELOPMENT
+INTERACTIVE DESIGN AND DEVELOPMENT<br>
 Producer: Sarah Arruda <br>
 Interactive/Technical Director: Mike Robbins <br>
 Creative Director: Alex Wittholz <br>
