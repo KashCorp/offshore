@@ -19,11 +19,11 @@
       "movies": [
         {
           "title": "Sending a Man to Mars",
-          "file": "Platform_SendingAManToMars"
+          "file": "PLATFORM-SendingAManToMars"
         },
         {
           "title": "Hurricane Alley",
-          "file": "Platform_HurricaneAlley"
+          "file": "PLATFORM-HurricaneAlley"
         }
       ]
     },
@@ -36,15 +36,15 @@
     	"movies": [
     		{
     			"title": "Deep to Ultra Deep",
-    			"file": "LowerPlatform_DeepToUltraDeep"
+    			"file": "LOWER-DeepToUltraDeep"
     		},
     		{
     			"title": "Mr Floyd",
-    			"file": "LowerPlatform_Mr_Floyd"
+    			"file": "LOWER-Mr_Floyd"
     		},
     		{
     			"title": "Port Fourchon: Oil Capital",
-    			"file": "LowerPlatform_PortFourchon"
+    			"file": "LOWER-PortFourchon"
     		}
     	]
     },
@@ -121,11 +121,11 @@
       "movies": [
         {
           "title": "Darla Rooks",
-          "file": "ChemicalStorage_Darla"
+          "file": "CHEM-Darla"
         },
         {
           "title": "Jorey Danos",
-          "file": "ChemicalStorage_Jorey"
+          "file": "CHEM-Jorey"
         },
         {
           "title": "Kindra and David Arneson",
@@ -133,7 +133,7 @@
         },
         {
           "title": "‘Catfish’ Miller",
-          "file": "ChemicalStorage_James"
+          "file": "CHEM-James"
         }
         
       ]
@@ -146,7 +146,7 @@
       "movies": [
         {
           "title": "Corexit: A Deadly Dispersant",
-          "file": "ChemicalStorage_Corexit"
+          "file": "CHEM-Corexit"
         }
         
       ]
@@ -158,11 +158,11 @@
       "movies": [
         {
           "title": "Dr. Mike Robichaux",
-          "file": "ChemicalStorage_DrMike"
+          "file": "CHEM-DrMike"
         },
         {
           "title": "Dr. Andrew Whitehead",
-          "file": "ChemicalStorage_DrAndrew"
+          "file": "CHEM-DrAndrew"
         }
         
       ]
@@ -254,7 +254,7 @@
       "movies": [
         {
           "title": "Mr. Jack",
-          "file": "EngineRoom_Mr_Jack"
+          "file": "ENGINE-Mr_Jack"
         }
         
       ]
