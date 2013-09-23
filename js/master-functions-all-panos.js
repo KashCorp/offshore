@@ -346,7 +346,10 @@ var masterFunctions = function() {
            
 
             breadbox_string += '<nav class="left">';
-            breadbox_string += '<ul><li><a href="about.html">About</a></li>';
+            breadbox_string += '<ul><li><a id="about-link">About</a></li>';
+
+            breadbox_string += '<ul><li><a id="credits-link">Credits</a></li>';
+
             breadbox_string += '<li><a href="blog.html">Blog</a></li>';
             // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
             breadbox_string += '</nav>';
@@ -368,6 +371,17 @@ var masterFunctions = function() {
 
             $('.backtostart').click(function(){
             	parent.window.location.hash = '';
+            })
+
+            $('#about-link').click(function(){
+            	master.loadOverlay('about.php')
+            	
+            })
+
+
+            $('#credits-link').click(function(){
+            	master.loadOverlay('credits.php')
+            	
             })
 
            
@@ -1850,12 +1864,13 @@ var soundadjust = function(coord,fov) {
 
 	/* sequences */
 	if(master.globalPano === 'chemicalroom' || master.globalPano === 'subhangar' ) {
-	
 		// fade in walkthrough	  
 		if(fov < 25 && !master.overlayOpen) {
   
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
 	        $('#panocontainer, .fastpan, .compass').addClass('hide')
+	        //pano.walkthrough.autoplay = true
+	        pano.panoWalkthrough.autoplay = true
 	        pano.walkthroughPlaying = true;
 
   		// fade out walkthrough
@@ -1869,8 +1884,10 @@ var soundadjust = function(coord,fov) {
 	        })
 
 	        //$('#walking-canvas-pano').css('opacity',1.0)
+
+	        console.log(Math.abs(1-fov/90)+.6)
     
-	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.3)
+	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.4)
 	        pano.walkthroughPlaying = false;
 	    }
 	}

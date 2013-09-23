@@ -18,11 +18,13 @@
 
 <div style="font-size: 1.5em;padding-top:10%;width:55%;margin:auto">
 
-<p>On July 29, 2010, the U.S. Federal Food and Drug Administration opened state waters in the Gulf of Mexico that had been closed due to the spill, declaring that the seafood was safe.</p>
+<p>There are huge, untapped reserves of oil and gas beneath the world’s oceans, 90 billion barrels in the Arctic alone. As conventional sources of oil decline, everyone from international oil majors to governments wants in on the game.</p> 
 
-<p>Many fishers and scientists, however, remain concerned about the long-term reproductive health of marine species pointing to the fact that it took four years for the herring fishery in Alaska to collapse following the Exxon Valdez spill. </p>
+<p>Yet this new oil frontier comes with incredible risk-- financial, environmental and social. Opponents passionately believe that it is not a case of “if” another oil spill happens but when. </p>
 
-<p><a href="http://www.tampabay.com/news/environment/water/gulf-oil-spill-killed-millions-of-microscopic-creatures-at-base-of-food/2113157" target="_BLANK">Find out more >></a></a>
+<p>OFFSHORE, invites viewers on a complex journey through this new frontier where a profound struggle is evolving with huge stakes for the planet’s future. </p>
+
+<p>Our first chapter begins with the story of the Deepwater Horizon disaster.</p>
 
 </div>
 
