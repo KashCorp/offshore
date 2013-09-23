@@ -17,6 +17,8 @@
 
 
 <div style="font-size: 1.5em; width: 55%; margin: 0 auto; margin-top: 10%;">
+ABOUT OFFSHORE
+<br><br>
 <p>There are huge, untapped reserves of oil and gas beneath the world’s oceans, 90 billion barrels in the Arctic alone. As conventional sources of oil decline, everyone from international oil majors to governments wants in on the game.</p> 
 
 <p>Yet this new oil frontier comes with incredible risk-- financial, environmental and social. Opponents passionately believe that it is not a case of “if” another oil spill happens but when. </p>

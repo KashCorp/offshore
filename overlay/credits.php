@@ -19,8 +19,8 @@
 <div style="font-size: 1.5em;padding-top:10%;width:55%;margin:auto; overlay:auto">
 
 
-OFFSHORE CREDITS 
-
+CREDITS 
+<br><br>
 
 DIRECTORS <br>
 Brenda Longfellow, Glen Richards and Helios Design Lab. 
