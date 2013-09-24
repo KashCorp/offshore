@@ -226,7 +226,7 @@ var masterFunctions = function() {
 
     function resizeFunction(){
 
-      	console.log('<<< Global Resize >>>')
+      	// console.log('<<< Global Resize >>>')
 
     	// Calculate ********************************************************
 
@@ -360,9 +360,26 @@ var masterFunctions = function() {
 
 
 			breadbox_string += '<div class="share">'
-			breadbox_string += '<div class="facebook"><a target="_BLANK" href="http://www.facebook.com/share.php?u='+window.location.href+'"></a></div>'
-			breadbox_string += '<div class="twitter"><a target="_BLANK" href="http://twitter.com/share?url='+'asdf.com'+'&text="></a></div>'
+			// breadbox_string += '<div class="facebook"><a target="_BLANK" href="http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href)+'"></a></div>'
+			// breadbox_string += '<div class="twitter"><a target="_BLANK" href="http://twitter.com/intent/tweet?url='+encodeURIComponent(location.href)+'&text="></a></div>'
+
+			breadbox_string += '<div class="facebook"><a href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(parent.window.location.href), \'facebook-share-dialog\',\'width=626,height=436\');return false;"></a></div>';
+			breadbox_string += '<div class="twitter"><a href="#" onclick="window.open(\'http://twitter.com/intent/tweet?url=\'+encodeURIComponent(parent.window.location.href), \'twitter-share-dialog\',\'width=626,height=300\');return false;"></a></div>';
+
 			breadbox_string += '</div></div>'
+
+
+			// '<a href="#" class="facebook" onclick="window.open(
+			//     \'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(location.href), 
+			//     \'facebook-share-dialog\',\'width=626,height=436\');return false;">
+			//     Facebook
+			// </a>'
+
+			// '<a href="#" class="twitter" onclick="window.open(
+			//     \'http://twitter.com/intent/tweet?url=\'+encodeURIComponent(location.href), 
+			//     \'twitter-share-dialog\',\'width=626,height=300\');return false;">
+			//     Twitter
+			// </a>'
 
 
             $('.breadcrumb').html(breadbox_string);
