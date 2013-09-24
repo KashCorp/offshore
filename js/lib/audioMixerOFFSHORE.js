@@ -51,6 +51,7 @@
 	  this.events = {};
 	  this.lookup = {};
 
+
 	  if(Modernizr.webaudio === true) {
 	  	console.log('[MODERNIZR] Web Audio Supported')
 	  	if ( typeof AudioContext === 'function' ) 
@@ -191,7 +192,6 @@
 				start: 0
 			};
      
-
 		this.options = Mix.prototype.extend.call(this, defaults, opts || {});
 		this.name = name;
 		this.events = {};
@@ -203,9 +203,20 @@
 		this.set('currentTime', 0);
 		this.set('nolooping', this.options.nolooping);
 		this.set('start', this.options.start);
-		this.set('gainNode', this.get('mix').context.createGainNode());
-		this.set('panner', this.get('mix').context.createPanner());
-		this.get('panner').panningModel = webkitAudioPannerNode.EQUALPOWER;
+
+		if(this.get('mix').context.createGainNode()){
+
+			this.set('gainNode', this.get('mix').context.createGainNode());
+			this.set('panner', this.get('mix').context.createPanner());
+			this.get('panner').panningModel = webkitAudioPannerNode.EQUALPOWER;
+
+		}else{
+
+			this.set('gainNode', this.get('mix').context.createGain());
+			this.set('panner', this.get('mix').context.createPanner());
+			this.get('panner').panningModel = 'equalpower';			
+		}
+
 		this.get('panner').setPosition(this.pan(),0,.1);
 		this.set('gainCache', this.gain());
 
@@ -224,23 +235,55 @@
         request.open("GET", source, true);
         request.responseType = "arraybuffer";
 
+        console.log(source)
+
         // Our asynchronous callback
         request.onload = function() {
 
-        var audioData = request.response;
+        	var audioData = request.response;
 
-			self.set('source', self.get('mix').context.createBufferSource());
-			self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
-			self.get('source').buffer = self.get('sourceBuffer')
-			if(!self.get('nolooping')) self.get('source').loop = true
-			
-			self.get('source').connect(self.get('panner'));
-			self.get('panner').connect(self.get('gainNode'));
-			self.get('gainNode').connect(self.get('mix').context.destination);
-			self.ready = true;
-			self.get('mix').trigger('load', self);
 
-			console.log("loading")
+ 			if(!self.get('mix').context.createGainNode()) {
+
+
+				self.get('mix').context.decodeAudioData(audioData, function onSuccess(decodedBuffer) {
+				    
+				    console.log("web audio file decoded")
+
+					self.set('source', self.get('mix').context.createBufferSource());
+
+					self.set('sourceBuffer', decodedBuffer);
+					self.get('source').buffer = self.get('sourceBuffer')
+					if(!self.get('nolooping')) self.get('source').loop = true
+					
+					self.get('source').connect(self.get('panner'));
+					self.get('panner').connect(self.get('gainNode'));
+					self.get('gainNode').connect(self.get('mix').context.destination);
+					self.ready = true;
+					self.get('mix').trigger('load', self);
+
+					// console.log("loading")
+
+				}, function onFailure() {
+				    console.log("Buggah!");
+				});
+
+ 			} else{
+
+				self.set('source', self.get('mix').context.createBufferSource());
+				self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
+				self.get('source').buffer = self.get('sourceBuffer')
+				if(!self.get('nolooping')) self.get('source').loop = true
+				
+				self.get('source').connect(self.get('panner'));
+				self.get('panner').connect(self.get('gainNode'));
+				self.get('gainNode').connect(self.get('mix').context.destination);
+				self.ready = true;
+				self.get('mix').trigger('load', self);
+
+				console.log("loading")
+
+ 			}
 
 
         };
@@ -281,17 +324,23 @@
 	
 		this.options.playing = true;
 
-		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod|Safari)/g) ? true : false;
+		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
-		console.log(isIOS)
+//console.log(navigator.userAgent)
+
 
 		if(isIOS){
+
+			console.log(this.options.source + " is noting on at " + this.options.start)
+
 			this.options.source.noteOn(this.options.start)
 		}else{
 
-			console.log(this.options.source)
-			//this.options.source.noteOn(this.options.start)
-			this.options.source.start(0,this.options.start)	
+			console.log(this.options.source + " is starting at " + this.options.start)
+			if(typeof this.options.source.start === 'function') 
+				this.options.source.start(0,this.options.start)	
+				else 
+				this.options.source.noteOn(this.options.start)
 		}
 		
 		

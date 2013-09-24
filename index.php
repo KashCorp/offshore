@@ -96,8 +96,18 @@
       } 
 
       var audiomaster = new audioMaster();
+
+      var audioType1 = '.ogg'
+
+      var au1 = document.createElement('audio');
+
+1
+      if(au1.canPlayType && au1.canPlayType('audio/x-m4a').replace(/no/, '')) {
+        audioType1 = '.m4a';
+      }
+
       
-      audiomaster.loadAudio('audio/Drone_1_norm.mp3','basetrack',1,0)
+      audiomaster.loadAudio('audio/Drone_1_norm' + audioType1,'basetrack',1,0)
 
 
 

@@ -44,7 +44,7 @@ var masterFunctions = function() {
 		that.loadMap()
      });
 
-	 $('#panocontainer').after('<div class="vignette"/>')
+
     
 
     var delayNavSlide = function(){

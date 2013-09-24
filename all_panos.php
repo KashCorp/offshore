@@ -42,7 +42,9 @@
 
   <div id="scroll-wrapper" class="wrapper">
     
-    <canvas id="walking-canvas" style="position:absolute" width="1200" width="800"></canvas>
+    <video id="walking-canvas" style="position:absolute;display:block" looping="false" width="1200" width="800"></video>
+
+    <div class="vignette"></div>
 
     <div id="viewport" class="no-pointer-events" style="left:0px">
       
@@ -77,11 +79,20 @@
 
   <div id="wrapper" class="wrapper">
 
+   <div class="oil-shot-bg pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>
     
-    
-    <canvas id="walking-canvas-pano" style="position:absolute" width="1200" width="800"></canvas> 
+    <video id="walking-canvas-pano" style="position:absolute;display:block"  looping="false" width="1200" width="800"></video> 
 
     <div id="panocontainer" class="show"></div>
+
+    <div class="vignette"></div>
+
+    
+   
+
+
+
+
       
         <div class="video-content-wrap">
           <video class="" width="100%" style="position:absolute" id="video-overlay" preload="auto">
@@ -129,6 +140,8 @@
     <div class="compass" style="display:none"><img src="images/icons/map_icon.png"></div>
 
     <div class="breadcrumb" id="toolbelt"></div>
+
+    <!--<video id="walkthrough-video" width="100%" style="position:absolute;display:block;top:0px;pointer-events:none" preload="auto">-->
 
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
