@@ -54,14 +54,14 @@ var pano_master = function(){
     this.ghostTransition;
     this.walkthrough;
 
-    this.voiceCurrentTime = 0
+    this.voiceCurrentTime;
     this.voiceStartTimer = 0
 
     this.panDirectionsShown = false;
 
     this.video_underlay = false;
 
-    this.visited = {
+    this.visited = { // this gets cached in localStorage
         platform : false,
         lowerplatform : false,
         hallway : false,
@@ -159,8 +159,6 @@ var pano_master = function(){
 
         console.log('LOAD: hash change')
 
-
-
         if(master.globalPano === parent.location.hash.slice(1)) {
             console.log('#nowhere')
             return false;
@@ -227,6 +225,10 @@ var pano_master = function(){
     
 
     this.loadPanoScene = function(_pano) {
+
+        // cache visited data to localStorage
+        that.visited = JSON.parse(localStorage.getItem('visited'))
+
 
         $('.oil-shot-bg').css('display','none')
 
@@ -362,21 +364,18 @@ var pano_master = function(){
 
                 that.visited.hallway = true;
 
-                // Big ball of fire voices
-                if(that.voiceCurrentTime == 0) that.voiceStartTimer = new Date()
-                
+                // Big ball of fire voices (localStorage)
+                // that.voiceCurrentTime = JSON.parse(localStorage.getItem('voiceCurrentTime'));
+                if(!that.voiceCurrentTime) that.voiceStartTimer = new Date()
                 console.log('that.voiceStartTimer: '+'\t'+ that.voiceCurrentTime)
-
                 loadAFXPano('One_Big_Ball_of_Fire', that.voiceCurrentTime)
     
 
                 overLayFile = 'Main_Hallway' + master.audioType
-
                 underlayFile = 'Drone_2_norm' + master.audioType
 
                 $panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"></div>')
 
-                //$panocontainer.before('<div class="dynamic pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')
                 that.video_underlay = true;
             break;
 
@@ -448,6 +447,8 @@ var pano_master = function(){
             //
         }
 
+        // cache visited data to localStorage
+        localStorage.setItem('visited',JSON.stringify(that.visited))
 
         $(window).off('resize.underlay')
 
@@ -1075,10 +1076,21 @@ var pano_master = function(){
 
             if(TWEEN) TWEEN.update()
 
+
+            // Hallway Audio ********************************************************
+        
             if(master.globalPano == 'hallway' && pano) {
                 pano.voiceCurrentTime = (new Date() - pano.voiceStartTimer)/1000
-               //console.log(pano.voiceCurrentTime/1000)
+
+                console.log(pano.voiceCurrentTime)
+
+                // if(new Date()%10==0) {
+                //     console.log('voiceCurrentTime: '+'\t'+pano.voiceCurrentTime)
+                //     localStorage.setItem('voiceCurrentTime',JSON.stringify(pano.voiceCurrentTime))
+                // }
             }
+
+
 
             // Audio ********************************************************
 

@@ -173,11 +173,24 @@
             width: 100%; 
         }
 
+        .scroll-directions{
+            height: 150px;
+            width: 60px;
+            background: url(../images/icons/drag_icon.png) bottom no-repeat;
+            position: absolute;
+            right: 5px;
+            opacity:1;
+        }
+
         .scroll-directions-container {
-            height:        -moz-calc(100% - 100px);
-            height: -webkit-calc(100% - 100px);
-            height:                 calc(100% - 100px);
+            
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            left: 90%;
+            right: 0px;
             margin-top: 100px;
+            
         }
 
   </style>
@@ -202,11 +215,11 @@
     <div id="viewport">
         <div id="image-container">
             <ul>
-                <li id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
-                <li id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>
-                <li id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>
-                <li id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>
-                <li id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
+                <li class="leasemap" id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
+                <li class="leasemap" id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>
+                <li class="leasemap" id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>
+                <li class="leasemap" id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>
+                <li class="leasemap" id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
             </ul>
         </div>
     </div>
@@ -243,18 +256,20 @@
                 parent.master.closeOverlay()
             })
 
-            var isFF = !!window.sidebar;
-            if(!isFF) {
-                $('.close-overlay').click(function(e){
-                     parent.master.closeOverlay()
-             })
-            }
+            // var isFF = !!window.sidebar;
+            // if(!isFF) {
+            //     $('.close-overlay').click(function(e){
+            //          parent.master.closeOverlay()
+            //     })
+            // }
 
+
+            $( ".leasemap" ).draggable();
+
+            $(".leasemap").on('click',function(){
+                console.log('click')
+            })
          
-
-            // $(function() {
-            //             $( "#viewport" ).draggable();
-            // });
 
             var setStage = function(){
 
@@ -263,7 +278,6 @@
                 var dynamicTop = (window.innerHeight - dynamicHeight)/2;
                 var dynamicRatio = window.innerHeight/window.innerWidth
 
-
                 var percent = 0
 
                 $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
@@ -271,9 +285,7 @@
                         axis: "y",
                         containment: 'parent',
                         drag: function() {
-
                             percent = parseInt($(this).css('top')) / (window.innerHeight-300)
-
                             scrollFunction()
                         }
                     });
@@ -292,22 +304,36 @@
 
                     //box-shadow: ;
                     //$("#map-container ul li").css("box-shadow","20px 30px "+scrollPercent*4+"px rgba(0,0,0,.5)")
-                    $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * 1 + 'px)');
-                    $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * 2 + 'px)');
-                    $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 3 + 'px)');
-                    $('#leasemap_02').css('-webkit-transform', 'translateZ(' + zPos * 4 + 'px)');
-                    $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 5 + 'px)');
+                    var p = percent*2 + 0.7; // range 0.5-1
+                    var string = p+','+p+','+p;
+
+                    function s(m){
+                        return p*m+','+p*m+','+p*m;
+                    }
+
+                    $('#leasemap_05').css('-webkit-transform', 'scale3d(' + s(1) + ')');
+                    $('#leasemap_04').css('-webkit-transform', 'scale3d(' + s(1.5) + ')');
+                    $('#leasemap_03').css('-webkit-transform', 'scale3d(' + s(2) + ')');
+                    $('#leasemap_02').css('-webkit-transform', 'scale3d(' + s(2.5) + ')');
+                    $('#leasemap_01').css('-webkit-transform', 'scale3d(' + s(3) + ')');
+
+
+                    // $('#leasemap_05').css('-webkit-transform', 'translateZ(' + zPos * 1 + 'px)');
+                    // $('#leasemap_04').css('-webkit-transform', 'translateZ(' + zPos * 2 + 'px)');
+                    // $('#leasemap_03').css('-webkit-transform', 'translateZ(' + zPos * 3 + 'px)');
+                    // $('#leasemap_02').css('-webkit-transform', 'translateZ(' + zPos * 4 + 'px)');
+                    // $('#leasemap_01').css('-webkit-transform', 'translateZ(' + zPos * 5 + 'px)');
 
 
                     var current = 5 - Math.floor(percent*5)
-                    var opacity = 3 - (percent*5 % 1)*3
-
-                    // console.log('current: '+'\t'+current)
+                    var opacity = 1-(percent*5 % 1)*2
 
                     console.log('percent: '+'\t'+percent)
 
                     $('ul').children().eq(current).css('opacity',opacity)
                 }
+
+                scrollFunction();
 
 
             }

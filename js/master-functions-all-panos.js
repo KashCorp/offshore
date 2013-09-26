@@ -1891,9 +1891,11 @@ function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
+
+
 	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
-                 return element.srcString == $videooverlay[0].src
-        });
+        return element.srcString == $videooverlay[0].src
+    });
 
 	if(viewedContent.length > 0 ){
 
@@ -1905,26 +1907,21 @@ function switchVideo(_id,_text){
 		 master.viewedContentArray.push({'srcString' : $videooverlay[0].src, 'time' : $videooverlay[0].currentTime})
 	}
 
+	
+	// track number of seconds of video viewed (in localStorage)
 
 	var contentViewed = $('.movie-menu .viewedContentDiv')
 
-	var contentViewedSeconds = 1
-
-	console.log(viewedContent)
-
-
+	var contentViewedSeconds = JSON.parse(localStorage.getItem('contentViewedSeconds'));
+	if(!contentViewedSeconds) contentViewedSeconds = 1;
 
 	$(master.viewedContentArray).each(function(i,v){
-		
-		if (v['time'])
-		
-		contentViewedSeconds += parseInt(v['time'])
-
+		if (v['time']) contentViewedSeconds += parseInt(v['time'])
 	})
 
 	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 71 minutes of OFFSHORE video content." )
 
-
+	localStorage.setItem('contentViewedSeconds',JSON.stringify(contentViewedSeconds))
 
 	if(master.isIOS || master.isAndroid) {
 		var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
@@ -1932,11 +1929,8 @@ function switchVideo(_id,_text){
 		//iosControls.css('display','block')
 	}
 
-	if(parent.audiomaster.mix.getTrack('overlay_02')){
-
-        parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
-
-    }
+	// nuke base track
+	if(parent.audiomaster.mix.getTrack('overlay_02')) parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
 
 	$('#ghost-canvas-trans').fadeOut()
 
