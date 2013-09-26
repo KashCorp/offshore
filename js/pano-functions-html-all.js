@@ -299,19 +299,9 @@ var pano_master = function(){
 
         $('#scroll-wrapper').fadeOut()
 
-
-        //$panocontainer.show()
-        //$panocontainer.removeClass('hide')
-
-        // load pano
-        
-
-        //var loadPanoTimeout = window.setTimeout(function(){
         
         krpano = document.getElementById("krpanoObject");
         krpano.call('action(' + _pano + ')')
-
-        console.log(krpano)
 
         // should add a krpano lookto call here, sometimes loads looking at ceiling
         // krpano.call('lookto(0,0,90)'); // lookto(horizontal, vertical, fov)
@@ -377,11 +367,8 @@ var pano_master = function(){
                 
                 console.log('that.voiceStartTimer: '+'\t'+ that.voiceCurrentTime)
 
-                loadAFXPano('One_Big_Ball_of_Fire' + master.audioType, that.voiceCurrentTime)
-                
-                //var getGhost = master.ghost_array[Math.floor(Math.random()*master.ghost_array.length)]
-                
-                //that.ghostTransition = master.ghostTrans(getGhost['ghost'],getGhost['frames'])   
+                loadAFXPano('One_Big_Ball_of_Fire', that.voiceCurrentTime)
+    
 
                 overLayFile = 'Main_Hallway' + master.audioType
 
@@ -394,6 +381,7 @@ var pano_master = function(){
             break;
 
             case "subhangar" : 
+            
                 that.visited.subhangar = true;
                 overLayFile = 'SubRoom' + master.audioType
                 underlayFile = 'Drone_3' + master.audioType
@@ -401,16 +389,21 @@ var pano_master = function(){
                 // walkthrough
                 $("#walking-canvas-pano").removeClass('hide')
                 var scrollTrigger=false;
-                that.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
+                if(master.isIOS || master.isAndroid){
+                   $('#walking-canvas-pano').css('display','none')
+                    
+                }
+                that.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3); 
                 $('.hotspot').addClass('requiem')
 
             break;
 
             case "submarine" :
             setTimeout(function(){
-                $panocontainer.before('<div class="underwater-hanger"></div><video width="100%" autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+                $panocontainer.before('<div class="dynamic underwater-hanger"></div><video width="100%" autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
             },1000)
-                
+                overLayFile = 'Submersible' + master.audioType
+                underlayMute=true             
                 that.video_underlay = true;
             break;
 
@@ -418,6 +411,12 @@ var pano_master = function(){
                 that.visited.theatre = true;
                 overLayFile = 'Fluorescencent_Tone' + master.audioType
                 underlayMute=true
+            break; 
+
+            case "theatre" : 
+                that.visited.theatre = true;
+                overLayFile = 'Fluorescencent_Tone' + master.audioType
+                underlayFile = 'Drone_1_norm' + master.audioType
             break; 
 
             case "chemicalroom" :
@@ -514,7 +513,9 @@ var pano_master = function(){
                 ghost = 'hologram_2guys_walk_away 3-frame-';
                 ghostFrames = 12
                 linkBack = 'hallway'
-                linkForward = 'chemicalroom'  
+                linkForward = 'chemicalroom' 
+                overLayFile = 'Hatch_Alt2' + master.audioType
+                //underlayMute=true               
           break;
 
           case "sequence_passage_theatre" : 
@@ -524,7 +525,9 @@ var pano_master = function(){
                 ghost = 'hologram_2guys_walk_away 2-frame-';
                 ghostFrames = 12
                 linkBack = 'hallway'
-                linkForward = 'theatre'                
+                linkForward = 'theatre'
+                overLayFile = 'Hatch_Alt2' + master.audioType
+                underlayMute=true                                
           break;
 
 
@@ -536,7 +539,10 @@ var pano_master = function(){
                 ghost = 'hologram_helicopter-frame-';
                 ghostFrames = 12
                 linkBack = 'hallway'
-                linkForward = 'controlroom'                
+                linkForward = 'controlroom' 
+                overLayFile = 'Hatch_Alt2' + master.audioType
+                underlayMute=true
+
           break;         
 
           case "sequence_outside_stairs_down" : 
@@ -559,14 +565,15 @@ var pano_master = function(){
 
                 sequenceHasWords = true
                 var wordHTL ='<li class="drilling-depth">1000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-500px)">2000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-1000px)">3000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-1500px)">4000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="-webkit-transform: translateZ(-2500px)">8000 ft<br>DEEPEST WELL<br>EVER DRILLED</li>'
+                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-500px); -webkit-transform: translateZ(-500px)">2000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-1000px);-webkit-transform: translateZ(-1000px)">3000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-1500px);-webkit-transform: translateZ(-1500px)">4000 ft</li>'
+                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-2500px);-webkit-transform: translateZ(-2500px)">8000 ft<br>DEEPEST WELL<br>EVER DRILLED</li>'
 
                 $('#word-container ul').html(wordHTL)
  
                 overLayFile = 'Hatch_Alt2' + master.audioType
+                underlayMute=true
           break;       
 
         }
@@ -674,6 +681,12 @@ var pano_master = function(){
 
     this.loadSceneAudio = function(_pano)    {
 
+        var multix = 1
+
+        if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
+            multix = .3
+        }   
+
     if(Modernizr.webaudio) {
         var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
         var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
@@ -685,7 +698,7 @@ var pano_master = function(){
 
                 parent.audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
 
-                var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
+                var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
                     .onUpdate( function() {
                         if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
                         parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
@@ -731,6 +744,8 @@ var pano_master = function(){
                 underlayMuted = true
 
             } 
+
+
             if( overlayTrack){
 
                 var dummysound = { decayFrom:    overlayTrack.options.gainNode.gain.value};
@@ -743,14 +758,16 @@ var pano_master = function(){
                     .easing(TWEEN.Easing.Quadratic.Out )
                     .onComplete(function() {
                         parent.audiomaster.mix.removeTrack('overlay_01') 
-                        if(overLayFile)
-                            master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1);
+
+                        if(overLayFile){
+                           setTimeout(function(){master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix)},1000)
+                        }
                     })
                     .start(); 
 
             }else{
                     if(overLayFile)
-                            master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1);
+                            master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix);
             }
         } else {
             console.log('[MODERNIZR] No web audio, NOT loading scene audio')
@@ -897,12 +914,16 @@ var pano_master = function(){
 
      function actionUp( e ) {
 
+        if (!krpano) return
+
         interactive = false;
 
         master.ghostBuster = false
 
         var dummy = { decayX:    mouse_x_diff};
         var dummyv = { decayY:    mouse_y_diff};
+
+
 
         driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
             .onUpdate( function() {
@@ -980,6 +1001,7 @@ var pano_master = function(){
                 if(zPos>2800) zPos = 2800;
 
                 $wordContainer.css('-webkit-transform', 'translateZ(' + zPos + 'px)');
+                 $wordContainer.css('transform', 'translateZ(' + zPos + 'px)');
 
                 // var index = Math.floor(walkthrough.percent * 5);
                 // console.log(index)
@@ -1050,9 +1072,47 @@ var pano_master = function(){
             requestAnimationFrame(runFrameRunner);
 
             // update current time for hallway voiceover
+
+            if(TWEEN) TWEEN.update()
+
             if(master.globalPano == 'hallway' && pano) {
                 pano.voiceCurrentTime = (new Date() - pano.voiceStartTimer)/1000
                //console.log(pano.voiceCurrentTime/1000)
+            }
+
+            // Audio ********************************************************
+
+            if(parent.audiomaster) { 
+            
+            if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
+                for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
+                    parent.audiomaster.mix.tracks[i].play()                                    
+                }  
+            }   
+
+            
+
+            //console.log(master.soundTrigger)
+              
+            
+            if(!master.getCookie('muted')){
+                if (master.overlayOpen) {
+                    if(parent.audiomaster.mix.getGain() > 0.2){
+                        parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() - 0.02)
+                    }
+                }
+                
+              if (!master.overlayOpen) {
+                     if(parent.audiomaster.mix.getGain() < 1 * master.multix){
+                        parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() + 0.01)
+                    }               
+                }
+              //master.soundTrigger = false
+            }else{
+              
+              parent.audiomaster.mix.setGain(0)
+        
+            }   
             }
 
             if(parent.location.hash.slice(1).indexOf('sequence') != -1){
@@ -1080,7 +1140,7 @@ var pano_master = function(){
 
             }
 
-            if(TWEEN) TWEEN.update()
+            
 
             if(interactive){
                 mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
@@ -1092,31 +1152,7 @@ var pano_master = function(){
 
 
 
-            // Audio ********************************************************
-                
-            if(!parent.audiomaster) return
-            
-            if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
-                for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
-                    parent.audiomaster.mix.tracks[i].play()                                    
-                }  
-            }   
 
-            
-
-            //console.log(master.soundTrigger)
-              
-            
-            if(!master.getCookie('muted')){
-              if (master.overlayOpen) parent.audiomaster.mix.setGain(0.5)
-              if (!master.overlayOpen) parent.audiomaster.mix.setGain(1.0)
-              //master.soundTrigger = false
-            }else{
-              
-
-              parent.audiomaster.mix.setGain(0)
-        
-            }   
              
     }
 
@@ -1132,7 +1168,7 @@ var loadAFXPano = function (_file, _start){
     if(!_start) _start = 0
 
     if(Modernizr.webaudio) {
-        master.AFXloadAudio( master.audio_path + _file,'overlay_02',0,1.0, _start)
+        master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
     } else {
         console.log('[MODERNIZR] No web audio, NOT loading AFX')
     }

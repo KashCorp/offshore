@@ -750,7 +750,7 @@ header .volume-toggle {
 }
 
 .platform-nav {
-	position: absolute;
+	position: fixed;
 	right: 5px;
 	top: 5px;
 	text-indent: -9999px;
@@ -1204,6 +1204,7 @@ visibility:hidden;}
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
   	-webkit-touch-callout: none;
   	-webkit-user-select: none;
   	-khtml-user-select: none;
@@ -1216,6 +1217,7 @@ visibility:hidden;}
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
     list-style-type: none;
     padding:0;
     text-align: center;
@@ -1227,10 +1229,12 @@ visibility:hidden;}
 }
 
 #viewport {
-	-webkit-perspective: 500; 
-	-moz-perspective: 1000; 
+	-webkit-perspective: 500px; 
+	-moz-perspective: 500px; 
 	-o-perspective: 1000; 
+	perspective: 500px; 
 	-webkit-perspective-origin: 50% 50%;
+	perspective-origin: 50% 50%;
 		
 	position: absolute;
 	left: 0;

@@ -59,6 +59,9 @@ var masterFunctions = function() {
 
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 	this.isAndroid = navigator.userAgent.match(/Android/g) ? true : false;
+	this.isFireFox = navigator.userAgent.match(/Firefox/g) ? true : false;
+	this.multix = 1;
+	if(this.isFireFox) this.multix = .4;
 
 	console.log("is Android" +  this.isAndroid)
 
@@ -597,14 +600,21 @@ var masterFunctions = function() {
 
 	this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 
-		parent.audiomaster.loadAudio(_file ,_trackName,0001,_pan,_isLoop)
+		parent.audiomaster.loadAudio(_file ,_trackName,.0001,_pan,_isLoop)
 
 		var dummysounds = { s:  0};
+
+		console.log('waa' + _targetVolume)
 
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-				parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
+
+				
+
+				if(parent.audiomaster.mix.getTrack(_trackName)){
+					parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
+				}
 			})
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
@@ -616,7 +626,11 @@ var masterFunctions = function() {
 
 	this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
 
-		console.log(_file)
+		var multix = 1
+
+        if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
+            multix = .3
+        }   
 
 		if(!_start) _start = 0
 
@@ -639,16 +653,16 @@ var masterFunctions = function() {
 
 
 
-		if(!_targetVolume) {_targetVolume = 1.0}
+		if(!_targetVolume) {_targetVolume = 1.0 * multix}
 
-		parent.audiomaster.loadAudio(_file,_trackName,0001,_pan,"true", _start)
+		parent.audiomaster.loadAudio(_file,_trackName,.0001,_pan,"true", _start)
 
 		var dummysounds = { s:  0};
 
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-				parent.audiomaster.mix.getTrack(_trackName).options.gainNode.gain.value = this.s
+				parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
 			})
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
@@ -691,8 +705,10 @@ var masterFunctions = function() {
 	**************************************************************************/
 
 	this.loadVideoUnderlay = function(_id,_popcorn,_load_menu){
+
+		console.log("video")
 	    
-		parent.audiomaster.mix.setGain(0.1)
+		parent.audiomaster.mix.setGain(0.01)
 		
 	    if( this.popcorn) Popcorn.destroy(  this.popcorn );
 	    $('#footnote-container').html('')
@@ -923,6 +939,10 @@ var Walkthrough = function(canvasID,name,videoLength) {
 	var video = document.getElementById(canvasID)
 
 	video.setAttribute('src', master.cdn_video + 'transition-' + name + master.videoType);
+
+	if(master.isIOS || master.isAndroid){
+		$('#' + canvasID)[0].controls = true
+	}
 
 	console.log (master.cdn_video + 'transition-' + name + master.videoType)
 
@@ -1419,16 +1439,17 @@ function removeBackgroundImage(divName){
 
 function panoComplete(){
 
-	console.log('PANO COMPLETE ' + master.isAndroid)
+	console.log('PANO COMPLETE ')
 
 	if(!isPreloaded) preloader();
 
 	//$('.loading').fadeOut(500)
 	$panocontainer.removeClass('hide')
+	$panocontainer.css('opacity',1.0)
 
 	// $panocontainer.fadeIn(1000,function(){
 		$('#video-underlay').show()
-	// })
+	
 
 
 }
@@ -1560,6 +1581,11 @@ var soundadjust = function(coord,fov) {
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
 	        $('#panocontainer, .fastpan, .compass').addClass('hide')
 	        //pano.walkthrough.autoplay = true
+	        $('#walking-canvas-pano').css('display','block')
+	        if(master.isIOS || master.isAndroid){
+		        $('#walking-canvas-pano').css('top','80px')
+		        $('.platform-nav').css('right','55px')
+	        }
 	        pano.panoWalkthrough.autoplay = true
 	        pano.walkthroughPlaying = true;
 
@@ -1575,7 +1601,9 @@ var soundadjust = function(coord,fov) {
 
 	        //$('#walking-canvas-pano').css('opacity',1.0)
 
-	        console.log(Math.abs(1-fov/90)+.6)
+	        if(master.isIOS || master.isAndroid){
+	        	$('#walking-canvas-pano').css('display','none')
+	        }
     
 	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.4)
 	        pano.walkthroughPlaying = false;
@@ -1665,7 +1693,9 @@ function videoPlayer(group, playerFadeTransition){
 	// clearInterval(navInterval);
     $(".breadcrumb").animate({'bottom': '-40px'}, 500)
 
-	master.bgGain = 0.5
+
+
+	master.bgGain = 0.1
 
 	group = "."+group
 	items = $('.movie-menu'+group+' .movie-menu-item')
@@ -2034,7 +2064,7 @@ function closeVideoPlayer(){
 
 	// master.overlayOpen = false
 	$videooverlay[0].pause(); // can't hurt
-	parent.audiomaster.mix.setGain(1.0)
+	//parent.audiomaster.mix.setGain(1.0)
 	
 	$videocontentwrap.removeClass("open");
 	$videocontentwrap.removeClass("transtion-width");

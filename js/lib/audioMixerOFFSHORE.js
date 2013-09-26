@@ -178,7 +178,13 @@
 		var total = this.tracks.length;
 		this.gain = gain;
 		for ( var i = 0; i < total; i++ )
-			this.tracks[i].gain( this.tracks[i].gain() );
+			this.tracks[i].gain( gain );
+	};
+
+	Mix.prototype.getGain = function( ){
+		
+		return this.gain;
+
 	};
 
 /////////////TRACKZ
@@ -204,7 +210,7 @@
 		this.set('nolooping', this.options.nolooping);
 		this.set('start', this.options.start);
 
-		if(this.get('mix').context.createGainNode()){
+		if(typeof this.get('mix').context.createGainNode === 'function'){
 
 			this.set('gainNode', this.get('mix').context.createGainNode());
 			this.set('panner', this.get('mix').context.createPanner());
@@ -214,7 +220,8 @@
 
 			this.set('gainNode', this.get('mix').context.createGain());
 			this.set('panner', this.get('mix').context.createPanner());
-			this.get('panner').panningModel = 'equalpower';			
+			this.get('panner').panningModel = 'equalpower';	
+			this.get('panner').panningModel = "HRTF"; 		
 		}
 
 		this.get('panner').setPosition(this.pan(),0,.1);
@@ -243,7 +250,7 @@
         	var audioData = request.response;
 
 
- 			if(!self.get('mix').context.createGainNode()) {
+ 			if(typeof self.get('mix').context.createGainNode !== 'function') {
 
 
 				self.get('mix').context.decodeAudioData(audioData, function onSuccess(decodedBuffer) {
@@ -281,7 +288,7 @@
 				self.ready = true;
 				self.get('mix').trigger('load', self);
 
-				console.log("loading")
+				console.log("loading " + self.name)
 
  			}
 
@@ -350,10 +357,14 @@
 
 
 	Track.prototype.pause = function(){
-		this.options.playing = false;	
+		this.options.playing = false;
+		if(typeof this.options.source.noteOff === 'function')	
 		this.options.source.noteOff(0);
+
+		if(typeof this.options.source.stop === 'function')	
+		this.options.source.stop(0);
+
 		this.trigger('pause');
-		console.log(this.options.playing)
 	};
 	
   ////////TRACKS UTILITIES

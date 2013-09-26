@@ -205,7 +205,7 @@
 			alpha="0.0"
 			width="105.0"
 			height="150"
-			onclick="js(loadAFXPano(voice_overs/VO_01_Helicopter.m4a))"
+			onclick="js(loadAFXPano(voice_overs/VO_01_Helicopter))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -301,7 +301,7 @@
 			alpha="0.0"
 			width="105.0"
 			height="105.0"
-			onclick="js(loadAFXPano(voice_overs/VO_02_Helipad.m4a))"
+			onclick="js(loadAFXPano(voice_overs/VO_02_Helipad))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -439,7 +439,7 @@
 			width="105.0"
 			height="105.0"
 			
-			onclick="js(loadAFXPano(voice_overs/VO_03_Platform.m4a))"
+			onclick="js(loadAFXPano(voice_overs/VO_03_Platform))"
 			scale="1.0"
 			capture="false"
 			/>
@@ -636,7 +636,7 @@
 				width="105.0"
 				height="105.0"
 
-				onclick="js(loadAFXPano(voice_overs/VO_04_BoatDeck.m4a))"
+				onclick="js(loadAFXPano(voice_overs/VO_04_BoatDeck))"
 				scale="1.0"
 				capture="false"
 				/>
@@ -719,12 +719,12 @@
 			    <down  url="../offshore_panos/subhangar_pano_d.jpg" />
 
 			    <tablet>
-			        <left  url="../offshore_panos/512/subhangar_pano_l.png" />
-			        <front url="../offshore_panos/512/subhangar_pano_f2.png" />
-			        <right url="../offshore_panos/512/subhangar_pano_r2.png" />
+			        <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
+			        <front url="../offshore_panos/512/subhangar_pano_f.png" />
+			        <right url="../offshore_panos/512/subhangar_pano_r.png" />
 			        <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
 			        <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
-			        <down  url="../offshore_panos/512/subhangar_pano_d.png" />    
+			        <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />    
 	    		</tablet>		    
 			</image>
 
@@ -1139,7 +1139,7 @@
 		        <left  url="../offshore_panos/512/controlroom_pano_l.jpg" />
 		        <front url="../offshore_panos/512/controlroom_pano_f.jpg" />
 		        <right url="../offshore_panos/512/controlroom_pano_r.jpg" />
-		        <back  url="../offshore_panos/512/controlroom_pano_b.png" />
+		        <back  url="../offshore_panos/512/controlroom_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/controlroom_pano_u.jpg" />
 		        <down  url="../offshore_panos/512/controlroom_pano_d.jpg" />    
     		</tablet>	
@@ -1280,7 +1280,7 @@
 			atv="-7.82"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(loadAFXPano(klaxxon.mp3));
+			onclick="js(loadAFXPano(klaxxon));
 					 js(startDrilling());
 					 set(hotspot[closehatch].alpha,1);
 					 set(hotspot[closehatch].enabled,true);
@@ -1677,7 +1677,7 @@
 		        <right url="../offshore_panos/512/interiorsub_pano_r.png" />
 		        <back  url="../offshore_panos/512/interiorsub_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/interiorsub_pano_u.jpg" />
-		        <down  url="../offshore_panos/512/interiorsub_pano_d.png" />    
+		        <down  url="../offshore_panos/512/interiorsub_pano_d.jpg" />    
     		</tablet>
 
 		</image>
