@@ -1329,7 +1329,8 @@ visibility:hidden;}
 #video-overlay-title {
 	position: absolute;
 	width: 100%;
-	top:40%;
+	top:50%;
+	margin-top: -100px;
 	text-align:center;
 	font-size: 2.0em;
 	font-family: 'roboto'
@@ -1504,7 +1505,7 @@ visibility:hidden;}
 	/*background: rgb(186, 192, 178, 0.5);*/
 }
 
-.movie-menu div{
+.movie-menu .movie-menu-item {
 	float: left;
 	padding: 0 2em;
 	cursor: pointer;
