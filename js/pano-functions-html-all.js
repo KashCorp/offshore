@@ -228,6 +228,8 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano) {
 
+        $("#loading").hide();
+
         $('.oil-shot-bg').css('display','none')
 
         $wrapper.removeClass('hide')
@@ -610,11 +612,7 @@ var pano_master = function(){
         //$wrapper.addClass('hide')
         //$wrapper.hide()
 
-        $('.loading').fadeOut()
-        // $('.loading').addClass('hide')
-        // $('.loading').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-        //     $('.loading').hide()
-        // })
+        $('#loading').fadeOut()
 
         $('#scroll-wrapper').fadeIn()
 
@@ -679,6 +677,7 @@ var pano_master = function(){
                 switchVideo($(this).data('file'),$(this).text())
             })
             $('.movie-menu').append('<div class="viewedContentDiv">Viewed Content</div>')
+            $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
         },
         error : function(request,error) {
             console.log(error)

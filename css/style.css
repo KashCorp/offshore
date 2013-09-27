@@ -1356,26 +1356,11 @@ visibility:hidden;}
 }
 
 .loading {
+	width: 100%;
+	height: 100%;
 	position: absolute;
-	top: 48%;
-	margin-top:-150px;
-	left: 0;
-	right: 0;
-	height: 245px;
-
-	text-align:center;
-	pointer-events: none;
-	background: url('../images/loading-gif-animation.gif') center center no-repeat;
-	/*opacity: .5;*/
-	-webkit-transition: opacity 500ms;
-	-moz-transition: opacity 500ms;
-	-ms-transition: opacity 500ms;
-	-o-transition: opacity 500ms;
-	transition: opacity 500ms;
-	
-}
-.loading.hide {
-	/*opacity: 0;*/
+	opacity: 0.5;
+	background: #000 url('../images/loading-gif-animation.gif') 50% 50% no-repeat;
 }
 
 .compass {

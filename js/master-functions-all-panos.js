@@ -489,13 +489,16 @@ var masterFunctions = function() {
 		// load overlay
 
 		$('#overlay_frame').attr('src', 'overlay/' + overlayURL)
+		$(".loading").show();
 		$('#overlay_frame').one('load',function(){
 			console.log('overlay frame loaded')
-			$('#overlay_frame').fadeIn()
+			$('#overlay_frame').fadeIn(function(){
+				$(".loading").hide();
+			})
 		})
 
+		// click background to cloase
 		$('#overlay_frame').contents().find('body').off('click')
-
 		$('#overlay_frame').contents().find('body').on('click',function(e){
 			e.preventDefault();
 			e.stopPropagation()
@@ -1891,6 +1894,7 @@ function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
+	$('#movieloading').fadeIn();
 
 
 	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
@@ -1985,9 +1989,11 @@ function switchVideo(_id,_text){
 
 	$videooverlay[0].addEventListener('canplaythrough', function(e) {
 
+
 		$videooverlay.removeClass('hide')
 
 		$('#video-overlay-title').fadeOut(2000)
+		$('#movieloading').fadeOut(2000);
 
 		$('.controls').css('display','block')
 

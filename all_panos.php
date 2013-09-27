@@ -135,7 +135,7 @@
     <iframe allowtransparency="true" class="" id="overlay_frame" src=""></iframe>
     
 
-    <!--<div class="loading"></div>--> 
+    <div id="loading" class="loading"></div> 
 
     <div class="compass" style="display:none"><img src="images/icons/map_icon.png"></div>
 
