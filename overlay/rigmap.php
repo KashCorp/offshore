@@ -281,7 +281,7 @@
       <div class="hallway"       data-url="hallway"       id="t5a">Terminus</div>
       <div class="boat"          data-url="boat"          id="t8" >Boat Deck</div>     
       <div class="controlroom"   data-url="controlroom"   id="t4" >Control Room</div>
-      <div class="theater"       data-url="theatre"       id="t5b">Theatre</div>
+      <div class="theater theatre"       data-url="theatre"       id="t5b">Theatre</div>
       <div class="chemicalroom"  data-url="chemicalroom"  id="t6" >Chem-Storage</div>
       <div class="subhangar"     data-url="subhangar"     id="t7" >Submersible Hangar</div>
     </div>
@@ -314,14 +314,19 @@
 
       // Visited ********************************************************
 
-      console.log(parent.pano.visited)
-      if(parent.pano.visited.platform     === true) $('.map_legend > .platform').addClass('visited')
-      if(parent.pano.visited.hallway      === true) $('.map_legend > .hallway').addClass('visited')
-      if(parent.pano.visited.boat         === true) $('.map_legend > .boat').addClass('visited')
-      if(parent.pano.visited.controlroom  === true) $('.map_legend > .controlroom').addClass('visited')
-      if(parent.pano.visited.theatre      === true) $('.map_legend > .theatre').addClass('visited')
-      if(parent.pano.visited.chemicalroom === true) $('.map_legend > .chemicalroom').addClass('visited')
-      if(parent.pano.visited.subhanger    === true) $('.map_legend > .subhanger').addClass('visited')
+      //console.log(parent.pano.visited)
+      
+      var visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
+      if(visited){
+        if(visited.platform     === true) $('.map_legend > .platform').addClass('visited')
+        if(visited.hallway      === true) $('.map_legend > .hallway').addClass('visited')
+        if(visited.boat         === true) $('.map_legend > .boat').addClass('visited')
+        if(visited.controlroom  === true) $('.map_legend > .controlroom').addClass('visited')
+        if(visited.theatre      === true) $('.map_legend > .theatre').addClass('visited')
+        if(visited.chemicalroom === true) $('.map_legend > .chemicalroom').addClass('visited')
+        if(visited.subhanger    === true) $('.map_legend > .subhanger').addClass('visited') 
+      }
+
 
       // You Are Here ********************************************************
 

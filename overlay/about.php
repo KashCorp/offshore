@@ -16,7 +16,7 @@
 
 
 
-<div style="font-size: 1.5em; width: 55%; margin: 0 auto; margin-top: 10%;">
+<div style="font-size: 1.7em; width: 50%; margin: 0 auto; margin-top: 10%;">
 ABOUT OFFSHORE
 <br><br>
 <p>There are huge, untapped reserves of oil and gas beneath the world’s oceans, 90 billion barrels in the Arctic alone. As conventional sources of oil decline, everyone from international oil majors to governments wants in on the game.</p> 

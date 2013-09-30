@@ -496,7 +496,7 @@
 
 				<div class="movie">
 					<div class="tableCell">
-				  	<video controls="true" src="" loop="false" autoplay id="skypeVideo"></video>
+				  	<video controls="true" src="" looping="false" autoplay id="skypeVideo"></video>
  				  	<video id="webcamVideo"></video>
 					</div>
 					<a id="to-control-vid" style="display:none">Close</a>
@@ -515,11 +515,11 @@
 					<div class="content">	
 							<p>RECENT<p>
 							<ul class="recent">
-								<li><a href="#">Rolake Akinkugbe</a></li>
+								<li><a href="#" style="pointer-events:none">Rolake Akinkugbe</a></li>
 							</ul>
 
 							<div class="history">
-								<a href="#">History</a>
+								<a href="#" style="pointer-events:none">History</a>
 							</div>
 					</div>
 				</div>
@@ -530,7 +530,7 @@
 
 					<div class="subhead">
 						<h2>
-							<a href="#" class="allbutton">All</a>
+							<a href="#" class="allbutton" >All</a>
 							<form method="get" action="" id="search">
 							  <input name="q" type="text" size="40" placeholder="Search..." />
 							</form>
@@ -718,19 +718,30 @@ $(document).ready(function(){
 	            $('#skypeVideo')[0].play()
 	       });
 
+	    	$('#skypeVideo').on('canplaythrough', function(){
+	            $('#skypeVideo')[0].play()
+	       });	    	
+	    	$('#skypeVideo').on('ended', function(){
+	           stopVid()
+	       });	
 	    })
     })
+
+    function stopVid(){
+	   
+	  	$('.movie').css('display','none')
+	  	$('#to-control-vid').css('display','none')
+
+	  	document.getElementById("skypeVideo").pause();
+	  	$('.interface').fadeIn(500,function(){
+			$('#close-control').fadeIn(500)
+	  	})   	
+    }
 
 	// stop video
   $("#to-control-vid").click(function(e){
   	e.stopPropagation();
-  	$('.movie').css('display','none')
-  	$('#to-control-vid').css('display','none')
-
-  	document.getElementById("skypeVideo").pause();
-  	$('.interface').fadeIn(500,function(){
-		$('#close-control').fadeIn(500)
-  	})
+	stopVid()
   })
 
 

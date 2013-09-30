@@ -61,16 +61,35 @@ var pano_master = function(){
 
     this.video_underlay = false;
 
-    this.visited = { // this gets cached in localStorage
-        platform : false,
-        lowerplatform : false,
-        hallway : false,
-        boat: false,
-        controlroom : false,
-        theatre : false,
-        chemicalroom : false,
-        subhangar : false
+    if(Modernizr.webaudio === true) {
+        console.log('[MODERNIZR] Web Audio Supported')
+        that.noWebAudio = false
+    } else {
+        that.noWebAudio = true;
     }
+
+    this.visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
+
+    if(!this.visited){
+
+        console.log("setting visited pano data for the first time")
+        this.visited = { // this gets cached in localStorage
+            platform : false,
+            lowerplatform : false,
+            hallway : false,
+            boat: false,
+            controlroom : false,
+            theatre : false,
+            chemicalroom : false,
+            subhangar : false
+        }
+        localStorage.setItem('offshoreVisitedPanos',JSON.stringify(this.visited))
+
+    } else {
+        console.log("visited pano data:")
+        console.log(JSON.parse(localStorage.getItem('offshoreVisitedPanos')))
+    }
+
 
     var scrollTrigger,
         scrollPercent=0,
@@ -102,31 +121,8 @@ var pano_master = function(){
         swfLoc = masterPath + "/js/lib/krpano/krpano.swf"
 
         embedpano({swf:swfLoc,  id:"krpanoObject", xml:xmlLoc, wmode: "transparent", target:"panocontainer", html5:"auto", passQueryParameters:true}); 
-           
-    // var viewer = createPanoViewer({
-    //     swf:swfLoc,
-    //     id:"krpanoObject",
-    //     wmode: "transparent",
-    //     target:"panocontainer",
-    //     html5:"auto"
-    // });
-
-    // viewer.addVariable("xml", panoXMLFile);  
-    // viewer.useHTML5("auto")
-    
-    // viewer.addParam("wmode","transparent");
-
-    // this.viewer = viewer
-    // viewer.bgcolor= "#ff0000"
-    // viewer.passQueryParameters();
-    // viewer.embed();
-
-
-    // console.log(viewer)
 
     krpano = document.getElementById("krpanoObject");
-
-
 
     master.debouncedResize();
 
@@ -388,7 +384,6 @@ var pano_master = function(){
                 // console.log('that.voiceStartTimer: '+'\t'+ that.voiceCurrentTime)
 
                 loadAFXPano('One_Big_Ball_of_Fire', that.voiceCurrentTime)
-    
 
                 overLayFile = 'Main_Hallway' + master.audioType
 
@@ -469,6 +464,10 @@ var pano_master = function(){
         }
 
         // cache visited data to localStorage
+
+        console.log('saving visited')
+
+        localStorage.setItem('offshoreVisitedPanos',JSON.stringify(that.visited))
 
 
 
@@ -703,11 +702,12 @@ var pano_master = function(){
 
         var multix = 1
 
-        if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
-            multix = .3
-        }   
+        if(Modernizr.webaudio) {
+            if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
+                multix = .3
+            }   
+        }
 
-    if(Modernizr.webaudio) {
         var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
         var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
 
@@ -768,7 +768,15 @@ var pano_master = function(){
 
             if( overlayTrack){
 
-                var dummysound = { decayFrom:    overlayTrack.options.gainNode.gain.value};
+                if(that.noWebAudio) {
+
+                    var dummysound = { decayFrom: overlayTrack.options.element.volume};
+                    
+                } else{
+
+                    var dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
+
+                }
 
                 var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
                     .onUpdate( function() {
@@ -789,9 +797,7 @@ var pano_master = function(){
                     if(overLayFile)
                             master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix);
             }
-        } else {
-            console.log('[MODERNIZR] No web audio, NOT loading scene audio')
-        }
+  
 
     
 

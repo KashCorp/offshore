@@ -16,7 +16,7 @@
 
 
 
-<div style="font-size: 1.5em;padding-top:10%;width:55%;margin:auto">
+<div style="font-size: 1.7em;padding-top:10%;width:50%;margin:auto">
 
 <p>On July 29, 2010, the U.S. Federal Food and Drug Administration opened state waters in the Gulf of Mexico that had been closed due to the spill, declaring that the seafood was safe.</p>
 

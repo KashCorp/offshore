@@ -16,7 +16,7 @@
 
 
 
-<div style="font-size: 1.5em;padding-top:10%;width:55%;margin:auto">
+<div style="font-size: 1.7em;padding-top:10%;width:50%;margin:auto">
 
 <p>Before the spill, two-thirds of U.S. oysters and 40% of America's seafood catch came from the Gulf Coast, a three billion dollar industry. Since the 2010 spill, Louisiana's statewide oyster catch has dropped by more than 25%. Efforts to reseed oyster beds have failed as spat continue to die. </p>
 

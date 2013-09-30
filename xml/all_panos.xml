@@ -363,8 +363,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] A DANGEROUS FRONTIER:  THE HIGH RISK OF EXTREME OIL   [h3]"
+			height="100"
+			html=" [h2] A Dangerous Frontier: [h2] [h3] The High Risk of Extreme Oil   [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -470,8 +470,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3]DEEP TO ULTRA DEEP: HISTORIES OF OFFSHORE IN THE GULF OF MEXICO[h3]"
+			height="100"
+			html="[h2]Deep To Ultra Deep:[h2] [h3]Histories of Offshore in the Gulf Of Mexico[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -654,9 +654,9 @@
 				capture="false"
 				color="0xffffff"
 				handcursor="true"
-				height="30"
+				height="100"
 				
-				html="[h3]SHRIMP AND OYSTERS: STORIES FROM GROUND ZERO OF THE SPILL[h3]"
+				html="[h2]Shrimp And Oysters:[h2] [h3]Stories From Ground Zero of the Spill[h3]"
 				css="data:flag"
 				autoheight="false"
 				vcenter="true"
@@ -815,12 +815,12 @@
 				capture="false"
 				color="0xffffff"
 				handcursor="true"
-				height="30"
-				html="[h3] ON THE WATER [h3]"
+				height="50"
+				html="[h2] On The Water [h2]"
 				css="data:flag"
 				autoheight="false"
 				vcenter="true"
-				width="200"
+				width="300"
 				onclick="lookto(60,0,5,tween(easeOutQuad,2),true,true);
 						 set(hotspot[requiem].enabled,false);
 						 js(setCache(-50,90))"
@@ -914,8 +914,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] ENGINE ROOM: A GOOD JOB IN CAJUN COUNTRY [h3]"
+			height="100"
+			html="[h2] Engine Room:[h2] [h3]A Good Job In Cajun Country [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -999,8 +999,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] IN THE BLOODSTREAM: STORIES OF CHEMICAL EXPOSURE [h3]"
+			height="100"
+			html="[h2] In The Bloodstream: [h2][h3]Stories Of Chemical Exposure [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1054,12 +1054,12 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] A PUBLIC HEALTH CRISIS [h3]"
+			height="50"
+			html="[h2] A Public Health Crisis [h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
-			width="200"
+			width="300"
 			onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream)));
 					 js(setCache(24,90))"
 		/>
@@ -1172,8 +1172,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] EXTREME OIL: DEADLY ENCOUNTERS AND DISAPPEARING FIELDS[h3]"
+			height="100"
+			html="[h2] Extreme Oil:[h2] [h3]Deadly Encounters and Disappearing Fields[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1376,7 +1376,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="30"
-			html="[h3] OIL FIELD/RIG DATA [h3]"
+			html="[h2] Oil Field/Rig Data [h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1572,8 +1572,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="60"
-			html="[h3]THE WELL FROM HELL:[br] STORIES FROM THE DEEPWATER HORIZON DISASTER[h3]"
+			height="100"
+			html="[h2]The Well From Hell:[h2] [h3]Stories From the Deepwater Horizon Disaster[h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1606,8 +1606,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] SURVIVORS [h3]"
+			height="70"
+			html="[h2] Survivors [h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1836,8 +1836,8 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] VIDEO MENU: A MESSAGE FROM OUR SPONSOR [h3]"
+			height="100"
+			html="[h2] Video Menu:[h2] [h3]A Message From Our Sponsor [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1936,18 +1936,22 @@
 			color: #ffffff;
 			font-family: Helvetica, Arial, sans-serif;
 			fontFamily: Helvetica, Arial, sans-serif;
-			fontSize: 10;
-			line-height: 30px;
+			fontSize: 12px;
+			font-size: 12px;
+			line-height:-12px;
+			lineHeight:12px;
 			textAlign: left;
 			text-align: left;
 		}
 
 		h2 {
-			color: #333333;
+			color: #ffffff;
 			font-family: Helvetica, Arial, sans-serif;
 			fontFamily: Helvetica, Arial, sans-serif;
-			fontSize: 7;
-			line-height: 20px;
+			fontSize: 22px;
+			line-height:44px;
+			lineHeight:44px;
+			font-size: 22px;
 			textAlign: left;
 			text-align: left;
 		}			

@@ -1,5 +1,5 @@
 ;(function(window, undefined){
-	var Mix, Track, debounce, on, off, trigger, solo, unsolo, log10, body;
+	var Mix, Track, debounce, on, off, trigger, solo, unsolo, log10, body,noWebAudio;
 	console.log("LOADED MIX")
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Just a reference to the body element
@@ -59,6 +59,7 @@
 	  	else 
 	  		this.context = new webkitAudioContext();
 	  } else {
+	  	noWebAudio = true;
 	  	console.log('[MODERNIZR] Web Audio NOT SUPPORTED')
 	  }
 
@@ -87,9 +88,9 @@
 	
 	Mix.prototype.createTrack = function(name, opts){
 
-		if(Modernizr.webaudio === true) {
+		//if(Modernizr.webaudio === true) {
 
-			console.log('[MODERNIZR] Creating web audio track')
+			//console.log('[MODERNIZR] Creating web audio track')
 
 			//if ( !name || this.lookup[name] ) return;
 			var track = new Track(name, opts, this);
@@ -97,11 +98,11 @@
 			this.tracks.push( track );
 			this.lookup[name] = track;
 			return track;
-		} else {
-			console.log('[MODERNIZR] no web audio, NOT creatin track')
+		//} else {
+			//console.log('[MODERNIZR] no web audio, NOT creatin track')
 
-			return false;
-		}
+			//return false;
+		//}
 		
 		
 	};
@@ -190,14 +191,7 @@
 /////////////TRACKZ
 
 	Track = function(name, opts, mix){
-		
-		var self = this,
-			defaults = {
-				gain:  0,
-				pan:   0,
-				start: 0
-			};
-     
+
 		this.options = Mix.prototype.extend.call(this, defaults, opts || {});
 		this.name = name;
 		this.events = {};
@@ -208,7 +202,30 @@
 		this.set('afl', true);
 		this.set('currentTime', 0);
 		this.set('nolooping', this.options.nolooping);
-		this.set('start', this.options.start);
+		this.set('start', this.options.start);		
+
+		var self = this,
+			defaults = {
+				gain:  0,
+				pan:   0,
+				start: 0
+			};
+///AudioContext NOT supported use HTML5
+
+		if(noWebAudio){
+
+			this.set('gainCache', this.gain());
+
+			if ( this.get('source') ) this.loadDOM( this.get('source'));
+
+			this.set('gainCache', this.gain());
+
+			return
+		}
+		
+
+ ///AudioContex supported use webaudio   
+
 
 		if(typeof this.get('mix').context.createGainNode === 'function'){
 
@@ -231,6 +248,32 @@
 		if ( this.get('source') ) this.loadBuffer( this.get('source'));
 					
   }
+
+
+  Track.prototype.loadDOM = function( source ){
+
+	var self = this
+
+	self.set('element', document.createElement('audio'));
+
+	self.get('element').src = source;
+
+	self.get('element').load();
+
+	console.log(source)
+
+
+	// Loading Progress
+
+	self.get('element').addEventListener('canplaythrough', function (e) {
+
+		self.ready = true;
+		self.get('mix').trigger('load', self);
+
+	})
+
+
+}
 
 
 
@@ -333,6 +376,11 @@
 
 		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
+		if(noWebAudio) {
+			this.options.element.play()
+			return
+		}
+
 //console.log(navigator.userAgent)
 
 
@@ -357,6 +405,12 @@
 
 
 	Track.prototype.pause = function(){
+
+		if(noWebAudio) {
+			this.options.element.pause()
+			return
+		}
+
 		this.options.playing = false;
 		if(typeof this.options.source.noteOff === 'function')	
 		this.options.source.noteOff(0);
@@ -403,6 +457,7 @@ Track.prototype.on = function(){
 	
 
 	Track.prototype.pan = function(val){
+		if(noWebAudio) return
 		if ( typeof val !== 'undefined' ) 
 			this.get('panner').setPosition(val, 0, .1);
 		this.set('pan', val)
@@ -411,13 +466,33 @@ Track.prototype.on = function(){
 	
 
 	Track.prototype.gain = function(val, override){
-		var min = 0, max = 1, master = this.get('mix').gain;
+
+		if(noWebAudio){
+
+			if(!val) {
+
+				if(this.options.element)
+					return this.options.element.volume
+				else
+					return 0
+			}	
+
+			if (val > 1) {val = 1}
+
+			this.options.element.volume = val
+
+			return
+
+		} else {
+			var min = 0, max = 1, master = this.get('mix').gain;
 		if ( typeof val !== 'undefined' && val >= min && val <= max ){
 			this.set('gain', val);
 			if ( !override ) this.set('gainCache', val);
 			if ( !this.get('_muted') || override ) this.get('gainNode').gain.value = val * master;
 		}
-		return this.get('gain') || this.get('gainNode').gain.value;
+			return this.get('gain') || this.get('gainNode').gain.value;		
+		}
+
 	};
 		
 	//~~~~~~~~~~~~~~~~~~~~~~~~~

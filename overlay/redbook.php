@@ -92,6 +92,7 @@ function loadApp() {
       $('.flipbook').turn({
           width: w,
           height: h,
+          cornerSize:300,
           elevation: 50,
           gradients: true,
           autoCenter: true

@@ -63,7 +63,7 @@ var masterFunctions = function() {
 	this.multix = 1;
 	if(this.isFireFox) this.multix = .4;
 
-	console.log("is Android" +  this.isAndroid)
+	console.log(visitedPages)
 
 	this.ghostBuster = false
 	this.ghostMinc
@@ -351,7 +351,7 @@ var masterFunctions = function() {
 
             breadbox_string += '<ul><li><a id="credits-link">Credits</a></li>';
 
-            breadbox_string += '<li><a href="blog.html">Blog</a></li>';
+            breadbox_string += '<li><a href="http://offshore-interactive.com/blog/" target="_BLANK">Blog</a></li>';
             // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
             breadbox_string += '</nav>';
 
@@ -1917,11 +1917,14 @@ function switchVideo(_id,_text){
 	var contentViewed = $('.movie-menu .viewedContentDiv')
 
 	var contentViewedSeconds = JSON.parse(localStorage.getItem('contentViewedSeconds'));
+
 	if(!contentViewedSeconds) contentViewedSeconds = 1;
 
 	$(master.viewedContentArray).each(function(i,v){
 		if (v['time']) contentViewedSeconds += parseInt(v['time'])
 	})
+
+	console.log(contentViewedSeconds)
 
 	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 71 minutes of OFFSHORE video content." )
 
