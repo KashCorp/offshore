@@ -7,6 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>OFFSHORE | Helipad</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
@@ -85,7 +86,9 @@
 
     <div id="panocontainer" class="show"></div>
 
+    
     <div class="vignette"></div>
+
 
     
    
@@ -96,7 +99,7 @@
       
         <div class="video-content-wrap">
           <video class="" width="100%" style="position:absolute" id="video-overlay" preload="auto">
-            <source/>
+            <source  />
           </video>
           <div id="video-overlay-title"></div>
           <div class="controls hide">

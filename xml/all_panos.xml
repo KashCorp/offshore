@@ -355,7 +355,7 @@
 
 		<hotspot name="Videos_label"
 			url="plugins/textfield.swf"
-			ath="0"
+			ath="-25"
 			atv="5"
 			children="false"
 			edge="lefttop"
@@ -462,7 +462,7 @@
 
 		<hotspot name="Deep-Waters-text"
 			url="plugins/textfield.swf"
-			ath="100"
+			ath="90"
 			atv="5"
 			children="false"
 			edge="lefttop"
@@ -646,7 +646,7 @@
 
 			<hotspot name="Boatdeck-Text"
 				url="plugins/textfield.swf"
-				ath="300"
+				ath="285"
 				atv="5"
 				children="false"
 				edge="righttop"
@@ -1934,26 +1934,26 @@
 	<data name="flag">
 		h3 {
 			color: #ffffff;
-			font-family: Helvetica, Arial, sans-serif;
-			fontFamily: Helvetica, Arial, sans-serif;
+			font-family: Ropa Sans, Helvetica, Arial, sans-serif;
+			fontFamily: Ropa Sans, Helvetica, Arial, sans-serif;
 			fontSize: 12px;
 			font-size: 12px;
-			line-height:-12px;
-			lineHeight:12px;
-			textAlign: left;
-			text-align: left;
+			line-height:10px;
+			lineHeight:10px;
+			textAlign: center;
+			text-align: center;
 		}
 
 		h2 {
 			color: #ffffff;
-			font-family: Helvetica, Arial, sans-serif;
-			fontFamily: Helvetica, Arial, sans-serif;
+			font-family: Ropa Sans, Helvetica, Arial, sans-serif;
+			fontFamily: Ropa Sans, Helvetica, Arial, sans-serif;
 			fontSize: 22px;
-			line-height:44px;
-			lineHeight:44px;
+			line-height:28px;
+			lineHeight:28px;
 			font-size: 22px;
-			textAlign: left;
-			text-align: left;
+			textAlign: center;
+			text-align: center;
 		}			
 	</data>
 

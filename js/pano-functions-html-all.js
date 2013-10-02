@@ -508,7 +508,8 @@ var pano_master = function(){
 
     var loadSequenceScene = function(_sequence) {
 
-        console.log('loadSequenceScene')
+        console.log('loadSequenceScene -- ' + _sequence)
+
         sequenceHasWords = false;
 
         //cancelAnimationFrame(runFrameRunner)
@@ -585,22 +586,32 @@ var pano_master = function(){
                 linkForward = 'hallway'
                 movieLength = 5;
 
-                sequenceHasWords = true
-                var wordHTL ='<li class="drilling-depth">1000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-500px); -webkit-transform: translateZ(-500px)">2000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-1000px);-webkit-transform: translateZ(-1000px)">3000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-1500px);-webkit-transform: translateZ(-1500px)">4000 ft</li>'
-                  wordHTL += '<li class="drilling-depth" style="transform: translateZ(-2500px);-webkit-transform: translateZ(-2500px)">8000 ft<br>DEEPEST WELL<br>EVER DRILLED</li>'
 
-                $('#word-container ul').html(wordHTL)
+
+                sequenceHasWords = true
+                if(!master.isMSIE) {
+                var wordHTL ='<li class="drilling-depth">1000 ft</li>'
+                    wordHTL += '<li class="drilling-depth" style="transform: translateZ(-500px); -webkit-transform: translateZ(-500px)">2000 ft</li>'
+                    wordHTL += '<li class="drilling-depth" style="transform: translateZ(-1000px);-webkit-transform: translateZ(-1000px)">3000 ft</li>'
+                    wordHTL += '<li class="drilling-depth" style="transform: translateZ(-1500px);-webkit-transform: translateZ(-1500px)">4000 ft</li>'
+                    wordHTL += '<li class="drilling-depth" style="transform: translateZ(-2500px);-webkit-transform: translateZ(-2500px)">8000 ft<br>DEEPEST WELL<br>EVER DRILLED</li>'
+
+                    $('#word-container ul').html(wordHTL)
+                }
+
+
  
                 overLayFile = 'Hatch_Alt2' + master.audioType
                 underlayMute=true
           break;       
 
         }
+
+        if(!master.isMSIE) that.loadSceneAudio()
         
-        that.loadSceneAudio()
+        
+
+         console.log("got this far 2")
 
         if(ghost) {
             console.log('GHOST')
@@ -623,6 +634,7 @@ var pano_master = function(){
 
         // that.walkthrough = new walkthroughFunctions("walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
         // that.walkthrough.preload()
+        console.log("Start Walkthrough")
 
         that.walkthrough = new Walkthrough("walking-canvas",ImageSequenceFiles,movieLength)
 
@@ -750,8 +762,16 @@ var pano_master = function(){
             }
 
             if(underlayMute) {
+                
+                if(that.noWebAudio) {
 
-                var dummysound = { decayFrom:    underlayTrack.options.gainNode.gain.value};
+                    var dummysound = { decayFrom: overlayTrack.options.element.volume};
+                    
+                } else{
+
+                    var dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
+
+                }
 
                 var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
                     .onUpdate( function() {
@@ -762,6 +782,7 @@ var pano_master = function(){
                     .start(); 
             
                 underlayMuted = true
+
 
             } 
 
@@ -1203,11 +1224,11 @@ var loadAFXPano = function (_file, _start){
 
     if(!_start) _start = 0
 
-    if(Modernizr.webaudio) {
+    //if(Modernizr.webaudio) {
         master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
-    } else {
-        console.log('[MODERNIZR] No web audio, NOT loading AFX')
-    }
+    //} else {
+        //console.log('[MODERNIZR] No web audio, NOT loading AFX')
+    //}
     
 }
 

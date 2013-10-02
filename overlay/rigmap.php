@@ -25,6 +25,9 @@
     margin-top: 25px;
     margin-left: 25px;
 
+        width: 100%;
+      height: 100%;
+
     text-align: center;
     color:#ffffff;
     display:block;
@@ -38,9 +41,10 @@
       height: 100%;
       position: absolute;
       background-repeat: no-repeat;
+      background-image: url(../images/rig_map/RIGMAP.jpg);
       background-size: cover;
       background-position: center center;
-      background-image: url(../images/rig_map/RIGMAP.jpg);
+
     }
 
     .overlay_image {
@@ -205,7 +209,7 @@
       .map_legend div {
         width: 100%;
 
-        background:#000000;
+        background:#6B6661;
         margin-bottom: 8%;
         padding: 2% 3%;
         cursor:pointer;
@@ -213,7 +217,7 @@
         text-align:left;
         font-weight: bold;
         letter-spacing: -1px;
-        color: #ecc60a;
+        color: #949494;
         white-space: nowrap;
       }
 
@@ -235,8 +239,11 @@
         background: black;
       }
 
-      .map_legend div.visited { background-color: #6B6661; } 
-      .map_legend div.visited span { color: #6B6661; }
+      .map_legend div.visited { background-color: #000000; color:#ecc60a;} 
+      .map_legend div.visited span { color: #000000; } 
+
+/*      .map_legend div.visited { background-color: #6B6661; } 
+      .map_legend div.visited span { color: #6B6661; }*/
 
       .map_legend div.here { 
         background: #ecc60a !important;
@@ -252,9 +259,12 @@
 <body class="platform" style="background:none">
 
   <!-- Rig Map -->
-  <div id="map-container"> 
 
+
+  <div id="map-container"> 
+    
     <div class="map_image"></div>
+    
 
     <div class="overlay_image"></div>
 

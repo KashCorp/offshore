@@ -267,6 +267,8 @@
 
 	self.get('element').addEventListener('canplaythrough', function (e) {
 
+
+		console.log("LOADED : " + source)
 		self.ready = true;
 		self.get('mix').trigger('load', self);
 

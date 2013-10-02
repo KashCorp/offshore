@@ -60,6 +60,8 @@ var masterFunctions = function() {
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 	this.isAndroid = navigator.userAgent.match(/Android/g) ? true : false;
 	this.isFireFox = navigator.userAgent.match(/Firefox/g) ? true : false;
+	this.isMSIE = navigator.userAgent.match(/MSIE/g) ? true : false;
+
 	this.multix = 1;
 	if(this.isFireFox) this.multix = .4;
 
@@ -83,8 +85,14 @@ var masterFunctions = function() {
 	}
 
 
+
 	if(au.canPlayType && au.canPlayType('audio/x-m4a').replace(/no/, '')) {
 	 	audioType = '.m4a';
+	}
+
+	if(this.isMSIE) {
+		$('.vignette').css('display','none')
+	 	audioType = '.mp3';
 	}
 
 
@@ -95,6 +103,12 @@ var masterFunctions = function() {
 	this.videoType = videoType
 
 	this.audioType = audioType
+
+	if(this.isAndroid) {
+
+		videoType = '_360.webm';
+
+	}
 
 	console.log(audioType)
 
@@ -111,11 +125,15 @@ var masterFunctions = function() {
     this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
     this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
     this.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
+
+    //if(this.isAndroid) this.cdn_video  = 'http://192.168.1.139/~mike/offshore_repo/video/'
+
     this.audio_path = 'audio/'
 
     this.movieMenu = false
 
     isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
+    
     this.isRetina = isRetinaFunction()
      
      $compass.click(function() {
@@ -1720,13 +1738,14 @@ function videoPlayer(group, playerFadeTransition){
 
 	switchVideo($(items).first().data('file'),$(items).first().text())
 
-	$('#video-overlay').on('canplaythrough',function(){
-		console.log('playing video')
-		if(parent.location.hash.slice(1) =="") {
-			console.log('switch to helicopter')
-			parent.location.hash = "helicopter"
-		}
-	})
+	// $('#video-overlay').on('canplaythrough',function(){
+	// 	console.log('playing video')
+
+	// 	if(parent.location.hash.slice(1) =="") {
+	// 		console.log('switch to helicopter')
+	// 		parent.location.hash = "helicopter"
+	// 	}
+	// })
 
 
 	// On video end ---------------------------------------------------------
@@ -1810,11 +1829,14 @@ function videoPlayer(group, playerFadeTransition){
 			}});
 			
 			// video -> slider
-			video.addEventListener("timeupdate", function() {
-			    var value = (100 / video.duration) * video.currentTime;
-			    $(seek).slider("value", value);
-			    $(text).html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
-			});
+
+			if (!master.isAndroid){
+				video.addEventListener("timeupdate", function() {
+				    var value = (100 / video.duration) * video.currentTime;
+				    $(seek).slider("value", value);
+				    $(text).html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
+				});
+			}
 		})
 		.fail(function(jqxhr, settings, exception) {
 		  console.log('getScript FAIL')
@@ -1967,11 +1989,11 @@ function switchVideo(_id,_text){
 
 
 	setTimeout(function() {
+
+
 		$videooverlay[0].src = master.cdn_video + _id + master.videoType
-
+		
 		$videooverlay[0].load()
-
-		console.log(master.cdn_video + _id + master.videoType)
 
 		if(master.isIOS || master.isAndroid){
 
@@ -1988,9 +2010,18 @@ function switchVideo(_id,_text){
 		//.controls
 	}, false);
 
+	$videooverlay[0].addEventListener('click',function(){
+  		$videooverlay[0].play();
+	},false);
+
 	
 
 	$videooverlay[0].addEventListener('canplaythrough', function(e) {
+
+		if(parent.location.hash.slice(1) =="") {
+			console.log('switch to helicopter')
+			parent.location.hash = "helicopter"
+		}
 
 
 		$videooverlay.removeClass('hide')
@@ -2000,11 +2031,16 @@ function switchVideo(_id,_text){
 
 		$('.controls').css('display','block')
 
-		console.log("VIDEO PLAYING")
+		if(master.isAndroid){
+			
+		} else {
 
 		e.stopPropagation()
 
-		this.play();
+		this.play();			
+		}
+
+
 	}, false);
 
 }
