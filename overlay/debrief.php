@@ -106,7 +106,7 @@ function loadApp() {
           height: h,
           elevation: 50,
           gradients: true,
-          autoCenter: true
+          autoCenter: false
       });
     }
     

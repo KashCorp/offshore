@@ -11,7 +11,6 @@
     <meta name="description" content="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
 
-    <link rel="image_src" href="../images/bg_drillhead.jpg" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.css">
@@ -215,11 +214,7 @@
     <div id="viewport">
         <div id="image-container">
             <ul>
-                <li class="leasemap" id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>
-                <li class="leasemap" id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>
-                <li class="leasemap" id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>
-                <li class="leasemap" id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>
-                <li class="leasemap" id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>
+
             </ul>
         </div>
     </div>
@@ -245,6 +240,7 @@
 
     <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui-touch-punch.min.js"></script>
     <script type="text/javascript" src="../js/lib/modernizr.min.js"></script>
 
 
@@ -263,12 +259,50 @@
             //     })
             // }
 
+            var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+
+            if(isIOS) {
+
+                var html  = '<li class="leasemap" id="leasemap_05"><img src="../images/lease_map/lease_05_sm.jpg"><div>Caribbean</div></li>'
+                    html += '<li class="leasemap" id="leasemap_04"><img src="../images/lease_map/lease_04_sm.jpg"><div>Brazil</div></li>'
+                    html += '<li class="leasemap" id="leasemap_03"><img src="../images/lease_map/lease_03_sm.jpg"><div>West Africa</div></li>'
+                    html += '<li class="leasemap" id="leasemap_02"><img src="../images/lease_map/lease_02_sm.jpg"><div>Alaska</div></li>'
+                    html += '<li class="leasemap" id="leasemap_01"><img src="../images/lease_map/lease_01_sm.jpg"><div>Gulf of Mexico</div></li>'
+                    $('#image-container ul').html(html)
+
+            } else {
+
+                var html  = '<li class="leasemap" id="leasemap_05"><img src="../images/lease_map/lease_05.jpg"><div>Caribbean</div></li>'
+                    html += '<li class="leasemap" id="leasemap_04"><img src="../images/lease_map/lease_04.jpg"><div>Brazil</div></li>'
+                    html += '<li class="leasemap" id="leasemap_03"><img src="../images/lease_map/lease_03.jpg"><div>West Africa</div></li>'
+                    html += '<li class="leasemap" id="leasemap_02"><img src="../images/lease_map/lease_02.jpg"><div>Alaska</div></li>'
+                    html += '<li class="leasemap" id="leasemap_01"><img src="../images/lease_map/lease_01.jpg"><div>Gulf of Mexico</div></li>'
+                    $('#image-container ul').html(html)
+            
+            }
+
+            var topZIndex = 2000
+
 
             $( ".leasemap" ).draggable();
+            
+            if(isIOS){
 
-            $(".leasemap").on('click',function(){
-                console.log('click')
-            })
+                $( ".leasemap" ).draggable(function(){
+                        topZIndex ++
+                        $(this).css('z-index',topZIndex)
+
+                });
+
+                $( ".leasemap img" ).css('width','1000px');
+                $( ".scroll-directions" ).css('display','none')
+                $( ".leasemap" ).click( function(){
+                        topZIndex ++
+                        $(this).css('z-index',topZIndex)
+
+                })
+
+            }
          
 
             var setStage = function(){
@@ -280,16 +314,16 @@
 
                 var percent = 0
 
-                $.getScript("../js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-                    $( ".scroll-directions" ).draggable({ 
-                        axis: "y",
-                        containment: 'parent',
-                        drag: function() {
-                            percent = parseInt($(this).css('top')) / (window.innerHeight-300)
-                            scrollFunction()
-                        }
-                    });
-                }); 
+    
+                $( ".scroll-directions" ).draggable({ 
+                    axis: "y",
+                    containment: 'parent',
+                    drag: function() {
+                        percent = parseInt($(this).css('top')) / (window.innerHeight-300)
+                        scrollFunction()
+                    }
+                });
+
 
 
                 var transZPos = -4000
@@ -328,8 +362,6 @@
                     var current = 5 - Math.floor(percent*5)
                     var opacity = 1-(percent*5 % 1)*2
 
-                    console.log('percent: '+'\t'+percent)
-
                     $('ul').children().eq(current).css('opacity',opacity)
                 }
 
@@ -338,10 +370,12 @@
 
             }
 
-            setStage()
+            if(!isIOS)
+                setStage()
 
             window.onresize = function(event) {
-            setStage()
+                if(!isIOS)
+                    setStage()
             }
 
         })

@@ -65,6 +65,8 @@
 
       var IS_PARENT = true;
 
+
+
       function checkHash(){
         var locationHash = location.hash
       }

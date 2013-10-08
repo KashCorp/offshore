@@ -37,6 +37,7 @@ var globalPano;
 
 function krpanoReady() {
 
+
     if (parent.location.hash.slice(1) =="")
         pano.loadPanoScene('prologue')
     else

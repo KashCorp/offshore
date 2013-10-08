@@ -95,7 +95,7 @@ function loadApp() {
           cornerSize:300,
           elevation: 50,
           gradients: true,
-          autoCenter: true
+          autoCenter: false
       });
     }
     

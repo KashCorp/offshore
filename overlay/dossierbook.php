@@ -105,13 +105,14 @@ $(document).ready(function(){
             height: h,
             elevation: 50,
             gradients: true,
-            autoCenter: true
+            autoCenter: false
         });
       }
       
     }
 
     $(window).on('resize.turn',resize)
+    
     resize();
 
     $(document).on('touchmove',  function(e) { e.preventDefault(); });

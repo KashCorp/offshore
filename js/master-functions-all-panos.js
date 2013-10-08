@@ -33,6 +33,17 @@
 
 var krpano;
 
+window.onunload=function(){
+			
+			krpano = null
+			master = null
+			pano = null
+			if(parent.audiomaster){
+				parent.audiomaster = null
+			}
+			console.log('unload all objs')
+};
+
 
 
 
@@ -63,6 +74,7 @@ var masterFunctions = function() {
 	this.isMSIE = navigator.userAgent.match(/MSIE/g) ? true : false;
 
 	this.multix = 1;
+
 	if(this.isFireFox) this.multix = .4;
 
 	console.log(visitedPages)
@@ -106,11 +118,9 @@ var masterFunctions = function() {
 
 	if(this.isAndroid) {
 
-		videoType = '_360.webm';
+		this.videoType = '_360.webm';
 
 	}
-
-	console.log(audioType)
 
     try {
       isParent = parent.IS_PARENT;
@@ -142,16 +152,29 @@ var masterFunctions = function() {
      });
 
     var delayNavSlide = function(){
-    	$(".breadcrumb").animate({'bottom': '-40'}, 500)
-    	$("#offshorelogo").animate({'bottom': '-10'}, 500)
+    	if(master.isIOS) {
+    		$(".breadcrumb").animate({'bottom': '-1'}, 500)
+    		$("#offshorelogo").animate({'bottom': '19'}, 500)
+    	} else{
+	    	$(".breadcrumb").animate({'bottom': '-40'}, 500)
+	    	$("#offshorelogo").animate({'bottom': '-10'}, 500)    		
+    	}
+
     }
 
     var navInterval = setTimeout(delayNavSlide, 5000); 
      
     $('.breadcrumb').mouseover(function() {
     	if(!master.overlayOpen) {
+
 			clearInterval(navInterval);
-		    $(".breadcrumb").animate({'bottom': '0'}, 500)
+
+			if(master.isIOS) {
+	    		$(".breadcrumb").animate({'bottom': '39'}, 500)
+	    	} else {
+		    	$(".breadcrumb").animate({'bottom': '0'}, 500)    		
+	    	}
+	
 		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
     	}
 
@@ -162,6 +185,31 @@ var masterFunctions = function() {
        	clearInterval(navInterval);
         navInterval = setTimeout(delayNavSlide, 1000);
     }); 
+
+    $('.breadcrumb').on('touchstart', function() {
+    	if(!master.overlayOpen) {
+
+			clearInterval(navInterval);
+
+			if(master.isIOS) {
+	    		$(".breadcrumb").animate({'bottom': '39'}, 500)
+	    	} else {
+		    	$(".breadcrumb").animate({'bottom': '0'}, 500)    		
+	    	}
+		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
+    	}
+    }); 
+
+    $wrapper.on ('touchstart', function() {
+
+    	clearInterval(navInterval);
+        delayNavSlide()
+
+       $('.pan-directions').fadeOut(500)
+       pano.panDirectionsShown = true;
+       $wrapper.off('mousedown');
+    }); 
+
 
 
     $wrapper.on('mousedown',function(){
@@ -1711,8 +1759,12 @@ function videoPlayer(group, playerFadeTransition){
 	$compass.fadeOut()
 
 	// close breadcrumb
-	// clearInterval(navInterval);
-    $(".breadcrumb").animate({'bottom': '-40px'}, 500)
+	if(master.isIOS){
+ 		$(".breadcrumb").animate({'bottom': '-40px'}, 500)
+	}else{
+		 $(".breadcrumb").animate({'bottom': '-40px'}, 500)
+	}
+   
 
 
 
@@ -2010,16 +2062,19 @@ function switchVideo(_id,_text){
 		//.controls
 	}, false);
 
-	$videooverlay[0].addEventListener('click',function(){
-  		$videooverlay[0].play();
-	},false);
+	if(master.isAndroid){
+		$videooverlay[0].addEventListener('click',function(){
+
+			alert($videooverlay[0].src)
+	  		$videooverlay[0].play();
+		},false);
+	}
 
 	
 
 	$videooverlay[0].addEventListener('canplaythrough', function(e) {
 
 		if(parent.location.hash.slice(1) =="") {
-			console.log('switch to helicopter')
 			parent.location.hash = "helicopter"
 		}
 
