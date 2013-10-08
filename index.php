@@ -35,7 +35,7 @@
 <!--<div style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; display:block;pointer-events:none;background-image:url('images/vignette.png');background-size:100% 100%"></div>-->
 
 <div id="social-media" style="position:absolute; top:0px; left:26px;display:none">
-      <div id="fb-root"></div>
+<!--       <div id="fb-root"></div>
       <script>
         // Load the SDK Asynchronously
         (function(d){
@@ -51,7 +51,7 @@
 
 	<div style="padding-top:5px;padding-left:5px;float:left;width:100px">
     <a  href="https://twitter.com/share" class="twitter-share-button" data-href="http://www.offshore-interactive.com" data-text="Coming soon: OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation" data-via="OFFSHOREwebdoc">Tweet</a>
-  </div>
+  </div> -->
 </div> 
 
       <audio id="transition" preload="auto" class="ambient"><source/></audio>  
