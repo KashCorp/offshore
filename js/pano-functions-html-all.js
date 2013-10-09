@@ -62,10 +62,11 @@ var pano_master = function(){
 
     this.video_underlay = false;
 
-    if(Modernizr.webaudio === true) {
+    if(Modernizr.webaudio === true && master.isIOS) {
         console.log('[MODERNIZR] Web Audio Supported')
         that.noWebAudio = false
     } else {
+        console.log('[MODERNIZR] Web Audio NOT Supported')
         that.noWebAudio = true;
     }
 
