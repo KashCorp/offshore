@@ -51,8 +51,9 @@
 	  this.events = {};
 	  this.lookup = {};
 
-
-	  if(Modernizr.webaudio === true) {
+	  noWebAudio = true;
+	  
+	  if(Modernizr.webaudio === true && !noWebAudio) {
 	  	console.log('[MODERNIZR] Web Audio Supported')
 	  	if ( typeof AudioContext === 'function' ) 
 	  		this.context = new AudioContext();
@@ -62,6 +63,8 @@
 	  	noWebAudio = true;
 	  	console.log('[MODERNIZR] Web Audio NOT SUPPORTED')
 	  }
+
+
 
 		
 		
