@@ -41,6 +41,9 @@ window.onunload=function(){
 			if(parent.audiomaster){
 				parent.audiomaster = null
 			}
+
+	      	console.log("hello-goodbye")
+      		alert('unload all objs')
 			console.log('unload all objs')
 };
 
