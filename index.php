@@ -10,8 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
+
     <link rel="image_src" href="images/offshore_fb_thumb.jpg" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <link rel="icon" href="images/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed"                 href="images/favicon/apple-touch-icon-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72"   href="images/favicon/apple-touch-icon-72x72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/apple-touch-icon-114x114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/apple-touch-icon-144x144-precomposed.png" />
+
     
     <meta property="og:image" content="images/offshore_fb_thumb.jpg"/>
     <meta property="og:title" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation"/>
