@@ -53,7 +53,7 @@
 
 	  var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 
-	  if(Modernizr.webaudio === true && isIOS) {
+	  if(Modernizr.webaudio === true) {
 	  	console.log('[MODERNIZR] Web Audio Supported')
 	  	if ( typeof AudioContext === 'function' ) 
 	  		this.context = new AudioContext();
