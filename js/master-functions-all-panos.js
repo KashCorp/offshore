@@ -41,6 +41,9 @@ window.onunload=function(){
 			if(parent.audiomaster){
 				parent.audiomaster = null
 			}
+
+	      	console.log("hello-goodbye")
+      	
 			console.log('unload all objs')
 };
 
@@ -2065,7 +2068,7 @@ function switchVideo(_id,_text){
 	if(master.isAndroid){
 		$videooverlay[0].addEventListener('click',function(){
 
-			alert($videooverlay[0].src)
+	
 	  		$videooverlay[0].play();
 		},false);
 	}

@@ -7,6 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>OFFSHORE</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
     <meta name="description" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation">
     <meta name="author" content="">
@@ -34,11 +35,11 @@
 </script>
   </head>
 
-  <body class="p-credits" onload="checkHash()">
+  <body class="p-credits">
   	
   	<!--<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>-->
 
-<iframe allowtransparency="true" id="container-frame" src="all_panos.php?html5=prefer+css3d"></iframe>
+<iframe allowtransparency="true" id="container-frame" src="all_panos.php?html5=prefer+css3d&noCache=<?php echo rand(); ?>"></iframe>
 
 <!--<div style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; display:block;pointer-events:none;background-image:url('images/vignette.png');background-size:100% 100%"></div>-->
 
@@ -70,6 +71,8 @@
       <script type="text/javascript" src="js/lib/Tween.js"></script>
 
       <script>
+
+
 
       var IS_PARENT = true;
 
@@ -115,6 +118,8 @@
       if(au1.canPlayType && au1.canPlayType('audio/x-m4a').replace(/no/, '')) {
         audioType1 = '.m4a';
       }
+
+      console.log($('#container-frame')[0].src)
 
       
       audiomaster.loadAudio('audio/Drone_1_norm' + audioType1,'basetrack',1,0)
