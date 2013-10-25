@@ -33,19 +33,6 @@
 
 var krpano;
 
-window.onunload=function(){
-			
-			krpano = null
-			master = null
-			pano = null
-			if(parent.audiomaster){
-				parent.audiomaster = null
-			}
-
-	      	console.log("hello-goodbye")
-      	
-			console.log('unload all objs')
-};
 
 
 
