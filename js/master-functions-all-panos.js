@@ -402,7 +402,7 @@ var masterFunctions = function() {
 
             breadbox_string += '<ul><li><a id="credits-link">Credits</a></li>';
 
-            breadbox_string += '<li><a href="http://offshore-interactive.com/blog/">Blog</a></li>';
+            breadbox_string += '<li><a href="http://offshore-interactive.com/blog/" target="_top">Blog</a></li>';
             // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
             breadbox_string += '</nav>';
 
