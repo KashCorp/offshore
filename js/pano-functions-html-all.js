@@ -62,7 +62,7 @@ var pano_master = function(){
 
     this.video_underlay = false;
 
-    if(Modernizr.webaudio === true && master.isIOS) {
+    if(Modernizr.webaudio === true) {
         console.log('[MODERNIZR] Web Audio Supported')
         that.noWebAudio = false
     } else {
@@ -552,7 +552,7 @@ var pano_master = function(){
                 linkBack = 'hallway'
                 linkForward = 'theatre'
                 overLayFile = 'Hatch_Alt2' + master.audioType
-                underlayMute=true                                
+                //underlayMute=true                                
           break;
 
 
@@ -566,7 +566,7 @@ var pano_master = function(){
                 linkBack = 'hallway'
                 linkForward = 'controlroom' 
                 overLayFile = 'Hatch_Alt2' + master.audioType
-                underlayMute=true
+                //underlayMute=true
 
           break;         
 
@@ -582,6 +582,8 @@ var pano_master = function(){
           break;         
 
           case "sequence_shaftway" : 
+
+           console.log("got this far 1")
                 ImageSequenceFiles = 'hatch';
                 ImageSequenceFrames = 65;
                 linkBack = 'lowerplatform'
@@ -604,7 +606,7 @@ var pano_master = function(){
 
  
                 overLayFile = 'Hatch_Alt2' + master.audioType
-                underlayMute=true
+                //underlayMute=true
           break;       
 
         }
