@@ -41,10 +41,6 @@
 
 		loader.addProgressListener(function(e) { 
 
-			$('.breadcrumb').css('display', 'none')
-			$('.breadcrumb').css('bottom', -40)
-
-			//$('.breadcrumb').css('opacity', 0)
 
 		   $('#panoDownloadStatus').css('width', e.completedCount * increment)
 
