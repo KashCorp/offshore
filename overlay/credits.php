@@ -60,7 +60,10 @@ Ghana: Sedem Ofori<br>
 Brazil: Ricardo Salles de Sá <br>
 <br>
 VOICE OVER<br>
-Ines Buchli<br>
+Allegra Fulton<br>
+<br>
+SOUND STUDIO<br>
+HeadRoom, Juan Optiz<br>
 <br>
 CONSULTANTS<br>
 Anna Zalik<br>
@@ -121,9 +124,20 @@ Don Van Nieuwenhuise<br>
 Bernardo Batista<br>
 Alex Leopol<br>
 Dan Epstein<br>
+Ines Buchli<br>
+Nicole and Raymond Paul<br>
+Patti Ruzycki-Stirling<br>
+<br>
+FOOTAGE<br>
+Louisiana Story, Robert Flaherty, 1948.<br>
+Photos from the State Library of Louisiana Historic Photograph Collection<br>
+Additional aerial video provided by: Jonathan Henderson, Gulf Restoration Network<br>
+
+
 <br>
 Funded by a SSHRC Research and Creation Grant<br>
 York University<br>
+
 
 
 </div>
