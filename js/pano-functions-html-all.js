@@ -1239,7 +1239,7 @@ var loadAFXPano = function (_file, _start){
 
 
 
-var pano = new pano_master();
+
 
 
 

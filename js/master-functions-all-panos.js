@@ -952,9 +952,14 @@ var masterFunctions = function() {
 
 // STARTS THE EXPERIENCE
 
-var master = new masterFunctions();
-master.init();
-master.check_start();
+var master,pano
+
+openingloader()
+
+
+//var master = new masterFunctions();
+//master.init();
+//master.check_start();
 
 
 

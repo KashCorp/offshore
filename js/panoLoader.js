@@ -1,5 +1,81 @@
 	
-	var isPreloaded;
+	var isPreloaded,isOpeningLoaded;
+
+	var openingloader = function() {
+
+		isOpeningloaded = true;
+
+		var cdn = 'offshore_panos/';
+
+		//if(master.isIOS) cdn = 'offshore_panos/512/';
+
+		//loaderArray.push(cdn + "helicopter_pano_l.jpg");
+
+		var loaderArray = []
+
+		loaderArray.push(cdn + "prologue_pano_l.jpg");
+		loaderArray.push(cdn + "prologue_pano_f.jpg");
+		loaderArray.push(cdn + "prologue_pano_r.jpg");
+		loaderArray.push(cdn + "prologue_pano_b.jpg");
+		loaderArray.push(cdn + "prologue_pano_u.jpg");
+		loaderArray.push(cdn + "prologue_pano_d.jpg");
+
+		$('body').append('<div id="panoDownloadStatus"></div>')
+		$('body').append('<div id="panoDownloadStatusText"></div>')
+
+		$('#panoDownloadStatusText').html('Building OFFSHORE OPENING SCENE : ')
+
+		var loader = new PxLoader();
+
+		var increment = window.innerWidth / loaderArray.length
+
+
+		for(var i=0; i < loaderArray.length; i++) { 
+
+		    var pxImage = new PxLoaderImage(loaderArray[i]); 
+		 
+		    //pxImage.imageNumber = i + 1; 
+		 
+		    loader.add(pxImage); 
+		} 
+
+		loader.addProgressListener(function(e) { 
+
+			$('.breadcrumb').css('display', 'none')
+			$('.breadcrumb').css('bottom', -40)
+
+			//$('.breadcrumb').css('opacity', 0)
+
+		   $('#panoDownloadStatus').css('width', e.completedCount * increment)
+
+		   var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
+
+		   $('#panoDownloadStatusText').html('Building SPARTAN 208 : ' + progressPercent + '% complete.')
+		}); 
+
+		loader.addCompletionListener(function() { 
+
+			$('#panoDownloadStatusText').remove()
+
+			$('#panoDownloadStatus').remove()
+
+			master = new masterFunctions();
+			
+			master.init();
+			
+			master.check_start();
+
+			pano = new pano_master();
+
+
+
+
+		})
+		 
+		loader.start();
+
+
+	}
 
 
 	var preloader = function() {
