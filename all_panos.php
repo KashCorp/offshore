@@ -78,7 +78,7 @@
 
            
 
-  <div id="wrapper" class="wrapper">
+  <div id="wrapper" class="wrapper" style='display:none'>
 
    <div class="oil-shot-bg pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>
     

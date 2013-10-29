@@ -23,7 +23,7 @@
 		$('body').append('<div id="panoDownloadStatus"></div>')
 		$('body').append('<div id="panoDownloadStatusText"></div>')
 
-		$('#panoDownloadStatusText').html('Building OFFSHORE OPENING SCENE : ')
+		$('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ')
 
 		var loader = new PxLoader();
 
@@ -50,7 +50,7 @@
 
 		   var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
 
-		   $('#panoDownloadStatusText').html('Building SPARTAN 208 : ' + progressPercent + '% complete.')
+		   $('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ' + progressPercent + '% complete.')
 		}); 
 
 		loader.addCompletionListener(function() { 
@@ -66,6 +66,8 @@
 			master.check_start();
 
 			pano = new pano_master();
+
+			$('#wrapper').fadeIn(2000)
 
 
 
