@@ -78,7 +78,7 @@
 
            
 
-  <div id="wrapper" class="wrapper">
+  <div id="wrapper" class="wrapper" style='display:none'>
 
    <div class="oil-shot-bg pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute; display:none" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>
     
@@ -158,7 +158,16 @@
   	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
 
 
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+        ga('create', 'UA-11990834-7', 'offshore-interactive.com');
+        ga('send', 'pageview');
+
+    </script>
 
   </body>
 </html>

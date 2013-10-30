@@ -33,19 +33,6 @@
 
 var krpano;
 
-window.onunload=function(){
-			
-			krpano = null
-			master = null
-			pano = null
-			if(parent.audiomaster){
-				parent.audiomaster = null
-			}
-
-	      	console.log("hello-goodbye")
-      	
-			console.log('unload all objs')
-};
 
 
 
@@ -109,11 +96,6 @@ var masterFunctions = function() {
 		$('.vignette').css('display','none')
 	 	audioType = '.mp3';
 	}
-
-
-
-
-
 
 	this.videoType = videoType
 
@@ -420,7 +402,7 @@ var masterFunctions = function() {
 
             breadbox_string += '<ul><li><a id="credits-link">Credits</a></li>';
 
-            breadbox_string += '<li><a href="http://offshore-interactive.com/blog/" target="_BLANK">Blog</a></li>';
+            breadbox_string += '<li><a href="http://offshore-interactive.com/blog/" target="_top">Blog</a></li>';
             // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
             breadbox_string += '</nav>';
 
@@ -970,9 +952,14 @@ var masterFunctions = function() {
 
 // STARTS THE EXPERIENCE
 
-var master = new masterFunctions();
-master.init();
-master.check_start();
+var master,pano
+
+openingloader()
+
+
+//var master = new masterFunctions();
+//master.init();
+//master.check_start();
 
 
 
