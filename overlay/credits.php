@@ -36,18 +36,18 @@ Interactive/Technical Director: Mike Robbins <br>
 Creative Director: Alex Wittholz <br>
 Graphic Design: Felix Wittholz, Joanna Durkalec <br>
 Interactive Programming: Mike Robbins, Iain Campbell, Daniel Sundy <br>
-3D Programming : Matt Brushett, Marc Pannozzo<br>
+3D Programming: Matt Brushett, Marc Pannozzo<br>
 <br>
 
 CINEMATOGRAPHERS <br>
 Louisiana: Edward Holub, Glen Richards<br>
-Boston: Jodi Silver.<br>
-Houston: Boyderick Mays, Trent Wittenbach <br>
+Boston: Jodi Silver<br>
+Houston: Boyderick Mays, Trent Wittenbach<br>
 Barrow: Dustinn Craig   <br>            
 <br>
 
 SOUND DESIGN WEBSITE <br>
-John Black/ Cypheraudio<br>
+John Black/CypherAudio<br>
 <br>
 
 MUSIC COMPOSITION<br>
