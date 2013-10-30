@@ -18,15 +18,14 @@
 
 <style>
 
-
   #map-container {
     position: relative;
     
     margin-top: 25px;
     margin-left: 25px;
 
-        width: 100%;
-      height: 100%;
+    width: 100%;
+    height: 100%;
 
     text-align: center;
     color:#ffffff;
@@ -135,6 +134,7 @@
         background: black;
         display: inline-block;
         position: relative;
+        margin: -0.05em 0;
       }
 
       .hereLabel .arrow {
@@ -203,49 +203,55 @@
       position: absolute;
       top: 23.659306%;
       left: 5.8%;
-      width: 25.8823529%;
+      width: 27.5%;
     }
 
       .map_legend div {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        
+      }
+
+      .map_legend .outer {
         width: 100%;
 
-        background:#6B6661;
-        margin-bottom: 8%;
-        padding: 2% 3%;
+        padding: 4% 0;
         cursor:pointer;
         
         text-align:left;
         font-weight: bold;
         letter-spacing: -1px;
-        color: #949494;
         white-space: nowrap;
+
+        
       }
 
-      .map_legend div span {
+      .map_legend .inner {
+        padding: 2% 3%;
+        background-color: #000000;
+        color:#ecc60a;
+      }
+
+      /*.map_legend .inner span {
         display: inline-block;
         background: #ecc60a;
         color: black;
-      }
+      }*/
 
-      .no-touch .map_legend div:hover, 
-      .no-touch .map_legend div.hover {
+      .no-touch .map_legend .outer:hover .inner, 
+      .no-touch .map_legend .hover .inner {
         color: black;
         background: #ecc60a;
       }
 
-      .no-touch .map_legend div:hover span, 
-      .no-touch .map_legend div.hover span {
-        color: #ecc60a;
-        background: black;
-      }
+      .map_legend .visited .inner { 
+        color: #949494;
+        background:#6B6661;
+      } 
 
-      .map_legend div.visited { background-color: #000000; color:#ecc60a;} 
-      .map_legend div.visited span { color: #000000; } 
-
-/*      .map_legend div.visited { background-color: #6B6661; } 
-      .map_legend div.visited span { color: #6B6661; }*/
-
-      .map_legend div.here { 
+      .map_legend .inner.here { 
         background: #ecc60a !important;
         color: black;
       }
@@ -281,19 +287,19 @@
       <div class="controlroom"  data-url="controlroom"  data-url="controlroom">4</div>
       <div class="theater"      data-url="theatre"      data-url="theater">5</div>
       <div class="chemicalroom" data-url="chemicalroom" data-url="chemicalroom">6</div>
-      <div class="subhanger"    data-url="subhanger"    data-url="subhanger">7</div>
+      <div class="subhangar"    data-url="subhangar"    data-url="subhangar">7</div>
     </div> -->
 
 
     <div class="map_legend">
-      <div class="platform"      data-url="platform"      id="t3" >Flight Deck</div>
-      <div class="lowerplatform" data-url="lowerplatform" id="t1" >Lower Platform</div>
-      <div class="hallway"       data-url="hallway"       id="t5a">Terminus</div>
-      <div class="boat"          data-url="boat"          id="t8" >Boat Deck</div>     
-      <div class="controlroom"   data-url="controlroom"   id="t4" >Control Room</div>
-      <div class="theater theatre"       data-url="theatre"       id="t5b">Theatre</div>
-      <div class="chemicalroom"  data-url="chemicalroom"  id="t6" >Chem-Storage</div>
-      <div class="subhangar"     data-url="subhangar"     id="t7" >Submersible Hangar</div>
+      <div class="outer platform"        data-url="platform"      id="t3" ><div class="inner">Flight Deck</div></div>
+      <div class="outer lowerplatform"   data-url="lowerplatform" id="t1" ><div class="inner">Lower Platform</div></div>
+      <div class="outer hallway"         data-url="hallway"       id="t5a"><div class="inner">Terminus</div></div>
+      <div class="outer boat"            data-url="boat"          id="t8" ><div class="inner">Boat Deck</div></div>
+      <div class="outer controlroom"     data-url="controlroom"   id="t4" ><div class="inner">Control Room</div></div>
+      <div class="outer theater theatre" data-url="theatre"       id="t5b"><div class="inner">Theatre</div></div>
+      <div class="outer chemicalroom"    data-url="chemicalroom"  id="t6" ><div class="inner">Chem-Storage</div></div>
+      <div class="outer subhangar"       data-url="subhangar"     id="t7" ><div class="inner">Submersible Hangar</div></div>
     </div>
 
   </div>
@@ -329,12 +335,13 @@
       var visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
       if(visited){
         if(visited.platform     === true) $('.map_legend > .platform').addClass('visited')
+        if(visited.lowerplatform=== true) $('.map_legend > .lowerplatform').addClass('visited')
         if(visited.hallway      === true) $('.map_legend > .hallway').addClass('visited')
         if(visited.boat         === true) $('.map_legend > .boat').addClass('visited')
         if(visited.controlroom  === true) $('.map_legend > .controlroom').addClass('visited')
         if(visited.theatre      === true) $('.map_legend > .theatre').addClass('visited')
         if(visited.chemicalroom === true) $('.map_legend > .chemicalroom').addClass('visited')
-        if(visited.subhanger    === true) $('.map_legend > .subhanger').addClass('visited') 
+        if(visited.subhangar    === true) $('.map_legend > .subhangar').addClass('visited') 
       }
 
 
@@ -367,7 +374,7 @@
           parent.master.closeOverlay()
       })
 
-      $("#map-container ul li, .map_legend div, .map_labels div").click(function(e){
+      $("#map-container ul li, .map_legend .outer, .map_labels .outer").click(function(e){
         e.stopPropagation();
         if($(this).data("url")) {
           if( $(this).data("url") == parent.master.globalPano ) {

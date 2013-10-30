@@ -28,7 +28,6 @@
 
 
 
-
 **************************************************************************/
 
 
@@ -37,8 +36,7 @@ var globalPano;
 
 function krpanoReady() {
 
-
-    if (parent.location.hash.slice(1) =="")
+    if (parent.location.hash.slice(1) == "")
         pano.loadPanoScene('prologue')
     else
         pano.loadPanoScene(parent.location.hash.slice(1))
@@ -70,11 +68,12 @@ var pano_master = function(){
         that.noWebAudio = true;
     }
 
+
     this.visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
 
     if(!this.visited){
 
-        console.log("setting visited pano data for the first time")
+        console.log("setting localStorage visited pano data for the first time")
         this.visited = { // this gets cached in localStorage
             platform : false,
             lowerplatform : false,
@@ -89,7 +88,7 @@ var pano_master = function(){
 
     } else {
         console.log("visited pano data:")
-        console.log(JSON.parse(localStorage.getItem('offshoreVisitedPanos')))
+        console.log(this.visited)
     }
 
 
@@ -320,9 +319,7 @@ var pano_master = function(){
 
             case "prologue" : 
                 overLayFile = 'HeliPad_minus_minus' + master.audioType
-
                 $compass.hide()
-
             break;
 
             case "helicopter" :
@@ -351,16 +348,17 @@ var pano_master = function(){
             break;
 
 
-             case "lowerplatform" : 
+            case "lowerplatform" : 
+                that.visited.lowerplatform = true;
                 overLayFile = 'LowerPlatform_minus' + master.audioType 
                 underlayFile = 'Drone_1_norm' + master.audioType
             break;           
 
             case "hallway" : 
+                that.visited.hallway = true;
 
                 $('.oil-shot-bg').css('display','block')
 
-                that.visited.hallway = true;
 
                 // Big ball of fire voices
                 that.voiceStartTimer = JSON.parse(localStorage.getItem('voiceStartTimer'));
@@ -374,21 +372,17 @@ var pano_master = function(){
                     localStorage.setItem('voiceStartTimer',JSON.stringify(that.voiceStartTimer))
 
                 } else {
-
                     if(that.voiceStartTime > 185) that.voiceStartTime = 0; // restart
 
                     that.cachedVoiceTime = JSON.parse(localStorage.getItem('voiceCurrentTime'))
                     that.voiceStartTimer = new Date()
-
                 }
                 
                 // console.log('that.voiceStartTimer: '+'\t'+that.voiceStartTimer)
                 // console.log('that.voiceStartTimer: '+'\t'+ that.voiceCurrentTime)
 
                 loadAFXPano('One_Big_Ball_of_Fire', that.voiceCurrentTime)
-
                 overLayFile = 'Main_Hallway' + master.audioType
-
                 underlayFile = 'Drone_2_norm' + master.audioType
 
                 $panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"></div>')
@@ -398,8 +392,8 @@ var pano_master = function(){
             break;
 
             case "subhangar" : 
-            
                 that.visited.subhangar = true;
+
                 overLayFile = 'SubRoom' + master.audioType
                 underlayFile = 'Drone_3' + master.audioType
 
@@ -416,9 +410,9 @@ var pano_master = function(){
             break;
 
             case "submarine" :
-            setTimeout(function(){
-                $panocontainer.before('<div class="dynamic underwater-hanger"></div><video width="100%" autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
-            },1000)
+                setTimeout(function(){
+                    $panocontainer.before('<div class="dynamic underwater-hanger"></div><video width="100%" autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+                },1000)
                 overLayFile = 'Submersible' + master.audioType
                 underlayMute=true             
                 that.video_underlay = true;
@@ -426,18 +420,21 @@ var pano_master = function(){
 
             case "theater" : 
                 that.visited.theatre = true;
+
                 overLayFile = 'Fluorescencent_Tone' + master.audioType
-                underlayMute=true
+                underlayFile = 'Drone_1_norm' + master.audioType
             break; 
 
             case "theatre" : 
                 that.visited.theatre = true;
+
                 overLayFile = 'Fluorescencent_Tone' + master.audioType
                 underlayFile = 'Drone_1_norm' + master.audioType
             break; 
 
             case "chemicalroom" :
                 that.visited.chemicalroom = true;
+
                 overLayFile = 'Chemical_Room' + master.audioType 
                 underlayFile = 'Drone_3_norm' + master.audioType
                 
@@ -448,15 +445,13 @@ var pano_master = function(){
                 $('.hotspot').addClass('engineroom')
 
                 // that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
-
-
             break;    
 
             case "controlroom" : 
-
-             $('.oil-shot-bg').css('display','block')
-
                 that.visited.controlroom = true;
+
+                $('.oil-shot-bg').css('display','block')
+
                 overLayFile = 'russian_radio' + master.audioType
                 
                 //$panocontainer.before('<div class="dynamic" class="pano-underlay"><video width="100%" height="100%" autoplay loop="true" style="position:absolute;" class="video-underlay" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /><source src="video/transitions/oil_shot.mov" type="video/mov" /></video> </div>')

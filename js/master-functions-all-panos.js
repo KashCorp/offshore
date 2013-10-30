@@ -362,11 +362,11 @@ var masterFunctions = function() {
 
 
   	/**********************************************************************
-  	***********************************************************************
+		
 		
 		init
 
-	***********************************************************************
+
   	**********************************************************************/
     	      
 	this.init = function(no_fade){
@@ -508,8 +508,10 @@ var masterFunctions = function() {
 
 
 
+
 	/********************************************************************************
 		
+
 		> Overlay Functionality
 
 
@@ -518,9 +520,8 @@ var masterFunctions = function() {
 		loadOverlay('example.php');
 		closeOverlay();
 
+
 	********************************************************************************/
-
-
 	this.loadOverlay = function(overlayURL){
 
 		if(master.overlayOpen === true) return;
@@ -963,11 +964,21 @@ openingloader();
 
 
 
-	// > Walkthrough
-
-	// NEW VERSION USING VIDEO
 
 
+
+
+
+
+/**************************************************************************
+
+
+	
+	> Walkthrough
+
+
+
+**************************************************************************/
 
 var Walkthrough = function(canvasID,name,videoLength) {
 	
@@ -1410,7 +1421,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 	
 
-	> Root Functions Passed from XML
+	> Root Functions (so we can call them from the krpano XML)
 
 
 
