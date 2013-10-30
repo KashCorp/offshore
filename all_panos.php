@@ -146,16 +146,18 @@
 
     <!--<video id="walkthrough-video" width="100%" style="position:absolute;display:block;top:0px;pointer-events:none" preload="auto">-->
 
-    <!-- JavaScripts -->
+    <!-- Libraries -->
     <script type="text/javascript" src="js/lib/jquery.min.js"></script>
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
     <script type="text/javascript" src="js/lib/pxloader/PxLoader.js"></script>
     <script type="text/javascript" src="js/lib/pxloader/PxLoaderImage.js"></script>
-    <script type="text/javascript" src="js/panoLoader.js?d=20131030"></script>
-		<script type="text/javascript" src="js/master-functions-all-panos.js?d=20131030"></script>
     <script type="text/javascript" src="js/lib/Tween.js"></script>
-  	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
-  	<script type="text/javascript" src="js/pano-functions-html-all.js?d=20131030"></script>
+    <script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
+  
+    <!-- Javascripts -->
+    <script type="text/javascript" src="js/panoLoader.js?v=20131030"></script>
+		<script type="text/javascript" src="js/master-functions-all-panos.js?v=20131030"></script>
+  	<script type="text/javascript" src="js/pano-functions-html-all.js?v=20131030"></script>
 
 
     <script>

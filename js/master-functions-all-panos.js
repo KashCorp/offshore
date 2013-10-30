@@ -954,7 +954,7 @@ var masterFunctions = function() {
 
 var master,pano
 
-openingloader()
+openingloader();
 
 
 //var master = new masterFunctions();
