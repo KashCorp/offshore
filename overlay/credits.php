@@ -23,11 +23,13 @@ CREDITS
 <br><br>
 
 DIRECTORS <br>
-Brenda Longfellow, Glen Richards and Helios Design Lab. 
+Brenda Longfellow, Glen Richards and Helios Design Labs
 <br><br>
+
 PRODUCER <br>
 Brenda Longfellow
 <br><br>
+
 INTERACTIVE DESIGN AND DEVELOPMENT<br>
 Producer: Sarah Arruda <br>
 Interactive/Technical Director: Mike Robbins <br>
@@ -36,35 +38,44 @@ Graphic Design: Felix Wittholz, Joanna Durkalec <br>
 Interactive Programming: Mike Robbins, Iain Campbell, Daniel Sundy <br>
 3D Programming : Matt Brushett, Marc Pannozzo<br>
 <br>
+
 CINEMATOGRAPHERS <br>
 Louisiana: Edward Holub, Glen Richards<br>
 Boston: Jodi Silver.<br>
 Houston: Boyderick Mays, Trent Wittenbach <br>
 Barrow: Dustinn Craig   <br>            
 <br>
+
 SOUND DESIGN WEBSITE <br>
 John Black/ Cypheraudio<br>
 <br>
+
 MUSIC COMPOSITION<br>
 Antoni Komasa-Łazarkiewicz<br>
 <br>
+
 DOCUMENTARY EDITORS<br>
 Glen Richards, Cliff Caines, Tim Kirkwood, Chris Wiseman<br>
 <br>
+
 SOUND EDIT<br>
 Alex Unger<br>
 <br>
+
 DOCUMENTARY PRODUCTION CO-ORDINATORS <br>
 Barrow: Deborah Dahl Edwardson<br>
 Ghana: Sedem Ofori<br>
 Brazil: Ricardo Salles de Sá <br>
 <br>
+
 VOICE OVER<br>
 Allegra Fulton<br>
 <br>
+
 SOUND STUDIO<br>
 HeadRoom, Juan Optiz<br>
 <br>
+
 CONSULTANTS<br>
 Anna Zalik<br>
 James Marriott<br>
@@ -72,13 +83,16 @@ John Jordan<br>
 Imre Szeman<br>
 Joseph Johnson Cami<br>
 <br>
+
 RESEARCH ASSISTANTS<br>
 Sama Waham<br>
 Daniel Valle<br>
 <br>
+
 HELICOPTER<br>
 Dacoda Bartel<br>
 <br>
+
 THANK YOU<br>
 Town of Barrow<br>
 Darla and Todd Rooks<br>
@@ -128,6 +142,11 @@ Ines Buchli<br>
 Nicole and Raymond Paul<br>
 Patti Ruzycki-Stirling<br>
 <br>
+Cindy Poremba<br>
+Jade Colbert<br>
+Marc Serpa Francoer<br>
+Robinder Uppal<br>
+
 FOOTAGE<br>
 Louisiana Story, Robert Flaherty, 1948.<br>
 Photos from the State Library of Louisiana Historic Photograph Collection<br>
@@ -138,6 +157,7 @@ Additional aerial video provided by: Jonathan Henderson, Gulf Restoration Networ
 Funded by a SSHRC Research and Creation Grant<br>
 York University<br>
 
+<br><br><br><br><br><br><br>
 
 
 </div>
