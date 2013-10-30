@@ -13,7 +13,7 @@
     <meta name="author" content="">
 
     <link rel="image_src" href="images/bg_drillhead.jpg" />
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=20131030">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
 
     <script type="text/javascript">
@@ -151,11 +151,11 @@
 		<script type="text/javascript" src="js/lib/modernizr.min.js"></script>
     <script type="text/javascript" src="js/lib/pxloader/PxLoader.js"></script>
     <script type="text/javascript" src="js/lib/pxloader/PxLoaderImage.js"></script>
-    <script type="text/javascript" src="js/panoLoader.js"></script>
-		<script type="text/javascript" src="js/master-functions-all-panos.js"></script>
+    <script type="text/javascript" src="js/panoLoader.js?d=20131030"></script>
+		<script type="text/javascript" src="js/master-functions-all-panos.js?d=20131030"></script>
     <script type="text/javascript" src="js/lib/Tween.js"></script>
   	<script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
-  	<script type="text/javascript" src="js/pano-functions-html-all.js"></script>
+  	<script type="text/javascript" src="js/pano-functions-html-all.js?d=20131030"></script>
 
 
     <script>

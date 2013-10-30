@@ -1523,6 +1523,12 @@ visibility:hidden;}
 	margin-right: 0.5em;
 }
 
+.movie-menu-item.viewedContentDiv:before {
+	content: '';
+	margin: 0;
+}
+.movie-menu-item.viewedContentDiv:hover { color: inherit;}
+
 
  /* Controls */
 

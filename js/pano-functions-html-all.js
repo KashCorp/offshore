@@ -691,7 +691,7 @@ var pano_master = function(){
             $('.movie-menu-item').click(function(){
                 switchVideo($(this).data('file'),$(this).text())
             })
-            $('.movie-menu').append('<div class="viewedContentDiv">Viewed Content</div>')
+            $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
             $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
         },
         error : function(request,error) {
