@@ -141,11 +141,11 @@ Dan Epstein<br>
 Ines Buchli<br>
 Nicole and Raymond Paul<br>
 Patti Ruzycki-Stirling<br>
-<br>
 Cindy Poremba<br>
 Jade Colbert<br>
 Marc Serpa Francoer<br>
 Robinder Uppal<br>
+<br>
 
 FOOTAGE<br>
 Louisiana Story, Robert Flaherty, 1948.<br>
