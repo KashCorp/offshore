@@ -225,8 +225,8 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano) {
 
-        // console.log('/#'+_pano)
-        _gaq.push(['_trackPageview', '/#'+_pano])
+        var d = document.location;
+        _gaq.push(['_trackPageview', '/'+ _pano])
 
         $("#loading").hide();
 
