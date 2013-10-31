@@ -334,14 +334,14 @@
       
       var visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
       if(visited){
-        if(visited.platform     === true) $('.map_legend > .platform').addClass('visited')
-        if(visited.lowerplatform=== true) $('.map_legend > .lowerplatform').addClass('visited')
-        if(visited.hallway      === true) $('.map_legend > .hallway').addClass('visited')
-        if(visited.boat         === true) $('.map_legend > .boat').addClass('visited')
-        if(visited.controlroom  === true) $('.map_legend > .controlroom').addClass('visited')
-        if(visited.theatre      === true) $('.map_legend > .theatre').addClass('visited')
-        if(visited.chemicalroom === true) $('.map_legend > .chemicalroom').addClass('visited')
-        if(visited.subhangar    === true) $('.map_legend > .subhangar').addClass('visited') 
+        if(visited.platform      === true) $('.map_legend > .platform').addClass('visited')
+        if(visited.lowerplatform === true) $('.map_legend > .lowerplatform').addClass('visited')
+        if(visited.hallway       === true) $('.map_legend > .hallway').addClass('visited')
+        if(visited.boat          === true) $('.map_legend > .boat').addClass('visited')
+        if(visited.controlroom   === true) $('.map_legend > .controlroom').addClass('visited')
+        if(visited.theatre       === true) $('.map_legend > .theatre').addClass('visited')
+        if(visited.chemicalroom  === true) $('.map_legend > .chemicalroom').addClass('visited')
+        if(visited.subhangar     === true) $('.map_legend > .subhangar').addClass('visited') 
       }
 
 

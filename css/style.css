@@ -1595,6 +1595,8 @@ visibility:hidden;}
 		background: white;
 	}
 
+	.ui-slider-handle.ui-state-default.ui-corner-all:focus { outline: none; }
+
 	.video-content-wrap .controls .text {
 		position: relative;
 		float: left;
