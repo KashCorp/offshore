@@ -67,8 +67,6 @@ var masterFunctions = function() {
 
 	if(this.isFireFox) this.multix = .4;
 
-	console.log(visitedPages)
-
 	this.ghostBuster = false
 	this.ghostMinc
 	this.viewedContentArray = []
@@ -77,20 +75,9 @@ var masterFunctions = function() {
 	// webm or h264
 	var v = document.createElement('video');
 	var au = document.createElement('audio');
-
-	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) {
-	 	videoType = '.mp4';
-	}
-
-	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) {
-	 	videoType = '.webm';
-	}
-
-
-
-	if(au.canPlayType && au.canPlayType('audio/x-m4a').replace(/no/, '')) {
-	 	audioType = '.m4a';
-	}
+	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, ''))  { videoType = '.mp4'; }
+	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) { videoType = '.webm'; }
+	if(au.canPlayType && au.canPlayType('audio/x-m4a').replace(/no/, '')) { audioType = '.m4a'; }
 
 	if(this.isMSIE) {
 		$('.vignette').css('display','none')
@@ -98,14 +85,10 @@ var masterFunctions = function() {
 	}
 
 	this.videoType = videoType
-
 	this.audioType = audioType
 
-	if(this.isAndroid) {
+	if(this.isAndroid) { this.videoType = '_360.webm'; }
 
-		this.videoType = '_360.webm';
-
-	}
 
     try {
       isParent = parent.IS_PARENT;
@@ -128,13 +111,17 @@ var masterFunctions = function() {
     this.movieMenu = false
 
     isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
-    
     this.isRetina = isRetinaFunction()
      
      $compass.click(function() {
      	$(this).fadeOut(500)
 		that.loadOverlay('rigmap.php')
      });
+    
+
+
+    // ********************************************************
+    // Nav
 
     var delayNavSlide = function(){
     	if(master.isIOS) {
@@ -151,20 +138,11 @@ var masterFunctions = function() {
      
     $('.breadcrumb').mouseover(function() {
     	if(!master.overlayOpen) {
-
 			clearInterval(navInterval);
-
-			if(master.isIOS) {
-	    		$(".breadcrumb").animate({'bottom': '39'}, 500)
-	    	} else {
-		    	$(".breadcrumb").animate({'bottom': '0'}, 500)    		
-	    	}
-	
-		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
+			if(master.isIOS) $(".breadcrumb").animate({'bottom': '39'}, 500)
+	    	else  			 $(".breadcrumb").animate({'bottom': '0'}, 500)
     	}
-
     });
- 
  
     $('.breadcrumb').mouseleave(function() {
        	clearInterval(navInterval);
@@ -194,6 +172,9 @@ var masterFunctions = function() {
        pano.panDirectionsShown = true;
        $wrapper.off('mousedown');
     }); 
+
+    // end Nav
+    // ********************************************************
 
 
 
@@ -953,7 +934,8 @@ var masterFunctions = function() {
 
 // STARTS THE EXPERIENCE
 
-var master,pano
+var master,
+	pano;
 
 openingloader();
 

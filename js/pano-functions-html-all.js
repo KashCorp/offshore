@@ -38,9 +38,8 @@ function krpanoReady() {
 
     if (parent.location.hash.slice(1) == "")
         pano.loadPanoScene('prologue')
-    else
+    else 
         pano.loadPanoScene(parent.location.hash.slice(1))
-
 }
 
 var pano_master = function(){
@@ -124,6 +123,8 @@ var pano_master = function(){
         embedpano({swf:swfLoc,  id:"krpanoObject", xml:xmlLoc, wmode: "transparent", target:"panocontainer", html5:"auto", passQueryParameters:true}); 
 
     krpano = document.getElementById("krpanoObject");
+
+    if(extcontrol) extcontrol.krpanoloaded();
 
     master.debouncedResize();
 
@@ -842,26 +843,53 @@ var pano_master = function(){
     $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/>')
 
 
-    var mouse_start_x = 0,
+    var krpano,
+
+        mouse_start_x = 0,
         mouse_start_y = 0,
-        mouse_start_x_end= 0,
+        mouse_start_x_end = 0,
         mouse_start_y_end = 0,
         mouse_x_diff = 0,
         mouse_y_diff = 0,
-        driftTweenH, driftTweenV,
-        panAmount = 0, yawAmount = 0,
+
+        driftTweenH, 
+        driftTweenV,
+
+        panAmount = 0, 
+        yawAmount = 0,
+
         interactive = null,
-        view_x=0,view_y=0,
-        krpano,panX,panY
 
-        document.addEventListener( 'mousedown', actionDown, false );
-        document.addEventListener( 'touchstart', actionDownTouch, false );         
-        
-        document.addEventListener( 'mousemove', actionMove, false );
-        document.addEventListener( 'touchmove', actionMoveTouch, false );
+        view_x=0,
+        view_y=0,
 
-        document.addEventListener( 'mouseup', actionUp, false );
-        document.addEventListener( 'touchend', actionUp, false );
+        panX,
+        panY;
+
+
+    document.addEventListener( 'mousedown', actionDown, false );
+    document.addEventListener( 'touchstart', actionDownTouch, false );         
+    
+    document.addEventListener( 'mousemove', actionMove, false );
+    document.addEventListener( 'touchmove', actionMoveTouch, false );
+
+    document.addEventListener( 'mouseup', actionUp, false );
+    document.addEventListener( 'touchend', actionUp, false );
+
+    // ********************************************************
+    // External Control Module
+
+    this.control = undefined;
+
+    if(extcontrol) { if(extcontrol.role === "slave") {
+
+        that.control = function(){
+
+        }
+
+    } }
+
+    // ********************************************************
 
 
 
@@ -878,66 +906,88 @@ var pano_master = function(){
 
 
     $('#fastpanleft').hover(
-        function(){
-            //mouse in
+        function(){ // mouse in
+
+            if(interactive) return; // don't hover pan if we're already dragging
+
+            if(extcontrol) { if(extcontrol.role === 'master') {
+                extcontrol.look.pan('left',true)
+            }}
+            
             if(driftTweenH) TWEEN.remove(driftTweenH)
             panAmount = -0.5
-        },
-         function(){
-            //mouse out
-         finishPanX()
 
+        }, function(){ // mouse out
+
+            if(extcontrol) { if(extcontrol.role === 'master') {
+                extcontrol.look.pan('left',false)
+            }}
+            
+            finishPanX()
         }                        
     )
 
     $('#fastpanright').hover(
-        function(){
-            //mouse in
+        function(){ // mouse in
+
+            if(interactive) return; // don't hover pan if we're already dragging
+
+            if(extcontrol) { if(extcontrol.role === 'master') {
+                extcontrol.look.pan('right',true)
+            }}
+            
             if(driftTweenH) TWEEN.remove(driftTweenH)
             panAmount = 0.5
-        },
-         function(){
-            //mouse out
+
+        }, function(){ // mouse out
+
+            if(extcontrol) { if(extcontrol.role === 'master') {
+                extcontrol.look.pan('right',false)
+            }}
+            
             finishPanX()
 
         }                     
     )
 
-    $('#fastpanbottom').hover(
-        function(){
-            //mouse in
-            console.log("hover")
-            if(driftTweenH) TWEEN.remove(driftTweenH)
-            yawAmount = 0.5
-        },
-         function(){
-            //mouse out
-            yawAmount = 0
+    // $('#fastpanbottom').hover(
+    //     function(){
+    //         //mouse in
+    //         console.log("hover")
+    //         if(driftTweenH) TWEEN.remove(driftTweenH)
+    //         yawAmount = 0.5
+    //     },
+    //      function(){
+    //         //mouse out
+    //         yawAmount = 0
 
-        }                        
-    )
+    //     }                        
+    // )
 
-    $('#fastpantop').hover(
-        function(){
-            //mouse in
-            if(driftTweenH) TWEEN.remove(driftTweenH)
-            yawAmount = -0.5
-        },
-         function(){
-            //mouse out
-            yawAmount = 0
+    // $('#fastpantop').hover(
+    //     function(){
+    //         //mouse in
+    //         if(driftTweenH) TWEEN.remove(driftTweenH)
+    //         yawAmount = -0.5
+    //     },
+    //      function(){
+    //         //mouse out
+    //         yawAmount = 0
 
-        }                     
-    )
+    //     }                     
+    // )
 
     function actionDown( e ) {
-                
+
         e.touches = [{clientX: e.clientX, clientY: e.clientY}];
         actionDownTouch(e);
-
     } 
 
      function actionDownTouch( e ) {
+
+        if(extcontrol) { if(extcontrol.role === 'master') {
+            extcontrol.look.actionDown(e)
+        }}
 
         master.ghostBuster = true
                 
@@ -965,14 +1015,16 @@ var pano_master = function(){
 
         if (!krpano) return
 
+        if(extcontrol) { if(extcontrol.role === 'master') {
+            extcontrol.look.actionUp(e)
+        }}
+
         interactive = false;
 
         master.ghostBuster = false
 
-        var dummy = { decayX:    mouse_x_diff};
-        var dummyv = { decayY:    mouse_y_diff};
-
-
+        var dummy =  { decayX: mouse_x_diff};
+        var dummyv = { decayY: mouse_y_diff};
 
         driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
             .onUpdate( function() {
@@ -1001,20 +1053,28 @@ var pano_master = function(){
     function actionMove( e ) {
         e.touches = [{clientX: e.clientX, clientY: e.clientY}];
         actionMoveTouch(e);
-       
     } 
 
      function actionMoveTouch( e ) {
 
-                mouseMove = 0
-                if(interactive){
-                     if(driftTweenH) TWEEN.remove(driftTweenH)
-                     if(driftTweenV) TWEEN.remove(driftTweenV)
-                     mouse_start_x = e.touches[0].clientX;
-                     mouse_start_y = e.touches[0].clientY;
+        mouseMove = 0
 
-             }
+        if(interactive){
+
+            if(extcontrol) { if(extcontrol.role === 'master') {
+                extcontrol.look.actionMove(e)
+            }}
+
+            if(driftTweenH) TWEEN.remove(driftTweenH)
+            if(driftTweenV) TWEEN.remove(driftTweenV)
+            mouse_start_x = e.touches[0].clientX;
+            mouse_start_y = e.touches[0].clientY;
+        }
     }     
+
+
+
+
 
 
 

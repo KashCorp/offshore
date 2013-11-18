@@ -157,7 +157,8 @@
     <!-- Javascripts -->
     <script type="text/javascript" src="js/panoLoader.js?v=20131030"></script>
 		<script type="text/javascript" src="js/master-functions-all-panos.js?v=20131101"></script>
-  	<script type="text/javascript" src="js/pano-functions-html-all.js?v=20131030"></script>
+    <script type="text/javascript" src="js/pano-functions-html-all.js?v=20131030"></script>
+  	<script type="text/javascript" src="js/external-control.js?v=<?php echo date('U') ?>"></script>
 
   </body>
 </html>

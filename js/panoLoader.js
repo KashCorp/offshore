@@ -51,6 +51,21 @@
 
 		loader.addCompletionListener(function() { 
 
+			// URL Arguments to enable the External Control Module
+			var search = parent.location.search;
+			if(search) {
+				if(search.substr(0,1) == '?') {
+					var searcharray = search.split('?');
+
+					if(searcharray[1] === "master") {
+						extcontrol = new ExtControl("master",searcharray[2]);
+					} else if(searcharray[1] === "slave") {
+						extcontrol = new ExtControl("slave",searcharray[2]);
+					}
+
+				}	
+			}
+
 			$('#panoDownloadStatusText').remove()
 
 			$('#panoDownloadStatus').remove()
@@ -64,6 +79,8 @@
 			pano = new pano_master();
 
 			$('#wrapper').fadeIn(2000)
+
+			
 
 
 
