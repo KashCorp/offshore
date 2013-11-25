@@ -31,17 +31,28 @@
 
 **************************************************************************/
 
+
+// ********************************************************
+// Global Config Options
+
+// look in panoLoader.js, loader.addCompletionListener()
+// for the url arguments which can set most of these
+// parameters
+
+var config = {
+  'useLocalResources' : true, // look for media locally instead of from the CDN
+  'forceExtControlMaster' : false, // hardwire extcontrol.role to 'master'
+  'forceExtControlSlave' : false,  // hardwire extcontrol.role to 'slave'
+  'autopilot' : false // use autopilot
+}
+
 var krpano;
-
-
-
-
 
 // let's cache some domz
 var $panocontainer = $('#panocontainer'),
-	$wrapper = $('#wrapper'),
-	$compass = $('.compass'),
-	$videooverlay = $("#video-overlay")
+	  $wrapper = $('#wrapper'),
+	  $compass = $('.compass'),
+	  $videooverlay = $("#video-overlay")
 
 
 
@@ -89,20 +100,24 @@ var masterFunctions = function() {
 
 	if(this.isAndroid) { this.videoType = '_360.webm'; }
 
+  try {
+    isParent = parent.IS_PARENT;
+  }catch(e){
+    isParent = false;
+  }
 
-    try {
-      isParent = parent.IS_PARENT;
-    }catch(e){
-      isParent = false;
-    }
-
-    this.mute = false
+  this.mute = false
 	that.overlayOpen = false // stops map icon, fastpan, etc from re-appearing when it shouldn't
 
     // CDN URLs
     this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
-    this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
+    // this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
     this.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
+
+    if(config.useLocalResources === true) {
+      this.cdn_imgseq = 'media/img_seq/';
+      this.cdn_video  = 'media/videos/';
+    }
 
     //if(this.isAndroid) this.cdn_video  = 'http://192.168.1.139/~mike/offshore_repo/video/'
 
@@ -507,6 +522,10 @@ var masterFunctions = function() {
 
 		if(master.overlayOpen === true) return;
 
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.loadOverlay({"overlayURL":overlayURL});
+    }
+
 		master.overlayOpen = true
 		master.ghostBuster = true
 
@@ -544,6 +563,10 @@ var masterFunctions = function() {
 	this.closeOverlay = function(_URL){
 
 		console.log('close overlay')
+
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.closeOverlay({"_URL":_URL});
+    }
 
 		//$('#overlay_frame').removeClass('show')
 
@@ -662,6 +685,8 @@ var masterFunctions = function() {
 
 	this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
 
+    console.log('AFXloadAudio')
+
 		var multix = 1
 
         if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
@@ -698,7 +723,8 @@ var masterFunctions = function() {
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-				parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
+        if(parent.audiomaster.mix.getTrack(_trackName))
+  				parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
 			})
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
@@ -932,21 +958,6 @@ var masterFunctions = function() {
 
 } // end master
 
-// STARTS THE EXPERIENCE
-
-var master,
-	pano;
-
-openingloader();
-
-
-//var master = new masterFunctions();
-//master.init();
-//master.check_start();
-
-
-
-
 
 
 
@@ -962,39 +973,30 @@ openingloader();
 
 **************************************************************************/
 
-var Walkthrough = function(canvasID,name,videoLength) {
+var Walkthrough = function(canvasID, name, videoLength) {
 	
 	var that = this,
-		w = master.globals.cover.w,
-		h = master.globals.cover.h,
+		  w = master.globals.cover.w,
+		  h = master.globals.cover.h,
     	that = this
 
-	this.maxScrollerPos = $('.scroll-directions-container').height()
+  var mouseWheelTimeout;
 
-	// var canvas = document.getElementById(canvasID);
-	// canvas.width  = w;
-	// canvas.height = h;
-	// var context = canvas.getContext('2d');
+  var scrollerPos = parseInt($( ".scroll-directions" ).css('top')),
+      scrollerPosStart = 0,
+      playSpeed = 1/(videoLength*60) // in frames!
 
-    var mouseWheelTimeout;
-
-    var scrollerPos = parseInt($( ".scroll-directions" ).css('top'))
-    var scrollerPosStart = 0
-
-    this.percent = 0 // MASTER VARIABLE (everything runs off this)
-
-    var playSpeed = 1/(videoLength*60) // in frames!
+  this.percent = 0 // MASTER VARIABLE (everything runs off this)
+  this.maxScrollerPos = $('.scroll-directions-container').height()
 
 
-    // Load Video ********************************************************
+  // Load Video  ********************************************************
 
 	var video = document.getElementById(canvasID)
 
 	video.setAttribute('src', master.cdn_video + 'transition-' + name + master.videoType);
 
-	if(master.isIOS || master.isAndroid){
-		$('#' + canvasID)[0].controls = true
-	}
+	if(master.isIOS || master.isAndroid) $('#' + canvasID)[0].controls = true
 
 	console.log (master.cdn_video + 'transition-' + name + master.videoType)
 
@@ -1002,25 +1004,12 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 	video.width  = w;
 	video.height = h;
-
 	document.getElementById(canvasID).style.width = w + 'px'
 	document.getElementById(canvasID).style.height = h + 'px'
 
-	//
-
-	//video.removeEventListener('canplay');
-
 	video.addEventListener('canplay', function(e) {
-		
 		e.stopPropagation()
-
-		console.log("WALK THROUGH")
-
-		//context.drawImage(video,0,0,w+3,h+5);
-
 	})
-
-	//video.removeEventListener('timeupdate');
 
 	video.addEventListener('timeupdate', function(e) {
 		
@@ -1035,12 +1024,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
 			}	
 
-
 	})
-
-	//console.log(video.id)
-
-
 
 	// Init/Close ********************************************************
 	// (additional logic in scrollFunction and scrollStopFunction)
@@ -1062,30 +1046,30 @@ var Walkthrough = function(canvasID,name,videoLength) {
 		});
 	};
 
-    this.closeWalkthroughVid = function(){
+  this.closeWalkthroughVid = function(){
 
-    	console.log('[X] Close Walkthrough')
+  	console.log('[X] Close Walkthrough')
 
-    	if(!master.overlayOpen) {
-			$('#panocontainer, .fastpan, .compass').removeClass('hide')
+  	if(!master.overlayOpen) {
+		$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
-			$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-		        that.percent = 0
-    			that.scrollFunction()
-    			scrollerPos = 0;
-    		    $( ".scroll-directions" ).css('top',0)
-		    })
-    	} else {
+		$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
 	        that.percent = 0
-			that.scrollFunction()
-			scrollerPos = 0;
-		    $( ".scroll-directions" ).css('top',0)
-    	}
+  			that.scrollFunction()
+  			scrollerPos = 0;
+  		    $( ".scroll-directions" ).css('top',0)
+	    })
+  	} else {
+        that.percent = 0
+		that.scrollFunction()
+		scrollerPos = 0;
+	    $( ".scroll-directions" ).css('top',0)
+  	}
 
-    	krpano = document.getElementById("krpanoObject");
-		krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+  	krpano = document.getElementById("krpanoObject");
+  	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
-    }
+  }
 
 	// Auto Resize ********************************************************
 
@@ -1106,45 +1090,56 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 
 
-    // Autoplay Trigger ********************************************************
+  // Autoplay Trigger ********************************************************
 
-    this.autoplay = false
+  this.playing = false
 
 	$('.hotspot').off('click')
-    $('.hotspot').on('click',function(e){
+  $('.hotspot').on('click',function(e){
 
-    	e.stopPropagation()
+  	e.stopPropagation()
 
-    	if(that.autoplay) {
-    		console.log('PAUSE ||')
-    		video.pause();
-    		that.autoplay = false
-    	} else {
-    		console.log('PLAY >')
-    		that.autoplay = true
-    		video.play();
-    	}
+  	// if(that.playing) {
+  	// 	console.log('PAUSE ||')
+  	// 	video.pause();
+  	// 	that.playing = false
+  	// } else {
+  	// 	console.log('PLAY >')
+  	// 	that.playing = true
+  	// 	video.play();
+  	// }
 
-  		//that.play()
-    	
-    })
+    if(that.playing) that.pause();
+    else             that.play();
 
-    this.play = function(){
+  })
 
-    	if(that.autoplay) {
-    		//that.percent += playSpeed
-    		// that.percent = video.currentTime / videoLength;
-    		//advance()
-    		video.play()
-    	} else {
-    		// video.pause();
-    		return false;
-    	}
+  this.play = function(){
+  	if(!that.playing) {
+      console.log('PLAY >')
+      that.playing = true
+      video.play();
 
+      if(extcontrol) if(extcontrol.role === 'master') {
+        extcontrol.walkthrough({ 'action':'play' })
+      }
     }
+  }
+
+  this.pause = function(){
+    if(that.playing) {
+      console.log('PAUSE ||')
+      that.playing = false
+      video.pause();
+
+      if(extcontrol) if(extcontrol.role === 'master') {
+        extcontrol.walkthrough({ 'action':'pause' })
+      }
+    }
+  }
 
 
-    /* ***** Scroll Thumb/Mousewheel ***** */
+  // Scroll Thumb/Mousewheel ********************************************************
 
 	$.getScript("js/lib/jquery-ui.min.js", function(data, textStatus, jqxhr) {
 
@@ -1153,17 +1148,16 @@ var Walkthrough = function(canvasID,name,videoLength) {
 	   		$( ".scroll-directions" ).draggable({ 
 	   			axis: "y",
 	   			containment: 'parent',
+
 				drag: function() {
 					
 					that.autoplay = false // stop autoplay
-					
 					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
-
 					that.scrollFunction()
+
 				},
-				stop: function() {
-					// that.scrollStopFunction()
-				}
+
+				stop: function() {}
 			});
 	   	});
 
@@ -1180,71 +1174,71 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 			console.log('mouse wheel')
 
-	        var e = window.event || e; // old IE support
+      var e = window.event || e; // old IE support
+      var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
+      that.percent -= (playSpeed*5) * delta
 
-	        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); // -1 for down, 1 for up
-
-	        that.percent -= (playSpeed*5) * delta
-
-	        advance()
+      advance()
 
 			clearTimeout(mouseWheelTimeout)
 
 			mouseWheelTimeout = null
 
-	        mouseWheelTimeout = setTimeout(function(){
-	        	// that.scrollStopFunction()
-	        },500)
+      mouseWheelTimeout = setTimeout(function(){
+      	// that.scrollStopFunction()
+      },500)
 		}
 
 	});
 
 
-    /* ***** Advance ***** */
+  /* ***** Advance ***** */
 
-    advance = function(){
+  advance = function(){
 
-    	// sanity check
-    	if(that.percent > 1) {
-    		that.percent = 1;
-    		clearTimeout(mouseWheelTimeout)
-    		return
-    	}
-    	else if(that.percent < 0) {
-    		that.percent = 0.01
-    		clearTimeout(mouseWheelTimeout)
-    		return
-    	}
+  	// sanity check
+  	if(that.percent > 1) {
+  		that.percent = 1;
+  		clearTimeout(mouseWheelTimeout)
+  		return
+  	}
+  	else if(that.percent < 0) {
+  		that.percent = 0.01
+  		clearTimeout(mouseWheelTimeout)
+  		return
+  	}
 
-	    // update scroll thumb
-		$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
+      // update scroll thumb
+  	$( ".scroll-directions" ).css('top', (that.percent * that.maxScrollerPos) )
 
-		that.scrollFunction()
-    }
-    
+  	that.scrollFunction()
+  }
+
+  /* ***** External Control ***** */
+  this.setPercent = function(_percent){ 
+    that.percent = _percent;
+    that.scrollFunction();
+  }
 
 	/* ***** Scroll Function ***** */
 
-    this.scrollFunction = function(){
+  this.scrollFunction = function(){
 
-      	// sanity check
-
-      	
+  	// sanity check
 		if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
+
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.walkthrough({ 'action':'setPercent', 'percent': that.percent });
+    }
 
 		var currentTime = videoLength * that.percent
 		
 		video.currentTime = currentTime;
 
-		console.log(video.currentTime)
-		//context.drawImage(video,0,0,w+3,h+5);
+		// console.log(video.currentTime)
 
-		if(walkthroughvideo) {
-
-		} 
-
-    }
+  }
               
 }
 
@@ -1464,18 +1458,9 @@ function newPano(_pano, fromPrologue) {
 
 		$('#video-underlay').hide()
 
-		//pano.loadPanoScene(_pano)
-
 		parent.location.hash = _pano
 
 		$panocontainer.addClass('hide')
-		
-		//$panocontainer.fadeOut(1000,function(){
-			//pano.loadPanoScene(_pano)
-
-
-			//parent.location.hash = _pano
-		//})
 
 	}
 
@@ -1548,9 +1533,9 @@ function zoomIn() {
     $('.fastpan, .compass').fadeIn()
     $("#zoom-out").fadeOut()
 
-    // krpano = document.getElementById("krpanoObject");
+    if(!krpano) krpano = document.getElementById("krpanoObject");
     krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
-	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+  	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
     krpano.call('set(autorotate.enabled,true)')
     $("#zoom-out").off('click')
     $('#zoom-out').remove()
@@ -1592,10 +1577,16 @@ var soundVector1 = soundVector2 = soundVector3 = 0;
 
 var soundadjust = function(coord,fov) {
 
-	// console.log('horizontal: '+Math.round(coord)+' zoom: '+Math.round(fov))
+  // // External control: either send coord/fov or override them
+  // if(extcontrol) {
+  //   if(extcontrol.role === 'slave') {
+  //     coord = extcontrol.sync_data.panY;
+  //     fov   = extcontrol.sync_data.fov;
+  //   }
+  // }
 
-	var convCoord =  Math.abs( (coord+60) % 360);
-	var convCoord1 =  Math.abs((coord-120)%360);
+	var convCoord  =  Math.abs( (coord+ 60) % 360);
+	var convCoord1 =  Math.abs( (coord-120) % 360);
 
 	// console.log('convCoord: '+'\t'+convCoord)
 
@@ -1660,7 +1651,9 @@ var soundadjust = function(coord,fov) {
 	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.4)
 	        pano.walkthroughPlaying = false;
 	    }
-	}
+	} else {
+    $('.scroll-directions, .panoversion, #walking-exit').hide()
+  }
 
 }
 
@@ -1714,16 +1707,95 @@ function resetHoverSound(){
 
 
 /*************************************************************************
+**************************************************************************
 
 
 	> Video Player
 
+    videoPlayerFunctions
+      playpause()
+      seekstart()
+      seekstop()
+      sliderseek()
 
+    videoPlayer()
+
+    switchVideo()
+
+    closeVideoPlayer()
+
+**************************************************************************
 *************************************************************************/
+
+// UI functionality pulled out from videoPlayer() so it can be accessed
+// by the External Control and Autopilot modules.
+var videoPlayerFunctions = {
+
+  video : document.getElementById("video-overlay"),
+  $play : $(".video-content-wrap .play"),
+  $seek : $(".video-content-wrap .seek"),
+  wasplaying : null, 
+  time : null,
+
+  playpause : function() {
+
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.video_player({'action':'playpause'})
+    }
+
+    if (videoPlayerFunctions.video.paused) {
+
+      videoPlayerFunctions.video.play();
+      videoPlayerFunctions.$play.removeClass('paused')
+
+    } else {
+
+      videoPlayerFunctions.video.pause()
+      videoPlayerFunctions.$play.addClass('paused')
+
+    }
+  },
+
+  seekstart : function(){
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.video_player({'action':'seekstart'})
+    }
+
+    if(!videoPlayerFunctions.video.paused) wasplaying = true;
+    else wasplaying = false;
+    videoPlayerFunctions.video.pause()
+    videoPlayerFunctions.$play.addClass('paused')
+  },
+
+  seekstop : function(data){
+    if(extcontrol) {
+      if(extcontrol.role === 'master') {
+        extcontrol.video_player({'action':'seekstop', 'time':videoPlayerFunctions.time})
+      } else if(extcontrol.role === 'slave') {
+        videoPlayerFunctions.time = data.time;
+      }
+    } 
+
+    videoPlayerFunctions.video.currentTime = videoPlayerFunctions.time;
+    if(wasplaying) {
+        videoPlayerFunctions.video.play()
+        videoPlayerFunctions.$play.removeClass('paused')
+    }
+  },
+
+  sliderseek : function(){
+    videoPlayerFunctions.time = videoPlayerFunctions.video.duration * (videoPlayerFunctions.$seek.slider("value") / 100);
+  }
+
+}
 
 function videoPlayer(group, playerFadeTransition){
 
 	if(master.overlayOpen === true) return;
+
+  if(extcontrol) if(extcontrol.role === 'master') {
+    extcontrol.open_video_player({ "group": group, "playerFadeTransition": playerFadeTransition });
+  }
 
 	// hook into global resize function
 	master.resize.videoplayer = true;
@@ -1773,14 +1845,6 @@ function videoPlayer(group, playerFadeTransition){
 
 	switchVideo($(items).first().data('file'),$(items).first().text())
 
-	// $('#video-overlay').on('canplaythrough',function(){
-	// 	console.log('playing video')
-
-	// 	if(parent.location.hash.slice(1) =="") {
-	// 		console.log('switch to helicopter')
-	// 		parent.location.hash = "helicopter"
-	// 	}
-	// })
 
 
 	// On video end ---------------------------------------------------------
@@ -1812,64 +1876,32 @@ function videoPlayer(group, playerFadeTransition){
 	var videoControls = (function(){
 
 		var video = document.getElementById("video-overlay");
-		var play = $(".video-content-wrap .play")
-		var seek = $(".video-content-wrap .seek")
-		var text = $(".video-content-wrap .text")
-		var contentViewed = $('.movie-menu .viewedContentDiv')
+		var $play = $(".video-content-wrap .play")
+		var $seek = $(".video-content-wrap .seek")
 		var wasplaying, time;
 
+		$play.on("click", videoPlayerFunctions.playpause);
 
-
-		// Play/Pause
-		$(play).on("click", function() {
-			console.log('play/pause')
-
-		    if (video.paused) {
-
-		      video.play();
-		      $(play).removeClass('paused')
-
-		    } else {
-
-		        video.pause()
-		        $(play).addClass('paused')
-
-		    }
-		});
-
+    // ********************************************************
 		// Slider
+
 		$.getScript("js/lib/jquery-ui.min.js")
 		.done(function(script, textStatus){
 
-			$(seek).slider();
-
-			$(seek).slider({ start: function( event, ui ) {
-			    if(!video.paused) wasplaying = true;
-			    else wasplaying = false;
-			    video.pause()
-			    $(play).addClass('paused')
-			}});
-
-			$(seek).slider({ stop: function( event, ui ) {
-			    video.currentTime = time;
-			    if(wasplaying) {
-			        video.play()
-			        $(play).removeClass('paused')
-			    }
-			}});
+			$seek.slider()
+			       .slider({ start: videoPlayerFunctions.seekstart })
+			       .slider({ stop:  videoPlayerFunctions.seekstop  });
 
 			// slider -> video
-			$(seek).slider({ slide: function( event, ui ) {
-			    time = video.duration * ($(seek).slider("value") / 100);
-			}});
+			$seek.slider({ slide: videoPlayerFunctions.sliderseek });
 			
 			// video -> slider
 
 			if (!master.isAndroid){
 				video.addEventListener("timeupdate", function() {
 				    var value = (100 / video.duration) * video.currentTime;
-				    $(seek).slider("value", value);
-				    $(text).html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
+				    $seek.slider("value", value);
+				    $(".video-content-wrap .text").html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
 				});
 			}
 		})
@@ -1886,7 +1918,7 @@ function videoPlayer(group, playerFadeTransition){
 
 	})
 
-	videoControls()
+	videoControls();
 
 	
 	// Movie Menu autohide ---------------------------------------------
@@ -1944,15 +1976,25 @@ function videoPlayer(group, playerFadeTransition){
 } // videoPlayer()
 
 
+/**************************************************************************
+  
+  switchVideo
 
-// switchVideo ********************************************************
+**************************************************************************/
 
 function switchVideo(_id,_text){
 
 	console.log('switchvideo: '+'\t'+_id)
 
+  if(extcontrol) if(extcontrol.role === 'master') {
+    extcontrol.switch_video({ '_id':_id, '_text':_text });
+  }
+
 	$('#movieloading').fadeIn();
 
+
+  // ********************************************************
+  // track number of seconds of video viewed (in localStorage)
 
 	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
         return element.srcString == $videooverlay[0].src
@@ -1968,11 +2010,7 @@ function switchVideo(_id,_text){
 		 master.viewedContentArray.push({'srcString' : $videooverlay[0].src, 'time' : $videooverlay[0].currentTime})
 	}
 
-	
-	// track number of seconds of video viewed (in localStorage)
-
 	var contentViewed = $('.movie-menu .viewedContentDiv')
-
 	var contentViewedSeconds = JSON.parse(localStorage.getItem('contentViewedSeconds'));
 
 	if(!contentViewedSeconds) contentViewedSeconds = 1;
@@ -1981,53 +2019,50 @@ function switchVideo(_id,_text){
 		if (v['time']) contentViewedSeconds += parseInt(v['time'])
 	})
 
-	console.log(contentViewedSeconds)
-
 	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 71 minutes of OFFSHORE video content." )
-
 	localStorage.setItem('contentViewedSeconds',JSON.stringify(contentViewedSeconds))
 
-	if(master.isIOS || master.isAndroid) {
-		var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
-		iosControls.removeClass('hide')
-		//iosControls.css('display','block')
-	}
-
+	
 	// nuke base track
 	if(parent.audiomaster.mix.getTrack('overlay_02')) parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
 
-	$('#ghost-canvas-trans').fadeOut()
-
-	$('.controls').css('display','none')
-
-	// find active group
+  // ********************************************************
+	// Switch active movie
 	active = $('.movie-menu').hasClass('active')
 
-	// set active item
 	$(active).find($('.movie-menu-item')).each(function(i,v){
 		$(v).removeClass('active')
 		if($(v).data('file') == _id)
 			$(this).addClass('active')
 	})
+
+
+  // ********************************************************
+  // reset DOM
+  if(master.isIOS || master.isAndroid) {
+    var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
+    iosControls.removeClass('hide')
+    //iosControls.css('display','block')
+  }
+
+  $('#ghost-canvas-trans').fadeOut()
+  $('.controls').css('display','none')
 	
-	// partial fade to pano
-	// $panocontainer.removeClass('hide')
-	$videooverlay.addClass('hide')
-
-	$videooverlay[0].pause()
-
-	$videooverlay[0].src = '';
-
 	$('#video-overlay-title').html(_text)
-
 	$('#video-overlay-title').fadeIn()
 
 
+  // ********************************************************
+  // Load the video
+
+  $videooverlay.addClass('hide')
+
+  $videooverlay[0].pause()
+  $videooverlay[0].src = '';
+
 	setTimeout(function() {
 
-
 		$videooverlay[0].src = master.cdn_video + _id + master.videoType
-		
 		$videooverlay[0].load()
 
 		if(master.isIOS || master.isAndroid){
@@ -2039,28 +2074,20 @@ function switchVideo(_id,_text){
 	}, 500)
 
 	$videooverlay[0].addEventListener('loadedmetadata', function(e) {
-		//$panocontainer.fadeOut(1000)
 		$('#walking-canvas-pano').css('display','none')
-		
-		//.controls
 	}, false);
 
 	if(master.isAndroid){
 		$videooverlay[0].addEventListener('click',function(){
-
-	
 	  		$videooverlay[0].play();
 		},false);
 	}
 
-	
-
 	$videooverlay[0].addEventListener('canplaythrough', function(e) {
 
-		if(parent.location.hash.slice(1) =="") {
+		if(parent.location.hash.slice(1) == "") {
 			parent.location.hash = "helicopter"
 		}
-
 
 		$videooverlay.removeClass('hide')
 
@@ -2072,10 +2099,8 @@ function switchVideo(_id,_text){
 		if(master.isAndroid){
 			
 		} else {
-
-		e.stopPropagation()
-
-		this.play();			
+  		e.stopPropagation()
+  		this.play();			
 		}
 
 
@@ -2083,16 +2108,24 @@ function switchVideo(_id,_text){
 
 }
 
-// closevideoplayer ********************************************************
+
+/**************************************************************************
+  
+  closeVideoPlayer
+
+**************************************************************************/
 
 function closeVideoPlayer(){
 
+  if(extcontrol) if(extcontrol.role === 'master') {
+    extcontrol.close_video_player();
+  }
+
 	var $videocontentwrap = $(".video-content-wrap")
 
-
 	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
-                 return element.srcString == $('#video-overlay')[0].src
-        });	
+    return element.srcString == $('#video-overlay')[0].src
+  });	
 
 	if(viewedContent.length > 0 ){
 
@@ -2108,13 +2141,12 @@ function closeVideoPlayer(){
 	console.log("closing Video Player")
 
 	if(parent.audiomaster.mix.getTrack('overlay_02')){
-        parent.audiomaster.mix.getTrack('overlay_02').gain(1.0)
-    }
+    parent.audiomaster.mix.getTrack('overlay_02').gain(1.0)
+  }
 
-
-    if(pano.panoWalkthrough) {
-    	pano.panoWalkthrough.closeWalkthroughVid()
-    }
+  if(pano.panoWalkthrough) {
+  	pano.panoWalkthrough.closeWalkthroughVid()
+  }
 
 	$('.volume-toggle').css('line-height','40px')
 

@@ -39,8 +39,6 @@
     <a class="volume-toggle"><i class="icon-volume-up"></i></a>
   </header>
 
-  <!-- <div class="pano-underlay"><video width="100%" autoplay loop="true" style="position:absolute;" id="video-underlay" preload="auto"><source src="video/transitions/oil_shot.webm" type="video/webm" /></video> </div> -->
-
   <div id="scroll-wrapper" class="wrapper">
     
     <video id="walking-canvas" style="position:absolute;display:block" looping="false" width="1200" width="800"></video>
@@ -127,6 +125,11 @@
 
       <div class="pan-directions"></div>
 
+      <div id="autopilot-warning">
+        <h1>Autopilot Active</h1>
+        <h2>Interact to disable</h2>
+      </div>
+
   </div>
 
 
@@ -155,10 +158,10 @@
     <script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
   
     <!-- Javascripts -->
-    <script type="text/javascript" src="js/panoLoader.js?v=20131030"></script>
-		<script type="text/javascript" src="js/master-functions-all-panos.js?v=20131101"></script>
-    <script type="text/javascript" src="js/pano-functions-html-all.js?v=20131030"></script>
-  	<script type="text/javascript" src="js/external-control.js?v=<?php echo date('U') ?>"></script>
+		<script type="text/javascript" src="js/master-functions-all-panos.js?v=<?php echo date('U') ?>"></script>
+    <script type="text/javascript" src="js/pano-functions-html-all.js?v=<?php echo date('U') ?>"></script>
+    <script type="text/javascript" src="js/external-control.js?v=<?php echo date('U') ?>"></script>
+    <script type="text/javascript" src="js/panoLoader.js?v=<?php echo date('U') ?>"></script>
 
   </body>
 </html>

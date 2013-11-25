@@ -220,7 +220,7 @@
 			height="550.0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="lookto(-99,2,15,smooth(),true,true,js(newPano(platform)))"
+			onclick="js(zoom_and_change_pano('helicopter','platform'))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -242,19 +242,6 @@
 			width="100"  
 			capture="false" 
 			/>
-			
-
-		<!-- <hotspot name="entryhotspot" 
-			url="../images/panos/platform/hotspots/entry.png"
-			alturl="../images/panos/platform/hotspots/entry.png"
-			ath="76"
-			atv="16.1"
-			distorted="true"
-			alpha="0.75"
-			visible="false"
-			onclick="lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))"
-			scale="0.6"
-			/> -->
 
 	</scene>
 
@@ -313,7 +300,7 @@
 			distorted="true"
 			alpha="0"
 			visible="true"
-			onclick="lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))"
+			onclick="js(zoom_and_change_pano('platform', 'lowerplatform'))"
 			scale="1"
 			height="58"
 			width="83"
@@ -326,7 +313,7 @@
 			atv="8.0"
 			distorted="true"
 			alpha="0"
-			onclick="lookto(-130,10,25,smooth(),true,true,js(newPano(helicopter)))"
+			onclick="js(zoom_and_change_pano('platform', 'helicopter'))"
 			onhover="js(hoverSound());"
 			onout="js(resetHoverSound());"
 			scale="1"
@@ -412,7 +399,7 @@
 			ath="69"
 			atv="18"
 			distorted="true"
-			onclick="lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))"
+			onclick="js(zoom_and_change_pano('lowerplatform','sequence_shaftway'))"
 			width = "420"
 			height = "220"			
 			capture="false"
@@ -425,7 +412,7 @@
 			atv="2"
 			distorted="true"
 			alpha="0"
-			onclick="lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))"
+			onclick="js(zoom_and_change_pano('lowerplatform','platform'))"
 			scale="1"
 			height="100"
 			capture="false"
@@ -445,12 +432,12 @@
 			/>
 		
 			
-		<hotspot name="controlroom" url="../images/hotspot.gif"
+		<hotspot name="boat_deck" url="../images/hotspot.gif"
 			ath="-143"
 			atv="8"
 			distorted="true"
 			alpha="0"
-			onclick="lookto(-143,8,15,smooth(),true,true,js(newPano(sequence_outside_stairs_down)))"
+			onclick="js(zoom_and_change_pano('lowerplatform','sequence_outside_stairs_down'))"
 			scale="1"
 			width="70.0"
 			height="60.0"
@@ -553,7 +540,7 @@
 				distorted="true"
 				alpha="0.0"
 				height="60.0"
-				onclick="lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))"
+				onclick="js(zoom_and_change_pano('boat','platform'))"
 
 				scale="1.0"
 				capture="false"
@@ -567,7 +554,7 @@
 				alpha="0"
 				height="140"
 				width="140"
-				onclick="lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))"
+				onclick="js(zoom_and_change_pano('boat','platform'))"
 				scale="1.0"
 				capture="false"
 				/>
@@ -689,7 +676,7 @@
 		###########################################################################
 			
 
-			> Sub Hanger
+			> Sub Hangar
 		
 		###########################################################################
 		####################################################################### -->
@@ -735,7 +722,7 @@
 				distorted="true"
 				alpha="0"
 				height="50.0"
-				onclick="js(newPano(theatre))"
+				onclick="js(zoom_and_change_pano('subhangar','theatre'))"
 				onhover="js(hoverSound()) "
 				onout="js(resetHoverSound());"
 				scale="3.0"
@@ -748,7 +735,7 @@
 				distorted="true"
 				alpha="0"
 				height="50.0"
-				onclick="js(newPano(submarine))"
+				onclick="js(zoom_and_change_pano('subhangar','submarine'))"
 				onhover="js(hoverSound()) "
 				onout="js(resetHoverSound());"
 				scale="7.0"
@@ -934,7 +921,7 @@
 			height="300.0"
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-			onclick="js(newPano(hallway))"
+			onclick="js(zoom_and_change_pano('chemicalroom','hallway'))"
 			scale="0.7"
 			/>
 
@@ -1416,7 +1403,7 @@
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			capture="false"
-			onclick="lookto(260,0,20,smooth(),true,true,js(newPano(hallway)))"
+			onclick="js(zoom_and_change_pano('controlroom','hallway'))"
 			scale="1.0"
 		/>
 
@@ -1476,7 +1463,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-      		onclick="lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)"
+      		onclick="js(zoom_and_change_pano('hallway','sequence_passage_chemicalroom'))"
 			scale="5.0"
 			capture="false"
 			/>
@@ -1487,7 +1474,7 @@
 			distorted="true"
 			alpha="0"
 			height="10"
-      		onclick="lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)"
+      		onclick="js(zoom_and_change_pano('hallway','sequence_passage_chemicalroom'))"
 			scale="5.0"
 			capture="false"
 			/>
@@ -1500,7 +1487,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-      onclick="lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)"
+		    onclick="js(zoom_and_change_pano('hallway','sequence_passage_theatre'))"
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
@@ -1513,7 +1500,7 @@
 			distorted="true"
 			alpha="0"
 			height="10"
-      onclick="lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)"
+      		onclick="js(zoom_and_change_pano('hallway','sequence_passage_theatre'))"
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
@@ -1529,7 +1516,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
- 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)"
+ 			onclick="js(zoom_and_change_pano('hallway','sequence_passage_controlroom'))"
 			scale="3.0"
 			capture="false"
 			/>
@@ -1541,10 +1528,13 @@
 			distorted="true"
 			alpha="0"
 			height="10.0"
- 			onclick="lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)"
+ 			onclick="js(zoom_and_change_pano('hallway','sequence_passage_controlroom'))"
 			scale="4.0"
 			capture="false"
 			/>
+
+
+		<!-- Ladder -->
 		
 		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
@@ -1552,7 +1542,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="120.0"
-			onclick="lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))"
+			onclick="js(zoom_and_change_pano('hallway','lowerplatform'))"
 			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
@@ -1758,7 +1748,7 @@
 			atv="10"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(newPano(subhangar));js(removeBackgroundImage(underwater-hanger))"
+			onclick="js(zoom_and_change_pano('submarine','subhangar'))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="10.0"
@@ -1887,7 +1877,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="30.0"
-			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))"
+			onclick="js(zoom_and_change_pano('theatre','hallway'))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
@@ -1899,7 +1889,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="90.0"
-			onclick="lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))"
+			onclick="js(zoom_and_change_pano('theatre','hallway'))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
@@ -1915,7 +1905,7 @@
 			alpha="0.0"
 			height="90.0"
 			width="50.0"
-			onclick="js(newPano(subhangar))"
+			onclick="js(zoom_and_change_pano('theatre','subhangar'))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"

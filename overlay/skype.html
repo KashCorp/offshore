@@ -585,19 +585,51 @@
 
 <script type="text/javascript">
 
+function switchVid(_src){
+	$('#close-control').css('display','none')
+	$('#to-control-vid').css('display','block')
+
+    $('.interface').fadeOut(500,function(){
+
+    	$('.movie').css('display','table')
+
+    	$('#skypeVideo').attr('src', _src);
+    	$('#skypeVideo')[0].load();
+
+    	$('#skypeVideo').on('canplaythrough', function(){
+            $('#skypeVideo')[0].play()
+        });
+
+    	$('#skypeVideo').on('canplaythrough', function(){
+            $('#skypeVideo')[0].play()
+        });	    
+
+    	$('#skypeVideo').on('ended', function(){
+           stopVid()
+        });	
+    })
+}
+
+
+function stopVid(){
+   
+  	$('.movie').css('display','none')
+  	$('#to-control-vid').css('display','none')
+
+  	document.getElementById("skypeVideo").pause();
+  	$('.interface').fadeIn(500,function(){
+		$('#close-control').fadeIn(500)
+  	})   	
+}
+
+
 $(window).load(function(){
 	$('.container').fadeIn(500)
 })
 
-
-
-
-
-
 $(document).ready(function(){
 
 	// link to the right video type
-
 	$('.vid-menu-nav').each(function(i,v){
 		var newurl = ''
 
@@ -609,8 +641,6 @@ $(document).ready(function(){
 		$(v).data('url', newurl)
 
 	})
-
-
 
 
 	function resize(){
@@ -697,68 +727,43 @@ $(document).ready(function(){
 	webRTC();
 
 
-
-
 	// play video
 	$(".vid-menu-nav").click(function(e){
 		e.stopPropagation();
-		var that = this
+		switchVid( $(this).data('url') )
 
-		$('#close-control').css('display','none')
-		$('#to-control-vid').css('display','block')
-
-	    $('.interface').fadeOut(500,function(){
-
-	    	$('.movie').css('display','table')
-	    	console.log($(that).data('url'))
-	    	$('#skypeVideo').attr('src', $(that).data('url'));
-	    	$('#skypeVideo')[0].load();
-
-	    	$('#skypeVideo').on('canplaythrough', function(){
-	            $('#skypeVideo')[0].play()
-	       });
-
-	    	$('#skypeVideo').on('canplaythrough', function(){
-	            $('#skypeVideo')[0].play()
-	       });	    	
-	    	$('#skypeVideo').on('ended', function(){
-	           stopVid()
-	       });	
-	    })
+		if(parent.extcontrol) if(parent.extcontrol.role === 'master') {
+			parent.extcontrol.skype({ 'action':'switchVid', 'src': $(this).data('url') })
+		}
     })
 
-    function stopVid(){
-	   
-	  	$('.movie').css('display','none')
-	  	$('#to-control-vid').css('display','none')
-
-	  	document.getElementById("skypeVideo").pause();
-	  	$('.interface').fadeIn(500,function(){
-			$('#close-control').fadeIn(500)
-	  	})   	
-    }
-
 	// stop video
-  $("#to-control-vid").click(function(e){
-  	e.stopPropagation();
-	stopVid()
-  })
+	$("#to-control-vid").click(function(e){
+		e.stopPropagation();
+		stopVid()
+
+		if(parent.extcontrol) if(parent.extcontrol.role === 'master') {
+			parent.extcontrol.skype({ 'action':'closeVid' })
+		}
+	})
 
 
-  $("#close-control").click(function(event){
-  	event.stopPropagation();
-  	console.log("click")
-  	parent.master.closeOverlay()
-  })
+	// Close Overlay
 
-  $('.close-overlay').click(function(e){
-  	e.stopPropagation();
-  	if( $(e.target).is('.container') )
-  		parent.master.closeOverlay()
-  })
+	$("#close-control").click(function(event){
+	  	event.stopPropagation();
+	  	console.log("click")
+	  	parent.master.closeOverlay()
+	})
+
+	$('.close-overlay').click(function(e){
+	  	e.stopPropagation();
+	  	if( $(e.target).is('.container') )
+	  		parent.master.closeOverlay()
+	})
 
 
-  $(document).on('touchmove', function(e) { e.preventDefault(); });
+ 	$(document).on('touchmove', function(e) { e.preventDefault(); });
 
 
 })

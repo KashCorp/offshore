@@ -3,7 +3,7 @@
     Pano Functions
     
 
-    Sections
+    > Sections
 
         Pano Load Sequence:
             Hash Change
@@ -19,13 +19,6 @@
         Image Sequence Controller
 
         FrameRunner
-
-
-
-    Objects
-
-        pano = new pano_master()
-
 
 
 **************************************************************************/
@@ -125,6 +118,7 @@ var pano_master = function(){
     krpano = document.getElementById("krpanoObject");
 
     if(extcontrol) extcontrol.krpanoloaded();
+    if(autopilot)  autopilot.krpanoloaded();
 
     master.debouncedResize();
 
@@ -139,7 +133,7 @@ var pano_master = function(){
 
         1. hash change event listener
         2. loadPanoScene
-        3. if image sequence - diverts to LoadSequenceScene
+       (3. if image sequence - diverts to LoadSequenceScene)
 
 
     **************************************************************************/
@@ -155,29 +149,30 @@ var pano_master = function(){
 
     $(parent).bind('hashchange', function(){
 
-        console.log('LOAD: hash change')
+        console.log('\\\\\\ hash change //////')
+        var hash = parent.location.hash.slice(1);
 
+        if(extcontrol) if(extcontrol.role === 'master') {
+          extcontrol.hashChange({ "hash": hash });
+        }
 
-
-        if(master.globalPano === parent.location.hash.slice(1)) {
+        if(master.globalPano === hash) {
             console.log('#nowhere')
             return false;
         }
 
-        if (parent.location.hash.slice(1) =="") {
+        if (hash == "") {
             that.loadPanoScene('prologue')
             return false
         }
             
         $("#walking-canvas-pano").addClass('hide')
-        //setTimeout(function(){
 
-        that.loadPanoScene(parent.location.hash.slice(1))
-       // },1000)
+        that.loadPanoScene(hash)
+
     })
 
     // coming in from a deeplink
-    
 
     var deeplinkfunction = function(){
 
@@ -226,6 +221,12 @@ var pano_master = function(){
 
     this.loadPanoScene = function(_pano) {
 
+        if(extcontrol) if(extcontrol.role === 'master') {
+          extcontrol.hashChange({ "hash": _pano });
+        }
+
+        master.globalPano = _pano
+
         var d = document.location;
         _gaq.push(['_trackPageview', '/'+ _pano])
 
@@ -237,6 +238,7 @@ var pano_master = function(){
         $panocontainer.removeClass('hide')
 
         that.panoWalkthrough = null;
+        that.walkthroughPlaying = false;
         that.video_underlay = false;
 
         $('.pan-directions').hide();
@@ -254,13 +256,11 @@ var pano_master = function(){
         setTimeout(function(){
 
             var canvas = document.getElementById('ghost-canvas-trans');
-
             var context = canvas.getContext('2d');
 
             context.clearRect(0, 0,320,180);
 
             canvas.width = 0
-
             canvas.width = 320
 
         },1000)
@@ -271,11 +271,10 @@ var pano_master = function(){
         master.ghostMaxCoord = master.ghostMinCoord + 100
 
 
-        master.globalPano = _pano
 
         $('.scroll-directions').css('top',0)
 
-        $('.panoversion').css('display','none')
+        $('.panoversion').hide();
 
         if(Modernizr.webaudio) {
             if(parent.audiomaster.mix.getTrack('overlay_02')){
@@ -647,12 +646,6 @@ var pano_master = function(){
         scrollTrigger = false;
         scrollPercent=0;
 
- 
-
-        //parent.audiomaster.mix.getTrack('overlay_01').pan(1)
-
-
-        //scrollerFunction()
         
     }
 
@@ -765,16 +758,10 @@ var pano_master = function(){
             }
 
             if(underlayMute) {
+                var dummysound;
                 
-                if(that.noWebAudio) {
-
-                    var dummysound = { decayFrom: overlayTrack.options.element.volume};
-                    
-                } else{
-
-                    var dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
-
-                }
+                if(that.noWebAudio) dummysound = { decayFrom: overlayTrack.options.element.volume};
+                else                dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
 
                 var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
                     .onUpdate( function() {
@@ -833,12 +820,15 @@ var pano_master = function(){
 
 
     /**************************************************************************
+    ***************************************************************************
         
+
         > krpano mouse nav
     
+
+    ***************************************************************************
     **************************************************************************/
     
-
     // $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
     $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/>')
 
@@ -860,37 +850,18 @@ var pano_master = function(){
 
         interactive = null,
 
-        view_x=0,
-        view_y=0,
-
         panX,
-        panY;
-
+        panY,
+        fov;
 
     document.addEventListener( 'mousedown', actionDown, false );
-    document.addEventListener( 'touchstart', actionDownTouch, false );         
+    document.addEventListener( 'touchstart', actionDownTouch, false );
     
     document.addEventListener( 'mousemove', actionMove, false );
     document.addEventListener( 'touchmove', actionMoveTouch, false );
 
     document.addEventListener( 'mouseup', actionUp, false );
     document.addEventListener( 'touchend', actionUp, false );
-
-    // ********************************************************
-    // External Control Module
-
-    this.control = undefined;
-
-    if(extcontrol) { if(extcontrol.role === "slave") {
-
-        that.control = function(){
-
-        }
-
-    } }
-
-    // ********************************************************
-
 
 
     function finishPanX() {
@@ -909,19 +880,11 @@ var pano_master = function(){
         function(){ // mouse in
 
             if(interactive) return; // don't hover pan if we're already dragging
-
-            if(extcontrol) { if(extcontrol.role === 'master') {
-                extcontrol.look.pan('left',true)
-            }}
             
             if(driftTweenH) TWEEN.remove(driftTweenH)
             panAmount = -0.5
 
         }, function(){ // mouse out
-
-            if(extcontrol) { if(extcontrol.role === 'master') {
-                extcontrol.look.pan('left',false)
-            }}
             
             finishPanX()
         }                        
@@ -931,19 +894,11 @@ var pano_master = function(){
         function(){ // mouse in
 
             if(interactive) return; // don't hover pan if we're already dragging
-
-            if(extcontrol) { if(extcontrol.role === 'master') {
-                extcontrol.look.pan('right',true)
-            }}
             
             if(driftTweenH) TWEEN.remove(driftTweenH)
             panAmount = 0.5
 
         }, function(){ // mouse out
-
-            if(extcontrol) { if(extcontrol.role === 'master') {
-                extcontrol.look.pan('right',false)
-            }}
             
             finishPanX()
 
@@ -979,16 +934,17 @@ var pano_master = function(){
 
     function actionDown( e ) {
 
+        if (!krpano) return
+        
         e.touches = [{clientX: e.clientX, clientY: e.clientY}];
         actionDownTouch(e);
+
     } 
 
      function actionDownTouch( e ) {
 
-        if(extcontrol) { if(extcontrol.role === 'master') {
-            extcontrol.look.actionDown(e)
-        }}
-
+        if (!krpano) return
+        
         master.ghostBuster = true
                 
         mouseMove = 0
@@ -1000,7 +956,8 @@ var pano_master = function(){
         if(driftTweenH) TWEEN.remove(driftTweenH)
         if(driftTweenV) TWEEN.remove(driftTweenV)
 
-        interactive=true; 
+        interactive=true;
+
         mouse_start_x = e.touches[0].clientX;
         mouse_start_y = e.touches[0].clientY;
         mouse_start_x_end=e.touches[0].clientX;
@@ -1014,10 +971,6 @@ var pano_master = function(){
      function actionUp( e ) {
 
         if (!krpano) return
-
-        if(extcontrol) { if(extcontrol.role === 'master') {
-            extcontrol.look.actionUp(e)
-        }}
 
         interactive = false;
 
@@ -1055,16 +1008,11 @@ var pano_master = function(){
         actionMoveTouch(e);
     } 
 
-     function actionMoveTouch( e ) {
+    function actionMoveTouch( e ) {
 
         mouseMove = 0
 
         if(interactive){
-
-            if(extcontrol) { if(extcontrol.role === 'master') {
-                extcontrol.look.actionMove(e)
-            }}
-
             if(driftTweenH) TWEEN.remove(driftTweenH)
             if(driftTweenV) TWEEN.remove(driftTweenV)
             mouse_start_x = e.touches[0].clientX;
@@ -1090,13 +1038,14 @@ var pano_master = function(){
 
     function scrollerFunction(){
 
-        if(!that.walkthrough && !that.walkthroughPlaying) return false
+        if(!that.walkthrough && !that.walkthroughPlaying) return;
 
         if(that.panoWalkthrough) {
             walkthrough = that.panoWalkthrough;
-            if(walkthrough.autoplay) {
-                walkthrough.play();
-            }
+            
+            // if(walkthrough.autoplay) {
+            //     walkthrough.play();
+            // }
         }
         else {
             walkthrough = that.walkthrough; 
@@ -1110,7 +1059,7 @@ var pano_master = function(){
                 if(zPos>2800) zPos = 2800;
 
                 $wordContainer.css('-webkit-transform', 'translateZ(' + zPos + 'px)');
-                 $wordContainer.css('transform', 'translateZ(' + zPos + 'px)');
+                $wordContainer.css('transform', 'translateZ(' + zPos + 'px)');
 
                 // var index = Math.floor(walkthrough.percent * 5);
                 // console.log(index)
@@ -1161,10 +1110,8 @@ var pano_master = function(){
         } 
 
         
+    } // scrollerFunction
 
-            //var sequenceAnimFrame = requestAnimationFrame(scrollerFunction)
-
-        } // scrollerFunction
 
 
     /**************************************************************************
@@ -1173,47 +1120,43 @@ var pano_master = function(){
     
     **************************************************************************/
     
-    var counter = 0; // counter to save only once per second for hallway voiceover
+    var counter = 0; // counter to save hallway voiceover time only once per second
 
     var runFrameRunner = function(){
 
         //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
 
-            requestAnimationFrame(runFrameRunner);
+        requestAnimationFrame(runFrameRunner);
+
+        if(TWEEN) TWEEN.update()
 
 
-            if(TWEEN) TWEEN.update()
+        // ********************************************************
+        // update current time for hallway voiceover
 
+        if(master.globalPano === 'hallway' && pano) {
+            pano.voiceCurrentTime = pano.cachedVoiceTime + ( (new Date()-pano.voiceStartTimer) / 1000 )
 
-            // update current time for hallway voiceover
+            counter++;
 
-            if(master.globalPano == 'hallway' && pano) {
-                pano.voiceCurrentTime = pano.cachedVoiceTime + ( (new Date()-pano.voiceStartTimer) / 1000 )
-                //console.log(pano.voiceCurrentTime/1000)
-
-                counter++;
-                if(counter == 60) {
-                    counter = 0;
-                    // console.log(pano.voiceCurrentTime)
-                    localStorage.setItem('voiceCurrentTime',JSON.stringify(pano.voiceCurrentTime))
-                }
-
+            if(counter == 60) {
+                counter = 0;
+                localStorage.setItem('voiceCurrentTime',JSON.stringify(pano.voiceCurrentTime))
             }
 
+        }
 
-            if(parent.audiomaster) { 
+        // ********************************************************
+        // Audio
+        if(parent.audiomaster) { 
             
-            if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
+            // if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
+            if(!master.isIOS){
                 for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
                     parent.audiomaster.mix.tracks[i].play()                                    
                 }  
             }   
 
-            
-
-            //console.log(master.soundTrigger)
-              
-            
             if(!master.getCookie('muted')){
                 if (master.overlayOpen) {
                     if(parent.audiomaster.mix.getGain() > 0.2){
@@ -1221,53 +1164,79 @@ var pano_master = function(){
                     }
                 }
                 
-              if (!master.overlayOpen) {
-                     if(parent.audiomaster.mix.getGain() < 1 * master.multix){
+                if (!master.overlayOpen) {
+                    if(parent.audiomaster.mix.getGain() < 1 * master.multix){
                         parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() + 0.01)
                     }               
                 }
               //master.soundTrigger = false
-            }else{
-              
+            } else {
               parent.audiomaster.mix.setGain(0)
-        
             }   
-            }
+        }
 
-            if(parent.location.hash.slice(1).indexOf('sequence') != -1){
-                scrollerFunction()
-                return false
-            }
+        if(parent.location.hash.slice(1).indexOf('sequence') != -1){
+            scrollerFunction()
+            return false
+        }
 
-            if(that.walkthroughPlaying) {
-                scrollerFunction()
-            }
+        if(that.walkthroughPlaying) {
+            scrollerFunction()
+        }
 
-            //krpano = document.getElementById('krpanoObject')
 
-            if(krpano != null && panAmount !=0){
 
+        // ********************************************************
+        // krpano view
+
+        if(krpano != null) {
+
+            if(panAmount != 0) {
                 panX = krpano.get('view.hlookat') + panAmount
                 krpano.set('view.hlookat',panX)
-
             }
 
-            if(krpano != null && yawAmount !=0){
-
+            if(yawAmount != 0){
                 panY = krpano.get('view.vlookat') + yawAmount //*.3
                 krpano.set('view.vlookat',panY)
-
             }
 
-            
 
-            if(interactive){
-                mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
-                mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
+
+            // ********************************************************
+            // External Control Module
+
+            if(extcontrol) {
+                if(extcontrol.role === 'master'){
+
+                    extcontrol.sync_data.panX = krpano.get('view.hlookat');
+                    extcontrol.sync_data.panY = krpano.get('view.vlookat');
+                    extcontrol.sync_data.fov  = krpano.get('view.fov');
+
+                    extcontrol.sync_view();
+
+                } else if(extcontrol.role === 'slave') {
+
+                    if(extcontrol.sync_data) {
+                        krpano.set('view.hlookat', extcontrol.sync_data.panX)
+                        krpano.set('view.vlookat', extcontrol.sync_data.panY)
+                        krpano.set('view.fov',extcontrol.sync_data.fov)
+                    }
+                }
             }
-                            
-            view_y += (mouse_y_diff)
-            view_x += (mouse_x_diff*0.01)
+
+
+        } // /krpano view
+
+        if(interactive){
+            mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
+            mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
+        }
+                        
+        // view_y += (mouse_y_diff)
+        // view_x += (mouse_x_diff*0.01)
+
+        
 
 
 
@@ -1281,21 +1250,116 @@ var pano_master = function(){
 }
 
 
-
 var loadAFXPano = function (_file, _start){
 
     if(!_start) _start = 0
 
-    //if(Modernizr.webaudio) {
-        master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
-    //} else {
-        //console.log('[MODERNIZR] No web audio, NOT loading AFX')
-    //}
+    if(extcontrol) if(extcontrol.role === 'master') {
+        extcontrol.loadAFXPano({'_file':_file, '_start':_start });
+    }
+
+    master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
     
 }
 
 
+/**************************************************************************
+    
+    Zoom and change pano
 
+        all pano change lookto zooms are here
+        so they can be used by the autopilot
+
+        in XML:
+        onclick="js(zoom_to_and_change_pano('from','to'))"
+
+**************************************************************************/
+
+var zoom_and_change_pano = function( from, to) {
+
+    console.log('Zoom and change pano from: '+from+' to: '+to);
+
+    if(!krpano) krpano = document.getElementById("krpanoObject");
+
+    // Helicopter
+    if(from === 'helicopter' && to === 'platform')
+        krpano.call("lookto(-99,2,15,smooth(),true,true,js(newPano(platform)))");
+
+
+    // Platform
+    if(from === 'platform' && to === 'lowerplatform')
+        krpano.call("lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))");
+
+    else if(from === 'platform' && to === 'helicopter')
+        krpano.call("lookto(-130,10,25,smooth(),true,true,js(newPano(helicopter)))");
+
+
+    // Lower Platform
+    else if(from === 'lowerplatform' && to === 'sequence_shaftway')
+        krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))");
+
+    else if(from === 'lowerplatform' && to === 'platform')
+        krpano.call("lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))");
+
+    else if(from === 'lowerplatform' && to === 'sequence_outside_stairs_down')
+        krpano.call("lookto(-143,8,15,smooth(),true,true,js(newPano(sequence_outside_stairs_down)))");
+
+
+    // Boat
+    else if(from === 'boat' && to === 'lowerplatform')
+        krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
+
+    else if(from === 'boat' && to === 'lowerplatform')
+        krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
+
+
+    // Chemical Room
+    else if(from === 'chemicalroom' && to === 'hallway')
+        krpano.call("lookto(30,4,20,smooth(),true,true,js(newPano(hallway)))");
+
+
+    // Sub Hangar
+    else if(from === 'subhangar' && to === 'theatre')
+        krpano.call("lookto(-30,-19,10,smooth(),true,true,js(newPano(theatre)))");
+
+    else if(from === 'subhangar' && to === 'submarine')
+        krpano.call("lookto(-55,-16,10,smooth(),true,true,js(newPano(submarine)))");
+
+
+
+    // Control Room
+    else if(from === 'controlroom' && to === 'hallway')
+        krpano.call("lookto(260,0,20,smooth(),true,true,js(newPano(hallway)))");
+
+
+    // Hallway
+    else if(from === 'hallway' && to === 'sequence_passage_chemicalroom')
+        krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)");
+
+    else if(from === 'hallway' && to === 'sequence_passage_theatre')
+        krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)");
+
+    else if(from === 'hallway' && to === 'sequence_passage_controlroom')
+        krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)");
+
+    else if(from === 'hallway' && to === 'lowerplatform')
+        krpano.call("lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
+
+
+    // Submarine
+    else if(from === 'submarine' && to === 'subhangar')
+        krpano.call("lookto(270,0,10,smooth(),true,true,js(newPano(subhangar)));js(removeBackgroundImage(underwater-hanger));");
+
+
+    // Theatre
+    else if(from === 'theatre' && to === 'hallway')
+        krpano.call("lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))");
+
+    else if(from === 'theatre' && to === 'subhangar')
+        krpano.call("lookto(-158,0,5,smooth(),true,true,js(newPano(subhangar)))");
+
+
+}
 
 
 
