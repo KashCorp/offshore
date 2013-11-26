@@ -23,10 +23,12 @@
 
     
     <meta property="og:image" content="http://offshore-interactive.com/images/offshore_fb_thumb.jpg"/>
-    <meta property="og:title" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation"/>
+    <meta property="og:title" content="OFFSHORE"/>
     <meta property="og:url" content="http://offshore-interactive.com/"/>
     <meta property="og:site_name" content="OFFSHORE"/>
     <meta property="og:type" content="website"/>
+    <meta property="og:description" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation"/>
+
 
 
 <script>
@@ -72,11 +74,7 @@
 
       <script>
 
-
-
       var IS_PARENT = true;
-
-
 
       function checkHash(){
         var locationHash = location.hash
@@ -90,8 +88,6 @@
       var audioMaster = function() {
 
         this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
-
-        console.log(this.isIOS)
 
         var thisMixer = this;
         var mix = new Mix();
@@ -114,17 +110,13 @@
 
       var au1 = document.createElement('audio');
 
-1
+
       if(au1.canPlayType && au1.canPlayType('audio/x-m4a').replace(/no/, '')) {
         audioType1 = '.m4a';
       }
 
-      console.log($('#container-frame')[0].src)
-
       
       audiomaster.loadAudio('audio/Drone_1_norm' + audioType1,'basetrack',1,0)
-
-
 
       </script>   
   </body>
