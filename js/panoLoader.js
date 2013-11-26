@@ -165,8 +165,8 @@ var preloader = function() {
 	loaderArray.push(cdn + "hallway_pano_u.png");
 	loaderArray.push(cdn + "hallway_pano_d.jpg");
 	loaderArray.push(cdn + "subhangar_pano_l.jpg");
-	loaderArray.push(cdn + "subhangar_pano_f2.png");
-	loaderArray.push(cdn + "subhangar_pano_r2.png");
+	loaderArray.push(cdn + "subhangar_pano_f.png");
+	loaderArray.push(cdn + "subhangar_pano_r.png");
 	loaderArray.push(cdn + "subhangar_pano_b.jpg");
 	loaderArray.push(cdn + "subhangar_pano_u.jpg");
 	loaderArray.push(cdn + "subhangar_pano_d.jpg");

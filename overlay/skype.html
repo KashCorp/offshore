@@ -204,6 +204,7 @@
 
 
 		.allbutton {
+			pointer-events: none;
 			-moz-box-shadow:inset -50px -50px 0px 50px #00afef;
 			-webkit-box-shadow:inset -50px -50px 0px 50px #00afef;
 			box-shadow:inset -50px -50px 0px 50px #00afef;
@@ -229,6 +230,7 @@
 		}
 
 		#search input[type="text"] {
+			pointer-events: none;
 		    background: #fff;
 		    border: 0px;
 		    font: bold 12px Helvetica,Sans-serif;
@@ -242,13 +244,9 @@
 		    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
 		    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
 		    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) inset;
-		    -webkit-transition: all 0.7s ease 0s;
-		    -moz-transition: all 0.7s ease 0s;
-		    -o-transition: all 0.7s ease 0s;
-		    transition: all 0.7s ease 0s;
-		    }
+	    }
 
-		#search input[type="text"]:focus { width: 50%; }
+		/*#search input[type="text"]:focus { width: 50%; }*/
 
 		/* MENU */
 
@@ -284,16 +282,18 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
+			margin-left: 1em;
 		}
 
 		.main li div:before {
 			font-family: "icomoon";
 			color: #7fba00;
 			content: "\2022";
-			margin-right: .1em;
+			margin-left: -0.4em;
 			display: inline-block;
 			font-size: 300%;
-			line-height: 39%;
+			position: absolute;
+			line-height: 24%;
 		}
 
 		.content {
@@ -733,7 +733,7 @@ $(document).ready(function(){
 		switchVid( $(this).data('url') )
 
 		if(parent.extcontrol) if(parent.extcontrol.role === 'master') {
-			parent.extcontrol.skype({ 'action':'switchVid', 'src': $(this).data('url') })
+			parent.extcontrol.fn({ 'fn':'skype', 'action':'switchVid', 'src': $(this).data('url') })
 		}
     })
 
@@ -743,7 +743,7 @@ $(document).ready(function(){
 		stopVid()
 
 		if(parent.extcontrol) if(parent.extcontrol.role === 'master') {
-			parent.extcontrol.skype({ 'action':'closeVid' })
+			parent.extcontrol.fn({ 'fn':'skype', 'action':'closeVid' })
 		}
 	})
 

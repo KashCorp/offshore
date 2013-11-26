@@ -321,39 +321,39 @@ var pano_master = function(){
             case "prologue" : 
                 overLayFile = 'HeliPad_minus_minus' + master.audioType
                 $compass.hide()
-            break;
+                break;
 
             case "helicopter" :
                 overLayFile = 'Helicopter_Interior' + master.audioType
-            break;
+                break;
 
             case "platform" :
                 that.visited.platform = true;
                 overLayFile = 'ocean_sounds' + master.audioType
-            break;
+                break;
 
             case "boat" : 
                 that.visited.boat = true;
                 overLayFile = 'HeliPad_minus_minus' + master.audioType
                 underlayFile = 'The_Zone' + master.audioType
-            break;
+                break;
 
             case "interiorsub-wire" : 
                 overLayFile = 'Submersible' + master.audioType
                 underlayMute=true
-            break;
+                break;
 
             case "lowerplatform_closed" : 
                 overLayFile = 'LowerPlatform_minus' + master.audioType 
                 underlayFile = 'Drone_1_norm' + master.audioType
-            break;
+                break;
 
 
             case "lowerplatform" : 
                 that.visited.lowerplatform = true;
                 overLayFile = 'LowerPlatform_minus' + master.audioType 
                 underlayFile = 'Drone_1_norm' + master.audioType
-            break;           
+                break;           
 
             case "hallway" : 
                 that.visited.hallway = true;
@@ -370,17 +370,18 @@ var pano_master = function(){
                     localStorage.setItem('voiceStartTimer',JSON.stringify(that.voiceStartTimer))
 
                 } else {
+
                     if(that.voiceStartTime > 185) that.voiceStartTime = 0; // restart
 
                     that.cachedVoiceTime = JSON.parse(localStorage.getItem('voiceCurrentTime'))
                     that.voiceStartTimer = new Date()
                 }
                 
-                // console.log('that.voiceStartTimer: '+'\t'+that.voiceStartTimer)
-                // console.log('that.voiceStartTimer: '+'\t'+ that.voiceCurrentTime)
+                console.log('that.voiceStartTimer: '+'\t'+that.voiceStartTimer)
+                console.log('that.voiceCurrentTime: '+'\t'+that.voiceCurrentTime)
 
                 loadAFXPano('One_Big_Ball_of_Fire', that.voiceCurrentTime)
-                overLayFile = 'Main_Hallway' + master.audioType
+                overLayFile  = 'Main_Hallway' + master.audioType
                 underlayFile = 'Drone_2_norm' + master.audioType
 
                 $panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"></div>')
@@ -396,7 +397,7 @@ var pano_master = function(){
 
                 // walkthrough
                 $("#walking-canvas-pano").removeClass('hide')
-                var scrollTrigger=false;
+                scrollTrigger=false;
                 if(master.isIOS || master.isAndroid){
                    $('#walking-canvas-pano').css('display','none')
                     
@@ -404,7 +405,7 @@ var pano_master = function(){
                 that.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3); 
                 $('.hotspot').addClass('requiem')
 
-            break;
+                break;
 
             case "submarine" :
                 setTimeout(function(){
@@ -413,21 +414,21 @@ var pano_master = function(){
                 overLayFile = 'Submersible' + master.audioType
                 underlayMute=true             
                 that.video_underlay = true;
-            break;
+                break;
 
             case "theater" : 
                 that.visited.theatre = true;
 
                 overLayFile = 'Fluorescencent_Tone' + master.audioType
                 underlayFile = 'Drone_1_norm' + master.audioType
-            break; 
+                break; 
 
             case "theatre" : 
                 that.visited.theatre = true;
 
                 overLayFile = 'Fluorescencent_Tone' + master.audioType
                 underlayFile = 'Drone_1_norm' + master.audioType
-            break; 
+                break; 
 
             case "chemicalroom" :
                 that.visited.chemicalroom = true;
@@ -436,13 +437,13 @@ var pano_master = function(){
                 underlayFile = 'Drone_3_norm' + master.audioType
                 
                 // walkthrough
-                var scrollTrigger=false;
+                scrollTrigger=false;
                 $("#walking-canvas-pano").removeClass('hide')
                 that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",15);
                 $('.hotspot').addClass('engineroom')
 
                 // that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
-            break;    
+                break;    
 
             case "controlroom" : 
                 that.visited.controlroom = true;
@@ -450,7 +451,7 @@ var pano_master = function(){
                 overLayFile = 'russian_radio' + master.audioType
                 
                 that.video_underlay = true;
-            break;                 
+                break;               
             //
         }
 
@@ -498,15 +499,12 @@ var pano_master = function(){
 
         console.log('loadSequenceScene -- ' + _sequence)
 
-        sequenceHasWords = false;
-
-        //cancelAnimationFrame(runFrameRunner)
-
-        var ImageSequenceFiles,
-            ImageSequenceFrames,
+        var name,
             ghost,
             ghostFrames,
             movieLength;
+
+        sequenceHasWords = false;
 
         // clear word container
         $('#word-container ul').html('')
@@ -514,69 +512,70 @@ var pano_master = function(){
         $wrapper.addClass('hide')
         $panocontainer.removeClass('show').addClass('hide')
 
-        // > Switch Sequence
         switch(_sequence){
 
           case "sequence_passage_chemicalroom" : 
-                ImageSequenceFiles = 'corridor';
+
+                name = 'corridor';
                 movieLength = 5;
-                ImageSequenceFrames = 65;
+
                 ghost = 'hologram_2guys_walk_away 3-frame-';
                 ghostFrames = 12
+
                 linkBack = 'hallway'
                 linkForward = 'chemicalroom' 
+
                 overLayFile = 'Hatch_Alt2' + master.audioType
-                //underlayMute=true               
-          break;
+                break;
 
           case "sequence_passage_theatre" : 
-                ImageSequenceFiles = 'corridor';
+
+                name = 'corridor';
                 movieLength = 5;
-                ImageSequenceFrames = 65;
+
                 ghost = 'hologram_2guys_walk_away 2-frame-';
                 ghostFrames = 12
+
                 linkBack = 'hallway'
                 linkForward = 'theatre'
+
                 overLayFile = 'Hatch_Alt2' + master.audioType
-                //underlayMute=true                                
-          break;
+                break;
 
 
            case "sequence_passage_controlroom" : 
-                ImageSequenceFiles = 'corridor';
-                movieMode = true;
+
+                name = 'corridor';
                 movieLength = 5;
-                ImageSequenceFrames = 65;
+
                 ghost = 'hologram_helicopter-frame-';
                 ghostFrames = 12
+
                 linkBack = 'hallway'
                 linkForward = 'controlroom' 
-                overLayFile = 'Hatch_Alt2' + master.audioType
-                //underlayMute=true
 
-          break;         
+                overLayFile = 'Hatch_Alt2' + master.audioType
+                break;         
 
           case "sequence_outside_stairs_down" : 
-                ImageSequenceFiles = 'downstairs';
+
+                name = 'downstairs';
                 movieLength = 7;
-                ImageSequenceFrames = 241;
+
                 ghost = 'hologram_walk_up_stairs_2-frame-';
                 ghostFrames = 13
+
                 linkBack = 'lowerplatform'
                 linkForward = 'boat'                
-
-          break;         
+                break;         
 
           case "sequence_shaftway" : 
 
-           console.log("got this far 1")
-                ImageSequenceFiles = 'hatch';
-                ImageSequenceFrames = 65;
-                linkBack = 'lowerplatform'
-                linkForward = 'hallway'
+                name = 'hatch';
                 movieLength = 5;
 
-
+                linkBack = 'lowerplatform'
+                linkForward = 'hallway'
 
                 sequenceHasWords = true
                 if(!master.isMSIE) {
@@ -588,32 +587,20 @@ var pano_master = function(){
 
                     $('#word-container ul').html(wordHTL)
                 }
-
-
  
                 overLayFile = 'Hatch_Alt2' + master.audioType
-                //underlayMute=true
-          break;       
-
+                break;       
         }
 
         if(!master.isMSIE) that.loadSceneAudio()
         
-        
-
-         console.log("got this far 2")
-
         if(ghost) {
             console.log('GHOST')
             that.ghostTransition = new ghostFunctions("ghost-canvas-trans",ghost,ghostFrames)
             that.ghostTransition.imageSequencer()
         }
 
-        //$wrapper.addClass('hide')
-        //$wrapper.hide()
-
         $('#loading').fadeOut()
-
         $('#scroll-wrapper').fadeIn()
 
         $("#scroll-start").click(function(){ newPano(linkBack) });
@@ -621,19 +608,15 @@ var pano_master = function(){
 
         $("#walking-canvas").css("top", master.globals.contain.t )
 
-
-        // that.walkthrough = new walkthroughFunctions("walking-canvas",ImageSequenceFiles,ImageSequenceFrames)
-        // that.walkthrough.preload()
         console.log("Start Walkthrough")
 
-        that.walkthrough = new Walkthrough("walking-canvas",ImageSequenceFiles,movieLength)
+        that.walkthrough = new Walkthrough("walking-canvas", name, movieLength)
 
-        that.walkthrough.scrollPos = 0;
+        that.walkthrough.scrollPos   = 0;
         that.walkthrough.scrollValue = 1;
 
         scrollTrigger = false;
-        scrollPercent=0;
-
+        scrollPercent = 0;
         
     }
 
@@ -1133,14 +1116,29 @@ var pano_master = function(){
         // update current time for hallway voiceover
 
         if(master.globalPano === 'hallway' && pano) {
-            pano.voiceCurrentTime = pano.cachedVoiceTime + ( (new Date()-pano.voiceStartTimer) / 1000 )
 
             counter++;
 
             if(counter == 60) {
+
                 counter = 0;
+                pano.voiceCurrentTime = pano.cachedVoiceTime + ( (new Date()-pano.voiceStartTimer) / 1000 )
+
+                // if(extcontrol) {
+                //     if(extcontrol.role === 'master') {
+                //         if(pano.voiceStartTime<185) extcontrol.fn({ 'fn':'voiceCurrentTime', 'time': pano.voiceCurrentTime })
+                //     } else if(extcontrol.role === 'slave') {
+                //         pano.voiceCurrentTime = extcontrol.voiceCurrentTime;
+                //     }
+                // }
+
                 localStorage.setItem('voiceCurrentTime',JSON.stringify(pano.voiceCurrentTime))
+
             }
+
+            
+
+            
 
         }
 

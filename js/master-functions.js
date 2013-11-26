@@ -982,14 +982,27 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
 		that.percent = video.currentTime / video.duration
 
-			if(that.percent > 0.9 && !master.overlayOpen){
-				that.autoplay = false;
-				$('.scroll-directions').fadeOut()
-				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
-				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
-			}	
+		if(that.percent > 0.9 && !master.overlayOpen){
+			that.autoplay = false;
+			$('.scroll-directions').fadeOut()
+			if(master.globalPano == 'chemicalroom') videoPlayer("engineroom");
+			if(master.globalPano == 'subhangar')    videoPlayer("subhangar");
+		}	
 
 	})
+
+  video.addEventListener('play', function(e){
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn':'walkthrough', 'action':'play' })
+    }
+  })
+
+  video.addEventListener('pause', function(e){
+    if(extcontrol) if(extcontrol.role === 'master') {
+        extcontrol.fn({ 'fn':'walkthrough', 'action':'pause' })
+      }
+  })
+
 
 	// Init/Close ********************************************************
 	// (additional logic in scrollFunction and scrollStopFunction)
@@ -1064,16 +1077,6 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
   	e.stopPropagation()
 
-  	// if(that.playing) {
-  	// 	console.log('PAUSE ||')
-  	// 	video.pause();
-  	// 	that.playing = false
-  	// } else {
-  	// 	console.log('PLAY >')
-  	// 	that.playing = true
-  	// 	video.play();
-  	// }
-
     if(that.playing) that.pause();
     else             that.play();
 
@@ -1086,7 +1089,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
       video.play();
 
       if(extcontrol) if(extcontrol.role === 'master') {
-        extcontrol.walkthrough({ 'action':'play' })
+        extcontrol.fn({ 'fn':'walkthrough', 'action':'play' })
       }
     }
   }
@@ -1098,7 +1101,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
       video.pause();
 
       if(extcontrol) if(extcontrol.role === 'master') {
-        extcontrol.walkthrough({ 'action':'pause' })
+        extcontrol.fn({ 'fn':'walkthrough', 'action':'pause' })
       }
     }
   }
@@ -1194,7 +1197,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
 		else if(that.percent > 1) that.percent = 1
 
     if(extcontrol) if(extcontrol.role === 'master') {
-      extcontrol.walkthrough({ 'action':'setPercent', 'percent': that.percent });
+      extcontrol.fn({ 'fn':'walkthrough', 'action':'setPercent', 'percent': that.percent });
     }
 
 		var currentTime = videoLength * that.percent
@@ -1581,12 +1584,33 @@ var zoom_and_change_pano = function( from, to) {
   Misc Functions from individual scenes
 
 **************************************************************************/
-  
+
 // Control Room
 var startDrilling = function(stopping){
 
+  console.log('startDrilling ' + stopping)
+
   if(extcontrol) if(extcontrol.role === 'master') {
-    extcontrol.fn({ 'fn': 'startDrilling' })
+    extcontrol.fn({ 'fn': 'startDrilling', 'stopping':stopping })
+  }
+
+  if(!krpano) krpano = document.getElementById("krpanoObject");
+
+  if(stopping) {
+
+    krpano.call("set(hotspot[closehatch].alpha,0);");
+    krpano.call("set(hotspot[closehatch].enabled,false);");
+    krpano.call("set(hotspot[openhatch].enabled,true);");
+
+  } else {
+
+    loadAFXPano('klaxxon');
+
+    krpano.call("set(hotspot[closehatch].alpha,1);");
+    krpano.call("set(hotspot[closehatch].enabled,true);");
+    krpano.call("set(hotspot[openhatch].enabled,false);");
+    krpano.call("lookto(190,0,60,smooth(),true,true);");
+
   }
 
   var transition_audio = $('#transition', window.parent.document)
@@ -1660,6 +1684,18 @@ var loadUnderWater = function(_id){
 
 }
 
+var corexit = function(){
+
+  if(!extcontrol) return;
+
+  if(extcontrol.role === 'master') {
+    extcontrol.fn({ 'fn':'corexit' })
+  } else if(extcontrol.role === 'slave') {
+    krpano.call("tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)");
+  }
+
+}
+
 
 
 
@@ -1678,14 +1714,6 @@ var loadUnderWater = function(_id){
 var soundVector1 = soundVector2 = soundVector3 = 0;
 
 var soundadjust = function(coord,fov) {
-
-  // // External control: either send coord/fov or override them
-  // if(extcontrol) {
-  //   if(extcontrol.role === 'slave') {
-  //     coord = extcontrol.sync_data.panY;
-  //     fov   = extcontrol.sync_data.fov;
-  //   }
-  // }
 
 	var convCoord  =  Math.abs( (coord+ 60) % 360);
 	var convCoord1 =  Math.abs( (coord-120) % 360);

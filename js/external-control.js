@@ -20,17 +20,15 @@ var ExtControl = function(_role, _id){
 	var krpano,
 		socket;
 
-	var $info = $('#node-connection-info'),
+	var $info = $('#node-connection-info'), // on screen info text
 		infotimeout;
 
 	this.role = _role; // "master" or "slave"
 	this.id   = _id;
 
-	this.sync_data = {
-		"panX" : 0,
-		"panY" : 0,
-		"fov"  : 0
-	}
+	this.sync_data = { "panX" : 0, "panY" : 0, "fov" : 0 } // krpano view
+
+	this.voiceCurrentTime = 0; // hallway voice progress
 
 
 	// ********************************************************
@@ -39,7 +37,6 @@ var ExtControl = function(_role, _id){
 	$.getScript('js/lib/socket.io.js',function(){
 		
 		socket = io.connect('http://192.168.1.240:3700');
-		that.socket = socket; // External socket access for debugging
 
 		// ********************************************************
 		// Setup
@@ -143,25 +140,6 @@ var ExtControl = function(_role, _id){
 
 				switch(data.fn) {
 
-					// XML Functions
-					case 'loadAFXPano':
-						loadAFXPano( data._file, data._start );
-						break;
-
-					case 'loadUnderWater':
-						loadUnderWater(data._id);
-						break;
-
-					case 'startDrilling':
-						startDrilling();
-						break;
-
-					case 'zoomOut':
-						zoomOut();
-						break;
-
-
-
 					// Video Player
 					case 'openVideoPlayer':
 						videoPlayer(data.group, data.playerFadeTransition);
@@ -232,6 +210,34 @@ var ExtControl = function(_role, _id){
 						if(data.direction === 'next')      t.next()
 						else if(data.direction === 'prev') t.prev()
 
+						break;
+
+
+
+					// XML Functions & Misc
+					case 'loadAFXPano':
+						loadAFXPano( data._file, data._start );
+						break;
+
+					case 'loadUnderWater':
+						loadUnderWater(data._id);
+						break;
+
+					case 'startDrilling':
+						startDrilling(data.stopping);
+						break;
+
+					case 'zoomOut':
+						zoomOut();
+						break;
+
+					case 'corexit':
+						corexit();
+						break;
+
+					case 'voiceCurrentTime':
+						that.voiceCurrentTime = data.time;
+						console.log('that.voiceCurrentTime: '+'\t'+that.voiceCurrentTime)
 						break;
 
 				}

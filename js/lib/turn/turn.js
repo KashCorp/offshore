@@ -1551,7 +1551,7 @@ turnMethods = {
 
     if(parent.extcontrol) if(parent.extcontrol.role === 'master') {
       var dir = (opts.next > opts.page) ? 'next' : 'prev';
-      parent.extcontrol.turn( {'direction': dir } )
+      parent.extcontrol.fn( { 'fn':'turn', 'direction': dir } )
     }
 
   },

@@ -699,8 +699,8 @@
 		 	
 		 	<image>
 			    <left  url="../offshore_panos/subhangar_pano_l.jpg" />
-			    <front url="../offshore_panos/subhangar_pano_f2.png" />
-			    <right url="../offshore_panos/subhangar_pano_r2.png" />
+			    <front url="../offshore_panos/subhangar_pano_f.png" />
+			    <right url="../offshore_panos/subhangar_pano_2.png" />
 			    <back  url="../offshore_panos/subhangar_pano_b.jpg" />
 			    <up    url="../offshore_panos/subhangar_pano_u.jpg" />
 			    <down  url="../offshore_panos/subhangar_pano_d.jpg" />
@@ -934,7 +934,7 @@
 			atv="-5.1"
 			distorted="true"
 			alpha="0"
-			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
+			onclick="js(corexit()); tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
 			scale="1.05"
 		/>		
 
@@ -963,8 +963,7 @@
 			capture="false"
 			color="0xffffff"
 			handcursor="true"
-			height="30"
-			html="[h3] COREXIT&#169; [h3]"
+			html="[br][h3] COREXIT&#169; [h3]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
@@ -1267,12 +1266,7 @@
 			atv="-7.82"
 			distorted="true"
 			alpha="0.0"
-			onclick="js(loadAFXPano(klaxxon));
-					 js(startDrilling());
-					 set(hotspot[closehatch].alpha,1);
-					 set(hotspot[closehatch].enabled,true);
-					 set(hotspot[openhatch].enabled,false);
-					 lookto(190,0,60,smooth(),true,true);"
+			onclick="js(startDrilling());"
 			capture="false"
 			width="150"
 			height="200"
@@ -1285,9 +1279,7 @@
 			distorted="true"
 			alpha="0"
 			enabled="false"
-			onclick="js(startDrilling(stop));
-					 set(hotspot[closehatch].alpha,0);set(hotspot[closehatch].enabled,false);
-					 set(hotspot[openhatch].enabled,true);"
+			onclick="js(startDrilling(stop));"
 			capture="false"
 			width="150"
 			height="200"
