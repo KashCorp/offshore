@@ -540,7 +540,7 @@
 				distorted="true"
 				alpha="0.0"
 				height="60.0"
-				onclick="js(zoom_and_change_pano('boat','platform'))"
+				onclick="js(zoom_and_change_pano('boat','lowerplatform'))"
 
 				scale="1.0"
 				capture="false"
@@ -554,7 +554,7 @@
 				alpha="0"
 				height="140"
 				width="140"
-				onclick="js(zoom_and_change_pano('boat','platform'))"
+				onclick="js(zoom_and_change_pano('boat','lowerplatform'))"
 				scale="1.0"
 				capture="false"
 				/>
@@ -1602,9 +1602,9 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="js(master.loadOverlay(debrief.php));
+			onclick="js(master.loadOverlay('debrief.php'));
 					 js(setCache(get(view.hlookat),90))"
-		/>
+			/>
 
 		<hotspot name="Voices_Dossier_icon" 
 			url="../images/icons/gif_documents.gif"
@@ -1615,11 +1615,11 @@
 			atv="30"
 			distorted="true"
 			capture="false"
-			onclick="js(master.loadOverlay(debrief.php));
+			onclick="js(master.loadOverlay('debrief.php'));
 					 js(setCache(get(view.hlookat),90))"
 			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
 			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
-		/>		
+			/>		
 
 
 	</scene>
@@ -1681,17 +1681,11 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="lookTo(90,0,50,smooth(),true,true);
-					 js(zoomIn());
-					 js(loadUnderWater(ROV_Skate_Farm));
-					 js(setCache(270,90))"
+			onclick="js(loadUnderWater(ROV_Skate_Farm));"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>
-
-
-
 
 		<hotspot name="under_water_02" url="../images/hotspot.gif"
 			ath="75.15"
@@ -1699,10 +1693,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="lookTo(90,0,50,smooth(),true,true);
-					 js(zoomIn());
-					 js(loadUnderWater(ROV_Wellhead_1));
-					 js(setCache(270,90))"
+			onclick="js(loadUnderWater(ROV_Wellhead_1))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -1714,10 +1705,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="lookTo(90,0,50,smooth(),true,true);
-					 js(zoomIn());
-					 js(loadUnderWater(ROV_Wellhead_2));
-					 js(setCache(270,90))"
+			onclick="js(loadUnderWater(ROV_Wellhead_2))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
@@ -1729,10 +1717,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="lookTo(90,0,50,smooth(),true,true);
-					 js(zoomIn());
-					 js(loadUnderWater(ROV_Coral));
-					 js(setCache(270,90))"
+			onclick="js(loadUnderWater(ROV_Coral));"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"

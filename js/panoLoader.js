@@ -1,3 +1,16 @@
+/**************************************************************************
+	
+	Pano Loader
+
+		Two stage preloader:
+
+		1. Opening Loader -> loads the prologue scene
+
+		2. Preloader -> loads the remaining panos
+
+**************************************************************************/
+
+
 	
 // GLOBAL MODULE OBJECTS
 var master,
@@ -60,31 +73,34 @@ var openingloader = function() {
 
 		// *********************************
 		// URL Arguments
-		// - extcontrol
-		// - autopilot
 
 		var search = parent.location.search;
 		if(search) {
 			if(search.substr(0,1) == '?') {
 				var searcharray = search.split('?');
-				console.log(searcharray)
 
 				for (var i = searcharray.length - 1; i >= 0; i--) {
-					if(searcharray[i] === "master") extcontrol = new ExtControl("master");
-					if(searcharray[i] === "slave")  extcontrol = new ExtControl("slave");
-
-					if(searcharray[i] === "autopilot") autopilot = new Autopilot(); 
+					if(searcharray[i] === "local")  config.useLocalResources = true;
+					if(searcharray[i] === "master") config.extControlMaster = true;
+					if(searcharray[i] === "slave")  config.extControlSlave = true;
+					if(searcharray[i] === "autopilot") config.autopilot = true; 
 				};
-
 			}	
 		}
-		
+
+		if(config.extControlMaster)     extcontrol = new ExtControl("master");
+		else if(config.extControlSlave) extcontrol = new ExtControl("slave");
+
+		if(config.autopilot) autopilot = new Autopilot();
+
+		// *********************************
+
 
 		$('#panoDownloadStatusText').remove()
 		$('#panoDownloadStatus').remove()
 
 		master = new masterFunctions();
-		master.init();
+		master.build_navbar();
 		master.check_start();
 
 		pano = new pano_master();

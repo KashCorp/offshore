@@ -54,6 +54,15 @@
 
 <script type="text/javascript">
 
+function next(){
+  $('.flipbook').turn('next')
+}
+
+function prev(){
+  $('.flipbook').turn('previous') 
+}
+
+
 $(document).ready(function(){
 
   var init = false;
@@ -122,7 +131,7 @@ $(document).ready(function(){
 
   yepnope({
     test : Modernizr.csstransforms,
-    yep: ['../js/lib/turn/turn.js'],
+    yep: ['../js/lib/turn/turn.js'+'?'+Math.random()],
     nope: ['../js/lib/turn/turn.html4.min.js'],
     both: ['../css/basicbook.css'],
     complete: loadApp

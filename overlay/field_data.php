@@ -56,6 +56,13 @@
 
 <script type="text/javascript">
 
+function next(){
+  $('.flipbook').turn('next')
+}
+
+function prev(){
+  $('.flipbook').turn('previous') 
+}
 
 $(document).ready(function(){
 

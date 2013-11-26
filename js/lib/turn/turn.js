@@ -29,17 +29,17 @@ var has3d,
     {
       down: 'touchstart',
       move: 'touchmove',
-      up: 'touchend',
+      up:   'touchend',
       over: 'touchstart',
-      out: 'touchend'
+      out:  'touchend'
     }
     :
     {
       down: 'mousedown',
       move: 'mousemove',
-      up: 'mouseup',
+      up:   'mouseup',
       over: 'mouseover',
-      out: 'mouseout'
+      out:  'mouseout'
     },
 
   // Contansts used for each corner
@@ -113,7 +113,6 @@ turnMethods = {
   // $('#selector').turn([options]);
 
   init: function(options) {
-    console.log(options)
 
     // Define constants
     
@@ -1548,6 +1547,11 @@ turnMethods = {
 
     if (opts.turn.data().opts.autoCenter) {
       opts.turn.turn('center', opts.next);
+    }
+
+    if(parent.extcontrol) if(parent.extcontrol.role === 'master') {
+      var dir = (opts.next > opts.page) ? 'next' : 'prev';
+      parent.extcontrol.turn( {'direction': dir } )
     }
 
   },

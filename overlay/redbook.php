@@ -47,6 +47,14 @@
 <script type="text/javascript">
 var init = false;
 
+function next(){
+  $('.flipbook').turn('next')
+}
+
+function prev(){
+  $('.flipbook').turn('previous') 
+}
+
 function loadApp() {
 
 

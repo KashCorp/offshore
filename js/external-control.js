@@ -20,12 +20,11 @@ var ExtControl = function(_role, _id){
 	var krpano,
 		socket;
 
+	var $info = $('#node-connection-info'),
+		infotimeout;
+
 	this.role = _role; // "master" or "slave"
 	this.id   = _id;
-
-	console.log('EXTERNAL CONTROL')
-	console.log('_role: '+'\t'+_role)
-	console.log('_id: '+'\t'+_id)
 
 	this.sync_data = {
 		"panX" : 0,
@@ -47,24 +46,45 @@ var ExtControl = function(_role, _id){
 		// establish role with node server
 
 		socket.on('connect',function(){
+
+			if(infotimeout) clearTimeout(infotimeout)
+			$info.fadeOut(500,function(){
+
+				$info.html('Node connected as '+_role)
+				$info.fadeIn(500)
+
+				if(infotimeout) clearTimeout(infotimeout)
+				infotimeout = setTimeout(function() { $info.fadeOut() }, 3000);
+			})
+
 			if(_role === 'master') {
-				console.log('Socket connected. Role: MASTER')
+				console.log('>>> SOCKET connected: MASTER')
 				socket.emit('Hi I am the master', { 
 					'currentPano': globalPano, 
 					'overlayOpen' : master.overlayOpen
 				});
+				
 			}
 			else if(_role === 'slave') {
-				console.log('Socket connected. Role: SLAVE')
+				console.log('>>> SOCKET connected: SLAVE')
 				socket.emit('Hi I am a slave');
 
 				$('.pan-directions').hide();
 		    	pano.panDirectionsShown = true;
+
 			} 
 		})
 
 		socket.on('disconnect',function(){
-			console.log('Socket disconnected.')
+			console.log('>>> SOCKET disconnected.')
+
+			if(infotimeout) clearTimeout(infotimeout)
+			infotimeout = setTimeout(function() {
+				$info.html('Node server connection lost')
+				$info.fadeIn(500)	
+			}, 2000);
+			
+
 		})
 
 		socket.on('message',function(data){
@@ -77,21 +97,28 @@ var ExtControl = function(_role, _id){
 
 		that.sync_view = function(){ socket.emit('sync_view', that.sync_data); }
 
-		that.open_video_player  = function(data){ socket.emit('open_video_player',  data); }
-		that.switch_video       = function(data){ socket.emit('switch_video',       data); }
-		that.close_video_player = function(data){ socket.emit('close_video_player', ''  ); }
-		that.video_player       = function(data){ socket.emit('video_player',       data); } // ui actions
-
 		that.hashChange         = function(data){ socket.emit('hashChange', data); }
 
-		that.loadOverlay   = function(data){ socket.emit('loadOverlay',   data); }
-		that.closeOverlay  = function(data){ socket.emit('closeOverlay',  data); }
+		that.fn = function(data){ socket.emit('fn', data); }
 
-		that.loadAFXPano   = function(data){ socket.emit('loadAFXPano',   data); }
+
+
+		// that.open_video_player  = function(data){ socket.emit('open_video_player',  data); }
+		// that.switch_video       = function(data){ socket.emit('switch_video',       data); }
+		// that.close_video_player = function(data){ socket.emit('close_video_player', ''  ); }
+		// that.video_player       = function(data){ socket.emit('video_player',       data); } // ui actions
+
+
+		// that.loadOverlay   = function(data){ socket.emit('loadOverlay',   data); }
+		// that.closeOverlay  = function(data){ socket.emit('closeOverlay',  data); }
+
+		// that.loadAFXPano   = function(data){ socket.emit('loadAFXPano',   data); }
 
 		that.walkthrough   = function(data){ socket.emit('walkthrough',   data); }
 
+		// overlays
 		that.skype         = function(data){ socket.emit('skype',         data); }
+		that.turn	       = function(data){ socket.emit('turn',          data); } // all books
 
 
 		// ********************************************************
@@ -101,70 +128,171 @@ var ExtControl = function(_role, _id){
 
 			socket.on('sync_view',function(data){
 				that.sync_data = data;
-				// if(master.overlayOpen) closeVideoPlayer();
 			})
-
-			socket.on('open_video_player',  function(data){ 
-				console.log('SOCKET open_video_player')
-				videoPlayer(data.group, data.playerFadeTransition); 
-			})
-			socket.on('close_video_player', function(data){ closeVideoPlayer(); });
-			socket.on('switch_video', 		function(data){ switchVideo(data._id, data._text); });
-			socket.on('video_player', 		function(data){ videoPlayerFunctions[data.action](data); })
 
 			socket.on('hashChange', function(data){
 				console.log('SOCKET -> received hash change: '+data.hash)
 				parent.location.hash = data.hash
 			})
 
-			socket.on('loadOverlay',  function(data){ master.loadOverlay(data.overlayURL); })
-			socket.on('closeOverlay', function(data){ master.closeOverlay(data._URL); })
+			// ********************************************************
 
-			socket.on('loadAFXPano',  function(data){ loadAFXPano( data._file, data._start ); })
+			socket.on('fn', function(data){ 
 
-			socket.on('walkthrough',  function(data){
+				console.log(data)
 
-				console.log('SOCKET -> received walkthrough data')
+				switch(data.fn) {
 
-				var w = false;
-				if(pano.walkthrough)          w = pano.walkthrough;
-				else if(pano.panoWalkthrough) w = pano.panoWalkthrough
+					// XML Functions
+					case 'loadAFXPano':
+						loadAFXPano( data._file, data._start );
+						break;
 
-				if(w) {
-					if(data.action === 'setPercent') w.setPercent(data.percent)
-					else if(data.action === 'play')  w.play();
-					else if(data.action === 'pause') w.pause();	
+					case 'loadUnderWater':
+						loadUnderWater(data._id);
+						break;
+
+					case 'startDrilling':
+						startDrilling();
+						break;
+
+					case 'zoomOut':
+						zoomOut();
+						break;
+
+
+
+					// Video Player
+					case 'openVideoPlayer':
+						videoPlayer(data.group, data.playerFadeTransition);
+						break;
+
+					case 'switchVideo':
+						switchVideo(data._id, data._text);
+						break;
+
+					case 'closeVideoPlayer':
+						closeVideoPlayer();
+						break;
+
+					case 'videoPlayerUI':
+						videoPlayerUI[data.action](data);
+						break;
+
+
+
+					// Overlays
+					case 'loadOverlay':
+						master.loadOverlay(data.overlayURL);
+						break;
+
+					case 'closeOverlay':
+						master.closeOverlay(data._URL);
+						break;
+
+
+					// Walkthrough
+					case 'walkthrough':
+						console.log('SOCKET -> received walkthrough data')
+
+						var w = false;
+						if(pano.walkthrough)          w = pano.walkthrough;
+						else if(pano.panoWalkthrough) w = pano.panoWalkthrough
+
+						if(w) {
+							if(data.action === 'setPercent') w.setPercent(data.percent)
+							else if(data.action === 'play')  w.play();
+							else if(data.action === 'pause') w.pause();	
+						}
+
+						break;
+
+					// Skype Overlay
+					case 'skype':
+						var s = false;
+						var urlarray = $('#overlay_frame')[0].contentWindow.location.pathname.split('/');
+
+						if(urlarray[urlarray.length-1] === 'skype.html') 
+							s = $('#overlay_frame')[0].contentWindow;
+
+						if(s){
+
+							if(data.action === 'switchVid')
+								s.switchVid(data.src)
+							else if(data.action === 'closeVid')
+								s.stopVid()
+						}
+
+						break;
+
+					// Book Overlays
+					case 'turn':
+						var t = $('#overlay_frame')[0].contentWindow;
+
+						if(data.direction === 'next')      t.next()
+						else if(data.direction === 'prev') t.prev()
+
+						break;
+
 				}
 				
 			})
 
-			socket.on('skype', function(data){
 
-				console.log('skype')
 
-				var s = false;
-				var urlarray = $('#overlay_frame')[0].contentWindow.location.pathname.split('/');
+			// ********************************************************
+			// socket.on('walkthrough',  function(data){
 
-				if(urlarray[urlarray.length-1] === 'skype.html') 
-					s = $('#overlay_frame')[0].contentWindow;
+			// 	console.log('SOCKET -> received walkthrough data')
 
-				if(s){
-					console.log('s exists')
+			// 	var w = false;
+			// 	if(pano.walkthrough)          w = pano.walkthrough;
+			// 	else if(pano.panoWalkthrough) w = pano.panoWalkthrough
 
-					if(data.action === 'switchVid')
-						s.switchVid(data.src)
-					else if(data.action === 'closeVid')
-						s.stopVid()
-				}
+			// 	if(w) {
+			// 		if(data.action === 'setPercent') w.setPercent(data.percent)
+			// 		else if(data.action === 'play')  w.play();
+			// 		else if(data.action === 'pause') w.pause();	
+			// 	}
+				
+			// })
+
+
+			// ********************************************************
+			// socket.on('skype', function(data){
+
+			// 	var s = false;
+			// 	var urlarray = $('#overlay_frame')[0].contentWindow.location.pathname.split('/');
+
+			// 	if(urlarray[urlarray.length-1] === 'skype.html') 
+			// 		s = $('#overlay_frame')[0].contentWindow;
+
+			// 	if(s){
+
+			// 		if(data.action === 'switchVid')
+			// 			s.switchVid(data.src)
+			// 		else if(data.action === 'closeVid')
+			// 			s.stopVid()
+			// 	}
+
+			// })
+
+			// ********************************************************
+			socket.on('turn', function(data){
+
+				var t = $('#overlay_frame')[0].contentWindow;
+
+				if(data.direction === 'next')      t.next()
+				else if(data.direction === 'prev') t.prev()
 
 			})
+
 		}
-		
 
 
 	})
 
-
+	// ********************************************************
 	this.krpanoloaded = function(){
 		if(krpano) return;
 
@@ -193,6 +321,16 @@ var ExtControl = function(_role, _id){
 	
 	Autopilot Module
 
+		to enable:
+		offshore/?autopilot
+
+		can be combined with external control but only as master.
+
+		3 logic blocks:
+		- lookto
+		- wait
+		- switch pano
+
 
 **************************************************************************/
 
@@ -204,6 +342,8 @@ var Autopilot = function(){
 	var krpano;
 
 	var $warning = $('#autopilot-warning');
+
+	console.log('++ AUTOPILOT ++ Initialized')
 
 
 	// ********************************************************
@@ -281,16 +421,16 @@ var Autopilot = function(){
 	// Autopilot Logic
 
 	var num_looks = 0, // how many times we have looked around the current pano
-		max_looks = 3; // look around this many times before moving on
+		max_looks = 3; // look around this many times before moving to the next pano
 
 	var panos = [ // predefined order to how the autopilot navigates the rig
 		'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway', 
 		'sequence_passage_controlroom', 'controlroom', 'hallway',
 		'sequence_passage_chemicalroom', 'chemicalroom', 'hallway',
 		'sequence_passage_theatre', 'theatre', 'subhangar', 'theatre', 'hallway',
-		'lowerplatform', 'platform'
+		'lowerplatform', 'sequence_outside_stairs_down', 'boat', 'lowerplatform', 'platform'
 	];
-	var pano_index;
+	this.pano_index = false;
 
 	var wait_timeout; // timeout in between actions, clear to stop autopilot logic chain
 
@@ -302,14 +442,14 @@ var Autopilot = function(){
 
 		if(typeof advance === 'undefined') advance = true;
 
-		console.log('AUTOPILOT lookto (num_looks: '+num_looks+')')
+		// console.log('AUTOPILOT lookto (num_looks: '+num_looks+')')
 
 		// Activate Walkthrough
 		if(pano.walkthrough) {
 
 			pano.walkthrough.play();
 			num_looks = 0;
-			pano_index ++;
+			that.pano_index ++;
 
 		// Look around the scene
 		} else {
@@ -329,12 +469,11 @@ var Autopilot = function(){
 				fov  : origin.fov /* + rand(-270,270) */
 			}
 
-			// make our lookto() calls slower if we're looking further. base duration 4s.
-			var duration = 2 + ( (270 - Math.abs(origin.panX - dest.panX) ) / 135 * 3 )
+			// make our lookto() calls slower if we're looking further. base duration 3s.
 
-			// console.log(origin)
-			// console.log(dest)
-			// console.log('duration: '+'\t'+duration)
+			var normalized_val = ( Math.abs(origin.panX - dest.panX) - 90 ) / 180;
+
+			var duration = 2 + 2*normalized_val;
 
 			// breakable lookto()
 			if(krpano) 
@@ -367,7 +506,7 @@ var Autopilot = function(){
 
 		var duration = rand(1,2);
 
-		console.log('AUTOPILOT Wait for '+duration+'s')
+		// console.log('AUTOPILOT Wait for '+duration+'s')
 
 		wait_timeout = setTimeout(function() {
 			if(callback) if(typeof callback === 'function') callback();
@@ -380,27 +519,27 @@ var Autopilot = function(){
 
 	this.switchPano = function(){
 
-		console.log('AUTOPILOT switchPano')
+		// console.log('AUTOPILOT switchPano')
 
 		// calculate pano_index so we can start the autopilot in any room
-		if(!pano_index || master.globalPano != panos[pano_index]) {
-			pano_index = panos.indexOf(master.globalPano);
-			if(pano_index < 0) {
-				if(master.globalPano === 'submarine') pano_index = panos.indexOf('subhangar') - 1
-				else pano_index = 0;
+		if(!that.pano_index || master.globalPano != panos[that.pano_index]) {
+			that.pano_index = panos.indexOf(master.globalPano);
+			if(that.pano_index < 0) {
+				if(master.globalPano === 'submarine') that.pano_index = panos.indexOf('subhangar') - 1
+				else that.pano_index = 0;
 			}	
 		}
 
-		console.log('current pano: '+pano_index+' '+panos[pano_index])
+		console.log('AUTOPILOT '+panos[that.pano_index]+ '('+that.pano_index+') -> '+panos[that.pano_index+1]+ '('+(that.pano_index+1)+')')
 
 		num_looks = 0;
 
-		if(panos[pano_index+1]) {
-			zoom_and_change_pano(panos[pano_index], panos[pano_index+1])
-			pano_index += 1;
+		if(panos[that.pano_index+1]) {
+			zoom_and_change_pano(panos[that.pano_index], panos[that.pano_index+1])
+			that.pano_index += 1;
 		} else {
-			zoom_and_change_pano(panos[pano_index], panos[0])
-			pano_index = 0;
+			zoom_and_change_pano(panos[that.pano_index], panos[0])
+			that.pano_index = 0;
 		}
 
 		that.wait(that.lookto);

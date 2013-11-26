@@ -130,6 +130,8 @@
         <h2>Interact to disable</h2>
       </div>
 
+      <div id="node-connection-info"></div>
+
   </div>
 
 
@@ -158,8 +160,8 @@
     <script type="text/javascript" src="js/lib/krpano/swfkrpano.js"></script>
   
     <!-- Javascripts -->
-		<script type="text/javascript" src="js/master-functions-all-panos.js?v=<?php echo date('U') ?>"></script>
-    <script type="text/javascript" src="js/pano-functions-html-all.js?v=<?php echo date('U') ?>"></script>
+		<script type="text/javascript" src="js/master-functions.js?v=<?php echo date('U') ?>"></script>
+    <script type="text/javascript" src="js/pano-functions.js?v=<?php echo date('U') ?>"></script>
     <script type="text/javascript" src="js/external-control.js?v=<?php echo date('U') ?>"></script>
     <script type="text/javascript" src="js/panoLoader.js?v=<?php echo date('U') ?>"></script>
 
