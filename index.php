@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/apple-touch-icon-144x144-precomposed.png" />
 
     
-    <meta property="og:image" content="images/offshore_fb_thumb.jpg"/>
+    <meta property="og:image" content="http://offshore-interactive.com/images/offshore_fb_thumb.jpg"/>
     <meta property="og:title" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation"/>
     <meta property="og:url" content="http://offshore-interactive.com/"/>
     <meta property="og:site_name" content="OFFSHORE"/>
