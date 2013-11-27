@@ -98,24 +98,11 @@ var ExtControl = function(_role, _id){
 
 		that.fn = function(data){ socket.emit('fn', data); }
 
+		// that.walkthrough   = function(data){ socket.emit('walkthrough',   data); }
 
-
-		// that.open_video_player  = function(data){ socket.emit('open_video_player',  data); }
-		// that.switch_video       = function(data){ socket.emit('switch_video',       data); }
-		// that.close_video_player = function(data){ socket.emit('close_video_player', ''  ); }
-		// that.video_player       = function(data){ socket.emit('video_player',       data); } // ui actions
-
-
-		// that.loadOverlay   = function(data){ socket.emit('loadOverlay',   data); }
-		// that.closeOverlay  = function(data){ socket.emit('closeOverlay',  data); }
-
-		// that.loadAFXPano   = function(data){ socket.emit('loadAFXPano',   data); }
-
-		that.walkthrough   = function(data){ socket.emit('walkthrough',   data); }
-
-		// overlays
-		that.skype         = function(data){ socket.emit('skype',         data); }
-		that.turn	       = function(data){ socket.emit('turn',          data); } // all books
+		// // overlays
+		// that.skype         = function(data){ socket.emit('skype',         data); }
+		// that.turn	       = function(data){ socket.emit('turn',          data); } // all books
 
 
 		// ********************************************************

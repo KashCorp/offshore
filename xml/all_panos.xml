@@ -232,7 +232,7 @@
 			ath="-37"
 			atv="31.5"
 			distorted="true"
-			onclick="js(master.loadOverlay(dossierbook.php));
+			onclick="js(master.loadOverlay(dossierbook.html));
 					 js(setCache(250,90))"
 			onhover="js(hoverSound())"
 			onout="js(resetHoverSound())"
@@ -568,7 +568,7 @@
 				alpha="0.0"
 				height="360.0"
 				width="360.0"
-				onclick="js(master.loadOverlay(lifepreserver_starboard.php))"
+				onclick="js(master.loadOverlay(lifepreserver_starboard.html))"
 
 				scale="1.0"
 				capture="false"
@@ -582,7 +582,7 @@
 				alpha="0.0"
 				height="360.0"
 				width="360.0"
-				onclick="js(master.loadOverlay(lifepreserver_port.php))"
+				onclick="js(master.loadOverlay(lifepreserver_port.html))"
 
 				scale="1.0"
 				capture="false"
@@ -700,7 +700,7 @@
 		 	<image>
 			    <left  url="../offshore_panos/subhangar_pano_l.jpg" />
 			    <front url="../offshore_panos/subhangar_pano_f.png" />
-			    <right url="../offshore_panos/subhangar_pano_2.png" />
+			    <right url="../offshore_panos/subhangar_pano_r.png" />
 			    <back  url="../offshore_panos/subhangar_pano_b.jpg" />
 			    <up    url="../offshore_panos/subhangar_pano_u.jpg" />
 			    <down  url="../offshore_panos/subhangar_pano_d.jpg" />
@@ -1339,7 +1339,7 @@
 			atv="16.4"
 			distorted="true"
 			alpha="0"
-			onclick="js(master.loadOverlay(field_data.php));
+			onclick="js(master.loadOverlay(field_data.html));
 					 js(setCache(get(view.hlookat),90))"
 			scale=".68"
 			/>
@@ -1360,7 +1360,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="js(master.loadOverlay(field_data.php));
+			onclick="js(master.loadOverlay(field_data.html));
 					 js(setCache(get(view.hlookat),90))"
 		/>
 
@@ -1373,7 +1373,7 @@
 			atv="20.4"
 			distorted="true"
 			capture="false"
-			onclick="js(master.loadOverlay(field_data.php));
+			onclick="js(master.loadOverlay(field_data.html));
 					js(setCache(get(view.hlookat),90))"
 			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
 			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
@@ -1594,7 +1594,7 @@
 			autoheight="false"
 			vcenter="true"
 			width="200"
-			onclick="js(master.loadOverlay('debrief.php'));
+			onclick="js(master.loadOverlay('debrief.html'));
 					 js(setCache(get(view.hlookat),90))"
 			/>
 
@@ -1607,7 +1607,7 @@
 			atv="30"
 			distorted="true"
 			capture="false"
-			onclick="js(master.loadOverlay('debrief.php'));
+			onclick="js(master.loadOverlay('debrief.html'));
 					 js(setCache(get(view.hlookat),90))"
 			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
 			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
@@ -1821,7 +1821,7 @@
 			distorted="true"
 			alpha="0.0"
 			height="50.0"
-			onclick="js(master.loadOverlay(redbook.php));
+			onclick="js(master.loadOverlay(redbook.html));
 					 js(setCache(-160,90))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
@@ -1837,7 +1837,7 @@
 			alpha="0.0"
 			height="70.0"
 			width="150.0"
-			onclick="js(master.loadOverlay(leasemap.php));
+			onclick="js(master.loadOverlay(leasemap.html));
 					 js(setCache(get(view.hlookat),90))"
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"

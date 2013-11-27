@@ -35,7 +35,7 @@
 // for the url arguments which can override these defaults
 
 var config = {
-  'useLocalResources' : false, // look for media locally instead of from the CDN
+  'useLocalResources' : true, // look for media locally instead of from the CDN
   'extControlMaster' : false, // set extcontrol.role to 'master'
   'extControlSlave' : false,  // set extcontrol.role to 'slave'
   'autopilot' : false // use autopilot
@@ -128,7 +128,7 @@ var masterFunctions = function() {
    
   $compass.click(function() {
    	$compass.fadeOut(500)
-  	that.loadOverlay('rigmap.php')
+  	that.loadOverlay('rigmap.html')
   });
     
 
@@ -412,13 +412,13 @@ var masterFunctions = function() {
         })
 
         $('#about-link').click(function(){
-        	master.loadOverlay('about.php')
+        	master.loadOverlay('about.html')
         	
         })
 
 
         $('#credits-link').click(function(){
-        	master.loadOverlay('credits.php')
+        	master.loadOverlay('credits.html')
         	
         })
 
@@ -1872,6 +1872,17 @@ var videoPlayerUI = {
   wasplaying : null, 
   time : null,
 
+  // these two allow iOS masters to control video properly
+  play : function(data){
+    videoPlayerUI.video.currentTime = data.time;
+    videoPlayerUI.video.play();
+  },
+
+  pause : function(){
+    videoPlayerUI.video.pause()
+  },
+
+  // the rest are normal UI functionality
   playpause : function() {
 
     if(extcontrol) if(extcontrol.role === 'master') {
@@ -2029,39 +2040,68 @@ function videoPlayer(group, playerFadeTransition){
 
 		$play.on("click", videoPlayerUI.playpause);
 
-    // ********************************************************
-		// Slider
+    if(master.isIOS || master.isAndroid) {
 
-		$.getScript("js/lib/jquery-ui.min.js")
-		.done(function(script, textStatus){
+      // ********************************************************
+      // html5 video event hooks
 
-			$seek.slider()
-			       .slider({ start: videoPlayerUI.seekstart })
-			       .slider({ stop:  videoPlayerUI.seekstop  });
+      video.addEventListener('play',function(){
+        console.log('play')
+        if(extcontrol) if(extcontrol.role === 'master') {
+          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'play', 'time':video.currentTime })
+        }
+      })
 
-			// slider -> video
-			$seek.slider({ slide: videoPlayerUI.sliderseek });
-			
-			// video -> slider
+      video.addEventListener('pause',function(){
+        console.log('pause')
+        if(extcontrol) if(extcontrol.role === 'master') {
+          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'pause' })
+        }
+      })
 
-			if (!master.isAndroid){
-				video.addEventListener("timeupdate", function() {
-				    var value = (100 / video.duration) * video.currentTime;
-				    $seek.slider("value", value);
-				    $(".video-content-wrap .text").html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
-				});
-			}
-		})
-		.fail(function(jqxhr, settings, exception) {
-		  console.log('getScript FAIL')
-		});
+      video.addEventListener('seeked',function(){
+        console.log('seeked')
+        if(extcontrol) if(extcontrol.role === 'master') {
+          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstop', 'time':video.currentTime })
+        }
+      })
 
-		// Time
-		var timeFormat = function(seconds){
-			var m=Math.floor(seconds/60)<10?"0"+Math.floor(seconds/60):Math.floor(seconds/60);
-			var s=Math.floor(seconds-(m*60))<10?"0"+Math.floor(seconds-(m*60)):Math.floor(seconds-(m*60));
-			return m+":"+s;
-		}
+    } else {
+
+      // ********************************************************
+      // Slider
+
+      $.getScript("js/lib/jquery-ui.min.js")
+      .done(function(script, textStatus){
+
+        $seek.slider()
+          .slider({ start: videoPlayerUI.seekstart })
+          .slider({ stop:  videoPlayerUI.seekstop  });
+
+        // slider -> video
+        $seek.slider({ slide: videoPlayerUI.sliderseek });
+        
+        // video -> slider
+        video.addEventListener("timeupdate", function() {
+            var value = (100 / video.duration) * video.currentTime;
+            $seek.slider("value", value);
+            $(".video-content-wrap .text").html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
+        });
+      })
+      .fail(function(jqxhr, settings, exception) {
+        console.log('getScript FAIL')
+      });
+
+      // Time
+      var timeFormat = function(seconds){
+        var m=Math.floor(seconds/60)<10?"0"+Math.floor(seconds/60):Math.floor(seconds/60);
+        var s=Math.floor(seconds-(m*60))<10?"0"+Math.floor(seconds-(m*60)):Math.floor(seconds-(m*60));
+        return m+":"+s;
+      }
+
+    }
+
+    
 
 	})
 
@@ -2250,12 +2290,14 @@ function switchVideo(_id,_text){
 
 		$('.controls').css('display','block')
 
-		if(master.isAndroid){
-			
-		} else {
-  		e.stopPropagation()
-  		this.play();			
-		}
+    e.stopPropagation();
+
+    var autoplay = true;
+    if(extcontrol) if(extcontrol.role === 'slave') autoplay = false;
+		if(master.isAndroid) autoplay = false;
+
+    if(autoplay) this.play();
+    else         this.pause();
 
 
 	}, false);

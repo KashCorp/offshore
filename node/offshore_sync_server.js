@@ -1,22 +1,16 @@
 
 /**************************************************************************
 	
-	Offshore Node Server
+	Offshore Sync Server
+
+	dependencies are not versioned: run 'npm install' in offshore/node/
 
 **************************************************************************/
 
-// app
-var express = require("express"),
-	app = express(),
-	port = 3700,
-	sio = require('socket.io'),
-	io = sio.listen( app.listen(port) );
-
+var io = require('socket.io').listen(3700);
 
 var master,
-	slaves = [];
-
-var currentPano = "";
+	currentPano = "";
 
 io.sockets.on('connection',function(socket){
 
@@ -51,7 +45,6 @@ io.sockets.on('connection',function(socket){
 	})
 
 
-
 	// ********************************************************
 	// Actions
 
@@ -67,22 +60,6 @@ io.sockets.on('connection',function(socket){
 	socket.on('fn',function(data){ 
 		socket.broadcast.emit('fn',data);
 	})
-
-
-	// socket.on('open_video_player',  function(data){ socket.broadcast.emit('open_video_player', data ) });
-	// socket.on('switch_video',       function(data){ socket.broadcast.emit('switch_video', data ) });
-	// socket.on('close_video_player', function(data){ socket.broadcast.emit('close_video_player', '' ) });
-	// socket.on('video_player',       function(data){ socket.broadcast.emit('video_player', data ) });
-
-	// socket.on('loadOverlay',  function(data){ socket.broadcast.emit('loadOverlay', data) });
-	// socket.on('closeOverlay', function(data){ socket.broadcast.emit('closeOverlay',data) });
-
-	// socket.on('loadAFXPano',  function(data){ socket.broadcast.emit('loadAFXPano', data) })
-
-	// socket.on('walkthrough',  function(data){ socket.broadcast.emit('walkthrough', data) })
-
-	// socket.on('skype',  function(data){ socket.broadcast.emit('skype', data) })
-	// socket.on('turn',   function(data){ socket.broadcast.emit('turn',  data) })
 
 	
 })
