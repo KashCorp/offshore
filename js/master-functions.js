@@ -2005,13 +2005,11 @@ function videoPlayer(group, playerFadeTransition){
 
 
 
-	// On video end ---------------------------------------------------------
+	// On video end: ---------------------------------------------------------
+  // next video or close player
 
 	$('#video-overlay').off('ended')
 	$('#video-overlay').on('ended',function(){
-
-
-		console.log($('#video-overlay')[0].currentTime)
 
 		$(items).each(function(i,v){
 
@@ -2100,7 +2098,6 @@ function videoPlayer(group, playerFadeTransition){
       }
 
     }
-
     
 
 	})
@@ -2231,10 +2228,10 @@ function switchVideo(_id,_text){
 
   // ********************************************************
   // reset DOM
+
   if(master.isIOS || master.isAndroid) {
     var iosControls = $(".video-content-wrap .movie-menu, .video-content-wrap")
     iosControls.removeClass('hide')
-    //iosControls.css('display','block')
   }
 
   $('#ghost-canvas-trans').fadeOut()
@@ -2297,8 +2294,6 @@ function switchVideo(_id,_text){
 		if(master.isAndroid) autoplay = false;
 
     if(autoplay) this.play();
-    else         this.pause();
-
 
 	}, false);
 

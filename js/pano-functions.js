@@ -656,6 +656,8 @@ var pano_master = function(){
             })
             $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
             $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
+
+            console.log( $('.movie-menu') )
         },
         error : function(request,error) {
             console.log(error)
