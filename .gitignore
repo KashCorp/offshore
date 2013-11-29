@@ -1,5 +1,4 @@
 *.DS_Store
 audio/*
-videos/*
-node/node_modules/*
+video/*
 *ARCHIVE*
