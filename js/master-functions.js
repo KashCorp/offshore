@@ -35,10 +35,13 @@
 // for the url arguments which can override these defaults
 
 var config = {
-  'useLocalResources' : true, // look for media locally instead of from the CDN
-  'extControlMaster' : false, // set extcontrol.role to 'master'
-  'extControlSlave' : false,  // set extcontrol.role to 'slave'
-  'autopilot' : false // use autopilot
+  'useLocalResources' : true, // look for media locally instead of from the CDN (?local)
+
+  'extControlMaster' : false, // set extcontrol.role to 'master' (?master)
+  'extControlSlave'  : false, // set extcontrol.role to 'slave'  (?slave)
+  'extControlUrl'    : false, // set extcontrol node server url  (?url=192.168...)
+
+  'autopilot'        : false  // use autopilot (?autopilot)
 }
 
 var krpano;

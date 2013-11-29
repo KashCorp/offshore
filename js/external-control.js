@@ -13,7 +13,7 @@
 
 var extcontrol = false;
 
-var ExtControl = function(_role, _id){
+var ExtControl = function(_role, _url){
 
 	var that = this;
 
@@ -23,8 +23,8 @@ var ExtControl = function(_role, _id){
 	var $info = $('#node-connection-info'), // on screen info text
 		infotimeout;
 
-	this.role = _role; // "master" or "slave"
-	this.id   = _id;
+	this.role 		= _role; // "master" or "slave"
+	this.server_url = _url ? _url : '192.168.1.240';
 
 	this.sync_data = { "panX" : 0, "panY" : 0, "fov" : 0 } // krpano view
 
@@ -36,7 +36,8 @@ var ExtControl = function(_role, _id){
 
 	$.getScript('js/lib/socket.io.js',function(){
 		
-		socket = io.connect('http://192.168.1.240:3700');
+		socket = io.connect('http://'+that.server_url+':3700');
+		console.log('SOCKET attempting connection to http://'+that.server_url+':3700')
 
 		// ********************************************************
 		// Setup

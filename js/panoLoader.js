@@ -83,13 +83,18 @@ var openingloader = function() {
 					if(searcharray[i] === "local")  config.useLocalResources = true;
 					if(searcharray[i] === "master") config.extControlMaster = true;
 					if(searcharray[i] === "slave")  config.extControlSlave = true;
-					if(searcharray[i] === "autopilot") config.autopilot = true; 
+					if(searcharray[i] === "autopilot") config.autopilot = true;
+
+					if(searcharray[i].substr(0,3) === "url" ) {
+						console.log('setting URL: '+searcharray[i].substr(4))
+						config.extControlUrl = searcharray[i].substr(4);
+					}
 				};
 			}	
 		}
 
-		if(config.extControlMaster)     extcontrol = new ExtControl("master");
-		else if(config.extControlSlave) extcontrol = new ExtControl("slave");
+		if(config.extControlMaster)     extcontrol = new ExtControl("master", config.extControlUrl);
+		else if(config.extControlSlave) extcontrol = new ExtControl("slave", config.extControlUrl);
 
 		if(config.autopilot) autopilot = new Autopilot();
 
