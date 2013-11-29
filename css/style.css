@@ -1454,6 +1454,40 @@ visibility:hidden;}
 
 
 
+#autopilot-warning {
+	display: none;
+	position: absolute;
+	width: 100%;
+	margin-top: 10px;
+	font-family: 'DINNextLTPro-Light', sans-serif;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	opacity: 0.5;
+}
+
+	#autopilot-warning h1 {
+		font-size: 3em;
+		margin: 0;
+	}
+
+	#autopilot-warning h2 {
+		font-size: 1.5em;
+	}
+
+#node-connection-info {
+	display: none;
+	position: absolute;
+	left: 1em;
+	bottom: 75px;
+	font-family: 'DINNextLTPro-Light', sans-serif;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+
+
 
 /**************************************************************************
 	
