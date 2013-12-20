@@ -66,7 +66,8 @@ var masterFunctions = function() {
   		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
 
-	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+  // this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+	this.isIOS = true;
 	this.isAndroid = navigator.userAgent.match(/Android/g) ? true : false;
 	this.isFireFox = navigator.userAgent.match(/Firefox/g) ? true : false;
 	this.isMSIE = navigator.userAgent.match(/MSIE/g) ? true : false;
