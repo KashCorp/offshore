@@ -125,7 +125,7 @@ var preloader = function() {
 */
 
 	var cdn = 'offshore_panos/';
-	// if(master.isIOS) cdn = 'offshore_panos/512/';
+	if(master.isIOS) cdn = 'offshore_panos/512/';
 
 	var loaderArray = []
 
