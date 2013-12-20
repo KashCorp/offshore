@@ -633,36 +633,58 @@ var pano_master = function(){
  
 
 
-    $.ajax({
-        url: 'js/videoMatrix.json',
-        success: function(data){
+    // $.ajax({
+    //     url: 'js/videoMatrix.json',
+    //     success: function(data){
 
-            console.log("MOVIE LIST LOADED")
-            // master.movieMenu = data.children
+    //         console.log("MOVIE LIST LOADED")
+    //         // master.movieMenu = data.children
 
-            // build all possible menus - videoPlayer() function picks the one it needs
-            $.each(data.children, function(group_i,group){
-                $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
+    //         // build all possible menus - videoPlayer() function picks the one it needs
+    //         $.each(data.children, function(group_i,group){
+    //             $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
 
-                $.each(group.movies,function(movie_i,movie){
-                    $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
-                })
+    //             $.each(group.movies,function(movie_i,movie){
+    //                 $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
+    //             })
 
 
-            })
+    //         })
 
-            $('.movie-menu-item').click(function(){
-                switchVideo($(this).data('file'),$(this).text())
-            })
-            $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
-            $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
+    //         $('.movie-menu-item').click(function(){
+    //             switchVideo($(this).data('file'),$(this).text())
+    //         })
+    //         $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
+    //         $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
 
-            console.log( $('.movie-menu') )
-        },
-        error : function(request,error) {
-            console.log(error)
-        }
-    });
+    //         console.log( $('.movie-menu') )
+    //     },
+    //     error : function(request,error) {
+    //         console.log(error)
+    //     }
+    // });
+
+
+    // using local file
+
+    var data = videoMatrix;
+
+    // build all possible menus - videoPlayer() function picks the one it needs
+    $.each(data.children, function(group_i,group){
+        $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
+
+        $.each(group.movies,function(movie_i,movie){
+            $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
+        })
+
+
+    })
+
+    $('.movie-menu-item').click(function(){
+        switchVideo($(this).data('file'),$(this).text())
+    })
+    $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
+    $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
 
 
 
