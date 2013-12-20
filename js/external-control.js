@@ -36,7 +36,11 @@ var ExtControl = function(_role, _id){
 
 	$.getScript('js/lib/socket.io.js',function(){
 		
-		socket = io.connect('http://192.168.1.240:3700');
+		var url = "192.168.1.240";
+		if(config.extControlUrl) url = config.extControlUrl;
+
+		console.log('http://'+url+':3700')
+		socket = io.connect('http://'+url+':3700');
 
 		// ********************************************************
 		// Setup

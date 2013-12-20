@@ -83,7 +83,8 @@ var openingloader = function() {
 					if(searcharray[i] === "local")  config.useLocalResources = true;
 					if(searcharray[i] === "master") config.extControlMaster = true;
 					if(searcharray[i] === "slave")  config.extControlSlave = true;
-					if(searcharray[i] === "autopilot") config.autopilot = true; 
+					if(searcharray[i] === "autopilot") config.autopilot = true;
+					if(searcharray[i].substr(0,3) == "url") config.extControlUrl = searcharray[i].substr(4);
 				};
 			}	
 		}

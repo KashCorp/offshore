@@ -38,6 +38,7 @@ var config = {
   'useLocalResources' : true, // look for media locally instead of from the CDN
   'extControlMaster' : false, // set extcontrol.role to 'master'
   'extControlSlave' : false,  // set extcontrol.role to 'slave'
+  'extControlUrl' : false,
   'autopilot' : false // use autopilot
 }
 
