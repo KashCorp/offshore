@@ -420,13 +420,25 @@ var Autopilot = function(){
 	var num_looks = 0, // how many times we have looked around the current pano
 		max_looks = 3; // look around this many times before moving to the next pano
 
-	var panos = [ // predefined order to how the autopilot navigates the rig
-		'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway', 
-		'sequence_passage_controlroom', 'controlroom', 'hallway',
-		'sequence_passage_chemicalroom', 'chemicalroom', 'hallway',
-		'sequence_passage_theatre', 'theatre', 'subhangar', 'theatre', 'hallway',
-		'lowerplatform', 'sequence_outside_stairs_down', 'boat', 'lowerplatform', 'platform'
+	// var panos = [ // predefined order to how the autopilot navigates the rig
+	// 	'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway', 
+	// 	'sequence_passage_controlroom', 'controlroom', 'hallway',
+	// 	'sequence_passage_chemicalroom', 'chemicalroom', 'hallway',
+	// 	'sequence_passage_theatre', 'theatre', 'subhangar', 'theatre', 'hallway',
+	// 	'lowerplatform', 'sequence_outside_stairs_down', 'boat', 'lowerplatform', 'platform'
+	// ];
+
+	// predefined order to how the autopilot navigates the rig
+	// iPad version: no sequences (the videos don't autoplay/work)
+	
+	var panos = [
+		'helicopter', 'platform', 'lowerplatform', 'hallway', 
+		'controlroom', 'hallway',
+		'chemicalroom', 'hallway',
+		'theatre', 'subhangar', 'theatre', 'hallway',
+		'lowerplatform', 'boat', 'lowerplatform', 'platform'
 	];
+
 	this.pano_index = false;
 
 	var wait_timeout; // timeout in between actions, clear to stop autopilot logic chain
