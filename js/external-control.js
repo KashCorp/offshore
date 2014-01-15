@@ -359,8 +359,7 @@ var Autopilot = function(){
 	// ********************************************************
 	// activation timer
 
-	var timeout_time = 5 * 60 * 1000; // time in minutes to wait after user input before re-activating the autopilot
-	timeout_time = 3000;
+	var timeout_time = 30 * 1000; // time to wait after user input before re-activating the autopilot
 
 	this.timeout = null;
 
