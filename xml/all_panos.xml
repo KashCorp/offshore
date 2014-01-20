@@ -221,8 +221,6 @@
 			borderwidth="0.0" borderwidthhover="1"
 			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="js(zoom_and_change_pano('helicopter','platform'))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="1.0"
 			capture="false"
 			/>
@@ -234,8 +232,6 @@
 			distorted="true"
 			onclick="js(master.loadOverlay(dossierbook.html));
 					 js(setCache(250,90))"
-			onhover="js(hoverSound())"
-			onout="js(resetHoverSound())"
 			alpha="0"
 			scale="1"
 			height="90"
@@ -314,8 +310,6 @@
 			distorted="true"
 			alpha="0"
 			onclick="js(zoom_and_change_pano('platform', 'helicopter'))"
-			onhover="js(hoverSound());"
-			onout="js(resetHoverSound());"
 			scale="1"
 			height="80"
 			width="48"
@@ -604,8 +598,6 @@
 				bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 				borderalpha="0.0" borderalphahover="0"
 				onclick="js(newPage(lowerplatform_closed.php))"
-				onhover="js(hoverSound())"
-				onout="js(resetHoverSound())"
 			>
 		    <point ath="92" atv="-10.3" />
 		    <point ath="87.8" atv="-10.5" />
@@ -723,8 +715,6 @@
 				alpha="0"
 				height="50.0"
 				onclick="js(zoom_and_change_pano('subhangar','theatre'))"
-				onhover="js(hoverSound()) "
-				onout="js(resetHoverSound());"
 				scale="3.0"
 				capture = "false"
 				/>
@@ -736,8 +726,6 @@
 				alpha="0"
 				height="50.0"
 				onclick="js(zoom_and_change_pano('subhangar','submarine'))"
-				onhover="js(hoverSound()) "
-				onout="js(resetHoverSound());"
 				scale="7.0"
 				capture = "false"
 			/>
@@ -753,8 +741,6 @@
 				height="30.0"
 				onclick="js(master.loadOverlay(skype.html));
 						 js(setCache(40,90))"
-				onhover="js(hoverSound())"
-				onout="js(resetHoverSound());"
 				scale="3.0"
 				capture = "false"
 				/>
@@ -1375,8 +1361,6 @@
 			capture="false"
 			onclick="js(master.loadOverlay(field_data.html));
 					js(setCache(get(view.hlookat),90))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
 		/>
 
 
@@ -1480,7 +1464,6 @@
 			alpha="0.0"
 			height="50.0"
 		    onclick="js(zoom_and_change_pano('hallway','sequence_passage_theatre'))"
-			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
 			/>
@@ -1493,7 +1476,6 @@
 			alpha="0"
 			height="10"
       		onclick="js(zoom_and_change_pano('hallway','sequence_passage_theatre'))"
-			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
 			/>
@@ -1535,7 +1517,6 @@
 			alpha="0.0"
 			height="120.0"
 			onclick="js(zoom_and_change_pano('hallway','lowerplatform'))"
-			onout="js(resetHoverSound());"
 			scale="5.0"
 			capture="false"
 			/>
@@ -1609,8 +1590,6 @@
 			capture="false"
 			onclick="js(master.loadOverlay('debrief.html'));
 					 js(setCache(get(view.hlookat),90))"
-			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
 			/>		
 
 
@@ -1674,8 +1653,6 @@
 			alpha="0.0"
 			height="50.0"
 			onclick="js(loadUnderWater(ROV_Skate_Farm));"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>
 
@@ -1686,8 +1663,6 @@
 			alpha="0.0"
 			height="50.0"
 			onclick="js(loadUnderWater(ROV_Wellhead_1))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>
 
@@ -1698,8 +1673,6 @@
 			alpha="0.0"
 			height="50.0"
 			onclick="js(loadUnderWater(ROV_Wellhead_2))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>	
 
@@ -1710,8 +1683,6 @@
 			alpha="0.0"
 			height="50.0"
 			onclick="js(loadUnderWater(ROV_Coral));"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="1.0"
 			/>	
 
@@ -1726,8 +1697,6 @@
 			distorted="true"
 			alpha="0.0"
 			onclick="js(zoom_and_change_pano('submarine','subhangar'))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="10.0"
 		/>
 
@@ -1823,8 +1792,6 @@
 			height="50.0"
 			onclick="js(master.loadOverlay(redbook.html));
 					 js(setCache(-160,90))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="3.0"
 			
 			capture="false"
@@ -1839,8 +1806,6 @@
 			width="150.0"
 			onclick="js(master.loadOverlay(leasemap.html));
 					 js(setCache(get(view.hlookat),90))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="3.0"
 		
 			capture="false"
@@ -1855,8 +1820,6 @@
 			alpha="0.0"
 			height="30.0"
 			onclick="js(zoom_and_change_pano('theatre','hallway'))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="3.0"
 			/>
 
@@ -1867,8 +1830,6 @@
 			alpha="0.0"
 			height="90.0"
 			onclick="js(zoom_and_change_pano('theatre','hallway'))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="3.0"
 			/>
 
@@ -1883,8 +1844,6 @@
 			height="90.0"
 			width="50.0"
 			onclick="js(zoom_and_change_pano('theatre','subhangar'))"
-			onhover="js(hoverSound()) "
-			onout="js(resetHoverSound());"
 			scale="3.0"
 			/>
 

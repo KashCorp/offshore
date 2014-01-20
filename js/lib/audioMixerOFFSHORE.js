@@ -1,10 +1,38 @@
-;(function(window, undefined){
-	var Mix, Track, debounce, on, off, trigger, solo, unsolo, log10, body,noWebAudio;
-	console.log("LOADED MIX")
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Just a reference to the body element
-	body = document.getElementsByTagName('body')[0];
+/**************************************************************************
+	
+	Audio Mixer
 
+	Contents:
+		Utility Functions
+		Mix
+		Track
+
+**************************************************************************/
+
+;(function(window, undefined){
+	
+	console.log("LOADED MIX")
+
+	var Mix, 
+		Track, 
+		debounce,
+		on,
+		off,
+		trigger,
+		solo,
+		unsolo,
+		log10,
+		body = document.getElementsByTagName('body')[0],
+		noWebAudio = !Modernizr.webaudio,
+		isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+
+		console.log('noWebAudio: '+'\t'+noWebAudio)
+
+	/**************************************************************************
+		
+		Utility Functions
+	
+	**************************************************************************/
 
 	debounce = function(func, wait) {
 	    var timeout;
@@ -42,40 +70,41 @@
 			if ( typeof this.events[type][i] == 'function' ) 
 				this.events[type][i].apply(this, args);
 	};
+	
+
+
+
+
+
+	/**************************************************************************
 		
+		Mix
+	
+	**************************************************************************/
+	
 	
 	Mix = function(opts){
 
-	  this.tracks = [];
-	  this.gain =  1;
-	  this.events = {};
-	  this.lookup = {};
+		this.tracks = [];
+		this.gain =  1;
+		this.events = {};
+		this.lookup = {};
 
-	  var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+		if(!noWebAudio) {
+			console.log('[MODERNIZR] Web Audio Supported')
+			if ( typeof AudioContext === 'function' ) 
+				this.context = new AudioContext();
+			else 
+				this.context = new webkitAudioContext();
+		} else {
+			console.log('[MODERNIZR] Web Audio NOT SUPPORTED')
+		}
 
-	  if(Modernizr.webaudio === true) {
-	  	console.log('[MODERNIZR] Web Audio Supported')
-	  	if ( typeof AudioContext === 'function' ) 
-	  		this.context = new AudioContext();
-	  	else 
-	  		this.context = new webkitAudioContext();
-	  } else {
-	  	noWebAudio = true;
-	  	console.log('[MODERNIZR] Web Audio NOT SUPPORTED')
-	  }
-
-
-
-		
-		
-							
 	}
 	
 	Mix.prototype.initMix = function(startTime){
-		
 
-
-	  this.startTime = startTime;
+	  	this.startTime = startTime;
 		var defaults = {};	
 
 		this.on('load', function(){
@@ -91,22 +120,11 @@
 	
 	Mix.prototype.createTrack = function(name, opts){
 
-		//if(Modernizr.webaudio === true) {
-
-			//console.log('[MODERNIZR] Creating web audio track')
-
-			//if ( !name || this.lookup[name] ) return;
-			var track = new Track(name, opts, this);
-			
-			this.tracks.push( track );
-			this.lookup[name] = track;
-			return track;
-		//} else {
-			//console.log('[MODERNIZR] no web audio, NOT creatin track')
-
-			//return false;
-		//}
+		var track = new Track(name, opts, this);
 		
+		this.tracks.push( track );
+		this.lookup[name] = track;
+		return track;
 		
 	};
 
@@ -191,7 +209,18 @@
 
 	};
 
-/////////////TRACKZ
+
+
+
+
+
+
+
+	/**************************************************************************
+		
+		Track
+	
+	**************************************************************************/
 
 	Track = function(name, opts, mix){
 
@@ -208,12 +237,10 @@
 		this.set('start', this.options.start);		
 
 		var self = this,
-			defaults = {
-				gain:  0,
-				pan:   0,
-				start: 0
-			};
-///AudioContext NOT supported use HTML5
+			defaults = { gain:  0, pan:   0, start: 0 };
+
+		// ********************************************************
+		// AudioContext NOT supported -> use HTML5
 
 		if(noWebAudio){
 
@@ -226,9 +253,8 @@
 			return
 		}
 		
-
- ///AudioContex supported use webaudio   
-
+		// ********************************************************
+ 		// AudioContext supported -> use webaudio   
 
 		if(typeof this.get('mix').context.createGainNode === 'function'){
 
@@ -253,32 +279,32 @@
   }
 
 
-  Track.prototype.loadDOM = function( source ){
 
-	var self = this
+  	// ********************************************************
+  	// Track Loading:
+  	// 1. Dom
+  	// 2. Buffer
 
-	self.set('element', document.createElement('audio'));
+ 	Track.prototype.loadDOM = function( source ){
 
-	self.get('element').src = source;
+		var self = this
 
-	self.get('element').load();
+		self.set('element', document.createElement('audio'));
+		self.get('element').src = source;
+		self.get('element').load();
 
-	console.log(source)
+		console.log(source)
 
+		// Loading Progress
+		self.get('element').addEventListener('canplaythrough', function (e) {
 
-	// Loading Progress
+			console.log("LOADED : " + source)
+			self.ready = true;
+			self.get('mix').trigger('load', self);
 
-	self.get('element').addEventListener('canplaythrough', function (e) {
+		})
 
-
-		console.log("LOADED : " + source)
-		self.ready = true;
-		self.get('mix').trigger('load', self);
-
-	})
-
-
-}
+	}
 
 
 
@@ -297,9 +323,7 @@
 
         	var audioData = request.response;
 
-
  			if(typeof self.get('mix').context.createGainNode !== 'function') {
-
 
 				self.get('mix').context.decodeAudioData(audioData, function onSuccess(decodedBuffer) {
 				    
@@ -317,13 +341,11 @@
 					self.ready = true;
 					self.get('mix').trigger('load', self);
 
-					// console.log("loading")
-
 				}, function onFailure() {
 				    console.log("Buggah!");
 				});
 
- 			} else{
+ 			} else {
 
 				self.set('source', self.get('mix').context.createBufferSource());
 				self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
@@ -344,17 +366,14 @@
         };
 
         request.send();
-		
-
 	   
 	};
 
 
 
-	
-	Track.prototype.play = function(){
+	// ********************************************************
 
-		
+	Track.prototype.play = function(){
 	
 		if ( !this.ready ){
 			
@@ -379,15 +398,10 @@
 	
 		this.options.playing = true;
 
-		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
-
 		if(noWebAudio) {
 			this.options.element.play()
 			return
 		}
-
-//console.log(navigator.userAgent)
-
 
 		if(isIOS){
 
@@ -408,6 +422,8 @@
 		/**/
 	};
 
+
+	// ********************************************************
 
 	Track.prototype.pause = function(){
 
@@ -504,8 +520,13 @@ Track.prototype.on = function(){
 	// Return a reference to the Track instance's parent Mix (no setter)
 	Track.prototype.mix = function(){
 		return this.get('mix');
-	} 
+	}
+
+
+
+
+
 	
-	window.Mix = Mix;
+	window.Mix = Mix; // install Mix object in global scope
 	
 }(window));

@@ -371,6 +371,7 @@ var Autopilot = function(){
 	}
 
 	$(window).on('mousemove.autopilot',   that.reset_timeout);
+	$(window).on('touchstart',			  that.reset_timeout);
 	$('video').on('timeupdate.autopilot', that.reset_timeout);
 
 	function rand(low, high){

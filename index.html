@@ -56,18 +56,15 @@
 
     var audioMaster = function() {
 
-      this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
-
       var thisMixer = this;
       var mix = new Mix();
+
       return {
         mix: mix,
         sources:[],
         loadAudio : function(_src,_name,gain,pan,nolooping,_start){
-          // if(!_start) _start = 0
-          //   var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan, nolooping:nolooping, start:_start});
-          //   console.log(track)
-
+          if(!_start) _start = 0
+          var track = this.mix.createTrack(_name, {source: _src, gain:gain, pan:pan, nolooping:nolooping, start:_start});
         }
 
       }
@@ -78,12 +75,12 @@
 
     var audioType1 = '.m4a'
 
-    var au1 = document.createElement('audio');
+    // // don't need to test for audio type, this is an iOS-only build
+    // var au1 = document.createElement('audio');
 
-
-    if(au1.canPlayType && au1.canPlayType('audio/x-m4a').replace(/no/, '')) {
-      audioType1 = '.m4a';
-    }
+    // if(au1.canPlayType && au1.canPlayType('audio/x-m4a').replace(/no/, '')) {
+    //   audioType1 = '.m4a';
+    // }
     
     audiomaster.loadAudio('audio/Drone_1_norm' + audioType1,'basetrack',1,0)
 
