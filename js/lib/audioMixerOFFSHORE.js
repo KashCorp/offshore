@@ -417,11 +417,12 @@
 		}
 
 		this.options.playing = false;
-		if(typeof this.options.source.noteOff === 'function')	
-		this.options.source.noteOff(0);
+		
+		// if(typeof this.options.source.noteOff === 'function')	
+		// this.options.source.noteOff(0);
 
-		if(typeof this.options.source.stop === 'function')	
-		this.options.source.stop(0);
+		// if(typeof this.options.source.stop === 'function')	
+		// this.options.source.stop(0);
 
 		this.trigger('pause');
 	};
