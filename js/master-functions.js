@@ -1517,6 +1517,9 @@ var zoom_and_change_pano = function( from, to) {
   else if(from === 'lowerplatform' && to === 'sequence_shaftway')
     krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))");
 
+  else if(from === 'lowerplatform' && to === 'hallway')
+    krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(hallway)))");
+
   else if(from === 'lowerplatform' && to === 'platform')
     krpano.call("lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))");
 
@@ -1555,11 +1558,20 @@ var zoom_and_change_pano = function( from, to) {
   else if(from === 'hallway' && to === 'sequence_passage_chemicalroom')
     krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)");
 
+  else if(from === 'hallway' && to === 'chemicalroom')
+    krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(chemicalroom)));)");
+
   else if(from === 'hallway' && to === 'sequence_passage_theatre')
     krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)");
 
+  else if(from === 'hallway' && to === 'theatre')
+    krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(theatre)));)");
+
   else if(from === 'hallway' && to === 'sequence_passage_controlroom')
     krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)");
+
+  else if(from === 'hallway' && to === 'controlroom')
+    krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)");
 
   else if(from === 'hallway' && to === 'lowerplatform')
     krpano.call("lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
