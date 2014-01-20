@@ -13,7 +13,7 @@
 
 var extcontrol = false;
 
-var ExtControl = function(_role, _url){
+var ExtControl = function(_role, _id){
 
 	var that = this;
 
@@ -23,8 +23,8 @@ var ExtControl = function(_role, _url){
 	var $info = $('#node-connection-info'), // on screen info text
 		infotimeout;
 
-	this.role 		= _role; // "master" or "slave"
-	this.server_url = _url ? _url : '192.168.1.240';
+	this.role = _role; // "master" or "slave"
+	this.id   = _id;
 
 	this.sync_data = { "panX" : 0, "panY" : 0, "fov" : 0 } // krpano view
 
@@ -36,8 +36,11 @@ var ExtControl = function(_role, _url){
 
 	$.getScript('js/lib/socket.io.js',function(){
 		
-		socket = io.connect('http://'+that.server_url+':3700');
-		console.log('SOCKET attempting connection to http://'+that.server_url+':3700')
+		var url = "192.168.1.240";
+		if(config.extControlUrl) url = config.extControlUrl;
+
+		console.log('http://'+url+':3700')
+		socket = io.connect('http://'+url+':3700');
 
 		// ********************************************************
 		// Setup
@@ -356,7 +359,7 @@ var Autopilot = function(){
 	// ********************************************************
 	// activation timer
 
-	var timeout_time = 30 * 1000; // time in minutes to wait after user input before re-activating the autopilot
+	var timeout_time = 30 * 1000; // time to wait after user input before re-activating the autopilot
 
 	this.timeout = null;
 
@@ -368,6 +371,7 @@ var Autopilot = function(){
 	}
 
 	$(window).on('mousemove.autopilot',   that.reset_timeout);
+	$(window).on('touchstart',			  that.reset_timeout);
 	$('video').on('timeupdate.autopilot', that.reset_timeout);
 
 	function rand(low, high){
@@ -416,13 +420,25 @@ var Autopilot = function(){
 	var num_looks = 0, // how many times we have looked around the current pano
 		max_looks = 3; // look around this many times before moving to the next pano
 
-	var panos = [ // predefined order to how the autopilot navigates the rig
-		'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway', 
-		'sequence_passage_controlroom', 'controlroom', 'hallway',
-		'sequence_passage_chemicalroom', 'chemicalroom', 'hallway',
-		'sequence_passage_theatre', 'theatre', 'subhangar', 'theatre', 'hallway',
-		'lowerplatform', 'sequence_outside_stairs_down', 'boat', 'lowerplatform', 'platform'
+	// var panos = [ // predefined order to how the autopilot navigates the rig
+	// 	'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway', 
+	// 	'sequence_passage_controlroom', 'controlroom', 'hallway',
+	// 	'sequence_passage_chemicalroom', 'chemicalroom', 'hallway',
+	// 	'sequence_passage_theatre', 'theatre', 'subhangar', 'theatre', 'hallway',
+	// 	'lowerplatform', 'sequence_outside_stairs_down', 'boat', 'lowerplatform', 'platform'
+	// ];
+
+	// predefined order to how the autopilot navigates the rig
+	// iPad version: no sequences (the videos don't autoplay/work)
+	
+	var panos = [
+		'helicopter', 'platform', 'lowerplatform', 'hallway', 
+		'controlroom', 'hallway',
+		'chemicalroom', 'hallway',
+		'theatre', 'subhangar', 'theatre', 'hallway',
+		'lowerplatform', 'boat', 'lowerplatform', 'platform'
 	];
+
 	this.pano_index = false;
 
 	var wait_timeout; // timeout in between actions, clear to stop autopilot logic chain
