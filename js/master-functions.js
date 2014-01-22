@@ -531,7 +531,12 @@ var masterFunctions = function() {
 
 		$('#overlay_frame').fadeOut(500,function(){
 
-      if(extcontrol) if(extcontrol.role === 'master') {
+      if(extcontrol) {
+        if(extcontrol.role === 'master') {
+          krpano = document.getElementById("krpanoObject");
+          krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+        }
+      } else {
         krpano = document.getElementById("krpanoObject");
         krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
       }
@@ -2393,7 +2398,12 @@ function closeVideoPlayer(){
 	$videocontentwrap.removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
-  if(extcontrol) if(extcontrol.role === 'master') {
+  if(extcontrol) {
+    if(extcontrol.role === 'master') {
+      krpano = document.getElementById("krpanoObject");
+      krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+    }
+  } else {
     krpano = document.getElementById("krpanoObject");
     krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
   }
