@@ -531,9 +531,11 @@ var masterFunctions = function() {
 
 		$('#overlay_frame').fadeOut(500,function(){
 
-			krpano = document.getElementById("krpanoObject");
-			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
-
+      if(extcontrol) if(extcontrol.role === 'master') {
+        krpano = document.getElementById("krpanoObject");
+        krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+      }
+      
 			$panocontainer.removeClass('hide') 
 
 			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
@@ -2391,8 +2393,10 @@ function closeVideoPlayer(){
 	$videocontentwrap.removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
-	krpano = document.getElementById("krpanoObject");
-	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+  if(extcontrol) if(extcontrol.role === 'master') {
+    krpano = document.getElementById("krpanoObject");
+    krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+  }
 
 	setTimeout(function() {
 		master.overlayOpen = false;
