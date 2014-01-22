@@ -2060,27 +2060,30 @@ function videoPlayer(group, playerFadeTransition){
 
       // ********************************************************
       // html5 video event hooks
+      $(video)
+        .off('play')
+        .on('play',function(){
+          console.log('play')
+          if(extcontrol) if(extcontrol.role === 'master') {
+            extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'play', 'time':video.currentTime })
+          }
+        })
 
-      video.addEventListener('play',function(){
-        console.log('play')
-        if(extcontrol) if(extcontrol.role === 'master') {
-          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'play', 'time':video.currentTime })
-        }
-      })
+        .off('pause')
+        .on('pause',function(){
+          console.log('pause')
+          if(extcontrol) if(extcontrol.role === 'master') {
+            extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'pause' })
+          }
+        })
 
-      video.addEventListener('pause',function(){
-        console.log('pause')
-        if(extcontrol) if(extcontrol.role === 'master') {
-          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'pause' })
-        }
-      })
-
-      video.addEventListener('seeked',function(){
-        console.log('seeked')
-        if(extcontrol) if(extcontrol.role === 'master') {
-          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstop', 'time':video.currentTime })
-        }
-      })
+        .off('seeked')
+        .on('seeked',function(){
+          console.log('seeked')
+          if(extcontrol) if(extcontrol.role === 'master') {
+            extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstop', 'time':video.currentTime })
+          }
+        })
 
     } else {
 
