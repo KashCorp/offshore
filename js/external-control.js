@@ -367,7 +367,9 @@ var Autopilot = function(){
 		that.deactivate();
 
 		if(that.timeout) clearTimeout(that.timeout);
-		that.timeout = setTimeout(that.activate, timeout_time);		
+
+		if(!master.overlayOpen) // don't go to autopilot when we're in a book
+			that.timeout = setTimeout(that.activate, timeout_time);		
 	}
 
 	$(window).on('mousemove.autopilot',   that.reset_timeout);

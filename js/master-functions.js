@@ -1194,6 +1194,8 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
   this.scrollFunction = function(){
 
+    if(video.readyState < 3) return;
+
   	// sanity check
 		if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
