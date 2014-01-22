@@ -2024,24 +2024,25 @@ function videoPlayer(group, playerFadeTransition){
 	// On video end: ---------------------------------------------------------
   // next video or close player
 
-	$('#video-overlay').off('ended')
-	$('#video-overlay').on('ended',function(){
+	$('#video-overlay')
+    .off('ended')
+  	.on('ended',function(){
 
-		$(items).each(function(i,v){
+  		$(items).each(function(i,v){
 
-			if($(v).hasClass('active')) {
+  			if($(v).hasClass('active')) {
 
-				if( $(v).next().length > 0 && $(v).next().data('file') )
-					switchVideo( $(v).next().data('file'),$(v).next().text() )
-				else
-					closeVideoPlayer()
-					
-				return false;
-			}
+  				if( $(v).next().length > 0 && $(v).next().data('file') )
+  					switchVideo( $(v).next().data('file'),$(v).next().text() )
+  				else
+  					closeVideoPlayer()
+  					
+  				return false;
+  			}
 
-		})
+  		})
 
-	})
+  	})
 
 	// Video Controls ---------------------------------------------------------
 
@@ -2058,27 +2059,30 @@ function videoPlayer(group, playerFadeTransition){
 
       // ********************************************************
       // html5 video event hooks
+      $(video)
+        .off('play')
+        .on('play',function(){
+          console.log('play')
+          if(extcontrol) if(extcontrol.role === 'master') {
+            extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'play', 'time':video.currentTime })
+          }
+        })
 
-      video.addEventListener('play',function(){
-        console.log('play')
-        if(extcontrol) if(extcontrol.role === 'master') {
-          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'play', 'time':video.currentTime })
-        }
-      })
+        .off('pause')
+        .on('pause',function(){
+          console.log('pause')
+          if(extcontrol) if(extcontrol.role === 'master') {
+            extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'pause' })
+          }
+        })
 
-      video.addEventListener('pause',function(){
-        console.log('pause')
-        if(extcontrol) if(extcontrol.role === 'master') {
-          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'pause' })
-        }
-      })
-
-      video.addEventListener('seeked',function(){
-        console.log('seeked')
-        if(extcontrol) if(extcontrol.role === 'master') {
-          extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstop', 'time':video.currentTime })
-        }
-      })
+        .off('seeked')
+        .on('seeked',function(){
+          console.log('seeked')
+          if(extcontrol) if(extcontrol.role === 'master') {
+            extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstop', 'time':video.currentTime })
+          }
+        })
 
     } else {
 
