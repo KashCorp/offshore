@@ -1313,7 +1313,7 @@
 			url="plugins/videoplayer.swf"
 			alturl="plugins/videoplayer_offshore_01.js"
 			volume="0.00001"
-			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/CONTROL-Nymex.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/CONTROL-Nymex.webm"
+			videourl="../videos/CONTROL-Nymex.webm"
 			ath="247.05" 
 			atv="-3.2"
 			distorted="true"

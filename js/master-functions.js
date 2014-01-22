@@ -526,14 +526,14 @@ var masterFunctions = function() {
       extcontrol.fn({ 'fn':'closeOverlay', '_URL':_URL });
     }
 
-		//$('#overlay_frame').removeClass('show')
-
 		$compass.fadeIn(500)
 
 		$('#overlay_frame').fadeOut(500,function(){
 
-			krpano = document.getElementById("krpanoObject");
-			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+      if(extcontrol) if(extcontrol.role === 'master') {
+  			krpano = document.getElementById("krpanoObject");
+  			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+      }
 
 			$panocontainer.removeClass('hide') 
 
@@ -2392,8 +2392,10 @@ function closeVideoPlayer(){
 	$videocontentwrap.removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
-	krpano = document.getElementById("krpanoObject");
-	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+  if(extcontrol) if(extcontrol.role === 'master') {
+    krpano = document.getElementById("krpanoObject");
+    krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+  }
 
 	setTimeout(function() {
 		master.overlayOpen = false;

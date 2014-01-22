@@ -12,6 +12,8 @@ var io = require('socket.io').listen(3700);
 var master,
 	currentPano = "";
 
+io.set('log level',1);
+
 io.sockets.on('connection',function(socket){
 
 	socket.on('message',function(data){
@@ -58,6 +60,7 @@ io.sockets.on('connection',function(socket){
 	});
 
 	socket.on('fn',function(data){ 
+		console.log(data)
 		socket.broadcast.emit('fn',data);
 	})
 
