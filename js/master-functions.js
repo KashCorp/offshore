@@ -1031,19 +1031,20 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
   	console.log('[X] Close Walkthrough')
 
-  	if(!master.overlayOpen) {
-		$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
-		$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-	        that.percent = 0
+  	if(!master.overlayOpen) {
+  		$('#panocontainer, .fastpan, .compass').removeClass('hide')
+
+  		$('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
+        that.percent = 0
   			that.scrollFunction()
   			scrollerPos = 0;
-  		    $( ".scroll-directions" ).css('top',0)
+		    $( ".scroll-directions" ).css('top',0)
 	    })
   	} else {
-        that.percent = 0
-		that.scrollFunction()
-		scrollerPos = 0;
+      that.percent = 0
+  		that.scrollFunction()
+  		scrollerPos = 0;
 	    $( ".scroll-directions" ).css('top',0)
   	}
 
@@ -1194,6 +1195,8 @@ var Walkthrough = function(canvasID, name, videoLength) {
 	/* ***** Scroll Function ***** */
 
   this.scrollFunction = function(){
+
+    if(video.readyState < 3) return;
 
   	// sanity check
 		if(that.percent <= 0) that.percent = 0.01
