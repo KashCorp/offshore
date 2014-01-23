@@ -1800,7 +1800,7 @@ var soundadjust = function(coord,fov) {
 	  master.ghostBuster = true
 	}
 
-
+  $compass.removeClass('hide')
 	/* sequences */
 	if(master.globalPano === 'chemicalroom' || master.globalPano === 'subhangar' ) {
 		// fade in walkthrough	  

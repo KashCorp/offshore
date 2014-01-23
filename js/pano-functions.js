@@ -149,8 +149,9 @@ var pano_master = function(){
 
     $(parent).bind('hashchange', function(){
 
-        console.log('\\\ hash change ///')
         var hash = parent.location.hash.slice(1);
+
+        console.log('\\\ hash change /// '+hash)
 
         if(extcontrol) if(extcontrol.role === 'master') {
           extcontrol.hashChange({ "hash": hash });
@@ -408,32 +409,27 @@ var pano_master = function(){
                 break;
 
             case "submarine" :
+                $panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload autoplay></video>')
                 setTimeout(function(){
-                    $panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload autoplay></video>')
-                    $('#video-underwater').css({
-                        width:  master.globals.cover.w,
-                        height: master.globals.cover.h,
-                        left:   master.globals.cover.l,
-                        top:    master.globals.cover.t
-                    })
+                    $compass.removeClass('hide')
                 },1000)
-                overLayFile = 'Submersible' + master.audioType
-                underlayMute=true             
+                overLayFile  =  'Submersible' + master.audioType
+                underlayMute = true             
                 that.video_underlay = true;
                 break;
 
             case "theater" : 
                 that.visited.theatre = true;
 
-                overLayFile = 'Fluorescencent_Tone' + master.audioType
-                underlayFile = 'Drone_1_norm' + master.audioType
+                overLayFile = 'Drone_1_norm' + master.audioType
+                underlayFile = 'Fluorescencent_Tone' + master.audioType
                 break; 
 
             case "theatre" : 
                 that.visited.theatre = true;
 
-                overLayFile = 'Fluorescencent_Tone' + master.audioType
-                underlayFile = 'Drone_1_norm' + master.audioType
+                overLayFile = 'Drone_1_norm' + master.audioType
+                underlayFile = 'Fluorescencent_Tone' + master.audioType
                 break; 
 
             case "chemicalroom" :
@@ -468,6 +464,7 @@ var pano_master = function(){
 
         $(window).off('resize.underlay')
 
+        console.log('that.video_underlay: '+'\t'+that.video_underlay)
         if(that.video_underlay) {
 
             $('.video-underlay').css({
