@@ -359,7 +359,7 @@ var Autopilot = function(){
 	// ********************************************************
 	// activation timer
 
-	var timeout_time = 30 * 1000; // time to wait after user input before re-activating the autopilot
+	var timeout_time = 5 * 1000; // time to wait after user input before re-activating the autopilot
 
 	this.timeout = null;
 
@@ -368,8 +368,12 @@ var Autopilot = function(){
 
 		if(that.timeout) clearTimeout(that.timeout);
 
-		if(!master.overlayOpen) // don't go to autopilot when we're in a book
-			that.timeout = setTimeout(that.activate, timeout_time);		
+		if(master) {
+			if(master.overlayOpen) return; // don't go to autopilot when we're in a book
+		}
+
+		that.timeout = setTimeout(that.activate, timeout_time);
+
 	}
 
 	$(window).on('mousemove.autopilot',   that.reset_timeout);

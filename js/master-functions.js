@@ -66,8 +66,9 @@ var masterFunctions = function() {
   		audioType = ".ogg",
   		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
+  this.overlayOpen = false // stops map icon, fastpan, etc from re-appearing when it shouldn't
 
-  // this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
+  this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
 	this.isIOS = true;
 	this.isAndroid = navigator.userAgent.match(/Android/g) ? true : false;
 	this.isFireFox = navigator.userAgent.match(/Firefox/g) ? true : false;
@@ -106,7 +107,6 @@ var masterFunctions = function() {
   }
 
   this.mute = false
-	that.overlayOpen = false // stops map icon, fastpan, etc from re-appearing when it shouldn't
 
   // CDN URLs
   this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
@@ -128,7 +128,19 @@ var masterFunctions = function() {
   isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
   this.isRetina = isRetinaFunction()
    
-  $compass.click(function() {
+  $compass.on('click',function() {
+    
+    if($(this).is(':hidden')) return;
+    if(master.overlayOpen) return;
+
+    console.log('compass click')
+    if(krpano) {
+      setCache( krpano.get('view.hlookat'), krpano.get('view.fov') );
+    } else {
+      krpano = document.getElementById("krpanoObject")
+      setCache( krpano.get('view.hlookat'), krpano.get('view.fov') );
+    }
+    
    	$compass.fadeOut(500)
   	that.loadOverlay('rigmap.html')
   });
@@ -209,14 +221,17 @@ var masterFunctions = function() {
 
     	console.log('[MODERNIZR] Touch detected, enabling touch events')
 
-    	document.addEventListener('touchstart', function(e) {
+      $(document).on('touchstart.intro',function(e){
         e.preventDefault();
+        parent.audiomaster.mix.play();
 
-    		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                              
-                parent.audiomaster.mix.tracks[i].play()                                    
-            }    
-    	    $('.pan-directions').fadeOut(500)
-    	}, false);	
+        // for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                              
+      //     parent.audiomaster.mix.tracks[i].play()                                    
+      //   }
+        $('.pan-directions').fadeOut(500)
+
+        $(document).off('touchstart.intro')
+      })
 
 
     	$(document).bind('touchend', function(e) {
@@ -494,7 +509,7 @@ var masterFunctions = function() {
 
 		if(pano.video_underlay) $('.video-underlay').fadeOut(500)
 
-
+    if(master.isIOS) parent.audiomaster.mix.pause();
 
 		$('#overlay_frame').attr('src', 'overlay/' + overlayURL)
 		$(".loading").show();
@@ -525,22 +540,18 @@ var masterFunctions = function() {
       extcontrol.fn({ 'fn':'closeOverlay', '_URL':_URL });
     }
 
-		//$('#overlay_frame').removeClass('show')
-
 		$compass.fadeIn(500)
 
 		$('#overlay_frame').fadeOut(500,function(){
 
-      if(extcontrol) {
-        if(extcontrol.role === 'master') {
-          krpano = document.getElementById("krpanoObject");
-          krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
-        }
-      } else {
+      if(!config.extControlSlave) {
+        console.log('looktocached('+cachedAuth+','+cachedFov+')');
         krpano = document.getElementById("krpanoObject");
         krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
       }
-      
+
+      if(master.isIOS) parent.audiomaster.mix.play();
+
 			$panocontainer.removeClass('hide') 
 
 			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
@@ -579,19 +590,21 @@ var masterFunctions = function() {
 	**************************************************************************/
 
 	// Audio Functionality
+
 	$('.volume-toggle').click(function(){
 
-		 master.soundTrigger = true
+    master.soundTrigger = true
 
 		var isMuted = getCookie('muted')
 		console.log('click -> isMuted: '+isMuted)
-		if (isMuted){
+
+		if(isMuted){
 			$('.volume-toggle').html('<i class="icon-volume-up"></i>')
 			delete_cookie('muted')	
 			$('video').each(function(i,v){
-			$(v).prop('muted', false)
+  			$(v).prop('muted', false)
 			})
-		}else{
+		} else {
 			$('.volume-toggle').html('<i class="icon-volume-off"></i>')
 			setCookie('muted',true)
 			$('video').each(function(i,v){
@@ -1053,8 +1066,10 @@ var Walkthrough = function(canvasID, name, videoLength) {
 	    $( ".scroll-directions" ).css('top',0)
   	}
 
-  	krpano = document.getElementById("krpanoObject");
-  	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+    if(!config.extControlSlave) {
+      krpano = document.getElementById("krpanoObject");
+      krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")  
+    }
 
   }
 
@@ -1649,35 +1664,47 @@ var startDrilling = function(stopping){
 // Zoom in/out
 
 function zoomOut() {
-    master.overlayOpen = false
+  console.log('zoomOut')
 
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.fn({ 'fn': 'zoomOut' })
     }
 
+    $("#zoom-out").fadeOut(function(){
 
-    $('.fastpan, .compass').fadeIn()
-    $("#zoom-out").fadeOut()
+      master.overlayOpen = false
+      $('.fastpan').fadeIn()
+      $compass.removeClass('hide').fadeIn()
 
-    if(!krpano) krpano = document.getElementById("krpanoObject");
-    krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
-    krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
-    krpano.call('set(autorotate.enabled,true)')
-    $("#zoom-out").off('click')
-    $('#zoom-out').remove()
+      $("#zoom-out").off('click')
+      $('#zoom-out').remove()
+    })
+
+    if(master.isIOS) parent.audiomaster.mix.play();
+
+    if(!config.extControlSlave) {
+      if(!krpano) krpano = document.getElementById("krpanoObject");
+      krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+    }
+    
 }
 
 function zoomIn() {
   console.log('ZOOM IN')
   master.overlayOpen = true
-  $('.fastpan, .compass').fadeOut()
+  $('fastpan').fadeOut();
 
-  // create
-  $('#zoom-out').remove()
-  $panocontainer.after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
-  $("#zoom-out").removeClass('hide')
+  $compass.fadeOut(function(){
+    $compass.addClass('hide')
+    
+    // $compass.remove();    
+    // create
+    $('#zoom-out').remove()
+    $panocontainer.after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
+    $("#zoom-out").removeClass('hide')
 
-  $("#zoom-out").on('click',zoomOut);
+    $("#zoom-out").on('click',zoomOut);  
+  })
 }
 
 
@@ -1685,14 +1712,19 @@ function zoomIn() {
 var loadUnderWater = function(_id){
   console.log('loadUnderWater() '+_id)
 
-  if(extcontrol) if(extcontrol.role === 'master') {
+  if(config.extControlMaster) {
     extcontrol.fn({ 'fn': 'loadUnderWater', '_id': _id })
   }
 
-  if(!krpano) krpano = document.getElementById("krpanoObject");
-  krpano.call("lookTo(90,0,50,smooth(),true,true)");
+  if(!config.extControlSlave) {
+    if(!krpano) krpano = document.getElementById("krpanoObject");
+    krpano.call("lookTo(90,0,50,smooth(),true,true)");
+  }
+  
   zoomIn();
   setCache(270,90);
+
+  if(master.isIOS) parent.audiomaster.mix.pause();
 
   $("#video-underwater").addClass('hide')
 

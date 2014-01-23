@@ -409,7 +409,7 @@ var pano_master = function(){
 
             case "submarine" :
                 setTimeout(function(){
-                    $panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+                    $panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload autoplay></video>')
                 },1000)
                 overLayFile = 'Submersible' + master.audioType
                 underlayMute=true             
@@ -702,101 +702,125 @@ var pano_master = function(){
     ***************************************************************************
     **************************************************************************/
     
-    this.loadSceneAudio = function(_pano)    {
+    this.loadSceneAudio = function(_pano) {
 
-        var multix = 1
+        console.log('+++++ loadSceneAudio +++++')
 
-        if(Modernizr.webaudio) {
-            if(!navigator.userAgent.match(/(Safari)/g) ? true : false) multix = .3
-        }
+        // +++++ html5 version +++++
+        // iOS html5 audio volume control doesn't work, so we just pause
 
-        var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
-        var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
-
-
-        if( underlayFile){
-
-            var dummysound = { fadeFrom:    1, fadeTo: 0.0001};
-
-            parent.audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
-
-            var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
-                .onUpdate( function() {
-                    if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
-                    parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
-                })
-                .easing(TWEEN.Easing.Quadratic.Out )
-                .onComplete(function() {
-
-                    parent.audiomaster.mix.removeTrack('basetrack')
-
-                    var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
-
-                    renameThis['name'] = 'basetrack';
-
-                    parent.audiomaster.mix.lookup['basetrack'] = renameThis
-
-
-                })
-                .start(); 
-
-        } else{
-            if(underlayMuted){
-             var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
-                .onUpdate( function() {
-                 parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
-                 })
-                 .easing(TWEEN.Easing.Quadratic.Out )
-                 .start()             
-            }
-        }
-
-        if(underlayMute) {
-            var dummysound;
-            
-            if(overlayTrack) {
-                if(that.noWebAudio) dummysound = { decayFrom: overlayTrack.options.element.volume};
-                else                dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};    
-            }                
-            
-
-            var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
-                .onUpdate( function() {
-                    master.isTweeningAudio = true
-                    underlayTrack.gain(this.decayFrom)
-                })
-                .easing(TWEEN.Easing.Quadratic.Out )
-                .start(); 
+        parent.audiomaster.mix.pause(); // pause all
+        parent.audiomaster.mix.clear()
         
-            underlayMuted = true
-
-
-        } 
-
-
-        if( overlayTrack){
-
-            if(that.noWebAudio) var dummysound = { decayFrom: overlayTrack.options.element.volume};
-            else                var dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
-
-            var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
-                .onUpdate( function() {
-                    master.isTweeningAudio = true
-                    overlayTrack.gain(this.decayFrom)
-                })
-                .easing(TWEEN.Easing.Quadratic.Out )
-                .onComplete(function() {
-                    parent.audiomaster.mix.removeTrack('overlay_01') 
-
-                    if(overLayFile){
-                       setTimeout(function(){master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix)},1000)
-                    }
-                })
-                .start(); 
-
-        } else {
-            if(overLayFile) master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix);
+        if(underlayFile) {
+            console.log('<P> loading underlay file '+underlayFile)
+            parent.audiomaster.loadAudio( master.audio_path+underlayFile, 'basetrack', 0,0,0,0)
         }
+
+        if(overLayFile) {
+            console.log('<P> loading overlay file '+overLayFile)
+            parent.audiomaster.loadAudio( master.audio_path+overLayFile, 'overlay_01', 0,0,0,0)
+        }
+
+        // +++++ end html version +++++
+
+        // var multix = 1
+
+        // if(Modernizr.webaudio) {
+        //     if(!navigator.userAgent.match(/(Safari)/g) ? true : false) multix = .3
+        // }
+
+        // var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
+        // var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
+
+
+        // if( underlayFile){
+
+        //     var dummysound = { fadeFrom:    1, fadeTo: 0.0001};
+
+        //     parent.audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
+
+        //     var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
+        //         .onUpdate( function() {
+        //             if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+        //             parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
+        //         })
+        //         .easing(TWEEN.Easing.Quadratic.Out )
+        //         .onComplete(function() {
+
+        //             console.log('<P> tween complete remove basetrack')
+        //             parent.audiomaster.mix.removeTrack('basetrack')
+
+        //             var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
+
+        //             renameThis['name'] = 'basetrack';
+
+        //             parent.audiomaster.mix.lookup['basetrack'] = renameThis
+
+        //             console.log('<P> BASETRACK:')
+        //             console.log(parent.audiomaster.mix.lookup['basetrack'])
+
+        //         })
+        //         .start(); 
+
+        // } else{
+        //     if(underlayMuted){
+        //      var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
+        //         .onUpdate( function() {
+        //          parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+        //          })
+        //          .easing(TWEEN.Easing.Quadratic.Out )
+        //          .start()             
+        //     }
+        // }
+
+        // if(underlayMute) {
+        //     var dummysound;
+            
+        //     if(overlayTrack) {
+        //         if(parent.audiomaster.mix.noWebAudio) dummysound = { decayFrom: overlayTrack.options.element.volume};
+        //         else                dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};    
+        //     }                
+            
+
+        //     var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
+        //         .onUpdate( function() {
+        //             master.isTweeningAudio = true
+        //             underlayTrack.gain(this.decayFrom)
+        //         })
+        //         .easing(TWEEN.Easing.Quadratic.Out )
+        //         .start(); 
+        
+        //     underlayMuted = true
+
+
+        // } 
+
+
+        // if( overlayTrack){
+
+        //     if(parent.audiomaster.mix.noWebAudio) var dummysound = { decayFrom: overlayTrack.options.element.volume};
+        //     else                var dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
+
+        //     var driftTweenSound = new TWEEN.Tween( dummysound ).to( { decayFrom: 0}, 3000 )
+        //         .onUpdate( function() {
+        //             master.isTweeningAudio = true
+        //             overlayTrack.gain(this.decayFrom)
+        //         })
+        //         .easing(TWEEN.Easing.Quadratic.Out )
+        //         .onComplete(function() {
+        //             console.log('tween complete remove overlay_01')
+        //             parent.audiomaster.mix.removeTrack('overlay_01') 
+
+        //             if(overLayFile){
+        //                setTimeout(function(){master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix)},1000)
+        //             }
+        //         })
+        //         .start(); 
+
+        // } else {
+        //     if(overLayFile) master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix);
+        // }
 
     }
 
@@ -1154,32 +1178,30 @@ var pano_master = function(){
         }
 
         // ********************************************************
-        // Audio
-        if(parent.audiomaster) { 
+        // Audio mute
+
+        if(parent.audiomaster && !master.isIOS) { 
             
-            // if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
-            if(!master.isIOS){
-                for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
-                    parent.audiomaster.mix.tracks[i].play()                                    
-                }  
-            }   
+            for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                                
+                parent.audiomaster.mix.tracks[i].play()
+            }
 
             if(!master.getCookie('muted')){
+
                 if (master.overlayOpen) {
                     if(parent.audiomaster.mix.getGain() > 0.2){
                         parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() - 0.02)
                     }
-                }
-                
-                if (!master.overlayOpen) {
+                } else {
                     if(parent.audiomaster.mix.getGain() < 1 * master.multix){
                         parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() + 0.01)
                     }               
                 }
-              //master.soundTrigger = false
+                
             } else {
-              parent.audiomaster.mix.setGain(0)
-            }   
+              parent.audiomaster.mix.setGain(0);
+            }
+              
         }
 
         if(parent.location.hash.slice(1).indexOf('sequence') != -1){
