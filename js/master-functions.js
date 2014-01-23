@@ -2037,6 +2037,7 @@ function videoPlayer(group, playerFadeTransition){
 
 
 	master.bgGain = 0.1
+  if(master.isIOS) parent.audiomaster.mix.pause();
 
 	group = "."+group
 	items = $('.movie-menu'+group+' .movie-menu-item')
@@ -2411,6 +2412,7 @@ function closeVideoPlayer(){
 	$(".video-content-wrap .play").off('click')
 	$videocontentwrap.off("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd")
 
+  if(master.isIOS) parent.audiomaster.mix.play();
 	master.bgGain = 1.0
 	master.ghostBuster = false
 

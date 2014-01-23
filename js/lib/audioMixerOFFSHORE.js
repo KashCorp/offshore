@@ -289,7 +289,8 @@
 		this.set('soloed', false);
 		this.set('currentTime', 0);
 		this.set('nolooping', this.options.nolooping);
-		this.set('start', this.options.start);		
+		this.set('start', this.options.start);
+		console.log(this.options)	
 
 		var self = this,
 			defaults = {
@@ -318,16 +319,25 @@
 		}, false)
 
 		// Ended -> loop event
-		self.get('element').addEventListener('ended',function(e){
-			if(self.nolooping) return;
 
-			console.log("[A] " + name + ' looping ' + self.get('element').src);
+		if(this.get('nolooping')) {
+			self.get('element').addEventListener('ended',function(){
+				self.get('mix').removeTrack(name)
+			})
+		} else {
+			self.get('element').addEventListener('ended',function(e){
+				if(self.nolooping) return;
 
-			var el = self.get('element');
+				console.log("[A] " + name + ' looping ' + self.get('element').src);
 
-			el.currentTime = 0;
-			el.play();
-		}, false)
+				var el = self.get('element');
+
+				el.currentTime = 0;
+				el.play();
+			}, false)
+		}
+
+		console.log(this)
 
 		// this.loadDOM( self.get('source') )
 					
