@@ -131,9 +131,9 @@
 
 	 	 	<image>
 	 			<cube url="../offshore_panos/prologue_pano_%s.jpg" />
-	 			<mobile>
+	 			<!-- <mobile>
 	 				<cube url="../offshore_panos/prologue_pano_%s.jpg" />
-	 			</mobile>
+	 			</mobile> -->
 	 		</image>
 
 	 			<hotspot name="LOGO" 
@@ -193,9 +193,9 @@
 
 		<image>
 			<cube url="../offshore_panos/helicopter_pano_%s.jpg" />
-	    	<tablet>
+	    	<!-- <tablet>
 		        <cube  url="../offshore_panos/512/helicopter_pano_%s.jpg" /> 
-    		</tablet>
+    		</tablet> -->
 		</image>
 
 		<hotspot name="headphones" url="../images/hotspot.gif"
@@ -269,9 +269,9 @@
 	 	<image>
 			<cube url="../offshore_panos/platform_pano_%s.jpg"/>	
 
-			<tablet>
+			<!-- <tablet>
 		        <cube  url="../offshore_panos/512/platform_pano_%s.jpg" /> 
-    		</tablet>
+    		</tablet> -->
 
 		</image>
 
@@ -383,9 +383,9 @@
 	 	<image>
 		    <cube url="../offshore_panos/lowerplatform_pano_%s.jpg" />
 
-			<tablet>
+			<!-- <tablet>
 		        <cube  url="../offshore_panos/512/lowerplatform_pano_%s.jpg" /> 
-    		</tablet>		    
+    		</tablet>	 -->	    
 		</image>
 
 		<hotspot name="hatch_open"
@@ -507,9 +507,9 @@
 		 	<image>
 				<cube url="../offshore_panos/boat_pano_%s.jpg" />
 
-			    <tablet>
+			    <!-- <tablet>
 			        <cube  url="../offshore_panos/512/boat_pano_%s.jpg" />
-	    		</tablet>	
+	    		</tablet> -->	
 			</image>
 	<!--
 			<image devices="Desktop">     <cube url="../images/panos/boat/pano_%s.jpg"   /> </image>
@@ -697,14 +697,14 @@
 			    <up    url="../offshore_panos/subhangar_pano_u.jpg" />
 			    <down  url="../offshore_panos/subhangar_pano_d.jpg" />
 
-			    <tablet>
+			    <!-- <tablet>
 			        <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
 			        <front url="../offshore_panos/512/subhangar_pano_f.png" />
 			        <right url="../offshore_panos/512/subhangar_pano_r.png" />
 			        <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
 			        <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
 			        <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />    
-	    		</tablet>		    
+	    		</tablet> -->		    
 			</image>
 
 
@@ -838,14 +838,14 @@
 		    <up    url="../offshore_panos/chemicalroom_pano_u.jpg" />
 		    <down  url="../offshore_panos/chemicalroom_pano_d.jpg" />
 
-	    	<tablet>
+	    	<!-- <tablet>
 		        <left  url="../offshore_panos/512/chemicalroom_pano_l.jpg" />
 		        <front url="../offshore_panos/512/chemicalroom_pano_f.png" />
 		        <right url="../offshore_panos/512/chemicalroom_pano_r.jpg" />
 		        <back  url="../offshore_panos/512/chemicalroom_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/chemicalroom_pano_u.jpg" />
 		        <down  url="../offshore_panos/512/chemicalroom_pano_d.jpg" />    
-    		</tablet>	    
+    		</tablet> -->	    
 		</image>
 
 
@@ -1107,14 +1107,14 @@
 		    <up    url="../offshore_panos/controlroom_pano_u.jpg" />
 		    <down  url="../offshore_panos/controlroom_pano_d.jpg" />
 	    	
-	    	<tablet>
+	    	<!-- <tablet>
 		        <left  url="../offshore_panos/512/controlroom_pano_l.jpg" />
 		        <front url="../offshore_panos/512/controlroom_pano_f.jpg" />
 		        <right url="../offshore_panos/512/controlroom_pano_r.jpg" />
 		        <back  url="../offshore_panos/512/controlroom_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/controlroom_pano_u.jpg" />
 		        <down  url="../offshore_panos/512/controlroom_pano_d.jpg" />    
-    		</tablet>	
+    		</tablet> -->	
 
 		</image>
 			
@@ -1419,14 +1419,14 @@
 		    <up    url="../offshore_panos/hallway_pano_u.png" />
 		    <down  url="../offshore_panos/hallway_pano_d.jpg" />
 
-	    	<tablet>
+	    	<!-- <tablet>
 		        <left  url="../offshore_panos/512/hallway_pano_l.jpg" />
 		        <front url="../offshore_panos/512/hallway_pano_f.jpg" />
 		        <right url="../offshore_panos/512/hallway_pano_r.png" />
 		        <back  url="../offshore_panos/512/hallway_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/hallway_pano_u.png" />
 		        <down  url="../offshore_panos/512/hallway_pano_d.jpg" />    
-    		</tablet>	
+    		</tablet> -->	
 
 		</image>
 
@@ -1632,14 +1632,14 @@
 		    <up    url="../offshore_panos/interiorsub_pano_u.jpg" />
 		    <down  url="../offshore_panos/interiorsub_pano_d.jpg" />
 
-		    <tablet>
+		    <!-- <tablet>
 		        <left  url="../offshore_panos/512/interiorsub_pano_l.jpg" />
 		        <front url="../offshore_panos/512/interiorsub_pano_f.jpg" />
 		        <right url="../offshore_panos/512/interiorsub_pano_r.png" />
 		        <back  url="../offshore_panos/512/interiorsub_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/interiorsub_pano_u.jpg" />
 		        <down  url="../offshore_panos/512/interiorsub_pano_d.jpg" />    
-    		</tablet>
+    		</tablet> -->
 
 		</image>
 
@@ -1735,14 +1735,14 @@
 		    <up    url="../offshore_panos/theatre_pano_u.jpg" />
 		    <down  url="../offshore_panos/theatre_pano_d.jpg" />
 
-		    <tablet>
+		    <!-- <tablet>
 		        <left  url="../offshore_panos/512/theatre_pano_l.jpg" />
 		        <front url="../offshore_panos/512/theatre_pano_f.jpg" />
 		        <right url="../offshore_panos/512/theatre_pano_r.jpg" />
 		        <back  url="../offshore_panos/512/theatre_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/theatre_pano_u.jpg" />
 		        <down  url="../offshore_panos/512/theatre_pano_d.jpg" />    
-    		</tablet>		    
+    		</tablet> -->		    
 		</image>
 
 

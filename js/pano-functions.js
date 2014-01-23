@@ -410,6 +410,12 @@ var pano_master = function(){
             case "submarine" :
                 setTimeout(function(){
                     $panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload autoplay></video>')
+                    $('#video-underwater').css({
+                        width:  master.globals.cover.w,
+                        height: master.globals.cover.h,
+                        left:   master.globals.cover.l,
+                        top:    master.globals.cover.t
+                    })
                 },1000)
                 overLayFile = 'Submersible' + master.audioType
                 underlayMute=true             
