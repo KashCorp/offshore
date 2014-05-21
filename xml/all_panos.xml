@@ -1837,7 +1837,7 @@
 			color="0xffffff"
 			handcursor="true"
 			height="100"
-			html="[h2] Video Menu:[h2] [h3]A Message From Our Sponsor [h3]"
+			html="[h2] Video Menu[h2]"
 			css="data:flag"
 			autoheight="false"
 			vcenter="true"
