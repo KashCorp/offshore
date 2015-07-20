@@ -1,0 +1,582 @@
+<krpano version="1.0.8" onstart="action(loadfirstscene);">
+
+	<security>
+	    <allowdomain domain="*" />
+	</security>
+
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+
+
+	<autorotate enabled="true"
+        waittime="1.5"
+        speed="3.0"
+        />
+	 
+	<events 
+		onloadcomplete= "js(panoLoaded())" 
+		onmousedown="action(globalmousedown)" 
+		onviewchange="action(viewchange)"
+		/> 
+	 
+	<action name="globalmousedown">		
+		set(plugin[directions].visible,false);
+		set(autorotate.enabled,false);
+	</action>
+
+	<action name="viewchange">
+    	set(currentX,get(view.hlookat));
+		add(currentX,180);
+		js(soundadjust(get(view.hlookat),get(view.fov)));
+	</action>
+
+	<action name="loadfirstscene">
+		loadscene(doorIsClosed, null, MERGE);
+	</action>
+
+	<action name="loadsecondscene">
+		loadscene(doorIsOpen, null, MERGE);
+	</action>
+
+	<action name="initialize">
+		set(plugin[directions].visible,true);
+		tween(plugin[directions].alpha,1.0,3)
+	</action>
+
+	<action name="preload">
+		js(preload());
+	</action>
+	                   
+
+
+	<progress showwait="none" />
+
+	<view 
+		hlookat="224.0"
+		fov="90.0"
+		fovmax="120.0"
+		fovmin="5.0"
+	/>
+
+	<control
+		usercontrol = "all"
+		mousetype="drag2d"
+	 	keycodesin  =""
+	 	keycodesout =""
+	 />
+
+
+	<scene name="doorIsClosed">
+
+		<image><cube url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_%s.jpg" /></image>
+		<image devices="Mobile"><cube url="../images/panos/chemicalroom/mobile_%s.jpg" /></image>
+
+		<!-- <image devices="Desktop"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image> -->
+		<!-- <image devices="Tablet"><cube url="../images/panos/chemicalroom/pano_%s.jpg" /></image> -->
+
+		<hotspot name="engineroom" url="../images/hotspot.gif"
+			ath="18"
+			atv="0"
+		
+			alpha="0"
+			width="80"
+			height="120"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="js(loadsecondscene)"
+			scale="1.0"
+		/>
+
+	</scene>
+
+	<scene name="doorIsOpen" onstart="action(preload)">
+
+		<image>
+		    <left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_l.jpg" />
+		    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_f.png" />
+		    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_r.jpg" />
+		    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_b.jpg" />
+		    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_u.jpg" />
+		    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/chemicalroom_pano_d.jpg" />
+		</image>
+
+		<hotspot name="engineroom" url="../images/hotspot.gif"
+			ath="335"
+			atv="-7"
+			alpha="0.0"
+			width="500.0"
+			height="450.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+			scale="1.0"
+		/>
+
+		<hotspot name="opendoorgif"
+			url="../images/icons/gif_iconC.gif"
+			ath="345"
+			atv="0"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(335,0,5,tween(easeOutQuad,4),true,true);set(hotspot[engineroom].enabled,false);"
+			scale="0.7"
+		/>
+
+	</scene>
+
+
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			visible="true"
+			/>
+
+
+		<hotspot name="exit" url="../images/hotspot.gif"
+			ath="30"
+			atv="-2"
+		    distorted="true"
+		    keep="true"
+			alpha="0.0"
+			width="100.0"
+			height="300.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="js(newPage(hallway.php))"
+			scale="0.7"
+			/>
+
+		<!-- Darla (Barrel) -->
+		
+		<hotspot name="Poisoned-Text"
+			url="plugins/textfield.swf"
+			ath="260"
+			atv="0"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] POISONED [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+
+		<hotspot name="Poisoned-GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="250"
+			atv="10"
+	    distorted="true"
+	    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			scale="0.7"
+		/>
+
+		<hotspot name="Poisoned-Barrel"
+			url="../images/hotspot.gif"
+			ath="250"
+			atv="28"
+		    distorted="true"
+		    keep="true"
+			alpha="0"
+			width="220.0"
+			height="95.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(poisoned)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+
+
+		<!-- James (Barrel) -->
+
+		<hotspot name="James_Text"
+			url="plugins/textfield.swf"
+			ath="125"
+			atv="-1"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] IN THE BLOODSTREAM [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+
+		<hotspot name="James" 
+			url="../images/hotspot.gif"
+			ath="115"
+			atv="28"
+		    distorted="true"
+		    keep="true"
+			alpha="0"
+			width="220.0"
+			height="95.0"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			scale="1.0"
+		/>
+
+		<hotspot name="James_GIF"
+			url="../images/icons/gif_iconC.gif"
+			ath="115"
+			atv="10"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(bloodstream)));js(setCache(get(view.hlookat),90))"
+			scale="0.7"
+		/>
+
+
+
+
+		<!-- Medical Cabinet - Corexit -->
+
+		 <hotspot name="open_cabinet" 
+			url="../images/panos/chemicalroom/hotspots/cabinet.png"
+			ath="54.4"
+			atv="-5.1"
+			distorted="true"
+			keep="true"
+			alpha="0"
+			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
+			scale="1.05"
+		/>
+
+		<hotspot name="Corexit_video" 
+			url="../images/hotspot.gif"
+			ath="54.4"
+			atv="-5.1"
+		  	distorted="true"
+		  	keep="true"
+			alpha="0"
+			width="100"
+			height="100"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Corexit)));js(setCache(get(view.hlookat),54))"
+			scale="1.0"
+			enabled="false"
+		/>
+	
+		<hotspot name="Corexit_Text"
+			url="plugins/textfield.swf"
+			ath="64.4"
+			atv="-5"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] COREXIT&#169; [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Corexit)));js(setCache(get(view.hlookat),54))"
+			enabled="false"
+			alpha="0"
+			keep="true"
+		/>
+
+
+
+
+
+		<!--
+
+
+		<hotspot name="kindra_Text"
+			url="plugins/textfield.swf"
+			ath="215"
+			atv="0"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]FAMILY EXPOSURE[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Kindra_Activist)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+		<hotspot name="kindra_GIF"
+			url="../images/icons/gif_iconB.gif"
+			ath="205"
+			atv="10"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Kindra_Activist)));js(setCache(get(view.hlookat),90))"
+			scale=".7"
+		/>
+
+
+		<hotspot name="kindra2_Text"
+			url="plugins/textfield.swf"
+			ath="320"
+			atv="0"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]ACTIVISM[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Kindra_Activist)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+		<hotspot name="kindra2_GIF"
+			url="../images/icons/gif_iconC.gif"
+			ath="310"
+			atv="10"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Kindra_Activist)));js(setCache(get(view.hlookat),90))"
+			scale=".7"
+		/>
+
+
+		<hotspot name="jorey_Text"
+			url="plugins/textfield.swf"
+			ath="302"
+			atv="-18"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]JOREY DANOS[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Jorey)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+		<hotspot name="jorey_GIF"
+			url="../images/icons/gif_iconB.gif"
+			ath="290"
+			atv="-8"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_Jorey)));js(setCache(get(view.hlookat),90))"
+			scale=".7"
+		/>
+
+
+
+		<hotspot name="killis_Text"
+			url="plugins/textfield.swf"
+			ath="170"
+			atv="0"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]KILLIS FISH[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_DrAndrew)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+		<hotspot name="killis_GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="160"
+			atv="10"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_DrAndrew)));js(setCache(get(view.hlookat),90))"
+			scale=".7"
+		/>
+
+
+		<hotspot name="drmike_Text"
+			url="plugins/textfield.swf"
+			ath="90"
+			atv="-14"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3]DR. MIKE[h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_DrMike)));js(setCache(get(view.hlookat),90))"
+			keep="true"
+		/>
+		<hotspot name="drmike_GIF"
+			url="../images/icons/gif_iconA.gif"
+			ath="80"
+			atv="-4"
+		    distorted="true"
+		    keep="true"
+			alpha=".3"
+			width="140"
+			height="140"
+			borderwidth="0.0" borderwidthhover="1"
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+			onclick="lookto(get(currentX),0,180,smooth(),true,true,js(launchVideo(http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ChemicalStorage_DrMike)));js(setCache(get(view.hlookat),90))"
+			scale=".7"
+		/>
+
+		-->
+
+
+
+
+		<!-- <hotspot name="close_cabinet" url="../images/hotspot.gif"
+			ath="54.4"
+			atv="-5.1"
+			distorted="true"
+			keep="true"
+			alpha="0"
+			width="100"
+			height="100"
+			enabled="false"
+			onclick="set(hotspot[open_cabinet].alpha,0);set(hotspot[open_cabinet].enabled,true);set(hotspot[close_cabinet].enabled,false);"
+
+			scale="1"
+		/> -->
+
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
+			ath="100"
+			atv="-7"
+			distorted="true"
+			alpha="0.0"
+			width="105.0"
+			height="105.0"
+			keep="true"
+			onclick="js(loadAFXPano(audio/voice_overs/VO_ChemicalStorage.mp3))"
+			scale=".7"
+			capture="false"
+			/>	
+
+		
+
+		<!-- <hotspot name="cabinet_open_img" url="../images/panos/chemicalroom/hotspots/cabinet.png"
+			ath="54.4"
+			atv="-5.1"
+			distorted="true"
+			alpha="0"
+			enabled="false"
+			onclick="js(cabinet_closed(close));set(hotspot[cabinet_open].alpha,0);set(hotspot[cabinet_open].enabled,false);"
+
+			scale="1.05"
+		/> -->
+
+			<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+
+			h2 {
+				color: #333333;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 7;
+				line-height: 20px;
+				textAlign: center;
+				text-align: center;
+			}			
+		</data>
+
+
+
+		<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;				
+				leading: 7;
+			}
+		</data>
+							
+
+		
+	<!--<include url="drill.xml" />-->
+
+</krpano>

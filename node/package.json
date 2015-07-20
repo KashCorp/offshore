@@ -1,0 +1,10 @@
+{
+	"name":"Offshore_Sync_Server",
+	"version":"1.0.0",
+	"description": " ",
+
+	"dependencies":{
+		"socket.io":"latest"
+	},
+	"author":"heliosdesignlabs"
+}

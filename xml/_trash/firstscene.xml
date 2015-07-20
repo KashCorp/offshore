@@ -1,0 +1,9 @@
+<scene name="firstscene">
+	<control usercontrol = "off" />
+
+ 	<hotspot name="title" devices="all"
+ 		url="../images/hd_offshore.jpg"
+    capture="false"
+    zorder="2"
+	/>
+</scene>

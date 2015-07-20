@@ -1,0 +1,200 @@
+<krpano version="1.0.8" onstart="startup();">
+<security>
+    <allowdomain domain="*" />
+</security>
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+	<action name="startup">
+		loadscene(noentry, null, MERGE, BLEND(1))
+	</action>
+
+	<autorotate enabled="false"
+	            waittime="1.5"
+	            speed="3.0"
+	            />
+	 
+	<events onmousedown="action(globalmousedown)" /> 
+	 
+	<action name="globalmousedown">
+		set(plugin[directions].visible,false);
+		set(autorotate.enabled,false);
+	</action>
+	
+		<action name="initialize">
+
+		tween(plugin[directions].alpha,1.0,3)
+	</action>
+	
+	<scene name="noentry"  onstart="tween(plugin[directions].alpha,1.0,3)">
+
+
+	
+	<progress
+		showwait="none"
+		/>
+
+	<view 
+		hlookat="-10.0"
+	  fov="65.0"
+	  fovmax="90.0"
+	  fovmin="45.0"
+	  />
+
+	 <action name="showplugin">
+	 		set(plugin[comingsoon].visible,true);
+	 		tween(plugin[comingsoon].alpha,1.0);
+	 </action>
+	 <action name="hideplugin">
+	 		tween(plugin[comingsoon].alpha,0.0);
+	 		set(plugin[comingsoon].visible,false);
+	 </action>
+
+	<control usercontrol = "all"
+		mousetype="drag2d"
+	 	keycodesin  =""
+	 	keycodesout =""
+	 	/>
+	 	<image>
+				<cube url="../images/panos/noentry/pano_%s.jpg" />
+			<mobile>
+				<cube url="../images/panos/noentry/mobile/pano_%s.jpg" />
+			</mobile>
+		</image>
+
+<!--
+		<hotspot url="../images/panos/noentry/hotspots/waves.png"
+			ath="142.25"
+			atv="6"
+			distorted="true"
+			alpha="0.7"
+			onclick="js(newPage(waves.php))"
+
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_zone].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_zone].visible,false);"
+						
+			scale="0.7"
+			/>
+
+
+		<hotspot name="go_zone"
+			url="../images/panos/noentry/hotspots/Text_Facts.png"
+			ath="142.25"
+			atv="-4"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>		
+						
+		
+			
+		<hotspot name="go_helipad"
+			url="../images/panos/noentry/hotspots/Text_Helipad.png"
+			ath="-120.2"
+			atv="-2"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>	
+
+
+-->
+
+		<hotspot url="../images/panos/noentry/hotspots/map.png"
+			ath="164"
+			atv="19"
+			distorted="true"
+			onclick="js(newPage(platform.php))"
+			
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_helipad].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_helipad].visible,false);"
+						
+			scale="1"
+			/>
+			
+				
+		<hotspot url="../images/panos/noentry/hotspots/openhatch.png"
+			ath="85"
+			atv="15.5"
+			distorted="true"
+			onclick="js(newPage(hatch.php))"
+
+			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_hatch].visible,true);"
+			onout="js(resetHoverSound());tween(alpha,0.75);set(hotspot[go_hatch].visible,false);"
+						
+			scale="1"
+			/>
+
+		<hotspot name="go_hatch"
+			url="../images/panos/noentry/hotspots/Text_Enter.png"
+			ath="99.1"
+			atv="6"
+			background="false"
+			capture="false"
+			visible="false"
+			scale="0.6"
+			/>	
+
+		<plugin name="directions"
+			url="../images/panos/platform/hotspots/directions.png"
+			capture="false"
+			align="top"
+			edge="top"
+			y="60"
+			alpha="0.0"
+			/>
+			
+		<plugin name="comingsoon"
+			url="plugins/textfield.swf"
+			origin="center"
+			align="center"
+			edge="center"
+			width="500"
+			height="400"
+			x="0" y="0"
+			html="data:htmldata1"
+			css="data:cssdata1"
+			backgroundcolor="0x000000"
+			autosize="center"
+			visible="false"
+			alpha="0.0"
+				/>
+			<data name="htmldata1">
+				<div class="coming-soon">
+					<br />
+					<br />
+					<h2>Coming Soon</h2>
+					<br />
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris posuere porta volutpat. Nam eu diam at nisi molestie tempus sed blandit ipsum. Quisque ullamcorper pellentesque libero, nec pellentesque arcu rutrum vestibulum. Cras metus eros, pulvinar non suscipit eu, gravida a magna.</p>
+					<br />
+					<a href="event:hideplugin()">Close</a>
+					<br />
+					<br />
+					<br />
+				</div>
+			</data>
+			<data name="cssdata1">
+				h2 {
+					color: #ffffff; 
+					text-align: center;
+					font-family: Helvetica, Arial, sans-serif;
+					font-size: 20px;
+				}
+				a {
+					color: #ffffff; 
+					text-align: center;
+					font-family: Helvetica, Arial, sans-serif;
+				}
+				p {
+					margin-left: 20px;
+					margin-right: 20px;
+					text-align: center;
+					color: #cccccc;
+					font-family: Helvetica, Arial, sans-serif;
+				}
+			</data>
+	</scene>
+
+</krpano>

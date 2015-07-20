@@ -1,0 +1,177 @@
+<krpano version="1.0.8"  bgcolor="#666666" onstart="startup();">
+
+<security>
+    <allowdomain domain="*" />
+</security>
+
+	<!-- text style for hover info -->
+	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
+
+	<action name="startup">
+		loadscene(platform, null, ignorekeep, BLEND(1))
+	</action>
+
+	<autorotate enabled="false"
+	            waittime="1.5"
+	            speed="3.0"
+	            />
+	 
+	<events 
+		onmousedown="action(globalmousedown)"
+		onloadcomplete= "js(panoLoaded())" 
+		/> 
+	 
+	<action name="globalmousedown">		
+		set(autorotate.enabled,false);
+	</action>
+
+	<action name="initialize">
+
+	</action>
+	                   
+	<scene name="platform" onstart="">
+
+		<progress
+			showwait="none"
+			/>
+
+		<view 
+		  hlookat="84.0"
+		  fov="65.0"
+		  fovmax="120.0"
+		  fovmin="15.0"
+		  />
+
+		<control usercontrol = "all"
+			mousetype="drag2d"
+		 	keycodesin  =""
+		 	keycodesout =""
+		 	/>
+	 	<image>
+				<!-- <cube url="../images/panos/interiorsub-wire/pano_%s.png" /> -->
+		<left  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_l.jpg" />
+	    <front url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_f.jpg" />
+	    <right url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_r.png" />
+	    <back  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_b.jpg" />
+	    <up    url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_u.jpg" />
+	    <down  url="http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/interiorsub_pano_d.jpg" />
+		</image>
+
+			
+			
+
+		<!-- Videos + Text -->
+
+		<hotspot name="under_water_01" url="../images/hotspot.gif"
+			ath="67.15"
+			atv="15.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Coral))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>
+
+		<hotspot name="under_water_01_text"
+			url="plugins/textfield.swf"
+			ath="67.15"
+			atv="15.2"
+			children="false"
+			edge="righttop"
+			background="false"
+			capture="false"
+			color="0xffffff"
+			handcursor="true"
+			height="30"
+			html="[h3] VID 1 [h3]"
+			css="data:flag"
+			autoheight="false"
+			vcenter="true"
+			width="200"
+			onclick="js(loadUnderWater(ROV_Coral))"
+			keep="true"
+		/>
+
+
+		<hotspot name="under_water_02" url="../images/hotspot.gif"
+			ath="75.15"
+			atv="16.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Wellhead_1))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>
+
+		<hotspot name="under_water_03" url="../images/hotspot.gif"
+			ath="105.15"
+			atv="16.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Wellhead_2))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>	
+
+		<hotspot name="under_water_04" url="../images/hotspot.gif"
+			ath="112.15"
+			atv="15.2"
+			distorted="true"
+			alpha="0.0"
+			height="50.0"
+			onclick="js(loadUnderWater(ROV_Skate_Farm))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="1.0"
+			/>	
+
+		
+
+
+		<!-- Door -->
+
+		<hotspot name="exit" url="../images/hotspot.gif"
+			ath="270"
+			atv="10"
+			distorted="true"
+			alpha="0.0"
+			onclick="js(newPage(subhanger.php))"
+			onhover="js(hoverSound()) "
+			onout="js(resetHoverSound());"
+			scale="10.0"
+			/>					
+
+
+		<data name="flag">
+			h3 {
+				color: #ffffff;
+				font-family: Helvetica, Arial, sans-serif;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 10;
+				font-size: 10;
+				line-height: 30px;
+				textAlign: center;
+				text-align: center;
+			}
+		</data>		
+
+		<data name="cssdata1">
+			p {
+				color: #ffffff;
+				fontFamily: Helvetica, Arial, sans-serif;
+				fontSize: 16px;
+				
+				leading: 7;
+
+			}
+		</data>
+							
+	</scene>
+
+</krpano>
