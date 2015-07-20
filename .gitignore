@@ -1,5 +1,6 @@
 *.DS_Store
-audio/*
-video/*
+/audio
+/video
+/videos
 *ARCHIVE*
 /_*
