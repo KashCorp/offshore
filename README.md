@@ -1,7 +1,11 @@
-offshore
-========
+# offshore
 
-#### Installation Version
+
+## VR Version
+
+
+
+## Installation Version
 
 This branch has standalone capability, and includes the optional modules and the node server.
 
@@ -31,8 +35,10 @@ Use with External Control module.
 
 
 
+## App Structure
 
-#### Main JS files
+
+### Main JS files
 
 1. **`panoLoader.js`** 
 
@@ -53,7 +59,7 @@ Use with External Control module.
 
 
 
-#### DOM Structure
+### DOM Structure
 
 * `index.php`
 	* `<iframe> all_panos.php`

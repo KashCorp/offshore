@@ -1,7 +1,7 @@
 /**************************************************************************
-	
+
 	Master Functions
-	
+
 
 	> Sections
 
@@ -37,36 +37,33 @@
 var config = {
   'useLocalResources' : false, // look for media locally instead of from the CDN (?local)
 
-  'extControlMaster' : false, // set extcontrol.role to 'master' (?master)
-  'extControlSlave'  : false, // set extcontrol.role to 'slave'  (?slave)
-  'extControlUrl'    : false, // set extcontrol node server url  (?url=192.168...)
+  'extControlMaster' : false,  // set extcontrol.role to 'master' (?master)
+  'extControlSlave'  : false,  // set extcontrol.role to 'slave'  (?slave)
+  'extControlUrl'    : false,  // set extcontrol node server url  (?url=192.168...)
 
-  'autopilot'        : false  // use autopilot (?autopilot)
+  'autopilot'        : false   // use autopilot (?autopilot)
 }
 
-var krpano;
-
 // let's cache some domz
-var $panocontainer = $('#panocontainer'),
-	  $wrapper       = $('#wrapper'),
-	  $compass       = $('.compass'),
-	  $videooverlay  = $("#video-overlay"),
-    $breadcrumb    = $(".breadcrumb")
-
+var $panocontainer = $('#panocontainer');
+var $wrapper       = $('#wrapper');
+var $compass       = $('.compass');
+var $videooverlay  = $("#video-overlay");
+var $breadcrumb    = $(".breadcrumb");
 
 
 var masterFunctions = function() {
 
-	var fadeSpeed = 500,
-  		pagepath = 'http://www.offshore-interactive.com/pages/',
-  		that = this,
-  		visitedPages = getCookie("visitedPages"),
-  		audio = document.getElementsByTagName('audio'),
-  		newPageTrigger,
-  		isParent,
-  		videoType = ".webm",
-  		audioType = ".ogg",
-  		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
+	var fadeSpeed = 500;
+  var pagepath = 'http://www.offshore-interactive.com/pages/';
+  var that = this;
+  var visitedPages = getCookie("visitedPages");
+  var audio = document.getElementsByTagName('audio');
+  var newPageTrigger;
+  var isParent;
+  var videoType = ".webm";
+  var audioType = ".ogg";
+  var css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
 
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
@@ -128,12 +125,12 @@ var masterFunctions = function() {
 
   isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
   this.isRetina = isRetinaFunction()
-   
+
   $compass.click(function() {
    	$compass.fadeOut(500)
   	that.loadOverlay('rigmap.html')
   });
-    
+
 
 
     // ********************************************************
@@ -145,13 +142,13 @@ var masterFunctions = function() {
     		$("#offshorelogo").animate({'bottom': '19'}, 500)
     	} else{
 	    	$breadcrumb.animate({'bottom': '-40'}, 500)
-	    	$("#offshorelogo").animate({'bottom': '-10'}, 500)    		
+	    	$("#offshorelogo").animate({'bottom': '-10'}, 500)
     	}
 
     }
 
-    var navInterval = setTimeout(delayNavSlide, 5000); 
-     
+    var navInterval = setTimeout(delayNavSlide, 5000);
+
     $breadcrumb.mouseover(function() {
     	if(!master.overlayOpen) {
 			clearInterval(navInterval);
@@ -159,11 +156,11 @@ var masterFunctions = function() {
 	    	else  			 $breadcrumb.animate({'bottom': '0'}, 500)
     	}
     });
- 
+
     $breadcrumb.mouseleave(function() {
        	clearInterval(navInterval);
         navInterval = setTimeout(delayNavSlide, 1000);
-    }); 
+    });
 
     $breadcrumb.on('touchstart', function() {
     	if(!master.overlayOpen) {
@@ -173,11 +170,11 @@ var masterFunctions = function() {
 			if(master.isIOS) {
 	    		$breadcrumb.animate({'bottom': '39'}, 500)
 	    	} else {
-		    	$breadcrumb.animate({'bottom': '0'}, 500)    		
+		    	$breadcrumb.animate({'bottom': '0'}, 500)
 	    	}
-		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
+		  // $("#offshorelogo").animate({'bottom': '25'}, 500)
     	}
-    }); 
+    });
 
     $wrapper.on ('touchstart', function() {
 
@@ -187,7 +184,7 @@ var masterFunctions = function() {
        $('.pan-directions').fadeOut(500)
        pano.panDirectionsShown = true;
        $wrapper.off('mousedown');
-    }); 
+    });
 
     // end Nav
     // ********************************************************
@@ -198,7 +195,7 @@ var masterFunctions = function() {
        $('.pan-directions').fadeOut(500)
        pano.panDirectionsShown = true;
        $wrapper.off('mousedown');
-    }); 
+    });
 
 
 
@@ -213,11 +210,11 @@ var masterFunctions = function() {
     	document.addEventListener('touchstart', function(e) {
         e.preventDefault();
 
-    		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                              
-                parent.audiomaster.mix.tracks[i].play()                                    
-            }    
+    		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){
+                parent.audiomaster.mix.tracks[i].play()
+            }
     	    $('.pan-directions').fadeOut(500)
-    	}, false);	
+    	}, false);
 
 
     	$(document).bind('touchend', function(e) {
@@ -230,28 +227,28 @@ var masterFunctions = function() {
 
 
 
-      
+
     var transition_audio = $('#transition', window.parent.document)
-    
+
     var hashouter = parent.window.location.hash;
-    
+
     if( hashouter  == "#hatch.php"){
       transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
     }
-    
+
     if(!visitedPages){
       visitedPages = "empty"
       setCookie("visitedPages",visitedPages,365)
     }
-    
+
     this.url_array = [];
-    
+
     this.divider = ((window.innerWidth-168) / this.url_array.length)
 
 
 
     /**************************************************************************
-    	
+
     	Dynamic Resizing
 
     	- all resizing functionality needs to be triggered inside resizeFunction(),
@@ -280,28 +277,28 @@ var masterFunctions = function() {
 
 	    var ratio = 9/16,
 	    	w, h, t, l;
-		
+
 	    /***** CONTAIN *****/
 	    w = window.innerWidth;
     	h = w * ratio;
-    
+
     	if(h > window.innerHeight) {
     		h = window.innerHeight;
     		w = h / ratio;
     	}
-    
+
     	t = (window.innerHeight - h) / 2;
 	    l = (window.innerWidth - w) / 2;
-    
+
     	that.globals.contain.w = Math.round(w)
       	that.globals.contain.h = Math.round(h)
       	that.globals.contain.t = Math.round(t)
       	that.globals.contain.l = Math.round(l)
-    	
+
     	/***** COVER *****/
     	w = window.innerWidth;
 	    h = w * ratio;
-	    
+
 	    if(h < window.innerHeight) {
 	        h = window.innerHeight;
 	        w = h / ratio;
@@ -309,7 +306,7 @@ var masterFunctions = function() {
 
 	    t = (window.innerHeight - h) / 2;
 	    l = (window.innerWidth - w) / 2;
-	    	
+
     	that.globals.cover.w = Math.round(w)
       	that.globals.cover.h = Math.round(h)
       	that.globals.cover.t = Math.round(t)
@@ -326,7 +323,7 @@ var masterFunctions = function() {
       			'height' : master.globals.contain.h
       		})
 
-      		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)	
+      		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)
       	}
 
       	if(typeof pano != 'undefined') {
@@ -341,7 +338,7 @@ var masterFunctions = function() {
       			pano.ghostTransition.resize();
       		}
       	}
-    	
+
     }
 
     $(window).on('resize.global',that.debouncedResize)
@@ -355,16 +352,16 @@ var masterFunctions = function() {
 
     /**************************************************************************
     ***************************************************************************
-      
-      
+
+
       > Build Nav Bar
 
       Build the breadcrumb
 
-    
+
     ***************************************************************************
     **************************************************************************/
-      
+
   	this.build_navbar = function(no_fade){
 
   		// this._frame = null
@@ -373,17 +370,17 @@ var masterFunctions = function() {
 
   		//$("#wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
   		//$("#scroll-wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
-     	
+
      	$(".navlink").click(function(){
       		that.parentChange('index.php')
-	  	}) 
+	  	})
 
       var insertNav = function(price, change, percent) {
 
       	$breadcrumb.html('');
 
         var breadbox_string = '<div id="breadbox-container">';
-        
+
         if(that.isRetina)
         	breadbox_string += '<h1><img class="backtostart" src="images/splash_logo_small@2x.png" alt=""></h1>';
         else
@@ -393,7 +390,7 @@ var masterFunctions = function() {
         breadbox_string += '<ul><li><a id="about-link">About</a></li>';
         breadbox_string += '<ul><li><a id="credits-link">Credits</a></li>';
         breadbox_string += '<li><a href="http://offshore-interactive.com/blog/" target="_top">Blog</a></li>';
-        breadbox_string += '<li><a href="http://offshore-interactive.com/blog/index.php/subscribe-to/" target="_top">Join Up</a></li>';          
+        breadbox_string += '<li><a href="http://offshore-interactive.com/blog/index.php/subscribe-to/" target="_top">Join Up</a></li>';
         // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
         breadbox_string += '</nav>';
 
@@ -416,16 +413,16 @@ var masterFunctions = function() {
 
         $('#about-link').click(function(){
         	master.loadOverlay('about.html')
-        	
+
         })
 
 
         $('#credits-link').click(function(){
         	master.loadOverlay('credits.html')
-        	
+
         })
 
-         
+
       }
 
   		var placer = that.divider, temp_icon;
@@ -462,10 +459,10 @@ var masterFunctions = function() {
 
   /**************************************************************************
   ***************************************************************************
-    
+
 
     > Overlay
-          
+
       Loads an overlay file into the overlay iframe.
 
       there is only one overlay at a time (map, book, etc)
@@ -473,7 +470,7 @@ var masterFunctions = function() {
       loadOverlay('example.php');
       closeOverlay();
 
-  
+
   ***************************************************************************
   **************************************************************************/
 
@@ -487,7 +484,7 @@ var masterFunctions = function() {
 
 		master.overlayOpen = true
 		master.ghostBuster = true
-		
+
 		$('.scroll-directions').fadeOut(500)
 		$compass.fadeOut(500,function(){
 			$panocontainer.addClass('hide')
@@ -531,17 +528,15 @@ var masterFunctions = function() {
 		$('#overlay_frame').fadeOut(500,function(){
 
       if(extcontrol) if(extcontrol.role === 'master') {
-  			krpano = document.getElementById("krpanoObject");
-  			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+  			pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
       }
 
-			$panocontainer.removeClass('hide') 
+			$panocontainer.removeClass('hide')
 
 			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
 
 			// clear iframe
 			$('#overlay_frame').attr('src','')
-			// $('#overlay_frame').css('display','none')
 
 			master.overlayOpen = false
 			master.ghostBuster = false
@@ -565,7 +560,7 @@ var masterFunctions = function() {
 	/**************************************************************************
   ***************************************************************************
 
-		
+
 		Audio
 
 
@@ -581,7 +576,7 @@ var masterFunctions = function() {
 		console.log('click -> isMuted: '+isMuted)
 		if (isMuted){
 			$('.volume-toggle').html('<i class="icon-volume-up"></i>')
-			delete_cookie('muted')	
+			delete_cookie('muted')
 			$('video').each(function(i,v){
 			$(v).prop('muted', false)
 			})
@@ -589,13 +584,13 @@ var masterFunctions = function() {
 			$('.volume-toggle').html('<i class="icon-volume-off"></i>')
 			setCookie('muted',true)
 			$('video').each(function(i,v){
-			 $(v).prop('muted', true)	
+			 $(v).prop('muted', true)
 			})
 		}
-					
+
 	})
 
-	
+
 
 	this.loadOverlayAudio = function(_file){
 
@@ -613,10 +608,10 @@ var masterFunctions = function() {
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
 				master.isTweeningAudio = false
-				//TWEEN.remove(driftTweenSounds); 
+				//TWEEN.remove(driftTweenSounds);
 				//driftTweenSounds = null
 			})
-			.start();               
+			.start();
 	}
 
 	this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
@@ -631,7 +626,7 @@ var masterFunctions = function() {
 			.onUpdate( function() {
 				master.isTweeningAudio = true
 
-				
+
 
 				if(parent.audiomaster.mix.getTrack(_trackName)){
 					parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
@@ -640,9 +635,9 @@ var masterFunctions = function() {
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
 				master.isTweeningAudio = false
-				//TWEEN.remove(driftTweenSounds); 
+				//TWEEN.remove(driftTweenSounds);
 			})
-			.start();               
+			.start();
 	}
 
 	this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
@@ -653,15 +648,15 @@ var masterFunctions = function() {
 
         if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
             multix = .3
-        }   
+        }
 
 		if(!_start) _start = 0
 
 		console.log('_trackName: '+'\t'+_trackName + " _ " + master.isPlayingVO)
 
 		if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
-		
-		/// toggle on/off logic 
+
+		/// toggle on/off logic
 
 		if(master.isPlayingVO) {
 			master.isPlayingVO = false;
@@ -691,21 +686,21 @@ var masterFunctions = function() {
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
 				master.isTweeningAudio = false
-				//TWEEN.remove(driftTweenSounds); 
+				//TWEEN.remove(driftTweenSounds);
 			})
-			.start();               
+			.start();
 	}
 
 
 
 	this.audioFadeAll = function(targetVolume){
-	 
+
 		if(isParent){
-			
+
 		var parent_audio = $('audio', window.parent.document)
-	     
+
 		parent_audio.each(function(i,s){
-			
+
 			var audio_obj = parent_audio[i]
 	        audioFadeOutTo(audio_obj,targetVolume)
 
@@ -725,7 +720,7 @@ var masterFunctions = function() {
 	/**************************************************************************
   **************************************************************************
 
-		
+
 		Utilities
 
 
@@ -735,9 +730,9 @@ var masterFunctions = function() {
 	this.loadVideoUnderlay = function(_id,_popcorn,_load_menu){
 
 		console.log("video")
-	    
+
 		parent.audiomaster.mix.setGain(0.01)
-		
+
 	    if( this.popcorn) Popcorn.destroy(  this.popcorn );
 	    $('#footnote-container').html('')
 	    if(_popcorn){
@@ -748,7 +743,7 @@ var masterFunctions = function() {
 	      });
 	    }
 
-	    $("#video-underlay").fadeOut(1000, function() {        
+	    $("#video-underlay").fadeOut(1000, function() {
 	        $('#video-underlay source').attr('src', _id + master.videoType);
 	        $('#video-underlay video').load();
 	        $("#video-underlay")[0].load()
@@ -756,7 +751,7 @@ var masterFunctions = function() {
 	        $("#video-underlay").fadeIn(500)
 	        if(_load_menu) $('.movie-menu').css('display','block')
 	       // }
-	        
+
 	    })
 
 	}
@@ -767,8 +762,8 @@ var masterFunctions = function() {
 
 		}else{
 		var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
-		this.ghostTrans(getGhost['ghost'],getGhost['frames'])		
-		}	
+		this.ghostTrans(getGhost['ghost'],getGhost['frames'])
+		}
 
 	}
 
@@ -777,7 +772,7 @@ var masterFunctions = function() {
 	    //$('body').append('<canvas id="ghost-canvas-trans" />')
 
 		var ghost = new ghostFunctions("ghost-canvas-trans",_id,numberOfFrames)
-	 
+
 		ghost.imageSequencer()
 
 		$('#ghost-canvas-trans').fadeIn()
@@ -788,12 +783,12 @@ var masterFunctions = function() {
 
 	}
 
-	
 
 
 
 
-		
+
+
 	function hasUserAgent(condition) {
 	    return navigator.userAgent.match(condition);
 	}
@@ -876,7 +871,7 @@ var masterFunctions = function() {
 	    // e// }
 	}
 
-	this.remove_start = function(){	  
+	this.remove_start = function(){
 	   delete_cookie("seen_frontpage");
 	}
 
@@ -894,8 +889,8 @@ var masterFunctions = function() {
 
 
 	this.setDeepLinking = function(deepLink){
-		var isParent 
-		
+		var isParent
+
 		if(visitedPages.indexOf(deepLink)== -1){
 		 	visitedPages += "~" + deepLink
 		 	setCookie("visitedPages",visitedPages,365)
@@ -906,20 +901,20 @@ var masterFunctions = function() {
 	    }catch(e){
 	        isParent = false;
 	    }
-	  
+
 		if(isParent){
 				//var transition_audio = $('#transition', window.parent.document)
 			if(getCookie('muted')!="true"){
 				//transition_audio[0].volume = .2
 				//transition_audio[0].play()
 				}
-			  	
+
 			parent.setHash(deepLink)
 
 		}else{
-			
+
 		}
-	  
+
 	}
 
 } // end master
@@ -934,7 +929,7 @@ var masterFunctions = function() {
 /**************************************************************************
 ***************************************************************************
 
-	
+
 	> Walkthrough
 
 
@@ -942,7 +937,7 @@ var masterFunctions = function() {
 **************************************************************************/
 
 var Walkthrough = function(canvasID, name, videoLength) {
-	
+
 	var that = this,
 		  w = master.globals.cover.w,
 		  h = master.globals.cover.h,
@@ -980,7 +975,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
 	})
 
 	video.addEventListener('timeupdate', function(e) {
-		
+
 		e.stopPropagation()
 
 		that.percent = video.currentTime / video.duration
@@ -990,7 +985,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
 			$('.scroll-directions').fadeOut()
 			if(master.globalPano == 'chemicalroom') videoPlayer("engineroom");
 			if(master.globalPano == 'subhangar')    videoPlayer("subhangar");
-		}	
+		}
 
 	})
 
@@ -1009,7 +1004,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
 	// Init/Close ********************************************************
 	// (additional logic in scrollFunction and scrollStopFunction)
-	
+
 	var walkthroughvideo = false;
 	if(master.globalPano =='chemicalroom' || master.globalPano =='subhangar') walkthroughvideo = true;
 	console.log('walkthroughvideo: '+'\t'+ walkthroughvideo)
@@ -1048,8 +1043,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
 	    $( ".scroll-directions" ).css('top',0)
   	}
 
-  	krpano = document.getElementById("krpanoObject");
-  	krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+  	pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
 
   }
 
@@ -1117,12 +1111,12 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
 		/* ***** Scroll Thumb ***** */
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-	   		$( ".scroll-directions" ).draggable({ 
+	   		$( ".scroll-directions" ).draggable({
 	   			axis: "y",
 	   			containment: 'parent',
 
 				drag: function() {
-					
+
 					that.autoplay = false // stop autoplay
 					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
 					that.scrollFunction()
@@ -1141,7 +1135,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
 	        	$("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
 			} else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
 		}
-		
+
 		function MouseWheelHandler(e){
 
 			console.log('mouse wheel')
@@ -1187,7 +1181,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
   }
 
   /* ***** External Control ***** */
-  this.setPercent = function(_percent){ 
+  this.setPercent = function(_percent){
     that.percent = _percent;
     that.scrollFunction();
   }
@@ -1207,13 +1201,13 @@ var Walkthrough = function(canvasID, name, videoLength) {
     }
 
 		var currentTime = videoLength * that.percent
-		
+
 		video.currentTime = currentTime;
 
 		// console.log(video.currentTime)
 
   }
-              
+
 }
 
 
@@ -1250,7 +1244,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 	  var str = '' + num;
 	  while (str.length < length) {
 	    str = '0' + str;
-	  } 
+	  }
 	  return str;
 	}
 
@@ -1274,7 +1268,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 	}
 	master.debouncedResize();
 
-	
+
 	var context = canvas.getContext('2d');
 	//context.globalCompositeOperation = "source-atop"
 
@@ -1282,7 +1276,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 		playHead=1,
 		ghostTimeout;
 
-	
+
 
 	this.killGhost = function(){
 
@@ -1310,7 +1304,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 			$('#'+ canvasid).css('display','block')
 	        imageSrc = filePathPre + name + zeroes(playHead,4)+".png";
-	        
+
 	        var img = new Image();
 	        img.src = imageSrc
 
@@ -1321,24 +1315,24 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
       			img.onload = function(){
 
 		        context.drawImage(img, 0, 0,320,180);
-		         
+
 		        if(playHead < imageNumber){
 	        		playHead++
 	          	} else{
 	        		playHead =  1
 	          	}
 
-		
+
 	          	//requestAnimationFrame(that.imageSequencer);
-		    }  
+		    }
 		}
 
 			  	ghostTimeout = setTimeout(function() {
-					that.imageSequencer()				
-			  	}, 1000 / 8);	
+					that.imageSequencer()
+			  	}, 1000 / 8);
 
 
-   } //imageSequencer 
+   } //imageSequencer
 
    // preload
    this.preload = function(){
@@ -1355,8 +1349,8 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
    		img.src = filePathPre + name + zeroes(imageNumber,5)+".png";
    	}
    }
-   
-              
+
+
 } /// end ghost
 
 
@@ -1373,7 +1367,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 /*************************************************************************
 **************************************************************************
-	
+
 
 
 	> Root Functions (so we can call them from the krpano XML)
@@ -1392,17 +1386,17 @@ var loadAFXPano = function (_file, _start){
     }
 
     master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
-    
+
 }
 
 
 function newPage(URL) {
- 
+
  	newPageTrigger = false
  	master.audioFadeAll(0.0)
-	var transition_audio = $('#transition', window.parent.document)	
+	var transition_audio = $('#transition', window.parent.document)
 
-	
+
   if(transition_audio.length>0){
 
 	if(URL == "hatch.php"){
@@ -1412,7 +1406,7 @@ function newPage(URL) {
 		} else {
 			transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
 		}
-		
+
 	}else{
 
 		if (transition_audio[0].canPlayType('audio/ogg')){
@@ -1434,7 +1428,7 @@ function newPage(URL) {
 			master.pageChange(URL);
 		})
 
-	}	
+	}
 
 }
 
@@ -1486,7 +1480,7 @@ function panoComplete(){
 
 
 /**************************************************************************
-    
+
   Zoom and change pano
 
     all pano change lookto zooms are here
@@ -1499,109 +1493,104 @@ function panoComplete(){
 
 **************************************************************************/
 var videoPlayerVR = function(video){
-
-  if(!krpano) krpano = document.getElementById("krpanoObject");
-
-   newPano('videoPlayer')
-
-
-
-
+  if(!pano.krpano) return;
+  newPano('videoPlayer');
 }
+
 var zoom_and_change_pano = function( from, to) {
 
   // console.log('Zoom and change pano from: '+from+' to: '+to);
 
-  if(!krpano) krpano = document.getElementById("krpanoObject");
+  if(!pano.krpano) return;
 
   // Helicopter
   if(from === 'helicopter' && to === 'platform')
-    krpano.call("lookto(-99,2,15,smooth(),true,true,js(newPano(platform)))");
+    pano.krpano.call("lookto(-99,2,15,smooth(),true,true,js(newPano(platform)))");
 
 
   // Platform
   if(from === 'platform' && to === 'lowerplatform')
-    krpano.call("lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))");
+    pano.krpano.call("lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))");
 
   else if(from === 'platform' && to === 'helicopter')
-    krpano.call("lookto(-130,10,25,smooth(),true,true,js(newPano(helicopter)))");
+    pano.krpano.call("lookto(-130,10,25,smooth(),true,true,js(newPano(helicopter)))");
 
 
   // Lower Platform
   else if(from === 'lowerplatform' && to === 'sequence_shaftway')
-    krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))");
+    pano.krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))");
 
   else if(from === 'lowerplatform' && to === 'hallway')
-    krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(hallway)))");
+    pano.krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(hallway)))");
 
   else if(from === 'lowerplatform' && to === 'platform')
-    krpano.call("lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))");
+    pano.krpano.call("lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))");
 
   else if(from === 'lowerplatform' && to === 'sequence_outside_stairs_down')
-    krpano.call("lookto(-143,8,15,smooth(),true,true,js(newPano(sequence_outside_stairs_down)))");
+    pano.krpano.call("lookto(-143,8,15,smooth(),true,true,js(newPano(sequence_outside_stairs_down)))");
 
 
   // Boat
   else if(from === 'boat' && to === 'lowerplatform')
-    krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
+    pano.krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
 
   else if(from === 'boat' && to === 'lowerplatform')
-    krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
+    pano.krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
 
 
   // Chemical Room
   else if(from === 'chemicalroom' && to === 'hallway')
-    krpano.call("lookto(30,4,20,smooth(),true,true,js(newPano(hallway)))");
+    pano.krpano.call("lookto(30,4,20,smooth(),true,true,js(newPano(hallway)))");
 
 
   // Sub Hangar
   else if(from === 'subhangar' && to === 'theatre')
-    krpano.call("lookto(-30,-19,10,smooth(),true,true,js(newPano(theatre)))");
+    pano.krpano.call("lookto(-30,-19,10,smooth(),true,true,js(newPano(theatre)))");
 
   else if(from === 'subhangar' && to === 'submarine')
-    krpano.call("lookto(-55,-16,10,smooth(),true,true,js(newPano(submarine)))");
+    pano.krpano.call("lookto(-55,-16,10,smooth(),true,true,js(newPano(submarine)))");
 
 
 
   // Control Room
   else if(from === 'controlroom' && to === 'hallway')
-    krpano.call("lookto(260,0,20,smooth(),true,true,js(newPano(hallway)))");
+    pano.krpano.call("lookto(260,0,20,smooth(),true,true,js(newPano(hallway)))");
 
 
   // Hallway
   else if(from === 'hallway' && to === 'sequence_passage_chemicalroom')
-    krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)");
+    pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)");
 
   else if(from === 'hallway' && to === 'chemicalroom')
-    krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(chemicalroom)));)");
+    pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(chemicalroom)));)");
 
   else if(from === 'hallway' && to === 'sequence_passage_theatre')
-    krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)");
+    pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)");
 
   else if(from === 'hallway' && to === 'theatre')
-    krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(theatre)));)");
+    pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(theatre)));)");
 
   else if(from === 'hallway' && to === 'sequence_passage_controlroom')
-    krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)");
+    pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)");
 
   else if(from === 'hallway' && to === 'controlroom')
-    krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)");
+    pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)");
 
   else if(from === 'hallway' && to === 'lowerplatform')
-    krpano.call("lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
+    pano.krpano.call("lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
 
 
   // Submarine
   else if(from === 'submarine' && to === 'subhangar')
-    krpano.call("lookto(270,0,10,smooth(),true,true,js(newPano(subhangar)));js(removeBackgroundImage(underwater-hanger));");
+    pano.krpano.call("lookto(270,0,10,smooth(),true,true,js(newPano(subhangar)));js(removeBackgroundImage(underwater-hanger));");
 
 
   // Theatre
   else if(from === 'theatre' && to === 'hallway')
-    krpano.call("lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))");
+    pano.krpano.call("lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))");
 
   else if(from === 'theatre' && to === 'subhangar')
-    krpano.call("lookto(-158,0,5,smooth(),true,true,js(newPano(subhangar)))");
+    pano.krpano.call("lookto(-158,0,5,smooth(),true,true,js(newPano(subhangar)))");
 
 }
 
@@ -1609,7 +1598,7 @@ var zoom_and_change_pano = function( from, to) {
 
 
 /**************************************************************************
-  
+
   Misc Functions from individual scenes
 
 **************************************************************************/
@@ -1623,22 +1612,22 @@ var startDrilling = function(stopping){
     extcontrol.fn({ 'fn': 'startDrilling', 'stopping':stopping })
   }
 
-  if(!krpano) krpano = document.getElementById("krpanoObject");
+  if(!pano.krpano) return;
 
   if(stopping) {
 
-    krpano.call("set(hotspot[closehatch].alpha,0);");
-    krpano.call("set(hotspot[closehatch].enabled,false);");
-    krpano.call("set(hotspot[openhatch].enabled,true);");
+    pano.krpano.call("set(hotspot[closehatch].alpha,0);");
+    pano.krpano.call("set(hotspot[closehatch].enabled,false);");
+    pano.krpano.call("set(hotspot[openhatch].enabled,true);");
 
   } else {
 
     loadAFXPano('klaxxon');
 
-    krpano.call("set(hotspot[closehatch].alpha,1);");
-    krpano.call("set(hotspot[closehatch].enabled,true);");
-    krpano.call("set(hotspot[openhatch].enabled,false);");
-    krpano.call("lookto(190,0,60,smooth(),true,true);");
+    pano.krpano.call("set(hotspot[closehatch].alpha,1);");
+    pano.krpano.call("set(hotspot[closehatch].enabled,true);");
+    pano.krpano.call("set(hotspot[openhatch].enabled,false);");
+    pano.krpano.call("lookto(190,0,60,smooth(),true,true);");
 
   }
 
@@ -1655,22 +1644,22 @@ var startDrilling = function(stopping){
 // Zoom in/out
 
 function zoomOut() {
-    master.overlayOpen = false
+  master.overlayOpen = false
 
-    if(extcontrol) if(extcontrol.role === 'master') {
-      extcontrol.fn({ 'fn': 'zoomOut' })
-    }
+  if(extcontrol) if(extcontrol.role === 'master') {
+    extcontrol.fn({ 'fn': 'zoomOut' })
+  }
 
 
-    $('.fastpan, .compass').fadeIn()
-    $("#zoom-out").fadeOut()
+  $('.fastpan, .compass').fadeIn()
+  $("#zoom-out").fadeOut()
 
-    if(!krpano) krpano = document.getElementById("krpanoObject");
-    krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
-    krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
-    krpano.call('set(autorotate.enabled,true)')
-    $("#zoom-out").off('click')
-    $('#zoom-out').remove()
+  if(!krpano) return;
+  pano.krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
+  pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+  pano.krpano.call('set(autorotate.enabled,true)')
+  $("#zoom-out").off('click')
+  $('#zoom-out').remove()
 }
 
 function zoomIn() {
@@ -1695,8 +1684,8 @@ var loadUnderWater = function(_id){
     extcontrol.fn({ 'fn': 'loadUnderWater', '_id': _id })
   }
 
-  if(!krpano) krpano = document.getElementById("krpanoObject");
-  krpano.call("lookTo(90,0,50,smooth(),true,true)");
+  if(!pano.krpano) return;
+  pano.krpano.call("lookTo(90,0,50,smooth(),true,true)");
   zoomIn();
   setCache(270,90);
 
@@ -1720,7 +1709,7 @@ var corexit = function(){
   if(extcontrol.role === 'master') {
     extcontrol.fn({ 'fn':'corexit' })
   } else if(extcontrol.role === 'slave') {
-    krpano.call("tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)");
+    pano.krpano.call("tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)");
   }
 
 }
@@ -1751,21 +1740,21 @@ var soundadjust = function(coord,fov) {
 
 	if(convCoord < 180 )  soundVector1 = convCoord/180;
 	else  				  soundVector1 = (360-convCoord)/180;
-	 
+
 	if(convCoord1 < 180 ) soundVector2 = (convCoord1)/180;
 	else  				  soundVector2 = (360-(convCoord1))/180;
 
 	if(Modernizr.webaudio === true) {
 		if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
 		  parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-		  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+		  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)
 		}
 
 		if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-		  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
+		  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)
 		}
 	}
-	
+
 
 	// show ghosts only in specific spot (recalculated every pano)
 	if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
@@ -1777,9 +1766,9 @@ var soundadjust = function(coord,fov) {
 
 	/* sequences */
 	if(master.globalPano === 'chemicalroom' || master.globalPano === 'subhangar' ) {
-		// fade in walkthrough	  
+		// fade in walkthrough
 		if(fov < 25 && !master.overlayOpen) {
-  
+
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
 	        $('#panocontainer, .fastpan, .compass').addClass('hide')
 	        //pano.walkthrough.autoplay = true
@@ -1793,7 +1782,7 @@ var soundadjust = function(coord,fov) {
 
   		// fade out walkthrough
 	    }else{
-  
+
 	        if(!master.overlayOpen)
 	        	$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
@@ -1806,7 +1795,7 @@ var soundadjust = function(coord,fov) {
 	        if(master.isIOS || master.isAndroid){
 	        	$('#walking-canvas-pano').css('display','none')
 	        }
-    
+
 	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.4)
 	        pano.walkthroughPlaying = false;
 	    }
@@ -1898,7 +1887,7 @@ var videoPlayerUI = {
   video : document.getElementById("video-overlay"),
   $play : $(".video-content-wrap .play"),
   $seek : $(".video-content-wrap .seek"),
-  wasplaying : null, 
+  wasplaying : null,
   time : null,
 
   // these two allow iOS masters to control video properly
@@ -1949,7 +1938,7 @@ var videoPlayerUI = {
       } else if(extcontrol.role === 'slave') {
         videoPlayerUI.time = data.time;
       }
-    } 
+    }
 
     videoPlayerUI.video.currentTime = videoPlayerUI.time;
     if(wasplaying) {
@@ -1967,7 +1956,7 @@ var videoPlayerUI = {
 
 
 /**************************************************************************
-  
+
   videoPlayer
 
 **************************************************************************/
@@ -1980,7 +1969,7 @@ function videoPlayer(group, playerFadeTransition){
     extcontrol.fn({
       "fn": "openVideoPlayer",
       "group": group,
-      "playerFadeTransition": playerFadeTransition 
+      "playerFadeTransition": playerFadeTransition
     });
   }
 
@@ -2006,7 +1995,7 @@ function videoPlayer(group, playerFadeTransition){
 	}else{
 		 $breadcrumb.animate({'bottom': '-40px'}, 500)
 	}
-   
+
 
 
 
@@ -2048,7 +2037,7 @@ function videoPlayer(group, playerFadeTransition){
 					switchVideo( $(v).next().data('file'),$(v).next().text() )
 				else
 					closeVideoPlayer()
-					
+
 				return false;
 			}
 
@@ -2110,7 +2099,7 @@ function videoPlayer(group, playerFadeTransition){
 
         // slider -> video
         $seek.slider({ slide: videoPlayerUI.sliderseek });
-        
+
         // video -> slider
         video.addEventListener("timeupdate", function() {
             var value = (100 / video.duration) * video.currentTime;
@@ -2130,13 +2119,13 @@ function videoPlayer(group, playerFadeTransition){
       }
 
     }
-    
+
 
 	})
 
 	videoControls();
 
-	
+
 	// Movie Menu autohide ---------------------------------------------
 
 	var autohide = (function(){
@@ -2177,7 +2166,7 @@ function videoPlayer(group, playerFadeTransition){
 			}, 2000)
 		})
 
-		$(document).on('mouseout',function(e){ 
+		$(document).on('mouseout',function(e){
 		    over=false
 
 		    window.clearTimeout(timeout)
@@ -2195,7 +2184,7 @@ function videoPlayer(group, playerFadeTransition){
 
 
 /**************************************************************************
-  
+
   switchVideo
 
 **************************************************************************/
@@ -2217,7 +2206,7 @@ function switchVideo(_id,_text){
   // ********************************************************
   // track number of seconds of video viewed (in localStorage)
 
-	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
+	var viewedContent = $.grep(master.viewedContentArray, function (element, index) {
         return element.srcString == $videooverlay[0].src
     });
 
@@ -2243,7 +2232,7 @@ function switchVideo(_id,_text){
 	contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 71 minutes of OFFSHORE video content." )
 	localStorage.setItem('contentViewedSeconds',JSON.stringify(contentViewedSeconds))
 
-	
+
 	// nuke base track
 	if(parent.audiomaster.mix.getTrack('overlay_02')) parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
 
@@ -2268,7 +2257,7 @@ function switchVideo(_id,_text){
 
   $('#ghost-canvas-trans').fadeOut()
   $('.controls').css('display','none')
-	
+
 	$('#video-overlay-title').html(_text)
 	$('#video-overlay-title').fadeIn()
 
@@ -2333,7 +2322,7 @@ function switchVideo(_id,_text){
 
 
 /**************************************************************************
-  
+
   closeVideoPlayer
 
 **************************************************************************/
@@ -2346,9 +2335,9 @@ function closeVideoPlayer(){
 
 	var $videocontentwrap = $(".video-content-wrap")
 
-	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
+	var viewedContent = $.grep(master.viewedContentArray, function (element, index) {
     return element.srcString == $('#video-overlay')[0].src
-  });	
+  });
 
 	if(viewedContent.length > 0 ){
 
@@ -2359,7 +2348,7 @@ function closeVideoPlayer(){
 	} else {
 		 master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
 	}
-		
+
 
 	console.log("closing Video Player")
 
@@ -2397,15 +2386,15 @@ function closeVideoPlayer(){
 	// master.overlayOpen = false
 	$videooverlay[0].pause(); // can't hurt
 	//parent.audiomaster.mix.setGain(1.0)
-	
+
 	$videocontentwrap.removeClass("open");
 	$videocontentwrap.removeClass("transtion-width");
 	$videocontentwrap.removeClass("transition-opacity");
 	//$(".video-content-wrap").addClass("no-pointer-events");
 
   if(extcontrol) if(extcontrol.role === 'master') {
-    krpano = document.getElementById("krpanoObject");
-    krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+    if(pano.krpano)
+      pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
   }
 
 	setTimeout(function() {
@@ -2445,90 +2434,90 @@ function closeVideoPlayer(){
 
 
 (function($){
-	
+
 /// Scrollin stuff
-    
+
     var special = jQuery.event.special,
         uid1 = 'D' + (+new Date()),
         uid2 = 'D' + (+new Date() + 1);
-        
+
     special.scrollstart = {
         setup: function() {
-            
+
             var timer,
                 handler =  function(evt) {
-                    
+
                     var _self = this,
                         _args = arguments;
-                    
+
                     if (timer) {
                         clearTimeout(timer);
                     } else {
                         evt.type = 'scrollstart';
                         jQuery.event.handle.apply(_self, _args);
                     }
-                    
+
                     timer = setTimeout( function(){
                         timer = null;
                     }, special.scrollstop.latency);
-                    
+
                 };
-            
+
             jQuery(this).bind('scroll', handler).data(uid1, handler);
-            
+
         },
         teardown: function(){
             jQuery(this).unbind( 'scroll', jQuery(this).data(uid1) );
         }
     };
-    
+
     special.scrollstop = {
         latency: 300,
         setup: function() {
-            
+
             var timer,
                     handler = function(evt) {
-                    
+
                     var _self = this,
                         _args = arguments;
-                    
+
                     if (timer) {
                         clearTimeout(timer);
                     }
-                    
+
                     timer = setTimeout( function(){
-                        
+
                         timer = null;
                         evt.type = 'scrollstop';
                         jQuery.event.handle.apply(_self, _args);
-                        
+
                     }, special.scrollstop.latency);
-                    
+
                 };
-            
+
             jQuery(this).bind('scroll', handler).data(uid2, handler);
-            
+
         },
         teardown: function() {
             jQuery(this).unbind( 'scroll', jQuery(this).data(uid2) );
         }
     };
-    
 
-		
+
+
 	$.fn.shuffleLetters = function(prop){
-	
+
 		var options = $.extend({
 			"step"		: 1,			// How many times should the letters be changed
 			"loop"		: false,			// loop?
-			"stats"		: false,	
+			"stats"		: false,
 			"fps"		: 25,			// Frames Per Second
 			"text"		: "", 			// Use this text instead of the contents
 			"callback"	: function(){}	// Run once the animation is complete
 		},prop)
 
 		return this.each(function(){
-			
+
 			var el = $(this),
 				str = "";
 
@@ -2538,29 +2527,29 @@ function closeVideoPlayer(){
 			if(el.data('animated')){
 				return true;
 			}
-			
+
 			el.data('animated',true);
-			
-			
+
+
 
 				if(options.stats) {
 				str = master.get_stat();
-				
+
 			  }else{
-			  str = master.get_tag();	
+			  str = master.get_tag();
 			  }
-			  
+
 			  if(options.comingsoon) {
 			  str = "OFFSHORE ... coming soon";
 			  }
-		
+
 			// $('meta[name=description]').attr('content', str);
-			 el.html("");			
+			 el.html("");
 
 			// Self executing named function expression:
-			
+
 			(function shuffle(start){
-				
+
 				// This code is run options.fps times per second
 				// and updates the contents of the page element
 				$('#inter-text').html(str).hide().fadeIn(1000, function(){
@@ -2573,7 +2562,7 @@ function closeVideoPlayer(){
 		      	    "stats": true
 		          });
 	          }, 6000);
-						
+
 					}else{
 						master.build_navbar()
 						master.check_start()
@@ -2584,16 +2573,16 @@ function closeVideoPlayer(){
 					return;
 
 				})
-					
+
 			})(-options.step);
-			
+
 
 		});
 	};
-	
+
 	function randomChar(type){
 		var pool = "";
-		
+
 		if (type == "lowerLetter"){
 			pool = "abcdefghijklmnopqrstuvwxyz0123456789";
 		}
@@ -2603,11 +2592,11 @@ function closeVideoPlayer(){
 		else if (type == "symbol"){
 			pool = ",.?/\\(^)![]{}*&^%$#'\"";
 		}
-		
+
 		var arr = pool.split('');
 		return arr[Math.floor(Math.random()*arr.length)];
 	}
-	
+
 })(jQuery);
 
 
@@ -2616,7 +2605,7 @@ function closeVideoPlayer(){
 
 
 /**************************************************************************
-	
+
 	> RAF
 
 **************************************************************************/
@@ -2625,11 +2614,11 @@ var cancelAnimationFrame = window.webkitRequestAnimationFrame || window.cancelAn
 
 window.requestAnimationFrame = (function() {
 
-	return  window.requestAnimationFrame       || 
-	        window.webkitRequestAnimationFrame || 
-	        window.mozRequestAnimationFrame    || 
-	        window.oRequestAnimationFrame      || 
-	        window.msRequestAnimationFrame     || 
+	return  window.requestAnimationFrame       ||
+	        window.webkitRequestAnimationFrame ||
+	        window.mozRequestAnimationFrame    ||
+	        window.oRequestAnimationFrame      ||
+	        window.msRequestAnimationFrame     ||
 	        function(/* function */ callback, /* DOMElement */ element){
 		        window.setTimeout(callback, 1000 / 60);
 		    };
@@ -2644,7 +2633,7 @@ window.requestAnimationFrame = (function() {
 
 
 /**************************************************************************
-  
+
   Orientation Change Handler
 
 **************************************************************************/
