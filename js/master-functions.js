@@ -363,10 +363,6 @@ var masterFunctions = function() {
 
   	this.build_navbar = function(no_fade){
 
-  		// this._frame = null
-
-  		console.log("INIT TOOLBAR")
-
   		//$("#wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
   		//$("#scroll-wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
 
@@ -627,13 +623,11 @@ var masterFunctions = function() {
 
 		var dummysounds = { s:  0};
 
-		console.log('waa' + _targetVolume)
+		// console.log('waa' + _targetVolume);
 
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-
-
 
 				if(audiomaster.mix.getTrack(_trackName)){
 					audiomaster.mix.getTrack(_trackName).gain(this.s)

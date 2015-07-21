@@ -46,19 +46,14 @@ var pano_master = function(){
 
   this.video_underlay = false;
 
-  if(Modernizr.webaudio === true) {
-    console.log('[MODERNIZR] Web Audio Supported')
-    that.noWebAudio = false
-  } else {
-    console.log('[MODERNIZR] Web Audio NOT Supported')
-    that.noWebAudio = true;
-  }
+  this.noWebAudio = !Modernizr.webaudio;
 
   this.visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
 
   if(!this.visited){
 
     console.log("setting localStorage visited pano data for the first time")
+
     this.visited = { // this gets cached in localStorage
       platform : false,
       lowerplatform : false,
@@ -72,29 +67,28 @@ var pano_master = function(){
     localStorage.setItem('offshoreVisitedPanos',JSON.stringify(this.visited))
 
   } else {
-    console.log("visited pano data:")
-    console.log(this.visited)
+    console.log("visited pano data: %o", this.visited);
   }
 
 
-  var scrollPercent=0;
+  var scrollPercent = 0;
   var scrollTrigger, sequenceHasWords, linkForward, linkBack;
   var overLayFile, underlayFile, underlayMute, underlayMuted;
 
-  if(location.hash.slice(1)) globalPano = location.hash.slice(1)
-    console.log('globalPano', globalPano);
 
-  //Defualt to start if no has'h
+  // Build pano
+  // ********************************************************
 
+  if(location.hash.slice(1))
+    globalPano = location.hash.slice(1);
+
+  // Defualt to start if no hash
   panoXMLFile = './xml/all_panos.xml?nocache='+Math.random()*5;
 
   if(!location.hash.slice(1)) {
     console.log('NO HASH > PROLOGUE')
     globalPano = "prologue";
   }
-
-  // Build pano
-  // ********************************************************
 
   var masterPath = ".";
   var targetContainer = "panocontainer";
@@ -227,6 +221,8 @@ var pano_master = function(){
 
   this.loadPanoScene = function(_pano) {
 
+    console.log('load pano "%s"', _pano);
+
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.hashChange({ "hash": _pano });
     }
@@ -269,18 +265,13 @@ var pano_master = function(){
 
     },1000)
 
-
     // calculate a random range for ghosts to appear
     master.ghostMinCoord = Math.floor( Math.random() * 180 )
     master.ghostMaxCoord = master.ghostMinCoord + 100
 
-
-
-    $('.scroll-directions').css('top',0)
-
+    $('.scroll-directions').css('top',0);
     $('.panoversion').hide();
 
-      console.log('load pano')
 
     if(Modernizr.webaudio) {
       if(audiomaster && audiomaster.mix.getTrack('overlay_02')){
@@ -292,14 +283,11 @@ var pano_master = function(){
       }
     }
 
-
     ///// Decision to divert to image sequence
     if(_pano.indexOf('sequence')!=-1) {
       loadSequenceScene(_pano);
       return false;
     }
-
-    console.log('loadPanoScene() '+_pano);
 
     $('#scroll-wrapper').fadeOut()
 
@@ -635,9 +623,6 @@ var pano_master = function(){
     url: 'js/videoMatrix.json',
     success: function(data){
 
-      console.log("MOVIE LIST LOADED")
-      // master.movieMenu = data.children
-
       // build all possible menus - videoPlayer() function picks the one it needs
       $.each(data.children, function(group_i,group){
         $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
@@ -645,8 +630,6 @@ var pano_master = function(){
         $.each(group.movies,function(movie_i,movie){
           $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
         })
-
-
       })
 
       $('.movie-menu-item').click(function(){
