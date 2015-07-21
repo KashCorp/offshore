@@ -251,7 +251,7 @@ var masterFunctions = function() {
           'height' : that.resize.contain.h
         })
 
-        $('.video-content-wrap .controls').css('bottom',resize.contain.t)
+        $('.video-content-wrap .controls').css('bottom', that.resize.contain.t)
       }
 
       if(typeof pano != 'undefined') {
@@ -296,9 +296,6 @@ var masterFunctions = function() {
 
     this.build_navbar = function(no_fade){
 
-      //$("#wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
-      //$("#scroll-wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
-
       $(".navlink").click(function(){
         that.parentChange('index.php')
       })
@@ -322,11 +319,11 @@ var masterFunctions = function() {
         // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
         breadbox_string += '</nav>';
 
-        breadbox_string += '<div class="info">';
-        breadbox_string += '<div class="title"><p>Brent Crude Oil</p><p>USD / Barrel</p></div>';
-        breadbox_string += '<div class="price"><p>$' + price + '</p></div>';
-        breadbox_string += '<div class="change"><p>' + change + '</p><p>' + percent + '</p></div>';
-        breadbox_string += '</div>'
+        // breadbox_string += '<div class="info">';
+        // breadbox_string += '<div class="title"><p>Brent Crude Oil</p><p>USD / Barrel</p></div>';
+        // breadbox_string += '<div class="price"><p>$' + price + '</p></div>';
+        // breadbox_string += '<div class="change"><p>' + change + '</p><p>' + percent + '</p></div>';
+        // breadbox_string += '</div>'
 
         breadbox_string += '<div class="share">'
         breadbox_string += '<div class="facebook"><a href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(window.location.href), \'facebook-share-dialog\',\'width=626,height=436\');return false;"></a></div>';
@@ -460,7 +457,7 @@ var masterFunctions = function() {
     $('#overlay_frame').fadeOut(500,function(){
 
       if(extcontrol) if(extcontrol.role === 'master') {
-        pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
+        pano.krpano.call("lookto("+globals.cachedAth+",0,"+globals.cachedFov+",smooth(),true,true)")
       }
 
       globals.$panocontainer.removeClass('hide')
@@ -479,7 +476,7 @@ var masterFunctions = function() {
       globals.$compass.fadeIn(500)
 
       if(_URL){
-        newPano(_URL)
+        xml.newPano(_URL)
       }
 
     })
@@ -678,7 +675,7 @@ var masterFunctions = function() {
       }
 
       $("#video-underlay").fadeOut(1000, function() {
-          $('#video-underlay source').attr('src', _id + master.videoType);
+          $('#video-underlay source').attr('src', _id + globals.videoType);
           $('#video-underlay video').load();
           $("#video-underlay")[0].load()
           $("#video-underlay")[0].play()
@@ -863,21 +860,28 @@ var masterFunctions = function() {
 
 
 
+
+
+
+
+
+
 /*************************************************************************
 **************************************************************************
 
-  #####   ######   ###### ######
-  ##  ## ##    ## ##    ##  ##
-  #####  ##    ## ##    ##  ##
-  ##  ## ##    ## ##    ##  ##
-  ##  ##  ######   ######   ##
+  ##   ## ###  ### ##
+   ## ##  ######## ##
+    ###   ## ## ## ##
+   ## ##  ##    ## ##
+  ##   ## ##    ## #####
 
   > Root Functions (so we can call them from the krpano XML)
 
 **************************************************************************
 *************************************************************************/
 
-var loadAFXPano = function (_file, _start){
+var xml = {
+  loadAFXPano: function (_file, _start){
 
     if(!_start) _start = 0
 
@@ -886,308 +890,347 @@ var loadAFXPano = function (_file, _start){
     }
 
     master.AFXloadAudio( master.audio_path+_file,'overlay_02',0,1.0, _start)
+  },
 
-}
+  newPage: function(URL) {
 
+    newPageTrigger = false
+    master.audioFadeAll(0.0)
+    var transition_audio = $('#transition');
 
-function newPage(URL) {
+    if(transition_audio.length > 0){
 
-  newPageTrigger = false
-  master.audioFadeAll(0.0)
-  var transition_audio = $('#transition');
+    if(URL == "hatch.php"){
 
-  if(transition_audio.length > 0){
+      if (transition_audio[0].canPlayType('audio/ogg')){
+        transition_audio[0].src = master.audio_path + "Hatch_Open.ogg"
+      } else {
+        transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
+      }
 
-  if(URL == "hatch.php"){
+    }else{
 
-    if (transition_audio[0].canPlayType('audio/ogg')){
-      transition_audio[0].src = master.audio_path + "Hatch_Open.ogg"
-    } else {
-      transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
+      if (transition_audio[0].canPlayType('audio/ogg')){
+        //transition_audio[0].src = "audio/Transition_Sound.ogg"
+      } else {
+        //transition_audio[0].src = "audio/Transition_Sound.mp3"
+      }
+
+    }
+    master.audiocontrol('transition');
     }
 
-  }else{
-
-    if (transition_audio[0].canPlayType('audio/ogg')){
-      //transition_audio[0].src = "audio/Transition_Sound.ogg"
+    if(URL == 'blog/index.php?from_rig=true~BLOG') {
+      master.parentChange(URL);
     } else {
-      //transition_audio[0].src = "audio/Transition_Sound.mp3"
+
+      $(".wrapper").fadeOut(500, function(){
+        console.log("fade to new page")
+        master.pageChange(URL);
+      })
+
     }
 
-  }
-  master.audiocontrol('transition');
-  }
-
-  if(URL == 'blog/index.php?from_rig=true~BLOG') {
-    master.parentChange(URL);
-  } else {
-
-    $(".wrapper").fadeOut(500, function(){
-      console.log("fade to new page")
-      master.pageChange(URL);
-    })
-
-  }
-
-}
+  },
 
 
+  newPano: function(_pano, fromPrologue) {
+
+    if(_pano === globals.pano) return;
+
+    master.isPlayingVO = false
+
+    if(!fromPrologue) {
+      $('#video-underlay').hide();
+      window.location.hash = _pano;
+      globals.$panocontainer.addClass('hide');
+    }
+
+  },
+
+  removeBackgroundImage: function(divName){
+    console.log("remove " + divName)
+    $('.' + divName).remove()
+  },
+
+  /**************************************************************************
+
+    Zoom and change pano
+
+      all pano change lookto zooms are here
+      so they can be used by the autopilot
+
+      in XML:
+      onclick="js(zoom_to_and_change_pano('from','to'))"
+
+  **************************************************************************/
+
+  zoom_and_change_pano: function( from, to) {
+
+    // console.log('Zoom and change pano from: '+from+' to: '+to);
+
+    if(!pano.krpano) return;
+
+    // Helicopter
+    if(from === 'helicopter' && to === 'platform')
+      pano.krpano.call("lookto(-99,2,15,smooth(),true,true,js(xml.newPano(platform)))");
 
 
-function newPano(_pano, fromPrologue) {
+    // Platform
+    if(from === 'platform' && to === 'lowerplatform')
+      pano.krpano.call("lookto(96,13,15,smooth(),true,true,js(xml.newPano(lowerplatform)))");
 
-  if(_pano === globals.pano) return;
-
-  master.isPlayingVO = false
-
-  if(!fromPrologue) {
-    $('#video-underlay').hide();
-    window.location.hash = _pano;
-    globals.$panocontainer.addClass('hide');
-  }
-
-}
-
-function removeBackgroundImage(divName){
-  console.log("remove " + divName)
-  $('.' + divName).remove()
-}
+    else if(from === 'platform' && to === 'helicopter')
+      pano.krpano.call("lookto(-130,10,25,smooth(),true,true,js(xml.newPano(helicopter)))");
 
 
+    // Lower Platform
+    else if(from === 'lowerplatform' && to === 'sequence_shaftway')
+      pano.krpano.call("lookto(79,8,15,smooth(),true,true,js(xml.newPano(sequence_shaftway)))");
 
-var videoPlayerVR = function(video){
-  if(!pano.krpano) return;
-  newPano('videoPlayer');
-}
+    else if(from === 'lowerplatform' && to === 'hallway')
+      pano.krpano.call("lookto(79,8,15,smooth(),true,true,js(xml.newPano(hallway)))");
 
+    else if(from === 'lowerplatform' && to === 'platform')
+      pano.krpano.call("lookto(-100,3,15,smooth(),true,true,js(xml.newPano(platform)))");
 
-
-/**************************************************************************
-
-  Zoom and change pano
-
-    all pano change lookto zooms are here
-    so they can be used by the autopilot
-
-    in XML:
-    onclick="js(zoom_to_and_change_pano('from','to'))"
-
-**************************************************************************/
-
-var zoom_and_change_pano = function( from, to) {
-
-  // console.log('Zoom and change pano from: '+from+' to: '+to);
-
-  if(!pano.krpano) return;
-
-  // Helicopter
-  if(from === 'helicopter' && to === 'platform')
-    pano.krpano.call("lookto(-99,2,15,smooth(),true,true,js(newPano(platform)))");
+    else if(from === 'lowerplatform' && to === 'sequence_outside_stairs_down')
+      pano.krpano.call("lookto(-143,8,15,smooth(),true,true,js(xml.newPano(sequence_outside_stairs_down)))");
 
 
-  // Platform
-  if(from === 'platform' && to === 'lowerplatform')
-    pano.krpano.call("lookto(96,13,15,smooth(),true,true,js(newPano(lowerplatform)))");
+    // Boat
+    else if(from === 'boat' && to === 'lowerplatform')
+      pano.krpano.call("lookto(75,-12,10,smooth(),true,true,js(xml.newPano(lowerplatform)))");
 
-  else if(from === 'platform' && to === 'helicopter')
-    pano.krpano.call("lookto(-130,10,25,smooth(),true,true,js(newPano(helicopter)))");
-
-
-  // Lower Platform
-  else if(from === 'lowerplatform' && to === 'sequence_shaftway')
-    pano.krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))");
-
-  else if(from === 'lowerplatform' && to === 'hallway')
-    pano.krpano.call("lookto(79,8,15,smooth(),true,true,js(newPano(hallway)))");
-
-  else if(from === 'lowerplatform' && to === 'platform')
-    pano.krpano.call("lookto(-100,3,15,smooth(),true,true,js(newPano(platform)))");
-
-  else if(from === 'lowerplatform' && to === 'sequence_outside_stairs_down')
-    pano.krpano.call("lookto(-143,8,15,smooth(),true,true,js(newPano(sequence_outside_stairs_down)))");
+    else if(from === 'boat' && to === 'lowerplatform')
+      pano.krpano.call("lookto(75,-12,10,smooth(),true,true,js(xml.newPano(lowerplatform)))");
 
 
-  // Boat
-  else if(from === 'boat' && to === 'lowerplatform')
-    pano.krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
-
-  else if(from === 'boat' && to === 'lowerplatform')
-    pano.krpano.call("lookto(75,-12,10,smooth(),true,true,js(newPano(lowerplatform)))");
+    // Chemical Room
+    else if(from === 'chemicalroom' && to === 'hallway')
+      pano.krpano.call("lookto(30,4,20,smooth(),true,true,js(xml.newPano(hallway)))");
 
 
-  // Chemical Room
-  else if(from === 'chemicalroom' && to === 'hallway')
-    pano.krpano.call("lookto(30,4,20,smooth(),true,true,js(newPano(hallway)))");
+    // Sub Hangar
+    else if(from === 'subhangar' && to === 'theatre')
+      pano.krpano.call("lookto(-30,-19,10,smooth(),true,true,js(xml.newPano(theatre)))");
+
+    else if(from === 'subhangar' && to === 'submarine')
+      pano.krpano.call("lookto(-55,-16,10,smooth(),true,true,js(xml.newPano(submarine)))");
 
 
-  // Sub Hangar
-  else if(from === 'subhangar' && to === 'theatre')
-    pano.krpano.call("lookto(-30,-19,10,smooth(),true,true,js(newPano(theatre)))");
 
-  else if(from === 'subhangar' && to === 'submarine')
-    pano.krpano.call("lookto(-55,-16,10,smooth(),true,true,js(newPano(submarine)))");
+    // Control Room
+    else if(from === 'controlroom' && to === 'hallway')
+      pano.krpano.call("lookto(260,0,20,smooth(),true,true,js(xml.newPano(hallway)))");
 
 
+    // Hallway
+    else if(from === 'hallway' && to === 'sequence_passage_chemicalroom')
+      pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(xml.newPano(sequence_passage_chemicalroom)));)");
+
+    else if(from === 'hallway' && to === 'chemicalroom')
+      pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(xml.newPano(chemicalroom)));)");
+
+    else if(from === 'hallway' && to === 'sequence_passage_theatre')
+      pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(xml.newPano(sequence_passage_theatre)));)");
+
+    else if(from === 'hallway' && to === 'theatre')
+      pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(xml.newPano(theatre)));)");
+
+    else if(from === 'hallway' && to === 'sequence_passage_controlroom')
+      pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(xml.newPano(sequence_passage_controlroom)));)");
+
+    else if(from === 'hallway' && to === 'controlroom')
+      pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(xml.newPano(controlroom)));)");
+
+    else if(from === 'hallway' && to === 'lowerplatform')
+      pano.krpano.call("lookto(105,-40,10,smooth(),true,true,js(xml.newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
+
+
+    // Submarine
+    else if(from === 'submarine' && to === 'subhangar')
+      pano.krpano.call("lookto(270,0,10,smooth(),true,true,js(xml.newPano(subhangar)));js(xml.removeBackgroundImage(underwater-hanger));");
+
+
+    // Theatre
+    else if(from === 'theatre' && to === 'hallway')
+      pano.krpano.call("lookto(35,0,5,smooth(),true,true,js(xml.newPano(hallway)))");
+
+    else if(from === 'theatre' && to === 'subhangar')
+      pano.krpano.call("lookto(-158,0,5,smooth(),true,true,js(xml.newPano(subhangar)))");
+
+  },
+
+
+
+
+
+
+  /**************************************************************************
+
+    Misc Functions from individual scenes
+
+  **************************************************************************/
 
   // Control Room
-  else if(from === 'controlroom' && to === 'hallway')
-    pano.krpano.call("lookto(260,0,20,smooth(),true,true,js(newPano(hallway)))");
+  startDrilling: function(stopping){
+
+    console.log('startDrilling ' + stopping)
+
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn': 'startDrilling', 'stopping':stopping })
+    }
+
+    if(!pano.krpano) return;
+
+    if(stopping) {
+
+      pano.krpano.call("set(hotspot[closehatch].alpha,0);");
+      pano.krpano.call("set(hotspot[closehatch].enabled,false);");
+      pano.krpano.call("set(hotspot[openhatch].enabled,true);");
+
+    } else {
+
+      loadAFXPano('klaxxon');
+
+      pano.krpano.call("set(hotspot[closehatch].alpha,1);");
+      pano.krpano.call("set(hotspot[closehatch].enabled,true);");
+      pano.krpano.call("set(hotspot[openhatch].enabled,false);");
+      pano.krpano.call("lookto(190,0,60,smooth(),true,true);");
+
+    }
+
+    var transition_audio = $('#transition');
+    transition_audio[0].src = "audio/Hatch_Open.mp3"
+    transition_audio[0].play()
+    $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
+      $("#wrapper").animate({'bottom': '0','top': '0'}, 100)
+    })
+  },
 
 
-  // Hallway
-  else if(from === 'hallway' && to === 'sequence_passage_chemicalroom')
-    pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(sequence_passage_chemicalroom)));)");
 
-  else if(from === 'hallway' && to === 'chemicalroom')
-    pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(newPano(chemicalroom)));)");
+  // Zoom in/out
 
-  else if(from === 'hallway' && to === 'sequence_passage_theatre')
-    pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(sequence_passage_theatre)));)");
+  zoomOut: function() {
+    master.overlayOpen = false
 
-  else if(from === 'hallway' && to === 'theatre')
-    pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(newPano(theatre)));)");
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn': 'zoomOut' })
+    }
 
-  else if(from === 'hallway' && to === 'sequence_passage_controlroom')
-    pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(sequence_passage_controlroom)));)");
 
-  else if(from === 'hallway' && to === 'controlroom')
-    pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(newPano(controlroom)));)");
+    $('.fastpan, .compass').fadeIn()
+    $("#zoom-out").fadeOut()
 
-  else if(from === 'hallway' && to === 'lowerplatform')
-    pano.krpano.call("lookto(105,-40,10,smooth(),true,true,js(newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
+    if(!krpano) return;
+    pano.krpano.call('tween(90,90,2,easeOutCubic,js(xml.showMapIcon()))')
+    pano.krpano.call("lookto("+globals.cachedAth+",0,"+globals.cachedFov+",smooth(),true,true)")
+    pano.krpano.call('set(autorotate.enabled,true)')
+    $("#zoom-out").off('click')
+    $('#zoom-out').remove()
+  },
+
+  zoomIn: function() {
+    console.log('ZOOM IN')
+    master.overlayOpen = true
+    $('.fastpan, .compass').fadeOut()
+
+    // create
+    $('#zoom-out').remove();
+    globals.$panocontainer.after('<div id="zoom-out" class="platform-nav dynamic hide"></div>');
+
+    $("#zoom-out").removeClass('hide')
+    $("#zoom-out").on('click', xml.zoomOut);
+  },
 
 
   // Submarine
-  else if(from === 'submarine' && to === 'subhangar')
-    pano.krpano.call("lookto(270,0,10,smooth(),true,true,js(newPano(subhangar)));js(removeBackgroundImage(underwater-hanger));");
+  loadUnderWater: function(_id){
+    console.log('loadUnderWater() '+_id)
 
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn': 'loadUnderWater', '_id': _id })
+    }
 
-  // Theatre
-  else if(from === 'theatre' && to === 'hallway')
-    pano.krpano.call("lookto(35,0,5,smooth(),true,true,js(newPano(hallway)))");
+    if(!pano.krpano) return;
+    pano.krpano.call("lookTo(90,0,50,smooth(),true,true)");
+    zoomIn();
+    setCache(270,90);
 
-  else if(from === 'theatre' && to === 'subhangar')
-    pano.krpano.call("lookto(-158,0,5,smooth(),true,true,js(newPano(subhangar)))");
+    $("#video-underwater").addClass('hide')
 
-}
+    $('#video-underwater')[0].src = globals.cdn_video + _id + globals.videoType
+    $('#video-underwater')[0].load()
 
+    $('#video-underwater')[0].addEventListener('canplay', function(e) {
+      e.stopPropagation()
+      $('#video-underwater').removeClass('hide')
+      $('#video-underwater')[0].play();
+    }, false);
 
+  },
 
+  corexit: function(){
 
-/**************************************************************************
+    if(!extcontrol) return;
 
-  Misc Functions from individual scenes
+    if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn':'corexit' })
+    } else if(extcontrol.role === 'slave') {
+      pano.krpano.call("tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)");
+    }
 
-**************************************************************************/
-
-// Control Room
-var startDrilling = function(stopping){
-
-  console.log('startDrilling ' + stopping)
-
-  if(extcontrol) if(extcontrol.role === 'master') {
-    extcontrol.fn({ 'fn': 'startDrilling', 'stopping':stopping })
-  }
-
-  if(!pano.krpano) return;
-
-  if(stopping) {
-
-    pano.krpano.call("set(hotspot[closehatch].alpha,0);");
-    pano.krpano.call("set(hotspot[closehatch].enabled,false);");
-    pano.krpano.call("set(hotspot[openhatch].enabled,true);");
-
-  } else {
-
-    loadAFXPano('klaxxon');
-
-    pano.krpano.call("set(hotspot[closehatch].alpha,1);");
-    pano.krpano.call("set(hotspot[closehatch].enabled,true);");
-    pano.krpano.call("set(hotspot[openhatch].enabled,false);");
-    pano.krpano.call("lookto(190,0,60,smooth(),true,true);");
-
-  }
-
-  var transition_audio = $('#transition');
-  transition_audio[0].src = "audio/Hatch_Open.mp3"
-  transition_audio[0].play()
-  $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
-    $("#wrapper").animate({'bottom': '0','top': '0'}, 100)
-  })
-}
+  },
 
 
 
-// Zoom in/out
+  /**************************************************************************
 
-function zoomOut() {
-  master.overlayOpen = false
+    View Cache
 
-  if(extcontrol) if(extcontrol.role === 'master') {
-    extcontrol.fn({ 'fn': 'zoomOut' })
-  }
+  **************************************************************************/
 
 
-  $('.fastpan, .compass').fadeIn()
-  $("#zoom-out").fadeOut()
-
-  if(!krpano) return;
-  pano.krpano.call('tween(90,90,2,easeOutCubic,js(showMapIcon()))')
-  pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
-  pano.krpano.call('set(autorotate.enabled,true)')
-  $("#zoom-out").off('click')
-  $('#zoom-out').remove()
-}
-
-function zoomIn() {
-  console.log('ZOOM IN')
-  master.overlayOpen = true
-  $('.fastpan, .compass').fadeOut()
-
-  // create
-  $('#zoom-out').remove()
-  globals.$panocontainer.after('<div id="zoom-out" class="platform-nav dynamic hide"></div>')
-  $("#zoom-out").removeClass('hide')
-
-  $("#zoom-out").on('click',zoomOut);
-}
+  setCache: function(_ath,_fov) {
+    console.log('[caching] ath: '+_ath+' fov: '+_fov)
+    globals.cachedAth = _ath
+    globals.cachedFov = _fov
+  },
 
 
-// Submarine
-var loadUnderWater = function(_id){
-  console.log('loadUnderWater() '+_id)
 
-  if(extcontrol) if(extcontrol.role === 'master') {
-    extcontrol.fn({ 'fn': 'loadUnderWater', '_id': _id })
-  }
 
-  if(!pano.krpano) return;
-  pano.krpano.call("lookTo(90,0,50,smooth(),true,true)");
-  zoomIn();
-  setCache(270,90);
 
-  $("#video-underwater").addClass('hide')
 
-  $('#video-underwater')[0].src = master.cdn_video + _id + master.videoType
-  $('#video-underwater')[0].load()
 
-  $('#video-underwater')[0].addEventListener('canplay', function(e) {
-    e.stopPropagation()
-    $('#video-underwater').removeClass('hide')
-    $('#video-underwater')[0].play();
-  }, false);
 
-}
 
-var corexit = function(){
+  /**************************************************************************
 
-  if(!extcontrol) return;
+    Other
 
-  if(extcontrol.role === 'master') {
-    extcontrol.fn({ 'fn':'corexit' })
-  } else if(extcontrol.role === 'slave') {
-    pano.krpano.call("tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)");
-  }
+  **************************************************************************/
+
+
+  showMapIcon: function(){
+    globals.$compass.fadeIn()
+  },
+
+  soundTrigger: false,
+
+  hoverSound: function(){
+    if(!soundTrigger){
+      master.overlayPlay('#audio-2', master.audio_path + 'Rollover.ogg', master.audio_path + 'Rollover.mp3')
+      xml.soundTrigger = true
+    }
+  },
+
+  resetHoverSound: function(){
+    xml.soundTrigger = false
+  },
+
 
 }
 
@@ -1195,138 +1238,42 @@ var corexit = function(){
 
 
 
-/**************************************************************************
-**************************************************************************
-
-   ####   ######  ##   ## ###  ## ######
-  ##     ##    ## ##   ## #### ## ##   ##
-   ####  ##    ## ##   ## ## #### ##   ##
-      ## ##    ## ##   ## ##  ### ##   ##
-  #####   ######   #####  ##   ## ######
-
-  > Sound Adjust
-
-**************************************************************************
-**************************************************************************/
 
 
-// var soundVector1 = soundVector2 = soundVector3 = 0;
-
-// var soundadjust = function(coord,fov) {
-
-//   var convCoord  =  Math.abs( (coord+ 60) % 360);
-//   var convCoord1 =  Math.abs( (coord-120) % 360);
-
-//   // console.log('convCoord: '+'\t'+convCoord)
-
-//   if(convCoord < 180 )  soundVector1 = convCoord/180;
-//   else            soundVector1 = (360-convCoord)/180;
-
-//   if(convCoord1 < 180 ) soundVector2 = (convCoord1)/180;
-//   else            soundVector2 = (360-(convCoord1))/180;
-
-//   if(Modernizr.webaudio === true) {
-//     if(audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-//       audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-//       audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)
-//     }
-
-//     if(audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-//       audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)
-//     }
-//   }
 
 
-//   // show ghosts only in specific spot (recalculated every pano)
-//   if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
-//     master.ghostBuster = false
-//   } else {
-//     master.ghostBuster = true
-//   }
 
 
-//   /* sequences */
-//   if(globals.pano === 'chemicalroom' || globals.pano === 'subhangar' ) {
-//     // fade in walkthrough
-//     if(fov < 25 && !master.overlayOpen) {
-
-//           $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
-//           $('#panocontainer, .fastpan, .compass').addClass('hide')
-//           //pano.walkthrough.autoplay = true
-//           $('#walking-canvas-pano').css('display','block')
-//           if(master.isIOS || master.isAndroid){
-//             $('#walking-canvas-pano').css('top','80px')
-//             $('.platform-nav').css('right','55px')
-//           }
-//           pano.panoWalkthrough.autoplay = true
-//           pano.walkthroughPlaying = true;
-
-//       // fade out walkthrough
-//       }else{
-
-//           if(!master.overlayOpen)
-//             $('#panocontainer, .fastpan, .compass').removeClass('hide')
-
-//           $('.scroll-directions, .panoversion, #walking-exit').fadeOut(function(){
-//               $('.scroll-directions').css('top','0px') // reset scrubber position
-//           })
-
-//           //$('#walking-canvas-pano').css('opacity',1.0)
-
-//           if(master.isIOS || master.isAndroid){
-//             $('#walking-canvas-pano').css('display','none')
-//           }
-
-//           $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.4)
-//           pano.walkthroughPlaying = false;
-//       }
-//   } else {
-//     $('.scroll-directions, .panoversion, #walking-exit').hide()
-//   }
-
-// }
 
 
-/**************************************************************************
 
-  View Cache
 
-**************************************************************************/
 
-var cachedAuth = 0, cachedFov = 90
 
-function setCache(_ath,_fov) {
-  console.log('[caching] ath: '+_ath+' fov: '+_fov)
-  cachedAuth = _ath
-  cachedFov = _fov
+
+
+
+
+
+
+
+function videoPlayerVR(group){
+  console.log('VEEEE ARRRRRRRR "%s"', group);
+
+
 }
 
 
 
 
-/**************************************************************************
-
-  Other
-
-**************************************************************************/
 
 
-function showMapIcon(){
-  globals.$compass.fadeIn()
-}
 
-var soundTrigger;
 
-function hoverSound(){
-  if(!soundTrigger){
-  master.overlayPlay('#audio-2',master.audio_path + 'Rollover.ogg', master.audio_path + 'Rollover.mp3')
-  soundTrigger = true
-  }
-}
 
-function resetHoverSound(){
-  soundTrigger = false
-}
+
+
+
 
 
 
@@ -1465,6 +1412,13 @@ function videoPlayer(group, playerFadeTransition){
     });
   }
 
+  if(globals.vr){
+    videoPlayerVR(group);
+    return;
+  }
+
+  console.log('launchVideoPlayer, group "%s"', group);
+
   // hook into global resize function
   master.resize.videoplayer = true;
   master.debouncedResize();
@@ -1472,8 +1426,6 @@ function videoPlayer(group, playerFadeTransition){
   master.ghostBuster = true
   master.overlayOpen = true
   master.soundTrigger = true
-
-  console.log('launchVideoPlayer: '+group)
 
   $('.volume-toggle').css('line-height','80px')
 
@@ -1511,7 +1463,7 @@ function videoPlayer(group, playerFadeTransition){
   $(".video-content-wrap").show()
   $(".video-content-wrap").addClass("open");
 
-  switchVideo($(items).first().data('file'),$(items).first().text())
+  switchVideo($(items).first().data('file'), $(items).first().text());
 
 
 
@@ -1764,7 +1716,7 @@ function switchVideo(_id,_text){
 
   setTimeout(function() {
 
-    globals.$videooverlay[0].src = master.cdn_video + _id + master.videoType
+    globals.$videooverlay[0].src = globals.cdn_video + _id + globals.videoType
     globals.$videooverlay[0].load()
 
     console.log(globals.$videooverlay[0].src)
@@ -1886,7 +1838,7 @@ function closeVideoPlayer(){
 
   if(extcontrol) if(extcontrol.role === 'master') {
     if(pano.krpano)
-      pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+      pano.krpano.call("lookto("+globals.cachedAth+",0,"+globals.cachedFov+",smooth(),true,true),js(xml.showMapIcon();))")
   }
 
   setTimeout(function() {
@@ -1910,185 +1862,6 @@ function closeVideoPlayer(){
 
 
 
-
-
-
-
-
-/*************************************************************************
-**************************************************************************
-
-  > jQuery Extension
-
-  (not using this anymore)
-
-**************************************************************************
-*************************************************************************/
-
-/// Scrollin stuff
-
-// (function($){
-
-//   var special = jQuery.event.special,
-//       uid1 = 'D' + (+new Date()),
-//       uid2 = 'D' + (+new Date() + 1);
-
-//   special.scrollstart = {
-//       setup: function() {
-
-//           var timer,
-//               handler =  function(evt) {
-
-//                   var _self = this,
-//                       _args = arguments;
-
-//                   if (timer) {
-//                       clearTimeout(timer);
-//                   } else {
-//                       evt.type = 'scrollstart';
-//                       jQuery.event.handle.apply(_self, _args);
-//                   }
-
-//                   timer = setTimeout( function(){
-//                       timer = null;
-//                   }, special.scrollstop.latency);
-
-//               };
-
-//           jQuery(this).bind('scroll', handler).data(uid1, handler);
-
-//       },
-//       teardown: function(){
-//           jQuery(this).unbind( 'scroll', jQuery(this).data(uid1) );
-//       }
-//   };
-
-//   special.scrollstop = {
-//       latency: 300,
-//       setup: function() {
-
-//           var timer,
-//                   handler = function(evt) {
-
-//                   var _self = this,
-//                       _args = arguments;
-
-//                   if (timer) {
-//                       clearTimeout(timer);
-//                   }
-
-//                   timer = setTimeout( function(){
-
-//                       timer = null;
-//                       evt.type = 'scrollstop';
-//                       jQuery.event.handle.apply(_self, _args);
-
-//                   }, special.scrollstop.latency);
-
-//               };
-
-//           jQuery(this).bind('scroll', handler).data(uid2, handler);
-
-//       },
-//       teardown: function() {
-//           jQuery(this).unbind( 'scroll', jQuery(this).data(uid2) );
-//       }
-//   };
-
-
-//  $.fn.shuffleLetters = function(prop){
-
-//    var options = $.extend({
-//      "step"    : 1,      // How many times should the letters be changed
-//      "loop"    : false,      // loop?
-//      "stats"   : false,
-//      "fps"   : 25,     // Frames Per Second
-//      "text"    : "",       // Use this text instead of the contents
-//      "callback"  : function(){}  // Run once the animation is complete
-//    },prop)
-
-//    return this.each(function(){
-
-//      var el = $(this),
-//        str = "";
-
-
-//      // Preventing parallel animations using a flag;
-
-//      if(el.data('animated')){
-//        return true;
-//      }
-
-//      el.data('animated',true);
-
-
-
-//        if(options.stats) {
-//        str = master.get_stat();
-
-//        }else{
-//        str = master.get_tag();
-//        }
-
-//        if(options.comingsoon) {
-//        str = "OFFSHORE ... coming soon";
-//        }
-
-//      // $('meta[name=description]').attr('content', str);
-//       el.html("");
-
-//      // Self executing named function expression:
-
-//      (function shuffle(start){
-
-//        // This code is run options.fps times per second
-//        // and updates the contents of the page element
-//        $('#inter-text').html(str).hide().fadeIn(1000, function(){
-
-//          el.data('animated',false);
-//          if(options.loop){
-//            setTimeout(function() {
-//              $('#inter-text').shuffleLetters({
-//                "loop": true,
-//                "stats": true
-//              });
-//            }, 6000);
-
-//          }else{
-//            master.build_navbar()
-//            master.check_start()
-//          }
-
-//          options.callback(el);
-
-//          return;
-
-//        })
-
-//      })(-options.step);
-
-
-//    });
-//  };
-
-//  function randomChar(type){
-//    var pool = "";
-
-//    if (type == "lowerLetter"){
-//      pool = "abcdefghijklmnopqrstuvwxyz0123456789";
-//    }
-//    else if (type == "upperLetter"){
-//      pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-//    }
-//    else if (type == "symbol"){
-//      pool = ",.?/\\(^)![]{}*&^%$#'\"";
-//    }
-
-//    var arr = pool.split('');
-//    return arr[Math.floor(Math.random()*arr.length)];
-//  }
-
-// })(jQuery);
 
 
 

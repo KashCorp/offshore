@@ -111,7 +111,7 @@ var Walkthrough = function(canvasID, name, videoLength) {
       $( ".scroll-directions" ).css('top',0)
     }
 
-    pano.krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true),js(showMapIcon();))")
+    pano.krpano.call("lookto("+globals.cachedAth+",0,"+globals.cachedFov+",smooth(),true,true),js(xml.showMapIcon();))")
 
   }
 

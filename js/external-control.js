@@ -207,23 +207,23 @@ var ExtControl = function(_role, _id){
 
 					// XML Functions & Misc
 					case 'loadAFXPano':
-						loadAFXPano( data._file, data._start );
+						xml.loadAFXPano( data._file, data._start );
 						break;
 
 					case 'loadUnderWater':
-						loadUnderWater(data._id);
+						xml.loadUnderWater(data._id);
 						break;
 
 					case 'startDrilling':
-						startDrilling(data.stopping);
+						xml.startDrilling(data.stopping);
 						break;
 
 					case 'zoomOut':
-						zoomOut();
+						xml.zoomOut();
 						break;
 
 					case 'corexit':
-						corexit();
+						xml.corexit();
 						break;
 
 					case 'voiceCurrentTime':

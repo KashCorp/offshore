@@ -81,7 +81,7 @@ var pano = (function(){
 
       var masterPath = "./";
       var targetContainer = "panocontainer";
-      var xmlLoc = masterPath + "xml/all_panos.xml?nocache="+Math.random()*5;
+      var xmlLoc = masterPath + "all_panos.xml?nocache="+Math.random()*5;
       var swfLoc = masterPath + "js/lib/krpano/krpano.swf";
 
       console.log('embedpano');
@@ -118,6 +118,12 @@ var pano = (function(){
           exports.krpano.set('events.onviewchange', function(){
             audiomaster.soundadjust( exports.krpano.get('view.hlookat'), exports.krpano.get('view.fov') );
             exports.krpano.call('action(viewchange)');
+          })
+
+          exports.krpano.set('webvr_onentervr', function(){
+            console.log('VR ENTERED');
+            globals.vr = true;
+            _pano.call('action(webvr_enter)');
           })
         }
       });

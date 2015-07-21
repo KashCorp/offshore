@@ -4,6 +4,11 @@ var globals = (function(){
 
   exports.pano = '';
 
+  exports.cachedAth = 0;
+  exports.cachedFov = 90;
+
+  exports.vr = false; // VR MODE
+
   exports.isPreloaded = false;
 
   // Global Config Options

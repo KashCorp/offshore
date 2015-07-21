@@ -173,8 +173,7 @@ var preloader = function() {
       $(".breadcrumb").animate({'bottom': '0'})
     })
 
-    var krpano = document.getElementById("krpanoObject");
-    krpano.call("oninterrupt(break);looktohotspot(LOGO,90,tween(easeOutQuad,4));")
+    pano.krpano.call("oninterrupt(break);looktohotspot(LOGO,90,tween(easeOutQuad,4));")
 
   })
 
