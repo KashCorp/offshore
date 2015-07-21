@@ -155,10 +155,10 @@ var pano_master = function(){
   **************************************************************************/
 
 
-  $(parent).bind('hashchange', function(){
+  $(window).bind('hashchange', function(){
 
     console.log('\\\ hash change ///')
-    var hash = parent.location.hash.slice(1);
+    var hash = window.location.hash.slice(1);
 
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.hashChange({ "hash": hash });
@@ -196,10 +196,10 @@ var pano_master = function(){
       if(that.krpano) {
         console.log('krpano loaded')
 
-        if (parent.location.hash.slice(1) =="")
+        if(window.location.hash.slice(1) =="")
           that.loadPanoScene('prologue')
         else
-          that.loadPanoScene(parent.location.hash.slice(1))
+          that.loadPanoScene(window.location.hash.slice(1))
 
         window.clearTimeout(deeplinktimeout)
         return false;
@@ -283,16 +283,13 @@ var pano_master = function(){
       console.log('load pano')
 
     if(Modernizr.webaudio) {
-      if(parent.audiomaster && parent.audiomaster.mix.getTrack('overlay_02')){
+      if(audiomaster && audiomaster.mix.getTrack('overlay_02')){
 
         master.soundTrigger = null
 
-        parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
-        parent.audiomaster.mix.removeTrack('overlay_02')
-
+        audiomaster.mix.getTrack('overlay_02').gain(0.0001)
+        audiomaster.mix.removeTrack('overlay_02')
       }
-
-    // parent.audiomaster.mix.playing = true;
     }
 
 
@@ -657,10 +654,8 @@ var pano_master = function(){
       })
       $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
       $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
-
-      console.log( $('.movie-menu') )
     },
-    error : function(request,error) {
+    error: function(request,error) {
       console.log(error)
     }
   });
@@ -691,31 +686,31 @@ var pano_master = function(){
       }
     }
 
-    var overlayTrack = parent.audiomaster.mix.getTrack('overlay_01')
-    var underlayTrack = parent.audiomaster.mix.getTrack('basetrack')
+    var overlayTrack = audiomaster.mix.getTrack('overlay_01')
+    var underlayTrack = audiomaster.mix.getTrack('basetrack')
 
 
        if( underlayFile){
 
         var dummysound = { fadeFrom:    1, fadeTo: 0.0001};
 
-        parent.audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
+        audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
 
         var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
           .onUpdate( function() {
-            if(!underlayMuted) parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
-            parent.audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
+            if(!underlayMuted) audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+            audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
           })
           .easing(TWEEN.Easing.Quadratic.Out )
           .onComplete(function() {
 
-            parent.audiomaster.mix.removeTrack('basetrack')
+            audiomaster.mix.removeTrack('basetrack')
 
-            var renameThis = parent.audiomaster.mix.getTrack('basetrack2')
+            var renameThis = audiomaster.mix.getTrack('basetrack2')
 
             renameThis['name'] = 'basetrack';
 
-            parent.audiomaster.mix.lookup['basetrack'] = renameThis
+            audiomaster.mix.lookup['basetrack'] = renameThis
 
 
           })
@@ -725,7 +720,7 @@ var pano_master = function(){
         if(underlayMuted){
          var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1}, 3000 )
           .onUpdate( function() {
-           parent.audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+           audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
            })
            .easing(TWEEN.Easing.Quadratic.Out )
            .start()
@@ -774,7 +769,7 @@ var pano_master = function(){
           })
           .easing(TWEEN.Easing.Quadratic.Out )
           .onComplete(function() {
-            parent.audiomaster.mix.removeTrack('overlay_01')
+            audiomaster.mix.removeTrack('overlay_01')
 
             if(overLayFile){
                setTimeout(function(){master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix)},1000)
@@ -1049,8 +1044,8 @@ var pano_master = function(){
       else
         master.ghostBuster = true
 
-      if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-          parent.audiomaster.mix.getTrack('overlay_01').pan(1 - walkthrough.percent * 2 )
+      if(audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+          audiomaster.mix.getTrack('overlay_01').pan(1 - walkthrough.percent * 2 )
       }
 
       if(walkthrough.percent < 0.05) $("#scroll-start").fadeIn(1000)
@@ -1138,34 +1133,34 @@ var pano_master = function(){
 
     // ********************************************************
     // Audio
-    if(parent.audiomaster) {
+    if(audiomaster) {
 
       // if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
       if(!master.isIOS){
-        for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){
-          parent.audiomaster.mix.tracks[i].play()
+        for ( var i = 0, l = audiomaster.mix.tracks.length; i < l; i++ ){
+          audiomaster.mix.tracks[i].play()
         }
       }
 
       if(!master.getCookie('muted')){
         if (master.overlayOpen) {
-          if(parent.audiomaster.mix.getGain() > 0.2){
-            parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() - 0.02)
+          if(audiomaster.mix.getGain() > 0.2){
+            audiomaster.mix.setGain(audiomaster.mix.getGain() - 0.02)
           }
         }
 
         if (!master.overlayOpen) {
-          if(parent.audiomaster.mix.getGain() < 1 * master.multix){
-            parent.audiomaster.mix.setGain(parent.audiomaster.mix.getGain() + 0.01)
+          if(audiomaster.mix.getGain() < 1 * master.multix){
+            audiomaster.mix.setGain(audiomaster.mix.getGain() + 0.01)
           }
         }
         //master.soundTrigger = false
       } else {
-        parent.audiomaster.mix.setGain(0)
+        audiomaster.mix.setGain(0)
       }
     }
 
-    if(parent.location.hash.slice(1).indexOf('sequence') != -1){
+    if(window.location.hash.slice(1).indexOf('sequence') != -1){
       scrollerFunction()
       return false
     }

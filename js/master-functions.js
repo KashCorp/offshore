@@ -54,9 +54,10 @@ var $breadcrumb    = $(".breadcrumb");
 
 var masterFunctions = function() {
 
+  var that = this;
+
 	var fadeSpeed = 500;
   var pagepath = 'http://www.offshore-interactive.com/pages/';
-  var that = this;
   var visitedPages = getCookie("visitedPages");
   var audio = document.getElementsByTagName('audio');
   var newPageTrigger;
@@ -73,7 +74,7 @@ var masterFunctions = function() {
 
 	this.multix = 1;
 
-	if(this.isFireFox) this.multix = .4;
+	if(this.isFireFox) this.multix = 0.4;
 
 	this.ghostBuster = false
 	this.ghostMinc
@@ -199,8 +200,6 @@ var masterFunctions = function() {
 
 
 
-
-
     /* iPad Functions */
 
     if(Modernizr.touch) {
@@ -210,9 +209,9 @@ var masterFunctions = function() {
     	document.addEventListener('touchstart', function(e) {
         e.preventDefault();
 
-    		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){
-                parent.audiomaster.mix.tracks[i].play()
-            }
+    		for ( var i = 0, l = audiomaster.mix.tracks.length; i < l; i++ ){
+          audiomaster.mix.tracks[i].play()
+        }
     	    $('.pan-directions').fadeOut(500)
     	}, false);
 
@@ -225,12 +224,8 @@ var masterFunctions = function() {
       // $(document).on('touchstart', function(e) {  });
     }
 
-
-
-
-    var transition_audio = $('#transition', window.parent.document)
-
-    var hashouter = parent.window.location.hash;
+    var transition_audio = $('#transition');
+    var hashouter = window.location.hash;
 
     if( hashouter  == "#hatch.php"){
       transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
@@ -353,11 +348,15 @@ var masterFunctions = function() {
     /**************************************************************************
     ***************************************************************************
 
+      ###  ##  #####  ##  ##    ######   #####  #####
+      #### ## ##   ## ##  ##    ##   ## ##   ## ##  ##
+      ## #### ####### ##  ##    ######  ####### #####
+      ##  ### ##   ##  ####     ##   ## ##   ## ##  ##
+      ##   ## ##   ##   ##      ######  ##   ## ##  ##
 
       > Build Nav Bar
 
       Build the breadcrumb
-
 
     ***************************************************************************
     **************************************************************************/
@@ -372,7 +371,7 @@ var masterFunctions = function() {
   		//$("#scroll-wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
 
      	$(".navlink").click(function(){
-      		that.parentChange('index.php')
+    		that.parentChange('index.php')
 	  	})
 
       var insertNav = function(price, change, percent) {
@@ -401,14 +400,14 @@ var masterFunctions = function() {
   			breadbox_string += '</div>'
 
   			breadbox_string += '<div class="share">'
-  			breadbox_string += '<div class="facebook"><a href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(parent.window.location.href), \'facebook-share-dialog\',\'width=626,height=436\');return false;"></a></div>';
-  			breadbox_string += '<div class="twitter"><a href="#" onclick="window.open(\'http://twitter.com/intent/tweet?url=\'+encodeURIComponent(parent.window.location.href), \'twitter-share-dialog\',\'width=626,height=300\');return false;"></a></div>';
+  			breadbox_string += '<div class="facebook"><a href="#" onclick="window.open(\'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(window.location.href), \'facebook-share-dialog\',\'width=626,height=436\');return false;"></a></div>';
+  			breadbox_string += '<div class="twitter"><a href="#" onclick="window.open(\'http://twitter.com/intent/tweet?url=\'+encodeURIComponent(window.location.href), \'twitter-share-dialog\',\'width=626,height=300\');return false;"></a></div>';
   			breadbox_string += '</div></div>'
 
         $breadcrumb.html(breadbox_string);
 
         $('.backtostart').click(function(){
-        	parent.window.location.hash = '';
+        	window.location.hash = '';
         })
 
         $('#about-link').click(function(){
@@ -460,6 +459,11 @@ var masterFunctions = function() {
   /**************************************************************************
   ***************************************************************************
 
+     ######  ##  ## ###### #####  ##     ##### ##    ##
+    ##    ## ##  ## ##     ##  ## ##    ##   ## ##  ##
+    ##    ## ##  ## #####  #####  ##    #######  ####
+    ##    ##  ####  ##     ##  ## ##    ##   ##   ##
+     ######    ##   ###### ##  ## ##### ##   ##   ##
 
     > Overlay
 
@@ -469,7 +473,6 @@ var masterFunctions = function() {
 
       loadOverlay('example.php');
       closeOverlay();
-
 
   ***************************************************************************
   **************************************************************************/
@@ -560,9 +563,13 @@ var masterFunctions = function() {
 	/**************************************************************************
   ***************************************************************************
 
+     #####  ##   ## ######  ####  ######
+    ##   ## ##   ## ##   ##  ##  ##    ##
+    ####### ##   ## ##   ##  ##  ##    ##
+    ##   ## ##   ## ##   ##  ##  ##    ##
+    ##   ##  #####  ######  ####  ######
 
-		Audio
-
+		> Audio
 
   ***************************************************************************
 	**************************************************************************/
@@ -596,14 +603,14 @@ var masterFunctions = function() {
 
 		console.log(_file)
 
-		parent.audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
+		audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
 
 		var dummysounds = { s:  0};
 
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: .5}, 4000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-				parent.audiomaster.mix.getTrack('overlay_01').options.gainNode.gain.value = this.s
+				audiomaster.mix.getTrack('overlay_01').options.gainNode.gain.value = this.s
 			})
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
@@ -616,7 +623,7 @@ var masterFunctions = function() {
 
 	this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 
-		parent.audiomaster.loadAudio(_file ,_trackName,.0001,_pan,_isLoop)
+		audiomaster.loadAudio(_file ,_trackName,.0001,_pan,_isLoop)
 
 		var dummysounds = { s:  0};
 
@@ -628,8 +635,8 @@ var masterFunctions = function() {
 
 
 
-				if(parent.audiomaster.mix.getTrack(_trackName)){
-					parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
+				if(audiomaster.mix.getTrack(_trackName)){
+					audiomaster.mix.getTrack(_trackName).gain(this.s)
 				}
 			})
 			.easing(TWEEN.Easing.Quadratic.Out )
@@ -646,15 +653,15 @@ var masterFunctions = function() {
 
 		var multix = 1
 
-        if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
-            multix = .3
-        }
+    if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
+      multix = .3
+    }
 
 		if(!_start) _start = 0
 
 		console.log('_trackName: '+'\t'+_trackName + " _ " + master.isPlayingVO)
 
-		if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
+		if(audiomaster.mix.getTrack(_trackName)) audiomaster.mix.removeTrack(_trackName)
 
 		/// toggle on/off logic
 
@@ -669,19 +676,17 @@ var masterFunctions = function() {
 
 		}
 
-
-
 		if(!_targetVolume) {_targetVolume = 1.0 * multix}
 
-		parent.audiomaster.loadAudio(_file,_trackName,.0001,_pan,"true", _start)
+		audiomaster.loadAudio(_file,_trackName,.0001,_pan,"true", _start)
 
 		var dummysounds = { s:  0};
 
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-        if(parent.audiomaster.mix.getTrack(_trackName))
-  				parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
+        if(audiomaster.mix.getTrack(_trackName))
+  				audiomaster.mix.getTrack(_trackName).gain(this.s)
 			})
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
@@ -695,17 +700,17 @@ var masterFunctions = function() {
 
 	this.audioFadeAll = function(targetVolume){
 
-		if(isParent){
+		// if(isParent){
 
-		var parent_audio = $('audio', window.parent.document)
+  		var parent_audio = $('audio');
 
-		parent_audio.each(function(i,s){
+  		parent_audio.each(function(i,s){
 
-			var audio_obj = parent_audio[i]
-	        audioFadeOutTo(audio_obj,targetVolume)
+  			var audio_obj = parent_audio[i];
+        audioFadeOutTo(audio_obj,targetVolume)
 
-		})
-	   }
+  		})
+	  // }
 	}
 
 	this.audioFadeInAll = function(){
@@ -720,9 +725,13 @@ var masterFunctions = function() {
 	/**************************************************************************
   **************************************************************************
 
+		##   ## ###### #### ##    #### ###### #### ######  ####
+    ##   ##   ##    ##  ##     ##    ##    ##  ##     ##
+    ##   ##   ##    ##  ##     ##    ##    ##  #####   ####
+    ##   ##   ##    ##  ##     ##    ##    ##  ##         ##
+     #####    ##   #### ##### ####   ##   #### ###### #####
 
-		Utilities
-
+    > Utilities
 
   **************************************************************************
 	**************************************************************************/
@@ -731,7 +740,7 @@ var masterFunctions = function() {
 
 		console.log("video")
 
-		parent.audiomaster.mix.setGain(0.01)
+		audiomaster.mix.setGain(0.01)
 
 	    if( this.popcorn) Popcorn.destroy(  this.popcorn );
 	    $('#footnote-container').html('')
@@ -889,31 +898,29 @@ var masterFunctions = function() {
 
 
 	this.setDeepLinking = function(deepLink){
-		var isParent
+		// var isParent
 
 		if(visitedPages.indexOf(deepLink)== -1){
 		 	visitedPages += "~" + deepLink
 		 	setCookie("visitedPages",visitedPages,365)
 		}
 
-	    try {
-	        isParent = parent.IS_PARENT;
-	    }catch(e){
-	        isParent = false;
-	    }
+    // try {
+    //     isParent = parent.IS_PARENT;
+    // }catch(e){
+    //     isParent = false;
+    // }
 
-		if(isParent){
-				//var transition_audio = $('#transition', window.parent.document)
-			if(getCookie('muted')!="true"){
-				//transition_audio[0].volume = .2
-				//transition_audio[0].play()
-				}
+		// if(isParent){
+		// 	//var transition_audio = $('#transition', window.parent.document)
+  // 		if(getCookie('muted')!="true"){
+  // 			//transition_audio[0].volume = .2
+  // 			//transition_audio[0].play()
+		// 	}
 
-			parent.setHash(deepLink)
+  // 		// parent.setHash(deepLink)
 
-		}else{
-
-		}
+		// }
 
 	}
 
@@ -929,9 +936,13 @@ var masterFunctions = function() {
 /**************************************************************************
 ***************************************************************************
 
+  ##    ##  #####  ##    ##  ## ###### ##   ## #####   ######  ##   ##  #####   ##   ##
+  ##    ## ##   ## ##    ## ##    ##   ##   ## ##  ## ##    ## ##   ## ##       ##   ##
+  ## ## ## ####### ##    ####     ##   ####### #####  ##    ## ##   ## ##  ###  #######
+  ## ## ## ##   ## ##    ## ##    ##   ##   ## ##  ## ##    ## ##   ## ##   ##  ##   ##
+   ##  ##  ##   ## ##### ##  ##   ##   ##   ## ##  ##  ######   #####   #####   ##   ##
 
 	> Walkthrough
-
 
 ***************************************************************************
 **************************************************************************/
@@ -1224,11 +1235,15 @@ var Walkthrough = function(canvasID, name, videoLength) {
 /**************************************************************************
 ***************************************************************************
 
+   #####  ##   ##  ######   #### ######
+  ##      ##   ## ##    ## ##      ##
+  ##  ### ####### ##    ##  ####   ##
+  ##   ## ##   ## ##    ##     ##  ##
+   #####  ##   ##  ######  #####   ##
 
 	> Ghost
 
 	set master.ghostBuster or master.overlayOpen to disable ghosts
-
 
 ***************************************************************************
 **************************************************************************/
@@ -1368,11 +1383,13 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 /*************************************************************************
 **************************************************************************
 
-
+  #####   ######   ###### ######
+  ##  ## ##    ## ##    ##  ##
+  #####  ##    ## ##    ##  ##
+  ##  ## ##    ## ##    ##  ##
+  ##  ##  ######   ######   ##
 
 	> Root Functions (so we can call them from the krpano XML)
-
-
 
 **************************************************************************
 *************************************************************************/
@@ -1394,7 +1411,7 @@ function newPage(URL) {
 
  	newPageTrigger = false
  	master.audioFadeAll(0.0)
-	var transition_audio = $('#transition', window.parent.document)
+	var transition_audio = $('#transition');
 
 
   if(transition_audio.length>0){
@@ -1447,7 +1464,7 @@ function newPano(_pano, fromPrologue) {
 
 		$('#video-underlay').hide()
 
-		parent.location.hash = _pano
+		window.location.hash = _pano
 
 		$panocontainer.addClass('hide')
 
@@ -1479,6 +1496,13 @@ function panoComplete(){
 }
 
 
+var videoPlayerVR = function(video){
+  if(!pano.krpano) return;
+  newPano('videoPlayer');
+}
+
+
+
 /**************************************************************************
 
   Zoom and change pano
@@ -1489,13 +1513,7 @@ function panoComplete(){
     in XML:
     onclick="js(zoom_to_and_change_pano('from','to'))"
 
-
-
 **************************************************************************/
-var videoPlayerVR = function(video){
-  if(!pano.krpano) return;
-  newPano('videoPlayer');
-}
 
 var zoom_and_change_pano = function( from, to) {
 
@@ -1631,7 +1649,7 @@ var startDrilling = function(stopping){
 
   }
 
-  var transition_audio = $('#transition', window.parent.document)
+  var transition_audio = $('#transition');
   transition_audio[0].src = "audio/Hatch_Open.mp3"
   transition_audio[0].play()
   $("#wrapper").delay(200).animate({'bottom': '-10','top': '10'}, 100, function(){
@@ -1721,9 +1739,13 @@ var corexit = function(){
 /**************************************************************************
 **************************************************************************
 
+   ####   ######  ##   ## ###  ## ######
+  ##     ##    ## ##   ## #### ## ##   ##
+   ####  ##    ## ##   ## ## #### ##   ##
+      ## ##    ## ##   ## ##  ### ##   ##
+  #####   ######   #####  ##   ## ######
 
 	> Sound Adjust
-
 
 **************************************************************************
 **************************************************************************/
@@ -1745,13 +1767,13 @@ var soundadjust = function(coord,fov) {
 	else  				  soundVector2 = (360-(convCoord1))/180;
 
 	if(Modernizr.webaudio === true) {
-		if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-		  parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-		  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)
+		if(audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
+		  audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
+		  audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)
 		}
 
-		if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-		  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)
+		if(audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
+		  audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)
 		}
 	}
 
@@ -1861,6 +1883,17 @@ function resetHoverSound(){
 /*************************************************************************
 **************************************************************************
 
+  ##  ## #### ######  ######  ######
+  ##  ##  ##  ##   ## ##     ##    ##
+  ##  ##  ##  ##   ## #####  ##    ##
+   ####   ##  ##   ## ##     ##    ##
+    ##   #### ######  ######  ######
+
+  ######  ##     ##### ##    ## ###### #####
+  ##   ## ##    ##   ## ##  ##  ##     ##  ##
+  ######  ##    #######  ####   #####  #####
+  ##      ##    ##   ##   ##    ##     ##  ##
+  ##      ##### ##   ##   ##    ###### ##  ##
 
 	> Video Player
 
@@ -2234,7 +2267,7 @@ function switchVideo(_id,_text){
 
 
 	// nuke base track
-	if(parent.audiomaster.mix.getTrack('overlay_02')) parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
+	if(audiomaster.mix.getTrack('overlay_02')) audiomaster.mix.getTrack('overlay_02').gain(0.0001)
 
   // ********************************************************
 	// Switch active movie
@@ -2297,8 +2330,8 @@ function switchVideo(_id,_text){
 
 	$videooverlay[0].addEventListener('canplaythrough', function(e) {
 
-		if(parent.location.hash.slice(1) == "") {
-			parent.location.hash = "helicopter"
+		if(window.location.hash.slice(1) == "") {
+			window.location.hash = "helicopter"
 		}
 
 		$videooverlay.removeClass('hide')
@@ -2352,8 +2385,8 @@ function closeVideoPlayer(){
 
 	console.log("closing Video Player")
 
-	if(parent.audiomaster.mix.getTrack('overlay_02')){
-    parent.audiomaster.mix.getTrack('overlay_02').gain(1.0)
+	if(audiomaster.mix.getTrack('overlay_02')){
+    audiomaster.mix.getTrack('overlay_02').gain(1.0)
   }
 
   if(pano.panoWalkthrough) {
@@ -2385,7 +2418,7 @@ function closeVideoPlayer(){
 
 	// master.overlayOpen = false
 	$videooverlay[0].pause(); // can't hurt
-	//parent.audiomaster.mix.setGain(1.0)
+	//audiomaster.mix.setGain(1.0)
 
 	$videocontentwrap.removeClass("open");
 	$videocontentwrap.removeClass("transtion-width");
@@ -2425,179 +2458,177 @@ function closeVideoPlayer(){
 /*************************************************************************
 **************************************************************************
 
-
 	> jQuery Extension
 
+  (not using this anymore)
 
 **************************************************************************
 *************************************************************************/
 
-
-(function($){
-
 /// Scrollin stuff
 
-    var special = jQuery.event.special,
-        uid1 = 'D' + (+new Date()),
-        uid2 = 'D' + (+new Date() + 1);
+// (function($){
 
-    special.scrollstart = {
-        setup: function() {
+//   var special = jQuery.event.special,
+//       uid1 = 'D' + (+new Date()),
+//       uid2 = 'D' + (+new Date() + 1);
 
-            var timer,
-                handler =  function(evt) {
+//   special.scrollstart = {
+//       setup: function() {
 
-                    var _self = this,
-                        _args = arguments;
+//           var timer,
+//               handler =  function(evt) {
 
-                    if (timer) {
-                        clearTimeout(timer);
-                    } else {
-                        evt.type = 'scrollstart';
-                        jQuery.event.handle.apply(_self, _args);
-                    }
+//                   var _self = this,
+//                       _args = arguments;
 
-                    timer = setTimeout( function(){
-                        timer = null;
-                    }, special.scrollstop.latency);
+//                   if (timer) {
+//                       clearTimeout(timer);
+//                   } else {
+//                       evt.type = 'scrollstart';
+//                       jQuery.event.handle.apply(_self, _args);
+//                   }
 
-                };
+//                   timer = setTimeout( function(){
+//                       timer = null;
+//                   }, special.scrollstop.latency);
 
-            jQuery(this).bind('scroll', handler).data(uid1, handler);
+//               };
 
-        },
-        teardown: function(){
-            jQuery(this).unbind( 'scroll', jQuery(this).data(uid1) );
-        }
-    };
+//           jQuery(this).bind('scroll', handler).data(uid1, handler);
 
-    special.scrollstop = {
-        latency: 300,
-        setup: function() {
+//       },
+//       teardown: function(){
+//           jQuery(this).unbind( 'scroll', jQuery(this).data(uid1) );
+//       }
+//   };
 
-            var timer,
-                    handler = function(evt) {
+//   special.scrollstop = {
+//       latency: 300,
+//       setup: function() {
 
-                    var _self = this,
-                        _args = arguments;
+//           var timer,
+//                   handler = function(evt) {
 
-                    if (timer) {
-                        clearTimeout(timer);
-                    }
+//                   var _self = this,
+//                       _args = arguments;
 
-                    timer = setTimeout( function(){
+//                   if (timer) {
+//                       clearTimeout(timer);
+//                   }
 
-                        timer = null;
-                        evt.type = 'scrollstop';
-                        jQuery.event.handle.apply(_self, _args);
+//                   timer = setTimeout( function(){
 
-                    }, special.scrollstop.latency);
+//                       timer = null;
+//                       evt.type = 'scrollstop';
+//                       jQuery.event.handle.apply(_self, _args);
 
-                };
+//                   }, special.scrollstop.latency);
 
-            jQuery(this).bind('scroll', handler).data(uid2, handler);
+//               };
 
-        },
-        teardown: function() {
-            jQuery(this).unbind( 'scroll', jQuery(this).data(uid2) );
-        }
-    };
+//           jQuery(this).bind('scroll', handler).data(uid2, handler);
 
-
-
-	$.fn.shuffleLetters = function(prop){
-
-		var options = $.extend({
-			"step"		: 1,			// How many times should the letters be changed
-			"loop"		: false,			// loop?
-			"stats"		: false,
-			"fps"		: 25,			// Frames Per Second
-			"text"		: "", 			// Use this text instead of the contents
-			"callback"	: function(){}	// Run once the animation is complete
-		},prop)
-
-		return this.each(function(){
-
-			var el = $(this),
-				str = "";
+//       },
+//       teardown: function() {
+//           jQuery(this).unbind( 'scroll', jQuery(this).data(uid2) );
+//       }
+//   };
 
 
-			// Preventing parallel animations using a flag;
+// 	$.fn.shuffleLetters = function(prop){
 
-			if(el.data('animated')){
-				return true;
-			}
+// 		var options = $.extend({
+// 			"step"		: 1,			// How many times should the letters be changed
+// 			"loop"		: false,			// loop?
+// 			"stats"		: false,
+// 			"fps"		: 25,			// Frames Per Second
+// 			"text"		: "", 			// Use this text instead of the contents
+// 			"callback"	: function(){}	// Run once the animation is complete
+// 		},prop)
 
-			el.data('animated',true);
+// 		return this.each(function(){
 
-
-
-				if(options.stats) {
-				str = master.get_stat();
-
-			  }else{
-			  str = master.get_tag();
-			  }
-
-			  if(options.comingsoon) {
-			  str = "OFFSHORE ... coming soon";
-			  }
-
-			// $('meta[name=description]').attr('content', str);
-			 el.html("");
-
-			// Self executing named function expression:
-
-			(function shuffle(start){
-
-				// This code is run options.fps times per second
-				// and updates the contents of the page element
-				$('#inter-text').html(str).hide().fadeIn(1000, function(){
-
-					el.data('animated',false);
-					if(options.loop){
-						setTimeout(function() {
-		          $('#inter-text').shuffleLetters({
-		      	    "loop": true,
-		      	    "stats": true
-		          });
-	          }, 6000);
-
-					}else{
-						master.build_navbar()
-						master.check_start()
-				  }
-
-					options.callback(el);
-
-					return;
-
-				})
-
-			})(-options.step);
+// 			var el = $(this),
+// 				str = "";
 
 
-		});
-	};
+// 			// Preventing parallel animations using a flag;
 
-	function randomChar(type){
-		var pool = "";
+// 			if(el.data('animated')){
+// 				return true;
+// 			}
 
-		if (type == "lowerLetter"){
-			pool = "abcdefghijklmnopqrstuvwxyz0123456789";
-		}
-		else if (type == "upperLetter"){
-			pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		}
-		else if (type == "symbol"){
-			pool = ",.?/\\(^)![]{}*&^%$#'\"";
-		}
+// 			el.data('animated',true);
 
-		var arr = pool.split('');
-		return arr[Math.floor(Math.random()*arr.length)];
-	}
 
-})(jQuery);
+
+// 				if(options.stats) {
+// 				str = master.get_stat();
+
+// 			  }else{
+// 			  str = master.get_tag();
+// 			  }
+
+// 			  if(options.comingsoon) {
+// 			  str = "OFFSHORE ... coming soon";
+// 			  }
+
+// 			// $('meta[name=description]').attr('content', str);
+// 			 el.html("");
+
+// 			// Self executing named function expression:
+
+// 			(function shuffle(start){
+
+// 				// This code is run options.fps times per second
+// 				// and updates the contents of the page element
+// 				$('#inter-text').html(str).hide().fadeIn(1000, function(){
+
+// 					el.data('animated',false);
+// 					if(options.loop){
+// 						setTimeout(function() {
+// 		          $('#inter-text').shuffleLetters({
+// 		      	    "loop": true,
+// 		      	    "stats": true
+// 		          });
+// 	          }, 6000);
+
+// 					}else{
+// 						master.build_navbar()
+// 						master.check_start()
+// 				  }
+
+// 					options.callback(el);
+
+// 					return;
+
+// 				})
+
+// 			})(-options.step);
+
+
+// 		});
+// 	};
+
+// 	function randomChar(type){
+// 		var pool = "";
+
+// 		if (type == "lowerLetter"){
+// 			pool = "abcdefghijklmnopqrstuvwxyz0123456789";
+// 		}
+// 		else if (type == "upperLetter"){
+// 			pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+// 		}
+// 		else if (type == "symbol"){
+// 			pool = ",.?/\\(^)![]{}*&^%$#'\"";
+// 		}
+
+// 		var arr = pool.split('');
+// 		return arr[Math.floor(Math.random()*arr.length)];
+// 	}
+
+// })(jQuery);
 
 
 
@@ -2606,7 +2637,7 @@ function closeVideoPlayer(){
 
 /**************************************************************************
 
-	> RAF
+	> RAF Polyfill
 
 **************************************************************************/
 
