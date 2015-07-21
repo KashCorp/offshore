@@ -1,7 +1,7 @@
 <krpano version="1.0.8">
 
 	<security>
-	    <allowdomain domain="*" />
+	   <allowdomain domain="*" />
 	</security>
 
 	<!-- webvr.xml - WebVR plugin, enter/exit VR buttons, VR cursor, VR setup -->
@@ -9,45 +9,37 @@
 
 	<!-- add/overwrite some settings from the webvr.xml for this example -->
 	<plugin name="WebVR" mobilevr_fake_support="true" />		<!-- enable the FAKE VR support to allow testing also on desktop and tablets without VR support -->
+
 	<layer name="webvr_button" ondown="video_auto_start();" />
 
 	<!-- text style for hover info -->
 	<textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
 
+	<autorotate
+	 enabled="true"
+   waittime="0.5"
+   speed="5.0"
+  />
+
+  <control
+ 	 usercontrol = "all"
+ 	 mousetype="drag2d"
+ 	 mousefriction="0"
+ 	 mouseaccelerate="0"
+   fovspeed="1.0"
+   headswing="0"
+  />
 
 
-	<autorotate enabled="true"
-        waittime="0.5"
-        speed="5.0"
-    />
-
-    <control
-       	usercontrol = "all"
-       	mousetype="drag2d"
-       	mousefriction="0"
-       	mouseaccelerate="0"
-        fovspeed="1.0"
-        headswing="0"
-    />
-
-	<events
-
-		onloadcomplete= "js(panoComplete())"
-
-		onmousedown="action(globalmousedown)"
-
-		onviewchange="action(viewchange)"
-	/>
-
+	<events onmousedown="action(globalmousedown)" />
 	<action name="globalmousedown">
 		set(plugin[directions].visible,false);
 		set(autorotate.enabled,false);
 	</action>
 
 	<action name="viewchange">
-    	set(currentX,get(view.hlookat));
+    set(currentX,get(view.hlookat));
 		add(currentX,180);
-		js(soundadjust(get(view.hlookat),get(view.fov)));
 	</action>
 
 	<action name="initialize">
@@ -114,8 +106,6 @@
 
 	<scene name="videoPlayer" onstart="">
 
-
-
 		<view
 			hlookat="60.0"
 			fov="150.0"
@@ -125,12 +115,12 @@
 
 		<plugin name="video"
 			url.html5="plugins/videoplayer.js"
-            videourl="../videos/alaska_rosemary_01.webm"
+      videourl="../videos/alaska_rosemary_01.webm"
 		/>
 
  	<image>
-        <sphere url="plugin:video" />
-    </image>
+    <sphere url="plugin:video" />
+  </image>
 
 
 

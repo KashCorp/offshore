@@ -10,98 +10,53 @@
 
 **************************************************************************/
 
-
-
 // GLOBAL MODULE OBJECTS
 var master,
-    pano,
     extcontrol, // external control via node js server
     autopilot;  // autopilot via
 
-var isPreloaded,
-    isOpeningLoaded;
 
 var openingloader = function() {
+  return new Promise(function(resolve, reject){
 
-  isOpeningloaded = true;
+    var cdn = 'offshore_panos/';
 
-  var cdn = 'offshore_panos/';
+    var loaderArray = [];
 
-  var loaderArray = []
+    loaderArray.push(cdn + "prologue_pano_l.jpg");
+    loaderArray.push(cdn + "prologue_pano_f.jpg");
+    loaderArray.push(cdn + "prologue_pano_r.jpg");
+    loaderArray.push(cdn + "prologue_pano_b.jpg");
+    loaderArray.push(cdn + "prologue_pano_u.jpg");
+    loaderArray.push(cdn + "prologue_pano_d.jpg");
 
-  loaderArray.push(cdn + "prologue_pano_l.jpg");
-  loaderArray.push(cdn + "prologue_pano_f.jpg");
-  loaderArray.push(cdn + "prologue_pano_r.jpg");
-  loaderArray.push(cdn + "prologue_pano_b.jpg");
-  loaderArray.push(cdn + "prologue_pano_u.jpg");
-  loaderArray.push(cdn + "prologue_pano_d.jpg");
+    $('body').append('<div id="panoDownloadStatus"></div>');
+    $('body').append('<div id="panoDownloadStatusText"></div>');
 
-  $('body').append('<div id="panoDownloadStatus"></div>')
-  $('body').append('<div id="panoDownloadStatusText"></div>')
+    $('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ');
 
-  $('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ')
+    var loader = new PxLoader();
+    var increment = window.innerWidth / loaderArray.length
 
-  var loader = new PxLoader();
-  var increment = window.innerWidth / loaderArray.length
-
-  for(var i=0; i < loaderArray.length; i++) {
-    var pxImage = new PxLoaderImage(loaderArray[i]);
-    loader.add(pxImage);
-  }
-
-  loader.addProgressListener(function(e) {
-    $('#panoDownloadStatus').css('width', e.completedCount * increment)
-    var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
-    $('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ' + progressPercent + '% complete.')
-  });
-
-  loader.addCompletionListener(function() {
-
-    // *********************************
-    // URL Arguments
-
-    var search = parent.location.search;
-    if(search) {
-      if(search.substr(0,1) == '?') {
-        var searcharray = search.split('?');
-
-        for (var i = searcharray.length - 1; i >= 0; i--) {
-          if(searcharray[i] === "local")  config.useLocalResources = true;
-          if(searcharray[i] === "master") config.extControlMaster = true;
-          if(searcharray[i] === "slave")  config.extControlSlave = true;
-          if(searcharray[i] === "autopilot") config.autopilot = true;
-
-          if(searcharray[i].substr(0,3) === "url" ) {
-            console.log('setting URL: '+searcharray[i].substr(4))
-            config.extControlUrl = searcharray[i].substr(4);
-          }
-        };
-      }
+    for(var i=0; i < loaderArray.length; i++) {
+      var pxImage = new PxLoaderImage(loaderArray[i]);
+      loader.add(pxImage);
     }
 
-    if(config.extControlMaster)     extcontrol = new ExtControl("master", config.extControlUrl);
-    else if(config.extControlSlave) extcontrol = new ExtControl("slave", config.extControlUrl);
+    loader.addProgressListener(function(e) {
+      $('#panoDownloadStatus').css('width', e.completedCount * increment)
+      var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
+      $('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ' + progressPercent + '% complete.')
+    });
 
-    if(config.autopilot) autopilot = new Autopilot();
+    loader.addCompletionListener(function(){
+      $('#panoDownloadStatusText').remove();
+      $('#panoDownloadStatus').remove();
+      resolve();
+    });
 
-    // *********************************
-
-
-    $('#panoDownloadStatusText').remove()
-    $('#panoDownloadStatus').remove()
-
-    master = new masterFunctions();
-    master.build_navbar();
-    master.check_start();
-
-    pano = new pano_master();
-
-    $('#wrapper').fadeIn(2000)
-
-  })
-
-  loader.start();
-
+    loader.start();
+  });
 }
 
 
@@ -109,15 +64,15 @@ var preloader = function() {
 
   isPreloaded = true;
 
-/*
+  /*
   var cdn = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/';
   if(master.isIOS) cdn = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/';
-*/
+  */
 
   var cdn = 'offshore_panos/';
   if(master.isIOS) cdn = 'offshore_panos/512/';
 
-  var loaderArray = []
+  var loaderArray = [];
 
   loaderArray.push(cdn + "helicopter_pano_l.jpg");
   loaderArray.push(cdn + "helicopter_pano_f.jpg");
@@ -187,16 +142,11 @@ var preloader = function() {
 
   var loader = new PxLoader();
 
-  var increment = window.innerWidth / loaderArray.length
+  var increment = window.innerWidth / loaderArray.length;
 
-
-  for(var i=0; i < loaderArray.length; i++) {
-
-      var pxImage = new PxLoaderImage(loaderArray[i]);
-
-      //pxImage.imageNumber = i + 1;
-
-      loader.add(pxImage);
+  for(var i = 0; i < loaderArray.length; i++) {
+    var pxImage = new PxLoaderImage(loaderArray[i]);
+    loader.add(pxImage);
   }
 
   loader.addProgressListener(function(e) {
@@ -226,15 +176,37 @@ var preloader = function() {
     var krpano = document.getElementById("krpanoObject");
     krpano.call("oninterrupt(break);looktohotspot(LOGO,90,tween(easeOutQuad,4));")
 
-
   })
 
   loader.start();
 
 }
 
+
+
 // STARTS THE EXPERIENCE
-openingloader();
+openingloader().then(function(){
+  console.log('opening loader complete');
+
+  if(globals.config.extControlMaster)
+    extcontrol = new ExtControl("master", globals.config.extControlUrl);
+  else if(globals.config.extControlSlave)
+    extcontrol = new ExtControl("slave", globals.config.extControlUrl);
+
+  if(globals.config.autopilot)
+    autopilot = new Autopilot();
+
+  audiomaster.loadAudio('audio/Drone_1_norm','basetrack',1,0);
+
+  master = new masterFunctions();
+  master.init();
+  master.build_navbar();
+  master.check_start();
+
+  pano.init()
+
+  $('#wrapper').fadeIn(2000);
+})
 
 
 

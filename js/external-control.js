@@ -1,8 +1,8 @@
 
 /**************************************************************************
-	
+
 	External Control Module
-		
+
 		to enable:
 			offshore/?master -> one master
 			offshore/?slave  -> many slaves
@@ -34,10 +34,10 @@ var ExtControl = function(_role, _id){
 	// ********************************************************
 	// Socket
 
-	$.getScript('js/lib/socket.io.js',function(){
-		
+	$.getScript('js/lib/socket.io.js', function(){
+
 		var url = "192.168.1.240";
-		if(config.extControlUrl) url = config.extControlUrl;
+		if(globals.config.extControlUrl) url = globals.config.extControlUrl;
 
 		console.log('http://'+url+':3700')
 		socket = io.connect('http://'+url+':3700');
@@ -60,11 +60,11 @@ var ExtControl = function(_role, _id){
 
 			if(_role === 'master') {
 				console.log('>>> SOCKET connected: MASTER')
-				socket.emit('Hi I am the master', { 
-					'currentPano': globalPano, 
+				socket.emit('Hi I am the master', {
+					'currentPano': globalPano,
 					'overlayOpen' : master.overlayOpen
 				});
-				
+
 			}
 			else if(_role === 'slave') {
 				console.log('>>> SOCKET connected: SLAVE')
@@ -73,7 +73,7 @@ var ExtControl = function(_role, _id){
 				$('.pan-directions').hide();
 		    	pano.panDirectionsShown = true;
 
-			} 
+			}
 		})
 
 		socket.on('disconnect',function(){
@@ -82,9 +82,9 @@ var ExtControl = function(_role, _id){
 			if(infotimeout) clearTimeout(infotimeout)
 			infotimeout = setTimeout(function() {
 				$info.html('Node server connection lost')
-				$info.fadeIn(500)	
+				$info.fadeIn(500)
 			}, 2000);
-			
+
 
 		})
 
@@ -125,7 +125,7 @@ var ExtControl = function(_role, _id){
 
 			// ********************************************************
 
-			socket.on('fn', function(data){ 
+			socket.on('fn', function(data){
 
 				console.log(data)
 
@@ -171,7 +171,7 @@ var ExtControl = function(_role, _id){
 						if(w) {
 							if(data.action === 'setPercent') w.setPercent(data.percent)
 							else if(data.action === 'play')  w.play();
-							else if(data.action === 'pause') w.pause();	
+							else if(data.action === 'pause') w.pause();
 						}
 
 						break;
@@ -181,7 +181,7 @@ var ExtControl = function(_role, _id){
 						var s = false;
 						var urlarray = $('#overlay_frame')[0].contentWindow.location.pathname.split('/');
 
-						if(urlarray[urlarray.length-1] === 'skype.html') 
+						if(urlarray[urlarray.length-1] === 'skype.html')
 							s = $('#overlay_frame')[0].contentWindow;
 
 						if(s){
@@ -232,7 +232,7 @@ var ExtControl = function(_role, _id){
 						break;
 
 				}
-				
+
 			})
 
 
@@ -249,9 +249,9 @@ var ExtControl = function(_role, _id){
 			// 	if(w) {
 			// 		if(data.action === 'setPercent') w.setPercent(data.percent)
 			// 		else if(data.action === 'play')  w.play();
-			// 		else if(data.action === 'pause') w.pause();	
+			// 		else if(data.action === 'pause') w.pause();
 			// 	}
-				
+
 			// })
 
 
@@ -261,7 +261,7 @@ var ExtControl = function(_role, _id){
 			// 	var s = false;
 			// 	var urlarray = $('#overlay_frame')[0].contentWindow.location.pathname.split('/');
 
-			// 	if(urlarray[urlarray.length-1] === 'skype.html') 
+			// 	if(urlarray[urlarray.length-1] === 'skype.html')
 			// 		s = $('#overlay_frame')[0].contentWindow;
 
 			// 	if(s){
@@ -294,10 +294,10 @@ var ExtControl = function(_role, _id){
 		if(krpano) return;
 
 		krpano = document.getElementById("krpanoObject");
-		
+
 		if(krpano == null) {
 			setTimeout(that.krpanoloaded, 1000);
-			return;	
+			return;
 		}
 
 		if(that.role === 'slave') krpano.set('autorotate.enabled',false);
@@ -315,7 +315,7 @@ var ExtControl = function(_role, _id){
 
 
 /**************************************************************************
-	
+
 	Autopilot Module
 
 		to enable:
@@ -348,10 +348,10 @@ var Autopilot = function(){
 		if(krpano) return;
 
 		krpano = document.getElementById("krpanoObject");
-		
+
 		if(krpano == null) {
 			setTimeout(that.krpanoloaded, 1000);
-			return;	
+			return;
 		}
 	}
 
@@ -369,7 +369,7 @@ var Autopilot = function(){
 		if(that.timeout) clearTimeout(that.timeout);
 
 		if(!master.overlayOpen) // don't go to autopilot when we're in a book
-			that.timeout = setTimeout(that.activate, timeout_time);		
+			that.timeout = setTimeout(that.activate, timeout_time);
 	}
 
 	$(window).on('mousemove.autopilot',   that.reset_timeout);
@@ -390,7 +390,7 @@ var Autopilot = function(){
 		that.active = true;
 
 		console.log('AUTOPILOT activate')
-	
+
 		$warning.fadeIn(500);
 
 		$('.pan-directions').fadeOut(500);
@@ -423,7 +423,7 @@ var Autopilot = function(){
 		max_looks = 3; // look around this many times before moving to the next pano
 
 	// var panos = [ // predefined order to how the autopilot navigates the rig
-	// 	'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway', 
+	// 	'helicopter', 'platform', 'lowerplatform', 'sequence_shaftway', 'hallway',
 	// 	'sequence_passage_controlroom', 'controlroom', 'hallway',
 	// 	'sequence_passage_chemicalroom', 'chemicalroom', 'hallway',
 	// 	'sequence_passage_theatre', 'theatre', 'subhangar', 'theatre', 'hallway',
@@ -432,9 +432,9 @@ var Autopilot = function(){
 
 	// predefined order to how the autopilot navigates the rig
 	// iPad version: no sequences (the videos don't autoplay/work)
-	
+
 	var panos = [
-		'helicopter', 'platform', 'lowerplatform', 'hallway', 
+		'helicopter', 'platform', 'lowerplatform', 'hallway',
 		'controlroom', 'hallway',
 		'chemicalroom', 'hallway',
 		'theatre', 'subhangar', 'theatre', 'hallway',
@@ -487,27 +487,27 @@ var Autopilot = function(){
 			var duration = 2 + 2*normalized_val;
 
 			// breakable lookto()
-			if(krpano) 
+			if(krpano)
 				krpano.call("oninterrupt(break);lookto("+dest.panX+","+dest.panY+","+dest.fov+",tween(easeInOutQuad,"+duration+"));");
 
 			num_looks++;
 
 		}
 
-		
+
 
 		// advance
 		if(advance) {
 			wait_timeout = setTimeout(function() {
 
-				if(num_looks > max_looks) 
+				if(num_looks > max_looks)
 					that.wait(that.switchPano);
 				else
 					that.wait(that.lookto);
 
-			}, duration*1000);	
+			}, duration*1000);
 		}
-		
+
 	}
 
 	// ********************************************************
@@ -522,7 +522,7 @@ var Autopilot = function(){
 		wait_timeout = setTimeout(function() {
 			if(callback) if(typeof callback === 'function') callback();
 		}, duration*1000);
-		
+
 	}
 
 	// ********************************************************
@@ -538,7 +538,7 @@ var Autopilot = function(){
 			if(that.pano_index < 0) {
 				if(master.globalPano === 'submarine') that.pano_index = panos.indexOf('subhangar') - 1
 				else that.pano_index = 0;
-			}	
+			}
 		}
 
 		console.log('AUTOPILOT '+panos[that.pano_index]+ '('+that.pano_index+') -> '+panos[that.pano_index+1]+ '('+(that.pano_index+1)+')')

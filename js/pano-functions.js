@@ -23,52 +23,28 @@
 
 **************************************************************************/
 
+var pano = (function(){
 
+  var exports = {};
 
-var globalPano;
+  exports.krpano = false;
 
-var pano_master = function(){
+  exports.panoWalkthrough;
+  exports.walkthroughPlaying = false;
 
-  var that = this;
+  exports.ghostTransition;
+  exports.walkthrough;
 
-  this.krpano = false;
+  exports.voiceCurrentTime = 0;
+  exports.voiceStartTimer  = 0;
 
-  this.panoWalkthrough;
-  this.walkthroughPlaying = false;
+  exports.panDirectionsShown = false;
 
-  this.ghostTransition;
-  this.walkthrough;
+  exports.video_underlay = false;
 
-  this.voiceCurrentTime = 0
-  this.voiceStartTimer = 0
+  exports.noWebAudio = !Modernizr.webaudio;
 
-  this.panDirectionsShown = false;
-
-  this.video_underlay = false;
-
-  this.noWebAudio = !Modernizr.webaudio;
-
-  this.visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
-
-  if(!this.visited){
-
-    console.log("setting localStorage visited pano data for the first time")
-
-    this.visited = { // this gets cached in localStorage
-      platform : false,
-      lowerplatform : false,
-      hallway : false,
-      boat: false,
-      controlroom : false,
-      theatre : false,
-      chemicalroom : false,
-      subhangar : false
-    }
-    localStorage.setItem('offshoreVisitedPanos',JSON.stringify(this.visited))
-
-  } else {
-    console.log("visited pano data: %o", this.visited);
-  }
+  exports.visited = (localStorage.getItem('offshoreVisitedPanos')) ? JSON.parse(localStorage.getItem('offshoreVisitedPanos')) : false;
 
 
   var scrollPercent = 0;
@@ -76,150 +52,104 @@ var pano_master = function(){
   var overLayFile, underlayFile, underlayMute, underlayMuted;
 
 
-  // Build pano
-  // ********************************************************
+  // Init ********************************************************
 
-  if(location.hash.slice(1))
-    globalPano = location.hash.slice(1);
+  exports.init = function init(){
+    return new Promise(function(resolve, reject){
+      if(!exports.visited){
 
-  // Defualt to start if no hash
-  panoXMLFile = './xml/all_panos.xml?nocache='+Math.random()*5;
+        console.log("setting localStorage visited pano data for the first time")
 
-  if(!location.hash.slice(1)) {
-    console.log('NO HASH > PROLOGUE')
-    globalPano = "prologue";
-  }
-
-  var masterPath = ".";
-  var targetContainer = "panocontainer";
-  var xmlLoc = masterPath + "/xml/all_panos.xml?nocache="+Math.random()*5;
-  var swfLoc = masterPath + "/js/lib/krpano/krpano.swf";
-
-  embedpano({
-    swf:     swfLoc,
-    id:     "krpanoObject",
-    xml:     xmlLoc,
-    wmode:  "transparent",
-    target: "panocontainer",
-    html5:  "prefer",
-    passQueryParameters:true,
-
-    onready: function(_pano){
-      that.krpano = _pano;
-
-      if (location.hash.slice(1) == "")
-        pano.loadPanoScene('prologue')
-      else
-        pano.loadPanoScene(location.hash.slice(1))
-
-      // "onloadcomplete" fires when all the pano images have loaded in.
-      that.krpano.set('events.onloadcomplete', function(){
-        console.log('[pano] load complete');
-      })
-    }
-  });
-
-  if(extcontrol) extcontrol.krpanoloaded();
-  if(autopilot)  autopilot.krpanoloaded();
-
-  master.debouncedResize();
-
-
-
-
-
-
-  /**************************************************************************
-
-    New pano load logic sequence:
-
-    1. hash change event listener
-    2. loadPanoScene
-     (3. if image sequence - diverts to LoadSequenceScene)
-
-
-  **************************************************************************/
-
-
-
-  /**************************************************************************
-
-    > Hash Change
-
-  **************************************************************************/
-
-
-  $(window).bind('hashchange', function(){
-
-    console.log('\\\ hash change ///')
-    var hash = window.location.hash.slice(1);
-
-    if(extcontrol) if(extcontrol.role === 'master') {
-      extcontrol.hashChange({ "hash": hash });
-    }
-
-    if(master.globalPano === hash) {
-      console.log('#nowhere')
-      return false;
-    }
-
-    if (hash == "") {
-      that.loadPanoScene('prologue')
-      return false
-    }
-
-    $("#walking-canvas-pano").addClass('hide')
-
-    that.loadPanoScene(hash)
-
-  })
-
-  // coming in from a deeplink
-
-  var deeplinkfunction = function(){
-
-    console.log('deeplinkfunction')
-
-    window.clearTimeout(deeplinktimeout)
-
-    deeplinktimeout = window.setTimeout(function(){
-
-      // make sure krpano has had a chance to load
-      //
-
-      if(that.krpano) {
-        console.log('krpano loaded')
-
-        if(window.location.hash.slice(1) =="")
-          that.loadPanoScene('prologue')
-        else
-          that.loadPanoScene(window.location.hash.slice(1))
-
-        window.clearTimeout(deeplinktimeout)
-        return false;
+        exports.visited = { // this gets cached in localStorage
+          platform : false,
+          lowerplatform : false,
+          hallway : false,
+          boat: false,
+          controlroom : false,
+          theatre : false,
+          chemicalroom : false,
+          subhangar : false
+        }
+        localStorage.setItem('offshoreVisitedPanos',JSON.stringify(exports.visited))
 
       } else {
-        console.log('waiting for krpano to load...')
-        deeplinkfunction()
+        console.log("visited pano data: %o", exports.visited);
       }
 
-    },1000)
+      // Build pano
+      // ********************************************************
+
+      var masterPath = "./";
+      var targetContainer = "panocontainer";
+      var xmlLoc = masterPath + "xml/all_panos.xml?nocache="+Math.random()*5;
+      var swfLoc = masterPath + "js/lib/krpano/krpano.swf";
+
+      console.log('embedpano');
+      embedpano({
+        swf:     swfLoc,
+        id:     "krpanoObject",
+        xml:     xmlLoc,
+        wmode:  "transparent",
+        target: "panocontainer",
+        html5:  "only",
+        passQueryParameters:true,
+
+        onready: function(_pano){
+          exports.krpano = _pano;
+
+          router.hashChange();
+
+          // "onloadcomplete" fires when all the pano images have loaded in.
+          exports.krpano.set('events.onloadcomplete', function(){
+
+            console.log('pano load complete');
+
+            if(!globals.isPreloaded) preloader();
+
+            globals.$panocontainer.removeClass('hide')
+            globals.$panocontainer.css('opacity',1.0)
+
+            resolve();
+
+            $('#video-underlay').show();
+
+          })
+
+          exports.krpano.set('events.onviewchange', function(){
+            audiomaster.soundadjust( exports.krpano.get('view.hlookat'), exports.krpano.get('view.fov') );
+            exports.krpano.call('action(viewchange)');
+          })
+        }
+      });
+
+      if(extcontrol) extcontrol.krpanoloaded();
+      if(autopilot)  autopilot.krpanoloaded();
+
+      master.debouncedResize();
+
+      runFrameRunner();
+    });
   }
 
-   // deeplinkfunction();
 
 
 
 
 
   /**************************************************************************
+
+    ##    ######   #####  ######      ####   ##### ###### ###  ## ######
+    ##   ##    ## ##   ## ##   ##    ##     ##     ##     #### ## ##
+    ##   ##    ## ####### ##   ##     ####  ##     #####  ## #### #####
+    ##   ##    ## ##   ## ##   ##        ## ##     ##     ##  ### ##
+    ##### ######  ##   ## ######     #####   ##### ###### ##   ## ######
 
     > Load Pano Scene
 
   **************************************************************************/
 
 
-  this.loadPanoScene = function(_pano) {
+  exports.loadPanoScene = function(_pano) {
 
     console.log('load pano "%s"', _pano);
 
@@ -227,31 +157,30 @@ var pano_master = function(){
       extcontrol.hashChange({ "hash": _pano });
     }
 
-    master.globalPano = _pano
+    globals.pano = _pano
 
     var d = document.location;
     _gaq.push(['_trackPageview', '/'+ _pano])
 
     $("#loading").hide();
 
-    $wrapper.removeClassIS_PARENT
-    $panocontainer.removeClass('hide')
+    globals.$panocontainer.removeClass('hide')
 
-    that.panoWalkthrough = null;
-    that.walkthroughPlaying = false;
-    that.video_underlay = false;
+    exports.panoWalkthrough = null;
+    exports.walkthroughPlaying = false;
+    exports.video_underlay = false;
 
     $('.pan-directions').hide();
-    if(that.panDirectionsShown === false) $('.pan-directions').show();
+    if(exports.panDirectionsShown === false) $('.pan-directions').show();
 
 
     // Ghost Functions
-    if(that.ghostTransition) that.ghostTransition.killGhost();
-    if(that.walkthrough) that.walkthrough = false;
+    if(exports.ghostTransition) exports.ghostTransition.killGhost();
+    if(exports.walkthrough) exports.walkthrough = false;
 
     $('#ghost-canvas-trans').fadeOut()
 
-    if(!master.overlayOpen) $compass.show()
+    if(!master.overlayOpen) globals.$compass.show()
 
     setTimeout(function(){
 
@@ -291,10 +220,10 @@ var pano_master = function(){
 
     $('#scroll-wrapper').fadeOut()
 
-    if(that.krpano){
-      that.krpano.call('action(' + _pano + ')');
-      that.krpano.set('view.fov','90');
-      that.krpano.set('view.vlookat','0');
+    if(exports.krpano){
+      exports.krpano.call('action(' + _pano + ')');
+      exports.krpano.set('view.fov','90');
+      exports.krpano.set('view.vlookat','0');
     }
 
     // remove leftover dynamic elements
@@ -305,81 +234,81 @@ var pano_master = function(){
     switch(_pano){
 
       case "prologue" :
-        overLayFile = 'HeliPad_minus_minus' + master.audioType
-        $compass.hide()
+        overLayFile = 'HeliPad_minus_minus'
+        globals.$compass.hide()
         break;
 
       case "helicopter" :
-        overLayFile = 'Helicopter_Interior' + master.audioType
+        overLayFile = 'Helicopter_Interior'
         break;
 
       case "platform" :
-        that.visited.platform = true;
-        overLayFile = 'ocean_sounds' + master.audioType
+        exports.visited.platform = true;
+        overLayFile = 'ocean_sounds'
         break;
 
       case "boat" :
-        that.visited.boat = true;
-        overLayFile = 'HeliPad_minus_minus' + master.audioType
-        underlayFile = 'The_Zone' + master.audioType
+        exports.visited.boat = true;
+        overLayFile = 'HeliPad_minus_minus'
+        underlayFile = 'The_Zone'
         break;
 
       case "interiorsub-wire" :
-        overLayFile = 'Submersible' + master.audioType
+        overLayFile = 'Submersible'
         underlayMute=true
         break;
 
       case "lowerplatform_closed" :
-        overLayFile = 'LowerPlatform_minus' + master.audioType
-        underlayFile = 'Drone_1_norm' + master.audioType
+        overLayFile = 'LowerPlatform_minus'
+        underlayFile = 'Drone_1_norm'
         break;
 
 
       case "lowerplatform" :
-        that.visited.lowerplatform = true;
-        overLayFile = 'LowerPlatform_minus' + master.audioType
-        underlayFile = 'Drone_1_norm' + master.audioType
+        exports.visited.lowerplatform = true;
+        overLayFile = 'LowerPlatform_minus'
+        underlayFile = 'Drone_1_norm'
         break;
 
       case "hallway" :
-        that.visited.hallway = true;
+        exports.visited.hallway = true;
 
         // Big ball of fire voices
-        that.voiceStartTimer = JSON.parse(localStorage.getItem('voiceStartTimer'));
-        that.voiceCurrentTime = JSON.parse(localStorage.getItem('voiceCurrentTime'));
-        that.cachedVoiceTime = that.voiceCurrentTime;
+        exports.voiceStartTimer = JSON.parse(localStorage.getItem('voiceStartTimer'));
+        exports.voiceCurrentTime = JSON.parse(localStorage.getItem('voiceCurrentTime'));
+        exports.cachedVoiceTime = exports.voiceCurrentTime;
 
-        if(!that.voiceStartTime) {
+        if(!exports.voiceStartTime) {
 
-          that.voiceStartTime = 0
-          that.voiceStartTimer = new Date()
-          localStorage.setItem('voiceStartTimer',JSON.stringify(that.voiceStartTimer))
+          exports.voiceStartTime = 0
+          exports.voiceStartTimer = new Date()
+          localStorage.setItem('voiceStartTimer',JSON.stringify(exports.voiceStartTimer))
 
         } else {
 
-          if(that.voiceStartTime > 185) that.voiceStartTime = 0; // restart
+          if(exports.voiceStartTime > 185) exports.voiceStartTime = 0; // restart
 
-          that.cachedVoiceTime = JSON.parse(localStorage.getItem('voiceCurrentTime'))
-          that.voiceStartTimer = new Date()
+          exports.cachedVoiceTime = JSON.parse(localStorage.getItem('voiceCurrentTime'))
+          exports.voiceStartTimer = new Date()
         }
 
-        console.log('that.voiceStartTimer: '+'\t'+that.voiceStartTimer)
-        console.log('that.voiceCurrentTime: '+'\t'+that.voiceCurrentTime)
+        console.log('exports.voiceStartTimer: '+'\t'+exports.voiceStartTimer)
+        console.log('exports.voiceCurrentTime: '+'\t'+exports.voiceCurrentTime)
 
-        loadAFXPano('One_Big_Ball_of_Fire', that.voiceCurrentTime)
-        overLayFile  = 'Main_Hallway' + master.audioType
-        underlayFile = 'Drone_2_norm' + master.audioType
+        loadAFXPano('One_Big_Ball_of_Fire', exports.voiceCurrentTime)
+        overLayFile  = 'Main_Hallway'
+        underlayFile = 'Drone_2_norm'
 
-        $panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"></div>')
+        globals.$panocontainer.after('<img id = "gradient" class="dynamic" src="images/overlay_gradient_blue_upside_down.png" style="pointer-events:none;bottom:0px; display:block; position: absolute;width:100%;height:40%;opacity:0.7"></div>')
 
-        that.video_underlay = true;
+        exports.video_underlay = true;
       break;
 
       case "subhangar" :
-        that.visited.subhangar = true;
+        exports.visited.subhangar = true;
 
-        overLayFile = 'SubRoom' + master.audioType
-        underlayFile = 'Drone_3' + master.audioType
+        overLayFile = 'SubRoom'
+        underlayFile = 'Drone_3'
 
         // walkthrough
         $("#walking-canvas-pano").removeClass('hide')
@@ -388,67 +317,67 @@ var pano_master = function(){
            $('#walking-canvas-pano').css('display','none')
 
         }
-        that.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
+        exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
         $('.hotspot').addClass('requiem')
 
         break;
 
       case "submarine" :
         setTimeout(function(){
-          $panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+          globals.$panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
         },1000)
-        overLayFile = 'Submersible' + master.audioType
+        overLayFile = 'Submersible'
         underlayMute=true
-        that.video_underlay = true;
+        exports.video_underlay = true;
         break;
 
       case "theater" :
-        that.visited.theatre = true;
+        exports.visited.theatre = true;
 
-        overLayFile = 'Fluorescencent_Tone' + master.audioType
-        underlayFile = 'Drone_1_norm' + master.audioType
+        overLayFile = 'Fluorescencent_Tone'
+        underlayFile = 'Drone_1_norm'
         break;
 
       case "theatre" :
-        that.visited.theatre = true;
+        exports.visited.theatre = true;
 
-        overLayFile = 'Fluorescencent_Tone' + master.audioType
-        underlayFile = 'Drone_1_norm' + master.audioType
+        overLayFile = 'Fluorescencent_Tone'
+        underlayFile = 'Drone_1_norm'
         break;
 
       case "chemicalroom" :
-        that.visited.chemicalroom = true;
+        exports.visited.chemicalroom = true;
 
-        overLayFile = 'Chemical_Room' + master.audioType
-        underlayFile = 'Drone_3_norm' + master.audioType
+        overLayFile = 'Chemical_Room'
+        underlayFile = 'Drone_3_norm'
 
         // walkthrough
-        scrollTrigger=false;
+        scrollTrigger = false;
         $("#walking-canvas-pano").removeClass('hide')
-        that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",15);
+        exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",15);
         $('.hotspot').addClass('engineroom')
 
-        // that.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
+        // exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
         break;
 
       case "controlroom" :
-        that.visited.controlroom = true;
+        exports.visited.controlroom = true;
 
-        overLayFile = 'russian_radio' + master.audioType
+        overLayFile = 'russian_radio'
 
-        that.video_underlay = true;
+        exports.video_underlay = true;
         break;
       //
     }
 
 
     // cache visited data to localStorage
-    localStorage.setItem('offshoreVisitedPanos',JSON.stringify(that.visited))
+    localStorage.setItem('offshoreVisitedPanos', JSON.stringify(exports.visited));
 
 
     $(window).off('resize.underlay')
 
-    if(that.video_underlay) {
+    if(exports.video_underlay) {
 
       $('.video-underlay').css({
         'position':'absolute',
@@ -468,7 +397,7 @@ var pano_master = function(){
       })
     }
 
-    that.loadSceneAudio()
+    exports.loadSceneAudio()
   }
 
 
@@ -485,18 +414,14 @@ var pano_master = function(){
 
     console.log('loadSequenceScene -- ' + _sequence)
 
-    var name,
-      ghost,
-      ghostFrames,
-      movieLength;
+    var name, ghost, ghostFrames, movieLength;
 
     sequenceHasWords = false;
 
     // clear word container
     $('#word-container ul').html('')
 
-    $wrapper.addClass('hide')
-    $panocontainer.removeClass('show').addClass('hide')
+    globals.$panocontainer.removeClass('show').addClass('hide')
 
     switch(_sequence){
 
@@ -511,7 +436,7 @@ var pano_master = function(){
         linkBack = 'hallway'
         linkForward = 'chemicalroom'
 
-        overLayFile = 'Hatch_Alt2' + master.audioType
+        overLayFile = 'Hatch_Alt2'
         break;
 
       case "sequence_passage_theatre" :
@@ -525,7 +450,7 @@ var pano_master = function(){
         linkBack = 'hallway'
         linkForward = 'theatre'
 
-        overLayFile = 'Hatch_Alt2' + master.audioType
+        overLayFile = 'Hatch_Alt2'
         break;
 
 
@@ -540,7 +465,7 @@ var pano_master = function(){
         linkBack = 'hallway'
         linkForward = 'controlroom'
 
-        overLayFile = 'Hatch_Alt2' + master.audioType
+        overLayFile = 'Hatch_Alt2'
         break;
 
       case "sequence_outside_stairs_down" :
@@ -574,16 +499,16 @@ var pano_master = function(){
           $('#word-container ul').html(wordHTL)
         }
 
-        overLayFile = 'Hatch_Alt2' + master.audioType
+        overLayFile = 'Hatch_Alt2'
         break;
     }
 
-    if(!master.isMSIE) that.loadSceneAudio()
+    if(!master.isMSIE) exports.loadSceneAudio()
 
     if(ghost) {
       console.log('GHOST')
-      that.ghostTransition = new ghostFunctions("ghost-canvas-trans",ghost,ghostFrames)
-      that.ghostTransition.imageSequencer()
+      exports.ghostTransition = new ghostFunctions("ghost-canvas-trans",ghost,ghostFrames)
+      exports.ghostTransition.imageSequencer()
     }
 
     $('#loading').fadeOut()
@@ -596,10 +521,10 @@ var pano_master = function(){
 
     console.log("Start Walkthrough")
 
-    that.walkthrough = new Walkthrough("walking-canvas", name, movieLength)
+    exports.walkthrough = new Walkthrough("walking-canvas", name, movieLength)
 
-    that.walkthrough.scrollPos   = 0;
-    that.walkthrough.scrollValue = 1;
+    exports.walkthrough.scrollPos   = 0;
+    exports.walkthrough.scrollValue = 1;
 
     scrollTrigger = false;
     scrollPercent = 0;
@@ -659,7 +584,7 @@ var pano_master = function(){
   ***************************************************************************
   **************************************************************************/
 
-  this.loadSceneAudio = function(_pano)    {
+  exports.loadSceneAudio = function(_pano)    {
 
     var multix = 1
 
@@ -673,31 +598,30 @@ var pano_master = function(){
     var underlayTrack = audiomaster.mix.getTrack('basetrack')
 
 
-       if( underlayFile){
+    if( underlayFile ){
 
-        var dummysound = { fadeFrom:    1, fadeTo: 0.0001};
+      audiomaster.loadAudio(master.audio_path+underlayFile, 'basetrack2', 0, 0);
 
-        audiomaster.loadAudio(master.audio_path+underlayFile,'basetrack2',0,0)
+      var driftTweenSound = new TWEEN.Tween({ fadeFrom: 1, fadeTo: 0.0001}).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
+        .onUpdate( function() {
+          if(!underlayMuted) audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
+          audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
+        })
+        .easing(TWEEN.Easing.Quadratic.Out )
+        .onComplete(function() {
 
-        var driftTweenSound = new TWEEN.Tween( dummysound ).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
-          .onUpdate( function() {
-            if(!underlayMuted) audiomaster.mix.getTrack('basetrack').gain(this.fadeFrom)
-            audiomaster.mix.getTrack('basetrack2').gain(this.fadeTo)
-          })
-          .easing(TWEEN.Easing.Quadratic.Out )
-          .onComplete(function() {
+          audiomaster.mix.removeTrack('basetrack')
 
-            audiomaster.mix.removeTrack('basetrack')
+          var renameThis = audiomaster.mix.getTrack('basetrack2')
 
-            var renameThis = audiomaster.mix.getTrack('basetrack2')
+          renameThis['name'] = 'basetrack';
 
-            renameThis['name'] = 'basetrack';
-
-            audiomaster.mix.lookup['basetrack'] = renameThis
+          audiomaster.mix.lookup['basetrack'] = renameThis
 
 
-          })
-          .start();
+        })
+
+      driftTweenSound.start();
 
       } else{
         if(underlayMuted){
@@ -714,7 +638,7 @@ var pano_master = function(){
         var dummysound;
 
         if(overlayTrack) {
-          if(that.noWebAudio) dummysound = { decayFrom: overlayTrack.options.element.volume};
+          if(exports.noWebAudio) dummysound = { decayFrom: overlayTrack.options.element.volume};
           else                dummysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
         }
 
@@ -735,7 +659,7 @@ var pano_master = function(){
 
       if( overlayTrack){
 
-        if(that.noWebAudio) {
+        if(exports.noWebAudio) {
 
           var dummysound = { decayFrom: overlayTrack.options.element.volume};
 
@@ -881,7 +805,7 @@ var pano_master = function(){
 
   function actionDown( e ) {
 
-    if (!that.krpano) return
+    if (!exports.krpano) return
 
     e.touches = [{clientX: e.clientX, clientY: e.clientY}];
     actionDownTouch(e);
@@ -890,7 +814,7 @@ var pano_master = function(){
 
    function actionDownTouch( e ) {
 
-    if (!that.krpano) return
+    if (!exports.krpano) return
 
     master.ghostBuster = true
 
@@ -917,7 +841,7 @@ var pano_master = function(){
 
    function actionUp( e ) {
 
-    if (!that.krpano) return
+    if (!exports.krpano) return
 
     interactive = false;
 
@@ -928,8 +852,8 @@ var pano_master = function(){
 
     driftTweenH = new TWEEN.Tween( dummy ).to( { decayX: 0}, 1000 )
       .onUpdate( function() {
-        var currentX = that.krpano.get('view.hlookat') - this.decayX
-        that.krpano.set('view.hlookat',currentX)
+        var currentX = exports.krpano.get('view.hlookat') - this.decayX
+        exports.krpano.set('view.hlookat',currentX)
         mouse_x_diff    = this.decayX*.01;
 
       })
@@ -939,8 +863,8 @@ var pano_master = function(){
 
     driftTweenV = new TWEEN.Tween( dummyv ).to( {decayY: 0 }, 1000 )
       .onUpdate( function() {
-        var currentY = that.krpano.get('view.vlookat') - this.decayY
-        that.krpano.set('view.vlookat',currentY)
+        var currentY = exports.krpano.get('view.vlookat') - this.decayY
+        exports.krpano.set('view.vlookat',currentY)
         mouse_y_diff    = this.decayY*.01;
 
       })
@@ -991,17 +915,17 @@ var pano_master = function(){
 
   function scrollerFunction(){
 
-    if(!that.walkthrough && !that.walkthroughPlaying) return;
+    if(!exports.walkthrough && !exports.walkthroughPlaying) return;
 
-    if(that.panoWalkthrough) {
-      walkthrough = that.panoWalkthrough;
+    if(exports.panoWalkthrough) {
+      walkthrough = exports.panoWalkthrough;
 
       // if(walkthrough.autoplay) {
       //     walkthrough.play();
       // }
     }
     else {
-      walkthrough = that.walkthrough;
+      walkthrough = exports.walkthrough;
 
       // JUST USE SCROLL PERCENT HERE
 
@@ -1021,8 +945,8 @@ var pano_master = function(){
       }
 
 
-      // if(scrollPercent > 40 && that.ghostTransition)
-      if(walkthrough.percent > 0.4 && that.ghostTransition)
+      // if(scrollPercent > 40 && exports.ghostTransition)
+      if(walkthrough.percent > 0.4 && exports.ghostTransition)
         master.ghostBuster = false
       else
         master.ghostBuster = true
@@ -1087,7 +1011,7 @@ var pano_master = function(){
     // ********************************************************
     // update current time for hallway voiceover
 
-    if(master.globalPano === 'hallway' && pano) {
+    if(globals.pano === 'hallway' && pano) {
 
       counter++;
 
@@ -1148,7 +1072,7 @@ var pano_master = function(){
       return false
     }
 
-    if(that.walkthroughPlaying) {
+    if(exports.walkthroughPlaying) {
       scrollerFunction()
     }
 
@@ -1157,16 +1081,16 @@ var pano_master = function(){
     // ********************************************************
     // krpano view
 
-    if(that.krpano) {
+    if(exports.krpano) {
 
       if(panAmount != 0) {
-        panX = that.krpano.get('view.hlookat') + panAmount
-        that.krpano.set('view.hlookat',panX)
+        panX = exports.krpano.get('view.hlookat') + panAmount
+        exports.krpano.set('view.hlookat',panX)
       }
 
       if(yawAmount != 0){
-        panY = that.krpano.get('view.vlookat') + yawAmount //*.3
-        that.krpano.set('view.vlookat',panY)
+        panY = exports.krpano.get('view.vlookat') + yawAmount //*.3
+        exports.krpano.set('view.vlookat',panY)
       }
 
       // ********************************************************
@@ -1175,18 +1099,18 @@ var pano_master = function(){
       if(extcontrol) {
         if(extcontrol.role === 'master'){
 
-          extcontrol.sync_data.panX = that.krpano.get('view.hlookat');
-          extcontrol.sync_data.panY = that.krpano.get('view.vlookat');
-          extcontrol.sync_data.fov  = that.krpano.get('view.fov');
+          extcontrol.sync_data.panX = exports.krpano.get('view.hlookat');
+          extcontrol.sync_data.panY = exports.krpano.get('view.vlookat');
+          extcontrol.sync_data.fov  = exports.krpano.get('view.fov');
 
           extcontrol.sync_view();
 
         } else if(extcontrol.role === 'slave') {
 
           if(extcontrol.sync_data) {
-            that.krpano.set('view.hlookat', extcontrol.sync_data.panX)
-            that.krpano.set('view.vlookat', extcontrol.sync_data.panY)
-            that.krpano.set('view.fov',extcontrol.sync_data.fov)
+            exports.krpano.set('view.hlookat', extcontrol.sync_data.panX)
+            exports.krpano.set('view.vlookat', extcontrol.sync_data.panY)
+            exports.krpano.set('view.fov',extcontrol.sync_data.fov)
           }
         }
       }
@@ -1202,24 +1126,7 @@ var pano_master = function(){
     // view_y += (mouse_y_diff)
     // view_x += (mouse_x_diff*0.01)
 
-
-
-
-
-
-
   }
 
-
-  runFrameRunner();
-
-}
-
-
-
-
-
-
-
-
-
+  return exports;
+}());
