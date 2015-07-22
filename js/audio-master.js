@@ -17,6 +17,37 @@ var audiomaster = (function(){
     });
   }
 
+  // Mute ********************************************************
+
+  $('.volume-toggle').click(function(){
+
+    master.soundTrigger = true;
+    var isMuted = globals.getCookie('muted');
+
+    console.log('click -> isMuted: '+isMuted);
+
+    if (isMuted){
+      $('.volume-toggle').html('<i class="icon-volume-up"></i>');
+      globals.deleteCookie('muted')
+      $('video').each(function(i,v){
+        $(v).prop('muted', false)
+      })
+    } else {
+      $('.volume-toggle').html('<i class="icon-volume-off"></i>');
+      globals.setCookie('muted',true)
+      $('video').each(function(i,v){
+        $(v).prop('muted', true)
+      })
+    }
+  })
+
+  if(globals.getCookie("muted")){
+    $('.volume-toggle').html('<i class="icon-volume-off"></i>');
+    $('video').each(function(i,v){
+      $(v).prop('muted', true)
+    })
+  }
+
   // Sound Adjust ********************************************************
 
   var soundVector1 = 0;

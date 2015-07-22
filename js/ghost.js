@@ -12,7 +12,7 @@
 
 var ghostFunctions = function(canvasid,name,imageNumber) {
 
-  filePathPre = master.cdn_imgseq // 'video/video_clips/'
+  filePathPre = globals.cdn_imgseq // 'video/video_clips/'
   //filePathPre = 'video/newtransitions/'
 
   function zeroes(num, length) {
@@ -28,7 +28,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
   }
 
   var that = this,
-    w,h;
+      w, h;
 
   var canvas = document.getElementById(canvasid);
   canvas.width  = 320
@@ -36,20 +36,19 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 
   this.resize = function(){
-    w = resize.contain.w;
-    h = resize.contain.h;
+    w = globals.resize.contain.w;
+    h = globals.resize.contain.h;
     canvas.style.width = w + 'px'
     canvas.style.height = h + 'px'
   }
-  master.debouncedResize();
+  globals.debouncedResize();
 
 
   var context = canvas.getContext('2d');
-  //context.globalCompositeOperation = "source-atop"
 
-  var imageSrc,
-    playHead=1,
-    ghostTimeout;
+  var imageSrc;
+  var playHead = 1;
+  var ghostTimeout;
 
 
 

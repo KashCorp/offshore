@@ -10,8 +10,6 @@
       Load Pano Scene
       (Load Sequence Scene)
 
-    Load Video Matrix
-
     Load Scene Audio
 
     Krpano Mouse Nav
@@ -27,7 +25,7 @@ var pano = (function(){
 
   var exports = {};
 
-  exports.krpano = false;
+  exports.krpano = {}; // the krpano instance
 
   exports.panoWalkthrough;
   exports.walkthroughPlaying = false;
@@ -61,14 +59,14 @@ var pano = (function(){
         console.log("setting localStorage visited pano data for the first time")
 
         exports.visited = { // this gets cached in localStorage
-          platform : false,
-          lowerplatform : false,
-          hallway : false,
-          boat: false,
-          controlroom : false,
-          theatre : false,
-          chemicalroom : false,
-          subhangar : false
+          platform:      false,
+          lowerplatform: false,
+          hallway:       false,
+          boat:          false,
+          controlroom:   false,
+          theatre:       false,
+          chemicalroom:  false,
+          subhangar:     false
         }
         localStorage.setItem('offshoreVisitedPanos',JSON.stringify(exports.visited))
 
@@ -79,12 +77,10 @@ var pano = (function(){
       // Build pano
       // ********************************************************
 
-      var masterPath = "./";
       var targetContainer = "panocontainer";
-      var xmlLoc = masterPath + "all_panos.xml?nocache="+Math.random()*5;
-      var swfLoc = masterPath + "js/lib/krpano/krpano.swf";
+      var xmlLoc = "./xml/all_panos.xml?nocache="+Math.random()*5;
+      var swfLoc = "./js/lib/krpano/krpano.swf";
 
-      console.log('embedpano');
       embedpano({
         swf:     swfLoc,
         id:     "krpanoObject",
@@ -96,14 +92,13 @@ var pano = (function(){
 
         onready: function(_pano){
           exports.krpano = _pano;
+          console.log('[pano] onready');
 
           router.hashChange();
 
           // "onloadcomplete" fires when all the pano images have loaded in.
-          exports.krpano.set('events.onloadcomplete', function(){
-
-            console.log('pano load complete');
-
+          _pano.set('events.onloadcomplete', function(){
+            console.log('[pano] onloadcomplete');
             if(!globals.isPreloaded) preloader();
 
             globals.$panocontainer.removeClass('hide')
@@ -115,12 +110,13 @@ var pano = (function(){
 
           })
 
-          exports.krpano.set('events.onviewchange', function(){
-            audiomaster.soundadjust( exports.krpano.get('view.hlookat'), exports.krpano.get('view.fov') );
-            exports.krpano.call('action(viewchange)');
+          _pano.set('events.onviewchange', function(){
+            audiomaster.soundadjust( _pano.get('view.hlookat'), _pano.get('view.fov') );
+            _pano.call('action(viewchange)');
           })
 
-          exports.krpano.set('webvr_onentervr', function(){
+          // HACK! overwriting an event from the webvr library
+          _pano.set('webvr_onentervr', function(){
             console.log('VR ENTERED');
             globals.vr = true;
             _pano.call('action(webvr_enter)');
@@ -131,7 +127,7 @@ var pano = (function(){
       if(extcontrol) extcontrol.krpanoloaded();
       if(autopilot)  autopilot.krpanoloaded();
 
-      master.debouncedResize();
+      globals.debouncedResize();
 
       runFrameRunner();
     });
@@ -156,31 +152,30 @@ var pano = (function(){
 
 
   exports.loadPanoScene = function(_pano) {
-
     console.log('load pano "%s"', _pano);
 
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.hashChange({ "hash": _pano });
     }
 
-    globals.pano = _pano
+    globals.pano = _pano;
 
-    var d = document.location;
-    _gaq.push(['_trackPageview', '/'+ _pano])
+    _gaq.push(['_trackPageview', '/'+ _pano]);
 
     $("#loading").hide();
 
     globals.$panocontainer.removeClass('hide')
 
-    exports.panoWalkthrough = null;
+    exports.panoWalkthrough    = null;
     exports.walkthroughPlaying = false;
-    exports.video_underlay = false;
+    exports.video_underlay     = false;
 
     $('.pan-directions').hide();
     if(exports.panDirectionsShown === false) $('.pan-directions').show();
 
-
     // Ghost Functions
+    // ********************************************************
+
     if(exports.ghostTransition) exports.ghostTransition.killGhost();
     if(exports.walkthrough) exports.walkthrough = false;
 
@@ -195,8 +190,8 @@ var pano = (function(){
 
       context.clearRect(0, 0,320,180);
 
-      canvas.width = 0
-      canvas.width = 320
+      canvas.width = 0;
+      canvas.width = 320;
 
     },1000)
 
@@ -224,13 +219,14 @@ var pano = (function(){
       return false;
     }
 
-    $('#scroll-wrapper').fadeOut()
+    $('#scroll-wrapper').fadeOut();
 
-    if(exports.krpano){
-      exports.krpano.call('action(' + _pano + ')');
-      exports.krpano.set('view.fov','90');
-      exports.krpano.set('view.vlookat','0');
-    }
+    // load the scene!
+    // ********************************************************
+    // exports.krpano.call('action(' + _pano + ');');
+    exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
+    exports.krpano.set('view.fov','90');
+    exports.krpano.set('view.vlookat','0');
 
     // remove leftover dynamic elements
     $('.dynamic').remove()
@@ -381,29 +377,29 @@ var pano = (function(){
     localStorage.setItem('offshoreVisitedPanos', JSON.stringify(exports.visited));
 
 
-    $(window).off('resize.underlay')
+    $(window).off('resize.underlay');
 
     if(exports.video_underlay) {
 
       $('.video-underlay').css({
         'position':'absolute',
-        'width':  master.globals.cover.w,
-        'height': master.globals.cover.h,
-        'left':   master.globals.cover.l,
-        'top':    master.globals.cover.t
+        'width':  globals.resize.cover.w,
+        'height': globals.resize.cover.h,
+        'left':   globals.resize.cover.l,
+        'top':    globals.resize.cover.t
       })
 
       $(window).on('resize.underlay',function(){
         $('.video-underlay').css({
-          'width':  master.globals.cover.w,
-          'height': master.globals.cover.h,
-          'left' :  master.globals.cover.l,
-          'top' :   master.globals.cover.t
+          'width':  globals.resize.cover.w,
+          'height': globals.resize.cover.h,
+          'left' :  globals.resize.cover.l,
+          'top' :   globals.resize.cover.t
         })
       })
     }
 
-    exports.loadSceneAudio()
+    loadSceneAudio();
   }
 
 
@@ -509,7 +505,7 @@ var pano = (function(){
         break;
     }
 
-    if(!master.isMSIE) exports.loadSceneAudio()
+    if(!master.isMSIE) loadSceneAudio()
 
     if(ghost) {
       console.log('GHOST')
@@ -543,46 +539,6 @@ var pano = (function(){
 
 
   /**************************************************************************
-
-    > Load Video Matrix
-
-  **************************************************************************/
-
-
-
-  $.ajax({
-    url: 'js/videoMatrix.json',
-    success: function(data){
-
-      // build all possible menus - videoPlayer() function picks the one it needs
-      $.each(data.children, function(group_i,group){
-        $('#video-overlay').after('<div class="movie-menu hide '+group.group+'" />')
-
-        $.each(group.movies,function(movie_i,movie){
-          $('.movie-menu.'+group.group).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
-        })
-      })
-
-      $('.movie-menu-item').click(function(){
-        switchVideo($(this).data('file'),$(this).text())
-      })
-      $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
-      $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
-    },
-    error: function(request,error) {
-      console.log(error)
-    }
-  });
-
-
-
-
-
-
-  //$('.wrapper').append("<div class='pan-directions'/>")
-
-
-  /**************************************************************************
   ***************************************************************************
 
     > Load Scene Audio
@@ -590,7 +546,7 @@ var pano = (function(){
   ***************************************************************************
   **************************************************************************/
 
-  exports.loadSceneAudio = function(_pano)    {
+  var loadSceneAudio = function(_pano)    {
 
     var multix = 1
 
@@ -1055,7 +1011,7 @@ var pano = (function(){
         }
       }
 
-      if(!master.getCookie('muted')){
+      if(!globals.getCookie('muted')){
         if (master.overlayOpen) {
           if(audiomaster.mix.getGain() > 0.2){
             audiomaster.mix.setGain(audiomaster.mix.getGain() - 0.02)

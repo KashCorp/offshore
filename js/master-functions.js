@@ -33,7 +33,7 @@ var masterFunctions = function() {
 
   var fadeSpeed = 500;
   var pagepath = 'http://www.offshore-interactive.com/pages/';
-  var visitedPages = getCookie("visitedPages");
+  var visitedPages = globals.getCookie("visitedPages");
   var audio = document.getElementsByTagName('audio');
   var newPageTrigger;
   var isParent;
@@ -68,7 +68,29 @@ var masterFunctions = function() {
       $('.vignette').css('display','none');
     };
 
+
+
+    // Build video matrix ********************************************************
+
+    globals.videoGroups = videoMatrix;
+
+    // build all possible menus - videoPlayer() function picks the one it needs
+    $.each(globals.videoGroups, function(groupName, group){
+      $('#video-overlay').after('<div class="movie-menu hide '+groupName+'" />')
+
+      $.each(group,function(movieIndex, movie){
+        $('.movie-menu.'+groupName).append('<div data-file="' + movie.file + '" class="movie-menu-item">' + movie.title + '</div>')
+      })
+    })
+
+    $('.movie-menu-item').click(function(){
+      switchVideo($(this).data('file'),$(this).text())
+    })
+    $('.movie-menu').append('<div class="viewedContentDiv movie-menu-item">Viewed Content</div>')
+    $('#video-overlay').after('<div class="loading" id="movieloading"></div>');
   }
+
+
 
 
     // ********************************************************
@@ -169,108 +191,13 @@ var masterFunctions = function() {
 
     if(!visitedPages){
       visitedPages = "empty"
-      setCookie("visitedPages",visitedPages,365)
+      globals.setCookie("visitedPages",visitedPages,365)
     }
 
     this.url_array = [];
 
     this.divider = ((window.innerWidth-168) / this.url_array.length)
 
-
-
-    /**************************************************************************
-
-      Dynamic Resizing
-
-      - all resizing functionality needs to be triggered inside resizeFunction(),
-        in order to function properly on iOS devices
-
-    **************************************************************************/
-
-    that.resize = {
-      videoplayer: null,
-      walkthrough: null,
-      cover:   {}, // fill screen at all times
-      contain: {}  // maintain visibility of entire element
-    }
-
-    var resizetimeout;
-
-    that.debouncedResize = function(){
-      if(resizetimeout) clearTimeout(resizetimeout);
-      resizetimeout = setTimeout(resizeFunction, 50)
-    }
-
-    function resizeFunction(){
-
-      var ratio = 9/16,
-        w, h, t, l;
-
-      /***** CONTAIN *****/
-      w = window.innerWidth;
-      h = w * ratio;
-
-      if(h > window.innerHeight) {
-        h = window.innerHeight;
-        w = h / ratio;
-      }
-
-      t = (window.innerHeight - h) / 2;
-      l = (window.innerWidth - w) / 2;
-
-      that.resize.contain.w = Math.round(w)
-      that.resize.contain.h = Math.round(h)
-      that.resize.contain.t = Math.round(t)
-      that.resize.contain.l = Math.round(l)
-
-      /***** COVER *****/
-      w = window.innerWidth;
-      h = w * ratio;
-
-      if(h < window.innerHeight) {
-          h = window.innerHeight;
-          w = h / ratio;
-      }
-
-      t = (window.innerHeight - h) / 2;
-      l = (window.innerWidth - w) / 2;
-
-      that.resize.cover.w = Math.round(w)
-      that.resize.cover.h = Math.round(h)
-      that.resize.cover.t = Math.round(t)
-      that.resize.cover.l = Math.round(l)
-
-
-      // Apply ********************************************************
-
-      if(that.resize.videoplayer) {
-        globals.$videooverlay.css({
-          'top' : that.resize.contain.t,
-          'left' : that.resize.contain.l,
-          'width' : that.resize.contain.w,
-          'height' : that.resize.contain.h
-        })
-
-        $('.video-content-wrap .controls').css('bottom', that.resize.contain.t)
-      }
-
-      if(typeof pano != 'undefined') {
-        if(pano.panoWalkthrough) {
-          pano.panoWalkthrough.resize();
-        }
-        if(pano.walkthrough) {
-          pano.walkthrough.resize();
-        }
-
-        if(pano.ghostTransition) {
-          pano.ghostTransition.resize();
-        }
-      }
-
-    }
-
-    $(window).on('resize.global', that.debouncedResize)
-    window.addEventListener('onorientationchange', that.debouncedResize());
 
 
 
@@ -500,31 +427,6 @@ var masterFunctions = function() {
   ***************************************************************************
   **************************************************************************/
 
-  // Audio Functionality
-  $('.volume-toggle').click(function(){
-
-     master.soundTrigger = true
-
-    var isMuted = getCookie('muted')
-    console.log('click -> isMuted: '+isMuted)
-    if (isMuted){
-      $('.volume-toggle').html('<i class="icon-volume-up"></i>')
-      delete_cookie('muted')
-      $('video').each(function(i,v){
-      $(v).prop('muted', false)
-      })
-    }else{
-      $('.volume-toggle').html('<i class="icon-volume-off"></i>')
-      setCookie('muted',true)
-      $('video').each(function(i,v){
-       $(v).prop('muted', true)
-      })
-    }
-
-  })
-
-
-
   this.loadOverlayAudio = function(_file){
 
     audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
@@ -721,110 +623,62 @@ var masterFunctions = function() {
 
 
   function hasUserAgent(condition) {
-      return navigator.userAgent.match(condition);
+    return navigator.userAgent.match(condition);
   }
 
-  function setCookie(c_name,value,exdays)
-  {
-  var exdate=new Date();
-  exdate.setDate(exdate.getDate() + exdays);
-  var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-  document.cookie=c_name + "=" + c_value;
-  }
-
-  this.setCookie = setCookie
-
-
-  function getCookie(c_name)
-  {
-  var i,x,y,ARRcookies=document.cookie.split(";");
-  for (i=0;i<ARRcookies.length;i++)
-  {
-    x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-    y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-    x=x.replace(/^\s+|\s+$/g,"");
-    if (x==c_name)
-      {
-      return unescape(y);
-      }
-    }
-  }
-
-  this.getCookie = getCookie
-
-  function delete_cookie(name){
-    document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-  }
-
-  this.delete_cookie = delete_cookie
+  // Cookies ********************************************************
 
   this.get_tag = function() {
-      var tag=getCookie("offshore_tag");
-      if(that.tag_array)
-      var return_value = that.tag_array[0]
-      if (tag==null || tag==""){
+    var tag=globals.getCookie("offshore_tag");
+    if(that.tag_array)
+    var return_value = that.tag_array[0]
+    if (tag==null || tag==""){
 
-          that.tag_array.sort(function(){ return Math.random()-0.5; });
-          return_value =  that.tag_array.pop();
-          setCookie("offshore_tag",that.tag_array.join('~') ,365);
+        that.tag_array.sort(function(){ return Math.random()-0.5; });
+        return_value =  that.tag_array.pop();
+        globals.setCookie("offshore_tag",that.tag_array.join('~') ,365);
 
-      }else{
+    } else {
 
-          var a = tag.split("~")
-          return_value =  a.pop();
-          setCookie("offshore_tag",a.join('~') ,365);
+      var a = tag.split("~")
+      return_value =  a.pop();
+      globals.setCookie("offshore_tag",a.join('~') ,365);
 
     }
     //console.log(return_value)
     return return_value
   }
+
+
   var stat_num= 0
   this.get_stat = function() {
-      var tag=getCookie("offshore_stat");
+      var tag=globals.getCookie("offshore_stat");
       var return_value = that.stat_array[stat_num]
        stat_num++
-  if(stat_num == that.stat_array.length){
-    stat_num =0
-  }
-
+    if(stat_num == that.stat_array.length){
+      stat_num =0
+    }
     return return_value
   }
 
-
   this.check_start = function(){
-
-    var tag=getCookie("seen_frontpage");
-
-      if (tag==null || tag==""){
-        //$('body.platform').find('#overlay').delay(2000).fadeIn(500);
-        setCookie("seen_frontpage",true);
-      }
-      // e// }
+    var tag = globals.getCookie("seen_frontpage");
+    if (tag==null || tag==""){
+      //$('body.platform').find('#overlay').delay(2000).fadeIn(500);
+      globals.setCookie("seen_frontpage",true);
+    }
   }
 
   this.remove_start = function(){
-     delete_cookie("seen_frontpage");
+    globals.deleteCookie("seen_frontpage");
   }
-
-  this.set_mute = function() {
-    console.log('set_mute()')
-    // var tag = getCookie("muted");
-    // if (tag==null || tag==""){
-      setCookie('muted',true)
-    // }
-  }
-
-  this.remove_mute = function() {
-    delete_cookie('muted')
-  }
-
 
   this.setDeepLinking = function(deepLink){
     // var isParent
 
     if(visitedPages.indexOf(deepLink)== -1){
       visitedPages += "~" + deepLink
-      setCookie("visitedPages",visitedPages,365)
+      globals.setCookie("visitedPages", visitedPages, 365);
     }
 
     // try {
@@ -835,7 +689,7 @@ var masterFunctions = function() {
 
     // if(isParent){
     //  //var transition_audio = $('#transition', window.parent.document)
-  //    if(getCookie('muted')!="true"){
+  //    if(globals.getCookie('muted')!="true"){
   //      //transition_audio[0].volume = .2
   //      //transition_audio[0].play()
     //  }
@@ -935,17 +789,15 @@ var xml = {
 
 
   newPano: function(_pano, fromPrologue) {
+    if(_pano === globals.pano) { reject(); return; }
 
-    if(_pano === globals.pano) return;
-
-    master.isPlayingVO = false
+    master.isPlayingVO = false;
 
     if(!fromPrologue) {
       $('#video-underlay').hide();
       window.location.hash = _pano;
       globals.$panocontainer.addClass('hide');
     }
-
   },
 
   removeBackgroundImage: function(divName){
@@ -1260,6 +1112,10 @@ var xml = {
 function videoPlayerVR(group){
   console.log('VEEEE ARRRRRRRR "%s"', group);
 
+  var currentPano = globals.pano;
+
+  pano.krpano.call('loadScene(videoplayer, video='+video+', null, BLEND(1))');
+
 
 }
 
@@ -1420,8 +1276,8 @@ function videoPlayer(group, playerFadeTransition){
   console.log('launchVideoPlayer, group "%s"', group);
 
   // hook into global resize function
-  master.resize.videoplayer = true;
-  master.debouncedResize();
+  globals.resize.videoplayer = true;
+  globals.debouncedResize();
 
   master.ghostBuster = true
   master.overlayOpen = true
@@ -1793,7 +1649,6 @@ function closeVideoPlayer(){
      master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
   }
 
-
   console.log("closing Video Player")
 
   if(audiomaster.mix.getTrack('overlay_02')){
@@ -1824,26 +1679,22 @@ function closeVideoPlayer(){
   globals.$panocontainer.removeClass('hide')
   $videocontentwrap.fadeOut(1000)
   $('#walking-canvas-pano').css('display','block')
-  // globals.$panocontainer.removeClass('no-pointer-events')
   globals.$compass.fadeIn()
 
-  // master.overlayOpen = false
   globals.$videooverlay[0].pause(); // can't hurt
-  //audiomaster.mix.setGain(1.0)
 
   $videocontentwrap.removeClass("open");
   $videocontentwrap.removeClass("transtion-width");
   $videocontentwrap.removeClass("transition-opacity");
-  //$(".video-content-wrap").addClass("no-pointer-events");
 
-  if(extcontrol) if(extcontrol.role === 'master') {
+  // if(extcontrol) if(extcontrol.role === 'master') {
     if(pano.krpano)
       pano.krpano.call("lookto("+globals.cachedAth+",0,"+globals.cachedFov+",smooth(),true,true),js(xml.showMapIcon();))")
-  }
+  // }
 
   setTimeout(function() {
     master.overlayOpen = false;
-    master.resize.videoplayer = false;
+    globals.resize.videoplayer = false;
   }, 500)
 
 }

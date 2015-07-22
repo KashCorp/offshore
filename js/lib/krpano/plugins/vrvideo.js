@@ -10,8 +10,7 @@
 
 */
 
-function krpanoplugin()
-{
+function krpanoplugin() {
   var local  = this;
   var krpano = null;
   var device = null;

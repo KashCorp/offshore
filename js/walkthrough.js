@@ -6,16 +6,16 @@
 
 var Walkthrough = function(canvasID, name, videoLength) {
 
-  var that = this,
-      w = resize.cover.w,
-      h = resize.cover.h,
-      that = this
+  var that = this;
+  var w = globals.resize.cover.w;
+  var h = globals.resize.cover.h;
+  var that = this;
 
   var mouseWheelTimeout;
 
-  var scrollerPos = parseInt($( ".scroll-directions" ).css('top')),
-      scrollerPosStart = 0,
-      playSpeed = 1/(videoLength*60) // in frames!
+  var scrollerPos = parseInt($( ".scroll-directions" ).css('top'));
+  var scrollerPosStart = 0;
+  var playSpeed = 1/(videoLength*60); // in frames!
 
   this.percent = 0 // MASTER VARIABLE (everything runs off this)
   this.maxScrollerPos = $('.scroll-directions-container').height()
@@ -25,11 +25,11 @@ var Walkthrough = function(canvasID, name, videoLength) {
 
   var video = document.getElementById(canvasID)
 
-  video.setAttribute('src', master.cdn_video + 'transition-' + name + master.videoType);
+  video.setAttribute('src', globals.cdn_video + 'transition-' + name + globals.videoType);
 
-  if(master.isIOS || master.isAndroid) $('#' + canvasID)[0].controls = true
+  if(globals.isIOS || globals.isAndroid) $('#' + canvasID)[0].controls = true
 
-  console.log (master.cdn_video + 'transition-' + name + master.videoType)
+  console.log (globals.cdn_video + 'transition-' + name + globals.videoType)
 
   video.load();
 
@@ -123,14 +123,14 @@ var Walkthrough = function(canvasID, name, videoLength) {
     scrollValue = scrollerPosStart  * 5000 / (window.innerHeight - 220);
 
     $(video).css({
-      'width':  resize.cover.w,
-      'height': resize.cover.h,
-      'top':    resize.cover.t,
-      'left':   resize.cover.l
+      'width':  globals.resize.cover.w,
+      'height': globals.resize.cover.h,
+      'top':    globals.resize.cover.t,
+      'left':   globals.resize.cover.l
     })
   }
 
-  master.debouncedResize();
+  globals.debouncedResize();
 
 
 

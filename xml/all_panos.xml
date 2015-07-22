@@ -136,16 +136,15 @@
 		/> -->
 
 	 	<image>
-	    <!-- <sphere url="plugin:video" /> -->
-	    <left  url="offshore_panos/blank.png" />
-	    <front url="offshore_panos/blank.png" />
-	    <right url="offshore_panos/blank.png" />
-	    <back  url="offshore_panos/blank.png" />
-	    <up    url="offshore_panos/blank.png" />
-	    <down  url="offshore_panos/blank.png" />
+	    <left  url="../offshore_panos/grid.png" />
+	    <front url="../offshore_panos/grid.png" />
+	    <right url="../offshore_panos/grid.png" />
+	    <back  url="../offshore_panos/grid.png" />
+	    <up    url="../offshore_panos/grid.png" />
+	    <down  url="../offshore_panos/grid.png" />
 	  </image>
 
-	  <plugin name="vrvideo" url="vrvideo.krpanoplugin.js" video="" />
+	  <plugin name="vrvideo" video="%$video%" />
 
 	</scene>
 
@@ -166,7 +165,7 @@
 
 
 
-	 <scene name="prologue" onstart="">
+	  <scene name="prologue" onstart="">
 
 	 		<progress showwait="none" />
 
@@ -178,14 +177,14 @@
 	 			/>
 
 	 	 	<image>
-	 			<cube url="offshore_panos/prologue_pano_%s.jpg" />
+	 			<cube url="../offshore_panos/prologue_pano_%s.jpg" />
 	 			<mobile>
-	 				<cube url="offshore_panos/prologue_pano_%s.jpg" />
+	 				<cube url="../offshore_panos/prologue_pano_%s.jpg" />
 	 			</mobile>
 	 		</image>
 
 	 		<hotspot name="LOGO"
-	 			url="images/offshore_logo.png"
+	 			url="../images/offshore_logo.png"
 	 			ath="211"
 	 			atv="-13"
 	 			distorted="true"
@@ -196,7 +195,7 @@
 	 			/>
 
 	 			<hotspot name="ENTER"
-				url="images/icons/gif_iconA.gif"
+				url="../images/icons/gif_iconA.gif"
 				ath="211"
 				atv="-10"
 				distorted="true"
@@ -242,13 +241,13 @@
 		/>
 
 		<image>
-			<cube url="offshore_panos/helicopter_pano_%s.jpg" />
+			<cube url="../offshore_panos/helicopter_pano_%s.jpg" />
 	    	<tablet>
-		        <cube  url="offshore_panos/512/helicopter_pano_%s.jpg" />
+		        <cube  url="../offshore_panos/512/helicopter_pano_%s.jpg" />
     		</tablet>
 		</image>
 
-		<hotspot name="headphones" url="images/hotspot.gif"
+		<hotspot name="headphones" url="../images/hotspot.gif"
 			ath="110"
 			atv="0"
 			distorted="true"
@@ -261,7 +260,7 @@
 			/>
 
 
-		<hotspot name="exit" url="images/hotspot.gif"
+		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="265"
 			atv="5"
 			distorted="true"
@@ -278,7 +277,7 @@
 			/>
 
 		<hotspot name="folder hotspot"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="-37"
 			atv="31.5"
 			distorted="true"
@@ -321,17 +320,17 @@
 		/>
 
 	 	<image>
-			<cube url="offshore_panos/platform_pano_%s.jpg"/>
+			<cube url="../offshore_panos/platform_pano_%s.jpg"/>
 
 			<tablet>
-		        <cube  url="offshore_panos/512/platform_pano_%s.jpg" />
+		        <cube  url="../offshore_panos/512/platform_pano_%s.jpg" />
     		</tablet>
 
 		</image>
 
 
 		<hotspot name="FlightDeck_VO"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="40"
 			atv="0"
 			distorted="true"
@@ -344,7 +343,7 @@
 			/>
 
 		<hotspot name="entry_hotspot"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="74.5"
 			atv="11.2"
 			distorted="true"
@@ -358,7 +357,7 @@
 			/>
 
 		<hotspot name="heli_hotspot"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="-129"
 			atv="8.0"
 			distorted="true"
@@ -377,7 +376,7 @@
 		<!-- Video Player -->
 
 		<hotspot name="Videos_gif"
-			url="images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="10"
 			atv="1"
 			distorted="true"
@@ -437,15 +436,15 @@
 	  	/>
 
 	 	<image>
-		    <cube url="offshore_panos/lowerplatform_pano_%s.jpg" />
+		    <cube url="../offshore_panos/lowerplatform_pano_%s.jpg" />
 
 			<tablet>
-		        <cube  url="offshore_panos/512/lowerplatform_pano_%s.jpg" />
+		        <cube  url="../offshore_panos/512/lowerplatform_pano_%s.jpg" />
     		</tablet>
 		</image>
 
 		<hotspot name="hatch_open"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="69"
 			atv="18"
 			distorted="true"
@@ -457,7 +456,7 @@
 		/>
 
 
-		<hotspot name="helipad" url="images/hotspot.gif"
+		<hotspot name="helipad" url="../images/hotspot.gif"
 			ath="-23.8"
 			atv="2"
 			distorted="true"
@@ -468,7 +467,7 @@
 			capture="false"
 			/>
 
-		<hotspot name="klaxxon" url="images/hotspot.gif"
+		<hotspot name="klaxxon" url="../images/hotspot.gif"
 			ath="150"
 			atv="0"
 			distorted="true"
@@ -482,7 +481,7 @@
 			/>
 
 
-		<hotspot name="boat_deck" url="images/hotspot.gif"
+		<hotspot name="boat_deck" url="../images/hotspot.gif"
 			ath="-143"
 			atv="8"
 			distorted="true"
@@ -517,7 +516,7 @@
       				 js(xml.setCache(220,90))"
     		/>
 		<hotspot name="Deep-Waters-GIF"
-			url="images/icons/gif_iconB.gif"
+			url="../images/icons/gif_iconB.gif"
 			ath="120"
 			atv="-1"
 			alpha=".3"
@@ -561,19 +560,19 @@
 			  />
 
 		 	<image>
-				<cube url="offshore_panos/boat_pano_%s.jpg" />
+				<cube url="../offshore_panos/boat_pano_%s.jpg" />
 
 			    <tablet>
-			        <cube  url="offshore_panos/512/boat_pano_%s.jpg" />
+			        <cube  url="../offshore_panos/512/boat_pano_%s.jpg" />
 	    		</tablet>
 			</image>
 	<!--
-			<image devices="Desktop">     <cube url="images/panos/boat/pano_%s.jpg"   /> </image>
-			<image devices="Mobile">      <cube url="images/panos/boat/mobile_%s.jpg" /> </image>
-			<image devices="Tablet">      <cube url="images/panos/boat/pano_%s.jpgimages/panos/boat/pano_%s.jpg" /> </image>
+			<image devices="Desktop">     <cube url="../images/panos/boat/pano_%s.jpg"   /> </image>
+			<image devices="Mobile">      <cube url="../images/panos/boat/mobile_%s.jpg" /> </image>
+			<image devices="Tablet">      <cube url="../images/panos/boat/pano_%s.jpg../images/panos/boat/pano_%s.jpg" /> </image>
 	-->
 			<!-- <plugin name="directions"
-				url="images/panos/platform/hotspots/directions.png"
+				url="../images/panos/platform/hotspots/directions.png"
 				capture="false"
 				align="top"
 				edge="top"
@@ -584,7 +583,7 @@
 
 
 			<hotspot name="going_up_stairs1"
-				url="images/hotspot.gif"
+				url="../images/hotspot.gif"
 				ath="90"
 				atv="-7.0"
 				distorted="true"
@@ -597,7 +596,7 @@
 				/>
 
 			<hotspot name="going_up_stairs2"
-				url="images/hotspot_diagonal.gif"
+				url="../images/hotspot_diagonal.gif"
 				ath="75"
 				atv="-13"
 				distorted="true"
@@ -611,7 +610,7 @@
 
 
 			<hotspot name="life_preserver_starboard"
-				url="images/hotspot.gif"
+				url="../images/hotspot.gif"
 				ath="320"
 				atv="35"
 				distorted="true"
@@ -625,7 +624,7 @@
 				/>
 
 			<hotspot name="life_preserver_port"
-				url="images/hotspot.gif"
+				url="../images/hotspot.gif"
 				ath="90"
 				atv="35"
 				distorted="true"
@@ -665,7 +664,7 @@
 
 
 
-			<hotspot name="klaxxon" url="images/hotspot.gif"
+			<hotspot name="klaxxon" url="../images/hotspot.gif"
 				ath="105"
 				atv="-10"
 				distorted="true"
@@ -703,7 +702,7 @@
 				/>
 
 			<hotspot name="Boatdeck-GIF"
-				url="images/icons/gif_iconA.gif"
+				url="../images/icons/gif_iconA.gif"
 				ath="255"
 				atv="1"
 				distorted="true"
@@ -748,25 +747,25 @@
 			/>
 
 		 	<image>
-			    <left  url="offshore_panos/subhangar_pano_l.jpg" />
-			    <front url="offshore_panos/subhangar_pano_f.png" />
-			    <right url="offshore_panos/subhangar_pano_r.png" />
-			    <back  url="offshore_panos/subhangar_pano_b.jpg" />
-			    <up    url="offshore_panos/subhangar_pano_u.jpg" />
-			    <down  url="offshore_panos/subhangar_pano_d.jpg" />
+			    <left  url="../offshore_panos/subhangar_pano_l.jpg" />
+			    <front url="../offshore_panos/subhangar_pano_f.png" />
+			    <right url="../offshore_panos/subhangar_pano_r.png" />
+			    <back  url="../offshore_panos/subhangar_pano_b.jpg" />
+			    <up    url="../offshore_panos/subhangar_pano_u.jpg" />
+			    <down  url="../offshore_panos/subhangar_pano_d.jpg" />
 
 			    <tablet>
-			        <left  url="offshore_panos/512/subhangar_pano_l.jpg" />
-			        <front url="offshore_panos/512/subhangar_pano_f.png" />
-			        <right url="offshore_panos/512/subhangar_pano_r.png" />
-			        <back  url="offshore_panos/512/subhangar_pano_b.jpg" />
-			        <up    url="offshore_panos/512/subhangar_pano_u.jpg" />
-			        <down  url="offshore_panos/512/subhangar_pano_d.jpg" />
+			        <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
+			        <front url="../offshore_panos/512/subhangar_pano_f.png" />
+			        <right url="../offshore_panos/512/subhangar_pano_r.png" />
+			        <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
+			        <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
+			        <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />
 	    		</tablet>
 			</image>
 
 
-			<hotspot name="hallway exit" url="images/hotspot.gif"
+			<hotspot name="hallway exit" url="../images/hotspot.gif"
 				ath="-30"
 				atv="-20"
 				distorted="true"
@@ -779,7 +778,7 @@
 				capture = "false"
 				/>
 
-			<hotspot name="into_sub" url="images/hotspot-circle.gif"
+			<hotspot name="into_sub" url="../images/hotspot-circle.gif"
 				ath="-55.15"
 				atv="-10.0"
 				distorted="true"
@@ -795,7 +794,7 @@
 
 			<!-- iPad -->
 
-			<hotspot name="iPad" url="images/hotspot.gif"
+			<hotspot name="iPad" url="../images/hotspot.gif"
 				ath="24"
 				atv="25"
 				distorted="true"
@@ -810,7 +809,7 @@
 				/>
 
 			<hotspot name="iPad_gif"
-				url="images/icons/gif_iconB.gif"
+				url="../images/icons/gif_iconB.gif"
 				ath="24"
 				atv="15"
 			    distorted="true"
@@ -826,7 +825,7 @@
 			<!-- Video Player -->
 
 			<hotspot name="requiemgif"
-				url="images/icons/gif_iconA.gif"
+				url="../images/icons/gif_iconA.gif"
 				ath="60"
 				atv="-9"
 			    distorted="true"
@@ -895,26 +894,26 @@
 		/>
 
 		<image>
-		    <left  url="offshore_panos/chemicalroom_pano_l.jpg" />
-		    <front url="offshore_panos/chemicalroom_pano_f.png" />
-		    <right url="offshore_panos/chemicalroom_pano_r.jpg" />
-		    <back  url="offshore_panos/chemicalroom_pano_b.jpg" />
-		    <up    url="offshore_panos/chemicalroom_pano_u.jpg" />
-		    <down  url="offshore_panos/chemicalroom_pano_d.jpg" />
+		    <left  url="../offshore_panos/chemicalroom_pano_l.jpg" />
+		    <front url="../offshore_panos/chemicalroom_pano_f.png" />
+		    <right url="../offshore_panos/chemicalroom_pano_r.jpg" />
+		    <back  url="../offshore_panos/chemicalroom_pano_b.jpg" />
+		    <up    url="../offshore_panos/chemicalroom_pano_u.jpg" />
+		    <down  url="../offshore_panos/chemicalroom_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="offshore_panos/512/chemicalroom_pano_l.jpg" />
-		        <front url="offshore_panos/512/chemicalroom_pano_f.png" />
-		        <right url="offshore_panos/512/chemicalroom_pano_r.jpg" />
-		        <back  url="offshore_panos/512/chemicalroom_pano_b.jpg" />
-		        <up    url="offshore_panos/512/chemicalroom_pano_u.jpg" />
-		        <down  url="offshore_panos/512/chemicalroom_pano_d.jpg" />
+		        <left  url="../offshore_panos/512/chemicalroom_pano_l.jpg" />
+		        <front url="../offshore_panos/512/chemicalroom_pano_f.png" />
+		        <right url="../offshore_panos/512/chemicalroom_pano_r.jpg" />
+		        <back  url="../offshore_panos/512/chemicalroom_pano_b.jpg" />
+		        <up    url="../offshore_panos/512/chemicalroom_pano_u.jpg" />
+		        <down  url="../offshore_panos/512/chemicalroom_pano_d.jpg" />
     		</tablet>
 		</image>
 
 
 
-		<hotspot name="engineroom" url="images/hotspot.gif"
+		<hotspot name="engineroom" url="../images/hotspot.gif"
 			ath="335"
 			atv="-7"
 			alpha="0.0"
@@ -929,7 +928,7 @@
 
 
 		<hotspot name="engineroomgif"
-			url="images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="355"
 			atv="-5"
 		    distorted="true"
@@ -960,7 +959,7 @@
 			onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);"
 		/>
 
-		<hotspot name="exit" url="images/hotspot.gif"
+		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="30"
 			atv="-2"
 		    distorted="true"
@@ -979,7 +978,7 @@
 
 
 		 <hotspot name="open_cabinet"
-			url="images/hotspots/cabinet.png"
+			url="../images/hotspots/cabinet.png"
 			ath="54.4"
 			atv="-5.1"
 			distorted="true"
@@ -989,7 +988,7 @@
 		/>
 
 		<hotspot name="Corexit_video"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="54.4"
 			atv="-5.1"
 		  	distorted="true"
@@ -1046,7 +1045,7 @@
 		/>
 
 		<hotspot name="Poisoned-GIF"
-			url="images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="250"
 			atv="10"
 	    distorted="true"
@@ -1062,7 +1061,7 @@
 		/>
 
 		<hotspot name="Poisoned-Barrel"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="250"
 			atv="28"
 		    distorted="true"
@@ -1101,7 +1100,7 @@
 		/>
 
 		<hotspot name="James"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="115"
 			atv="28"
 		    distorted="true"
@@ -1117,7 +1116,7 @@
 		/>
 
 		<hotspot name="James_GIF"
-			url="images/icons/gif_iconC.gif"
+			url="../images/icons/gif_iconC.gif"
 			ath="115"
 			atv="10"
 		    distorted="true"
@@ -1164,20 +1163,20 @@
 			/>
 
 		<image>
-		    <left  url="offshore_panos/controlroom_pano_l.jpg" />
-		    <front url="offshore_panos/controlroom_pano_f.jpg" />
-		    <right url="offshore_panos/controlroom_pano_r.jpg" />
-		    <back  url="offshore_panos/controlroom_pano_b.png" />
-		    <up    url="offshore_panos/controlroom_pano_u.jpg" />
-		    <down  url="offshore_panos/controlroom_pano_d.jpg" />
+		    <left  url="../offshore_panos/controlroom_pano_l.jpg" />
+		    <front url="../offshore_panos/controlroom_pano_f.jpg" />
+		    <right url="../offshore_panos/controlroom_pano_r.jpg" />
+		    <back  url="../offshore_panos/controlroom_pano_b.png" />
+		    <up    url="../offshore_panos/controlroom_pano_u.jpg" />
+		    <down  url="../offshore_panos/controlroom_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="offshore_panos/512/controlroom_pano_l.jpg" />
-		        <front url="offshore_panos/512/controlroom_pano_f.jpg" />
-		        <right url="offshore_panos/512/controlroom_pano_r.jpg" />
-		        <back  url="offshore_panos/512/controlroom_pano_b.jpg" />
-		        <up    url="offshore_panos/512/controlroom_pano_u.jpg" />
-		        <down  url="offshore_panos/512/controlroom_pano_d.jpg" />
+		        <left  url="../offshore_panos/512/controlroom_pano_l.jpg" />
+		        <front url="../offshore_panos/512/controlroom_pano_f.jpg" />
+		        <right url="../offshore_panos/512/controlroom_pano_r.jpg" />
+		        <back  url="../offshore_panos/512/controlroom_pano_b.jpg" />
+		        <up    url="../offshore_panos/512/controlroom_pano_u.jpg" />
+		        <down  url="../offshore_panos/512/controlroom_pano_d.jpg" />
     		</tablet>
 
 		</image>
@@ -1186,7 +1185,7 @@
 		<!-- Michael Klare video player -->
 
 		<hotspot name="MK-GIF"
-			url="images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconA.gif"
 			alpha=".7"
 			height="70"
 			width="70"
@@ -1221,7 +1220,7 @@
 		<!-- Main Monitors (all zoom to MK vids) -->
 
 		<hotspot name="Monitor Big"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="190"
 			atv="0"
 			distorted="true"
@@ -1237,7 +1236,7 @@
 			/>
 
 		<hotspot name="Monitor Top Left"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="185"
 			atv="-15"
 			distorted="true"
@@ -1253,7 +1252,7 @@
 			/>
 
 		<hotspot name="Monitor Top Right"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="211"
 			atv="-13"
 			distorted="true"
@@ -1311,7 +1310,7 @@
 -->
 		<!-- Big Red Button -->
 
-		<hotspot name="openhatch" url="images/hotspot.gif"
+		<hotspot name="openhatch" url="../images/hotspot.gif"
 			ath="17.95"
 			atv="-7.82"
 			distorted="true"
@@ -1323,7 +1322,7 @@
 		/>
 
 
-		<hotspot name="closehatch" url="images/hotspots/hatchbutton.png"
+		<hotspot name="closehatch" url="../images/hotspots/hatchbutton.png"
 			ath="17.95"
 			atv="-7.82"
 			distorted="true"
@@ -1363,7 +1362,7 @@
 			url="plugins/videoplayer.swf"
 			alturl="plugins/videoplayer_offshore_01.js"
 			volume="0.00001"
-			videourl="videos/CONTROL-Nymex.webm"
+			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/CONTROL-Nymex.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/CONTROL-Nymex.webm"
 			ath="247.05"
 			atv="-3.2"
 			distorted="true"
@@ -1415,7 +1414,7 @@
 		/>
 
 		<hotspot name="Filing_cabinet_icon"
-			url="images/icons/gif_documents.gif"
+			url="../images/icons/gif_documents.gif"
 			alpha=".5"
 			height="70"
 			width="70"
@@ -1435,7 +1434,7 @@
 		<!-- Door -->
 
 		<hotspot name="Exit to hallway"
-			url="images/hotspot.gif"
+			url="../images/hotspot.gif"
 			ath="261"
 			atv="5"
 			distorted="true"
@@ -1478,20 +1477,20 @@
 		 />
 
 		<image>
-		    <left  url="offshore_panos/hallway_pano_l.jpg" />
-		    <front url="offshore_panos/hallway_pano_f.jpg" />
-		    <right url="offshore_panos/hallway_pano_r.png" />
-		    <back  url="offshore_panos/hallway_pano_b.jpg" />
-		    <up    url="offshore_panos/hallway_pano_u.png" />
-		    <down  url="offshore_panos/hallway_pano_d.jpg" />
+		    <left  url="../offshore_panos/hallway_pano_l.jpg" />
+		    <front url="../offshore_panos/hallway_pano_f.jpg" />
+		    <right url="../offshore_panos/hallway_pano_r.png" />
+		    <back  url="../offshore_panos/hallway_pano_b.jpg" />
+		    <up    url="../offshore_panos/hallway_pano_u.png" />
+		    <down  url="../offshore_panos/hallway_pano_d.jpg" />
 
 	    	<tablet>
-		        <left  url="offshore_panos/512/hallway_pano_l.jpg" />
-		        <front url="offshore_panos/512/hallway_pano_f.jpg" />
-		        <right url="offshore_panos/512/hallway_pano_r.png" />
-		        <back  url="offshore_panos/512/hallway_pano_b.jpg" />
-		        <up    url="offshore_panos/512/hallway_pano_u.png" />
-		        <down  url="offshore_panos/512/hallway_pano_d.jpg" />
+		        <left  url="../offshore_panos/512/hallway_pano_l.jpg" />
+		        <front url="../offshore_panos/512/hallway_pano_f.jpg" />
+		        <right url="../offshore_panos/512/hallway_pano_r.png" />
+		        <back  url="../offshore_panos/512/hallway_pano_b.jpg" />
+		        <up    url="../offshore_panos/512/hallway_pano_u.png" />
+		        <down  url="../offshore_panos/512/hallway_pano_d.jpg" />
     		</tablet>
 
 		</image>
@@ -1499,7 +1498,7 @@
 
 		<!-- Passage 1: Chemical Room  -->
 
-		<hotspot name="passage_01" url="images/hotspot.gif"
+		<hotspot name="passage_01" url="../images/hotspot.gif"
 			ath="5.15"
 			atv="0"
 			distorted="true"
@@ -1510,7 +1509,7 @@
 			capture="false"
 			/>
 
-		<hotspot name="chemroom_sign" url="images/hotspot.gif"
+		<hotspot name="chemroom_sign" url="../images/hotspot.gif"
 			ath="-3"
 			atv="-21"
 			distorted="true"
@@ -1523,7 +1522,7 @@
 
 		<!-- Passage 2: Theatre  -->
 
-		<hotspot name="passage_02" url="images/hotspot.gif"
+		<hotspot name="passage_02" url="../images/hotspot.gif"
 			ath="270"
 			atv="0"
 			distorted="true"
@@ -1536,7 +1535,7 @@
 			/>
 
 
-		<hotspot name="theatre_sign" url="images/hotspot.gif"
+		<hotspot name="theatre_sign" url="../images/hotspot.gif"
 			ath="270"
 			atv="-16"
 			distorted="true"
@@ -1552,7 +1551,7 @@
 
 		<!-- Passage 3: Control Room  -->
 
-		<hotspot name="passage_03" url="images/hotspot.gif"
+		<hotspot name="passage_03" url="../images/hotspot.gif"
 			ath="180"
 			atv="0"
 			distorted="true"
@@ -1564,7 +1563,7 @@
 			/>
 
 
-		<hotspot name="controlroom_sign" url="images/hotspot.gif"
+		<hotspot name="controlroom_sign" url="../images/hotspot.gif"
 			ath="174"
 			atv="-16.5"
 			distorted="true"
@@ -1578,7 +1577,7 @@
 
 		<!-- Ladder -->
 
-		<hotspot name="ladder" url="images/hotspot.gif"
+		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
 			atv="-40"
 			distorted="true"
@@ -1614,7 +1613,7 @@
       				 js(xml.setCache(-140,90))"
     		/>
 		<hotspot name="Video-Player-GIF"
-			url="images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="315"
 			atv="-5"
 			alpha=".3"
@@ -1649,7 +1648,7 @@
 			/>
 
 		<hotspot name="Voices_Dossier_icon"
-			url="images/icons/gif_documents.gif"
+			url="../images/icons/gif_documents.gif"
 			alpha=".5"
 			height="70"
 			width="70"
@@ -1696,20 +1695,20 @@
 		/>
 
 		<image>
-			<left  url="offshore_panos/interiorsub_pano_l.jpg" />
-		    <front url="offshore_panos/interiorsub_pano_f.jpg" />
-		    <right url="offshore_panos/interiorsub_pano_r.png" />
-		    <back  url="offshore_panos/interiorsub_pano_b.jpg" />
-		    <up    url="offshore_panos/interiorsub_pano_u.jpg" />
-		    <down  url="offshore_panos/interiorsub_pano_d.jpg" />
+			<left  url="../offshore_panos/interiorsub_pano_l.jpg" />
+		    <front url="../offshore_panos/interiorsub_pano_f.jpg" />
+		    <right url="../offshore_panos/interiorsub_pano_r.png" />
+		    <back  url="../offshore_panos/interiorsub_pano_b.jpg" />
+		    <up    url="../offshore_panos/interiorsub_pano_u.jpg" />
+		    <down  url="../offshore_panos/interiorsub_pano_d.jpg" />
 
 		    <tablet>
-		        <left  url="offshore_panos/512/interiorsub_pano_l.jpg" />
-		        <front url="offshore_panos/512/interiorsub_pano_f.jpg" />
-		        <right url="offshore_panos/512/interiorsub_pano_r.png" />
-		        <back  url="offshore_panos/512/interiorsub_pano_b.jpg" />
-		        <up    url="offshore_panos/512/interiorsub_pano_u.jpg" />
-		        <down  url="offshore_panos/512/interiorsub_pano_d.jpg" />
+		        <left  url="../offshore_panos/512/interiorsub_pano_l.jpg" />
+		        <front url="../offshore_panos/512/interiorsub_pano_f.jpg" />
+		        <right url="../offshore_panos/512/interiorsub_pano_r.png" />
+		        <back  url="../offshore_panos/512/interiorsub_pano_b.jpg" />
+		        <up    url="../offshore_panos/512/interiorsub_pano_u.jpg" />
+		        <down  url="../offshore_panos/512/interiorsub_pano_d.jpg" />
     		</tablet>
 
 		</image>
@@ -1717,7 +1716,7 @@
 
 		<!-- Videos + Text -->
 
-		<hotspot name="under_water_01" url="images/hotspot.gif"
+		<hotspot name="under_water_01" url="../images/hotspot.gif"
 			ath="67.15"
 			atv="15.2"
 			distorted="true"
@@ -1729,7 +1728,7 @@
 			scale="1.0"
 			/>
 
-		<hotspot name="under_water_02" url="images/hotspot.gif"
+		<hotspot name="under_water_02" url="../images/hotspot.gif"
 			ath="75.15"
 			atv="16.2"
 			distorted="true"
@@ -1741,7 +1740,7 @@
 			scale="1.0"
 			/>
 
-		<hotspot name="under_water_03" url="images/hotspot.gif"
+		<hotspot name="under_water_03" url="../images/hotspot.gif"
 			ath="105.15"
 			atv="16.2"
 			distorted="true"
@@ -1753,7 +1752,7 @@
 			scale="1.0"
 			/>
 
-		<hotspot name="under_water_04" url="images/hotspot.gif"
+		<hotspot name="under_water_04" url="../images/hotspot.gif"
 			ath="112.15"
 			atv="15.2"
 			distorted="true"
@@ -1770,7 +1769,7 @@
 
 		<!-- Door -->
 
-		<hotspot name="exit" url="images/hotspot.gif"
+		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="270"
 			atv="10"
 			distorted="true"
@@ -1809,20 +1808,20 @@
 		/>
 
 		<image>
-		    <left  url="offshore_panos/theatre_pano_l.jpg" />
-		    <front url="offshore_panos/theatre_pano_f.jpg" />
-		    <right url="offshore_panos/theatre_pano_r.jpg" />
-		    <back  url="offshore_panos/theatre_pano_b.jpg" />
-		    <up    url="offshore_panos/theatre_pano_u.jpg" />
-		    <down  url="offshore_panos/theatre_pano_d.jpg" />
+		    <left  url="../offshore_panos/theatre_pano_l.jpg" />
+		    <front url="../offshore_panos/theatre_pano_f.jpg" />
+		    <right url="../offshore_panos/theatre_pano_r.jpg" />
+		    <back  url="../offshore_panos/theatre_pano_b.jpg" />
+		    <up    url="../offshore_panos/theatre_pano_u.jpg" />
+		    <down  url="../offshore_panos/theatre_pano_d.jpg" />
 
 		    <tablet>
-		        <left  url="offshore_panos/theatre_pano_l.jpg" />
-		        <front url="offshore_panos/theatre_pano_f.jpg" />
-		        <right url="offshore_panos/theatre_pano_r.jpg" />
-		        <back  url="offshore_panos/theatre_pano_b.jpg" />
-		        <up    url="offshore_panos/theatre_pano_u.jpg" />
-		        <down  url="offshore_panos/theatre_pano_d.jpg" />
+		        <left  url="../offshore_panos/theatre_pano_l.jpg" />
+		        <front url="../offshore_panos/theatre_pano_f.jpg" />
+		        <right url="../offshore_panos/theatre_pano_r.jpg" />
+		        <back  url="../offshore_panos/theatre_pano_b.jpg" />
+		        <up    url="../offshore_panos/theatre_pano_u.jpg" />
+		        <down  url="../offshore_panos/theatre_pano_d.jpg" />
     		</tablet>
 		</image>
 
@@ -1831,7 +1830,7 @@
 		<!-- Video Player -->
 
 		<hotspot name="Theatre-GIF"
-			url="images/icons/gif_iconA.gif"
+			url="../images/icons/gif_iconA.gif"
 			ath="0"
 			atv="0"
 			alpha=".7"
@@ -1865,7 +1864,7 @@
 
 		<!-- Investigations -->
 
-		<hotspot name="redbook" url="images/hotspot.gif"
+		<hotspot name="redbook" url="../images/hotspot.gif"
 			ath="145"
 			atv="40"
 			distorted="true"
@@ -1880,7 +1879,7 @@
 			capture="false"
 		/>
 
-		<hotspot name="leasemap" url="images/hotspot.gif"
+		<hotspot name="leasemap" url="../images/hotspot.gif"
 			ath="265"
 			atv="5"
 			distorted="true"
@@ -1898,7 +1897,7 @@
 
 		<!-- Exits -->
 
-		<hotspot name="passage_01_sign" url="images/hotspot.gif"
+		<hotspot name="passage_01_sign" url="../images/hotspot.gif"
 			ath="23"
 			atv="-10"
 			distorted="true"
@@ -1910,7 +1909,7 @@
 			scale="3.0"
 			/>
 
-		<hotspot name="passage_01" url="images/hotspot.gif"
+		<hotspot name="passage_01" url="../images/hotspot.gif"
 			ath="35"
 			atv="2"
 			distorted="true"
@@ -1925,7 +1924,7 @@
 
 
 
-		<hotspot name="passage_02" url="images/hotspot.gif"
+		<hotspot name="passage_02" url="../images/hotspot.gif"
 			ath="203"
 			atv="2"
 			distorted="true"
