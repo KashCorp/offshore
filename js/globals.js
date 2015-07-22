@@ -11,6 +11,9 @@ var globals = (function(){
 
   exports.isPreloaded = false;
 
+  exports.videoGroups = videoMatrix;
+
+
   // URL Arguments
   // ********************************************************
 
@@ -34,14 +37,14 @@ var globals = (function(){
       var searcharray = search.split('?');
 
       for (var i = searcharray.length - 1; i >= 0; i--) {
-        if(searcharray[i] === "local")  globals.config.useLocalResources = true;
-        if(searcharray[i] === "master") globals.config.extControlMaster = true;
-        if(searcharray[i] === "slave")  globals.config.extControlSlave = true;
-        if(searcharray[i] === "autopilot") globals.config.autopilot = true;
+        if(searcharray[i] === "local")  exports.config.useLocalResources = true;
+        if(searcharray[i] === "master") exports.config.extControlMaster = true;
+        if(searcharray[i] === "slave")  exports.config.extControlSlave = true;
+        if(searcharray[i] === "autopilot") exports.config.autopilot = true;
 
         if(searcharray[i].substr(0,3) === "url" ) {
           console.log('setting URL: '+searcharray[i].substr(4));
-          globals.config.extControlUrl = searcharray[i].substr(4);
+          exports.config.extControlUrl = searcharray[i].substr(4);
         }
       };
     }

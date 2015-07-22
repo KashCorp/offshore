@@ -16,12 +16,16 @@ function krpanoplugin() {
   var device = null;
   var plugin = null;
 
+  var vidSrc = null;
+
   local.registerplugin = function(krpanointerface, pluginpath, pluginobject) {
     krpano = krpanointerface;
     device = krpano.device;
     plugin = pluginobject;
 
-    plugin.registerattribute('video', false);
+    // plugin.registerattribute('video', false);
+
+    vidSrc = krpano.get('vrvideo');
 
     if (krpano.version < "1.19") {
       krpano.trace(3,"ThreeJS plugin - krpano version too old (min. 1.19)");
@@ -38,7 +42,7 @@ function krpanoplugin() {
     krpano.trace(0, "ThreeJS krpano plugin");
 
     // load the requiered three.js scripts
-    load_scripts(["three.min.js"], startThreeJS);
+    load_scripts(["./plugins/vrvideo.three.min.js"], startThreeJS);
   }
 
   local.unloadplugin = function() {
@@ -415,7 +419,7 @@ function krpanoplugin() {
     clock = new THREE.Clock();
 
     video = document.createElement( 'video' );
-    video.src = "BoatDeck_Dean_Blanchard.mp4";
+    video.src = vidSrc;
     video.load(); // must call after setting/changing source
 
     video.addEventListener('canplaythrough', function(){

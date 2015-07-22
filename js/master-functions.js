@@ -72,8 +72,6 @@ var masterFunctions = function() {
 
     // Build video matrix ********************************************************
 
-    globals.videoGroups = videoMatrix;
-
     // build all possible menus - videoPlayer() function picks the one it needs
     $.each(globals.videoGroups, function(groupName, group){
       $('#video-overlay').after('<div class="movie-menu hide '+groupName+'" />')
@@ -1109,12 +1107,18 @@ var xml = {
 
 
 
-function videoPlayerVR(group){
-  console.log('VEEEE ARRRRRRRR "%s"', group);
+function videoPlayerVR(groupName){
+  console.log('VEEEE ARRRRRRRR "%s"', groupName);
 
   var currentPano = globals.pano;
 
-  pano.krpano.call('loadScene(videoplayer, video='+video+', null, BLEND(1))');
+  var videoGroup = globals.videoGroups[groupName];
+  var currentVideo = 0;
+
+  console.log(videoGroup, videoGroup[currentVideo]);
+
+  pano.krpano.call('loadScene(vrvideo, null, MERGE, BLEND(1))');
+  pano.krpano.set('vrvideo', globals.cdn_video + videoGroup[currentVideo].file + globals.videoType);
 
 
 }
@@ -1257,8 +1261,11 @@ var videoPlayerUI = {
 **************************************************************************/
 
 function videoPlayer(group, playerFadeTransition){
-
   if(master.overlayOpen === true) return;
+
+  master.ghostBuster = true;
+  master.overlayOpen = true;
+  master.soundTrigger = true;
 
   if(extcontrol) if(extcontrol.role === 'master') {
     extcontrol.fn({
@@ -1279,9 +1286,6 @@ function videoPlayer(group, playerFadeTransition){
   globals.resize.videoplayer = true;
   globals.debouncedResize();
 
-  master.ghostBuster = true
-  master.overlayOpen = true
-  master.soundTrigger = true
 
   $('.volume-toggle').css('line-height','80px')
 
@@ -1478,7 +1482,7 @@ function videoPlayer(group, playerFadeTransition){
 
   autohide()
 
-} // videoPlayer()
+}
 
 
 
