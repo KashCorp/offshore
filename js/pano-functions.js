@@ -120,6 +120,15 @@ var pano = (function(){
             console.log('VR ENTERED');
             globals.vr = true;
             _pano.call('action(webvr_enter)');
+
+            // debug
+            $(window).on('keydown', function(e){
+              if(e.keyCode === 82){ // r
+                _pano.call('plugin[webvr].resetSensor(0)')
+              } else if(e.keyCode === 72){ // h
+                console.log(_pano.get('view'));
+              }
+            })
           })
         }
       });

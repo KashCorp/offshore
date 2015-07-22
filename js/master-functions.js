@@ -1105,23 +1105,56 @@ var xml = {
 
 
 
+var videoPlayerVR = {
+  data: {
+    currentPano: '',
+    videoGroup: '',
+    currentVideo: '',
+  },
 
+  load: function(groupName){
+    console.log('VEEEE ARRRRRRRR "%s"', groupName);
 
-function videoPlayerVR(groupName){
-  console.log('VEEEE ARRRRRRRR "%s"', groupName);
+    videoPlayerVR.data.currentPano = globals.pano;
 
-  var currentPano = globals.pano;
+    videoPlayerVR.data.videoGroup = globals.videoGroups[groupName];
+    videoPlayerVR.data.currentVideo = 0;
 
-  var videoGroup = globals.videoGroups[groupName];
-  var currentVideo = 0;
+    pano.krpano.set('vrvideo', globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file + globals.videoType);
+    pano.krpano.call('loadScene(vrvideo, null, MERGE, BLEND(1))');
+  },
 
-  console.log(videoGroup, videoGroup[currentVideo]);
+  close: function(){
+    pano.krpano.call('loadScene('+videoPlayerVR.data.currentPano+', null, REMOVESCENES, BLEND(1))');
+  },
 
-  pano.krpano.call('loadScene(vrvideo, null, MERGE, BLEND(1))');
-  pano.krpano.set('vrvideo', globals.cdn_video + videoGroup[currentVideo].file + globals.videoType);
+  ended: function(){
+    console.log('VID ENDED');
+    videoPlayerVR.close();
+  },
 
+  play: function(){
+    pano.krpano.call('plugin[vrvideo].play()');
 
+    pano.krpano.set('hotspot[vrvideo_pause].visible', true);
+    pano.krpano.set('hotspot[vrvideo_pause].active',  true);
+
+    pano.krpano.set('hotspot[vrvideo_play].visible', false);
+    pano.krpano.set('hotspot[vrvideo_play].active',  false);
+  },
+
+  pause: function(){
+    pano.krpano.call('plugin[vrvideo].pause()');
+
+    pano.krpano.set('hotspot[vrvideo_pause].visible', false);
+    pano.krpano.set('hotspot[vrvideo_pause].active',  false);
+
+    pano.krpano.set('hotspot[vrvideo_play].visible', true);
+    pano.krpano.set('hotspot[vrvideo_play].active',  true);
+
+  }
 }
+
 
 
 
@@ -1276,7 +1309,7 @@ function videoPlayer(group, playerFadeTransition){
   }
 
   if(globals.vr){
-    videoPlayerVR(group);
+    videoPlayerVR.load(group);
     return;
   }
 

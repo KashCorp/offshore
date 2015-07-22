@@ -6,8 +6,6 @@
 
   ** modified to play videos **
 
-  <plugin name="vrvideo" url="videovr.krpanoplugin.js" video="path/to/video.mp4">
-
 */
 
 function krpanoplugin() {
@@ -16,16 +14,17 @@ function krpanoplugin() {
   var device = null;
   var plugin = null;
 
-  var vidSrc = null;
+  var video, videoImage, videoImageContext, videoTexture, vidSrc;
 
   local.registerplugin = function(krpanointerface, pluginpath, pluginobject) {
     krpano = krpanointerface;
     device = krpano.device;
     plugin = pluginobject;
 
-    // plugin.registerattribute('video', false);
-
     vidSrc = krpano.get('vrvideo');
+
+    plugin.pause = pause;
+    plugin.play = play;
 
     if (krpano.version < "1.19") {
       krpano.trace(3,"ThreeJS plugin - krpano version too old (min. 1.19)");
@@ -43,10 +42,38 @@ function krpanoplugin() {
 
     // load the requiered three.js scripts
     load_scripts(["./plugins/vrvideo.three.min.js"], startThreeJS);
+
   }
 
   local.unloadplugin = function() {
     // no unloading support at the moment
+    console.log('DIEEEEEE');
+
+    // deregister krpano events
+    krpano.set("events[__threejs__].keep", false);
+    krpano.set("events[__threejs__].onviewchange", false);
+    krpano.set("events[__threejs__].onviewchanged", false);
+
+    // deregister user input events
+
+    if (device.browser.events.mouse){
+      krpano.control.layer.removeEventListener("mousedown", handle_mouse_touch_events);
+    }
+    if (device.browser.events.touch){
+      krpano.control.layer.removeEventListener(device.browser.events.touchstart, handle_mouse_touch_events);
+    }
+
+
+    // unload three
+
+    scene.remove( box );
+
+    scene = null;
+    // camera = null;
+    // stereocamera = null;
+    // camera_hittest_raycaster = null;
+    // krpano_panoview_euler = null;
+    // renderer = null;
   }
 
   local.onresize = function(width, height) {
@@ -98,7 +125,7 @@ function krpanoplugin() {
   function startThreeJS(){
 
     // create the ThreeJS WebGL renderer, but use the WebGL context from krpano
-    renderer = new THREE.WebGLRenderer({canvas:krpano.webGL.canvas, context:krpano.webGL.context, alpha: true});
+    renderer = new THREE.WebGLRenderer({canvas: krpano.webGL.canvas, context: krpano.webGL.context, alpha: true});
     renderer.autoClear = false;
     renderer.setPixelRatio(1);  // krpano handles the pixel ratio scaling
     renderer.setClearColor(0xffffff, 0);
@@ -316,7 +343,6 @@ function krpanoplugin() {
   var animatedobjects = [];
   var box = null;
 
-
   // add a krpano hotspot like handling for the 3d objects
   function assign_object_properties(obj, name, properties)
   {
@@ -364,8 +390,7 @@ function krpanoplugin() {
   }
 
 
-  function load_object_json(url, animated, properties, donecall)
-  {
+  function load_object_json(url, animated, properties, donecall) {
     url = resolve_url_path(url);
 
     var loader = new THREE.JSONLoader();
@@ -397,10 +422,7 @@ function krpanoplugin() {
 
       scene.add( obj );
 
-      if (donecall)
-      {
-        donecall(obj);
-      }
+      if(donecall) donecall(obj);
 
     });
   }
@@ -413,23 +435,26 @@ function krpanoplugin() {
 
   **************************************************************************/
 
-  var video, videoImage, videoImageContext, videoTexture;
-
   function build_scene() {
     clock = new THREE.Clock();
+
+    console.log('vidSrc:', vidSrc);
 
     video = document.createElement( 'video' );
     video.src = vidSrc;
     video.load(); // must call after setting/changing source
 
-    video.addEventListener('canplaythrough', function(){
-      console.log('video ready');
+    var canplaythrough = function() {
+      video.removeEventListener('canplaythrough', canplaythrough);
       video.play();
-    })
+    };
+    video.addEventListener('canplaythrough', canplaythrough, false);
+
+    video.addEventListener('ended', ended, false);
 
     videoImage = document.createElement( 'canvas' );
-    videoImage.width = 400;
-    videoImage.height = 275;
+    videoImage.width = 1280;
+    videoImage.height = 720;
 
     videoImageContext = videoImage.getContext('2d');
 
@@ -442,10 +467,9 @@ function krpanoplugin() {
     videoTexture.magFilter = THREE.LinearFilter;
 
     // create a textured 3d box
-    box = new THREE.Mesh(new THREE.BoxGeometry(1600,900,1), new THREE.MeshBasicMaterial({ map: videoTexture, opacity: 1}));
-    //box = new THREE.Mesh(new THREE.BoxGeometry(500,500,500), new THREE.MeshBasicMaterial({map:THREE.ImageUtils.loadTexture(resolve_url_path("box.jpg"))}));
+    box = new THREE.Mesh(new THREE.BoxGeometry(1920,1080,1), new THREE.MeshBasicMaterial({ map: videoTexture, opacity: 1}));
 
-    assign_object_properties(box, "box", {ath:0, atv:0, depth:1500, zorder:0, alpha: .1, capture: false});
+    assign_object_properties(box, "box", {ath:0, atv:0, depth: 1000, zorder:0, alpha: 0.1, capture: false});
     scene.add( box );
 
     //scene.fog = new THREE.FogExp2( 0xefd1b5, 1000 );
@@ -463,10 +487,30 @@ function krpanoplugin() {
     scene.add( directionalLight );
   }
 
+  var ended = function(){
+    video.removeEventListener('ended', ended, false);
+    console.log('ended');
+    krpano.call('js(videoPlayerVR.ended());');
+  }
+
+  var play = function(){
+    console.log('play');
+    video.play();
+  }
+
+  var pause = function(){
+    console.log('pause');
+    video.pause();
+  }
+
 
   /**************************************************************************
 
-    Mouse Events
+    ##   ## ####
+    ##   ##  ##
+    ##   ##  ##
+    ##   ##  ##
+     #####  ####
 
   **************************************************************************/
 
@@ -504,16 +548,13 @@ function krpanoplugin() {
     if (event.type == "mousedown") {
       type = "ondown";
       krpano.control.layer.addEventListener("mouseup", handle_mouse_touch_events, true);
-    }
-    else if (event.type == "mouseup") {
+    } else if (event.type == "mouseup") {
       type = "onup";
       krpano.control.layer.removeEventListener("mouseup", handle_mouse_touch_events, true);
-    }
-    else if (event.type == device.browser.events.touchstart) {
+    } else if (event.type == device.browser.events.touchstart) {
       type = "ondown";
       krpano.control.layer.addEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
-    }
-    else if (event.type == device.browser.events.touchend) {
+    } else if (event.type == device.browser.events.touchend) {
       type = "onup";
       krpano.control.layer.removeEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
     }
@@ -600,33 +641,18 @@ function krpanoplugin() {
   **************************************************************************/
 
   function update_scene(){
-    // animate objects
     var delta = clock.getDelta();
 
-    if(box) {
-
-      // lock box to viewport
-      // box.properties.ry = 90 + krpano.view._hlookat
-      // box.properties.rx =  krpano.view._vlookat
-
-      // box.properties.ath =  krpano.view._hlookat
-      // box.properties.atv =  krpano.view._vlookat
-
-      update_object_properties(box);
-    }
+    if(box) update_object_properties(box);
 
     if ( video.readyState === video.HAVE_ENOUGH_DATA ){
-      videoImageContext.drawImage( video, 0, 0);
+      videoImageContext.drawImage( video, 0, 0 );
 
-      if ( videoTexture )
-        videoTexture.needsUpdate = true;
+      if( videoTexture ) videoTexture.needsUpdate = true;
     }
 
     for (var i=0; i < animatedobjects.length; i++) {
       animatedobjects[i].updateAnimation(1000 * delta);
     }
-
-    // box.lookat(camera);
-    // handle_mouse_hovering();
   }
 }
