@@ -24,8 +24,6 @@ var audiomaster = (function(){
     master.soundTrigger = true;
     var isMuted = globals.getCookie('muted');
 
-    console.log('click -> isMuted: '+isMuted);
-
     if (isMuted){
       $('.volume-toggle').html('<i class="icon-volume-up"></i>');
       globals.deleteCookie('muted')
@@ -39,6 +37,8 @@ var audiomaster = (function(){
         $(v).prop('muted', true)
       })
     }
+
+    console.log('muted: '+globals.getCookie('muted'));
   })
 
   if(globals.getCookie("muted")){

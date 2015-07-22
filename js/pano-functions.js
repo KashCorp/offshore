@@ -314,8 +314,8 @@ var pano = (function(){
 
         // walkthrough
         $("#walking-canvas-pano").removeClass('hide')
-        scrollTrigger=false;
-        if(master.isIOS || master.isAndroid){
+        scrollTrigger = false;
+        if(globals.isIOS || globals.isAndroid){
            $('#walking-canvas-pano').css('display','none')
 
         }
@@ -1004,8 +1004,7 @@ var pano = (function(){
     // Audio
     if(audiomaster) {
 
-      // if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
-      if(!master.isIOS){
+      if(!globals.isIOS){
         for ( var i = 0, l = audiomaster.mix.tracks.length; i < l; i++ ){
           audiomaster.mix.tracks[i].play()
         }
