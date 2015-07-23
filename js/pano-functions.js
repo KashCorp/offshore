@@ -313,7 +313,7 @@ var pano = (function(){
         console.log('exports.voiceStartTimer: '+'\t'+exports.voiceStartTimer)
         console.log('exports.voiceCurrentTime: '+'\t'+exports.voiceCurrentTime)
 
-        loadAFXPano('One_Big_Ball_of_Fire', exports.voiceCurrentTime)
+        xml.loadAFXPano('One_Big_Ball_of_Fire', exports.voiceCurrentTime)
         overLayFile  = 'Main_Hallway'
         underlayFile = 'Drone_2_norm'
 
