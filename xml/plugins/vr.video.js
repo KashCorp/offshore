@@ -43,40 +43,20 @@ function krpanoplugin() {
     krpano.trace(0, "ThreeJS krpano plugin");
 
     // load the requiered three.js scripts
-    load_scripts(["./plugins/vrvideo.three.min.js"], startThreeJS);
+    load_scripts(["./plugins/vr.three.min.js"], startThreeJS);
 
   }
 
   local.unloadplugin = function() {
-    // no unloading support at the moment
-    console.log('DIEEEEEE');
 
-    // // deregister krpano events
+    // deregister krpano events
     krpano.set("events[__threejs__].keep", false);
     krpano.set("events[__threejs__].onviewchange", false);
     krpano.set("events[__threejs__].onviewchanged", false);
 
-    // // deregister user input events
-
-    // if (device.browser.events.mouse){
-    //   krpano.control.layer.removeEventListener("mousedown", handle_mouse_touch_events);
-    // }
-    // if (device.browser.events.touch){
-    //   krpano.control.layer.removeEventListener(device.browser.events.touchstart, handle_mouse_touch_events);
-    // }
-// unload video
+    // unload video
     video.src = ''
     video = null
-
-    // unload three
-
-    //scene.remove( box );
-    // scene = null;
-    // camera = null;
-    // stereocamera = null;
-    // camera_hittest_raycaster = null;
-    // krpano_panoview_euler = null;
-    // renderer = null;
 
   }
 
@@ -84,13 +64,11 @@ function krpanoplugin() {
     return false;
   }
 
-
+  // adjust relative url path
   function resolve_url_path(url) {
     if (url.charAt(0) != "/" && url.indexOf("://") < 0){
-      // adjust relative url path
       url = krpano.parsepath("%CURRENTXML%/" + url);
     }
-
     return url;
   }
 
@@ -435,7 +413,11 @@ function krpanoplugin() {
 
   /**************************************************************************
 
-    Build Scene
+    ######  ##   ## #### ##    ######
+    ##   ## ##   ##  ##  ##    ##   ##
+    ######  ##   ##  ##  ##    ##   ##
+    ##   ## ##   ##  ##  ##    ##   ##
+    ######   #####  #### ##### ######
 
   **************************************************************************/
 

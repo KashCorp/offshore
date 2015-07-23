@@ -8,6 +8,8 @@
   <include url="%SWFPATH%/plugins/webvr.xml" />
   <plugin name="WebVR" mobilevr_fake_support="true" devices="html5" />
 
+  <display mipmapping="off" /><!-- disable mipmapping - can be a little bit sharper in VR -->
+
   <!-- text style for hover info -->
   <textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
 
@@ -117,30 +119,26 @@
 
 
 
-  <!-- ######################################################################
-  ###########################################################################
-
-
-    VR Video Player
-
-  ###########################################################################
-  ####################################################################### -->
+  <!-- ##  ## #####     ##  ## #### ######  ######  ######
+       ##  ## ##  ##    ##  ##  ##  ##   ## ##     ##    ##
+       ##  ## #####     ##  ##  ##  ##   ## #####  ##    ##
+        ####  ##  ##     ####   ##  ##   ## ##     ##    ##
+         ##   ##  ##      ##   #### ######  ######  ######  -->
 
   <scene name="vrvideo" onstart="">
 
     <view hlookat="0" vlookat="0" fov="40" />
 
-
     <image>
-      <left  url="../offshore_panos/grid.png" />
-      <front url="../offshore_panos/grid.png" />
-      <right url="../offshore_panos/grid.png" />
-      <back  url="../offshore_panos/grid.png" />
-      <up    url="../offshore_panos/grid.png" />
-      <down  url="../offshore_panos/grid.png" />
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
     </image>
 
-    <plugin name="vrvideo" video="%$video%" url="./plugins/vrvideo.js" />
+    <plugin name="vrvideo" url="./plugins/vr.video.js" />
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
@@ -192,19 +190,11 @@
   </scene>
 
 
-
-  <!-- lookto(horizontal, vertical, fieldofview, motiontype, shortestway, nonblocking, callback) -->
-
-
-
-  <!-- ######################################################################
-  ###########################################################################
-
-
-    Prologue
-
-  ###########################################################################
-  ####################################################################### -->
+  <!--  ######  #####   ######  ##    ######   #####  ##   ## ######
+        ##   ## ##  ## ##    ## ##   ##    ## ##      ##   ## ##
+        ######  #####  ##    ## ##   ##    ## ##  ### ##   ## #####
+        ##      ##  ## ##    ## ##   ##    ## ##   ## ##   ## ##
+        ##      ##  ##  ######  ##### ######   #####   #####  ###### -->
 
 
 
@@ -257,14 +247,11 @@
 
 
 
-  <!-- ######################################################################
-  ###########################################################################
-
-
-    > Helicopter
-
-  ###########################################################################
-  ####################################################################### -->
+  <!-- ##   ## ###### ##    ####  #####  ######  ###### ###### ###### #####
+       ##   ## ##     ##     ##  ##     ##    ## ##   ##  ##   ##     ##  ##
+       ####### #####  ##     ##  ##     ##    ## ######   ##   #####  #####
+       ##   ## ##     ##     ##  ##     ##    ## ##       ##   ##     ##  ##
+       ##   ## ###### ##### ####  #####  ######  ##       ##   ###### ##  ## -->
 
 
   <scene name="helicopter">
@@ -283,9 +270,7 @@
 
     <image>
       <cube url="../offshore_panos/helicopter_pano_%s.jpg" />
-        <tablet>
-            <cube  url="../offshore_panos/512/helicopter_pano_%s.jpg" />
-        </tablet>
+      <tablet><cube url="../offshore_panos/512/helicopter_pano_%s.jpg" /></tablet>
     </image>
 
     <hotspot name="headphones" url="../images/hotspot.gif"
@@ -322,8 +307,7 @@
       ath="-37"
       atv="31.5"
       distorted="true"
-      onclick="js(master.loadOverlay(dossierbook.html));
-           js(xml.setCache(250,90))"
+      onclick="js(master.loadOverlay(dossier.html)); js(xml.setCache(250,90))"
       onhover="js(xml.hoverSound())"
       onout="js(xml.resetHoverSound())"
       alpha="0"
@@ -335,16 +319,42 @@
 
   </scene>
 
+  <scene name="helicopter_vroverlay">
+
+    <view hlookat="80" fov="90.0" />
+
+    <image>
+      <cube url="../offshore_panos/helicopter_pano_%s.jpg" />
+      <tablet><cube url="../offshore_panos/512/helicopter_pano_%s.jpg" /></tablet>
+    </image>
+
+    <plugin name="vroverlay" url="./plugins/vr.overlay.js" />
 
 
-  <!-- ######################################################################
-  ###########################################################################
+    <hotspot name="vrvideo_close"
+     url="../images/icons/close_icon.png"
+     ath="150"
+     atv="0"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(overlayVR.close())"
+     alpha="0.5"
+     width="30"
+     height="30"
+    />
 
 
-    > Platform
+  </scene>
 
-  ###########################################################################
-  ####################################################################### -->
+
+
+  <!-- ######  ##     ##### ###### ##### ######  #####  ###  ###
+       ##   ## ##    ##   ##  ##   ##   ##    ## ##  ## ########
+       ######  ##    #######  ##   #### ##    ## #####  ## ## ##
+       ##      ##    ##   ##  ##   ##   ##    ## ##  ## ##    ##
+       ##      ##### ##   ##  ##   ##    ######  ##  ## ##    ## -->
 
   <scene name="platform">
 

@@ -336,8 +336,13 @@ var masterFunctions = function() {
       extcontrol.fn({ 'fn':'loadOverlay', 'overlayURL':overlayURL});
     }
 
-    master.overlayOpen = true
-    master.ghostBuster = true
+    master.overlayOpen = true;
+    master.ghostBuster = true;
+
+    if(globals.vr){
+      overlayVR.load(overlayURL);
+      return;
+    }
 
     $('.scroll-directions').fadeOut(500)
     globals.$compass.fadeOut(500,function(){
@@ -351,7 +356,7 @@ var masterFunctions = function() {
     $('#overlay_frame').attr('src', 'overlay/' + overlayURL)
     $(".loading").show();
     $('#overlay_frame').one('load',function(){
-      console.log('overlay frame loaded')
+      console.log('overlay frame loaded');
       $('#overlay_frame').fadeIn(function(){
         $(".loading").hide();
       })
@@ -1103,6 +1108,17 @@ var xml = {
 
 
 
+/**************************************************************************
+**************************************************************************
+
+  ##  ## #####
+  ##  ## ##  ##
+  ##  ## #####
+   ####  ##  ##
+    ##   ##  ##
+
+**************************************************************************
+**************************************************************************/
 
 
 var videoPlayerVR = {
@@ -1121,15 +1137,13 @@ var videoPlayerVR = {
     videoPlayerVR.data.currentVideo = 0;
 
     pano.krpano.set('vrvideo', globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file + globals.videoType);
-    xml.newPano('vrvideo')
-    //pano.krpano.call('loadScene(vrvideo, null, MERGE)');
+    xml.newPano('vrvideo');
   },
 
   close: function(){
     master.overlayOpen = false
-    if(videoPlayerVR.data.currentPano == 'prologue') videoPlayerVR.data.currentPano = 'helicopter'
-    xml.newPano(videoPlayerVR.data.currentPano)
-    //pano.krpano.call('loadScene('+videoPlayerVR.data.currentPano+', null, MERGE)');
+    if(videoPlayerVR.data.currentPano === 'prologue') videoPlayerVR.data.currentPano = 'helicopter';
+    xml.newPano(videoPlayerVR.data.currentPano);
   },
 
   ended: function(){
@@ -1160,6 +1174,31 @@ var videoPlayerVR = {
 }
 
 
+
+
+var overlayVR = {
+
+  data: {
+    currentPano: '',
+  },
+
+  load: function(overlayURL){
+    var overlay = overlayURL.replace('.html', '');
+    console.log('load overlay VR', overlay);
+    overlayVR.data.currentPano = globals.pano;
+
+    pano.krpano.set('booktexture', '../images/books/'+overlay+'/vr-1.jpg');
+    xml.newPano(globals.pano + '_vroverlay');
+    pano.krpano.call('lookto(80,0,0,smooth(),true)');
+  },
+
+  close: function(){
+    master.overlayOpen = false;
+    xml.newPano(overlayVR.data.currentPano);
+  }
+
+
+}
 
 
 
@@ -1299,7 +1338,6 @@ var videoPlayerUI = {
 
 function videoPlayer(group, playerFadeTransition){
 
-  console.log('videoPlayer ', master.overlayOpen)
   if(master.overlayOpen === true) return;
 
   master.ghostBuster = true;
@@ -1314,10 +1352,7 @@ function videoPlayer(group, playerFadeTransition){
     });
   }
 
-  console.log("video " + globals.vr)
-
   if(globals.vr){
-    console.log(">>>>>>>>>>>>LVR " + group)
     videoPlayerVR.load(group);
     return;
   }
