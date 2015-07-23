@@ -190,6 +190,9 @@
   </scene>
 
 
+
+
+
   <!--  ######  #####   ######  ##    ######   #####  ##   ## ######
         ##   ## ##  ## ##    ## ##   ##    ## ##      ##   ## ##
         ######  #####  ##    ## ##   ##    ## ##  ### ##   ## #####
@@ -585,6 +588,27 @@
       capture="false"
       />
 
+
+  </scene>
+
+
+
+  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../videos/transition-hatch-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.newPano(hallway));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
 
   </scene>
 

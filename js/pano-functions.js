@@ -223,8 +223,15 @@ var pano = (function(){
     }
 
     ///// Decision to divert to image sequence
-    if(_pano.indexOf('sequence')!=-1) {
-      loadSequenceScene(_pano);
+    if(_pano.indexOf('sequence') !== -1) {
+
+      if(globals.vr){
+        exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
+        videoSphere.load(_pano);
+      } else {
+        loadSequenceScene(_pano);
+      }
+
       return false;
     }
 

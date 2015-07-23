@@ -792,7 +792,7 @@ var xml = {
 
 
   newPano: function(_pano, fromPrologue) {
-    if(_pano === globals.pano) { reject(); return; }
+    if(_pano === globals.pano) { return; }
 
     master.isPlayingVO = false;
 
@@ -1207,7 +1207,11 @@ var overlayVR = {
 
 
 
-
+var videoSphere = {
+  load: function(_pano){
+    console.log('hi');
+  }
+}
 
 
 
