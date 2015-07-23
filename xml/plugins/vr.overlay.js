@@ -465,8 +465,8 @@ function krpanoplugin(){
 			});
 
 			object.position.y = 0.2;
-			object.position.x = 0;
-			object.position.z = 1.5;
+			object.position.x = 1.0;
+			object.position.z = 2.0;
 			object.rotation.x = Math.PI/180 * -110
 			// object.scale = new THREE.Vector3(1.5, 1.5, 1.5)
 			scene.add( object );

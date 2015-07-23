@@ -264,13 +264,14 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="10.0"
-      limitview ="lookat"
+
+    />
+
+<!--       limitview ="lookat"
       hlookatmin ="NAN"
       hlookatmax ="NaN"
       vlookatmin ="20"
-      vlookatmax ="-45"
-    />
-
+      vlookatmax ="-45" -->
     <image>
       <cube url="../offshore_panos/helicopter_pano_%s.jpg" />
       <tablet><cube url="../offshore_panos/512/helicopter_pano_%s.jpg" /></tablet>
@@ -314,6 +315,7 @@
       onhover="js(xml.hoverSound())"
       onout="js(xml.resetHoverSound())"
       alpha="0"
+      keep = 'false'
       scale="1"
       height="90"
       width="100"
@@ -336,8 +338,9 @@
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
-     ath="150"
+     ath="170"
      atv="0"
+     depth=  "300"
      distorted="true"
      inverserotation="true"
      zorder2="1"
@@ -598,7 +601,7 @@
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../videos/transition-hatch-VR.webm"
+            videourl="../videos/transition-hatch-VR-down.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -613,6 +616,25 @@
   </scene>
 
 
+
+  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
+
+    <plugin name="videosphere2"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../videos/transition-hatch-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.newPano(lowerplatform));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere2" />
+    </image>
+
+  </scene>
 
 
 
@@ -1674,8 +1696,7 @@
       distorted="true"
       alpha="0.0"
       height="120.0"
-      onclick="js(xml.zoom_and_change_pano('hallway','lowerplatform'))"
-      onout="js(xml.resetHoverSound());"
+      onclick="js(xml.zoom_and_change_pano('hallway','sequence_shaftway_up'))"
       scale="5.0"
       capture="false"
       />

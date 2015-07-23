@@ -826,6 +826,8 @@ var xml = {
 
     if(!pano.krpano) return;
 
+    console.log('got here')
+
     // Helicopter
     if(from === 'helicopter' && to === 'platform')
       pano.krpano.call("lookto(-99,2,15,smooth(),true,true,js(xml.newPano(platform)))");
@@ -899,8 +901,8 @@ var xml = {
     else if(from === 'hallway' && to === 'controlroom')
       pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(xml.newPano(controlroom)));)");
 
-    else if(from === 'hallway' && to === 'lowerplatform')
-      pano.krpano.call("lookto(105,-40,10,smooth(),true,true,js(xml.newPano(lowerplatform)));js(setCache(get(view.hlookat),90))");
+    else if(from === 'hallway' && to === 'sequence_shaftway_up')
+      pano.krpano.call("lookto(105,-40,10,smooth(),true,true,js(xml.newPano(sequence_shaftway_up)));js(setCache(get(view.hlookat),90))");
 
 
     // Submarine
