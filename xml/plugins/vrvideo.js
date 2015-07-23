@@ -14,6 +14,8 @@ function krpanoplugin() {
   var device = null;
   var plugin = null;
 
+  console.log("starting video pano")
+
   var video, videoImage, videoImageContext, videoTexture, vidSrc;
 
   local.registerplugin = function(krpanointerface, pluginpath, pluginobject) {
@@ -49,31 +51,33 @@ function krpanoplugin() {
     // no unloading support at the moment
     console.log('DIEEEEEE');
 
-    // deregister krpano events
+    // // deregister krpano events
     krpano.set("events[__threejs__].keep", false);
     krpano.set("events[__threejs__].onviewchange", false);
     krpano.set("events[__threejs__].onviewchanged", false);
 
-    // deregister user input events
+    // // deregister user input events
 
-    if (device.browser.events.mouse){
-      krpano.control.layer.removeEventListener("mousedown", handle_mouse_touch_events);
-    }
-    if (device.browser.events.touch){
-      krpano.control.layer.removeEventListener(device.browser.events.touchstart, handle_mouse_touch_events);
-    }
-
+    // if (device.browser.events.mouse){
+    //   krpano.control.layer.removeEventListener("mousedown", handle_mouse_touch_events);
+    // }
+    // if (device.browser.events.touch){
+    //   krpano.control.layer.removeEventListener(device.browser.events.touchstart, handle_mouse_touch_events);
+    // }
+// unload video
+    video.src = ''
+    video = null
 
     // unload three
 
-    scene.remove( box );
-
-    scene = null;
+    //scene.remove( box );
+    // scene = null;
     // camera = null;
     // stereocamera = null;
     // camera_hittest_raycaster = null;
     // krpano_panoview_euler = null;
     // renderer = null;
+
   }
 
   local.onresize = function(width, height) {
@@ -476,15 +480,7 @@ function krpanoplugin() {
     box.properties.ry = 90
     box.properties.rz = 180
 
-    // add scene lights
-    scene.add( new THREE.AmbientLight(0x333333) );
 
-    var directionalLight = new THREE.DirectionalLight(0xFFFFFF);
-    directionalLight.position.x = 0.5;
-    directionalLight.position.y = -1;
-    directionalLight.position.z = 0;
-    directionalLight.position.normalize();
-    scene.add( directionalLight );
   }
 
   var ended = function(){

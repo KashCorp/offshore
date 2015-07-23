@@ -1121,11 +1121,15 @@ var videoPlayerVR = {
     videoPlayerVR.data.currentVideo = 0;
 
     pano.krpano.set('vrvideo', globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file + globals.videoType);
-    pano.krpano.call('loadScene(vrvideo, null, MERGE, BLEND(1))');
+    xml.newPano('vrvideo')
+    //pano.krpano.call('loadScene(vrvideo, null, MERGE)');
   },
 
   close: function(){
-    pano.krpano.call('loadScene('+videoPlayerVR.data.currentPano+', null, REMOVESCENES, BLEND(1))');
+    master.overlayOpen = false
+    if(videoPlayerVR.data.currentPano == 'prologue') videoPlayerVR.data.currentPano = 'helicopter'
+    xml.newPano(videoPlayerVR.data.currentPano)
+    //pano.krpano.call('loadScene('+videoPlayerVR.data.currentPano+', null, MERGE)');
   },
 
   ended: function(){
@@ -1294,6 +1298,8 @@ var videoPlayerUI = {
 **************************************************************************/
 
 function videoPlayer(group, playerFadeTransition){
+
+  console.log('videoPlayer ', master.overlayOpen)
   if(master.overlayOpen === true) return;
 
   master.ghostBuster = true;
@@ -1308,7 +1314,10 @@ function videoPlayer(group, playerFadeTransition){
     });
   }
 
+  console.log("video " + globals.vr)
+
   if(globals.vr){
+    console.log(">>>>>>>>>>>>LVR " + group)
     videoPlayerVR.load(group);
     return;
   }
