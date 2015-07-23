@@ -1076,7 +1076,7 @@ var xml = {
   soundTrigger: false,
 
   hoverSound: function(){
-    if(!soundTrigger){
+    if(!xml.soundTrigger){
       master.overlayPlay('#audio-2', master.audio_path + 'Rollover.ogg', master.audio_path + 'Rollover.mp3')
       xml.soundTrigger = true
     }
