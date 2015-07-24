@@ -8,7 +8,8 @@
   <include url="%SWFPATH%/plugins/webvr.xml" />
   <plugin name="WebVR" mobilevr_fake_support="true" devices="html5" />
 
-  <display mipmapping="off" /><!-- disable mipmapping - can be a little bit sharper in VR -->
+  <!-- disable mipmapping - can be a little bit sharper in VR -->
+  <!-- <display mipmapping="off" /> -->
 
   <!-- text style for hover info -->
   <textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
@@ -575,17 +576,19 @@
       autoheight="false"
       vcenter="true"
       width="500"
-          onclick="lookto(110,0,0,smooth(),true,true,js(videoPlayer(lowerplatform)));
+      onclick="lookto(110,0,0,smooth(),true,true,js(videoPlayer(lowerplatform)));
                js(xml.setCache(220,90))"
-        />
+      />
+
     <hotspot name="Deep-Waters-GIF"
       url="../images/icons/gif_iconB.gif"
       ath="120"
       atv="-1"
-      alpha=".3"
+      alpha="0.5"
       height="80"
       width="80"
       distorted="true"
+      scale="0.7"
       onclick="lookto(110,0,0,smooth(),true,true,js(videoPlayer(lowerplatform)));
            js(xml.setCache(220,90))"
       capture="false"
@@ -601,7 +604,7 @@
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../videos/transition-hatch-VR-down.webm"
+            videourl="../../videos/transition-hatch-VR-down.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -622,7 +625,7 @@
     <plugin name="videosphere2"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../videos/transition-hatch-VR.webm"
+            videourl="../../videos/transition-hatch-VR.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -993,7 +996,7 @@
       capture="false"
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);"
+      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);js(xml.engineroom());"
       scale="1.0"
     />
 
@@ -1008,7 +1011,7 @@
       height="140"
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);"
+      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);js(xml.engineroom());"
       scale="0.7"
     />
     <hotspot name="engineroomtext"
@@ -1027,7 +1030,7 @@
       autoheight="false"
       vcenter="true"
       width="400"
-      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);"
+      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);js(xml.engineroom());"
     />
 
     <hotspot name="exit" url="../images/hotspot.gif"
@@ -1205,6 +1208,25 @@
 
   </scene>
 
+
+  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-engineroom-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.engineroomvidcomplete());"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
 
 
   <!--  #####  ######  ###  ## ###### #####   ######  ##

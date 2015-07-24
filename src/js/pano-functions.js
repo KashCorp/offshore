@@ -227,7 +227,7 @@ var pano = (function(){
 
       if(globals.vr){
         exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
-        videoSphere.load(_pano);
+        // videoSphere.load(_pano);
       } else {
         loadSequenceScene(_pano);
       }
@@ -375,8 +375,6 @@ var pano = (function(){
         $("#walking-canvas-pano").removeClass('hide')
         exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",15);
         $('.hotspot').addClass('engineroom')
-
-        // exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","engineroom",24.0) // canvasID, name, duration
         break;
 
       case "controlroom" :

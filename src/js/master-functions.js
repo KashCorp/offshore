@@ -1035,6 +1035,19 @@ var xml = {
 
   },
 
+  // Chemical Room
+
+  engineroom: function(){
+    if(globals.vr){
+      xml.newPano('sequence_engineroom');
+    }
+  },
+
+  engineroomvidcomplete: function(){
+    videoPlayerVR.load('engineroom');
+    globals.pano = 'chemicalroom';
+  },
+
 
 
   /**************************************************************************
@@ -1125,7 +1138,7 @@ var videoPlayerVR = {
   },
 
   load: function(groupName){
-    console.log('VEEEE ARRRRRRRR "%s"', groupName);
+    console.log('VEEEE ARRRRRRRR VIDDDDD "%s"', groupName);
 
     videoPlayerVR.data.currentPano = globals.pano;
 
@@ -1196,18 +1209,6 @@ var overlayVR = {
 
 }
 
-
-
-
-
-
-
-
-var videoSphere = {
-  load: function(_pano){
-    console.log('hi');
-  }
-}
 
 
 
