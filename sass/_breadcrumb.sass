@@ -1,0 +1,130 @@
+.breadcrumb-holder
+  position: absolute
+  width: 100%
+  left: 0
+  bottom: 0
+  height: 40px
+  display: none
+  overflow: hidden
+
+.breadcrumb
+  display: none
+  padding-top: 10px
+  position: absolute
+  width: 100%
+  left: 0
+  bottom: 0
+  height: 40px
+  background: url(../images/bg_black_50.png)
+  overflow: hidden
+  font-size: 11px
+  z-index: 100
+
+#breadbox-container
+  text-align: center
+  width: 100%
+  display: block
+
+.breadcrumb
+  h1
+    float: left
+    height: 40px
+    img
+      height: 80%
+      margin-top: .5em
+      margin-left: 1em
+      margin-right: 1em
+  nav ul
+    float: left
+    overflow: hidden
+    list-style-type: none
+    li
+      float: left
+      a
+        background: url(../images/bg_white_30.png)
+        font-size: 1.5em
+        text-decoration: none
+        color: #fff
+        font-family: 'roboto', sans-serif
+        font-weight: 400
+        display: inline-block
+        padding: 0 1em
+        line-height: 40px
+        &:before
+          font: 1.5em 'icomoon'
+          line-height: 40px
+          margin-right: 5px
+          position: relative
+          top: -2px
+          vertical-align: middle
+  .share a:before
+    font: 1.5em 'icomoon'
+    line-height: 40px
+    margin-right: 5px
+    position: relative
+    top: -2px
+    vertical-align: middle
+  nav ul li a
+    &[href="about.html"]:before
+      content: "\61"
+    &[href="blog.html"]:before
+      content: "\62"
+    &[href="resources.html"]:before
+      content: "\72"
+  .share
+    display: inline-block
+    float: right
+    overflow: auto
+    height: 100%
+    a
+      font-size: 1em
+      text-decoration: none
+      display: inline-block
+      padding: 0 0.5em
+      line-height: 40px
+    div
+      display: inline-block
+      cursor: pointer
+  .twitter a:before
+    content: "\74"
+  .facebook a:before
+    content: "\66"
+  .info
+    display: inline-block
+    float: right
+    overflow: auto
+    height: 100%
+  p
+    margin: 0
+  .title
+    float: left
+    text-align: left
+    text-decoration: none
+    color: #fff
+    font-family: 700 .8em 'roboto', sans-serif
+    background-color: #3f3f3d
+    height: 40px
+    padding: .5em 2em .5em .5em
+    text-transform: uppercase
+  .price
+    float: left
+    font-size: 1.8em
+    text-decoration: none
+    color: #fff
+    font-family: 'roboto', sans-serif
+    font-weight: 300
+    padding-left: .5em
+    padding-right: .5em
+    background-color: #606060
+    line-height: 40px
+  .change
+    float: left
+    font-size: .9em
+    text-decoration: none
+    color: #06c506
+    font-family: 'roboto', sans-serif
+    font-weight: 700
+    height: 40px
+    background-color: #5d5d5d
+    padding: .5em
+    border-left: 2px solid #414141
