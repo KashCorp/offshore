@@ -1,0 +1,809 @@
+@import "reset"
+@import "globals"
+@import "font-awesome"
+@import "breadcrumb"
+@import "video"
+@import "krpano"
+
+/* ========================================================================== *\
+ *    GENERAL
+ *\* ==========================================================================
+
+body
+  height: 100%
+
+a
+  color: #fff
+  cursor: pointer
+  text-decoration: none
+  &:hover
+    color: #ccc
+
+#wrapper, #wrapper-bookz
+  position: absolute
+  overflow: hidden
+  bottom: 0px
+  left: 0
+  right: 0
+  top: 0px
+  display: block
+
+#overlay
+  position: fixed
+  z-index: 100
+  top: 40px
+  left: 0px
+  bottom: 40px
+  height: 100%
+  width: 100%
+  background: url(../images/bg_barred.gif)
+  display: none
+
+#container-frame
+  position: fixed
+  left: 0
+  top: 0
+  width: 100%
+
+.splashbg
+  width: 100%
+  height: 100%
+  background-color: #000
+
+.splashbg-img
+  position: absolute
+  z-index: -1
+  width: 100%
+  height: 100%
+  background: url(../images/splash_bg.jpg) no-repeat top center
+  display: none
+
+#splashwrapper
+  position: absolute
+  height: 100%
+  width: 100%
+  top: 0
+  left: 0
+
+.watch
+  display: none
+  background: url(../images/watch.png) no-repeat center left
+  background-size: 100%
+  width: 24%
+  height: 100%
+  float: left
+  min-height: 170px
+  text-indent: -9999px
+  a
+    position: absolute
+    width: 24%
+    height: 100%
+    min-height: 170px
+
+.enter
+  display: none
+  float: right
+  background: url(../images/enter.png) no-repeat center left
+  width: 36%
+  height: 100%
+  min-height: 170px
+  text-indent: -9999px
+  a
+    position: absolute
+    right: 0
+    width: 36%
+    height: 100%
+    min-height: 170px
+
+.splashlogo
+  display: none
+  position: absolute
+  width: 720px
+  top: 0px
+  left: 50%
+  top: 30%
+  margin-left: -356px
+
+.disclaimer
+  font-size: .8em
+  padding-top: 40px
+  text-align: center
+
+.backtostart
+  cursor: pointer
+
+.breadbox, .breadbox-blog, .breadbox-rigmap
+  cursor: pointer
+  display: inline-block
+  margin: 0 1.5em
+  padding: 0 5px
+  top: 10px
+
+.breadbox span, .breadbox-blog span, .breadbox-rigmap span
+  color: #a2bac1
+  font-size: 25px
+  line-height: 16px
+
+.breadbox span.active, .breadbox-blog span.active, .breadbox-rigmap span.active
+  color: #ead342
+
+/* ========================================================================== *\
+ *    HEADER
+ *\* ==========================================================================
+
+header
+  left: 0
+  position: absolute
+  top: 0
+  z-index: 500
+  .volume-toggle
+    color: #dbd9da
+    font-size: 20px
+    line-height: 45px
+    position: absolute
+    top: -5px
+    left: 4px
+    width: 30px
+    z-index: 110
+    -webkit-transition: line-height 500ms
+    -moz-transition: line-height 500ms
+    -ms-transition: line-height 500ms
+    -o-transition: line-height 500ms
+    transition: line-height 500ms
+
+.p-about header
+  z-index: 1000
+
+.countdown
+  line-height: 40px
+  position: absolute
+  left: 50%
+  top: 50%
+  width: 500px
+  margin-left: -250px
+  text-align: center
+
+.countdownhatch
+  position: absolute
+  width: 100%
+  top: 20%
+  text-align: center
+
+
+/* ========================================================================== *\
+ *    CONTENT
+ *\* ==========================================================================
+
+.platform-nav
+  position: fixed
+  right: 5px
+  top: 5px
+  text-indent: -9999px
+  cursor: pointer
+  width: 60px
+  height: 60px
+  background: url('../images/icons/close_icon.png')
+  z-index: 99999
+
+/* No Entry Page
+
+.noaccess
+  cursor: pointer
+  height: 308px
+  left: 50%
+  margin-left: -218px
+  position: absolute
+  top: 8%
+  width: 436px
+  z-index: 1000
+
+ul.nav
+  position: absolute
+  bottom: 100px
+  left: 50%
+  list-style-type: none
+  margin-left: -105px
+  width: 210px
+  z-index: 2000
+  li
+    float: left
+    height: 80px
+    margin: 0 10px
+    img
+      height: 100%
+      width: auto
+
+/* ========================================================================== *\
+ *    ABOUT
+ *\* ==========================================================================
+
+.slide
+  background: url(../images/bg_cube_60.png) center center
+  background-size: 100% 100%
+  color: #fff
+  font-size: 35px
+  left: 50%
+  margin-left: -400px
+  margin-top: -1500px
+  position: absolute
+  top: 15%
+  width: 800px
+  z-index: 10
+  -webkit-backface-visibility: hidden
+  -moz-border-radius: 2px
+  -webkit-border-radius: 2px
+  border-radius: 2px
+  -khtml-border-radius: 2px
+  p
+    margin: 40px
+
+.slide-container
+  bottom: 0
+  display: none
+  position: absolute
+  z-index: 1
+  top: 0
+  left: 0
+  right: 0
+  overflow: visible
+
+.about_nav
+  font-size: 20px
+  cursor: pointer
+
+/* ========================================================================== *\
+ *    WAVES
+ *\* ==========================================================================
+
+.gradient
+  background: url(../images/bg_waves_gradient.png) top left repeat-x
+  bottom: 15%
+  height: 100px
+  position: absolute
+  width: 100%
+
+#wave-vid
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  overflow: hidden
+  display: none
+
+.stat
+  font-size: 80px
+
+#wave-vid-inner
+  width: 100%
+  height: 2000px
+
+.wave-vid-vid
+  width: 100%
+  height: 100%
+
+/* ========================================================================== *\
+ *    TRAILER
+ *\* ==========================================================================
+
+#vimeo
+  position: absolute
+  top: 30px
+  bottom: 30px
+  width: 100%
+  iframe, object, embed
+    height: 100%
+    width: 100%
+
+/* ========================================================================== *\
+ *    INFO
+ *\* ==========================================================================
+
+.info-container___BK
+  color: #fff
+  font-family: 'Ropa Sans', Helvetica, Arial, sans-serif
+  font-size: 20px
+  left: 50%
+  margin-left: -400px
+  position: absolute
+  text-align: center
+  top: 30%
+  width: 800px
+  text-shadow: 1px 1px 3px #000
+
+.p-waves
+  #inter-text
+    font-size: 35px
+    left: 50%
+    margin-left: -30%
+    width: 60%
+    .stat
+      display: block
+      font-size: 50px
+      margin-top: 40px
+  .screen
+    background: url(../images/bg_black_50.png)
+    bottom: 0
+    position: fixed
+    left: 0
+    right: 0
+    top: 0
+
+#inter-text, .info-container
+  color: #fff
+  font-family: 'Ropa Sans', Helvetica, Arial, sans-serif
+  font-size: 50px
+  left: 0px
+  position: absolute
+  text-align: center
+  top: 30%
+  width: 100%
+
+.info-item, #walkthrough-vid
+  display: none
+
+/* ========================================================================== *\
+ *    WALKTHROUGH
+ *\* ==========================================================================
+
+/* dummy dom element
+
+/* walkthrough X button
+
+#walking-exit
+  cursor: pointer
+  display: none
+
+#scroll-wrapper
+  height: 100%
+  width: 100%
+  position: fixed
+  display: none
+
+.scroll-directions
+  cursor: pointer
+
+#scroll-proxy
+  height: 5000px
+  display: none
+
+.scroll-nav
+  font-size: 1.5em
+  left: 50%
+  margin-left: -300px
+  position: absolute
+  text-align: center
+  top: 5px
+  width: 600px
+  cursor: pointer
+
+#scroll-start
+  display: block
+
+#scroll-end
+  display: none
+
+.hotspot
+  position: fixed
+  left: 40%
+  right: 40%
+  top: 30%
+  bottom: 30%
+  background: none
+  cursor: pointer
+  &.requiem
+    left: 15%
+    right: 60%
+    top: 30%
+    bottom: 40%
+  &.engineroom
+    left: 30%
+    right: 30%
+    top: 40%
+    bottom: 20%
+
+/* ========================================================================== *\
+ *    HATCH
+ *\* ==========================================================================
+
+.scanline
+  background: url(../images/bg_scan_lines.png)
+  left: 0px
+  height: 100%
+  position: absolute
+  top: 0px
+  width: 100%
+  opacity: 0.2
+
+.table-wrapper
+  left: 50%
+  margin-left: -500px
+  position: absolute
+  width: 1200px
+  vertical-align: middle
+  font-size: 20px
+
+.left-column
+  float: left
+  text-align: center
+  padding: 10px
+
+.colon-column
+  position: relative
+  font-size: 150px
+  font-weight: bold
+  opacity: 0.5
+  float: left
+
+.colon-column-inside
+  position: absolute
+  width: 150px
+  bottom: 65px
+
+.rightcolumn
+  float: right
+  text-align: center
+  padding: 10px
+
+.big-clock
+  font-size: 150px
+  font-weight: bold
+  opacity: 0.6
+
+hr
+  clear: both
+  display: block
+  visibility: hidden
+
+/* ========================================================================== *\
+ *    PASSAGE TRANSITIONS
+ *\* ==========================================================================
+
+#word-container
+  position: absolute
+  width: 100%
+  height: 100%
+  right: 0px
+  text-align: center
+  color: #ffffff
+  display: block
+  font-size: 30px
+  font-weight: bold
+  opacity: 0.5
+  -webkit-transform-style: preserve-3d
+  -moz-transform-style: preserve-3d
+  -o-transform-style: preserve-3d
+  transform-style: preserve-3d
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: moz-none
+  -ms-user-select: none
+  user-select: none
+  ul li
+    -webkit-transform-style: preserve-3d
+    -moz-transform-style: preserve-3d
+    -o-transform-style: preserve-3d
+    transform-style: preserve-3d
+    list-style-type: none
+    padding: 0
+    text-align: center
+    width: 100%
+    position: absolute
+    top: 45%
+    opacity: 0px
+
+#viewport
+  -webkit-perspective: 500px
+  -moz-perspective: 500px
+  -o-perspective: 1000
+  perspective: 500px
+  -webkit-perspective-origin: 50% 50%
+  perspective-origin: 50% 50%
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+
+#transition-container
+  position: absolute
+  pointer-events: none
+  height: 100%
+  width: 100%
+  -webkit-transform-style: preserve-3d
+  -moz-transform-style: preserve-3d
+  -o-transform-style: preserve-3d
+  -webkit-transform: translateZ(-10000px)
+
+#ghost-canvas-trans
+  position: absolute
+  top: 0
+  left: 0
+  pointer-events: none
+
+#walking-canvas-click
+  position: absolute
+  width: 100%
+  height: 100%
+
+/* ========================================================================== *\
+ *    VIDEO PLAYER
+ *\* ==========================================================================
+
+.video-content-wrap
+  background: url(../images/bg_dotmatrix4x4.gif)
+  position: fixed
+  height: 100%
+  bottom: 0
+  left: 0
+  top: 0
+  overflow: hidden
+  width: 0
+  opacity: 0
+  &.transition-width
+    opacity: 1
+    -webkit-transition: width 200ms
+    -moz-transition: width 200ms
+    -o-transition: width 200ms
+    -ms-transition: width 200ms
+    transition: width 200ms
+  &.transition-opacity
+    width: 100%
+    -webkit-transition: opacity 500ms
+    -moz-transition: opacity 500ms
+    -o-transition: opacity 500ms
+    -ms-transition: opacity 500ms
+    transition: opacity 500ms
+  &.open
+    opacity: 1 !important
+    width: 100% !important
+
+.video-content-walkthrough, .video-content-wrap-desktop
+  height: 100%
+  bottom: 0
+  position: fixed
+  left: 0
+  overflow: hidden
+  top: 0
+  width: 100%
+  display: none
+
+#video-overlay-title
+  position: absolute
+  width: 100%
+  top: 50%
+  margin-top: -100px
+  text-align: center
+  font-size: 2.0em
+  font-family: "roboto"
+
+/* ========================================================================== *\
+ *    VIGNETTE
+ *\* ==========================================================================
+
+.vignette
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: url(../images/vignette.png)
+  background-size: 100% 100%
+  pointer-events: none
+
+.loading
+  width: 100%
+  height: 100%
+  position: absolute
+  opacity: 0.5
+  background: #000 url('../images/loading-gif-animation.gif') 50% 50% no-repeat
+
+.compass
+  position: absolute
+  top: 5px
+  right: 5px
+  opacity: 1.0
+  cursor: pointer
+
+.underwater
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: url(../images/bg_linematrix2x2.gif)
+  pointer-events: none
+
+.underwater-hanger
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: url(../images/hanger_outside.jpg)
+  background-size: 100% 100%
+  pointer-events: none
+  z-index: -1
+
+.pano-underlay
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  display: block
+  pointer-events: none
+
+.vignette-trans
+  background: url(../images/vignette.png)
+  background-size: 100% 100%
+
+#map-container-frame, #book-container-frame
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  display: none
+  opacity: 0
+
+/* all overlays are loaded into this same iframe, one at a time
+
+#overlay_frame
+  background: url('../images/bg_dotmatrix4x4.gif')
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  display: none
+  opacity: 1
+
+.close-overlay
+  position: absolute
+  width: 100%
+  height: 100%
+
+#autopilot-warning
+  display: none
+  position: absolute
+  width: 100%
+  margin-top: 10px
+  font-family: 'DINNextLTPro-Light', sans-serif
+  font-weight: bold
+  text-align: center
+  text-transform: uppercase
+  opacity: 0.5
+  h1
+    font-size: 3em
+    margin: 0
+  h2
+    font-size: 1.5em
+
+#node-connection-info
+  display: none
+  position: absolute
+  left: 1em
+  bottom: 75px
+  font-family: 'DINNextLTPro-Light', sans-serif
+  font-weight: bold
+  text-align: center
+  text-transform: uppercase
+
+/**************************************************************************
+ *
+ *  Menus
+ *
+ **************************************************************************
+
+/* MK Michael Klare movie-menu -------------------------------------------------
+
+ul.movie-menu
+  position: absolute
+  bottom: 100px
+  left: 50%
+  list-style-type: none
+  margin-left: -105px
+  width: 210px
+  z-index: 2000
+  li
+    float: left
+    margin: 20px
+  &.mk
+    position: absolute
+    min-width: 500px
+    max-width: 900px
+    width: 80%
+    left: 50%
+    margin-left: -40%
+    z-index: 1000
+    text-align: center
+    li
+      display: inline-block
+      max-width: 400px
+      width: 39%
+      margin: 5%
+      text-align: left
+      font-size: 1.3em
+      video
+        width: 100%
+        height: auto
+
+/*.p-waves ul.nav {
+ *  bottom: 10%;
+ *}
+
+/* directions
+
+.scroll-directions
+  height: 150px
+  width: 60px
+  position: absolute
+  right: 5px
+  opacity: 1
+
+.scroll-directions-container
+  position: fixed
+  top: 0px
+  bottom: 0px
+  left: 0px
+  right: 0px
+  margin-top: 100px
+
+.panoversion
+  display: none
+
+.pan-directions
+  height: 200px
+  width: 180px
+  background: url(../images/directions.png)
+  position: absolute
+  top: 50%
+  margin-top: -100px
+  right: 10%
+  opacity: .5
+  display: none
+
+/* ========================================================================== *\
+ *    FOOTER
+ *\* ==========================================================================
+
+.p-about footer
+  z-index: 1000
+
+footer.nav
+  bottom: 0
+  height: 40px
+  background-color: none
+  position: fixed
+  width: 100%
+  ul
+    &.primary
+      float: left
+    &.secondary
+      float: right
+    &.primary li
+      margin-left: 40px
+    &.secondary li
+      margin-right: 40px
+    li
+      float: left
+      list-style-type: none
+      a
+        line-height: 40px
+        font-size: 14px
+        color: #dbd9da
+        &:hover
+          color: #fff
+
+iframe
+  height: 100%
+
+/* ========================================================================== *\
+ *    MEDIA QUERIES
+ *\* ==========================================================================
+
+@media screen and (max-width: 1024px)
+  .slide
+    font-size: 30px
