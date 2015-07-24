@@ -227,7 +227,6 @@ var pano = (function(){
 
       if(globals.vr){
         exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
-        // videoSphere.load(_pano);
       } else {
         loadSequenceScene(_pano);
       }

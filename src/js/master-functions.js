@@ -1044,8 +1044,7 @@ var xml = {
   },
 
   engineroomvidcomplete: function(){
-    videoPlayerVR.load('engineroom');
-    globals.pano = 'chemicalroom';
+    videoPlayerVR.load('engineroom', 'chemicalroom');
   },
 
 
@@ -1137,10 +1136,11 @@ var videoPlayerVR = {
     currentVideo: '',
   },
 
-  load: function(groupName){
+  load: function(groupName, back){
     console.log('VEEEE ARRRRRRRR VIDDDDD "%s"', groupName);
 
-    videoPlayerVR.data.currentPano = globals.pano;
+    // optionally specify a pano to return to
+    videoPlayerVR.data.currentPano = (back) ? back : globals.pano;
 
     videoPlayerVR.data.videoGroup = globals.videoGroups[groupName];
     videoPlayerVR.data.currentVideo = 0;
