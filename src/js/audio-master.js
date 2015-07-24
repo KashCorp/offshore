@@ -7,10 +7,13 @@ var audiomaster = (function(){
   exports.source = [];
 
   exports.loadAudio = function(_src, _name, _gain, _pan, _nolooping, _start){
-    if(!_start) _start = 0
+    if(!_start) _start = 0;
+
+    console.log('loadAudio:', _src, _name, _gain, _pan);
+
     var track = mix.createTrack(_name, {
       source:   globals.cdn_audio + _src + globals.audioType,
-      gain:      _gain,
+      gain:      _gain || 1,
       pan:       _pan,
       nolooping: _nolooping,
       start:    _start
@@ -22,26 +25,28 @@ var audiomaster = (function(){
   $('.volume-toggle').click(function(){
 
     master.soundTrigger = true;
-    var isMuted = globals.getCookie('muted');
+    var isMuted = storage.get('muted');
 
     if (isMuted){
       $('.volume-toggle').html('<i class="icon-volume-up"></i>');
-      globals.deleteCookie('muted')
+      storage.remove('muted');
+      // globals.setCookie('muted', false);
       $('video').each(function(i,v){
         $(v).prop('muted', false)
       })
     } else {
       $('.volume-toggle').html('<i class="icon-volume-off"></i>');
-      globals.setCookie('muted',true)
+      storage.set('muted', true);
+      // globals.setCookie('muted',true)
       $('video').each(function(i,v){
         $(v).prop('muted', true)
       })
     }
 
-    console.log('muted: '+globals.getCookie('muted'));
+    console.log('muted: '+storage.get('muted'));
   })
 
-  if(globals.getCookie("muted")){
+  if(storage.get('muted')){
     $('.volume-toggle').html('<i class="icon-volume-off"></i>');
     $('video').each(function(i,v){
       $(v).prop('muted', true)
@@ -58,8 +63,6 @@ var audiomaster = (function(){
 
     var convCoord  =  Math.abs( (coord+ 60) % 360);
     var convCoord1 =  Math.abs( (coord-120) % 360);
-
-
 
     if(convCoord < 180 ) soundVector1 = convCoord;
     else                 soundVector1 = (360-convCoord);

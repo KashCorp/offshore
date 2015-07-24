@@ -474,17 +474,15 @@ var masterFunctions = function() {
 
   this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
 
-    console.log('AFXloadAudio')
-
-    var multix = 1
+    var multix = 1;
 
     if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
-      multix = .3
+      multix = 0.3;
     }
 
-    if(!_start) _start = 0
+    if(!_start) _start = 0;
 
-    console.log('_trackName: '+'\t'+_trackName + " _ " + master.isPlayingVO)
+    console.log('AFXloadAudio: _trackName: '+'\t'+_trackName + " _ " + master.isPlayingVO)
 
     if(audiomaster.mix.getTrack(_trackName)) audiomaster.mix.removeTrack(_trackName)
 
@@ -495,15 +493,13 @@ var masterFunctions = function() {
       return;
     }
 
-    if(_trackName == 'overlay_02'){
-
+    if(_trackName === 'overlay_02'){
       master.isPlayingVO = true
-
     }
 
     if(!_targetVolume) {_targetVolume = 1.0 * multix}
 
-    audiomaster.loadAudio(_file,_trackName,.0001,_pan,"true", _start)
+    audiomaster.loadAudio(_file, _trackName, 0.0001, _pan, "true", _start);
 
     var dummysounds = { s:  0};
 
@@ -744,7 +740,7 @@ var xml = {
         extcontrol.fn({ 'fn':'loadAFXPano', '_file':_file, '_start':_start });
     }
 
-    master.AFXloadAudio( master.cdn_audio+_file,'overlay_02',0,1.0, _start)
+    master.AFXloadAudio( _file,'overlay_02',0,1.0, _start)
   },
 
   newPage: function(URL) {

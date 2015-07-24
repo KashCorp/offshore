@@ -191,6 +191,8 @@
 
 	Track = function(name, opts, mix){
 
+		console.log(name, opts);
+
 		this.options = Mix.prototype.extend.call(this, defaults, opts || {});
 		this.name = name;
 		this.events = {};
@@ -503,15 +505,19 @@ Track.prototype.on = function(){
 
 			this.options.element.volume = val
 
-			return
+			return;
 
 		} else {
-			var min = 0, max = 1, master = this.get('mix').gain;
-		if ( typeof val !== 'undefined' && val >= min && val <= max ){
-			this.set('gain', val);
-			if ( !override ) this.set('gainCache', val);
-			if ( !this.get('_muted') || override ) this.get('gainNode').gain.value = val * master;
-		}
+
+			var min = 0
+			var max = 1
+			var master = this.get('mix').gain;
+
+			if ( typeof val !== 'undefined' && val >= min && val <= max ){
+				this.set('gain', val);
+				if ( !override ) this.set('gainCache', val);
+				if ( !this.get('_muted') || override ) this.get('gainNode').gain.value = val * master;
+			}
 			return this.get('gain') || this.get('gainNode').gain.value;
 		}
 

@@ -1026,7 +1026,7 @@ var pano = (function(){
         }
       }
 
-      if(!globals.getCookie('muted')){
+      if(!storage.get('muted')){
         if (master.overlayOpen) {
           if(audiomaster.mix.getGain() > 0.2){
             audiomaster.mix.setGain(audiomaster.mix.getGain() - 0.02)
