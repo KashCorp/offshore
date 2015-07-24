@@ -11,13 +11,20 @@
   "license": "ISC",
   "homepage": "https://github.com/heliosdesign/offshore",
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-livereload": "^3.8.0",
-    "gulp-plumber": "^1.0.1",
-    "gulp-sass": "^2.0.4",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-util": "^3.0.6",
-    "tiny-lr": "^0.1.6"
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^3.0.3",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-filerev": "^2.3.1",
+    "grunt-inline": "^0.3.6",
+    "grunt-inline-angular-templates": "^0.1.5",
+    "grunt-sass": "^1.0.0",
+    "grunt-shell": "^1.1.2",
+    "grunt-usemin": "^3.0.0",
+    "load-grunt-tasks": "^3.2.0"
   }
 }

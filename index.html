@@ -30,20 +30,6 @@
   <meta property="og:type" content="website"/>
   <meta property="og:description" content="OFFSHORE, an interactive documentary about the next chapter of oil exploration and exploitation"/>
 
-  <script type="text/javascript">
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-35229652-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-
-  </script>
-
 </head>
 
 <body style="overflow:hidden" class="platform" data-videos="platform">
@@ -148,7 +134,7 @@
   <audio id="transition" preload="auto" class="ambient"><source/></audio>
 
 
-
+  <!-- build:js js/scripts.min.js -->
   <script type="text/javascript" src="js/lib/modernizr.min.js"></script>
   <script type="text/javascript" src="js/lib/jquery.min.js"></script>
   <script type="text/javascript" src="js/lib/audioMixerOFFSHORE.js"></script>
@@ -157,7 +143,6 @@
   <script type="text/javascript" src="js/lib/promise-7.0.1.min.js"></script>
   <script type="text/javascript" src="js/lib/krpano/embedpano.js"></script>
   <script type="text/javascript" src="js/lib/jquery.min.js"></script>
-  <script type="text/javascript" src="js/lib/modernizr.min.js"></script>
   <script type="text/javascript" src="js/lib/pxloader/PxLoader.js"></script>
   <script type="text/javascript" src="js/lib/pxloader/PxLoaderImage.js"></script>
   <script type="text/javascript" src="js/lib/Tween.js"></script>
@@ -172,7 +157,22 @@
   <script type="text/javascript" src="js/walkthrough.js"></script>
   <script type="text/javascript" src="js/ghost.js"></script>
   <script type="text/javascript" src="js/pano-loader.js"></script>
+  <!-- endbuild -->
 
+
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35229652-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
 
 </body>
 </html>

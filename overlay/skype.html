@@ -270,8 +270,8 @@
 			cursor: pointer;
 		}
 
-		.main li img { 
-			width: 100%; 
+		.main li img {
+			width: 100%;
 			height: auto;
 			margin-bottom: 5px;
 		}
@@ -470,7 +470,7 @@
 			top: .1em;
 		}
 
-		
+
 	</style>
 
 	<script type="text/javascript" src="../js/lib/jquery.min.js"></script>
@@ -512,7 +512,7 @@
 						<h2>People</h2>
 					</div>
 
-					<div class="content">	
+					<div class="content">
 							<p>RECENT<p>
 							<ul class="recent">
 								<li><a href="#" style="pointer-events:none">Rolake Akinkugbe</a></li>
@@ -523,7 +523,7 @@
 							</div>
 					</div>
 				</div>
-				
+
 				<div class="interface main">
 
 					<header><h1>All Contacts</h1></header>
@@ -536,27 +536,27 @@
 							</form>
 						</h2>
 					</div>
-					
+
 					<div class="content">
 					  <ul class="movie-menu">
 
             	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-200aBarrel" data-popcorn="RA_1" class="vid-menu-nav">
-              	<img src="../images/ControlRoom_RA_200_a_barrel_thumb.jpg"> 
+              	<img src="../images/ControlRoom_RA_200_a_barrel_thumb.jpg">
               	<div>$200 a Barrel</div>
             	</li>
 
             	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-NewGenerationOfExplorers" data-popcorn="RA_2" class="vid-menu-nav">
-              	<img src="../images/ControlRoom_RA_New_Generation_of_Explorers_thumb.jpg"> 
+              	<img src="../images/ControlRoom_RA_New_Generation_of_Explorers_thumb.jpg">
               	<div>A New Generation of Explorers</div>
             	</li>
 
             	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-OffshoreInAfrica" data-popcorn="RA_3" class="vid-menu-nav">
-              	<img src="../images/ControlRoom_RA_Offshore_plays_in_Africa_thumb.jpg">  
+              	<img src="../images/ControlRoom_RA_Offshore_plays_in_Africa_thumb.jpg">
               	<div>Offshore Plays in Africa</div>
             	</li>
 
             	<li data-url="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/RA-SecurityAndTerrorism" data-popcorn="RA_4" class="vid-menu-nav">
-              	<img src="../images/ControlRoom_RA_Security_and_Terrorism_thumb.jpg"> 
+              	<img src="../images/ControlRoom_RA_Security_and_Terrorism_thumb.jpg">
               	<div>Security and Terrorism</div>
             	</li>
 
@@ -602,24 +602,24 @@ function switchVid(_src){
 
     	$('#skypeVideo').on('canplaythrough', function(){
             $('#skypeVideo')[0].play()
-        });	    
+        });
 
     	$('#skypeVideo').on('ended', function(){
            stopVid()
-        });	
+        });
     })
 }
 
 
 function stopVid(){
-   
+
   	$('.movie').css('display','none')
   	$('#to-control-vid').css('display','none')
 
   	document.getElementById("skypeVideo").pause();
   	$('.interface').fadeIn(500,function(){
 		$('#close-control').fadeIn(500)
-  	})   	
+  	})
 }
 
 
@@ -647,16 +647,16 @@ $(document).ready(function(){
 
 		var ratio = 768/998,
 		    w, h, t, l, text;
-		
+
 		// CONTAIN
 		w = window.innerWidth * 0.9;
 		h = w * ratio;
-		
+
 		if(h > window.innerHeight) {
 		  h = window.innerHeight * 0.9;
 		  w = h / ratio;
 		}
-		
+
 		t = (window.innerHeight - h) / 2;
 		l = (window.innerWidth - w) / 2;
 
@@ -706,7 +706,7 @@ $(document).ready(function(){
 	        }
 	        video.play();
 	    }
-	 
+
 	    function errorCallback(error) {
 	        console.error('WebRTC error [CODE ' + error.code + ']');
 	        // Display a friendly "sorry" message to the user
@@ -722,7 +722,7 @@ $(document).ready(function(){
 		    console.log('WebRTC not supported in this browser.');
 		    // Display a friendly "sorry" message to the user.
 		}
-	}	
+	}
 
 	webRTC();
 
@@ -768,6 +768,6 @@ $(document).ready(function(){
 
 })
 </script>
-	
+
 </body>
 </html>
