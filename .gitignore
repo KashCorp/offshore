@@ -1,8 +1,9 @@
-*.DS_Store
+.*
 /audio
 /video
 /videos
 *ARCHIVE*
 /_*
+/dist
 
 /node_modules

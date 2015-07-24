@@ -9,7 +9,7 @@ module.exports = function(grunt){
     // ********************************************************
 
     sass: {
-      default: {
+      target: {
         options: { outputStyle: 'compressed', sourceMap: true },
         files: {'src/css/style.css': 'src/sass/style.sass'},
       }
@@ -20,15 +20,15 @@ module.exports = function(grunt){
         map: true, // Use and update the sourcemap
         browsers: ["last 3 versions", "> 1%", "Explorer 9"]
       },
-      default: { src: 'css/style.css', dest: 'css/css/style.css' }
+      target: { src: 'src/css/style.css', dest: 'src/css/style.css' }
     },
 
     watch: {
-      options: { livereload: true, },
-
-      css: { files: ['src/css/style.css'] },
-      js:  { files: ['js/**/*.js'] },
-      html: { files: ['src/**/*.html'] },
+      all: {
+        options: { livereload: true },
+        files: ['src/css/style.css', 'src/js/**/*.js', 'src/**/*.html'],
+        tasks: [],
+      },
 
       sass: {
         options: { livereload: false }, // don't reload for sass files; pass them on to the processors
@@ -77,40 +77,42 @@ module.exports = function(grunt){
           src: [
             'index.html',
             'css/**/*',
-            // 'js/modules/**/*',
-            // 'js/min/**/*',
             'fonts/**/*',
             'images/**/*',
-            'images/**/*',
+            'offshore_panos/**/*',
+            'overlay/**/*',
+            'xml/**/*',
+            'js/lib/krpano/**/*',
           ]
         }]
       }
     },
 
-    inline: {
-      dist: {
-        src: 'src/index.html',
-        dest: 'dist/index.html'
-      }
-    },
-
-
+    // inline: {
+    //   dist: {
+    //     src: 'src/index.html',
+    //     dest: 'dist/index.html'
+    //   }
+    // },
 
 
   });
 
-  grunt.registerTask('default', ['sass', 'autoprefixer', 'watch']);
+
+  grunt.registerTask('default', [
+    'sass',
+    'autoprefixer',
+    'watch'
+  ]);
 
   grunt.registerTask('build', [
     'clean',
     'sass',
     'autoprefixer',
-    'useminPrepare', // Looks for <!-- special blocks -->
+    'useminPrepare',
     'concat',
     'uglify',
     'copy',
-    'inline',
-    'inline_angular_templates',
     'usemin',
   ])
 
