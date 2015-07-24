@@ -59,22 +59,31 @@ var audiomaster = (function(){
     var convCoord  =  Math.abs( (coord+ 60) % 360);
     var convCoord1 =  Math.abs( (coord-120) % 360);
 
-    // console.log('convCoord: '+'\t'+convCoord)
+  
 
-    if(convCoord < 180 ) soundVector1 = convCoord/180;
-    else                 soundVector1 = (360-convCoord)/180;
+    if(convCoord < 180 ) soundVector1 = convCoord;
+    else                 soundVector1 = (360-convCoord);
+    
+    if(convCoord1 < 180 ) soundVector2 = (convCoord1);
+    else                  soundVector2 = (360-(convCoord1));
 
-    if(convCoord1 < 180 ) soundVector2 = (convCoord1)/180;
-    else                  soundVector2 = (360-(convCoord1))/180;
+    //x = r cos(t)    y = r sin(t)
 
+    var soundPosX1 = 1 * Math.cos(soundVector1 * Math.PI / 180)
+    var soundPosZ1 = 1 * Math.sin(soundVector1 * Math.PI / 180)
+
+    var soundPosX2 = 1 * Math.cos(soundVector2 * Math.PI / 180)
+    var soundPosZ2 = 1 * Math.sin(soundVector2 * Math.PI / 180)
+   
+  
     if(Modernizr.webaudio === true) {
       if(exports.mix.getTrack('overlay_01') && !master.isTweeningAudio){
-        exports.mix.getTrack('basetrack').pan(soundVector2*2-1)
-        exports.mix.getTrack('overlay_01').pan(soundVector1*2-1)
+        exports.mix.getTrack('basetrack').pan3d(soundPosX1,soundPosZ1)
+        exports.mix.getTrack('overlay_01').pan3d(soundPosX2,soundPosZ2)
       }
 
       if(exports.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-        exports.mix.getTrack('overlay_02').pan(soundVector2*2-1)
+       exports.mix.getTrack('overlay_01').pan(soundPosX1)  
       }
     }
 

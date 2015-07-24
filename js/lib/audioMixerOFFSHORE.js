@@ -238,6 +238,19 @@
 			this.set('panner', this.get('mix').context.createPanner());
 			this.get('panner').panningModel = 'equalpower';
 			this.get('panner').panningModel = "HRTF";
+			this.get('panner').distanceModel = 'inverse';
+			this.get('panner').refDistance = 1;
+			this.get('panner').maxDistance = 10000;
+			this.get('panner').rolloffFactor = 1;
+			this.get('panner').coneInnerAngle = 360;
+			this.get('panner').coneOuterAngle = 0;
+			this.get('panner').coneOuterGain = 0;
+			this.get('panner').setOrientation(1,0,0);
+			this.set('listener', this.get('mix').context.listener);
+			this.get('listener').dopplerFactor = 1;
+			this.get('listener').speedOfSound = 343.3;
+			this.get('listener').setOrientation(0,0,-1,0,1,0);
+			this.get('listener').setPosition(0,0,0	);
 		}
 
 		this.get('panner').setPosition(this.pan(),0,.1);
@@ -466,6 +479,13 @@ Track.prototype.on = function(){
 		return this.get('pan') || 0;
 	};
 
+
+	Track.prototype.pan3d = function(_x,_z){
+		if(noWebAudio) return
+			this.get('panner').setPosition(_x,1 ,_z );
+		 	this.get('panner').setVelocity(0,0,0);
+		return this.get('pan') || 0;
+	};
 
 	Track.prototype.gain = function(val, override){
 
