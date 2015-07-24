@@ -219,6 +219,8 @@
         </mobile>
       </image>
 
+      <plugin name="vroverlay" url="./plugins/vr.3dobj.js" model='../images/obj/helicopter.obj' animation='animation-prologue.js' />
+
       <hotspot name="LOGO"
         url="../images/offshore_logo.png"
         ath="0"
