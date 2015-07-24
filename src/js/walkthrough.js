@@ -20,17 +20,13 @@ var Walkthrough = function(canvasID, name, videoLength) {
   this.percent = 0 // MASTER VARIABLE (everything runs off this)
   this.maxScrollerPos = $('.scroll-directions-container').height()
 
-
   // Load Video  ********************************************************
 
   var video = document.getElementById(canvasID)
+  if(globals.isIOS || globals.isAndroid) video.controls = true
 
-  video.setAttribute('src', globals.cdn_video + 'transition-' + name + globals.videoType);
-
-  if(globals.isIOS || globals.isAndroid) $('#' + canvasID)[0].controls = true
-
-  console.log (globals.cdn_video + 'transition-' + name + globals.videoType)
-
+  video.autoplay = false;
+  video.src = globals.cdn_video + 'transition-' + name + globals.videoType;
   video.load();
 
   video.width  = w;
@@ -38,9 +34,9 @@ var Walkthrough = function(canvasID, name, videoLength) {
   document.getElementById(canvasID).style.width = w + 'px'
   document.getElementById(canvasID).style.height = h + 'px'
 
-  video.addEventListener('canplay', function(e) {
-    e.stopPropagation()
-  })
+  // video.addEventListener('canplay', function(e) {
+  //   e.stopPropagation()
+  // })
 
   video.addEventListener('timeupdate', function(e) {
 
@@ -93,7 +89,6 @@ var Walkthrough = function(canvasID, name, videoLength) {
   this.closeWalkthroughVid = function(){
 
     console.log('[X] Close Walkthrough')
-
 
     if(!master.overlayOpen) {
       $('#panocontainer, .fastpan, .compass').removeClass('hide')

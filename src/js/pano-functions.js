@@ -235,6 +235,7 @@ var pano = (function(){
       return false;
     }
 
+    globals.$wrapper.removeClass('hide');
     $('#scroll-wrapper').fadeOut();
 
     // load the scene!
@@ -423,14 +424,18 @@ var pano = (function(){
 
   /**************************************************************************
 
+     ####  ######  ######  ##   ## ###### ###  ##  ##### ######
+    ##     ##     ##    ## ##   ## ##     #### ## ##     ##
+     ####  #####  ##    ## ##   ## #####  ## #### ##     #####
+        ## ##     ## ## ## ##   ## ##     ##  ### ##     ##
+    #####  ######  ######   #####  ###### ##   ##  ##### ######
+
     > Load Sequence Scene
 
   **************************************************************************/
 
 
   var loadSequenceScene = function(_sequence) {
-
-    console.log('loadSequenceScene -- ' + _sequence)
 
     var name, ghost, ghostFrames, movieLength;
 
@@ -439,7 +444,8 @@ var pano = (function(){
     // clear word container
     $('#word-container ul').html('')
 
-    globals.$panocontainer.removeClass('show').addClass('hide')
+    globals.$panocontainer.removeClass('show').addClass('hide');
+    globals.$wrapper.addClass('hide');
 
     switch(_sequence){
 
@@ -521,12 +527,15 @@ var pano = (function(){
         break;
     }
 
-    if(!master.isMSIE) loadSceneAudio()
+    if(!master.isMSIE) loadSceneAudio();
 
     if(ghost) {
-      console.log('GHOST')
+      console.log('loadSequenceScene -- ' + _sequence + ' +GHOST')
       exports.ghostTransition = new ghostFunctions("ghost-canvas-trans",ghost,ghostFrames)
       exports.ghostTransition.imageSequencer()
+    } else {
+      console.log('loadSequenceScene -- ' + _sequence)
+
     }
 
     $('#loading').fadeOut()
@@ -535,11 +544,9 @@ var pano = (function(){
     $("#scroll-start").click(function(){ newPano(linkBack) });
     $("#scroll-end")  .click(function(){ newPano(linkForward) });
 
-    $("#walking-canvas").css("top", master.globals.contain.t )
+    $("#walking-canvas").css("top", globals.resize.contain.t )
 
-    console.log("Start Walkthrough")
-
-    exports.walkthrough = new Walkthrough("walking-canvas", name, movieLength)
+    exports.walkthrough = new Walkthrough("walking-canvas", name, movieLength);
 
     exports.walkthrough.scrollPos   = 0;
     exports.walkthrough.scrollValue = 1;
@@ -556,6 +563,12 @@ var pano = (function(){
 
   /**************************************************************************
   ***************************************************************************
+
+     ####   ##### ###### ###  ## ######     #####  ##   ## ######  ####  ######
+    ##     ##     ##     #### ## ##        ##   ## ##   ## ##   ##  ##  ##    ##
+     ####  ##     #####  ## #### #####     ####### ##   ## ##   ##  ##  ##    ##
+        ## ##     ##     ##  ### ##        ##   ## ##   ## ##   ##  ##  ##    ##
+    #####   ##### ###### ##   ## ######    ##   ##  #####  ######  ####  ######
 
     > Load Scene Audio
 
@@ -680,9 +693,13 @@ var pano = (function(){
   /**************************************************************************
   ***************************************************************************
 
+    ##  ## #####  ######   #####  ###  ##  ######     ###  ##  #####  ##  ##
+    ## ##  ##  ## ##   ## ##   ## #### ## ##    ##    #### ## ##   ## ##  ##
+    ####   #####  ######  ####### ## #### ##    ##    ## #### ####### ##  ##
+    ## ##  ##  ## ##      ##   ## ##  ### ##    ##    ##  ### ##   ##  ####
+    ##  ## ##  ## ##      ##   ## ##   ##  ######     ##   ## ##   ##   ##
 
     > krpano mouse nav
-
 
   ***************************************************************************
   **************************************************************************/
@@ -948,7 +965,7 @@ var pano = (function(){
           walkthrough.scrollPos = 0
 
           $('#scroll-wrapper').fadeOut(1000, function(){
-            newPano(linkForward)
+            xml.newPano(linkForward)
             walkthrough = null
           })
 

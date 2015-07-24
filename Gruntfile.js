@@ -61,9 +61,7 @@ module.exports = function(grunt){
     uglify: {
       options: {
         mangle: false, // don’t minify variable names
-        // beautify: true,
-        // report: true,
-        // compress: { drop_console: true } // remove all window.console calls
+        compress: { drop_console: true } // remove all window.console calls
       }
     },
 
@@ -87,14 +85,6 @@ module.exports = function(grunt){
         }]
       }
     },
-
-    // inline: {
-    //   dist: {
-    //     src: 'src/index.html',
-    //     dest: 'dist/index.html'
-    //   }
-    // },
-
 
   });
 
