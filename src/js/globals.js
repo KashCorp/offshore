@@ -57,12 +57,13 @@ var globals = (function(){
 
   exports.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
   exports.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
-  // this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
+  exports.cdn_audio  = '../audio/'
 
   if(exports.config.useLocalResources === true) {
     console.log('----- Using local resources -----');
     exports.cdn_imgseq = 'images/ghosts/';
-    exports.cdn_video  = 'videos/';
+    exports.cdn_video  = '../videos/';
+    exports.cdn_audio  = '../audio/'
   }
 
 

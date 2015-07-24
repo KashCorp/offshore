@@ -9,7 +9,7 @@ var audiomaster = (function(){
   exports.loadAudio = function(_src, _name, _gain, _pan, _nolooping, _start){
     if(!_start) _start = 0
     var track = mix.createTrack(_name, {
-      source:   _src + globals.audioType,
+      source:   globals.cdn_audio + _src + globals.audioType,
       gain:      _gain,
       pan:       _pan,
       nolooping: _nolooping,
@@ -59,11 +59,11 @@ var audiomaster = (function(){
     var convCoord  =  Math.abs( (coord+ 60) % 360);
     var convCoord1 =  Math.abs( (coord-120) % 360);
 
-  
+
 
     if(convCoord < 180 ) soundVector1 = convCoord;
     else                 soundVector1 = (360-convCoord);
-    
+
     if(convCoord1 < 180 ) soundVector2 = (convCoord1);
     else                  soundVector2 = (360-(convCoord1));
 
@@ -74,8 +74,8 @@ var audiomaster = (function(){
 
     var soundPosX2 = 1 * Math.cos(soundVector2 * Math.PI / 180)
     var soundPosZ2 = 1 * Math.sin(soundVector2 * Math.PI / 180)
-   
-  
+
+
     if(Modernizr.webaudio === true) {
       if(exports.mix.getTrack('overlay_01') && !master.isTweeningAudio){
         exports.mix.getTrack('basetrack').pan3d(soundPosX1,soundPosZ1)
@@ -83,7 +83,7 @@ var audiomaster = (function(){
       }
 
       if(exports.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-       exports.mix.getTrack('overlay_01').pan(soundPosX1)  
+       exports.mix.getTrack('overlay_01').pan(soundPosX1)
       }
     }
 

@@ -578,7 +578,7 @@ var pano = (function(){
 
     if( underlayFile ){
 
-      audiomaster.loadAudio(master.audio_path+underlayFile, 'basetrack2', 0, 0);
+      audiomaster.loadAudio(underlayFile, 'basetrack2', 0, 0);
 
       var driftTweenSound = new TWEEN.Tween({ fadeFrom: 1, fadeTo: 0.0001}).to( { fadeFrom: 0, fadeTo:1 * multix}, 3000 )
         .onUpdate( function() {
@@ -657,14 +657,14 @@ var pano = (function(){
             audiomaster.mix.removeTrack('overlay_01')
 
             if(overLayFile){
-               setTimeout(function(){master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix)},1000)
+               setTimeout(function(){master.WAAloadAudio(overLayFile,'overlay_01',-1,1*multix)},1000)
             }
           })
           .start();
 
       }else{
           if(overLayFile)
-              master.WAAloadAudio(master.audio_path+overLayFile,'overlay_01',-1,1*multix);
+              master.WAAloadAudio(overLayFile,'overlay_01',-1,1*multix);
       }
 
 

@@ -51,8 +51,6 @@ var masterFunctions = function() {
   this.mute = false
   that.overlayOpen = false // stops map icon, fastpan, etc from re-appearing when it shouldn't
 
-  this.audio_path = 'audio/';
-
   this.movieMenu = false;
 
   this.isRetina = (function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; }());
@@ -184,7 +182,7 @@ var masterFunctions = function() {
     var transition_audio = $('#transition');
 
     if( window.location.hash === "#hatch.php"){
-      transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
+      transition_audio[0].src = master.cdn_audio + "Hatch_Open.mp3"
     }
 
     if(!visitedPages){
@@ -432,7 +430,7 @@ var masterFunctions = function() {
 
   this.loadOverlayAudio = function(_file){
 
-    audiomaster.loadAudio( master.audio_path + _file,'overlay_01',1,-1)
+    audiomaster.loadAudio( _file,'overlay_01',1,-1)
 
     var dummysounds = { s:  0};
 
@@ -746,7 +744,7 @@ var xml = {
         extcontrol.fn({ 'fn':'loadAFXPano', '_file':_file, '_start':_start });
     }
 
-    master.AFXloadAudio( master.audio_path+_file,'overlay_02',0,1.0, _start)
+    master.AFXloadAudio( master.cdn_audio+_file,'overlay_02',0,1.0, _start)
   },
 
   newPage: function(URL) {
@@ -760,9 +758,9 @@ var xml = {
     if(URL == "hatch.php"){
 
       if (transition_audio[0].canPlayType('audio/ogg')){
-        transition_audio[0].src = master.audio_path + "Hatch_Open.ogg"
+        transition_audio[0].src = master.cdn_audio + "Hatch_Open.ogg"
       } else {
-        transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
+        transition_audio[0].src = master.cdn_audio + "Hatch_Open.mp3"
       }
 
     }else{
@@ -1079,7 +1077,7 @@ var xml = {
 
   hoverSound: function(){
     if(!xml.soundTrigger){
-      master.overlayPlay('#audio-2', master.audio_path + 'Rollover.ogg', master.audio_path + 'Rollover.mp3')
+      master.overlayPlay('#audio-2', master.cdn_audio + 'Rollover.ogg', master.cdn_audio + 'Rollover.mp3')
       xml.soundTrigger = true
     }
   },
@@ -1594,8 +1592,8 @@ function switchVideo(_id,_text){
   // track number of seconds of video viewed (in localStorage)
 
   var viewedContent = $.grep(master.viewedContentArray, function (element, index) {
-        return element.srcString == globals.$videooverlay[0].src
-    });
+      return element.srcString == globals.$videooverlay[0].src
+  });
 
   if(viewedContent.length > 0 ){
 

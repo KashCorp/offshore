@@ -195,7 +195,7 @@ openingloader().then(function(){
   if(globals.config.autopilot)
     autopilot = new Autopilot();
 
-  audiomaster.loadAudio('audio/Drone_1_norm','basetrack',1,0);
+  audiomaster.loadAudio( 'Drone_1_norm', 'basetrack', 1, 0 );
 
   master = new masterFunctions();
   master.init();
