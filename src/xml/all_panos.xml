@@ -599,68 +599,6 @@
 
 
 
-  <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-downstairs-VR.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(boat));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
-  </scene>
-
-
-
-  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-hatch-VR-down.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(hallway));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
-  </scene>
-
-
-
-  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
-
-    <plugin name="videosphere2"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-hatch-VR.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(lowerplatform));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere2" />
-    </image>
-
-  </scene>
-
-
 
     <!-- ######   ######   ##### ######
          ##   ## ##    ## ##   ##  ##
@@ -692,9 +630,10 @@
         ath="90"
         atv="-7.0"
         distorted="true"
-        alpha="0.0"
+        alpha="0"
         height="60.0"
-        onclick="js(xml.zoom_and_change_pano('boat','lowerplatform'))"
+        onclick="if( vr, js(xml.newPano('sequence_outside_stairs_up')) );
+                 if(!vr, js(xml.zoom_and_change_pano('boat','lowerplatform')) );"
 
         scale="1.0"
         capture="false"
@@ -708,7 +647,8 @@
         alpha="0"
         height="140"
         width="140"
-        onclick="js(xml.zoom_and_change_pano('boat','lowerplatform'))"
+        onclick="if( vr, js(xml.newPano('sequence_outside_stairs_up')) );
+                 if(!vr, js(xml.zoom_and_change_pano('boat','lowerplatform')) );"
         scale="1.0"
         capture="false"
         />
@@ -742,7 +682,7 @@
         capture="false"
         />
 
-      <hotspot name="stairs back to platform"
+      <!-- <hotspot name="stairs back to platform"
         device="flash"
         keep="false"
         visible="true"
@@ -765,7 +705,7 @@
         <point ath="87.8" atv="-10.5" />
         <point ath="87.8" atv="-2.9" />
         <point ath="92" atv="-3" />
-      </hotspot>
+      </hotspot> -->
 
 
 
@@ -1017,10 +957,11 @@
       capture="false"
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);js(xml.engineroom());"
+      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);
+               set(hotspot[engineroom].enabled,false);
+               if(vr, js(xml.newPano('sequence_engineroom')) );"
       scale="1.0"
     />
-
 
     <hotspot name="engineroomgif"
       url="../images/icons/gif_iconA.gif"
@@ -1032,7 +973,9 @@
       height="140"
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);js(xml.engineroom());"
+      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);
+               set(hotspot[engineroom].enabled,false);
+               if(vr, js(xml.newPano('sequence_engineroom')) );"
       scale="0.7"
     />
     <hotspot name="engineroomtext"
@@ -1051,7 +994,9 @@
       autoheight="false"
       vcenter="true"
       width="400"
-      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);js(xml.engineroom());"
+      onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);
+               set(hotspot[engineroom].enabled,false);
+               if(vr, js(xml.newPano('sequence_engineroom')) );"
     />
 
     <hotspot name="exit" url="../images/hotspot.gif"
@@ -1230,24 +1175,6 @@
   </scene>
 
 
-  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-engineroom-VR.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.engineroomvidcomplete());"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
-  </scene>
 
 
   <!--  #####  ######  ###  ## ###### #####   ######  ##
@@ -1652,15 +1579,15 @@
     </image>
 
 
-    <!-- Passage 1: Chemical Room  -->
+    <!-- Corridor 1: Chemical Room  -->
 
-    <hotspot name="passage_01" url="../images/hotspot.gif"
+    <hotspot name="corridor_01" url="../images/hotspot.gif"
       ath="5.15"
       atv="0"
       distorted="true"
       alpha="0.0"
       height="50.0"
-          onclick="js(xml.zoom_and_change_pano('hallway','sequence_passage_chemicalroom'))"
+          onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_chemicalroom'))"
       scale="5.0"
       capture="false"
       />
@@ -1671,20 +1598,20 @@
       distorted="true"
       alpha="0"
       height="10"
-          onclick="js(xml.zoom_and_change_pano('hallway','sequence_passage_chemicalroom'))"
+          onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_chemicalroom'))"
       scale="5.0"
       capture="false"
       />
 
-    <!-- Passage 2: Theatre  -->
+    <!-- Corridor 2: Theatre  -->
 
-    <hotspot name="passage_02" url="../images/hotspot.gif"
+    <hotspot name="corridor_02" url="../images/hotspot.gif"
       ath="270"
       atv="0"
       distorted="true"
       alpha="0.0"
       height="50.0"
-        onclick="js(xml.zoom_and_change_pano('hallway','sequence_passage_theatre'))"
+        onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_theatre'))"
       onout="js(xml.resetHoverSound());"
       scale="5.0"
       capture="false"
@@ -1697,7 +1624,7 @@
       distorted="true"
       alpha="0"
       height="10"
-          onclick="js(xml.zoom_and_change_pano('hallway','sequence_passage_theatre'))"
+          onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_theatre'))"
       onout="js(xml.resetHoverSound());"
       scale="5.0"
       capture="false"
@@ -1705,15 +1632,15 @@
 
 
 
-    <!-- Passage 3: Control Room  -->
+    <!-- Corridor 3: Control Room  -->
 
-    <hotspot name="passage_03" url="../images/hotspot.gif"
+    <hotspot name="corridor_03" url="../images/hotspot.gif"
       ath="180"
       atv="0"
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(xml.zoom_and_change_pano('hallway','sequence_passage_controlroom'))"
+      onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_controlroom'))"
       scale="3.0"
       capture="false"
       />
@@ -1725,7 +1652,7 @@
       distorted="true"
       alpha="0"
       height="10.0"
-      onclick="js(xml.zoom_and_change_pano('hallway','sequence_passage_controlroom'))"
+      onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_controlroom'))"
       scale="4.0"
       capture="false"
       />
@@ -1739,7 +1666,7 @@
       distorted="true"
       alpha="0.0"
       height="120.0"
-      onclick="js(xml.zoom_and_change_pano('hallway','sequence_shaftway_up'))"
+      onclick=" if(vr, js(xml.newPano('sequence_shaftway_up')) ); if(!vr, js(xml.zoom_and_change_pano('hallway','lowerplatform')) ); "
       scale="5.0"
       capture="false"
       />
@@ -2046,7 +1973,7 @@
 
     <!-- Exits -->
 
-    <hotspot name="passage_01_sign" url="../images/hotspot.gif"
+    <hotspot name="corridor_01_sign" url="../images/hotspot.gif"
       ath="23"
       atv="-10"
       distorted="true"
@@ -2058,13 +1985,13 @@
       scale="3.0"
       />
 
-    <hotspot name="passage_01" url="../images/hotspot.gif"
+    <hotspot name="corridor_01" url="../images/hotspot.gif"
       ath="35"
       atv="2"
       distorted="true"
       alpha="0.0"
       height="90.0"
-      onclick="js(xml.zoom_and_change_pano('theatre','hallway'))"
+      onclick=" if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('theatre','hallway')) ); "
       onhover="js(xml.hoverSound()) "
       onout="js(xml.resetHoverSound());"
       scale="3.0"
@@ -2073,7 +2000,7 @@
 
 
 
-    <hotspot name="passage_02" url="../images/hotspot.gif"
+    <hotspot name="corridor_02" url="../images/hotspot.gif"
       ath="203"
       atv="2"
       distorted="true"
@@ -2091,6 +2018,153 @@
 
 
 
+
+
+
+
+
+
+
+
+  <!--  ####  ######  ######  ##   ## ###### ###  ##  ##### ######  ####
+       ##     ##     ##    ## ##   ## ##     #### ## ##     ##     ##
+        ####  #####  ##    ## ##   ## #####  ## #### ##     #####   ####
+           ## ##     ## ## ## ##   ## ##     ##  ### ##     ##         ##
+       #####  ######  ######   #####  ###### ##   ##  ##### ###### #####  -->
+
+
+
+
+
+  <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-downstairs-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.newPano(boat));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
+
+  <scene name="sequence_outside_stairs_up" onstart="plugin[videosphere].play();">
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-upstairs-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.newPano(lowerplatform));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
+
+
+
+  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
+
+    <view hlookat="0" />
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-hatch-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.newPano(hallway));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
+
+
+
+  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
+
+    <view hlookat="0"/>
+
+    <plugin name="videosphere2"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-hatch-up-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(xml.newPano(lowerplatform));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere2" />
+    </image>
+
+  </scene>
+
+
+
+
+  <scene name="sequence_corridor" onstart="plugin[videosphere].play(); if(corridorDestination === 'hallway', set(view.hlookat,270) ); ">
+
+    <view hlookat="0" />
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-corridor-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
+
+
+
+
+  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-engineroom-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(videoPlayerVR.load('engineroom', 'chemicalroom'));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
 
 
 
