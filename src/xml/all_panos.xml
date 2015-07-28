@@ -334,22 +334,53 @@
       <tablet><cube url="../offshore_panos/512/helicopter_pano_%s.jpg" /></tablet>
     </image>
 
-    <plugin name="vroverlay" url="./plugins/vr.overlay.js" />
+    <plugin
+     name="vrfolder"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/folder.obj"
+     texture="../images/books/dossier/vr-folder.jpg"
+     ath="-37"
+     depth="3"
+     />
+
+    <plugin
+     name="vrpages1"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/dossier/vr-pages-1.jpg"
+     ath="53"
+     depth="3"
+     />
+    <plugin
+     name="vrpages2"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/dossier/vr-pages-2.jpg"
+     ath="143"
+     depth="3"
+     />
+    <plugin
+     name="vrpages3"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/dossier/vr-pages-3.jpg"
+     ath="233"
+     depth="3"
+     />
 
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
-     ath="170"
-     atv="0"
-     depth=  "300"
+     ath="-37"
+     atv="50"
      distorted="true"
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick="js(overlayVR.close())"
-     alpha="0.5"
-     width="30"
-     height="30"
+     onclick="js(overlayVR.close('helicopter'))"
+     alpha="0.7"
+     width="70"
+     height="70"
     />
 
 

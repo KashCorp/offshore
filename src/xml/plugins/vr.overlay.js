@@ -471,7 +471,7 @@ function krpanoplugin(){
 
 			object.position.y = plugin.atv;
 
-			object.rotateOnAxis( new THREE.Vector3(0,1,0), M_RAD * (rotation - 5 + Math.random()*10) );
+			object.rotateOnAxis( new THREE.Vector3(0,1,0), M_RAD * (rotation + Math.random()*5) );
 			object.rotateOnAxis( new THREE.Vector3(1,0,0), -Math.PI* (0.4 + Math.random()/5) );
 
 			scene.add( object );
