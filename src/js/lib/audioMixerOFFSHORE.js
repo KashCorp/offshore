@@ -191,8 +191,6 @@
 
 	Track = function(name, opts, mix){
 
-		console.log(name, opts);
-
 		this.options = Mix.prototype.extend.call(this, defaults, opts || {});
 		this.name = name;
 		this.events = {};
@@ -249,8 +247,8 @@
 			this.get('panner').coneOuterGain = 0;
 			this.get('panner').setOrientation(1,0,0);
 			this.set('listener', this.get('mix').context.listener);
-			this.get('listener').dopplerFactor = 1;
-			this.get('listener').speedOfSound = 343.3;
+			// this.get('listener').dopplerFactor = 1; // “dopplerFactor is deprecated and will be removed in M45 when all doppler effects are removed”
+			// this.get('listener').speedOfSound = 343.3; // “speedOfSound is deprecated and will be removed in M45 when all doppler effects are removed”
 			this.get('listener').setOrientation(0,0,-1,0,1,0);
 			this.get('listener').setPosition(0,0,0	);
 		}
@@ -269,25 +267,14 @@
 	var self = this
 
 	self.set('element', document.createElement('audio'));
-
 	self.get('element').src = source;
-
 	self.get('element').load();
 
-	// console.log(source);
-
-
 	// Loading Progress
-
 	self.get('element').addEventListener('canplaythrough', function (e) {
-
-
-		// console.log("LOADED : " + source)
 		self.ready = true;
 		self.get('mix').trigger('load', self);
-
 	})
-
 
 }
 
@@ -301,20 +288,14 @@
         request.open("GET", source, true);
         request.responseType = "arraybuffer";
 
-        // console.log(source);
+    // Our asynchronous callback
+    request.onload = function() {
 
-        // Our asynchronous callback
-        request.onload = function() {
-
-        	var audioData = request.response;
-
+    	var audioData = request.response;
 
  			if(typeof self.get('mix').context.createGainNode !== 'function') {
 
-
 				self.get('mix').context.decodeAudioData(audioData, function onSuccess(decodedBuffer) {
-
-				    // console.log("web audio file decoded");
 
 					self.set('source', self.get('mix').context.createBufferSource());
 
@@ -328,11 +309,7 @@
 					self.ready = true;
 					self.get('mix').trigger('load', self);
 
-					// console.log("loading")
-
-				}, function onFailure() {
-				    // console.log("Buggah!");
-				});
+				}, function onFailure() {});
 
  			} else{
 
@@ -347,25 +324,16 @@
 				self.ready = true;
 				self.get('mix').trigger('load', self);
 
-				// console.log("loading " + self.name)
-
  			}
 
-
-        };
-
-        request.send();
-
-
-
+    };
+    request.send();
 	};
 
 
 
 
 	Track.prototype.play = function(){
-
-
 
 		if ( !this.ready ){
 
@@ -386,8 +354,6 @@
 			this.play();
 		}
 
-		//this.gain(this.options.gain)
-
 		this.options.playing = true;
 
 		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
@@ -397,26 +363,17 @@
 			return
 		}
 
-//console.log(navigator.userAgent)
-
 
 		if(isIOS){
-
-			// console.log(this.options.source + " is noting on at " + this.options.start)
-
 			this.options.source.noteOn(this.options.start)
-		}else{
-
-			// console.log(this.options.source + " is starting at " + this.options.start)
+		} else {
 			if(typeof this.options.source.start === 'function')
 				this.options.source.start(0,this.options.start)
 				else
 				this.options.source.noteOn(this.options.start)
 		}
 
-
 		this.trigger('play');
-		/**/
 	};
 
 
@@ -428,12 +385,6 @@
 		}
 
 		this.options.playing = false;
-
-		// if(typeof this.options.source.noteOff === 'function')
-		// this.options.source.noteOff(0);
-
-		// if(typeof this.options.source.stop === 'function')
-		// this.options.source.stop(0);
 
 		this.trigger('pause');
 	};

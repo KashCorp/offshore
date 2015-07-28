@@ -784,7 +784,7 @@ var xml = {
 
   },
 
-
+  // xml.newPano() -> router.hashChange -> pano.loadPanoScene()
   newPano: function(_pano, fromPrologue) {
     if(_pano === globals.pano) { return; }
 
@@ -816,11 +816,9 @@ var xml = {
 
   zoom_and_change_pano: function( from, to) {
 
-    // console.log('Zoom and change pano from: '+from+' to: '+to);
+    console.log('Zoom and change pano from: '+from+' to: '+to);
 
     if(!pano.krpano) return;
-
-    console.log('got here')
 
     // Helicopter
     if(from === 'helicopter' && to === 'platform')
@@ -877,20 +875,20 @@ var xml = {
 
 
     // Hallway
-    else if(from === 'hallway' && to === 'sequence_passage_chemicalroom')
-      pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(xml.newPano(sequence_passage_chemicalroom)));)");
+    else if(from === 'hallway' && to === 'sequence_corridor_chemicalroom')
+      pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(xml.newPano(sequence_corridor_chemicalroom)));)");
 
     else if(from === 'hallway' && to === 'chemicalroom')
       pano.krpano.call("lookto(0,0,10,smooth(),true,true,js(xml.newPano(chemicalroom)));)");
 
-    else if(from === 'hallway' && to === 'sequence_passage_theatre')
-      pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(xml.newPano(sequence_passage_theatre)));)");
+    else if(from === 'hallway' && to === 'sequence_corridor_theatre')
+      pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(xml.newPano(sequence_corridor_theatre)));)");
 
     else if(from === 'hallway' && to === 'theatre')
       pano.krpano.call("lookto(270,0,5,smooth(),true,true,js(xml.newPano(theatre)));)");
 
-    else if(from === 'hallway' && to === 'sequence_passage_controlroom')
-      pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(xml.newPano(sequence_passage_controlroom)));)");
+    else if(from === 'hallway' && to === 'sequence_corridor_controlroom')
+      pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(xml.newPano(sequence_corridor_controlroom)));)");
 
     else if(from === 'hallway' && to === 'controlroom')
       pano.krpano.call("lookto(178,0,5,smooth(),true,true,js(xml.newPano(controlroom)));)");
@@ -1035,17 +1033,6 @@ var xml = {
 
   },
 
-  // Chemical Room
-
-  engineroom: function(){
-    if(globals.vr){
-      xml.newPano('sequence_engineroom');
-    }
-  },
-
-  engineroomvidcomplete: function(){
-    videoPlayerVR.load('engineroom', 'chemicalroom');
-  },
 
 
 
@@ -1094,6 +1081,19 @@ var xml = {
     xml.soundTrigger = false
   },
 
+
+  /**************************************************************************
+
+    Sequence Scenes
+
+  **************************************************************************/
+
+
+  sequence: {
+
+
+
+  }
 
 }
 

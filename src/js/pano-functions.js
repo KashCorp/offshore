@@ -120,6 +120,7 @@ var pano = (function(){
             console.log('VR ENTERED');
             globals.vr = true;
             _pano.call('action(webvr_enter)');
+            _pano.set('vr', true);
 
             // debug
             $(window).on('keydown', function(e){
@@ -226,6 +227,14 @@ var pano = (function(){
     if(_pano.indexOf('sequence') !== -1) {
 
       if(globals.vr){
+        if(_pano.indexOf('corridor') !== -1){
+          var split = _pano.split('_')
+          console.log('split', split);
+          var destination = split[2];
+          console.log('destination', destination);
+          exports.krpano.set('corridorDestination', destination);
+          _pano = 'sequence_corridor'
+        }
         exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
       } else {
         loadSequenceScene(_pano);

@@ -142,6 +142,21 @@ var videoMatrix = {
     }
   ],
 
+  "skype": [
+    { "title": "",
+      "file": "RA-200aBarrel"
+    },
+    { "title": "",
+      "file": "RA-NewGenerationOfExplorers"
+    },
+    { "title": "",
+      "file": "RA-OffshoreInAfrica"
+    },
+    { "title": "",
+      "file": "RA-SecurityAndTerrorism"
+    },
+  ],
+
   "engineroom": [
     { "title": "Mr. Jack",
       "file": "ENGINE-Mr_Jack"
