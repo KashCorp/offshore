@@ -337,10 +337,10 @@ var masterFunctions = function() {
     master.overlayOpen = true;
     master.ghostBuster = true;
 
-    if(globals.vr){
+    // if(globals.vr){
       overlayVR.load(overlayURL);
       return;
-    }
+    // }
 
     $('.scroll-directions').fadeOut(500)
     globals.$compass.fadeOut(500,function(){
@@ -1198,7 +1198,7 @@ var overlayVR = {
 
     pano.krpano.set('booktexture', '../images/books/'+overlay+'/vr-1.jpg');
     xml.newPano(globals.pano + '_vroverlay');
-    pano.krpano.call('lookto(80,0,0,smooth(),true)');
+    // pano.krpano.call('lookto(80,0,0,smooth(),true)');
   },
 
   close: function(){

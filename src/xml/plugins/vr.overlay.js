@@ -1,30 +1,42 @@
 /*
-	krpano ThreeJS example plugin
+	krpano ThreeJS object
 	- use three.js inside krpano
 	- with stereo-rendering and WebVR support
 	- with 3d object hit-testing (onover, onout, onup, ondown, onclick) and mouse cursor handling
 
+  <plugin name=""
+   url="plugins/vr.overlay.js"
+   ath="0"
+   obj="../images/asdf.obj"
+   texture="../images/texture.jpg"
+   />
 
 */
 
 function krpanoplugin(){
+
+	var randomId = Math.round( Math.random()*10000 );
 
 	var local  = this;
 	var krpano = null;
 	var device = null;
 	var plugin = null;
 
-	var bookTexture;
-
 	local.registerplugin = function(krpanointerface, pluginpath, pluginobject){
-		console.log('hi');
 		krpano = krpanointerface;
 		device = krpano.device;
 		plugin = pluginobject;
 
-    bookTexture = krpano.get('booktexture');
+		plugin.registerattribute('ath', 0);
+		plugin.registerattribute('x', 0);
+		plugin.registerattribute('y', 0);
+		plugin.registerattribute('obj', '');
+		plugin.registerattribute('texture', '');
 
-    console.log('bookTexture', bookTexture);
+		if(!plugin.obj || !plugin.texture){
+			krpano.trace(2,'Can’t load VR Overlay: need an obj and a texture attribute!');
+			return;
+		}
 
 		if (krpano.version < "1.19") {
 			krpano.trace(3,"ThreeJS plugin - too old krpano version (min. 1.19)");
@@ -32,7 +44,6 @@ function krpanoplugin(){
 		}
 
 		if (!device.webgl) {
-			// show warning
 			krpano.trace(2,"ThreeJS plugin - WebGL required");
 			return;
 		}
@@ -41,31 +52,25 @@ function krpanoplugin(){
 		krpano.trace(0, "ThreeJS krpano plugin");
 
 		// load the requiered three.js scripts
-		load_scripts(["./plugins/vr.three.min.js","./plugins/OBJLoader.js"], start);
+		load_scripts(["./plugins/vr.three.min.js", "./plugins/OBJLoader.js"], start);
 	}
 
 	local.unloadplugin = function(){
 
 		// deregister krpano events
-		krpano.set("events[__threejs__].keep", false);
-		krpano.set("events[__threejs__].onviewchange", false);
-		krpano.set("events[__threejs__].onviewchanged", false);
+		krpano.set("events[__threejs"+randomId+"__].keep", false);
+		krpano.set("events[__threejs"+randomId+"__].onviewchange", false);
+		krpano.set("events[__threejs"+randomId+"__].onviewchanged", false);
 	}
 
-	local.onresize = function(width, height)
-	{
-		return false;
-	}
+	local.onresize = function(width, height){ return false; }
 
 
-	function resolve_url_path(url)
-	{
-		if (url.charAt(0) != "/" && url.indexOf("://") < 0)
-		{
+	function resolve_url_path(url){
+		if (url.charAt(0) != "/" && url.indexOf("://") < 0){
 			// adjust relative url path
 			url = krpano.parsepath("%CURRENTXML%/" + url);
 		}
-
 		return url;
 	}
 
@@ -107,10 +112,10 @@ function krpanoplugin(){
 	var krpano_depthbuffer_offset = -0.2;
 
 
-	function start()
-	{
+	function start() {
+
 		// create the ThreeJS WebGL renderer, but use the WebGL context from krpano
-		renderer = new THREE.WebGLRenderer({canvas:krpano.webGL.canvas, context:krpano.webGL.context});
+		renderer = new THREE.WebGLRenderer({ canvas:krpano.webGL.canvas, context:krpano.webGL.context });
 		renderer.autoClear = false;
 		renderer.setPixelRatio(1);	// krpano handles the pixel ratio scaling
 
@@ -118,9 +123,9 @@ function krpanoplugin(){
 		restore_krpano_WebGL_state();
 
 		// use the krpano onviewchanged event as render-frame callback (this event will be directly called after the krpano pano rendering)
-		krpano.set("events[__threejs__].keep", true);
-		krpano.set("events[__threejs__].onviewchange", adjust_krpano_rendering);	// correct krpano view settings before the rendering
-		krpano.set("events[__threejs__].onviewchanged", render_frame);
+		krpano.set("events[__threejs"+randomId+"__].keep", true);
+		krpano.set("events[__threejs"+randomId+"__].onviewchange", adjust_krpano_rendering);	// correct krpano view settings before the rendering
+		krpano.set("events[__threejs"+randomId+"__].onviewchanged", render_frame);
 
 		// enable continuous rendering (that means render every frame, not just when the view has changed)
 		krpano.view.continuousupdates = true;
@@ -250,7 +255,7 @@ function krpanoplugin(){
 
 
 		// render the scene
-		if (krpano.display.stereo == false)
+		if (krpano.display.stereo === false)
 		{
 			// normal rendering
 			renderer.setViewport(0,0, sw,sh);
@@ -422,40 +427,33 @@ function krpanoplugin(){
 
 	function build_scene(){
 		clock = new THREE.Clock();
-		if(!bookTexture){
-			// console.warn('No book texture, not loading book')
-			// return;
-			bookTexture = '../images/books/dossier/vr-1.jpg'
-		}
 
 		// load 3d objects
 
 		var manager = new THREE.LoadingManager();
-		manager.onProgress = function ( item, loaded, total ) {
-			console.log( item, loaded, total );
-		};
+		manager.onProgress = function ( item, loaded, total ) {};
 
 		var texture = new THREE.Texture();
 
 		var onProgress = function ( xhr ) {
-			if ( xhr.lengthComputable ) {
-				var percentComplete = xhr.loaded / xhr.total * 100;
-				// console.log( Math.round(percentComplete, 2) + '% downloaded' );
-			}
+			// if ( xhr.lengthComputable ) {
+			// 	var percentComplete = xhr.loaded / xhr.total * 100;
+			// 	console.log( Math.round(percentComplete, 2) + '% downloaded' );
+			// }
 		};
 
 		var onError = function ( xhr ) {};
 
 		// load the book texture
 		var loader = new THREE.ImageLoader( manager );
-		loader.load( resolve_url_path(bookTexture), function ( image ) {
+		loader.load( resolve_url_path(plugin.texture), function ( image ) {
 			texture.image = image;
 			texture.needsUpdate = true;
 		});
 
 		// load the book model
 		var loader = new THREE.OBJLoader( manager );
-		loader.load( resolve_url_path('../images/books/book.obj'), function ( object ) {
+		loader.load( resolve_url_path(plugin.obj), function ( object ) {
 
 			object.traverse( function ( child ) {
 				if ( child instanceof THREE.Mesh ) {
@@ -464,11 +462,26 @@ function krpanoplugin(){
 				}
 			});
 
+			var rotation = plugin.ath;
+			var radius = 5.0;
+
+			var x = radius * Math.sin( (rotation*Math.PI/180) );
+			var y = radius * Math.cos( (rotation*Math.PI/180) );
+
 			object.position.y = 0.2;
-			object.position.x = 1.0;
-			object.position.z = 2.0;
-			object.rotation.x = Math.PI/180 * -110
-			// object.scale = new THREE.Vector3(1.5, 1.5, 1.5)
+			object.position.x = x; //1.0;
+			object.position.z = y; //2.0;
+
+			// object.position.x = Math.random()*2; //1.0;
+			// object.position.z = Math.random()*2; //2.0;
+
+			// object.position.x = plugin.x;
+			// object.position.z = plugin.y;
+
+			console.log(plugin.obj, object.position);
+
+			object.rotation.x = Math.PI/180 * (rotation+180);
+
 			scene.add( object );
 
 		}, onProgress, onError );

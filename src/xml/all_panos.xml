@@ -1884,21 +1884,21 @@
     />
 
     <image>
-        <left  url="../offshore_panos/theatre_pano_l.jpg" />
-        <front url="../offshore_panos/theatre_pano_f.jpg" />
-        <right url="../offshore_panos/theatre_pano_r.jpg" />
-        <back  url="../offshore_panos/theatre_pano_b.jpg" />
-        <up    url="../offshore_panos/theatre_pano_u.jpg" />
-        <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      <left  url="../offshore_panos/theatre_pano_l.jpg" />
+      <front url="../offshore_panos/theatre_pano_f.jpg" />
+      <right url="../offshore_panos/theatre_pano_r.jpg" />
+      <back  url="../offshore_panos/theatre_pano_b.jpg" />
+      <up    url="../offshore_panos/theatre_pano_u.jpg" />
+      <down  url="../offshore_panos/theatre_pano_d.jpg" />
 
-        <tablet>
-            <left  url="../offshore_panos/theatre_pano_l.jpg" />
-            <front url="../offshore_panos/theatre_pano_f.jpg" />
-            <right url="../offshore_panos/theatre_pano_r.jpg" />
-            <back  url="../offshore_panos/theatre_pano_b.jpg" />
-            <up    url="../offshore_panos/theatre_pano_u.jpg" />
-            <down  url="../offshore_panos/theatre_pano_d.jpg" />
-        </tablet>
+      <tablet>
+          <left  url="../offshore_panos/theatre_pano_l.jpg" />
+          <front url="../offshore_panos/theatre_pano_f.jpg" />
+          <right url="../offshore_panos/theatre_pano_r.jpg" />
+          <back  url="../offshore_panos/theatre_pano_b.jpg" />
+          <up    url="../offshore_panos/theatre_pano_u.jpg" />
+          <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      </tablet>
     </image>
 
 
@@ -1946,8 +1946,7 @@
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(master.loadOverlay(redbook.html));
-           js(xml.setCache(-160,90))"
+      onclick="js(master.loadOverlay(redbook.html)); js(xml.setCache(-160,90));"
       onhover="js(xml.hoverSound()) "
       onout="js(xml.resetHoverSound());"
       scale="3.0"
@@ -2020,6 +2019,69 @@
 
 
 
+  <scene name="theatre_vroverlay">
+
+    <view hlookat="145" fov="90.0" />
+
+    <image>
+      <left  url="../offshore_panos/theatre_pano_l.jpg" />
+      <front url="../offshore_panos/theatre_pano_f.jpg" />
+      <right url="../offshore_panos/theatre_pano_r.jpg" />
+      <back  url="../offshore_panos/theatre_pano_b.jpg" />
+      <up    url="../offshore_panos/theatre_pano_u.jpg" />
+      <down  url="../offshore_panos/theatre_pano_d.jpg" />
+
+      <tablet>
+          <left  url="../offshore_panos/theatre_pano_l.jpg" />
+          <front url="../offshore_panos/theatre_pano_f.jpg" />
+          <right url="../offshore_panos/theatre_pano_r.jpg" />
+          <back  url="../offshore_panos/theatre_pano_b.jpg" />
+          <up    url="../offshore_panos/theatre_pano_u.jpg" />
+          <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      </tablet>
+    </image>
+
+    <plugin
+     name="redbook"
+     url="./plugins/vr.overlay.js"
+     ath="145"
+     obj="../images/obj/book.obj"
+     texture="../images/books/redbook/redbook-1-2048.jpg"
+     />
+
+    <plugin
+     name="pages-1"
+     url="./plugins/vr.overlay.js"
+     ath="250"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/redbook/redbook-2-2048.jpg"
+     />
+
+    <plugin
+     name="pages-2"
+     url="./plugins/vr.overlay.js"
+     ath="0"
+     obj="../images/obj/page-turn-1.obj"
+     texture="../images/books/redbook/redbook-3-2048.jpg"
+     />
+
+    <hotspot name="vrvideo_close"
+     url="../images/icons/close_icon.png"
+     ath="0"
+     atv="20"
+     depth=  "300"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(overlayVR.close())"
+     alpha="0.5"
+     width="30"
+     height="30"
+    />
+
+
+  </scene>
 
 
 
