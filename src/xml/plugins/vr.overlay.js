@@ -462,39 +462,46 @@ function krpanoplugin(){
 				}
 			});
 
-			var rotation = plugin.ath;
-			var radius = 5.0;
+			// calculate position based on ath
+			var rotation = plugin.ath - 90;
+			var radius = 3.0;
 
 			var x = radius * Math.sin( (rotation*Math.PI/180) );
 			var y = radius * Math.cos( (rotation*Math.PI/180) );
 
-			object.position.y = 0.2;
-			object.position.x = x; //1.0;
-			object.position.z = y; //2.0;
+			object.position.x = x;
+			object.position.z = y;
 
-			// object.position.x = Math.random()*2; //1.0;
-			// object.position.z = Math.random()*2; //2.0;
+			object.position.y = 0.2; // slightly up
 
-			// object.position.x = plugin.x;
-			// object.position.z = plugin.y;
+			object.rotateOnAxis( new THREE.Vector3(0,1,0), Math.PI/180 * (rotation - 5 + Math.random()*10) );
+			object.rotateOnAxis( new THREE.Vector3(1,0,0), -Math.PI* (0.4 + Math.random()/5) );
 
-			console.log(plugin.obj, object.position);
+			// object.rotation.y = Math.PI/180 * (rotation);
+			// object.rotation.x = Math.PI/10
 
-			object.rotation.x = Math.PI/180 * (rotation+180);
+			// object.rotation.y = Math.PI/2;
 
 			scene.add( object );
 
+
+			// add scene lights
+			scene.add( new THREE.AmbientLight(0x555555) );
+
+			var directionalLight = new THREE.DirectionalLight(0xb6c1c1);
+
+			directionalLight.position.x = 0;
+			directionalLight.position.y = 0;
+			directionalLight.position.z = 0;
+			// directionalLight.position.normalize();
+
+			directionalLight.target = object;
+
+			scene.add( directionalLight );
+
 		}, onProgress, onError );
 
-		// add scene lights
-		scene.add( new THREE.AmbientLight(0x333333) );
 
-		var directionalLight = new THREE.DirectionalLight(0xb6c1c1);
-		directionalLight.position.x = 0.5;
-		directionalLight.position.y = 0;
-		directionalLight.position.z = -1;
-		directionalLight.position.normalize();
-		scene.add( directionalLight );
 	}
 
 

@@ -2052,7 +2052,7 @@
     <plugin
      name="pages-1"
      url="./plugins/vr.overlay.js"
-     ath="250"
+     ath="235"
      obj="../images/obj/page-flat.obj"
      texture="../images/books/redbook/redbook-2-2048.jpg"
      />
@@ -2060,24 +2060,31 @@
     <plugin
      name="pages-2"
      url="./plugins/vr.overlay.js"
-     ath="0"
+     ath="325"
      obj="../images/obj/page-turn-1.obj"
      texture="../images/books/redbook/redbook-3-2048.jpg"
      />
 
+    <plugin
+     name="pages-3"
+     url="./plugins/vr.overlay.js"
+     ath="55"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/redbook/redbook-4-2048.jpg"
+     />
+
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
-     ath="0"
-     atv="20"
-     depth=  "300"
+     ath="140"
+     atv="47"
      distorted="true"
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick="js(overlayVR.close())"
+     onclick="js(xml.newPano('theatre'))"
      alpha="0.5"
-     width="30"
-     height="30"
+     width="60"
+     height="60"
     />
 
 
