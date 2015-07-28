@@ -28,8 +28,8 @@ function krpanoplugin(){
 		plugin = pluginobject;
 
 		plugin.registerattribute('ath', 0);
-		plugin.registerattribute('x', 0);
-		plugin.registerattribute('y', 0);
+		plugin.registerattribute('atv', 0.2);
+		plugin.registerattribute('depth', 3.0);
 		plugin.registerattribute('obj', '');
 		plugin.registerattribute('texture', '');
 
@@ -251,7 +251,7 @@ function krpanoplugin(){
 
 
 		// do scene updates
-		update_scene();
+		// update_scene();
 
 
 		// render the scene
@@ -323,7 +323,6 @@ function krpanoplugin(){
 
 	var clock = null;
 	var animatedobjects = [];
-	var box = null;
 
 
 	// add a krpano hotspot like handling for the 3d objects
@@ -356,8 +355,7 @@ function krpanoplugin(){
 	}
 
 
-	function update_object_properties(obj)
-	{
+	function update_object_properties(obj){
 		var p = obj.properties;
 
 		var px = p.depth * Math.cos(p.atv * M_RAD)*Math.cos((180-p.ath) * M_RAD);
@@ -464,23 +462,17 @@ function krpanoplugin(){
 
 			// calculate position based on ath
 			var rotation = plugin.ath - 90;
-			var radius = 3.0;
 
-			var x = radius * Math.sin( (rotation*Math.PI/180) );
-			var y = radius * Math.cos( (rotation*Math.PI/180) );
+			var x = plugin.depth * Math.sin( rotation * M_RAD );
+			var y = plugin.depth * Math.cos( rotation * M_RAD );
 
 			object.position.x = x;
 			object.position.z = y;
 
-			object.position.y = 0.2; // slightly up
+			object.position.y = plugin.atv;
 
-			object.rotateOnAxis( new THREE.Vector3(0,1,0), Math.PI/180 * (rotation - 5 + Math.random()*10) );
+			object.rotateOnAxis( new THREE.Vector3(0,1,0), M_RAD * (rotation - 5 + Math.random()*10) );
 			object.rotateOnAxis( new THREE.Vector3(1,0,0), -Math.PI* (0.4 + Math.random()/5) );
-
-			// object.rotation.y = Math.PI/180 * (rotation);
-			// object.rotation.x = Math.PI/10
-
-			// object.rotation.y = Math.PI/2;
 
 			scene.add( object );
 
@@ -661,15 +653,7 @@ function krpanoplugin(){
 		// animate objects
 		var delta = clock.getDelta();
 
-		if (box)
-		{
-			box.properties.rx += 50 * delta;
-			box.properties.ry += 10 * delta;
-			update_object_properties(box);
-		}
-
-		for (var i=0; i < animatedobjects.length; i++)
-		{
+		for (var i=0; i < animatedobjects.length; i++){
 			animatedobjects[i].updateAnimation(1000 * delta);
 		}
 

@@ -248,8 +248,9 @@ var pano = (function(){
 
     // load the scene!
     // ********************************************************
-    // exports.krpano.call('action(' + _pano + ');');
+
     exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
+
     exports.krpano.set('view.fov','90');
     exports.krpano.set('view.vlookat','0');
 

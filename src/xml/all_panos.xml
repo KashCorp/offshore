@@ -325,7 +325,7 @@
 
   </scene>
 
-  <scene name="helicopter_vroverlay">
+  <scene name="dossier_vr">
 
     <view hlookat="80" fov="90.0" />
 
@@ -1492,7 +1492,7 @@
 
 
 
-  <scene name="controlroom_vroverlay">
+  <scene name="field_data_vr">
 
     <view hlookat="80" fov="90.0" />
 
@@ -2019,7 +2019,7 @@
 
 
 
-  <scene name="theatre_vroverlay">
+  <scene name="redbook_vr">
 
     <view hlookat="145" fov="90.0" />
 
@@ -2046,7 +2046,7 @@
      url="./plugins/vr.overlay.js"
      ath="145"
      obj="../images/obj/book.obj"
-     texture="../images/books/redbook/redbook-1-2048.jpg"
+     texture="../images/books/redbook/redbook-1-1024.jpg"
      />
 
     <plugin
@@ -2054,7 +2054,7 @@
      url="./plugins/vr.overlay.js"
      ath="235"
      obj="../images/obj/page-flat.obj"
-     texture="../images/books/redbook/redbook-2-2048.jpg"
+     texture="../images/books/redbook/redbook-2-1024.jpg"
      />
 
     <plugin
@@ -2062,7 +2062,7 @@
      url="./plugins/vr.overlay.js"
      ath="325"
      obj="../images/obj/page-turn-1.obj"
-     texture="../images/books/redbook/redbook-3-2048.jpg"
+     texture="../images/books/redbook/redbook-3-1024.jpg"
      />
 
     <plugin
@@ -2070,7 +2070,7 @@
      url="./plugins/vr.overlay.js"
      ath="55"
      obj="../images/obj/page-flat.obj"
-     texture="../images/books/redbook/redbook-4-2048.jpg"
+     texture="../images/books/redbook/redbook-4-1024.jpg"
      />
 
     <hotspot name="vrvideo_close"
@@ -2081,7 +2081,100 @@
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick="js(xml.newPano('theatre'))"
+     onclick="js(overlayVR.close('theatre'));"
+     alpha="0.5"
+     width="60"
+     height="60"
+    />
+
+
+  </scene>
+
+
+
+
+
+  <scene name="leasemap_vr">
+
+    <view hlookat="145" fov="90.0" />
+
+    <image>
+      <left  url="../offshore_panos/theatre_pano_l.jpg" />
+      <front url="../offshore_panos/theatre_pano_f.jpg" />
+      <right url="../offshore_panos/theatre_pano_r.jpg" />
+      <back  url="../offshore_panos/theatre_pano_b.jpg" />
+      <up    url="../offshore_panos/theatre_pano_u.jpg" />
+      <down  url="../offshore_panos/theatre_pano_d.jpg" />
+
+      <tablet>
+          <left  url="../offshore_panos/theatre_pano_l.jpg" />
+          <front url="../offshore_panos/theatre_pano_f.jpg" />
+          <right url="../offshore_panos/theatre_pano_r.jpg" />
+          <back  url="../offshore_panos/theatre_pano_b.jpg" />
+          <up    url="../offshore_panos/theatre_pano_u.jpg" />
+          <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      </tablet>
+    </image>
+
+    <plugin
+     name="leasemap1"
+     url="./plugins/vr.overlay.js"
+     ath="144"
+     atv="0"
+     depth="3.5"
+     obj="../images/obj/leasemap1.obj"
+     texture="../images/lease_map/lease_vr_01.jpg"
+     />
+
+    <plugin
+     name="leasemap2"
+     url="./plugins/vr.overlay.js"
+     ath="218"
+     atv="0.5"
+     depth="3.5"
+     obj="../images/obj/leasemap2.obj"
+     texture="../images/lease_map/lease_vr_02.jpg"
+     />
+
+    <plugin
+     name="leasemap3"
+     url="./plugins/vr.overlay.js"
+     ath="289"
+     atv="-0.5"
+     depth="3.5"
+     obj="../images/obj/leasemap3.obj"
+     texture="../images/lease_map/lease_vr_03.jpg"
+     />
+
+    <plugin
+     name="leasemap4"
+     url="./plugins/vr.overlay.js"
+     atv="1.2"
+     ath="1"
+     depth="3.5"
+     obj="../images/obj/leasemap5.obj"
+     texture="../images/lease_map/lease_vr_04.jpg"
+     />
+
+    <plugin
+     name="leasemap5"
+     url="./plugins/vr.overlay.js"
+     atv="0.4"
+     ath="73"
+     depth="3.5"
+     obj="../images/obj/leasemap5.obj"
+     texture="../images/lease_map/lease_vr_05.jpg"
+     />
+
+    <hotspot name="vrvideo_close"
+     url="../images/icons/close_icon.png"
+     ath="140"
+     atv="47"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(overlayVR.close('theatre'));"
      alpha="0.5"
      width="60"
      height="60"
