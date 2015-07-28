@@ -234,6 +234,11 @@ var pano = (function(){
           _pano = (destination === 'hallway') ? 'sequence_corridor_backwards' : 'sequence_corridor'
         }
         exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
+
+        sequenceVR.run();
+
+
+
       } else {
         loadSequenceScene(_pano);
       }

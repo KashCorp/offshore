@@ -790,6 +790,8 @@ var xml = {
 
     master.isPlayingVO = false;
 
+    if(sequenceVR.id) sequenceVR.stop();
+
     if(!fromPrologue) {
       $('#video-underlay').hide();
       window.location.hash = _pano;
@@ -1179,6 +1181,35 @@ var videoPlayerVR = {
     pano.krpano.set('hotspot[vrvideo_play].visible', true);
     pano.krpano.set('hotspot[vrvideo_play].active',  true);
 
+  }
+}
+
+
+var sequenceVR = {
+  id: null,
+  hlookat: 0,
+  paused: false,
+
+  run: function(){
+    sequenceVR.id = requestAnimationFrame(sequenceVR.run);
+    sequenceVR.hlookat = pano.krpano.get('view.hlookat')
+    if(sequenceVR.hlookat > 360) sequenceVR.hlookat = sequenceVR.hlookat % 360;
+
+    if(sequenceVR.hlookat > 180 && ! sequenceVR.paused){
+      sequenceVR.paused = true;
+      pano.krpano.call('plugin[videosphere].pause()')
+    } else if( sequenceVR.hlookat <= 180 && sequenceVR.paused){
+      sequenceVR.paused = false;
+      pano.krpano.call('plugin[videosphere].play()')
+    }
+
+  },
+
+  start: function(){
+    sequenceVR.run();
+  },
+  stop: function(){
+    if(sequenceVR.id){ cancelAnimationFrame(sequenceVR.id) };
   }
 }
 
@@ -1805,7 +1836,7 @@ function closeVideoPlayer(){
 
 **************************************************************************/
 
-var cancelAnimationFrame = window.webkitRequestAnimationFrame || window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+var cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame;
 
 window.requestAnimationFrame = (function() {
 
