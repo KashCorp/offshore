@@ -1193,17 +1193,15 @@ var overlayVR = {
 
   load: function(overlayURL){
     var overlay = overlayURL.replace('.html', '');
-    console.log('load overlay VR', overlay);
     overlayVR.data.currentPano = globals.pano;
 
-    pano.krpano.set('booktexture', '../images/books/'+overlay+'/vr-1.jpg');
-    xml.newPano(globals.pano + '_vroverlay');
-    pano.krpano.call('lookto(80,0,0,smooth(),true)');
+    console.log('load overlay VR', overlay);
+    xml.newPano(overlay + '_vr');
   },
 
-  close: function(){
+  close: function(goTo){
     master.overlayOpen = false;
-    xml.newPano(overlayVR.data.currentPano);
+    xml.newPano(goTo || overlayVR.data.currentPano);
   }
 
 

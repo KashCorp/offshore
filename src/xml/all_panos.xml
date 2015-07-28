@@ -213,12 +213,26 @@
         fovmin="10.0"
         />
 
+      <plugin name="videosphere"
+              url.flash="%SWFPATH%/plugins/videoplayer.swf"
+              url.html5="%SWFPATH%/plugins/videoplayer.js"
+              videourl="../../videos/view-from-rig.webm"
+              loop="true"
+              pausedonstart="false"
+              visible="false"
+              use_as_videopano="true"
+              />
+
       <image>
+        <sphere url="plugin:videosphere" />
+      </image>
+
+      <!-- <image>
         <cube url="../offshore_panos/prologue_pano_%s.jpg" />
         <mobile>
           <cube url="../offshore_panos/prologue_pano_%s.jpg" />
         </mobile>
-      </image>
+      </image> -->
 
       <plugin name="vroverlay" url="./plugins/vr.3dobj.js" model='../images/obj/helicopter.obj' animation='animation-prologue.js' />
 
@@ -327,7 +341,7 @@
 
   </scene>
 
-  <scene name="helicopter_vroverlay">
+  <scene name="dossier_vr">
 
     <view hlookat="80" fov="90.0" />
 
@@ -336,22 +350,53 @@
       <tablet><cube url="../offshore_panos/512/helicopter_pano_%s.jpg" /></tablet>
     </image>
 
-    <plugin name="vroverlay" url="./plugins/vr.overlay.js" />
+    <plugin
+     name="vrfolder"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/folder.obj"
+     texture="../images/books/dossier/vr-folder.jpg"
+     ath="-37"
+     depth="3"
+     />
+
+    <plugin
+     name="vrpages1"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/dossier/vr-pages-1.jpg"
+     ath="53"
+     depth="3"
+     />
+    <plugin
+     name="vrpages2"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/dossier/vr-pages-2.jpg"
+     ath="143"
+     depth="3"
+     />
+    <plugin
+     name="vrpages3"
+     url="./plugins/vr.overlay.js"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/dossier/vr-pages-3.jpg"
+     ath="233"
+     depth="3"
+     />
 
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
-     ath="170"
-     atv="0"
-     depth=  "300"
+     ath="-37"
+     atv="50"
      distorted="true"
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick="js(overlayVR.close())"
-     alpha="0.5"
-     width="30"
-     height="30"
+     onclick="js(overlayVR.close('helicopter'))"
+     alpha="0.7"
+     width="70"
+     height="70"
     />
 
 
@@ -494,12 +539,13 @@
         fov="90.0"
         fovmax="120.0"
         fovmin="1.0"
-      limitview ="lookat"
+      />
+
+      <!-- limitview ="lookat"
       hlookatmin ="NAN"
       hlookatmax ="NaN"
       vlookatmin ="20"
-      vlookatmax ="-45"
-      />
+      vlookatmax ="-45" -->
 
     <image>
         <cube url="../offshore_panos/lowerplatform_pano_%s.jpg" />
@@ -615,12 +661,14 @@
         fov="90.0"
         fovmax="120.0"
         fovmin="15.0"
-        limitview ="lookat"
-        hlookatmin ="NAN"
-        hlookatmax ="NaN"
-        vlookatmin ="20"
-        vlookatmax ="-45"
         />
+
+<!--       limitview ="lookat"
+      hlookatmin ="NAN"
+      hlookatmax ="NaN"
+      vlookatmin ="20"
+      vlookatmax ="-45"
+ -->
 
       <image>
         <cube url="../offshore_panos/boat_pano_%s.jpg" />
@@ -781,13 +829,14 @@
         fov="90.0"
         fovmax="120.0"
         fovmin="4.0"
-        limitview ="lookat"
-        hlookatmin ="NAN"
-        hlookatmax ="NaN"
-        vlookatmin ="20"
-        vlookatmax ="-45"
       />
 
+<!--       limitview ="lookat"
+      hlookatmin ="NAN"
+      hlookatmax ="NaN"
+      vlookatmin ="20"
+      vlookatmax ="-45"
+ -->
       <image>
           <left  url="../offshore_panos/subhangar_pano_l.jpg" />
           <front url="../offshore_panos/subhangar_pano_f.png" />
@@ -923,12 +972,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="5.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
     />
+
+  <!-- limitview ="lookat"
+  hlookatmin ="NAN"
+  hlookatmax ="NaN"
+  vlookatmin ="20"
+  vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/chemicalroom_pano_l.jpg" />
@@ -1195,12 +1245,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="1.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
       />
+
+    <!-- limitview ="lookat"
+    hlookatmin ="NAN"
+    hlookatmax ="NaN"
+    vlookatmin ="20"
+    vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/controlroom_pano_l.jpg" />
@@ -1494,7 +1545,7 @@
 
 
 
-  <scene name="controlroom_vroverlay">
+  <scene name="field_data_vr">
 
     <view hlookat="80" fov="90.0" />
 
@@ -1554,12 +1605,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="1.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
      />
+
+     <!-- limitview ="lookat"
+     hlookatmin ="NAN"
+     hlookatmax ="NaN"
+     vlookatmin ="20"
+     vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/hallway_pano_l.jpg" />
@@ -1768,12 +1820,13 @@
       fov="65.0"
       fovmax="120.0"
       fovmin="15.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
     />
+
+    <!-- limitview ="lookat"
+    hlookatmin ="NAN"
+    hlookatmax ="NaN"
+    vlookatmin ="20"
+    vlookatmax ="-45" -->
 
     <image>
       <left  url="../offshore_panos/interiorsub_pano_l.jpg" />
@@ -1878,29 +1931,30 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="20.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
     />
 
-    <image>
-        <left  url="../offshore_panos/theatre_pano_l.jpg" />
-        <front url="../offshore_panos/theatre_pano_f.jpg" />
-        <right url="../offshore_panos/theatre_pano_r.jpg" />
-        <back  url="../offshore_panos/theatre_pano_b.jpg" />
-        <up    url="../offshore_panos/theatre_pano_u.jpg" />
-        <down  url="../offshore_panos/theatre_pano_d.jpg" />
+    <!-- limitview ="lookat"
+    hlookatmin ="NAN"
+    hlookatmax ="NaN"
+    vlookatmin ="20"
+    vlookatmax ="-45" -->
 
-        <tablet>
-            <left  url="../offshore_panos/theatre_pano_l.jpg" />
-            <front url="../offshore_panos/theatre_pano_f.jpg" />
-            <right url="../offshore_panos/theatre_pano_r.jpg" />
-            <back  url="../offshore_panos/theatre_pano_b.jpg" />
-            <up    url="../offshore_panos/theatre_pano_u.jpg" />
-            <down  url="../offshore_panos/theatre_pano_d.jpg" />
-        </tablet>
+    <image>
+      <left  url="../offshore_panos/theatre_pano_l.jpg" />
+      <front url="../offshore_panos/theatre_pano_f.jpg" />
+      <right url="../offshore_panos/theatre_pano_r.jpg" />
+      <back  url="../offshore_panos/theatre_pano_b.jpg" />
+      <up    url="../offshore_panos/theatre_pano_u.jpg" />
+      <down  url="../offshore_panos/theatre_pano_d.jpg" />
+
+      <tablet>
+          <left  url="../offshore_panos/theatre_pano_l.jpg" />
+          <front url="../offshore_panos/theatre_pano_f.jpg" />
+          <right url="../offshore_panos/theatre_pano_r.jpg" />
+          <back  url="../offshore_panos/theatre_pano_b.jpg" />
+          <up    url="../offshore_panos/theatre_pano_u.jpg" />
+          <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      </tablet>
     </image>
 
 
@@ -1948,8 +2002,7 @@
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(master.loadOverlay(redbook.html));
-           js(xml.setCache(-160,90))"
+      onclick="js(master.loadOverlay(redbook.html)); js(xml.setCache(-160,90));"
       onhover="js(xml.hoverSound()) "
       onout="js(xml.resetHoverSound());"
       scale="3.0"
@@ -2022,6 +2075,169 @@
 
 
 
+  <scene name="redbook_vr">
+
+    <view hlookat="145" fov="90.0" />
+
+    <image>
+      <left  url="../offshore_panos/theatre_pano_l.jpg" />
+      <front url="../offshore_panos/theatre_pano_f.jpg" />
+      <right url="../offshore_panos/theatre_pano_r.jpg" />
+      <back  url="../offshore_panos/theatre_pano_b.jpg" />
+      <up    url="../offshore_panos/theatre_pano_u.jpg" />
+      <down  url="../offshore_panos/theatre_pano_d.jpg" />
+
+      <tablet>
+          <left  url="../offshore_panos/theatre_pano_l.jpg" />
+          <front url="../offshore_panos/theatre_pano_f.jpg" />
+          <right url="../offshore_panos/theatre_pano_r.jpg" />
+          <back  url="../offshore_panos/theatre_pano_b.jpg" />
+          <up    url="../offshore_panos/theatre_pano_u.jpg" />
+          <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      </tablet>
+    </image>
+
+    <plugin
+     name="redbook"
+     url="./plugins/vr.overlay.js"
+     ath="145"
+     obj="../images/obj/book.obj"
+     texture="../images/books/redbook/redbook-1-1024.jpg"
+     />
+
+    <plugin
+     name="pages-1"
+     url="./plugins/vr.overlay.js"
+     ath="235"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/redbook/redbook-2-1024.jpg"
+     />
+
+    <plugin
+     name="pages-2"
+     url="./plugins/vr.overlay.js"
+     ath="325"
+     obj="../images/obj/page-turn-1.obj"
+     texture="../images/books/redbook/redbook-3-1024.jpg"
+     />
+
+    <plugin
+     name="pages-3"
+     url="./plugins/vr.overlay.js"
+     ath="55"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/redbook/redbook-4-1024.jpg"
+     />
+
+    <hotspot name="vrvideo_close"
+     url="../images/icons/close_icon.png"
+     ath="140"
+     atv="47"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(overlayVR.close('theatre'));"
+     alpha="0.5"
+     width="60"
+     height="60"
+    />
+
+
+  </scene>
+
+
+
+
+
+  <scene name="leasemap_vr">
+
+    <view hlookat="145" fov="90.0" />
+
+    <image>
+      <left  url="../offshore_panos/theatre_pano_l.jpg" />
+      <front url="../offshore_panos/theatre_pano_f.jpg" />
+      <right url="../offshore_panos/theatre_pano_r.jpg" />
+      <back  url="../offshore_panos/theatre_pano_b.jpg" />
+      <up    url="../offshore_panos/theatre_pano_u.jpg" />
+      <down  url="../offshore_panos/theatre_pano_d.jpg" />
+
+      <tablet>
+          <left  url="../offshore_panos/theatre_pano_l.jpg" />
+          <front url="../offshore_panos/theatre_pano_f.jpg" />
+          <right url="../offshore_panos/theatre_pano_r.jpg" />
+          <back  url="../offshore_panos/theatre_pano_b.jpg" />
+          <up    url="../offshore_panos/theatre_pano_u.jpg" />
+          <down  url="../offshore_panos/theatre_pano_d.jpg" />
+      </tablet>
+    </image>
+
+    <plugin
+     name="leasemap1"
+     url="./plugins/vr.overlay.js"
+     ath="144"
+     atv="0"
+     depth="3.5"
+     obj="../images/obj/leasemap1.obj"
+     texture="../images/lease_map/lease_vr_01.jpg"
+     />
+
+    <plugin
+     name="leasemap2"
+     url="./plugins/vr.overlay.js"
+     ath="218"
+     atv="0.5"
+     depth="3.5"
+     obj="../images/obj/leasemap2.obj"
+     texture="../images/lease_map/lease_vr_02.jpg"
+     />
+
+    <plugin
+     name="leasemap3"
+     url="./plugins/vr.overlay.js"
+     ath="289"
+     atv="-0.5"
+     depth="3.5"
+     obj="../images/obj/leasemap3.obj"
+     texture="../images/lease_map/lease_vr_03.jpg"
+     />
+
+    <plugin
+     name="leasemap4"
+     url="./plugins/vr.overlay.js"
+     atv="1.2"
+     ath="1"
+     depth="3.5"
+     obj="../images/obj/leasemap5.obj"
+     texture="../images/lease_map/lease_vr_04.jpg"
+     />
+
+    <plugin
+     name="leasemap5"
+     url="./plugins/vr.overlay.js"
+     atv="0.4"
+     ath="73"
+     depth="3.5"
+     obj="../images/obj/leasemap5.obj"
+     texture="../images/lease_map/lease_vr_05.jpg"
+     />
+
+    <hotspot name="vrvideo_close"
+     url="../images/icons/close_icon.png"
+     ath="140"
+     atv="47"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(overlayVR.close('theatre'));"
+     alpha="0.5"
+     width="60"
+     height="60"
+    />
+
+
+  </scene>
 
 
 
