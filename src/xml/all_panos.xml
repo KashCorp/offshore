@@ -213,12 +213,26 @@
         fovmin="10.0"
         />
 
+      <plugin name="videosphere"
+              url.flash="%SWFPATH%/plugins/videoplayer.swf"
+              url.html5="%SWFPATH%/plugins/videoplayer.js"
+              videourl="../../videos/view-from-rig.webm"
+              loop="true"
+              pausedonstart="false"
+              visible="false"
+              use_as_videopano="true"
+              />
+
       <image>
+        <sphere url="plugin:videosphere" />
+      </image>
+
+      <!-- <image>
         <cube url="../offshore_panos/prologue_pano_%s.jpg" />
         <mobile>
           <cube url="../offshore_panos/prologue_pano_%s.jpg" />
         </mobile>
-      </image>
+      </image> -->
 
       <hotspot name="LOGO"
         url="../images/offshore_logo.png"
@@ -523,12 +537,13 @@
         fov="90.0"
         fovmax="120.0"
         fovmin="1.0"
-      limitview ="lookat"
+      />
+
+      <!-- limitview ="lookat"
       hlookatmin ="NAN"
       hlookatmax ="NaN"
       vlookatmin ="20"
-      vlookatmax ="-45"
-      />
+      vlookatmax ="-45" -->
 
     <image>
         <cube url="../offshore_panos/lowerplatform_pano_%s.jpg" />
@@ -644,12 +659,14 @@
         fov="90.0"
         fovmax="120.0"
         fovmin="15.0"
-        limitview ="lookat"
-        hlookatmin ="NAN"
-        hlookatmax ="NaN"
-        vlookatmin ="20"
-        vlookatmax ="-45"
         />
+
+<!--       limitview ="lookat"
+      hlookatmin ="NAN"
+      hlookatmax ="NaN"
+      vlookatmin ="20"
+      vlookatmax ="-45"
+ -->
 
       <image>
         <cube url="../offshore_panos/boat_pano_%s.jpg" />
@@ -810,13 +827,14 @@
         fov="90.0"
         fovmax="120.0"
         fovmin="4.0"
-        limitview ="lookat"
-        hlookatmin ="NAN"
-        hlookatmax ="NaN"
-        vlookatmin ="20"
-        vlookatmax ="-45"
       />
 
+<!--       limitview ="lookat"
+      hlookatmin ="NAN"
+      hlookatmax ="NaN"
+      vlookatmin ="20"
+      vlookatmax ="-45"
+ -->
       <image>
           <left  url="../offshore_panos/subhangar_pano_l.jpg" />
           <front url="../offshore_panos/subhangar_pano_f.png" />
@@ -952,12 +970,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="5.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
     />
+
+  <!-- limitview ="lookat"
+  hlookatmin ="NAN"
+  hlookatmax ="NaN"
+  vlookatmin ="20"
+  vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/chemicalroom_pano_l.jpg" />
@@ -1224,12 +1243,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="1.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
       />
+
+    <!-- limitview ="lookat"
+    hlookatmin ="NAN"
+    hlookatmax ="NaN"
+    vlookatmin ="20"
+    vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/controlroom_pano_l.jpg" />
@@ -1583,12 +1603,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="1.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
      />
+
+     <!-- limitview ="lookat"
+     hlookatmin ="NAN"
+     hlookatmax ="NaN"
+     vlookatmin ="20"
+     vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/hallway_pano_l.jpg" />
@@ -1797,12 +1818,13 @@
       fov="65.0"
       fovmax="120.0"
       fovmin="15.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
     />
+
+    <!-- limitview ="lookat"
+    hlookatmin ="NAN"
+    hlookatmax ="NaN"
+    vlookatmin ="20"
+    vlookatmax ="-45" -->
 
     <image>
       <left  url="../offshore_panos/interiorsub_pano_l.jpg" />
@@ -1907,12 +1929,13 @@
       fov="90.0"
       fovmax="120.0"
       fovmin="20.0"
-      limitview ="lookat"
-      hlookatmin ="NAN"
-      hlookatmax ="NaN"
-      vlookatmin ="20"
-      vlookatmax ="-45"
     />
+
+    <!-- limitview ="lookat"
+    hlookatmin ="NAN"
+    hlookatmax ="NaN"
+    vlookatmin ="20"
+    vlookatmax ="-45" -->
 
     <image>
       <left  url="../offshore_panos/theatre_pano_l.jpg" />
