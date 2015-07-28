@@ -15,16 +15,12 @@ function krpanoplugin(){
 	var plugin = null;
 	var object = null
 
-
-	var objTexture, animationScript;
-
 	local.registerplugin = function(krpanointerface, pluginpath, pluginobject){
-		console.log(pluginobject);
 		krpano = krpanointerface;
 		device = krpano.device;
 		plugin = pluginobject;
 
-        objTexture = plugin.texture;
+		plugin.registerattribute('animation', '');
 
 	    krpano.debugmode = true;
 	    krpano.trace(0, "ThreeJS krpano plugin");
@@ -47,7 +43,8 @@ function krpanoplugin(){
 		scriptArray = ["./plugins/vr.three.min.js","./plugins/OBJLoader.js"]
 
 		if(plugin.animation){
-			scriptArray.push('./plugins/' + plugin.animation)
+			console.log('plugin.animation', plugin.animation);
+			scriptArray.push(plugin.animation)
 		}
 
 		load_scripts(scriptArray, start);
@@ -423,19 +420,14 @@ function krpanoplugin(){
 
 	function build_scene(){
 		clock = new THREE.Clock();
-		
-		if(!objTexture){
-			objTexture = '../images/books/dossier/vr-1.jpg'
-		}
 
 		// load 3d objects
-
 		var manager = new THREE.LoadingManager();
 		manager.onProgress = function ( item, loaded, total ) {
 			console.log( item, loaded, total );
 		};
 
-		var texture = new THREE.Texture();
+		// var texture = new THREE.Texture();
 
 		var onProgress = function ( xhr ) {
 			if ( xhr.lengthComputable ) {
@@ -446,14 +438,14 @@ function krpanoplugin(){
 
 		var onError = function ( xhr ) {};
 
-		// load the book texture
-		var loader = new THREE.ImageLoader( manager );
-		loader.load( resolve_url_path(objTexture), function ( image ) {
-			texture.image = image;
-			texture.needsUpdate = true;
-		});
+		// // load the book texture
+		// var loader = new THREE.ImageLoader( manager );
+		// loader.load( resolve_url_path(objTexture), function ( image ) {
+		// 	texture.image = image;
+		// 	texture.needsUpdate = true;
+		// });
 
-		// load the book model
+		// load the model
 		var loader = new THREE.OBJLoader( manager );
 		loader.load( resolve_url_path(plugin.model), function ( _object ) {
 
@@ -491,13 +483,13 @@ function krpanoplugin(){
 		directionalLight.position.normalize();
 		scene.add( directionalLight );
 
-		
+
 
 	}
 
 
 
-   
+
 	function update_scene(){
 
 		if(THREEANIM){

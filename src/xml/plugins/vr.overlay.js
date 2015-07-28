@@ -32,6 +32,7 @@ function krpanoplugin(){
 		plugin.registerattribute('depth', 3.0);
 		plugin.registerattribute('obj', '');
 		plugin.registerattribute('texture', '');
+		plugin.registerattribute('animation', '');
 
 		if(!plugin.obj || !plugin.texture){
 			krpano.trace(2,'Can’t load VR Overlay: need an obj and a texture attribute!');
@@ -51,8 +52,13 @@ function krpanoplugin(){
 		krpano.debugmode = true;
 		krpano.trace(0, "ThreeJS krpano plugin");
 
-		// load the requiered three.js scripts
-		load_scripts(["./plugins/vr.three.min.js", "./plugins/OBJLoader.js"], start);
+		// load the scripts
+		var scriptArray = ["./plugins/vr.three.min.js", "./plugins/OBJLoader.js"];
+
+		if(plugin.animation){
+			scriptArray.push(plugin.animation);
+		}
+		load_scripts(scriptArray, start);
 	}
 
 	local.unloadplugin = function(){
@@ -130,15 +136,11 @@ function krpanoplugin(){
 		// enable continuous rendering (that means render every frame, not just when the view has changed)
 		krpano.view.continuousupdates = true;
 
-		// register mouse and touch events
-		if (device.browser.events.mouse)
-		{
-			krpano.control.layer.addEventListener("mousedown", handle_mouse_touch_events, true);
-		}
-		if (device.browser.events.touch)
-		{
-			krpano.control.layer.addEventListener(device.browser.events.touchstart, handle_mouse_touch_events, true);
-		}
+		// // register mouse and touch events
+		// if (device.browser.events.mouse)
+		// 	krpano.control.layer.addEventListener("mousedown", handle_mouse_touch_events, true);
+		// if (device.browser.events.touch)
+		// 	krpano.control.layer.addEventListener(device.browser.events.touchstart, handle_mouse_touch_events, true);
 
 		// basic ThreeJS objects
 		scene = new THREE.Scene();
@@ -456,7 +458,11 @@ function krpanoplugin(){
 			object.traverse( function ( child ) {
 				if ( child instanceof THREE.Mesh ) {
 					child.scale.set(1.9, 1.9, 1.9);
-					child.material.map = texture;
+					if(plugin.texture){
+						child.material.map = texture;
+					} else if( plugin.color) {
+						child.material.color.setRGB (plugin.color);
+					}
 				}
 			});
 
@@ -473,6 +479,10 @@ function krpanoplugin(){
 
 			object.rotateOnAxis( new THREE.Vector3(0,1,0), M_RAD * (rotation + Math.random()*5) );
 			object.rotateOnAxis( new THREE.Vector3(1,0,0), -Math.PI* (0.4 + Math.random()/5) );
+
+			if(THREEANIM){
+				THREEANIM.objInit(object,camera)
+			}
 
 			scene.add( object );
 
@@ -502,150 +512,150 @@ function krpanoplugin(){
 
 
 
-	function do_object_hittest(mx, my)
-	{
-		var mouse_x = (mx / krpano.area.pixelwidth)  * 2.0 - 1.0;
-		var mouse_y = (my / krpano.area.pixelheight) * 2.0 - 1.0;
+	// function do_object_hittest(mx, my)
+	// {
+	// 	var mouse_x = (mx / krpano.area.pixelwidth)  * 2.0 - 1.0;
+	// 	var mouse_y = (my / krpano.area.pixelheight) * 2.0 - 1.0;
 
-		if (krpano.display.stereo)
-		{
-			mouse_x += (mouse_x < 0.0 ? +1 : -1) * (1.0 - Number(krpano.display.stereooverlap)) * 0.5;
-		}
+	// 	if (krpano.display.stereo)
+	// 	{
+	// 		mouse_x += (mouse_x < 0.0 ? +1 : -1) * (1.0 - Number(krpano.display.stereooverlap)) * 0.5;
+	// 	}
 
-		camera_hittest_raycaster.ray.direction.set(mouse_x, -mouse_y, 1.0).unproject(camera).normalize();
+	// 	camera_hittest_raycaster.ray.direction.set(mouse_x, -mouse_y, 1.0).unproject(camera).normalize();
 
-		var intersects = camera_hittest_raycaster.intersectObjects( scene.children );
-		var i;
-		var obj;
+	// 	var intersects = camera_hittest_raycaster.intersectObjects( scene.children );
+	// 	var i;
+	// 	var obj;
 
-		for (i=0; i < intersects.length; i++)
-		{
-			obj = intersects[i].object;
-			if (obj && obj.properties && obj.properties.enabled)
-			{
-				return obj;
-			}
-		}
+	// 	for (i=0; i < intersects.length; i++)
+	// 	{
+	// 		obj = intersects[i].object;
+	// 		if (obj && obj.properties && obj.properties.enabled)
+	// 		{
+	// 			return obj;
+	// 		}
+	// 	}
 
-		return null;
-	}
-
-
-	var handle_mouse_hitobject = null;
-
-	function handle_mouse_touch_events(event)
-	{
-		var type = "";
-
-		if (event.type == "mousedown")
-		{
-			type = "ondown";
-			krpano.control.layer.addEventListener("mouseup", handle_mouse_touch_events, true);
-		}
-		else if (event.type == "mouseup")
-		{
-			type = "onup";
-			krpano.control.layer.removeEventListener("mouseup", handle_mouse_touch_events, true);
-		}
-		else if (event.type == device.browser.events.touchstart)
-		{
-			type = "ondown";
-			krpano.control.layer.addEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
-		}
-		else if (event.type == device.browser.events.touchend)
-		{
-			type = "onup";
-			krpano.control.layer.removeEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
-		}
-
-		// get mouse / touch pos
-		var ms = krpano.control.getMousePos(event.changedTouches ? event.changedTouches[0] : event);
-		ms.x /= krpano.stagescale;
-		ms.y /= krpano.stagescale;
-
-		// is there a object as that pos?
-		var hitobj = do_object_hittest(ms.x, ms.y);
-
-		if (type == "ondown")
-		{
-			if (hitobj)
-			{
-				handle_mouse_hitobject = hitobj;
-
-				hitobj.properties.pressed = true;
-
-				if (hitobj.properties.ondown)
-				{
-					hitobj.properties.ondown(hitobj);
-				}
-
-				if (hitobj.properties.capture)
-				{
-					krpano.mouse.down = true;
-					event.stopPropagation();
-				}
-
-				event.preventDefault();
-			}
-		}
-		else if (type == "onup")
-		{
-			if (handle_mouse_hitobject && handle_mouse_hitobject.properties.enabled)
-			{
-				if (handle_mouse_hitobject.properties.pressed)
-				{
-					handle_mouse_hitobject.properties.pressed = false;
-
-					if (handle_mouse_hitobject.properties.onup)
-					{
-						handle_mouse_hitobject.properties.onup(handle_mouse_hitobject);
-					}
-				}
-
-				if (handle_mouse_hitobject.properties.onclick)
-				{
-					if ( hitobj == handle_mouse_hitobject )
-					{
-						handle_mouse_hitobject.properties.onclick(handle_mouse_hitobject);
-					}
-				}
-			}
-
-			krpano.mouse.down = false;
-		}
-	}
+	// 	return null;
+	// }
 
 
-	function handle_mouse_hovering()
-	{
-		// check mouse over state
-		if (krpano.mouse.down == false)		// currently not dragging?
-		{
-			var hitobj = do_object_hittest(krpano.mouse.x, krpano.mouse.y);
+	// var handle_mouse_hitobject = null;
 
-			if (hitobj != handle_mouse_hitobject)
-			{
-				if (handle_mouse_hitobject)
-				{
-					handle_mouse_hitobject.properties.hovering = false;
-					if (handle_mouse_hitobject.properties.onout)	handle_mouse_hitobject.properties.onout(handle_mouse_hitobject);
-				}
+	// function handle_mouse_touch_events(event)
+	// {
+	// 	var type = "";
 
-				if (hitobj)
-				{
-					hitobj.properties.hovering = true;
-					if (hitobj.properties.onover)	hitobj.properties.onover(hitobj);
-				}
+	// 	if (event.type == "mousedown")
+	// 	{
+	// 		type = "ondown";
+	// 		krpano.control.layer.addEventListener("mouseup", handle_mouse_touch_events, true);
+	// 	}
+	// 	else if (event.type == "mouseup")
+	// 	{
+	// 		type = "onup";
+	// 		krpano.control.layer.removeEventListener("mouseup", handle_mouse_touch_events, true);
+	// 	}
+	// 	else if (event.type == device.browser.events.touchstart)
+	// 	{
+	// 		type = "ondown";
+	// 		krpano.control.layer.addEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
+	// 	}
+	// 	else if (event.type == device.browser.events.touchend)
+	// 	{
+	// 		type = "onup";
+	// 		krpano.control.layer.removeEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
+	// 	}
 
-				handle_mouse_hitobject = hitobj;
-			}
+	// 	// get mouse / touch pos
+	// 	var ms = krpano.control.getMousePos(event.changedTouches ? event.changedTouches[0] : event);
+	// 	ms.x /= krpano.stagescale;
+	// 	ms.y /= krpano.stagescale;
 
-			if (handle_mouse_hitobject || (krpano.display.stereo == false && krpano.display.hotspotrenderer != "webgl"))
-			{
-				krpano.cursors.update(false, !!handle_mouse_hitobject);
-			}
-		}
-	}
+	// 	// is there a object as that pos?
+	// 	var hitobj = do_object_hittest(ms.x, ms.y);
+
+	// 	if (type == "ondown")
+	// 	{
+	// 		if (hitobj)
+	// 		{
+	// 			handle_mouse_hitobject = hitobj;
+
+	// 			hitobj.properties.pressed = true;
+
+	// 			if (hitobj.properties.ondown)
+	// 			{
+	// 				hitobj.properties.ondown(hitobj);
+	// 			}
+
+	// 			if (hitobj.properties.capture)
+	// 			{
+	// 				krpano.mouse.down = true;
+	// 				event.stopPropagation();
+	// 			}
+
+	// 			event.preventDefault();
+	// 		}
+	// 	}
+	// 	else if (type == "onup")
+	// 	{
+	// 		if (handle_mouse_hitobject && handle_mouse_hitobject.properties.enabled)
+	// 		{
+	// 			if (handle_mouse_hitobject.properties.pressed)
+	// 			{
+	// 				handle_mouse_hitobject.properties.pressed = false;
+
+	// 				if (handle_mouse_hitobject.properties.onup)
+	// 				{
+	// 					handle_mouse_hitobject.properties.onup(handle_mouse_hitobject);
+	// 				}
+	// 			}
+
+	// 			if (handle_mouse_hitobject.properties.onclick)
+	// 			{
+	// 				if ( hitobj == handle_mouse_hitobject )
+	// 				{
+	// 					handle_mouse_hitobject.properties.onclick(handle_mouse_hitobject);
+	// 				}
+	// 			}
+	// 		}
+
+	// 		krpano.mouse.down = false;
+	// 	}
+	// }
+
+
+	// function handle_mouse_hovering()
+	// {
+	// 	// check mouse over state
+	// 	if (krpano.mouse.down == false)		// currently not dragging?
+	// 	{
+	// 		var hitobj = do_object_hittest(krpano.mouse.x, krpano.mouse.y);
+
+	// 		if (hitobj != handle_mouse_hitobject)
+	// 		{
+	// 			if (handle_mouse_hitobject)
+	// 			{
+	// 				handle_mouse_hitobject.properties.hovering = false;
+	// 				if (handle_mouse_hitobject.properties.onout)	handle_mouse_hitobject.properties.onout(handle_mouse_hitobject);
+	// 			}
+
+	// 			if (hitobj)
+	// 			{
+	// 				hitobj.properties.hovering = true;
+	// 				if (hitobj.properties.onover)	hitobj.properties.onover(hitobj);
+	// 			}
+
+	// 			handle_mouse_hitobject = hitobj;
+	// 		}
+
+	// 		if (handle_mouse_hitobject || (krpano.display.stereo == false && krpano.display.hotspotrenderer != "webgl"))
+	// 		{
+	// 			krpano.cursors.update(false, !!handle_mouse_hitobject);
+	// 		}
+	// 	}
+	// }
 
 
 	function update_scene()
@@ -655,6 +665,10 @@ function krpanoplugin(){
 
 		for (var i=0; i < animatedobjects.length; i++){
 			animatedobjects[i].updateAnimation(1000 * delta);
+		}
+
+		if(THREEANIM){
+			THREEANIM.objAnim()
 		}
 
 		handle_mouse_hovering();

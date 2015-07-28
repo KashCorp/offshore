@@ -234,7 +234,18 @@
         </mobile>
       </image> -->
 
-      <plugin name="vroverlay" url="./plugins/vr.3dobj.js" model='../images/obj/helicopter.obj' animation='animation-prologue.js' />
+      <plugin name="vroverlay"
+        url="./plugins/vr.3dobj.js"
+        model="../images/obj/helicopter.obj"
+        animation="../../js/animations/animation-prologue.js"
+        />
+
+      <!-- <plugin name="vroverlay"
+        url="./plugins/vr.overlay.js"
+        obj="../images/obj/helicopter.obj"
+        color="0.8, 0.8, 0.8"
+        animation="../js/animations/animation-prologue.js"
+        /> -->
 
       <hotspot name="LOGO"
         url="../images/offshore_logo.png"
@@ -1062,7 +1073,7 @@
       height="300.0"
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      onclick="js(xml.zoom_and_change_pano('chemicalroom','hallway'))"
+      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('chemicalroom','hallway')) );"
       scale="0.7"
       />
 
@@ -1535,7 +1546,7 @@
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
       capture="false"
-      onclick="js(xml.zoom_and_change_pano('controlroom','hallway'))"
+      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('controlroom','hallway')) );"
       scale="1.0"
     />
 
@@ -2034,7 +2045,7 @@
       distorted="true"
       alpha="0.0"
       height="30.0"
-      onclick="js(xml.zoom_and_change_pano('theatre','hallway'))"
+      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('theatre','hallway')) ); "
       onhover="js(xml.hoverSound()) "
       onout="js(xml.resetHoverSound());"
       scale="3.0"
@@ -2051,8 +2062,6 @@
       onout="js(xml.resetHoverSound());"
       scale="3.0"
       />
-
-
 
 
     <hotspot name="corridor_02" url="../images/hotspot.gif"
@@ -2341,14 +2350,31 @@
 
 
 
-  <scene name="sequence_corridor" onstart="plugin[videosphere].play(); if(corridorDestination === 'hallway', set(view.hlookat,270) ); ">
-
-    <view hlookat="0" />
+  <scene name="sequence_corridor" onstart="plugin[videosphere].play();">
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-corridor-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
+
+  <scene name="sequence_corridor_backwards" onstart="plugin[videosphere].play();">
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-corridor-backwards-VR.webm"
             loop="false"
             pausedonstart="false"
             visible="false"

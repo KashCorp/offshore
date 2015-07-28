@@ -229,11 +229,9 @@ var pano = (function(){
       if(globals.vr){
         if(_pano.indexOf('corridor') !== -1){
           var split = _pano.split('_')
-          console.log('split', split);
           var destination = split[2];
-          console.log('destination', destination);
           exports.krpano.set('corridorDestination', destination);
-          _pano = 'sequence_corridor'
+          _pano = (destination === 'hallway') ? 'sequence_corridor_backwards' : 'sequence_corridor'
         }
         exports.krpano.call('loadscene('+_pano+', null, MERGE, BLEND(1));');
       } else {
