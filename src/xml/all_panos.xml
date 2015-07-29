@@ -216,7 +216,7 @@
       <plugin name="videosphere"
               url.flash="%SWFPATH%/plugins/videoplayer.swf"
               url.html5="%SWFPATH%/plugins/videoplayer.js"
-              videourl="../../videos/view-from-rig.webm"
+              videourl="../../videos/view-from-rig-3000px.webm"
               loop="true"
               pausedonstart="false"
               visible="false"
@@ -943,28 +943,81 @@
 
 
       />
-      <hotspot name="requiem"
-        url="plugins/textfield.swf"
-        ath="85"
-        atv="-10"
-        children="false"
-        edge="righttop"
-        background="false"
-        capture="false"
-        color="0xffffff"
-        handcursor="true"
-        height="50"
-        html="[h2] On The Water [h2]"
-        css="data:flag"
-        autoheight="false"
-        vcenter="true"
-        width="300"
-        onclick="lookto(60,0,5,tween(easeOutQuad,2),true,true);
-             set(hotspot[requiem].enabled,false);
-             js(xml.setCache(-50,90))"
-      />
+
+    <hotspot name="requiem"
+      url="plugins/textfield.swf"
+      ath="85"
+      atv="-10"
+      children="false"
+      edge="righttop"
+      background="false"
+      capture="false"
+      color="0xffffff"
+      handcursor="true"
+      height="50"
+      html="[h2] On The Water [h2]"
+      css="data:flag"
+      autoheight="false"
+      vcenter="true"
+      width="300"
+      onclick="lookto(60,0,5,tween(easeOutQuad,2),true,true);
+           set(hotspot[requiem].enabled,false);
+           js(xml.setCache(-50,90))"
+    />
 
     </scene>
+
+
+
+
+
+
+    <scene name="skype_vr">
+
+      <view hlookat="20" fov="90.0" />
+
+      <image>
+          <left  url="../offshore_panos/subhangar_pano_l.jpg" />
+          <front url="../offshore_panos/subhangar_pano_f.png" />
+          <right url="../offshore_panos/subhangar_pano_r.png" />
+          <back  url="../offshore_panos/subhangar_pano_b.jpg" />
+          <up    url="../offshore_panos/subhangar_pano_u.jpg" />
+          <down  url="../offshore_panos/subhangar_pano_d.jpg" />
+
+          <tablet>
+              <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
+              <front url="../offshore_panos/512/subhangar_pano_f.png" />
+              <right url="../offshore_panos/512/subhangar_pano_r.png" />
+              <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
+              <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
+              <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />
+          </tablet>
+      </image>
+
+      <plugin name="skype"
+       url="./plugins/vr.skype.js"
+       vidsrc="../videos/RA-1-VR.webm"
+       />
+
+      <hotspot name="vrvideo_close"
+       url="../images/icons/close_icon.png"
+       ath="10"
+       atv="100"
+       distorted="true"
+       inverserotation="true"
+       zorder2="1"
+       zoom="true"
+       onclick="js(overlayVR.close())"
+       alpha="0.5"
+       width="50"
+       height="50"
+      />
+
+
+    </scene>
+
+
+
 
 
 
@@ -1855,7 +1908,6 @@
             <up    url="../offshore_panos/512/interiorsub_pano_u.jpg" />
             <down  url="../offshore_panos/512/interiorsub_pano_d.jpg" />
         </tablet>
-
     </image>
 
 
@@ -1926,6 +1978,11 @@
     />
 
   </scene>
+
+
+
+
+
 
 
 

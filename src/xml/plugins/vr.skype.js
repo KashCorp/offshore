@@ -14,7 +14,7 @@ function krpanoplugin() {
   var device = null;
   var plugin = null;
 
-  console.log("starting video pano")
+  console.log("starting VR skype")
 
   var video, videoImage, videoImageContext, videoTexture, vidSrc;
 
@@ -23,7 +23,7 @@ function krpanoplugin() {
     device = krpano.device;
     plugin = pluginobject;
 
-    vidSrc = krpano.get('vrvideo');
+    plugin.registerattribute('vidsrc', '');
 
     plugin.pause = pause;
     plugin.play = play;
@@ -43,40 +43,20 @@ function krpanoplugin() {
     krpano.trace(0, "ThreeJS krpano plugin");
 
     // load the requiered three.js scripts
-    load_scripts(["./plugins/vrvideo.three.min.js"], startThreeJS);
+    load_scripts(["./plugins/vr.three.min.js", './plugins/OBJLoader.js'], startThreeJS);
 
   }
 
   local.unloadplugin = function() {
-    // no unloading support at the moment
-    console.log('DIEEEEEE');
 
-    // // deregister krpano events
+    // deregister krpano events
     krpano.set("events[__threejs__].keep", false);
     krpano.set("events[__threejs__].onviewchange", false);
     krpano.set("events[__threejs__].onviewchanged", false);
 
-    // // deregister user input events
-
-    // if (device.browser.events.mouse){
-    //   krpano.control.layer.removeEventListener("mousedown", handle_mouse_touch_events);
-    // }
-    // if (device.browser.events.touch){
-    //   krpano.control.layer.removeEventListener(device.browser.events.touchstart, handle_mouse_touch_events);
-    // }
-// unload video
+    // unload video
     video.src = ''
     video = null
-
-    // unload three
-
-    //scene.remove( box );
-    // scene = null;
-    // camera = null;
-    // stereocamera = null;
-    // camera_hittest_raycaster = null;
-    // krpano_panoview_euler = null;
-    // renderer = null;
 
   }
 
@@ -84,13 +64,11 @@ function krpanoplugin() {
     return false;
   }
 
-
+  // adjust relative url path
   function resolve_url_path(url) {
     if (url.charAt(0) != "/" && url.indexOf("://") < 0){
-      // adjust relative url path
       url = krpano.parsepath("%CURRENTXML%/" + url);
     }
-
     return url;
   }
 
@@ -145,13 +123,13 @@ function krpanoplugin() {
     // enable continuous rendering (that means render every frame, not just when the view has changed)
     krpano.view.continuousupdates = true;
 
-    // register mouse and touch events
-    if (device.browser.events.mouse){
-      krpano.control.layer.addEventListener("mousedown", handle_mouse_touch_events, true);
-    }
-    if (device.browser.events.touch){
-      krpano.control.layer.addEventListener(device.browser.events.touchstart, handle_mouse_touch_events, true);
-    }
+    // // register mouse and touch events
+    // if (device.browser.events.mouse){
+    //   krpano.control.layer.addEventListener("mousedown", handle_mouse_touch_events, true);
+    // }
+    // if (device.browser.events.touch){
+    //   krpano.control.layer.addEventListener(device.browser.events.touchstart, handle_mouse_touch_events, true);
+    // }
 
     // basic ThreeJS objects
     scene = new THREE.Scene();
@@ -435,58 +413,120 @@ function krpanoplugin() {
 
   /**************************************************************************
 
-    Build Scene
+    ######  ##   ## #### ##    ######
+    ##   ## ##   ##  ##  ##    ##   ##
+    ######  ##   ##  ##  ##    ##   ##
+    ##   ## ##   ##  ##  ##    ##   ##
+    ######   #####  #### ##### ######
 
   **************************************************************************/
 
   function build_scene() {
     clock = new THREE.Clock();
 
-    console.log('vidSrc:', vidSrc);
+    // position
+
+    var rotation = 280;
+
+    var x = 1 * Math.sin( rotation * M_RAD );
+    var y = 1 * Math.cos( rotation * M_RAD );
+
 
     video = document.createElement( 'video' );
-    video.src = vidSrc;
-    video.load(); // must call after setting/changing source
 
-    var canplaythrough = function() {
-      video.removeEventListener('canplaythrough', canplaythrough);
-      video.play();
-    };
-    video.addEventListener('canplaythrough', canplaythrough, false);
 
-    video.addEventListener('ended', ended, false);
+    // ipad model ********************************************************
 
-    videoImage = document.createElement( 'canvas' );
-    videoImage.width = 1280;
-    videoImage.height = 720;
+    var manager = new THREE.LoadingManager();
 
-    videoImageContext = videoImage.getContext('2d');
+    var onProgress = function ( xhr ) {};
+    var onError = function ( xhr ) {};
 
-    // background color if no video present
-    videoImageContext.fillStyle = '#ff0000';
-    videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height );
+    // load the model
+    var loader = new THREE.OBJLoader( manager );
+    loader.load( 'images/obj/ipad.obj', function ( ipad ) {
 
-    videoTexture = new THREE.Texture( videoImage );
-    videoTexture.minFilter = THREE.LinearFilter;
-    videoTexture.magFilter = THREE.LinearFilter;
+      ipad.traverse( function ( child ) {
+        if ( child instanceof THREE.Mesh ) {
+          child.scale.set(1, 1, 1);
+          child.material.color.setRGB(0.2, 0.2, 0.2);
+        }
+      });
 
-    // create a textured 3d box
-    box = new THREE.Mesh(new THREE.BoxGeometry(1920,1080,1), new THREE.MeshBasicMaterial({ map: videoTexture, opacity: 1}));
+      ipad.position.y = 0;
+      ipad.position.x = x;
+      ipad.position.z = y;
 
-    assign_object_properties(box, "box", {ath:0, atv:0, depth: 1000, zorder:0, alpha: 0.1, capture: false});
-    scene.add( box );
+      ipad.rotation.x = -Math.PI/2;
+      ipad.rotation.z = M_RAD * (rotation);
 
-    //scene.fog = new THREE.FogExp2( 0xefd1b5, 1000 );
-    box.properties.ry = 90
-    box.properties.rz = 180
+      scene.add( ipad );
+
+
+      // video screen ********************************************************
+
+      video.src = plugin.vidsrc;
+      video.volume = 0;
+      video.load();
+
+      var canplaythrough = function() {
+        video.removeEventListener('canplaythrough', canplaythrough);
+        video.play();
+      };
+      video.addEventListener('canplaythrough', canplaythrough, false);
+
+      videoImage = document.createElement( 'canvas' );
+      videoImage.width = 960;
+      videoImage.height = 720;
+
+      videoImageContext = videoImage.getContext('2d');
+
+      // background color if no video present
+      videoImageContext.fillStyle = '#ff0000';
+      videoImageContext.fillRect( 0, 0, videoImage.width, videoImage.height );
+
+      videoTexture = new THREE.Texture( videoImage );
+      videoTexture.minFilter = THREE.LinearFilter;
+      videoTexture.magFilter = THREE.LinearFilter;
+
+
+      // create a textured 3d box
+      box = new THREE.Mesh(new THREE.BoxGeometry(72/40,45/40,0.0), new THREE.MeshBasicMaterial({ map: videoTexture, opacity: 1}) );
+
+      box.rotation.y = M_RAD * (rotation-20);
+      box.rotation.x = Math.PI;
+
+      box.position.x = x;
+      box.position.z = y - 0.01;
+
+      scene.add( box );
+
+
+    }, onProgress, onError );
+
+
+
+    // lights ********************************************************
+
+    scene.add( new THREE.AmbientLight(0x555555) );
+
+    var light = new THREE.DirectionalLight(0xffffff, 0.6);
+    light.position.set( 5, 2, 3);
+    scene.add( light );
+
+    var light2 = new THREE.DirectionalLight(0xffffff, 0.2);
+    light2.position.set( -5, 0, 10);
+    scene.add( light2 );
+
+    var light3 = new THREE.AmbientLight(0x222222);
+    scene.add( light3 );
 
 
   }
 
   var ended = function(){
     video.removeEventListener('ended', ended, false);
-    console.log('ended');
-    krpano.call('js(videoPlayerVR.ended());');
+    krpano.call('js(overlayVR.close())');
   }
 
   var play = function(){
@@ -500,135 +540,126 @@ function krpanoplugin() {
   }
 
 
-  /**************************************************************************
 
-    ##   ## ####
-    ##   ##  ##
-    ##   ##  ##
-    ##   ##  ##
-     #####  ####
+  // function do_object_hittest(mx, my) {
+  //   var mouse_x = (mx / krpano.area.pixelwidth)  * 2.0 - 1.0;
+  //   var mouse_y = (my / krpano.area.pixelheight) * 2.0 - 1.0;
 
-  **************************************************************************/
+  //   if (krpano.display.stereo) {
+  //     mouse_x += (mouse_x < 0.0 ? +1 : -1) * (1.0 - Number(krpano.display.stereooverlap)) * 0.5;
+  //   }
 
-  function do_object_hittest(mx, my) {
-    var mouse_x = (mx / krpano.area.pixelwidth)  * 2.0 - 1.0;
-    var mouse_y = (my / krpano.area.pixelheight) * 2.0 - 1.0;
+  //   camera_hittest_raycaster.ray.direction.set(mouse_x, -mouse_y, 1.0).unproject(camera).normalize();
 
-    if (krpano.display.stereo) {
-      mouse_x += (mouse_x < 0.0 ? +1 : -1) * (1.0 - Number(krpano.display.stereooverlap)) * 0.5;
-    }
+  //   var intersects = camera_hittest_raycaster.intersectObjects( scene.children );
+  //   var i;
+  //   var obj;
 
-    camera_hittest_raycaster.ray.direction.set(mouse_x, -mouse_y, 1.0).unproject(camera).normalize();
+  //   for (i=0; i < intersects.length; i++) {
+  //     obj = intersects[i].object;
+  //     if (obj && obj.properties && obj.properties.enabled)
+  //     {
+  //       return obj;
+  //     }
+  //   }
 
-    var intersects = camera_hittest_raycaster.intersectObjects( scene.children );
-    var i;
-    var obj;
-
-    for (i=0; i < intersects.length; i++) {
-      obj = intersects[i].object;
-      if (obj && obj.properties && obj.properties.enabled)
-      {
-        return obj;
-      }
-    }
-
-    return null;
-  }
+  //   return null;
+  // }
 
 
-  var handle_mouse_hitobject = null;
+  // var handle_mouse_hitobject = null;
 
-  function handle_mouse_touch_events(event) {
-    var type = "";
+  // function handle_mouse_touch_events(event) {
+  //   var type = "";
 
-    if (event.type == "mousedown") {
-      type = "ondown";
-      krpano.control.layer.addEventListener("mouseup", handle_mouse_touch_events, true);
-    } else if (event.type == "mouseup") {
-      type = "onup";
-      krpano.control.layer.removeEventListener("mouseup", handle_mouse_touch_events, true);
-    } else if (event.type == device.browser.events.touchstart) {
-      type = "ondown";
-      krpano.control.layer.addEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
-    } else if (event.type == device.browser.events.touchend) {
-      type = "onup";
-      krpano.control.layer.removeEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
-    }
+  //   if (event.type == "mousedown") {
+  //     type = "ondown";
+  //     krpano.control.layer.addEventListener("mouseup", handle_mouse_touch_events, true);
+  //   } else if (event.type == "mouseup") {
+  //     type = "onup";
+  //     krpano.control.layer.removeEventListener("mouseup", handle_mouse_touch_events, true);
+  //   } else if (event.type == device.browser.events.touchstart) {
+  //     type = "ondown";
+  //     krpano.control.layer.addEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
+  //   } else if (event.type == device.browser.events.touchend) {
+  //     type = "onup";
+  //     krpano.control.layer.removeEventListener(device.browser.events.touchend, handle_mouse_touch_events, true);
+  //   }
 
-    // get mouse / touch pos
-    var ms = krpano.control.getMousePos(event.changedTouches ? event.changedTouches[0] : event);
-    ms.x /= krpano.stagescale;
-    ms.y /= krpano.stagescale;
+  //   // get mouse / touch pos
+  //   var ms = krpano.control.getMousePos(event.changedTouches ? event.changedTouches[0] : event);
+  //   ms.x /= krpano.stagescale;
+  //   ms.y /= krpano.stagescale;
 
-    // is there a object as that pos?
-    var hitobj = do_object_hittest(ms.x, ms.y);
+  //   // is there a object as that pos?
+  //   var hitobj = do_object_hittest(ms.x, ms.y);
 
-    if (type == "ondown") {
-      // video.play();
+  //   if (type == "ondown") {
+  //     // video.play();
 
-      if (hitobj) {
-        handle_mouse_hitobject = hitobj;
+  //     if (hitobj) {
+  //       handle_mouse_hitobject = hitobj;
 
-        hitobj.properties.pressed = true;
+  //       hitobj.properties.pressed = true;
 
-        if (hitobj.properties.ondown) {
-          hitobj.properties.ondown(hitobj);
-        }
+  //       if (hitobj.properties.ondown) {
+  //         hitobj.properties.ondown(hitobj);
+  //       }
 
-        if (hitobj.properties.capture) {
-          krpano.mouse.down = true;
-          event.stopPropagation();
-        }
+  //       if (hitobj.properties.capture) {
+  //         krpano.mouse.down = true;
+  //         event.stopPropagation();
+  //       }
 
-        event.preventDefault();
-      }
+  //       event.preventDefault();
+  //     }
 
-    } else if (type == "onup") {
-      if (handle_mouse_hitobject && handle_mouse_hitobject.properties.enabled) {
-        if (handle_mouse_hitobject.properties.pressed) {
-          handle_mouse_hitobject.properties.pressed = false;
+  //   } else if (type == "onup") {
+  //     if (handle_mouse_hitobject && handle_mouse_hitobject.properties.enabled) {
+  //       if (handle_mouse_hitobject.properties.pressed) {
+  //         handle_mouse_hitobject.properties.pressed = false;
 
-          if (handle_mouse_hitobject.properties.onup) {
-            handle_mouse_hitobject.properties.onup(handle_mouse_hitobject);
-          }
-        }
+  //         if (handle_mouse_hitobject.properties.onup) {
+  //           handle_mouse_hitobject.properties.onup(handle_mouse_hitobject);
+  //         }
+  //       }
 
-        if (handle_mouse_hitobject.properties.onclick) {
-          if ( hitobj == handle_mouse_hitobject ) {
-            handle_mouse_hitobject.properties.onclick(handle_mouse_hitobject);
-          }
-        }
-      }
+  //       if (handle_mouse_hitobject.properties.onclick) {
+  //         if ( hitobj == handle_mouse_hitobject ) {
+  //           handle_mouse_hitobject.properties.onclick(handle_mouse_hitobject);
+  //         }
+  //       }
+  //     }
 
-      krpano.mouse.down = false;
-    }
-  }
+  //     krpano.mouse.down = false;
+  //   }
+  // }
 
 
-  function handle_mouse_hovering() {
-    // check mouse over state
-    if (krpano.mouse.down == false) { // currently not dragging?
-      var hitobj = do_object_hittest(krpano.mouse.x, krpano.mouse.y);
+  // function handle_mouse_hovering() {
+  //   // check mouse over state
+  //   if (krpano.mouse.down == false) { // currently not dragging?
+  //     var hitobj = do_object_hittest(krpano.mouse.x, krpano.mouse.y);
 
-      if (hitobj != handle_mouse_hitobject) {
-        if (handle_mouse_hitobject) {
-          handle_mouse_hitobject.properties.hovering = false;
-          if (handle_mouse_hitobject.properties.onout)  handle_mouse_hitobject.properties.onout(handle_mouse_hitobject);
-        }
+  //     if (hitobj != handle_mouse_hitobject) {
+  //       if (handle_mouse_hitobject) {
+  //         handle_mouse_hitobject.properties.hovering = false;
+  //         if (handle_mouse_hitobject.properties.onout)  handle_mouse_hitobject.properties.onout(handle_mouse_hitobject);
+  //       }
 
-        if (hitobj) {
-          hitobj.properties.hovering = true;
-          if (hitobj.properties.onover) hitobj.properties.onover(hitobj);
-        }
+  //       if (hitobj) {
+  //         hitobj.properties.hovering = true;
+  //         if (hitobj.properties.onover) hitobj.properties.onover(hitobj);
+  //       }
 
-        handle_mouse_hitobject = hitobj;
-      }
+  //       handle_mouse_hitobject = hitobj;
+  //     }
 
-      if (handle_mouse_hitobject || (krpano.display.stereo == false && krpano.display.hotspotrenderer != "webgl")) {
-        krpano.cursors.update(false, !!handle_mouse_hitobject);
-      }
-    }
-  }
+  //     if (handle_mouse_hitobject || (krpano.display.stereo == false && krpano.display.hotspotrenderer != "webgl")) {
+  //       krpano.cursors.update(false, !!handle_mouse_hitobject);
+  //     }
+  //   }
+  // }
 
   /**************************************************************************
 
@@ -639,7 +670,7 @@ function krpanoplugin() {
   function update_scene(){
     var delta = clock.getDelta();
 
-    if(box) update_object_properties(box);
+    // if(box) update_object_properties(box);
 
     if ( video.readyState === video.HAVE_ENOUGH_DATA ){
       videoImageContext.drawImage( video, 0, 0 );

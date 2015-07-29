@@ -282,16 +282,17 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			overflow: hidden;
-			margin-left: 1em;
+
+			margin-left: 1.4em;
 		}
 
 		.main li div:before {
 			font-family: "icomoon";
 			color: #7fba00;
 			content: "\2022";
-			margin-left: -0.4em;
+			margin-left: -0.7em;
 			display: inline-block;
-			font-size: 300%;
+			font-size: 2em;
 			position: absolute;
 			line-height: 24%;
 		}
@@ -490,8 +491,6 @@
 
 	<div class="ipad-container">
 
-		<!-- <div class="dummy"></div> -->
-
 		<div class="ipad-screen">
 
 				<div class="movie">
@@ -569,7 +568,7 @@
 				<!-- <div class="dummy"></div> -->
 			</div>
 
-			<div class="broken-screen"></div>
+			<!-- <div class="broken-screen"></div> -->
 
 		</div>
 	</div>
@@ -627,16 +626,30 @@ $(window).load(function(){
 	$('.container').fadeIn(500)
 })
 
+function inIframe () {
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
+
 $(document).ready(function(){
 
 	// link to the right video type
 	$('.vid-menu-nav').each(function(i,v){
-		var newurl = ''
+		var newurl = '';
 
-		if(parent.Modernizr.video.h264)
-			newurl = $(v).data('url') + '.mp4';
-		else
+		if(inIframe()){
+			if(parent.Modernizr.video.h264)
+				newurl = $(v).data('url') + '.mp4';
+			else
+				newurl = $(v).data('url') + '.webm';
+		} else {
 			newurl = $(v).data('url') + '.webm';
+		}
+
+
 
 		$(v).data('url', newurl)
 

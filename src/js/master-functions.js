@@ -1195,10 +1195,10 @@ var sequenceVR = {
     sequenceVR.hlookat = pano.krpano.get('view.hlookat')
     if(sequenceVR.hlookat > 360) sequenceVR.hlookat = sequenceVR.hlookat % 360;
 
-    if(sequenceVR.hlookat > 180 && ! sequenceVR.paused){
+    if((sequenceVR.hlookat < 90 || sequenceVR.hlookat > 270) && ! sequenceVR.paused){
       sequenceVR.paused = true;
       pano.krpano.call('plugin[videosphere].pause()')
-    } else if( sequenceVR.hlookat <= 180 && sequenceVR.paused){
+    } else if( (sequenceVR.hlookat > 90 && sequenceVR.hlookat < 270) && sequenceVR.paused){
       sequenceVR.paused = false;
       pano.krpano.call('plugin[videosphere].play()')
     }
