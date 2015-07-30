@@ -126,9 +126,9 @@
         ####  ##  ##     ####   ##  ##   ## ##     ##    ##
          ##   ##  ##      ##   #### ######  ######  ######  -->
 
-  <scene name="vrvideo" onstart="">
+  <scene name="vrvideo" onstart="webvr.resetSensor(view.hlookat)">
 
-    <view hlookat="0" vlookat="0" fov="40" />
+    <view  lookat="0" vlookat="0" fov="40" />
 
     <image>
       <left  url="../offshore_panos/blank.png" />
@@ -2320,8 +2320,8 @@
 
 
 
-  <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
-
+  <scene name="sequence_outside_stairs_down" onstart="webvr.resetSensor(180),plugin[videosphere].play();">
+  <view hlookat="180" />
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2339,8 +2339,8 @@
 
   </scene>
 
-  <scene name="sequence_outside_stairs_up" onstart="plugin[videosphere].play();">
-
+  <scene name="sequence_outside_stairs_up" onstart="webvr.resetSensor(0),plugin[videosphere].play();">
+<view hlookat="0" />
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2360,7 +2360,7 @@
 
 
 
-  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
+  <scene name="sequence_shaftway" onstart="webvr.resetSensor(0),plugin[videosphere].play();">
 
     <view hlookat="0" />
 
@@ -2383,7 +2383,7 @@
 
 
 
-  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
+  <scene name="sequence_shaftway_up" onstart="webvr.resetSensor(0),plugin[videosphere2].play();">
 
     <view hlookat="0"/>
 
@@ -2407,7 +2407,9 @@
 
 
 
-  <scene name="sequence_corridor" onstart="plugin[videosphere].play();">
+  <scene name="sequence_corridor" onstart="webvr.resetSensor(270),plugin[videosphere].play();">
+  
+    <view hlookat="270"/>
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2426,8 +2428,8 @@
 
   </scene>
 
-  <scene name="sequence_corridor_backwards" onstart="plugin[videosphere].play();">
-
+  <scene name="sequence_corridor_backwards" onstart="webvr.resetSensor(90), plugin[videosphere].play();">
+    <view hlookat="90"/>
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2448,8 +2450,8 @@
 
 
 
-  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
-
+  <scene name="sequence_engineroom" onstart="webvr.resetSensor(90), plugin[videosphere].play();">
+    <view hlookat="90"/>
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"

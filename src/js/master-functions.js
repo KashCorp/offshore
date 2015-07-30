@@ -1187,25 +1187,30 @@ var videoPlayerVR = {
 
 var sequenceVR = {
   id: null,
-  hlookat: 0,
+  hlookat: null,
   paused: false,
 
   run: function(){
     sequenceVR.id = requestAnimationFrame(sequenceVR.run);
-    sequenceVR.hlookat = pano.krpano.get('view.hlookat')
-    if(sequenceVR.hlookat > 360) sequenceVR.hlookat = sequenceVR.hlookat % 360;
-
-    if((sequenceVR.hlookat < 90 || sequenceVR.hlookat > 270) && ! sequenceVR.paused){
-      sequenceVR.paused = true;
-      pano.krpano.call('plugin[videosphere].pause()')
-    } else if( (sequenceVR.hlookat > 90 && sequenceVR.hlookat < 270) && sequenceVR.paused){
-      sequenceVR.paused = false;
-      pano.krpano.call('plugin[videosphere].play()')
+    if(!sequenceVR.hlookat)  {
+      sequenceVR.startHlookat = pano.krpano.get('view.hlookat')
     }
+    
+    sequenceVR.hlookat = Math.abs(pano.krpano.get('view.hlookat') % 360)
+
+    if(Math.abs(sequenceVR.startHlookat - sequenceVR.hlookat) > 40){
+      //sequenceVR.paused = true
+      //pano.krpano.call('plugin[videosphere].pause()')
+    } else {
+      sequenceVR.paused = false;
+      pano.krpano.call('plugin[videosphere].play()')      
+    }
+
 
   },
 
-  start: function(){
+  start: function(){ 
+    pano.krpano.call('plugin[videosphere].play()')
     sequenceVR.run();
   },
   stop: function(){
