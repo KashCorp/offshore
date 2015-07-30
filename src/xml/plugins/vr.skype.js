@@ -466,7 +466,6 @@ function krpanoplugin() {
       // video screen ********************************************************
 
       video.src = plugin.vidsrc;
-      video.volume = 0;
       video.load();
 
       var canplaythrough = function() {
