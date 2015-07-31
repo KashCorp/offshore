@@ -337,7 +337,7 @@ var masterFunctions = function() {
     master.overlayOpen = true;
     master.ghostBuster = true;
 
-    if(globals.vr){
+    if(globals.vr && overlayURL !== 'rigmap.html'){
       overlayVR.load(overlayURL);
       return;
     }
