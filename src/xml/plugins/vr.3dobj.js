@@ -19,7 +19,6 @@ function krpanoplugin(){
 	var objTexture, animationScript;
 
 	local.registerplugin = function(krpanointerface, pluginpath, pluginobject){
-		console.log(pluginobject);
 		krpano = krpanointerface;
 		device = krpano.device;
 		plugin = pluginobject;
@@ -423,16 +422,11 @@ function krpanoplugin(){
 
 	function build_scene(){
 		clock = new THREE.Clock();
-		
-		if(!objTexture){
-			objTexture = '../images/books/dossier/vr-1.jpg'
-		}
 
 		// load 3d objects
 
 		var manager = new THREE.LoadingManager();
 		manager.onProgress = function ( item, loaded, total ) {
-			console.log( item, loaded, total );
 		};
 
 		var texture = new THREE.Texture();
@@ -440,18 +434,17 @@ function krpanoplugin(){
 		var onProgress = function ( xhr ) {
 			if ( xhr.lengthComputable ) {
 				var percentComplete = xhr.loaded / xhr.total * 100;
-				// console.log( Math.round(percentComplete, 2) + '% downloaded' );
 			}
 		};
 
 		var onError = function ( xhr ) {};
 
 		// load the book texture
-		var loader = new THREE.ImageLoader( manager );
-		loader.load( resolve_url_path(objTexture), function ( image ) {
-			texture.image = image;
-			texture.needsUpdate = true;
-		});
+		// var loader = new THREE.ImageLoader( manager );
+		// loader.load( resolve_url_path(objTexture), function ( image ) {
+		// 	texture.image = image;
+		// 	texture.needsUpdate = true;
+		// });
 
 		// load the book model
 		var loader = new THREE.OBJLoader( manager );
@@ -461,8 +454,8 @@ function krpanoplugin(){
 
 			object.traverse( function ( child ) {
 				if ( child instanceof THREE.Mesh ) {
-					child.scale.set(1.9, 1.9, 1.9);
-					child.material.color.setRGB (0.8, 0.8, 0.8);
+					child.scale.set(3, 3, 3);
+					child.material.color.setRGB (0.4, 0.4, 0.4);
 				}
 			});
 
@@ -491,13 +484,13 @@ function krpanoplugin(){
 		directionalLight.position.normalize();
 		scene.add( directionalLight );
 
-		
+
 
 	}
 
 
 
-   
+
 	function update_scene(){
 
 		if(THREEANIM){

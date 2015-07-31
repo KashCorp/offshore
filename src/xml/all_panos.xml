@@ -50,6 +50,7 @@
     js(preload());
   </action>
 
+
   <action name="webvr_enter">
     tween(layer[webvr_enterbutton].alpha,0,0);
 
@@ -65,59 +66,6 @@
 
 
 
-  <!-- Scenes ====================================================================== -->
-
-  <action name="prologue">
-    loadscene(prologue, null, MERGE);
-  </action>
-
-  <action name="chemicalRoom">
-    loadscene(chemicalRoom, null, MERGE);
-  </action>
-
-  <action name="hallway">
-    loadscene(hallway, null, MERGE);
-  </action>
-
-  <action name="helicopter">
-    loadscene(helicopter, null, MERGE);
-  </action>
-
-  <action name="platform">
-    loadscene(platform, null, MERGE);
-  </action>
-
-  <action name="boat">
-    loadscene(boat, null, MERGE);
-  </action>
-
-  <action name="lowerplatform">
-    loadscene(lowerplatform, null, MERGE);
-  </action>
-
-  <action name="controlroom">
-    loadscene(controlroom, null, MERGE);
-  </action>
-
-  <action name="subhangar">
-    loadscene(subhangar, null, MERGE);
-  </action>
-
-  <action name="submarine">
-    loadscene(submarine, null, MERGE);
-  </action>
-
-  <action name="theatre">
-    loadscene(theatre, null, MERGE);
-  </action>
-
-  <action name="videoPlayer">
-    loadscene(videoPlayer, null, MERGE);
-  </action>
-
-
-
-
 
 
   <!-- ##  ## #####     ##  ## #### ######  ######  ######
@@ -128,7 +76,7 @@
 
   <scene name="vrvideo" onstart="webvr.resetSensor(view.hlookat)">
 
-    <view  lookat="0" vlookat="0" fov="40" />
+    <view hlookat="0" vlookat="0" fov="40" />
 
     <image>
       <left  url="../offshore_panos/blank.png" />
@@ -399,7 +347,7 @@
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
      ath="-37"
-     atv="50"
+     atv="80"
      distorted="true"
      inverserotation="true"
      zorder2="1"
@@ -849,21 +797,21 @@
       vlookatmax ="-45"
  -->
       <image>
-          <left  url="../offshore_panos/subhangar_pano_l.jpg" />
-          <front url="../offshore_panos/subhangar_pano_f.png" />
-          <right url="../offshore_panos/subhangar_pano_r.png" />
-          <back  url="../offshore_panos/subhangar_pano_b.jpg" />
-          <up    url="../offshore_panos/subhangar_pano_u.jpg" />
-          <down  url="../offshore_panos/subhangar_pano_d.jpg" />
+        <left  url="../offshore_panos/subhangar_pano_l.jpg" />
+        <front url="../offshore_panos/subhangar_pano_f.png" />
+        <right url="../offshore_panos/subhangar_pano_r.png" />
+        <back  url="../offshore_panos/subhangar_pano_b.jpg" />
+        <up    url="../offshore_panos/subhangar_pano_u.jpg" />
+        <down  url="../offshore_panos/subhangar_pano_d.jpg" />
 
-          <tablet>
-              <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
-              <front url="../offshore_panos/512/subhangar_pano_f.png" />
-              <right url="../offshore_panos/512/subhangar_pano_r.png" />
-              <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
-              <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
-              <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />
-          </tablet>
+        <tablet>
+          <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
+          <front url="../offshore_panos/512/subhangar_pano_f.png" />
+          <right url="../offshore_panos/512/subhangar_pano_r.png" />
+          <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
+          <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
+          <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />
+        </tablet>
       </image>
 
 
@@ -902,8 +850,7 @@
         distorted="true"
         alpha="0.0"
         height="30.0"
-        onclick="js(master.loadOverlay(skype.html));
-             js(xml.setCache(40,90))"
+        onclick="js(master.loadOverlay(skype.html)); js(xml.setCache(40,90))"
         onhover="js(xml.hoverSound())"
         onout="js(xml.resetHoverSound());"
         scale="3.0"
@@ -931,16 +878,16 @@
         ath="60"
         atv="-9"
           distorted="true"
-        alpha=".5"
+        alpha="0.5"
         width="140"
         height="140"
         borderwidth="0.0" borderwidthhover="1"
         bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
         scale="0.7"
-        onclick="lookto(60,0,5,tween(easeOutQuad,2),true,true);
-             set(hotspot[requiemgif].enabled,false);
-             js(xml.setCache(-50,90))"
-
+        onclick="if(vr, js(xml.newPano('sequence_approaching_rig')) );
+                 lookto(60,0,5,tween(easeOutQuad,2),true,true);
+                 set(hotspot[requiemgif].enabled,false);
+                 js(xml.setCache(-50,90))"
 
       />
 
@@ -1300,9 +1247,7 @@
         #####  ######  ##   ##   ##   ##  ##  ######  ##### -->
 
 
-  <scene name="controlroom" onstart="">
-
-    <progress showwait="none" />
+  <scene name="controlroom">
 
     <view
       hlookat="-140"
@@ -1310,12 +1255,6 @@
       fovmax="120.0"
       fovmin="1.0"
       />
-
-    <!-- limitview ="lookat"
-    hlookatmin ="NAN"
-    hlookatmax ="NaN"
-    vlookatmin ="20"
-    vlookatmax ="-45" -->
 
     <image>
         <left  url="../offshore_panos/controlroom_pano_l.jpg" />
@@ -1335,6 +1274,22 @@
         </tablet>
 
     </image>
+
+    <hotspot />
+
+    <!-- Door -->
+
+    <hotspot name="Door"
+      url="../images/hotspot.gif"
+      ath="261"
+      atv="5"
+      alpha="0"
+      width="90"
+      height="150.0"
+      distorted="true"
+      capture="false"
+      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('controlroom','hallway')) );"
+    />
 
 
     <!-- Michael Klare video player -->
@@ -1421,48 +1376,7 @@
       height="75"
       capture="false"
       />
-<!--
-    <hotspot name="cctv1"
-      url="plugins/videoplayer_offshore_01.js"
-      alturl="plugins/videoplayer_offshore_01.js"
-      volume="0.00001"
-      videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
-      ath="-199.25" atv="-0.8"
-      distorted="true"
-      scale="0.24"
-      rx="0"
-      ry="16"
-      rz="0"
 
-
-      enabled="true"
-      alpha="0.5"
-      onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
-           js(xml.setCache(get(view.hlookat),90))"
-      loop="true"
-    />
-
-
-    <hotspot name="cctv2"
-      url="plugins/videoplayer_offshore_01.js"
-      alturl="plugins/videoplayer_offshore_01.js"
-      volume="0.00001"
-      videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
-      ath="-142.5" atv="-0.5"
-      distorted="true"
-      scale="0.195"
-      rx="0"
-      ry="-35"
-      rz="0"
-
-      enabled="true"
-      alpha="0.5"
-      onclick="lookto(190,0,1,tween(easeOutQuad,2),true,true,js(videoPlayer(extremeoil)));
-           js(xml.setCache(get(view.hlookat),90))"
-      loop="true"
-    />
-
--->
     <!-- Big Red Button -->
 
     <hotspot name="openhatch" url="../images/hotspot.gif"
@@ -1476,7 +1390,6 @@
       height="200"
     />
 
-
     <hotspot name="closehatch" url="../images/hotspots/hatchbutton.png"
       ath="17.95"
       atv="-7.82"
@@ -1489,30 +1402,6 @@
       height="200"
     />
 
-
-    <!-- CCTV
-
-    <hotspot name="cctv0"
-      url="plugins/videoplayer_offshore_01.js"
-      alturl="plugins/videoplayer_offshore_01.js"
-      volume="0.00001"
-      videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.webm"
-      ath="-160.1" atv="-13.5"
-      distorted="true"
-      scale="0.130"
-      rx="15"
-      ry="0"
-      rz="5.5"
-      enabled="true"
-
-      alpha="0.4"
-      onclick="lookto(-160,-12,15,smooth(),true,true);
-           js(xml.zoomIn());
-           set(autorotate.enabled,false)"
-      loop="true"
-    />
-
--->
     <hotspot name="nymex"
       url="plugins/videoplayer.swf"
       alturl="plugins/videoplayer_offshore_01.js"
@@ -1543,9 +1432,8 @@
       atv="16.4"
       distorted="true"
       alpha="0"
-      onclick="js(master.loadOverlay(field_data.html));
-           js(xml.setCache(get(view.hlookat),90))"
-      scale=".68"
+      onclick="js(master.loadOverlay(field_data.html)); js(xml.setCache(get(view.hlookat),90))"
+      scale="0.68"
       />
 
     <hotspot name="Filing_cabinet_text"
@@ -1564,8 +1452,7 @@
       autoheight="false"
       vcenter="true"
       width="200"
-      onclick="js(master.loadOverlay(field_data.html));
-           js(xml.setCache(get(view.hlookat),90))"
+      onclick="js(master.loadOverlay(field_data.html)); js(xml.setCache(get(view.hlookat),90))"
     />
 
     <hotspot name="Filing_cabinet_icon"
@@ -1577,31 +1464,11 @@
       atv="20.4"
       distorted="true"
       capture="false"
-      onclick="js(master.loadOverlay(field_data.html));
-          js(xml.setCache(get(view.hlookat),90))"
+      onclick="js(master.loadOverlay(field_data.html)); js(xml.setCache(get(view.hlookat),90))"
       onhover="js(xml.hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
       onout="js(xml.resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
     />
 
-
-
-
-    <!-- Door -->
-
-    <hotspot name="Exit to hallway"
-      url="../images/hotspot.gif"
-      ath="261"
-      atv="5"
-      distorted="true"
-      alpha="0"
-      width="85"
-      height="150.0"
-      borderwidth="0.0" borderwidthhover="1"
-      bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      capture="false"
-      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('controlroom','hallway')) );"
-      scale="1.0"
-    />
 
   </scene>
 
@@ -1634,19 +1501,50 @@
 
     <plugin name="vroverlay" url="./plugins/vr.overlay.js" />
 
+    <plugin
+     name="folder"
+     url="./plugins/vr.overlay.js"
+     ath="110"
+     obj="../images/obj/folder.obj"
+     texture="../images/books/field_data/vr-folder-2048.jpg"
+     />
+
+    <plugin
+     name="page1"
+     url="./plugins/vr.overlay.js"
+     ath="200"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/field_data/vr-pages-1-2048.jpg"
+     />
+
+    <plugin
+     name="page2"
+     url="./plugins/vr.overlay.js"
+     ath="290"
+     obj="../images/obj/page-turn-1.obj"
+     texture="../images/books/field_data/vr-pages-2-2048.jpg"
+     />
+
+    <plugin
+     name="page3"
+     url="./plugins/vr.overlay.js"
+     ath="20"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/field_data/vr-pages-3-2048.jpg"
+     />
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
      ath="150"
-     atv="0"
+     atv="80"
      distorted="true"
      inverserotation="true"
      zorder2="1"
      zoom="true"
      onclick="js(overlayVR.close())"
-     alpha="0.5"
-     width="30"
-     height="30"
+     alpha="0.8"
+     width="70"
+     height="70"
     />
 
 
@@ -2139,7 +2037,11 @@
 
 
 
-
+  <!-- #####  ###### ######  ######   ######   ######  ##  ##
+       ##  ## ##     ##   ## ##   ## ##    ## ##    ## ## ##
+       #####  #####  ##   ## ######  ##    ## ##    ## ####
+       ##  ## ##     ##   ## ##   ## ##    ## ##    ## ## ##
+       ##  ## ###### ######  ######   ######   ######  ##  ## -->
 
   <scene name="redbook_vr">
 
@@ -2213,6 +2115,11 @@
   </scene>
 
 
+  <!-- ##    ######  #####   ####  ######    ###  ###  #####  ######
+       ##    ##     ##   ## ##     ##        ######## ##   ## ##   ##
+       ##    #####  #######  ####  #####     ## ## ## ####### ######
+       ##    ##     ##   ##     ## ##        ##    ## ##   ## ##
+       ##### ###### ##   ## #####  ######    ##    ## ##   ## ##   -->
 
 
 
@@ -2320,8 +2227,9 @@
 
 
 
-  <scene name="sequence_outside_stairs_down" onstart="webvr.resetSensor(180),plugin[videosphere].play();">
-  <view hlookat="180" />
+  <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
+    <view hlookat="0" />
+
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2339,8 +2247,9 @@
 
   </scene>
 
-  <scene name="sequence_outside_stairs_up" onstart="webvr.resetSensor(0),plugin[videosphere].play();">
-<view hlookat="0" />
+  <scene name="sequence_outside_stairs_up" onstart="plugin[videosphere].play();">
+    <view hlookat="0" />
+
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2360,8 +2269,7 @@
 
 
 
-  <scene name="sequence_shaftway" onstart="webvr.resetSensor(0),plugin[videosphere].play();">
-
+  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
     <view hlookat="0" />
 
     <plugin name="videosphere"
@@ -2383,9 +2291,8 @@
 
 
 
-  <scene name="sequence_shaftway_up" onstart="webvr.resetSensor(0),plugin[videosphere2].play();">
-
-    <view hlookat="0"/>
+  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
+    <view hlookat="0" />
 
     <plugin name="videosphere2"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2407,9 +2314,8 @@
 
 
 
-  <scene name="sequence_corridor" onstart="webvr.resetSensor(270),plugin[videosphere].play();">
-  
-    <view hlookat="270"/>
+  <scene name="sequence_corridor" onstart="plugin[videosphere].play();">
+    <view hlookat="0" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2428,8 +2334,9 @@
 
   </scene>
 
-  <scene name="sequence_corridor_backwards" onstart="webvr.resetSensor(90), plugin[videosphere].play();">
-    <view hlookat="90"/>
+  <scene name="sequence_corridor_backwards" onstart="plugin[videosphere].play();">
+    <view hlookat="0" />
+
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2450,8 +2357,9 @@
 
 
 
-  <scene name="sequence_engineroom" onstart="webvr.resetSensor(90), plugin[videosphere].play();">
-    <view hlookat="90"/>
+  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
+    <view hlookat="0" />
+
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
@@ -2468,6 +2376,41 @@
     </image>
 
   </scene>
+
+
+
+
+
+  <scene name="sequence_approaching_rig" onstart="plugin[videosphere].play();">
+    <view hlookat="0" />
+
+    <plugin name="videosphere"
+            url.flash="%SWFPATH%/plugins/videoplayer.swf"
+            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            videourl="../../videos/transition-approaching-VR.webm"
+            loop="false"
+            pausedonstart="false"
+            visible="false"
+            use_as_videopano="true"
+            onvideocomplete="js(videoPlayerVR.load('requiem', 'subhangar'));"
+            />
+
+    <image>
+      <sphere url="plugin:videosphere" />
+    </image>
+
+  </scene>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

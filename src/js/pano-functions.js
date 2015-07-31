@@ -170,6 +170,8 @@ var pano = (function(){
 
     globals.pano = _pano;
 
+    document.title = 'OFFSHORE ' + _pano;
+
     _gaq.push(['_trackPageview', '/'+ _pano]);
 
     $("#loading").hide();
@@ -227,6 +229,7 @@ var pano = (function(){
     if(_pano.indexOf('sequence') !== -1) {
 
       if(globals.vr){
+        console.log('VR SEQUENCE')
         if(_pano.indexOf('corridor') !== -1){
           var split = _pano.split('_')
           var destination = split[2];
@@ -235,11 +238,11 @@ var pano = (function(){
         }
         exports.krpano.call('loadscene('+_pano+', null, NOPREVIEW|KEEPMOVING|MERGE, BLEND(1));');
 
-        sequenceVR.start();
-
-
+        var isHatch = !!( _pano.indexOf('shaftway') !== -1 );
+        sequenceVR.start( isHatch );
 
       } else {
+        console.log('REGULAR SEQUENCE')
         loadSequenceScene(_pano);
       }
 
@@ -459,7 +462,7 @@ var pano = (function(){
 
     switch(_sequence){
 
-      case "sequence_passage_chemicalroom" :
+      case "sequence_corridor_chemicalroom" :
 
         name = 'corridor';
         movieLength = 5;
@@ -473,7 +476,7 @@ var pano = (function(){
         overLayFile = 'Hatch_Alt2'
         break;
 
-      case "sequence_passage_theatre" :
+      case "sequence_corridor_theatre" :
 
         name = 'corridor';
         movieLength = 5;
@@ -488,7 +491,7 @@ var pano = (function(){
         break;
 
 
-       case "sequence_passage_controlroom" :
+       case "sequence_corridor_controlroom" :
 
         name = 'corridor';
         movieLength = 5;

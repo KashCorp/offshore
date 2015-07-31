@@ -1,5 +1,4 @@
-		// animate objects
-
+// animation for the circling helicopter in the prologue
 var THREEANIM = {
 
 	customVars: {
@@ -9,8 +8,6 @@ var THREEANIM = {
 	},
 
 	objInit: function(_mesh,_camera){
-
-		console.log(_mesh)
 		THREEANIM.mesh = _mesh;
 		THREEANIM.camera = _camera
 	},
@@ -20,7 +17,7 @@ var THREEANIM = {
 			if(THREEANIM.customVars.angle < 360){
 				THREEANIM.customVars.angle += .1
 			} else{
-				THREEANIM.ustomVars.angle = 0
+				THREEANIM.customVars.angle = 0
 			}
 
 			if (THREEANIM.mesh)
@@ -31,7 +28,7 @@ var THREEANIM = {
 	    		THREEANIM.mesh.lookAt( THREEANIM.camera.position)
 	    		THREEANIM.mesh.position.set(THREEANIM.customVars.posX1, -100,THREEANIM.customVars.posZ1)
 			}
-	
+
 	}
-	
+
 }

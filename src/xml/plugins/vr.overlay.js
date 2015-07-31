@@ -27,6 +27,10 @@ function krpanoplugin(){
 		device = krpano.device;
 		plugin = pluginobject;
 
+		if(typeof THREEANIM !== 'undefined'){
+			THREEANIM = false;
+		}
+
 		plugin.registerattribute('ath', 0);
 		plugin.registerattribute('atv', 0.2);
 		plugin.registerattribute('depth', 3.0);
@@ -480,9 +484,9 @@ function krpanoplugin(){
 			object.rotateOnAxis( new THREE.Vector3(0,1,0), M_RAD * (rotation + Math.random()*5) );
 			object.rotateOnAxis( new THREE.Vector3(1,0,0), -Math.PI* (0.4 + Math.random()/5) );
 
-			if(THREEANIM){
-				THREEANIM.objInit(object,camera)
-			}
+			// if(THREEANIM){
+				// THREEANIM.objInit(object, camera);
+			// }
 
 			scene.add( object );
 
@@ -667,9 +671,9 @@ function krpanoplugin(){
 			animatedobjects[i].updateAnimation(1000 * delta);
 		}
 
-		if(THREEANIM){
-			THREEANIM.objAnim()
-		}
+		// if(THREEANIM){
+			// THREEANIM.objAnim()
+		// }
 
 		handle_mouse_hovering();
 	}
