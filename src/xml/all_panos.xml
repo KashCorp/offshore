@@ -6,6 +6,9 @@
 
   <!-- webvr.xml - WebVR plugin, enter/exit VR buttons, VR cursor, VR setup -->
   <include url="%SWFPATH%/plugins/webvr.xml" />
+
+  <layer name="webvr_button" ondown="video_auto_start();" />
+
   <plugin name="WebVR" mobilevr_fake_support="true" devices="html5" />
 
   <!-- disable mipmapping - can be a little bit sharper in VR -->
@@ -30,7 +33,10 @@
   />
 
 
-  <events onmousedown="action(globalmousedown)" />
+  <events name="video_events" keep="true"
+          onmousedown="video_auto_start();js(console.log('hi'));action(globalmousedown)"
+          onremovepano="if(xml.scene != sequence_outside_stairs_down, plugin[vidd].seek(0); plugin[vidd].pause(); );"
+          />
 
   <action name="globalmousedown">
     set(plugin[directions].visible,false);
@@ -2225,22 +2231,19 @@
            ## ##     ## ## ## ##   ## ##     ##  ### ##     ##         ##
        #####  ######  ######   #####  ###### ##   ##  ##### ###### #####  -->
 
-  <plugin name="vidd"
+  <plugin name="vidd"  keep="true"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
           videourl="../../videos/transition-downstairs-VR.webm"
           videourl.mobile="../../videos/transition-downstairs-VR-mobile.webm"
           loop="false"
-          pausedonstart="true"
+          pausedonstart="false"
           visible="false"
           use_as_videopano="true"
-          onvideocomplete="js(xml.newPano(boat));"
+
           />
 
-  <events name="video_events" devices="mobile.or.tablet" keep="true"
-          onmousedown="video_auto_start();js(console.log('hi'));"
-          onremovepano="if(xml.scene != sequence_outside_stairs_down, plugin[vidd].seek(0); plugin[vidd].pause(); );"
-          />
+
 
   <action name="video_auto_start">
     if(video_auto_start !== true,
@@ -2254,7 +2257,7 @@
 
 
 
-  <scene name="sequence_outside_stairs_down" onstart="plugin[vidd].play();js(console.log('playyyyy'));">
+  <scene name="sequence_outside_stairs_down" onstart="plugin[vidd].seek(0);plugin[vidd].play();js(console.log('playyyyy'));">
     <view hlookat="0" />
 
     <image>
