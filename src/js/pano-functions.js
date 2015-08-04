@@ -125,6 +125,10 @@ var pano = (function(){
             _pano.call('action(webvr_enter)');
             _pano.set('vr', true);
 
+            // need user input to trigger video play
+            if(globals.isIOS || globals.isAndroid)
+              document.getElementById('video-src').play();
+
             // debug
             $(window).on('keydown', function(e){
               if(e.keyCode === 82){ // r

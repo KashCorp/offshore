@@ -63,7 +63,7 @@ var krpanoplugin = function () {
                 a.ispaused = true;
                 a.videourl = c;
                 a.parsedurl = f;
-                a.volume = 0 
+                a.volume = 0
                 if (a.posterurl) {
                     var g = unescape(e.parsePath(a.posterurl)),
                         d = document.createElement("img");

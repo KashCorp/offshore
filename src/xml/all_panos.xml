@@ -31,6 +31,7 @@
 
 
   <events onmousedown="action(globalmousedown)" />
+
   <action name="globalmousedown">
     set(plugin[directions].visible,false);
     set(autorotate.enabled,false);
@@ -2224,26 +2225,40 @@
            ## ##     ## ## ## ##   ## ##     ##  ### ##     ##         ##
        #####  ######  ######   #####  ###### ##   ##  ##### ###### #####  -->
 
+  <plugin name="vidd"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-downstairs-VR.webm"
+          videourl.mobile="../../videos/transition-downstairs-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
+          onvideocomplete="js(xml.newPano(boat));"
+          />
+
+  <events name="video_events" devices="mobile.or.tablet" keep="true"
+          onmousedown="video_auto_start();js(console.log('hi'));"
+          onremovepano="if(xml.scene != sequence_outside_stairs_down, plugin[vidd].seek(0); plugin[vidd].pause(); );"
+          />
+
+  <action name="video_auto_start">
+    if(video_auto_start !== true,
+        plugin[vidd].play();
+        js(console.log('auto_start'));
+        delayedcall(0.1, plugin[vidd].pause() );
+        set(events[video_events].onmousedown, null);
+        set(video_auto_start, true);
+      );
+  </action>
 
 
 
-
-  <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
+  <scene name="sequence_outside_stairs_down" onstart="plugin[vidd].play();js(console.log('playyyyy'));">
     <view hlookat="0" />
 
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-downstairs-VR.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(boat));"
-            />
-
     <image>
-      <sphere url="plugin:videosphere" />
+      <sphere url="plugin:vidd" />
     </image>
 
   </scene>
@@ -2255,6 +2270,7 @@
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-upstairs-VR.webm"
+            videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -2274,9 +2290,9 @@
     <view hlookat="0" />
 
     <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
+            url.html5="./plugins/videoplayer_offshore_01.js"
             videourl="../../videos/transition-hatch-VR.webm"
+            videourl.mobile="../../videos/transition-hatch-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -2299,6 +2315,7 @@
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-hatch-up-VR.webm"
+            videourl.mobile="../../videos/transition-hatch-up-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -2322,6 +2339,7 @@
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-corridor-VR.webm"
+            videourl.mobile="../../videos/transition-corridor-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -2342,6 +2360,7 @@
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-corridor-backwards-VR.webm"
+            videourl.mobile="../../videos/transition-corridor-backwards-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -2365,6 +2384,7 @@
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-engineroom-VR.webm"
+            videourl.mobile="../../videos/transition-engineroom-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
@@ -2389,6 +2409,7 @@
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
             url.html5="%SWFPATH%/plugins/videoplayer.js"
             videourl="../../videos/transition-approaching-VR.webm"
+            videourl.mobile="../../videos/transition-approaching-VR-mobile.webm"
             loop="false"
             pausedonstart="false"
             visible="false"
