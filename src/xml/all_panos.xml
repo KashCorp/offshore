@@ -2234,22 +2234,69 @@
   <plugin name="vidd"  keep="true"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
-          videourl="../../videos/transition-downstairs-VR.webm"
+          videourl="../../videos/transition-downstairs-VR-mobile.webm"
           videourl.mobile="../../videos/transition-downstairs-VR-mobile.webm"
           loop="false"
-          pausedonstart="false"
+          pausedonstart="true"
           visible="false"
           use_as_videopano="true"
 
           />
 
+  <plugin name="viddstairs_up"  keep="true"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
 
+          />
 
+  <plugin name="tunnel_down"  keep="true"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
+
+          />
+
+  <plugin name="tunnel_up"  keep="true"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
+
+          />
+
+  <plugin name="corridor_there"  keep="true"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
+
+          />
   <action name="video_auto_start">
     if(video_auto_start !== true,
         plugin[vidd].play();
+        plugin[viddstairs_up].play();
         js(console.log('auto_start'));
         delayedcall(0.1, plugin[vidd].pause() );
+        delayedcall(0.1, plugin[viddstairs_up].pause() );
         set(events[video_events].onmousedown, null);
         set(video_auto_start, true);
       );
@@ -2257,7 +2304,7 @@
 
 
 
-  <scene name="sequence_outside_stairs_down" onstart="plugin[vidd].seek(0);plugin[vidd].play();js(console.log('playyyyy'));">
+  <scene name="sequence_outside_stairs_down" onstart="plugin[vidd].play();">
     <view hlookat="0" />
 
     <image>
@@ -2266,23 +2313,12 @@
 
   </scene>
 
-  <scene name="sequence_outside_stairs_up" onstart="plugin[videosphere].play();">
+  <scene name="sequence_outside_stairs_up" onstart="plugin[viddstairs_up].play();">
     <view hlookat="0" />
 
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-upstairs-VR.webm"
-            videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(lowerplatform));"
-            />
 
     <image>
-      <sphere url="plugin:videosphere" />
+      <sphere url="plugin:viddstairs_up" />
     </image>
 
   </scene>
