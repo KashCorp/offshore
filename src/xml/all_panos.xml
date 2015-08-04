@@ -164,7 +164,7 @@
       <plugin name="videosphere"
               url.flash="%SWFPATH%/plugins/videoplayer.swf"
               url.html5="%SWFPATH%/plugins/videoplayer.js"
-              videourl="../../videos/view-from-rig-3000px.webm"
+              videourl="../../videos/transition-approaching-mobile.webm"
               loop="true"
               pausedonstart="false"
               visible="false"

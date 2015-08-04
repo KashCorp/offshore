@@ -97,8 +97,12 @@ var pano = (function(){
           router.hashChange();
 
           // "onloadcomplete" fires when all the pano images have loaded in.
+
           _pano.set('events.onloadcomplete', function(){
             console.log('[pano] onloadcomplete');
+
+           
+
             if(!globals.isPreloaded) preloader();
 
             globals.$panocontainer.removeClass('hide')
@@ -117,8 +121,8 @@ var pano = (function(){
 
           // HACK! overwriting an event from the webvr library
           _pano.set('webvr_onentervr', function(){
-            console.log('VR ENTERED');
-            globals.vr = true;
+            globals.vr = true; 
+            document.getElementById('video-src').play()
             _pano.call('action(webvr_enter)');
             _pano.set('vr', true);
 

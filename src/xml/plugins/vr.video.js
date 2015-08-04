@@ -424,15 +424,21 @@ function krpanoplugin() {
   function build_scene() {
     clock = new THREE.Clock();
 
+    if(!vidSrc){
+      vidSrc = '../videos/prologue.webm'
+    }
+
     console.log('vidSrc:', vidSrc);
 
-    video = document.createElement( 'video' );
+    video = document.getElementById('video-src') //document.createElement( 'video' );
     video.src = vidSrc;
     video.load(); // must call after setting/changing source
 
     var canplaythrough = function() {
-      video.removeEventListener('canplaythrough', canplaythrough);
+      console.log("can play through")
       video.play();
+      video.removeEventListener('canplaythrough', canplaythrough);
+      
     };
     video.addEventListener('canplaythrough', canplaythrough, false);
 
@@ -472,7 +478,7 @@ function krpanoplugin() {
   }
 
   var play = function(){
-    console.log('play');
+    console.log('vr video play');
     video.play();
   }
 
@@ -617,11 +623,14 @@ function krpanoplugin() {
     Update Scene (raf function)
 
   **************************************************************************/
-
+  var delta
   function update_scene(){
-    var delta = clock.getDelta();
+   
+    delta = clock.getDelta();
 
     if(box) update_object_properties(box);
+
+    console.log(video.readyState)
 
     if ( video.readyState === video.HAVE_ENOUGH_DATA ){
       videoImageContext.drawImage( video, 0, 0 );
@@ -629,8 +638,6 @@ function krpanoplugin() {
       if( videoTexture ) videoTexture.needsUpdate = true;
     }
 
-    for (var i=0; i < animatedobjects.length; i++) {
-      animatedobjects[i].updateAnimation(1000 * delta);
-    }
+
   }
 }
