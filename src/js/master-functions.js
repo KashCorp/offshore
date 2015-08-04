@@ -66,6 +66,21 @@ var masterFunctions = function() {
       $('.vignette').css('display','none');
     };
 
+    if(globals.isIOS || globals.isAndroid){
+
+      console.log('MOBILE');
+
+      var touchstart = function(){
+        document.removeEventListener( 'touchstart', touchstart );
+        console.log('TOUCH START');
+
+        document.getElementById('video-src').play();
+
+      }
+      document.addEventListener( 'touchstart', touchstart, false );
+
+      $('.pan-directions').hide();
+    }
 
 
     // Build video matrix ********************************************************

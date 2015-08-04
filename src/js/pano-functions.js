@@ -101,7 +101,7 @@ var pano = (function(){
           _pano.set('events.onloadcomplete', function(){
             console.log('[pano] onloadcomplete');
 
-           
+
 
             if(!globals.isPreloaded) preloader();
 
@@ -121,8 +121,7 @@ var pano = (function(){
 
           // HACK! overwriting an event from the webvr library
           _pano.set('webvr_onentervr', function(){
-            globals.vr = true; 
-            document.getElementById('video-src').play()
+            globals.vr = true;
             _pano.call('action(webvr_enter)');
             _pano.set('vr', true);
 
@@ -187,7 +186,7 @@ var pano = (function(){
     exports.video_underlay     = false;
 
     $('.pan-directions').hide();
-    if(exports.panDirectionsShown === false) $('.pan-directions').show();
+    if(exports.panDirectionsShown === false && (!globals.isIOS && !globals.isAndroid)) $('.pan-directions').show();
 
     // Ghost Functions
     // ********************************************************

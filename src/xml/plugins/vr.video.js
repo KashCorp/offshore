@@ -438,7 +438,7 @@ function krpanoplugin() {
       console.log("can play through")
       video.play();
       video.removeEventListener('canplaythrough', canplaythrough);
-      
+
     };
     video.addEventListener('canplaythrough', canplaythrough, false);
 
@@ -625,12 +625,10 @@ function krpanoplugin() {
   **************************************************************************/
   var delta
   function update_scene(){
-   
+
     delta = clock.getDelta();
 
     if(box) update_object_properties(box);
-
-    console.log(video.readyState)
 
     if ( video.readyState === video.HAVE_ENOUGH_DATA ){
       videoImageContext.drawImage( video, 0, 0 );

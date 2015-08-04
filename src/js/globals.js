@@ -21,7 +21,7 @@ var globals = (function(){
   // for the url arguments which can override these defaults
 
   exports.config = {
-    useLocalResources: false, // look for media locally instead of from the CDN (?local)
+    useLocalResources: true, // look for media locally instead of from the CDN (?local)
 
     extControlMaster:  false,  // set extcontrol.role to 'master' (?master)
     extControlSlave:   false,  // set extcontrol.role to 'slave'  (?slave)
@@ -95,7 +95,7 @@ var globals = (function(){
   if(au.canPlayType && au.canPlayType('audio/x-m4a').replace(/no/, '')) { audioType = '.m4a'; }
 
   if(exports.isMSIE) audioType = '.mp3';
-  if(exports.isAndroid) videoType = '_360.webm';
+  // if(exports.isAndroid) videoType = '_360.webm';
 
   exports.videoType = videoType;
   exports.audioType = audioType;
