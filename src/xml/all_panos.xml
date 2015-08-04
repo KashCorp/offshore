@@ -34,7 +34,7 @@
 
 
   <events name="video_events" keep="true"
-          onmousedown="video_auto_start();js(console.log('hi'));action(globalmousedown)"
+          onmousedown="video_auto_start();js(console.log('video_auto_start'));action(globalmousedown)"
           onremovepano="if(xml.scene != sequence_outside_stairs_down, plugin[vidd].seek(0); plugin[vidd].pause(); );"
           />
 
@@ -352,7 +352,7 @@
      />
 
 
-    <hotspot name="vrvideo_close"
+    <hotspot name="overlay_vr_close"
      url="../images/icons/close_icon.png"
      ath="-37"
      atv="80"
@@ -954,7 +954,7 @@
        vidsrc="../videos/RA-1-VR.webm"
        />
 
-      <hotspot name="vrvideo_close"
+      <hotspot name="overlay_vr_close"
        url="../images/icons/close_icon.png"
        ath="10"
        atv="100"
@@ -1541,7 +1541,7 @@
      texture="../images/books/field_data/vr-pages-3-2048.jpg"
      />
 
-    <hotspot name="vrvideo_close"
+    <hotspot name="overlay_vr_close"
      url="../images/icons/close_icon.png"
      ath="150"
      atv="80"
@@ -2105,7 +2105,7 @@
      texture="../images/books/redbook/redbook-4-1024.jpg"
      />
 
-    <hotspot name="vrvideo_close"
+    <hotspot name="overlay_vr_close"
      url="../images/icons/close_icon.png"
      ath="140"
      atv="47"
@@ -2203,7 +2203,7 @@
      texture="../images/lease_map/lease_vr_05.jpg"
      />
 
-    <hotspot name="vrvideo_close"
+    <hotspot name="overlay_vr_close"
      url="../images/icons/close_icon.png"
      ath="140"
      atv="47"
@@ -2231,72 +2231,131 @@
            ## ##     ## ## ## ##   ## ##     ##  ### ##     ##         ##
        #####  ######  ######   #####  ###### ##   ##  ##### ###### #####  -->
 
-  <plugin name="vidd"  keep="true"
+  <plugin name="sequence_outside_stairs_down_vid"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
-          videourl="../../videos/transition-downstairs-VR-mobile.webm"
+          videourl="../../videos/transition-downstairs-VR.webm"
           videourl.mobile="../../videos/transition-downstairs-VR-mobile.webm"
           loop="false"
           pausedonstart="true"
           visible="false"
           use_as_videopano="true"
-
+          onvideocomplete="js(xml.newPano(boat));"
+          keep="true"
           />
 
-  <plugin name="viddstairs_up"  keep="true"
+  <plugin name="sequence_outside_stairs_up_vid"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
-          videourl="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl="../../videos/transition-upstairs-VR.webm"
           videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
           loop="false"
           pausedonstart="true"
           visible="false"
           use_as_videopano="true"
-
+          onvideocomplete="js(xml.newPano(lowerplatform));"
+          keep="true"
           />
 
-  <plugin name="tunnel_down"  keep="true"
+  <plugin name="sequence_shaftway_vid"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
-          videourl="../../videos/transition-upstairs-VR-mobile.webm"
-          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl="../../videos/transition-hatch-VR.webm"
+          videourl.mobile="../../videos/transition-hatch-VR-mobile.webm"
           loop="false"
           pausedonstart="true"
           visible="false"
           use_as_videopano="true"
-
+          onvideocomplete="js(xml.newPano(hallway));"
+          keep="true"
           />
 
-  <plugin name="tunnel_up"  keep="true"
+  <plugin name="sequence_shaftway_up_vid"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
-          videourl="../../videos/transition-upstairs-VR-mobile.webm"
-          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl="../../videos/transition-hatch-up-VR.webm"
+          videourl.mobile="../../videos/transition-hatch-up-VR-mobile.webm"
           loop="false"
           pausedonstart="true"
           visible="false"
           use_as_videopano="true"
-
+          onvideocomplete="js(xml.newPano(lowerplatform));"
+          keep="true"
           />
 
-  <plugin name="corridor_there"  keep="true"
+  <plugin name="sequence_corridor_vid"
           url.flash="%SWFPATH%/plugins/videoplayer.swf"
           url.html5="%SWFPATH%/plugins/videoplayer.js"
-          videourl="../../videos/transition-upstairs-VR-mobile.webm"
-          videourl.mobile="../../videos/transition-upstairs-VR-mobile.webm"
+          videourl="../../videos/transition-corridor-VR.webm"
+          videourl.mobile="../../videos/transition-corridor-VR-mobile.webm"
           loop="false"
           pausedonstart="true"
           visible="false"
           use_as_videopano="true"
-
+          onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
+          keep="true"
           />
+
+  <plugin name="sequence_corridor_backwards_vid"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-corridor-backwards-VR.webm"
+          videourl.mobile="../../videos/transition-corridor-backwards-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
+          onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
+          keep="true"
+          />
+
+  <plugin name="sequence_engineroom_vid"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-engineroom-VR.webm"
+          videourl.mobile="../../videos/transition-engineroom-VR-mobile.webm"
+          loop="false"
+          pausedonstart="true"
+          visible="false"
+          use_as_videopano="true"
+          onvideocomplete="js(videoPlayerVR.load('engineroom', 'chemicalroom'));"
+          keep="true"
+          />
+
+  <plugin name="sequence_approaching_rig_vid"
+          url.flash="%SWFPATH%/plugins/videoplayer.swf"
+          url.html5="%SWFPATH%/plugins/videoplayer.js"
+          videourl="../../videos/transition-approaching-VR.webm"
+          videourl.mobile="../../videos/transition-approaching-VR-mobile.webm"
+          loop="false"
+          pausedonstart="false"
+          visible="false"
+          use_as_videopano="true"
+          onvideocomplete="js(videoPlayerVR.load('requiem', 'subhangar'));"
+          />
+
+
   <action name="video_auto_start">
     if(video_auto_start !== true,
-        plugin[vidd].play();
-        plugin[viddstairs_up].play();
-        js(console.log('auto_start'));
-        delayedcall(0.1, plugin[vidd].pause() );
-        delayedcall(0.1, plugin[viddstairs_up].pause() );
+
+        plugin[sequence_outside_stairs_down_vid].play();
+        plugin[sequence_outside_stairs_up_vid].play();
+        plugin[sequence_shaftway_vid].play();
+        plugin[sequence_shaftway_up_vid].play();
+        plugin[sequence_corridor_vid].play();
+        plugin[sequence_corridor_backwards_vid].play();
+        plugin[sequence_engineroom_vid].play();
+        plugin[sequence_approaching_rig_vid].play();
+
+        delayedcall(0.1, plugin[sequence_outside_stairs_down_vid].pause() );
+        delayedcall(0.1, plugin[sequence_outside_stairs_up_vid].pause() );
+        delayedcall(0.1, plugin[sequence_shaftway_vid].pause() );
+        delayedcall(0.1, plugin[sequence_shaftway_up_vid].pause() );
+        delayedcall(0.1, plugin[sequence_corridor_vid].pause() );
+        delayedcall(0.1, plugin[sequence_corridor_backwards_vid].pause() );
+        delayedcall(0.1, plugin[sequence_engineroom_vid].pause() );
+        delayedcall(0.1, plugin[sequence_approaching_rig_vid].pause() );
+
         set(events[video_events].onmousedown, null);
         set(video_auto_start, true);
       );
@@ -2304,162 +2363,46 @@
 
 
 
-  <scene name="sequence_outside_stairs_down" onstart="plugin[vidd].play();">
+
+
+  <scene name="sequence_outside_stairs_down" onstart="plugin[sequence_outside_stairs_down_vid].play();">
     <view hlookat="0" />
-
-    <image>
-      <sphere url="plugin:vidd" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_outside_stairs_down_vid" /> </image>
   </scene>
 
-  <scene name="sequence_outside_stairs_up" onstart="plugin[viddstairs_up].play();">
+  <scene name="sequence_outside_stairs_up" onstart="plugin[sequence_outside_stairs_up_vid].play();">
     <view hlookat="0" />
-
-
-    <image>
-      <sphere url="plugin:viddstairs_up" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_outside_stairs_up_vid" /> </image>
   </scene>
 
-
-
-  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
+  <scene name="sequence_shaftway" onstart="plugin[sequence_shaftway_vid].play();">
     <view hlookat="0" />
-
-    <plugin name="videosphere"
-            url.html5="./plugins/videoplayer_offshore_01.js"
-            videourl="../../videos/transition-hatch-VR.webm"
-            videourl.mobile="../../videos/transition-hatch-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(hallway));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
+    <image><sphere url="plugin:sequence_shaftway_vid" /></image>
   </scene>
 
-
-
-  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
+  <scene name="sequence_shaftway_up" onstart="plugin[sequence_shaftway_up_vid].play();">
     <view hlookat="0" />
-
-    <plugin name="videosphere2"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-hatch-up-VR.webm"
-            videourl.mobile="../../videos/transition-hatch-up-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(lowerplatform));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere2" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_shaftway_up_vid" /> </image>
   </scene>
 
-
-
-
-  <scene name="sequence_corridor" onstart="plugin[videosphere].play();">
+  <scene name="sequence_corridor" onstart="plugin[sequence_corridor_vid].play();">
     <view hlookat="0" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-corridor-VR.webm"
-            videourl.mobile="../../videos/transition-corridor-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_corridor_vid" /> </image>
   </scene>
 
-  <scene name="sequence_corridor_backwards" onstart="plugin[videosphere].play();">
+  <scene name="sequence_corridor_backwards" onstart="plugin[sequence_corridor_backwards_vid].play();">
     <view hlookat="0" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-corridor-backwards-VR.webm"
-            videourl.mobile="../../videos/transition-corridor-backwards-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_corridor_backwards_vid" /> </image>
   </scene>
 
-
-
-
-  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
+  <scene name="sequence_engineroom" onstart="plugin[sequence_engineroom_vid].play();">
     <view hlookat="0" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-engineroom-VR.webm"
-            videourl.mobile="../../videos/transition-engineroom-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(videoPlayerVR.load('engineroom', 'chemicalroom'));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_engineroom_vid" /> </image>
   </scene>
 
-
-
-
-
-  <scene name="sequence_approaching_rig" onstart="plugin[videosphere].play();">
+  <scene name="sequence_approaching_rig" onstart="plugin[sequence_approaching_rig_vid].play();">
     <view hlookat="0" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/transition-approaching-VR.webm"
-            videourl.mobile="../../videos/transition-approaching-VR-mobile.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(videoPlayerVR.load('requiem', 'subhangar'));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
+    <image> <sphere url="plugin:sequence_approaching_rig_vid" /> </image>
   </scene>
 
 
