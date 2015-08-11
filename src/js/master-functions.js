@@ -330,16 +330,16 @@ var masterFunctions = function() {
 
     if(master.overlayOpen === true) return;
 
-    if(extcontrol) if(extcontrol.role === 'master') {
-      extcontrol.fn({ 'fn':'loadOverlay', 'overlayURL':overlayURL});
-    }
-
     master.overlayOpen = true;
     master.ghostBuster = true;
 
     if(globals.vr && overlayURL !== 'rigmap.html'){
       overlayVR.load(overlayURL);
       return;
+    }
+
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn':'loadOverlay', 'overlayURL':overlayURL});
     }
 
     $('.scroll-directions').fadeOut(500)
