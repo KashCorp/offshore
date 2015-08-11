@@ -1386,6 +1386,8 @@ function videoPlayer(group, playerFadeTransition){
 
   if(master.overlayOpen === true) return;
 
+  console.log('videoPlayer', group);
+
   master.ghostBuster = true;
   master.overlayOpen = true;
   master.soundTrigger = true;
@@ -1709,9 +1711,9 @@ function switchVideo(_id,_text){
     $('#walking-canvas-pano').css('display','none')
   }, false);
 
-  if(master.isAndroid){
+  if(master.isAndroid || globals.isIOS){
     globals.$videooverlay[0].addEventListener('click',function(){
-        globals.$videooverlay[0].play();
+      globals.$videooverlay[0].play();
     },false);
   }
 
@@ -1731,8 +1733,8 @@ function switchVideo(_id,_text){
     e.stopPropagation();
 
     var autoplay = true;
-    if(extcontrol) if(extcontrol.role === 'slave') autoplay = false;
-    if(master.isAndroid) autoplay = false;
+    // if(extcontrol) if(extcontrol.role === 'slave') autoplay = false;
+    if(master.isAndroid || master.isIOS) autoplay = false;
 
     if(autoplay) this.play();
 

@@ -247,7 +247,7 @@ var pano = (function(){
         return false;
       }
 
-      
+
     }
 
     globals.$wrapper.removeClass('hide');
@@ -1113,7 +1113,7 @@ var pano = (function(){
       // ********************************************************
       // External Control Module
 
-      if(extcontrol) {
+      if(extcontrol && exports.krpano && exports.krpano.get) {
         if(extcontrol.role === 'master'){
 
           extcontrol.sync_data.panX = exports.krpano.get('view.hlookat');

@@ -15,13 +15,13 @@ var extcontrol = false;
 
 var ExtControl = function(_role, _id){
 
+
 	var that = this;
 
-	var krpano,
-		socket;
+	var krpano, socket;
 
-	var $info = $('#node-connection-info'), // on screen info text
-		infotimeout;
+	var $info = $('#node-connection-info'); // on screen info text
+	var infotimeout;
 
 	this.role = _role; // "master" or "slave"
 	this.id   = _id;
@@ -34,13 +34,16 @@ var ExtControl = function(_role, _id){
 	// ********************************************************
 	// Socket
 
-	$.getScript('js/lib/socket.io.js', function(){
+	var url = "192.168.1.242";
+	if(globals.config.extControlUrl) url = globals.config.extControlUrl;
 
-		var url = "192.168.1.240";
-		if(globals.config.extControlUrl) url = globals.config.extControlUrl;
+	url = 'http://' + url + ':3700'
 
-		console.log('http://'+url+':3700')
-		socket = io.connect('http://'+url+':3700');
+	console.log('ExtControl!', _role, 'connecting to:', url);
+
+	$.getScript(url+'/socket.io/socket.io.js', function(){
+
+		socket = io.connect(url);
 
 		// ********************************************************
 		// Setup
@@ -61,7 +64,7 @@ var ExtControl = function(_role, _id){
 			if(_role === 'master') {
 				console.log('>>> SOCKET connected: MASTER')
 				socket.emit('Hi I am the master', {
-					'currentPano': globalPano,
+					'currentPano': globals.pano,
 					'overlayOpen' : master.overlayOpen
 				});
 
@@ -533,10 +536,10 @@ var Autopilot = function(){
 		// console.log('AUTOPILOT switchPano')
 
 		// calculate pano_index so we can start the autopilot in any room
-		if(!that.pano_index || master.globalPano != panos[that.pano_index]) {
-			that.pano_index = panos.indexOf(master.globalPano);
+		if(!that.pano_index || globals.pano != panos[that.pano_index]) {
+			that.pano_index = panos.indexOf(globals.pano);
 			if(that.pano_index < 0) {
-				if(master.globalPano === 'submarine') that.pano_index = panos.indexOf('subhangar') - 1
+				if(globals.pano === 'submarine') that.pano_index = panos.indexOf('subhangar') - 1
 				else that.pano_index = 0;
 			}
 		}
