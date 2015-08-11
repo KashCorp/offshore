@@ -21,7 +21,7 @@ var globals = (function(){
   // for the url arguments which can override these defaults
 
   exports.config = {
-    useLocalResources: false, // look for media locally instead of from the CDN (?local)
+    useLocalResources: true, // look for media locally instead of from the CDN (?local)
 
     extControlMaster:  false,  // set extcontrol.role to 'master' (?master)
     extControlSlave:   false,  // set extcontrol.role to 'slave'  (?slave)
@@ -35,6 +35,8 @@ var globals = (function(){
   if(search) {
     if(search.substr(0,1) == '?') {
       var searcharray = search.split('?');
+
+      exports.config.useLocalResources = true
 
       for (var i = searcharray.length - 1; i >= 0; i--) {
         if(searcharray[i] === "local")  exports.config.useLocalResources = true;

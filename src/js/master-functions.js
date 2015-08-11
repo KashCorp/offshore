@@ -1204,11 +1204,11 @@ var sequenceVR = {
       sequenceVR.lookat = Math.abs(pano.krpano.get('view.hlookat') % 360);
 
       if( sequenceVR.lookat > 30 && sequenceVR.lookat < 330 && !sequenceVR.paused ){
-        sequenceVR.paused = true;
-        pano.krpano.call('plugin[videosphere].pause()')
+        // sequenceVR.paused = true;
+        // pano.krpano.call('plugin[videosphere].pause()')
       } else if( ( sequenceVR.lookat < 30 || sequenceVR.lookat > 330 ) && sequenceVR.paused ) {
-        sequenceVR.paused = false;
-        pano.krpano.call('plugin[videosphere].play()')
+        // sequenceVR.paused = false;
+        // pano.krpano.call('plugin[videosphere].play()')
       }
     }
 
