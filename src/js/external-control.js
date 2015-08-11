@@ -148,6 +148,14 @@ var ExtControl = function(_role, _id){
 						videoPlayerVR.pause();
 						break;
 
+					// vr transitions
+					case 'pausesequence':
+						sequenceVR.pause();
+						break;
+					case 'playsequence':
+						sequenceVR.play();
+						break;
+
 
 
 

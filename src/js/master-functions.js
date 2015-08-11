@@ -1221,32 +1221,42 @@ var sequenceVR = {
 
     pano.krpano.set('view.fov', 90);
 
-    if(!sequenceVR.vertical && globals.vr){
+    // this is neat but only works with oculus, as view.hlookat is treated completely
+    // differently on phones and browser fake VR
 
-      sequenceVR.lookat = Math.abs(pano.krpano.get('view.hlookat') % 360);
+    // if(!sequenceVR.vertical && globals.vr){
 
-      if( sequenceVR.lookat > 30 && sequenceVR.lookat < 330 && !sequenceVR.paused ){
-        sequenceVR.paused = true;
-        pano.krpano.call('plugin[videosphere].pause()')
+    //   sequenceVR.lookat = Math.abs(pano.krpano.get('view.hlookat') % 360);
 
-        if(extcontrol)
-          if(extcontrol.role === 'master')
-            extcontrol.fn({fn: 'pausesequence'})
+    //   if( sequenceVR.lookat > 30 && sequenceVR.lookat < 330 && !sequenceVR.paused ){
+    //     sequenceVR.pause();
 
-      } else if( ( sequenceVR.lookat < 30 || sequenceVR.lookat > 330 ) && sequenceVR.paused ) {
-        sequenceVR.paused = false;
-        pano.krpano.call('plugin[videosphere].play()')
+    //     if(extcontrol)
+    //       if(extcontrol.role === 'master')
+    //         extcontrol.fn({fn: 'pausesequence'})
 
-        if(extcontrol)
-          if(extcontrol.role === 'master')
-            extcontrol.fn({fn: 'playsequence'})
-      }
-    }
+    //   } else if( ( sequenceVR.lookat < 30 || sequenceVR.lookat > 330 ) && sequenceVR.paused ) {
+    //     sequenceVR.play();
+
+    //     if(extcontrol)
+    //       if(extcontrol.role === 'master')
+    //         extcontrol.fn({fn: 'playsequence'})
+    //   }
+    // }
+
+  },
 
 
+  play: function(){
+    console.log('play');
+    sequenceVR.paused = false;
+    pano.krpano.call('plugin[videosphere].play()')
+  },
 
-
-
+  pause: function(){
+    console.log('pause');
+    sequenceVR.paused = true;
+    pano.krpano.call('plugin[videosphere].pause()')
   },
 
   start: function(_vertical){
