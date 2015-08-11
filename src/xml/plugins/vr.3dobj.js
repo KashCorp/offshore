@@ -54,6 +54,10 @@ function krpanoplugin(){
 
 	local.unloadplugin = function(){
 
+		if(THREEANIM){
+			THREEANIM.objKill()
+	    }
+
 		// deregister krpano events
 		krpano.set("events[__threejs__].keep", false);
 		krpano.set("events[__threejs__].onviewchange", false);

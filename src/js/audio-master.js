@@ -72,11 +72,11 @@ var audiomaster = (function(){
 
     //x = r cos(t)    y = r sin(t)
 
-    var soundPosX1 = 1 * Math.cos(soundVector1 * Math.PI / 180)
-    var soundPosZ1 = 1 * Math.sin(soundVector1 * Math.PI / 180)
+    var soundPosX1 = 2 * Math.cos(soundVector1 * Math.PI / 180)
+    var soundPosZ1 = 2 * Math.sin(soundVector1 * Math.PI / 180)
 
-    var soundPosX2 = 1 * Math.cos(soundVector2 * Math.PI / 180)
-    var soundPosZ2 = 1 * Math.sin(soundVector2 * Math.PI / 180)
+    var soundPosX2 = 2 * Math.cos(soundVector2 * Math.PI / 180)
+    var soundPosZ2 = 2 * Math.sin(soundVector2 * Math.PI / 180)
 
 
     if(Modernizr.webaudio === true) {

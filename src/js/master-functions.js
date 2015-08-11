@@ -1204,11 +1204,11 @@ var sequenceVR = {
       sequenceVR.lookat = Math.abs(pano.krpano.get('view.hlookat') % 360);
 
       if( sequenceVR.lookat > 30 && sequenceVR.lookat < 330 && !sequenceVR.paused ){
-        sequenceVR.paused = true;
-        pano.krpano.call('plugin[videosphere].pause()')
+        // sequenceVR.paused = true;
+        // pano.krpano.call('plugin[videosphere].pause()')
       } else if( ( sequenceVR.lookat < 30 || sequenceVR.lookat > 330 ) && sequenceVR.paused ) {
-        sequenceVR.paused = false;
-        pano.krpano.call('plugin[videosphere].play()')
+        // sequenceVR.paused = false;
+        // pano.krpano.call('plugin[videosphere].play()')
       }
     }
 
@@ -1517,25 +1517,18 @@ function videoPlayer(group, playerFadeTransition){
       // ********************************************************
       // Slider
 
-      $.getScript("js/lib/jquery-ui.min.js")
-      .done(function(script, textStatus){
+      $seek.slider()
+        .slider({ start: videoPlayerUI.seekstart })
+        .slider({ stop:  videoPlayerUI.seekstop  });
 
-        $seek.slider()
-          .slider({ start: videoPlayerUI.seekstart })
-          .slider({ stop:  videoPlayerUI.seekstop  });
+      // slider -> video
+      $seek.slider({ slide: videoPlayerUI.sliderseek });
 
-        // slider -> video
-        $seek.slider({ slide: videoPlayerUI.sliderseek });
-
-        // video -> slider
-        video.addEventListener("timeupdate", function() {
-            var value = (100 / video.duration) * video.currentTime;
-            $seek.slider("value", value);
-            $(".video-content-wrap .text").html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
-        });
-      })
-      .fail(function(jqxhr, settings, exception) {
-        console.log('getScript FAIL')
+      // video -> slider
+      video.addEventListener("timeupdate", function() {
+          var value = (100 / video.duration) * video.currentTime;
+          $seek.slider("value", value);
+          $(".video-content-wrap .text").html(timeFormat(video.currentTime) + "/" + timeFormat(video.duration))
       });
 
       // Time

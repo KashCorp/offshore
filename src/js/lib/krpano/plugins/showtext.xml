@@ -16,7 +16,7 @@
 	<!-- the automatic running (autorun=preinit) install action -->
 	<action name="showtext_install" autorun="preinit">
 		<!-- redirect the build-in 'showtext' action to the 'showtext_xml' action: -->
-		set(showtext, action(showtext_xml,%%1,%%2) );
+		set(showtext, action(showtext_xml,'%%1','%%2') );
 
 		<!-- initialize internal variables -->
 		set(showtext_style, DEFAULT);
@@ -31,9 +31,9 @@
 
 	<action name="showtext_xml">
 		set(showtext_style, DEFAULT);
-		if(%2 != null, ifnot(textstyle[%2], trace('textstyle "%2" not found'); , set(showtext_style,%2)); );
+		if('%2' != 'null', ifnot(textstyle['%2'], trace('textstyle "%2" not found'); , set(showtext_style,'%2')); );
 
-		set(showtext_text, %1);
+		set(showtext_text, '%1');
 		if(showtext_text != showtext_prevtext,
 			copy(showtext_prevtext, showtext_text);
 			showtext_createnewtext();

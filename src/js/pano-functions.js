@@ -225,7 +225,7 @@ var pano = (function(){
       }
     }
 
-    ///// Decision to divert to image sequence
+    /// Decision to divert to image sequence
     if(_pano.indexOf('sequence') !== -1) {
 
       if(globals.vr){
@@ -244,9 +244,10 @@ var pano = (function(){
       } else {
         console.log('REGULAR SEQUENCE')
         loadSequenceScene(_pano);
+        return false;
       }
 
-      return false;
+      
     }
 
     globals.$wrapper.removeClass('hide');
@@ -338,6 +339,19 @@ var pano = (function(){
         exports.video_underlay = true;
       break;
 
+
+      case "sequence_shaftway" :
+        console.log('seg shaft')
+        overLayFile = 'Hatch_Alt1'
+        underlayFile = 'Drone_3'
+      break;
+
+      case "sequence_shaftway_up" :
+
+        overLayFile = 'Hatch_Alt1'
+        underlayFile = 'Drone_3'
+      break;
+
       case "subhangar" :
         exports.visited.subhangar = true;
 
@@ -365,12 +379,6 @@ var pano = (function(){
         exports.video_underlay = true;
         break;
 
-      case "theater" :
-        exports.visited.theatre = true;
-
-        overLayFile = 'Fluorescencent_Tone'
-        underlayFile = 'Drone_1_norm'
-        break;
 
       case "theatre" :
         exports.visited.theatre = true;
@@ -456,6 +464,8 @@ var pano = (function(){
 
     // clear word container
     $('#word-container ul').html('')
+
+    console.log(_sequence)
 
     globals.$panocontainer.removeClass('show').addClass('hide');
     globals.$wrapper.addClass('hide');

@@ -81,6 +81,7 @@ module.exports = function(grunt){
             'overlay/**/*',
             'xml/**/*',
             'js/lib/krpano/**/*',
+            'js/animations/**/*',
           ]
         }]
       }
