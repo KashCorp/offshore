@@ -118,9 +118,12 @@ var pano = (function(){
           // HACK! overwriting an event from the webvr library
           _pano.set('webvr_onentervr', function(){
             console.log('VR ENTERED');
+
             globals.vr = true;
             _pano.call('action(webvr_enter)');
             _pano.set('vr', true);
+
+            _pano.set('plugin[autorotate].enabled',false);
 
             // debug
             $(window).on('keydown', function(e){
@@ -163,10 +166,6 @@ var pano = (function(){
 
   exports.loadPanoScene = function(_pano) {
     console.log('load pano "%s"', _pano);
-
-    if(extcontrol) if(extcontrol.role === 'master') {
-      extcontrol.hashChange({ "hash": _pano });
-    }
 
     globals.pano = _pano;
 

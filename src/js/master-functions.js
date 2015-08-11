@@ -53,7 +53,7 @@ var masterFunctions = function() {
 
   this.movieMenu = false;
 
-  this.isRetina = (function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; }());
+  this.isRetina = (function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if(window.devicePixelRatio > 1) return true; if(window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; }());
 
   this.init = function(){
 
@@ -476,7 +476,7 @@ var masterFunctions = function() {
 
     var multix = 1;
 
-    if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
+    if(!navigator.userAgent.match(/(Safari)/g) ? true: false){
       multix = 0.3;
     }
 
@@ -629,7 +629,7 @@ var masterFunctions = function() {
     var tag=globals.getCookie("offshore_tag");
     if(that.tag_array)
     var return_value = that.tag_array[0]
-    if (tag==null || tag==""){
+    if(tag==null || tag==""){
 
         that.tag_array.sort(function(){ return Math.random()-0.5; });
         return_value =  that.tag_array.pop();
@@ -660,7 +660,7 @@ var masterFunctions = function() {
 
   this.check_start = function(){
     var tag = globals.getCookie("seen_frontpage");
-    if (tag==null || tag==""){
+    if(tag==null || tag==""){
       //$('body.platform').find('#overlay').delay(2000).fadeIn(500);
       globals.setCookie("seen_frontpage",true);
     }
@@ -753,7 +753,7 @@ var xml = {
 
     if(URL == "hatch.php"){
 
-      if (transition_audio[0].canPlayType('audio/ogg')){
+      if(transition_audio[0].canPlayType('audio/ogg')){
         transition_audio[0].src = master.cdn_audio + "Hatch_Open.ogg"
       } else {
         transition_audio[0].src = master.cdn_audio + "Hatch_Open.mp3"
@@ -761,7 +761,7 @@ var xml = {
 
     }else{
 
-      if (transition_audio[0].canPlayType('audio/ogg')){
+      if(transition_audio[0].canPlayType('audio/ogg')){
         //transition_audio[0].src = "audio/Transition_Sound.ogg"
       } else {
         //transition_audio[0].src = "audio/Transition_Sound.mp3"
@@ -1142,27 +1142,43 @@ var videoPlayerVR = {
     console.log('VEEEE ARRRRRRRR VIDDDDD "%s"', groupName);
 
     // optionally specify a pano to return to
-    videoPlayerVR.data.currentPano = (back) ? back : globals.pano;
+    videoPlayerVR.data.currentPano = (back) ? back: globals.pano;
 
     videoPlayerVR.data.videoGroup = globals.videoGroups[groupName];
     videoPlayerVR.data.currentVideo = 0;
 
-    pano.krpano.set('vrvideo', globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file + globals.videoType);
     xml.newPano('vrvideo');
+
+    if(extcontrol)
+      if(extcontrol.role === 'master')
+        extcontrol.fn({ 'fn':'loadvrvideo', 'data': data });
+
+  },
+
+  onstart: function(){
+    console.log('HIHIHIHIHI');
+    setTimeout(function(){
+      pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file + globals.videoType+');');
+      pano.krpano.set('plugin[vrvideo].muted', storage.get('muted'));
+    }, 500)
   },
 
   close: function(){
-    master.overlayOpen = false
-    if(videoPlayerVR.data.currentPano === 'prologue') videoPlayerVR.data.currentPano = 'helicopter';
-    xml.newPano(videoPlayerVR.data.currentPano);
+
   },
 
   ended: function(){
     console.log('VID ENDED');
-    videoPlayerVR.close();
+    closeVideoPlayer();
   },
 
   play: function(){
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn':'playvrvideo'})
+    }
+
+    console.log('PLAY MOTHERFUCKER');
+
     pano.krpano.call('plugin[vrvideo].play()');
 
     pano.krpano.set('hotspot[vrvideo_pause].visible', true);
@@ -1173,6 +1189,12 @@ var videoPlayerVR = {
   },
 
   pause: function(){
+    if(extcontrol) if(extcontrol.role === 'master') {
+      extcontrol.fn({ 'fn':'pausevrvideo'})
+    }
+
+    console.log('PAUSE MOTHERFUCKER');
+
     pano.krpano.call('plugin[vrvideo].pause()');
 
     pano.krpano.set('hotspot[vrvideo_pause].visible', false);
@@ -1180,7 +1202,6 @@ var videoPlayerVR = {
 
     pano.krpano.set('hotspot[vrvideo_play].visible', true);
     pano.krpano.set('hotspot[vrvideo_play].active',  true);
-
   }
 }
 
@@ -1305,33 +1326,33 @@ var overlayVR = {
 // by the External Control and Autopilot modules.
 var videoPlayerUI = {
 
-  video : document.getElementById("video-overlay"),
-  $play : $(".video-content-wrap .play"),
-  $seek : $(".video-content-wrap .seek"),
-  wasplaying : null,
-  time : null,
+  video: document.getElementById("video-overlay"),
+  $play: $(".video-content-wrap .play"),
+  $seek: $(".video-content-wrap .seek"),
+  wasplaying: null,
+  time: null,
 
   // these two allow iOS masters to control video properly
-  play : function(data){
+  play: function(data){
     videoPlayerUI.video.currentTime = data.time;
     videoPlayerUI.video.play();
   },
 
-  pause : function(){
+  pause: function(){
     videoPlayerUI.video.pause()
   },
 
   // the rest are normal UI functionality
-  playpause : function() {
+  playpause: function() {
 
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'playpause'})
     }
 
-    if (videoPlayerUI.video.paused) {
+    if(videoPlayerUI.video.paused) {
 
       videoPlayerUI.video.play();
-      videoPlayerUI.$play.removeClass('paused')
+      videoPlayerUI.$play.removeClass('paused');
 
     } else {
 
@@ -1339,9 +1360,10 @@ var videoPlayerUI = {
       videoPlayerUI.$play.addClass('paused')
 
     }
+
   },
 
-  seekstart : function(){
+  seekstart: function(){
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstart'})
     }
@@ -1352,7 +1374,7 @@ var videoPlayerUI = {
     videoPlayerUI.$play.addClass('paused')
   },
 
-  seekstop : function(data){
+  seekstop: function(data){
     if(extcontrol) {
       if(extcontrol.role === 'master') {
         extcontrol.fn({ 'fn':'videoPlayerUI', 'action':'seekstop', 'time':videoPlayerUI.time})
@@ -1368,7 +1390,7 @@ var videoPlayerUI = {
     }
   },
 
-  sliderseek : function(){
+  sliderseek: function(){
     videoPlayerUI.time = videoPlayerUI.video.duration * (videoPlayerUI.$seek.slider("value") / 100);
   }
 
@@ -1392,17 +1414,22 @@ function videoPlayer(group, playerFadeTransition){
   master.overlayOpen = true;
   master.soundTrigger = true;
 
+  if(globals.vr){
+
+    if(extcontrol)
+      if(extcontrol.role === 'master')
+        extcontrol.fn({"fn": "loadvrvideo", "group": group });
+
+    videoPlayerVR.load(group);
+    return;
+  }
+
   if(extcontrol) if(extcontrol.role === 'master') {
     extcontrol.fn({
       "fn": "openVideoPlayer",
       "group": group,
       "playerFadeTransition": playerFadeTransition
     });
-  }
-
-  if(globals.vr){
-    videoPlayerVR.load(group);
-    return;
   }
 
   console.log('launchVideoPlayer, group "%s"', group);
@@ -1617,9 +1644,9 @@ function switchVideo(_id,_text){
 
   if(extcontrol) if(extcontrol.role === 'master') {
     extcontrol.fn({
-      'fn'    : 'switchVideo',
-      '_id'   : _id,
-      '_text' : _text
+      'fn'   : 'switchVideo',
+      '_id'  : _id,
+      '_text': _text
     });
   }
 
@@ -1639,7 +1666,7 @@ function switchVideo(_id,_text){
     }
 
   } else {
-     master.viewedContentArray.push({'srcString' : globals.$videooverlay[0].src, 'time' : globals.$videooverlay[0].currentTime})
+     master.viewedContentArray.push({'srcString': globals.$videooverlay[0].src, 'time': globals.$videooverlay[0].currentTime})
   }
 
   var contentViewed = $('.movie-menu .viewedContentDiv')
@@ -1648,7 +1675,7 @@ function switchVideo(_id,_text){
   if(!contentViewedSeconds) contentViewedSeconds = 1;
 
   $(master.viewedContentArray).each(function(i,v){
-    if (v['time']) contentViewedSeconds += parseInt(v['time'])
+    if(v['time']) contentViewedSeconds += parseInt(v['time'])
   })
 
   contentViewed.text('You have seen ' +  Math.round( contentViewedSeconds / 60 * 10 ) / 10   + " / 71 minutes of OFFSHORE video content." )
@@ -1696,8 +1723,6 @@ function switchVideo(_id,_text){
 
     globals.$videooverlay[0].src = globals.cdn_video + _id + globals.videoType
     globals.$videooverlay[0].load()
-
-    console.log(globals.$videooverlay[0].src)
 
     if(master.isIOS || master.isAndroid){
 
@@ -1755,6 +1780,13 @@ function closeVideoPlayer(){
     extcontrol.fn({ 'fn':'closeVideoPlayer' });
   }
 
+  if(globals.vr){
+    master.overlayOpen = false;
+    if(videoPlayerVR.data.currentPano === 'prologue') videoPlayerVR.data.currentPano = 'helicopter';
+    xml.newPano(videoPlayerVR.data.currentPano);
+    return;
+  }
+
   var $videocontentwrap = $(".video-content-wrap")
 
   var viewedContent = $.grep(master.viewedContentArray, function (element, index) {
@@ -1768,7 +1800,7 @@ function closeVideoPlayer(){
     }
 
   } else {
-     master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
+     master.viewedContentArray.push({'srcString': $('#video-overlay')[0].src, 'time': $('#video-overlay')[0].currentTime})
   }
 
   console.log("closing Video Player")
@@ -1885,7 +1917,7 @@ window.requestAnimationFrame = (function() {
     portrait_map = { "0": true, "180": true },
     ww, wh, landscape_threshold;
 
-  if ( $.support.orientation ) {
+  if( $.support.orientation ) {
 
     ww = window.innerWidth || win.width();
     wh = window.innerHeight || win.height();
@@ -1895,21 +1927,21 @@ window.requestAnimationFrame = (function() {
 
     initial_orientation_is_default = portrait_map[ window.orientation ];
 
-    if ( ( initial_orientation_is_landscape && initial_orientation_is_default ) || ( !initial_orientation_is_landscape && !initial_orientation_is_default ) ) {
+    if( ( initial_orientation_is_landscape && initial_orientation_is_default ) || ( !initial_orientation_is_landscape && !initial_orientation_is_default ) ) {
       portrait_map = { "-90": true, "90": true };
     }
   }
 
   $.event.special.orientationchange = $.extend( {}, $.event.special.orientationchange, {
     setup: function() {
-      if ( $.support.orientation && !$.event.special.orientationchange.disabled ) {
+      if( $.support.orientation && !$.event.special.orientationchange.disabled ) {
         return false;
       }
       last_orientation = get_orientation();
       win.bind( "throttledresize", handler );
     },
     teardown: function() {
-      if ( $.support.orientation && !$.event.special.orientationchange.disabled ) {
+      if( $.support.orientation && !$.event.special.orientationchange.disabled ) {
         return false;
       }
       win.unbind( "throttledresize", handler );
@@ -1927,7 +1959,7 @@ window.requestAnimationFrame = (function() {
   function handler() {
     var orientation = get_orientation();
 
-    if ( orientation !== last_orientation ) {
+    if( orientation !== last_orientation ) {
       last_orientation = orientation;
       win.trigger( event_name );
     }
@@ -1936,20 +1968,20 @@ window.requestAnimationFrame = (function() {
   $.event.special.orientationchange.orientation = get_orientation = function() {
     var isPortrait = true, elem = document.documentElement;
 
-    if ( $.support.orientation ) {
+    if( $.support.orientation ) {
       isPortrait = portrait_map[ window.orientation ];
     } else {
       isPortrait = elem && elem.clientWidth / elem.clientHeight < 1.1;
     }
 
-    return isPortrait ? "portrait" : "landscape";
+    return isPortrait ? "portrait": "landscape";
   };
 
   $.fn[ event_name ] = function( fn ) {
-    return fn ? this.bind( event_name, fn ) : this.trigger( event_name );
+    return fn ? this.bind( event_name, fn ): this.trigger( event_name );
   };
 
-  if ( $.attrFn ) {
+  if( $.attrFn ) {
     $.attrFn[ event_name ] = true;
   }
 

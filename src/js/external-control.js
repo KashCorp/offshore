@@ -96,28 +96,13 @@ var ExtControl = function(_role, _id){
 		})
 
 
-		// ********************************************************
-		// Master
-
-		that.sync_view = function(){ socket.emit('sync_view', that.sync_data); }
-
-		that.hashChange         = function(data){ socket.emit('hashChange', data); }
-
-		that.fn = function(data){ socket.emit('fn', data); }
-
-		// that.walkthrough   = function(data){ socket.emit('walkthrough',   data); }
-
-		// // overlays
-		// that.skype         = function(data){ socket.emit('skype',         data); }
-		// that.turn	       = function(data){ socket.emit('turn',          data); } // all books
-
 
 		// ********************************************************
 		// Slave
 
 		if(that.role === 'slave') {
 
-			socket.on('sync_view',function(data){
+			socket.on('sync_view', function(data){
 				that.sync_data = data;
 			})
 
@@ -130,7 +115,7 @@ var ExtControl = function(_role, _id){
 
 			socket.on('fn', function(data){
 
-				console.log(data)
+				console.log('SOCKET', data)
 
 				switch(data.fn) {
 
@@ -151,10 +136,25 @@ var ExtControl = function(_role, _id){
 						videoPlayerUI[data.action](data);
 						break;
 
+					// vr video
+					case 'loadvrvideo':
+						videoPlayerVR.load(data.group);
+						break;
+
+					case 'playvrvideo':
+						videoPlayerVR.play();
+						break;
+					case 'pausevrvideo':
+						videoPlayerVR.pause();
+						break;
+
+
+
 
 
 					// Overlays
 					case 'loadOverlay':
+						console.log('loadOverlay ?!?!?!?!?!?!?!?!?');
 						master.loadOverlay(data.overlayURL);
 						break;
 
@@ -238,45 +238,6 @@ var ExtControl = function(_role, _id){
 
 			})
 
-
-
-			// ********************************************************
-			// socket.on('walkthrough',  function(data){
-
-			// 	console.log('SOCKET -> received walkthrough data')
-
-			// 	var w = false;
-			// 	if(pano.walkthrough)          w = pano.walkthrough;
-			// 	else if(pano.panoWalkthrough) w = pano.panoWalkthrough
-
-			// 	if(w) {
-			// 		if(data.action === 'setPercent') w.setPercent(data.percent)
-			// 		else if(data.action === 'play')  w.play();
-			// 		else if(data.action === 'pause') w.pause();
-			// 	}
-
-			// })
-
-
-			// ********************************************************
-			// socket.on('skype', function(data){
-
-			// 	var s = false;
-			// 	var urlarray = $('#overlay_frame')[0].contentWindow.location.pathname.split('/');
-
-			// 	if(urlarray[urlarray.length-1] === 'skype.html')
-			// 		s = $('#overlay_frame')[0].contentWindow;
-
-			// 	if(s){
-
-			// 		if(data.action === 'switchVid')
-			// 			s.switchVid(data.src)
-			// 		else if(data.action === 'closeVid')
-			// 			s.stopVid()
-			// 	}
-
-			// })
-
 			// ********************************************************
 			socket.on('turn', function(data){
 
@@ -291,6 +252,39 @@ var ExtControl = function(_role, _id){
 
 
 	})
+
+
+
+
+
+
+
+	// ********************************************************
+
+	// ********************************************************
+	// Master
+
+	that.sync_view = function(){ if(socket) socket.emit('sync_view', that.sync_data); }
+
+	that.hashChange = function(data){ if(socket) socket.emit('hashChange', data); }
+
+	that.fn = function(data){ if(socket) socket.emit('fn', data); }
+
+	// that.walkthrough   = function(data){ socket.emit('walkthrough',   data); }
+
+	// // overlays
+	// that.skype         = function(data){ socket.emit('skype',         data); }
+	// that.turn	       = function(data){ socket.emit('turn',          data); } // all books
+
+
+
+
+
+
+
+
+
+
 
 	// ********************************************************
 	this.krpanoloaded = function(){

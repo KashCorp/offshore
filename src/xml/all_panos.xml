@@ -74,7 +74,7 @@
         ####  ##  ##     ####   ##  ##   ## ##     ##    ##
          ##   ##  ##      ##   #### ######  ######  ######  -->
 
-  <scene name="vrvideo" onstart="webvr.resetSensor(view.hlookat)">
+  <scene name="vrvideo" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart());">
 
     <view hlookat="0" vlookat="0" fov="40" />
 
@@ -87,7 +87,7 @@
       <down  url="../offshore_panos/blank.png" />
     </image>
 
-    <plugin name="vrvideo" url="./plugins/vr.video.js" />
+    <plugin name="vrvideo" url="./plugins/vr.video.js" vidsrc="" />
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
@@ -97,7 +97,7 @@
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick="js(videoPlayerVR.close())"
+     onclick="js(closeVideoPlayer())"
      alpha="0.5"
      width="30"
      height="30"
@@ -106,7 +106,7 @@
     <hotspot name="vrvideo_play"
      url="../images/movie-menu/play.png"
      ath="0"
-     atv="30"
+     atv="40"
      distorted="true"
      inverserotation="true"
      zorder2="1"
@@ -114,15 +114,15 @@
      visible="false"
      active="false"
      onclick="js(videoPlayerVR.play())"
-     alpha="0.5"
-     width="30"
-     height="30"
+     alpha="0.7"
+     width="40"
+     height="40"
     />
 
     <hotspot name="vrvideo_pause"
      url="../images/movie-menu/pause.png"
      ath="0"
-     atv="30"
+     atv="40"
      distorted="true"
      keep="false"
      inverserotation="true"
@@ -131,9 +131,9 @@
      visible="true"
      active="true"
      onclick="js(videoPlayerVR.pause())"
-     alpha="0.5"
-     width="30"
-     height="30"
+     alpha="0.7"
+     width="40"
+     height="40"
     />
 
   </scene>

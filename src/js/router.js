@@ -7,7 +7,9 @@ var router = (function(){
     var hash = window.location.hash.slice(1);
     if(master.globalPano === hash) return false;
 
-    if(extcontrol) if(extcontrol.role === 'master') {
+    // broadcast hash change, unless it’s vrvideo, which is handed
+    // different (fn vrvideo)
+    if(extcontrol) if(extcontrol.role === 'master' && hash !== 'vrvideo') {
       extcontrol.hashChange({ "hash": hash });
     }
 

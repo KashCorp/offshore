@@ -30,14 +30,12 @@ var audiomaster = (function(){
     if (isMuted){
       $('.volume-toggle').html('<i class="icon-volume-up"></i>');
       storage.remove('muted');
-      // globals.setCookie('muted', false);
       $('video').each(function(i,v){
         $(v).prop('muted', false)
       })
     } else {
       $('.volume-toggle').html('<i class="icon-volume-off"></i>');
       storage.set('muted', true);
-      // globals.setCookie('muted',true)
       $('video').each(function(i,v){
         $(v).prop('muted', true)
       })

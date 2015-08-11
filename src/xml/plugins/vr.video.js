@@ -16,17 +16,29 @@ function krpanoplugin() {
 
   console.log("starting video pano")
 
-  var video, videoImage, videoImageContext, videoTexture, vidSrc;
+  var video, videoImage, videoImageContext, videoTexture;
+
+  var vidsrc = false;
 
   local.registerplugin = function(krpanointerface, pluginpath, pluginobject) {
     krpano = krpanointerface;
     device = krpano.device;
     plugin = pluginobject;
 
-    vidSrc = krpano.get('vrvideo');
+    plugin.load = function(_vidsrc){
+      console.log('_vidsrc', _vidsrc);
+      vidsrc = _vidsrc
+
+      // load the requiered three.js scripts
+      load_scripts(["./plugins/vr.three.min.js"], startThreeJS);
+    }
+
+    plugin.registerattribute('muted', false);
+    console.log('plugin.muted', plugin.muted);
 
     plugin.pause = pause;
     plugin.play = play;
+    plugin.paused = false;
 
     if (krpano.version < "1.19") {
       krpano.trace(3,"ThreeJS plugin - krpano version too old (min. 1.19)");
@@ -41,9 +53,6 @@ function krpanoplugin() {
 
     krpano.debugmode = true;
     krpano.trace(0, "ThreeJS krpano plugin");
-
-    // load the requiered three.js scripts
-    load_scripts(["./plugins/vr.three.min.js"], startThreeJS);
 
   }
 
@@ -424,11 +433,13 @@ function krpanoplugin() {
   function build_scene() {
     clock = new THREE.Clock();
 
-    console.log('vidSrc:', vidSrc);
-
     video = document.createElement( 'video' );
-    video.src = vidSrc;
+    video.src = vidsrc;
     video.load(); // must call after setting/changing source
+
+    plugin.paused = video.paused;
+
+    if( plugin.muted ) video.muted = true;
 
     var canplaythrough = function() {
       video.removeEventListener('canplaythrough', canplaythrough);

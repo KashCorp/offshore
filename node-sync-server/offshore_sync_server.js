@@ -7,14 +7,12 @@
 
 **************************************************************************/
 
-var io = require('socket.io').listen(3700);
+var io = require('socket.io')(3700, {});
 
-var master,
-	currentPano = "";
+var master;
+var currentPano = "";
 
-DEBUG = 1;
-
-console.log('hi');
+console.log('server started');
 
 io.sockets.on('connection', function(socket){
 
@@ -43,8 +41,10 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('Hi I am a slave', function(){
 
+		console.log('new slave:' + socket.id);
+
 		// make sure we're on the same pano as the master
-		// io.sockets.socket(socket.id).emit('hashChange', { 'hash':currentPano });
+		io.emit('hashChange', { 'hash':currentPano });
 
 	})
 
@@ -59,6 +59,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('hashChange',function(data){
 		currentPano = data.hash;
 		socket.broadcast.emit('hashChange', data);
+		console.log('hashChange:', data.hash);
 	});
 
 	socket.on('fn',function(data){
