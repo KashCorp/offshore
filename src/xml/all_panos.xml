@@ -2228,7 +2228,7 @@
 
 
   <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2248,7 +2248,7 @@
   </scene>
 
   <scene name="sequence_outside_stairs_up" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2270,7 +2270,7 @@
 
 
   <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2292,7 +2292,7 @@
 
 
   <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere2"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2315,7 +2315,7 @@
 
 
   <scene name="sequence_corridor" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2335,7 +2335,7 @@
   </scene>
 
   <scene name="sequence_corridor_backwards" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2358,7 +2358,7 @@
 
 
   <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"
@@ -2382,7 +2382,7 @@
 
 
   <scene name="sequence_approaching_rig" onstart="plugin[videosphere].play();">
-    <view hlookat="0" />
+    <view hlookat="0" fov="90" />
 
     <plugin name="videosphere"
             url.flash="%SWFPATH%/plugins/videoplayer.swf"

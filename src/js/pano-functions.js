@@ -227,7 +227,8 @@ var pano = (function(){
     /// Decision to divert to image sequence
     if(_pano.indexOf('sequence') !== -1) {
 
-      if(globals.vr){
+      // ALWAYS LOAD PANO SEQUENCES
+      // if(globals.vr){
         console.log('VR SEQUENCE')
         if(_pano.indexOf('corridor') !== -1){
           var split = _pano.split('_')
@@ -240,13 +241,12 @@ var pano = (function(){
         var isHatch = !!( _pano.indexOf('shaftway') !== -1 );
         sequenceVR.start( isHatch );
 
-      } else {
-        console.log('REGULAR SEQUENCE')
-        loadSequenceScene(_pano);
-        return false;
-      }
+      // } else {
+      //   console.log('REGULAR SEQUENCE')
+      //   loadSequenceScene(_pano);
+      // }
 
-
+      return false;
     }
 
     globals.$wrapper.removeClass('hide');

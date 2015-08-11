@@ -1219,17 +1219,27 @@ var sequenceVR = {
 
     sequenceVR.diff = 0;
 
-    if(sequenceVR.vertical){
+    pano.krpano.set('view.fov', 90);
 
-    } else {
+    if(!sequenceVR.vertical && globals.vr){
+
       sequenceVR.lookat = Math.abs(pano.krpano.get('view.hlookat') % 360);
 
       if( sequenceVR.lookat > 30 && sequenceVR.lookat < 330 && !sequenceVR.paused ){
-        // sequenceVR.paused = true;
-        // pano.krpano.call('plugin[videosphere].pause()')
+        sequenceVR.paused = true;
+        pano.krpano.call('plugin[videosphere].pause()')
+
+        if(extcontrol)
+          if(extcontrol.role === 'master')
+            extcontrol.fn({fn: 'pausesequence'})
+
       } else if( ( sequenceVR.lookat < 30 || sequenceVR.lookat > 330 ) && sequenceVR.paused ) {
-        // sequenceVR.paused = false;
-        // pano.krpano.call('plugin[videosphere].play()')
+        sequenceVR.paused = false;
+        pano.krpano.call('plugin[videosphere].play()')
+
+        if(extcontrol)
+          if(extcontrol.role === 'master')
+            extcontrol.fn({fn: 'playsequence'})
       }
     }
 
