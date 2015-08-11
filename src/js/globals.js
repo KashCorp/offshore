@@ -27,7 +27,8 @@ var globals = (function(){
     extControlSlave:   false,  // set extcontrol.role to 'slave'  (?slave)
     extControlUrl:     false,  // set extcontrol node server url  (?url=192.168...)
 
-    autopilot:         false   // use autopilot (?autopilot)
+    autopilot:         false,  // use autopilot (?autopilot)
+    css:               false,  // force krpano css3d
   }
 
   var search = window.location.search;
@@ -43,6 +44,7 @@ var globals = (function(){
         if(searcharray[i] === "master") exports.config.extControlMaster = true;
         if(searcharray[i] === "slave")  exports.config.extControlSlave = true;
         if(searcharray[i] === "autopilot") exports.config.autopilot = true;
+        if(searcharray[i] === "css") exports.config.css = true;
 
         if(searcharray[i].substr(0,3) === "url" ) {
           console.log('setting URL: '+searcharray[i].substr(4));
