@@ -66,6 +66,22 @@
 
 
 
+  <scene name="vrsphere" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart());">
+
+    <view hlookat="0" vlookat="0" fov="40" />
+
+    <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
+    </image>
+
+    <plugin name="vrsphere" url="./plugins/vr.sphere.js" vidsrc="" />
+
+  </scene>
 
 
   <!-- ##  ## #####     ##  ## #### ######  ######  ######
