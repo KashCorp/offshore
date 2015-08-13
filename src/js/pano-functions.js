@@ -87,7 +87,7 @@ var pano = (function(){
         xml:     xmlLoc,
         wmode:  "transparent",
         target: "panocontainer",
-        html5:  "only",
+        html5:  "only" + (globals.config.css ? '+css3d' : ''),
         passQueryParameters:true,
 
         onready: function(_pano){
