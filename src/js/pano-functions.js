@@ -108,32 +108,19 @@ var pano = (function(){
 
             $('#video-underlay').show();
 
+            _pano.set('plugin[webVR].onentervr', 'js( onentervr() );');
+
           })
+
+          // _pano.set('events.onentervr', function(){
+          //   console.log('ENTER VR');
+          // })
 
           _pano.set('events.onviewchange', function(){
             audiomaster.soundadjust( _pano.get('view.hlookat'), _pano.get('view.fov') );
             _pano.call('action(viewchange)');
           })
 
-          // HACK! overwriting an event from the webvr library
-          _pano.set('webvr_onentervr', function(){
-            console.log('VR ENTERED');
-
-            globals.vr = true;
-            _pano.call('action(webvr_enter)');
-            _pano.set('vr', true);
-
-            _pano.set('plugin[autorotate].enabled',false);
-
-            // debug
-            $(window).on('keydown', function(e){
-              if(e.keyCode === 82){ // r
-                _pano.call('plugin[webvr].resetSensor(0)')
-              } else if(e.keyCode === 72){ // h
-                console.log(_pano.get('view'));
-              }
-            })
-          })
         }
       });
 
@@ -361,10 +348,9 @@ var pano = (function(){
         $("#walking-canvas-pano").removeClass('hide')
         scrollTrigger = false;
         if(globals.isIOS || globals.isAndroid){
-           $('#walking-canvas-pano').css('display','none')
-
+          $('#walking-canvas-pano').css('display','none')
         }
-        exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
+        // exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
         $('.hotspot').addClass('requiem')
 
         break;

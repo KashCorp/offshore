@@ -1296,6 +1296,24 @@ var overlayVR = {
 }
 
 
+function onentervr(){
+  console.log('VR ENTERED');
+
+  globals.vr = true;
+  pano.krpano.call('action(webvr_onentervr)');
+  pano.krpano.set('vr', true);
+
+  pano.krpano.set('plugin[autorotate].enabled',false);
+
+  // debug
+  $(window).on('keydown', function(e){
+    if(e.keyCode === 82){ // r
+      pano.krpano.call('plugin[webvr].resetSensor(0)')
+    } else if(e.keyCode === 72){ // h
+      console.log(pano.krpano.get('view'));
+    }
+  })
+}
 
 
 
