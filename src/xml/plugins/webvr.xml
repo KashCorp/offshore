@@ -23,7 +23,7 @@
 	        mobilevr_fake_support="false"
 	        vr_cursor="hotspot[vr_cursor]"
 	        vr_cursor_enabled="true"
-	        vr_cursor_onover="if(handcursor, tween(hotspot[vr_cursor].scale,0.4,0.1); vr_auto_click(get(vr_timeout)); );"
+	        vr_cursor_onover="if(handcursor, tween(layer[webvr_enterbutton].alpha,1); tween(hotspot[vr_cursor].scale,0.4,0.1); vr_auto_click(get(vr_timeout)); );"
 	        vr_cursor_onout="tween(hotspot[vr_cursor].scale,0.3,0.1);"
 	        onavailable="webvr_onavailable();"
 	        onunavailable=""
@@ -45,16 +45,7 @@
 	</vrheadsets>
 
 
-	<!-- the VR cursor hotspot -->
-	<hotspot name="vr_cursor" keep="true"
-	         url="webvr_cursor_80x80_17f.png"
-	         visible="false"
-	         enabled="false"
-	         distorted="true"
-	         crop="0|0|80|80"
-	         scale="0.3"
-	         depth="1000"
-	         />
+
 
 
 	<!-- vr_auto_click() - call this action in the onover event of a
@@ -253,6 +244,7 @@
 		set(layer[vr_setup_bg].width, 100%);
 		set(layer[vr_setup_bg].height, 100%);
 		set(layer[vr_setup_bg].zorder, 99999);
+		set(hotspot[vr_cursor].zorder, 99999);
 		
 		<!-- get and prepare device infos and settings -->
 		copy(i_screensize, webvr.mobilevr_screensize);
@@ -865,5 +857,17 @@
 			copy(layer[vr_setup_vig2].html, i_vig);
 		  );
 	</action>
+
+	<!-- the VR cursor hotspot -->
+	<hotspot name="vr_cursor" keep="true"
+	         url="webvr_cursor_80x80_17f.png"
+	         visible="false"
+	         enabled="true"
+	         distorted="true"
+	         crop="0|0|80|80"
+	         scale="0.3"
+	         zorder="10"
+	         depth="10"
+	         />
 
 </krpano>

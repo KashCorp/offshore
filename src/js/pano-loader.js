@@ -183,8 +183,6 @@ var preloader = function() {
 
 
 
-// STARTS THE EXPERIENCE
-openingloader().then(function(){
   console.log('opening loader complete');
 
   if(globals.config.extControlMaster)
@@ -205,7 +203,31 @@ openingloader().then(function(){
   pano.init()
 
   $('#wrapper').fadeIn(2000);
-})
+  
+
+// STARTS THE EXPERIENCE
+// openingloader().then(function(){
+//   console.log('opening loader complete');
+
+//   if(globals.config.extControlMaster)
+//     extcontrol = new ExtControl("master", globals.config.extControlUrl);
+//   else if(globals.config.extControlSlave)
+//     extcontrol = new ExtControl("slave", globals.config.extControlUrl);
+
+//   if(globals.config.autopilot)
+//     autopilot = new Autopilot();
+
+//   audiomaster.loadAudio( 'Drone_1_norm', 'basetrack', 1, 0 );
+
+//   master = new masterFunctions();
+//   master.init();
+//   master.build_navbar();
+//   master.check_start();
+
+//   pano.init()
+
+//   $('#wrapper').fadeIn(2000);
+// })
 
 
 

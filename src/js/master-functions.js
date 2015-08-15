@@ -1155,6 +1155,21 @@ var videoPlayerVR = {
 
   },
 
+
+  stillstart: function(img){
+    
+    setTimeout(function(){
+      pano.krpano.call('plugin[vrsphere-still].load('+globals.cdn_video + ',' + img +');');
+    }, 500)
+  },
+
+  spherestart: function(video){
+    
+    setTimeout(function(){
+      pano.krpano.call('plugin[vrsphere].load('+globals.cdn_video + ',' + video +');');
+    }, 500)
+  },
+
   onstart: function(){
     console.log('HIHIHIHIHI');
     setTimeout(function(){

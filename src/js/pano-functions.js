@@ -87,6 +87,7 @@ var pano = (function(){
         xml:     xmlLoc,
         wmode:  "transparent",
         target: "panocontainer",
+        webglsettings:{depth:true},
         html5:  "only" + (globals.config.css ? '+css3d' : ''),
         passQueryParameters:true,
 
@@ -99,7 +100,7 @@ var pano = (function(){
           // "onloadcomplete" fires when all the pano images have loaded in.
           _pano.set('events.onloadcomplete', function(){
             console.log('[pano] onloadcomplete');
-            if(!globals.isPreloaded) preloader();
+            //if(!globals.isPreloaded) preloader();
 
             globals.$panocontainer.removeClass('hide')
             globals.$panocontainer.css('opacity',1.0)
@@ -117,9 +118,11 @@ var pano = (function(){
 
           // HACK! overwriting an event from the webvr library
           _pano.set('webvr_onentervr', function(){
-            console.log('VR ENTERED');
 
             globals.vr = true;
+
+            document.getElementById( 'video-transition' ).play()
+
             _pano.call('action(webvr_enter)');
             _pano.set('vr', true);
 
@@ -171,7 +174,7 @@ var pano = (function(){
 
     document.title = 'OFFSHORE ' + _pano;
 
-    _gaq.push(['_trackPageview', '/'+ _pano]);
+    //_gaq.push(['_trackPageview', '/'+ _pano]);
 
     $("#loading").hide();
 
