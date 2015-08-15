@@ -5,7 +5,7 @@
   </security>
 
   <!-- webvr.xml - WebVR plugin, enter/exit VR buttons, VR cursor, VR setup -->
-  <include url="%SWFPATH%/plugins/webvr.xml" />
+  <include url="./plugins/webvr.xml" />
   <plugin name="WebVR" mobilevr_fake_support="true" devices="html5" />
 
   <!-- disable mipmapping - can be a little bit sharper in VR -->
@@ -68,6 +68,7 @@
 
 
 
+
   <!-- ##  ## #####     ##  ## #### ######  ######  ######
        ##  ## ##  ##    ##  ##  ##  ##   ## ##     ##    ##
        ##  ## #####     ##  ##  ##  ##   ## #####  ##    ##
@@ -82,7 +83,7 @@
       <sphere  url="../offshore_panos/blank.png" />
     </image>
 
-    <plugin name="vrvideo" url="./plugins/vr.video.js" vidsrc="" />
+    <plugin name="vrvideo" url="./plugins/vr.video-v2.js" vidsrc="" />
 
     <hotspot name="vrvideo_close"
      url="../images/door_outside.png"
@@ -164,7 +165,7 @@
       <plugin name="videosphere"
               url.flash="%SWFPATH%/plugins/videoplayer.swf"
               url.html5="%SWFPATH%/plugins/videoplayer.js"
-              videourl="../../videos/vr-medium/view-from-rig-medium.webm"
+              videourl="../../videos/vr-medium/view-from-rig.webm"
               loop="true"
               pausedonstart="false"
               visible="false"
@@ -205,18 +206,7 @@
         capture="false"
         />
 
-        <hotspot name="ENTER"
-        url="../images/icons/gif_iconA.gif"
-        ath="0"
-        atv="-50"
-        distorted="true"
-        alpha=".5"
-        height="75"
-        width="75"
-        scale="1.0"
-        onclick="js(videoPlayer(prologue));"
-        capture = "false"
-        />
+
 
 
 
@@ -631,7 +621,7 @@
 
       <image>
         <cube url="../offshore_panos/boat_pano_%s.jpg" />
-          <tablet><ube  url="../offshore_panos/512/boat_pano_%s.jpg" /></tablet>
+          <mobile><cube  url="../offshore_panos/512/boat_pano_%s.jpg" /></mobile>
       </image>
 
       <hotspot name="going_up_stairs1"
@@ -1870,8 +1860,6 @@
       distorted="true"
       alpha="0.0"
       onclick="js(xml.zoom_and_change_pano('submarine','subhangar'))"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
       scale="10.0"
     />
 
@@ -2224,156 +2212,59 @@
        #####  ######  ######   #####  ###### ##   ##  ##### ###### #####  -->
 
 
+  <scene name="underwater_01" onstart="js(videoPlayerVR.stillstart());">
+    <plugin name="vrsphere-still" 
+      url="./plugins/vr.sphere-still.js" 
+      zorder="999999"
 
-
-
-  <scene name="sequence_outside_stairs_down" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-downstairs-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(boat));"
-            />
-
+      />
     <image>
-      <sphere url="plugin:videosphere" />
+      <sphere  url="../offshore_panos/underwater_pano_01.jpg" />
     </image>
+
+    <hotspot name="exit" url="../images/hotspot.gif"
+      ath="90"
+      atv="10"
+      distorted="true"
+      alpha="1.0"
+
+      handcursor="true"
+
+      scale="10.0"
+      zorder="999999" 
+    />
 
   </scene>
 
-  <scene name="sequence_outside_stairs_up" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
+  <scene name="sequence_outside_stairs_down" onstart="js(videoPlayerVR.spherestart(transition-downstairs));">
 
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-upstairs-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(lowerplatform));"
-            />
+    <view hlookat="0" vlookat="0" fov="40" />
+    <image></image>
 
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(xml.newPano(boat));" 
+      />
 
   </scene>
 
+  <scene name="sequence_outside_stairs_up" onstart="js(videoPlayerVR.spherestart(transition-upstairs));">
 
-
-  <scene name="sequence_shaftway" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-hatch-down-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(hallway));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
+     <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
     </image>
 
-  </scene>
-
-
-
-  <scene name="sequence_shaftway_up" onstart="plugin[videosphere2].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere2"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-hatch-up-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(xml.newPano(lowerplatform));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere2" />
-    </image>
-
-  </scene>
-
-
-
-
-  <scene name="sequence_corridor" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-corridor-fwd-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
-  </scene>
-
-  <scene name="sequence_corridor_backwards" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-corridor-bkd-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
-
-  </scene>
-
-
-
-
-  <scene name="sequence_engineroom" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/transition-engineroom-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(videoPlayerVR.load('engineroom', 'chemicalroom'));"
-            />
-
-    <image>
-      <sphere url="plugin:videosphere" />
-    </image>
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(xml.newPano(lowerplatform));"
+      />
 
   </scene>
 
@@ -2381,39 +2272,123 @@
 
 
 
-  <scene name="sequence_approaching_rig" onstart="plugin[videosphere].play();">
-    <view hlookat="0" fov="90" />
-
-    <plugin name="videosphere"
-            url.flash="%SWFPATH%/plugins/videoplayer.swf"
-            url.html5="%SWFPATH%/plugins/videoplayer.js"
-            videourl="../../videos/vr-medium/approaching-rig-medium.webm"
-            loop="false"
-            pausedonstart="false"
-            visible="false"
-            use_as_videopano="true"
-            onvideocomplete="js(videoPlayerVR.load('requiem', 'subhangar'));"
-            />
+  <scene name="sequence_shaftway" onstart="js(videoPlayerVR.spherestart(transition-hatch-down));">
 
     <image>
-      <sphere url="plugin:videosphere" />
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
     </image>
+
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(xml.newPano(hallway));" 
+      />
+
+  </scene>
+
+
+  <scene name="sequence_shaftway_up" onstart="js(videoPlayerVR.spherestart(transition-hatch-up));">
+
+    <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
+    </image>
+
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(xml.newPano(hallway));" 
+      />
 
   </scene>
 
 
 
+  <scene name="sequence_corridor" onstart="js(videoPlayerVR.spherestart(transition-corridor-fwd));">
+
+    <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
+    </image>
+
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+       onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
+      />
+
+  </scene>
+
+  <scene name="sequence_corridor_backwards" onstart="js(videoPlayerVR.spherestart(transition-corridor-bkd));">
+
+    <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
+    </image>
+
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="if(corridorDestination, js(xml.newPano(get(corridorDestination))) );"
+      />
+
+  </scene>
 
 
+  <scene name="sequence_engineroom" onstart="js(videoPlayerVR.spherestart(transition-engineroom));">
 
+    <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
+    </image>
 
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(videoPlayerVR.load('engineroom', 'chemicalroom'));"
+      />
 
+  </scene>
 
+  <scene name="sequence_approaching_rig" onstart="js(videoPlayerVR.spherestart(approaching-rig));">
 
+    <image>
+      <left  url="../offshore_panos/blank.png" />
+      <front url="../offshore_panos/blank.png" />
+      <right url="../offshore_panos/blank.png" />
+      <back  url="../offshore_panos/blank.png" />
+      <up    url="../offshore_panos/blank.png" />
+      <down  url="../offshore_panos/blank.png" />
+    </image>
 
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(videoPlayerVR.load('requiem', 'subhangar'));"
+      />
 
-
-
+  </scene>
 
 
   <data name="flag">

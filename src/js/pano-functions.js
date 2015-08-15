@@ -87,6 +87,7 @@ var pano = (function(){
         xml:     xmlLoc,
         wmode:  "transparent",
         target: "panocontainer",
+        webglsettings:{depth:true},
         html5:  "only" + (globals.config.css ? '+css3d' : ''),
         passQueryParameters:true,
 
@@ -99,7 +100,7 @@ var pano = (function(){
           // "onloadcomplete" fires when all the pano images have loaded in.
           _pano.set('events.onloadcomplete', function(){
             console.log('[pano] onloadcomplete');
-            if(!globals.isPreloaded) preloader();
+            //if(!globals.isPreloaded) preloader();
 
             globals.$panocontainer.removeClass('hide')
             globals.$panocontainer.css('opacity',1.0)
@@ -108,18 +109,27 @@ var pano = (function(){
 
             $('#video-underlay').show();
 
+            _pano.set('plugin[webVR].onentervr', 'js( onentervr() );');
+
           })
+
+          // _pano.set('events.onentervr', function(){
+          //   console.log('ENTER VR');
+          // })
 
           _pano.set('events.onviewchange', function(){
             audiomaster.soundadjust( _pano.get('view.hlookat'), _pano.get('view.fov') );
             _pano.call('action(viewchange)');
           })
 
+
           // HACK! overwriting an event from the webvr library
           _pano.set('webvr_onentervr', function(){
-            console.log('VR ENTERED');
 
             globals.vr = true;
+
+            document.getElementById( 'video-transition' ).play()
+
             _pano.call('action(webvr_enter)');
             _pano.set('vr', true);
 
@@ -134,6 +144,7 @@ var pano = (function(){
               }
             })
           })
+
         }
       });
 
@@ -171,7 +182,7 @@ var pano = (function(){
 
     document.title = 'OFFSHORE ' + _pano;
 
-    _gaq.push(['_trackPageview', '/'+ _pano]);
+    //_gaq.push(['_trackPageview', '/'+ _pano]);
 
     $("#loading").hide();
 
@@ -361,10 +372,9 @@ var pano = (function(){
         $("#walking-canvas-pano").removeClass('hide')
         scrollTrigger = false;
         if(globals.isIOS || globals.isAndroid){
-           $('#walking-canvas-pano').css('display','none')
-
+          $('#walking-canvas-pano').css('display','none')
         }
-        exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
+        // exports.panoWalkthrough = new Walkthrough("walking-canvas-pano","approaching",3);
         $('.hotspot').addClass('requiem')
 
         break;

@@ -101,6 +101,8 @@ var globals = (function(){
   if(exports.isMSIE) audioType = '.mp3';
   if(exports.isAndroid) videoType = '_360.webm';
 
+  audioType = '.mp3';
+
   exports.videoType = videoType;
   exports.audioType = audioType;
 

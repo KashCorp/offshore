@@ -1155,6 +1155,21 @@ var videoPlayerVR = {
 
   },
 
+
+  stillstart: function(img){
+    
+    setTimeout(function(){
+      pano.krpano.call('plugin[vrsphere-still].load('+globals.cdn_video + ',' + img +');');
+    }, 500)
+  },
+
+  spherestart: function(video){
+    
+    setTimeout(function(){
+      pano.krpano.call('plugin[vrsphere].load('+globals.cdn_video + ',' + video +');');
+    }, 500)
+  },
+
   onstart: function(){
     console.log('HIHIHIHIHI');
     setTimeout(function(){
@@ -1296,6 +1311,24 @@ var overlayVR = {
 }
 
 
+function onentervr(){
+  console.log('VR ENTERED');
+
+  globals.vr = true;
+  pano.krpano.call('action(webvr_onentervr)');
+  pano.krpano.set('vr', true);
+
+  pano.krpano.set('plugin[autorotate].enabled',false);
+
+  // debug
+  $(window).on('keydown', function(e){
+    if(e.keyCode === 82){ // r
+      pano.krpano.call('plugin[webvr].resetSensor(0)')
+    } else if(e.keyCode === 72){ // h
+      console.log(pano.krpano.get('view'));
+    }
+  })
+}
 
 
 
