@@ -8,11 +8,27 @@ var THREEANIM = {
 		r: 500
 	},
 
-	objInit: function(_mesh,_camera){
+	objInit: function(_mesh,_camera,_scene){
 
 		audiomaster.loadAudio( '../audio/chopper','chopper',.01,-1)
+
+		_mesh.position.y = -100.2;
+		_mesh.position.x = 1.0;
+		_mesh.position.z = 2.0;
+		_mesh.scale.set(-1, -1, 1);
+
+		
+
+		var directionalLight = new THREE.DirectionalLight(0xb6c1c1);
+		directionalLight.position.x = 0.5;
+		directionalLight.position.y = -300;
+		directionalLight.position.z = -1;
+		directionalLight.position.normalize();
+		_scene.add( directionalLight );
 		THREEANIM.mesh = _mesh;
 		THREEANIM.camera = _camera
+
+
 	},
 
 

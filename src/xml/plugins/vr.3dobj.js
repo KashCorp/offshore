@@ -425,7 +425,7 @@ function krpanoplugin(){
 	**************************************************************************/
 
 	function build_scene(){
-		clock = new THREE.Clock();
+
 
 		// load 3d objects
 
@@ -443,14 +443,6 @@ function krpanoplugin(){
 
 		var onError = function ( xhr ) {};
 
-		// load the book texture
-		// var loader = new THREE.ImageLoader( manager );
-		// loader.load( resolve_url_path(objTexture), function ( image ) {
-		// 	texture.image = image;
-		// 	texture.needsUpdate = true;
-		// });
-
-		// load the book model
 		var loader = new THREE.OBJLoader( manager );
 		loader.load( resolve_url_path(plugin.model), function ( _object ) {
 
@@ -463,15 +455,11 @@ function krpanoplugin(){
 				}
 			});
 
-			object.position.y = -100.2;
-			object.position.x = 1.0;
-			object.position.z = 2.0;
 
-			object.scale.set(-1, -1, 1);
 
 			if(THREEANIM){
 
-				THREEANIM.objInit(object,camera)
+				THREEANIM.objInit(object,camera, scene)
 			}
 
 			scene.add( object );
@@ -479,14 +467,9 @@ function krpanoplugin(){
 		}, onProgress, onError );
 
 		// add scene lights
+		
 		scene.add( new THREE.AmbientLight(0x333333) );
 
-		var directionalLight = new THREE.DirectionalLight(0xb6c1c1);
-		directionalLight.position.x = 0.5;
-		directionalLight.position.y = -300;
-		directionalLight.position.z = -1;
-		directionalLight.position.normalize();
-		scene.add( directionalLight );
 
 
 
