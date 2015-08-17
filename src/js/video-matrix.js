@@ -48,6 +48,20 @@ var videoMatrix = {
     }
   ],
 
+
+  "preserver_port": [
+
+    { "title": "Byron Encalade",
+      "file": "BOAT-Byron"
+    }
+  ],
+
+  "preserver_starboard": [
+
+    { "title": "Dean Blanchard",
+      "file": "BOAT-Dean_Blanchard"
+    }
+  ],
   "terminus": [
     { "title": "A Risky Endeavour",
       "file": "Terminus_A_Risky_Endeavour"

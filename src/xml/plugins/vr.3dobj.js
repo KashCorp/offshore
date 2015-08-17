@@ -125,6 +125,8 @@ function krpanoplugin(){
 		renderer = new THREE.WebGLRenderer({canvas:krpano.webGL.canvas, context:krpano.webGL.context});
 		renderer.autoClear = false;
 		renderer.setPixelRatio(1);	// krpano handles the pixel ratio scaling
+		renderer.shadowMapType = THREE.PCFSoftShadowMap;
+
 
 		// restore the krpano WebGL settings (for correct krpano rendering)
 		restore_krpano_WebGL_state();
@@ -448,12 +450,6 @@ function krpanoplugin(){
 
 			object = _object
 
-			object.traverse( function ( child ) {
-				if ( child instanceof THREE.Mesh ) {
-					child.scale.set(3, 3, 3);
-					child.material.color.setRGB (0.4, 0.4, 0.4);
-				}
-			});
 
 
 
@@ -467,7 +463,7 @@ function krpanoplugin(){
 		}, onProgress, onError );
 
 		// add scene lights
-		
+
 		scene.add( new THREE.AmbientLight(0x333333) );
 
 

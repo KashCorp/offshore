@@ -122,7 +122,7 @@
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick=""
+      onclick="js(xml.newPano('hallway'))"
      scale="0.15"
     />
 
@@ -134,12 +134,56 @@
      inverserotation="true"
      zorder2="1"
      zoom="true"
-     onclick=""
+      onclick="js(xml.newPano('controlroom'))"
      scale="0.15"
     />
 
   </scene>
 
+
+<scene name="darkroom_02" onstart="webvr.resetSensor(view.hlookat);">
+
+    <view hlookat="0" vlookat="0" fov="40" />
+
+    <image>
+      <sphere  url="../offshore_panos/blank_gradient_noise.jpg" />
+    </image>
+
+      <plugin name="vroverlay"
+        url="./plugins/vr.3dobj.js"
+        model="../images/obj/platform.obj"
+        animation="../../js/animations/animation-platform.js"
+        />
+
+    <hotspot name="go_back"
+     url="../images/door.png"
+     ath="270"
+     atv="20"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     capture="false"
+     onclick="js(xml.newPano('hallway'))"
+     scale="0.55"
+    />
+
+    <hotspot name="go_forward"
+     url="../images/door.png"
+     ath="320"
+     atv="40"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     capture="false"
+     onclick="js(xml.newPano('chemicalroom'))"
+     alpha = "0"
+     scale="0.75"
+    />
+
+
+  </scene>
 
 
 
@@ -750,9 +794,10 @@
         ath="255"
         atv="1"
         distorted="true"
-        alpha=".5"
+        alpha="1.0"
         height="75"
         width="75"
+        zorder="99"
 
         scale="1.0"
         onclick="lookto(20,0,10,smooth(),true,true,js(videoPlayer(boatdeck)));
@@ -788,16 +833,16 @@
  -->
       <image>
         <left  url="../offshore_panos/subhangar_pano_l.jpg" />
-        <front url="../offshore_panos/subhangar_pano_f.png" />
-        <right url="../offshore_panos/subhangar_pano_r.png" />
+        <front url="../offshore_panos/subhangar_pano_f.jpg" />
+        <right url="../offshore_panos/subhangar_pano_r.jpg" />
         <back  url="../offshore_panos/subhangar_pano_b.jpg" />
         <up    url="../offshore_panos/subhangar_pano_u.jpg" />
         <down  url="../offshore_panos/subhangar_pano_d.jpg" />
 
         <tablet>
           <left  url="../offshore_panos/512/subhangar_pano_l.jpg" />
-          <front url="../offshore_panos/512/subhangar_pano_f.png" />
-          <right url="../offshore_panos/512/subhangar_pano_r.png" />
+          <front url="../offshore_panos/512/subhangar_pano_f.jpg" />
+          <right url="../offshore_panos/512/subhangar_pano_r.jpg" />
           <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
           <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
           <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />
@@ -938,8 +983,8 @@
 
       <hotspot name="vrvideo_close"
        url="../images/icons/close_icon.png"
-       ath="10"
-       atv="100"
+       ath="100"
+       atv="0"
        distorted="true"
        inverserotation="true"
        zorder2="1"
@@ -969,8 +1014,6 @@
   <scene name="chemicalRoom">
 
     <view
-      hlookat="224.0"
-      fov="90.0"
       fovmax="120.0"
       fovmin="5.0"
     />
@@ -983,7 +1026,7 @@
 
     <image>
         <left  url="../offshore_panos/chemicalroom_pano_l.jpg" />
-        <front url="../offshore_panos/chemicalroom_pano_f.png" />
+        <front url="../offshore_panos/chemicalroom_pano_f.jpg" />
         <right url="../offshore_panos/chemicalroom_pano_r.jpg" />
         <back  url="../offshore_panos/chemicalroom_pano_b.jpg" />
         <up    url="../offshore_panos/chemicalroom_pano_u.jpg" />
@@ -991,7 +1034,7 @@
 
         <tablet>
             <left  url="../offshore_panos/512/chemicalroom_pano_l.jpg" />
-            <front url="../offshore_panos/512/chemicalroom_pano_f.png" />
+            <front url="../offshore_panos/512/chemicalroom_pano_f.jpg" />
             <right url="../offshore_panos/512/chemicalroom_pano_r.jpg" />
             <back  url="../offshore_panos/512/chemicalroom_pano_b.jpg" />
             <up    url="../offshore_panos/512/chemicalroom_pano_u.jpg" />
@@ -1000,7 +1043,7 @@
     </image>
 
 
-
+<!-- 
     <hotspot name="engineroom" url="../images/hotspot.gif"
       ath="335"
       atv="-7"
@@ -1050,20 +1093,19 @@
       onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);
                set(hotspot[engineroom].enabled,false);
                if(vr, js(xml.newPano('sequence_engineroom')) );"
-    />
+    /> -->
 
-    <hotspot name="exit" url="../images/hotspot.gif"
+    <hotspot name="exitchem" url="../images/hotspot.gif"
       ath="30"
       atv="-2"
         distorted="true"
         capture="false"
-
-      alpha="0"
+        zorder="999"
+      handcursor="true"
+      alpha="0.0"
       width="100.0"
       height="300.0"
-      borderwidth="0.0" borderwidthhover="1"
-      bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('chemicalroom','hallway')) );"
+      onclick="js(xml.newPano('darkroom_02'))"
       scale="0.7"
       />
 
@@ -1143,7 +1185,7 @@
       atv="10"
       distorted="true"
       capture="false"
-      alpha=".3"
+      alpha="1.0"
       width="140"
       height="140"
       borderwidth="0.0" borderwidthhover="1"
@@ -1151,6 +1193,7 @@
       onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(poisoned)));
            js(xml.setCache(130,90))"
       scale="0.7"
+       zorder="98"
     />
 
     <hotspot name="Poisoned-Barrel"
@@ -1198,7 +1241,7 @@
       atv="28"
       distorted="true"
       capture="false"
-      alpha="0"
+      alpha="0.0"
       width="220.0"
       height="95.0"
       borderwidth="0.0" borderwidthhover="1"
@@ -1215,13 +1258,14 @@
       visible="true"
       distorted="true"
       capture="false"
-      alpha="0.3"
+      alpha="1.0"
       width="140"
       height="140"
       borderwidth="0.0" borderwidthhover="1"
       bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
       onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream))); js(xml.setCache(24,90))"
       scale="0.7"
+      zorder="98"
     />
 
 
@@ -1236,6 +1280,41 @@
        ##     ##    ## ##  ###   ##   ##  ## ##    ## ##
         #####  ######  ##   ##   ##   ##  ##  ######  ##### -->
 
+  <scene name="controlroom_dark">
+
+    <view
+      fovmax="120.0"
+      fovmin="1.0"
+      />
+
+    <image>
+       <cube url="../offshore_panos/controlroom_pano_dark_%s.jpg" />
+    </image>
+
+    <hotspot name="Door"
+      url="../images/hotspot.gif"
+      ath="261"
+      atv="5"
+      alpha="0"
+      width="90"
+      height="150.0"
+      distorted="true"
+      capture="false"
+      onclick="js(xml.newPano('sequence_approaching_rig'));"
+    /> 
+
+   <hotspot name="lights_on" url="../images/hotspots/hatchbutton.png"
+      ath="17.95"
+      atv="-7.82"
+      distorted="true"
+      alpha="1.0"
+      enabled="true"
+      onclick="js(xml.newPano('controlroom'));"
+      capture="false"
+      width="120"
+      height="180"
+    />       
+  </scene>
 
   <scene name="controlroom">
 
@@ -1247,7 +1326,6 @@
       />
 
     <image>
-        <left  url="../offshore_panos/controlroom_pano_l.jpg" />
         <front url="../offshore_panos/controlroom_pano_f.jpg" />
         <right url="../offshore_panos/controlroom_pano_r.jpg" />
         <back  url="../offshore_panos/controlroom_pano_b.png" />
@@ -1265,9 +1343,6 @@
 
     </image>
 
-    <hotspot />
-
-    <!-- Door -->
 
     <hotspot name="Door"
       url="../images/hotspot.gif"
@@ -1278,7 +1353,7 @@
       height="150.0"
       distorted="true"
       capture="false"
-      onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('controlroom','hallway')) );"
+      onclick="js(xml.newPano('darkroom_01'));"
     />
 
 
@@ -1369,28 +1444,18 @@
 
     <!-- Big Red Button -->
 
-    <hotspot name="openhatch" url="../images/hotspot.gif"
+    <hotspot name="lights_off" url="../images/hotspot.gif"
       ath="17.95"
       atv="-7.82"
       distorted="true"
       alpha="0.0"
-      onclick="js(xml.startDrilling());"
+      onclick="js(xml.newPano('controlroom_dark'));"
       capture="false"
       width="150"
       height="200"
     />
 
-    <hotspot name="closehatch" url="../images/hotspots/hatchbutton.png"
-      ath="17.95"
-      atv="-7.82"
-      distorted="true"
-      alpha="0"
-      enabled="false"
-      onclick="js(xml.startDrilling(stop));"
-      capture="false"
-      width="150"
-      height="200"
-    />
+
 
     <hotspot name="nymex"
       url="plugins/videoplayer.swf"
@@ -1515,26 +1580,20 @@
      texture="../images/books/field_data/vr-pages-2-2048.jpg"
      />
 
-    <plugin
-     name="page3"
-     url="./plugins/vr.overlay.js"
-     ath="20"
-     obj="../images/obj/page-flat.obj"
-     texture="../images/books/field_data/vr-pages-3-2048.jpg"
-     />
+    
 
     <hotspot name="vrvideo_close"
      url="../images/icons/close_icon.png"
-     ath="150"
-     atv="80"
+     ath="20"
+    
      distorted="true"
      inverserotation="true"
      zorder2="1"
      zoom="true"
      onclick="js(overlayVR.close())"
      alpha="0.8"
-     width="70"
-     height="70"
+     width="80"
+     height="80"
     />
 
 
@@ -1587,7 +1646,7 @@
 
     <!-- Corridor 1: Chemical Room  -->
 
-    <hotspot name="corridor_01" url="../images/hotspot.gif"
+<!--     <hotspot name="corridor_01" url="../images/hotspot.gif"
       ath="5.15"
       atv="0"
       distorted="true"
@@ -1596,7 +1655,7 @@
           onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_chemicalroom'))"
       scale="5.0"
       capture="false"
-      />
+      /> -->
 
     <hotspot name="chemroom_sign" url="../images/hotspot.gif"
       ath="-3"
@@ -1604,14 +1663,14 @@
       distorted="true"
       alpha="0"
       height="10"
-          onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_chemicalroom'))"
+          onclick="js(xml.newPano('darkroom_02'))"
       scale="5.0"
       capture="false"
       />
 
     <!-- Corridor 2: Theatre  -->
 
-    <hotspot name="corridor_02" url="../images/hotspot.gif"
+<!--     <hotspot name="corridor_02" url="../images/hotspot.gif"
       ath="270"
       atv="0"
       distorted="true"
@@ -1621,7 +1680,7 @@
       onout="js(xml.resetHoverSound());"
       scale="5.0"
       capture="false"
-      />
+      /> -->
 
 
     <hotspot name="theatre_sign" url="../images/hotspot.gif"
@@ -1640,7 +1699,7 @@
 
     <!-- Corridor 3: Control Room  -->
 
-    <hotspot name="corridor_03" url="../images/hotspot.gif"
+<!--     <hotspot name="corridor_03" url="../images/hotspot.gif"
       ath="180"
       atv="0"
       distorted="true"
@@ -1649,7 +1708,7 @@
       onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_controlroom'))"
       scale="3.0"
       capture="false"
-      />
+      /> -->
 
 
     <hotspot name="controlroom_sign" url="../images/hotspot.gif"
@@ -1658,7 +1717,7 @@
       distorted="true"
       alpha="0"
       height="10.0"
-      onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_controlroom'))"
+      onclick="js(xml.newPano('darkroom_01'))"
       scale="4.0"
       capture="false"
       />
@@ -1704,7 +1763,7 @@
       url="../images/icons/gif_iconA.gif"
       ath="315"
       atv="-5"
-      alpha=".3"
+      alpha="1.0"
       height="80"
       width="80"
       distorted="true"
@@ -2306,7 +2365,7 @@
     <plugin name="vrsphere" 
       url="./plugins/vr.sphere.js" 
       vidsrc=""
-      onvideocomplete="js(xml.newPano(hallway));" 
+      onvideocomplete="js(xml.newPano(lowerplatform));" 
       />
 
   </scene>
@@ -2385,11 +2444,40 @@
     <plugin name="vrsphere" 
       url="./plugins/vr.sphere.js" 
       vidsrc=""
-      onvideocomplete="js(videoPlayerVR.load('requiem', 'subhangar'));"
+      onvideocomplete="js(videoPlayerVR.load('requiem', 'controlroom_dark'));"
       />
 
   </scene>
 
+
+  <scene name="lifepreserver_starboard_vr" onstart="js(videoPlayerVR.spherestart(approaching-rig));">
+
+    <image>
+      <sphere  url="../offshore_panos/blank.png" />
+    </image>
+
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(videoPlayerVR.load('preserver_starboard', 'boat'));"
+      />
+
+  </scene>
+
+
+  <scene name="lifepreserver_port_vr" onstart="js(videoPlayerVR.spherestart(approaching-rig));">
+
+    <image>
+      <sphere  url="../offshore_panos/blank.png" />
+    </image>
+
+    <plugin name="vrsphere" 
+      url="./plugins/vr.sphere.js" 
+      vidsrc=""
+      onvideocomplete="js(videoPlayerVR.load('preserver_port', 'boat'));"
+      />
+
+  </scene>
 
   <data name="flag">
     h3 {

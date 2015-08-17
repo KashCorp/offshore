@@ -17,6 +17,13 @@ var THREEANIM = {
 		_mesh.position.z = 2.0;
 		_mesh.scale.set(-1, -1, 1);
 
+		_mesh.traverse( function ( child ) {
+			if ( child instanceof THREE.Mesh ) {
+				child.scale.set(3, 3, 3);
+				child.material.color.setRGB (0.4, 0.4, 0.4);
+			}
+		});
+
 		
 
 		var directionalLight = new THREE.DirectionalLight(0xb6c1c1);

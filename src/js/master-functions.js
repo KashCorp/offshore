@@ -1833,12 +1833,14 @@ function closeVideoPlayer(){
     extcontrol.fn({ 'fn':'closeVideoPlayer' });
   }
 
-  if(globals.vr){
+  //if(globals.vr){
     master.overlayOpen = false;
     if(videoPlayerVR.data.currentPano === 'prologue') videoPlayerVR.data.currentPano = 'helicopter';
+
+    console.log(videoPlayerVR.data.currentPano)
     xml.newPano(videoPlayerVR.data.currentPano);
     return;
-  }
+  //}
 
   var $videocontentwrap = $(".video-content-wrap")
 
