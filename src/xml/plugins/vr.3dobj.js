@@ -54,7 +54,8 @@ function krpanoplugin(){
 
 	local.unloadplugin = function(){
 
-		if(THREEANIM){
+
+		if(typeof THREEANIM !== 'undefined'){
 			THREEANIM.objKill()
 	    }
 
@@ -449,9 +450,6 @@ function krpanoplugin(){
 		loader.load( resolve_url_path(plugin.model), function ( _object ) {
 
 			object = _object
-
-
-
 
 			if(THREEANIM){
 

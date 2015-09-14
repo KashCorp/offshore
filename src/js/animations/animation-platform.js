@@ -26,7 +26,7 @@ var THREEANIM = {
 
 		//_mesh.material = material
 
-		var light = new THREE.PointLight( 0x9eb2b0, 2, 3000);
+		var light = new THREE.PointLight( 0x9eb2b0, 5, 3000);
 		light.position.set(0,800,0);
 		_scene.add( light );
 
@@ -36,7 +36,7 @@ var THREEANIM = {
 		_mesh.scale.set(-.5, -.5, .5);
 		_mesh.position.set(0, 500,0)
 
-		var directionalLight = new THREE.DirectionalLight(0xa8c1be,.8);
+		var directionalLight = new THREE.DirectionalLight(0xa8c1be,0.8);
 		_scene.add( directionalLight );
 
 		directionalLight.position.set(1400 * Math.cos(90 * Math.PI / 180), -300, 1400 * Math.sin(90 * Math.PI / 180));

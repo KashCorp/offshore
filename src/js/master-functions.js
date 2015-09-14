@@ -333,15 +333,15 @@ var masterFunctions = function() {
     master.overlayOpen = true;
     master.ghostBuster = true;
 
-    if(globals.vr && overlayURL !== 'rigmap.html'){
-      overlayVR.load(overlayURL);
-      return;
-    }
+
 
     if(extcontrol) if(extcontrol.role === 'master') {
       extcontrol.fn({ 'fn':'loadOverlay', 'overlayURL':overlayURL});
     }
-
+    //if(globals.vr && overlayURL !== 'rigmap.html'){
+      overlayVR.load(overlayURL);
+      return;
+    //}
     $('.scroll-directions').fadeOut(500)
     globals.$compass.fadeOut(500,function(){
       globals.$panocontainer.addClass('hide')
@@ -1467,7 +1467,7 @@ function videoPlayer(group, playerFadeTransition){
   master.overlayOpen = true;
   master.soundTrigger = true;
 
-  if(globals.vr){
+  //if(globals.vr){
 
     if(extcontrol)
       if(extcontrol.role === 'master')
@@ -1475,7 +1475,9 @@ function videoPlayer(group, playerFadeTransition){
 
     videoPlayerVR.load(group);
     return;
-  }
+  //}
+
+
 
   if(extcontrol) if(extcontrol.role === 'master') {
     extcontrol.fn({

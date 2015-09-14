@@ -12,15 +12,59 @@ var THREEANIM = {
 
 		audiomaster.loadAudio( '../audio/chopper','chopper',.01,-1)
 
-		_mesh.position.y = -100.2;
-		_mesh.position.x = 1.0;
-		_mesh.position.z = 2.0;
-		_mesh.scale.set(-1, -1, 1);
+
+
+		var spline = new THREE.SplineCurve3([
+		    new THREE.Vector3(-100,  -100, 400),
+		    new THREE.Vector3(  100, -100, 0 ),
+		    new THREE.Vector3( -400,  -200, -400),
+		    new THREE.Vector3(-100,  -100, 400),
+		    new THREE.Vector3(-100,  -100, 400)
+		]);
+
+		_mesh.scale.set(-1, -1, -1);
+
+		var oldP, newP
+
+
+		var startLoop = function(){
+		THREEANIM.camera_tween = new TWEEN.Tween( {p:0} )
+			.to( { p: 1}, 20000 )
+			.onUpdate( function() {	
+
+  				newP = spline.getPoint(this.p);
+    			//rotation = spline.getTangent(this.p);
+
+    			if(audiomaster.mix.getTrack('chopper')){
+
+    				audiomaster.mix.getTrack('chopper').pan3d(newP.x * .01,newP.z* .01)
+
+    			}
+    			
+				
+				if(oldP)
+	    			_mesh.position.set(oldP.x, oldP.y,oldP.z)
+
+	    		_mesh.lookAt( newP)
+	    		oldP = newP
+	    		//_mesh.rotation.set(rotation.x , rotation.y+ (90 * Math.PI / 180),rotation.z)
+    			
+			})
+			.start()
+			.onComplete(startLoop)
+
+		}
+
+		startLoop()
+
+						
+		
 
 		_mesh.traverse( function ( child ) {
 			if ( child instanceof THREE.Mesh ) {
-				child.scale.set(3, 3, 3);
-				child.material.color.setRGB (0.4, 0.4, 0.4);
+				child.scale.set(.5, .5, .5);
+				child.material.side = THREE.doubleSide
+				child.material.color.setRGB (0.1, 0.1, 0.1);
 			}
 		});
 
@@ -40,32 +84,37 @@ var THREEANIM = {
 
 
 	objKill: function(){
-		console.log('farewell')
+		THREEANIM.camera_tween.stop()
+		if(audiomaster.mix.getTrack('chopper')){
 		audiomaster.mix.getTrack('chopper').gain(0)
-		audiomaster.mix.removeTrack('chopper')
+		//audiomaster.mix.removeTrack('chopper')			
+		}
+
 	},
 
 	objAnim: function(){
 
-		 THREEANIM.customVars.r -= 0.01
+		TWEEN.update()
 
-			if(THREEANIM.customVars.angle < 360){
-				THREEANIM.customVars.angle += .1
-			} else{
-				THREEANIM.customVars.angle = 0
-			}
+		 // THREEANIM.customVars.r -= 0.01
 
-			if (THREEANIM.mesh)
-			{
+			// if(THREEANIM.customVars.angle < 360){
+			// 	THREEANIM.customVars.angle += .1
+			// } else{
+			// 	THREEANIM.customVars.angle = 0
+			// }
 
-				THREEANIM.customVars.posX1 = THREEANIM.customVars.r * Math.cos(THREEANIM.customVars.angle * Math.PI / 180)
-	    		THREEANIM.customVars.posZ1 = THREEANIM.customVars.r * Math.sin(THREEANIM.customVars.angle * Math.PI / 180)
-	    		THREEANIM.mesh.lookAt( THREEANIM.camera.position)
+			// if (THREEANIM.mesh)
+			// {
 
-	    		audiomaster.mix.getTrack('chopper').pan3d(THREEANIM.customVars.posX1 * .01,THREEANIM.customVars.posZ1* .01)
-	    		THREEANIM.mesh.position.set(THREEANIM.customVars.posX1, -100,THREEANIM.customVars.posZ1)
-			}
+			// 	THREEANIM.customVars.posX1 = THREEANIM.customVars.r * Math.cos(THREEANIM.customVars.angle * Math.PI / 180)
+	  //   		THREEANIM.customVars.posZ1 = THREEANIM.customVars.r * Math.sin(THREEANIM.customVars.angle * Math.PI / 180)
+	  //   		THREEANIM.mesh.lookAt( THREEANIM.camera.position)
+
+	    	
+			// }
 
 	}
 
 }
+

@@ -9,7 +9,8 @@
   <plugin name="WebVR" mobilevr_fake_support="true" devices="html5" />
 
   <!-- disable mipmapping - can be a little bit sharper in VR -->
-  <!-- <display mipmapping="off" /> -->
+  <display mipmapping="off" />
+
 
   <!-- text style for hover info -->
   <textstyle name="hoverstyle" origin="center" yoffset="200" textalign="center" background="false" border="false" fontsize="30" textcolor="0xFFFFFF" bold="false" effect="glow(0xFFFFFF,0.7,4,2);glow(0x000000,1,4,2);dropshadow(3,45,0x000000,2,0.6);" showtime="0.1" fadetime="0.2" fadeintime="0.2" />
@@ -41,7 +42,7 @@
     add(currentX,180);
   </action>
 
-  <action name="initialize">
+  <action name="initialize">   
     set(plugin[directions].visible,true);
     tween(plugin[directions].alpha,1.0,3)
   </action>
@@ -53,15 +54,14 @@
 
   <action name="webvr_enter">
     tween(layer[webvr_enterbutton].alpha,0,0);
-
     webvr_showbuttons();
     webvr_hide_all_non_vr_layers();
 
     <!-- when the screen size is unknown an no custom size is set, open the setup screen on entering the VR mode -->
-    if(webvr.ismobilevr == true AND !webvr.isfake AND ask_user_for_screensize == true AND webvr.mobilevr_screensize == 'auto',
-      set(ask_user_for_screensize, false);
-      vr_setup();
-      );
+    <!--     if(webvr.ismobilevr == true AND !webvr.isfake AND ask_user_for_screensize == true AND webvr.mobilevr_screensize == 'auto',
+          set(ask_user_for_screensize, false);
+          vr_setup();
+          ); -->
   </action>
 
 
@@ -127,8 +127,8 @@
     />
 
     <hotspot name="go_forward"
-     url="../images/door.png"
-     ath="0"
+     url="../images/door_blue.png"
+     ath="20"
      atv="0"
      distorted="true"
      inverserotation="true"
@@ -141,6 +141,46 @@
   </scene>
 
 
+<scene name="darkroom_01b" onstart="webvr.resetSensor(view.hlookat);">
+
+    <view hlookat="0" vlookat="0" fov="40" />
+
+    <image>
+      <sphere  url="../offshore_panos/blank.png" />
+    </image>
+
+      <plugin name="vroverlay"
+        url="./plugins/vr.3dobj.js"
+        model="../images/obj/drill_01.obj"
+        animation="../../js/animations/animation-drill.js"
+        />
+
+    <hotspot name="go_back"
+     url="../images/door.png"
+     ath="20"
+     atv="0"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+      onclick="js(xml.newPano('hallway'))"
+     scale="0.15"
+    />
+
+    <hotspot name="go_forward"
+     url="../images/door_blue.png"
+
+          ath="95"
+     atv="0"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+      onclick="js(xml.newPano('controlroom'))"
+     scale="0.15"
+    />
+
+  </scene>
 <scene name="darkroom_02" onstart="webvr.resetSensor(view.hlookat);">
 
     <view hlookat="0" vlookat="0" fov="40" />
@@ -169,7 +209,7 @@
     />
 
     <hotspot name="go_forward"
-     url="../images/door.png"
+     url="../images/door_blue.png"
      ath="320"
      atv="40"
      distorted="true"
@@ -178,8 +218,8 @@
      zoom="true"
      capture="false"
      onclick="js(xml.newPano('chemicalroom'))"
-     alpha = "0"
-     scale="0.75"
+     alpha = "1.0"
+     scale="0.25"
     />
 
 
@@ -287,20 +327,29 @@
       <tablet><cube url="../offshore_panos/512/helicopter_pano_%s.jpg" /></tablet>
     </image>
 
-    <hotspot name="headphones" url="../images/hotspot.gif"
+    <hotspot name="headphones" 
+      url="../images/nav_ring_red"
       ath="110"
-      atv="0"
+      atv="-5"
       distorted="true"
-      alpha="0.0"
-      width="105.0"
-      height="150"
+      alpha="1.0"
       onclick="js(xml.loadAFXPano(voice_overs/VO_01_Helicopter))"
-      scale="1.0"
+      scale=".2"
       capture="false"
       />
 
 
-    <hotspot name="exit" url="../images/hotspot.gif"
+    <hotspot name="exit" url="../images/nav_ring_orange.png"
+      ath="265"
+      atv="5"
+      distorted="true"
+      alpha="1.0"
+      onclick="js(xml.zoom_and_change_pano('helicopter','platform'))"
+      scale=".3"
+      capture="false"
+      />
+
+<!--     <hotspot name="exit2" url="../images/hotspot.gif"
       ath="265"
       atv="5"
       distorted="true"
@@ -315,20 +364,16 @@
       scale="1.0"
       capture="false"
       />
-
+ -->
     <hotspot name="folder hotspot"
-      url="../images/hotspot.gif"
+      url="../images/nav_ring_blue"
       ath="-37"
-      atv="31.5"
+      atv="21"
       distorted="true"
       onclick="js(master.loadOverlay(dossier.html)); js(xml.setCache(250,90))"
-      onhover="js(xml.hoverSound())"
-      onout="js(xml.resetHoverSound())"
-      alpha="0"
+      alpha="1.0"
       keep = 'false'
-      scale="1"
-      height="90"
-      width="100"
+      scale=".2"
       capture="false"
       />
 
@@ -368,7 +413,7 @@
      ath="143"
      depth="3"
      />
-    <plugin
+<!--     <plugin
      name="vrpages3"
      url="./plugins/vr.overlay.js"
      obj="../images/obj/page-flat.obj"
@@ -376,20 +421,15 @@
      ath="233"
      depth="3"
      />
-
+ -->
 
     <hotspot name="vrvideo_close"
-     url="../images/icons/close_icon.png"
-     ath="-37"
-     atv="80"
-     distorted="true"
-     inverserotation="true"
-     zorder2="1"
-     zoom="true"
-     onclick="js(overlayVR.close('helicopter'))"
-     alpha="0.7"
-     width="70"
-     height="70"
+     url="../images/nav_ring_blue.png"
+      ath="233"
+      distorted="true"
+      onclick="js(overlayVR.close('helicopter'))"
+      alpha="0.7"
+      scale = ".5"
     />
 
 
@@ -431,29 +471,25 @@
 
 
     <hotspot name="FlightDeck_VO"
-      url="../images/hotspot.gif"
+      url="../images/nav_ring_red.png"
       ath="40"
-      atv="0"
+      atv="-15"
       distorted="true"
-      alpha="0.0"
-      width="105.0"
-      height="105.0"
+      alpha="1.0"
       onclick="js(xml.loadAFXPano(voice_overs/VO_02_Helipad))"
-      scale="1.0"
+      scale=".2"
       capture="false"
       />
 
     <hotspot name="entry_hotspot"
-      url="../images/hotspot.gif"
-      ath="74.5"
+       url="../images/nav_ring_orange.png"
+      ath="94.5"
       atv="11.2"
       distorted="true"
-      alpha="0"
+      alpha="1"
       visible="true"
       onclick="js(xml.zoom_and_change_pano('platform', 'lowerplatform'))"
-      scale="1"
-      height="58"
-      width="83"
+      scale=".3"
       capture="false"
       />
 
@@ -477,20 +513,18 @@
     <!-- Video Player -->
 
     <hotspot name="Videos_gif"
-      url="../images/icons/gif_iconA.gif"
-      ath="10"
+      url="../images/nav_ring_blue.png"
+      ath="350"
       atv="1"
       distorted="true"
-      alpha=".5"
-      height="75"
-      width="75"
-      scale="1.0"
+      alpha="1.0"
+      scale=".2"
       onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer(platform)));
            js(xml.setCache(90,90))"
       capture = "false"
       />
 
-    <hotspot name="Videos_label"
+<!--     <hotspot name="Videos_label"
       url="plugins/textfield.swf"
       ath="-25"
       atv="5"
@@ -508,7 +542,7 @@
       width="500"
       onclick="lookto(20,0,1,smooth(),true,true,js(videoPlayer(platform)));
            js(xml.setCache(90,90))"
-      />
+      /> -->
 
   </scene>
 
@@ -525,10 +559,10 @@
        ##      ##    ##   ##  ##   ##   ##    ## ##  ## ##    ##
        ##      ##### ##   ##  ##   ##    ######  ##  ## ##    ## -->
 
-  <scene name="lowerplatform">
+  <scene name="lowerplatform" onstart="webvr.resetSensor(view.hlookat);">
 
     <view
-      hlookat="140"
+        hlookat="300"
         fov="90.0"
         fovmax="120.0"
         fovmin="1.0"
@@ -548,7 +582,7 @@
         </tablet>
     </image>
 
-    <hotspot name="hatch_open"
+<!--     <hotspot name="hatch_open"
       url="../images/hotspot.gif"
       ath="69"
       atv="18"
@@ -558,44 +592,46 @@
       height = "220"
       capture="false"
       alpha = "0"
-    />
+    /> -->
 
 
-    <hotspot name="helipad" url="../images/hotspot.gif"
-      ath="-23.8"
-      atv="2"
-      distorted="true"
-      alpha="0"
-      onclick="js(xml.zoom_and_change_pano('lowerplatform','platform'))"
-      scale="1"
-      height="100"
-      capture="false"
-      />
-
-    <hotspot name="klaxxon" url="../images/hotspot.gif"
-      ath="150"
+   <hotspot name="hatch_open"
+      url="../images/nav_ring_orange.png"
+      ath="80"
       atv="0"
       distorted="true"
-      alpha="0.0"
-      width="105.0"
-      height="105.0"
+      alpha="1.0"
+      scale=".2"
+  onclick="js(xml.zoom_and_change_pano('lowerplatform','sequence_shaftway'))"
+      capture = "false"
+      />
 
+    <hotspot name="helipad" url="../images/nav_ring_orange.png"
+      ath="30"
+      atv="-30"
+      distorted="true"
+      alpha="1.0"
+      onclick="js(xml.zoom_and_change_pano('lowerplatform','platform'))"
+      scale=".2"
+      capture="false"
+      />
+
+    <hotspot name="klaxxon" url="../images/nav_ring_red.png"
+      ath="150"
+      atv="-10"
+      distorted="true"
       onclick="js(xml.loadAFXPano(voice_overs/VO_03_Platform))"
-      scale="1.0"
+      scale=".2"
       capture="false"
       />
 
 
-    <hotspot name="boat_deck" url="../images/hotspot.gif"
-      ath="-143"
-      atv="8"
+    <hotspot name="boat_deck" url="../images/nav_ring_orange.png"
+      ath="230"
+      atv="5"
       distorted="true"
-      alpha="0"
       onclick="js(xml.zoom_and_change_pano('lowerplatform','sequence_outside_stairs_down'))"
-      scale="1"
-      width="70.0"
-      height="60.0"
-
+      scale=".2"
       capture="false"
       />
 
@@ -622,17 +658,15 @@
       /> -->
 
     <hotspot name="Deep-Waters-GIF"
-      url="../images/icons/gif_iconB.gif"
-      ath="120"
-      atv="5"
-      alpha="1.0"
-      height="80"
-      width="80"
+      url="../images/nav_ring_blue.png"
+      ath="270"
+      atv="0"
       distorted="true"
-      scale="0.7"
+      scale="0.2"
       onclick="lookto(110,0,0,smooth(),true,true,js(videoPlayer(lowerplatform)));
            js(xml.setCache(220,90))"
       capture="false"
+
       />
 
 
@@ -669,20 +703,18 @@
       </image>
 
       <hotspot name="going_up_stairs1"
-        url="../images/hotspot.gif"
-        ath="90"
-        atv="-7.0"
+        url="../images/nav_ring_orange.png"
+        ath="80"
+        atv="-11.0"
         distorted="true"
-        alpha="0"
-        height="60.0"
         onclick="if( vr, js(xml.newPano('sequence_outside_stairs_up')) );
                  if(!vr, js(xml.zoom_and_change_pano('boat','lowerplatform')) );"
 
-        scale="1.0"
+        scale=".2"
         capture="false"
         />
 
-      <hotspot name="going_up_stairs2"
+ <!--      <hotspot name="going_up_stairs2"
         url="../images/hotspot_diagonal.gif"
         ath="75"
         atv="-13"
@@ -694,10 +726,10 @@
                  if(!vr, js(xml.zoom_and_change_pano('boat','lowerplatform')) );"
         scale="1.0"
         capture="false"
-        />
+        /> -->
 
 
-      <hotspot name="life_preserver_starboard"
+<!--       <hotspot name="life_preserver_starboard"
         url="../images/hotspot.gif"
         ath="320"
         atv="35"
@@ -723,7 +755,7 @@
 
         scale="1.0"
         capture="false"
-        />
+        /> -->
 
       <!-- <hotspot name="stairs back to platform"
         device="flash"
@@ -752,23 +784,20 @@
 
 
 
-      <hotspot name="klaxxon" url="../images/hotspot.gif"
-        ath="105"
-        atv="-10"
+      <hotspot name="klaxxon" url="../images/nav_ring_red.png"
+        ath="110"
+        atv="-20"
         distorted="true"
-        alpha="0.0"
-        width="105.0"
-        height="105.0"
 
         onclick="js(xml.loadAFXPano(voice_overs/VO_04_BoatDeck))"
-        scale="1.0"
+        scale=".2"
         capture="false"
         />
 
 
       <!-- Video -->
 
-      <hotspot name="Boatdeck-Text"
+<!--       <hotspot name="Boatdeck-Text"
         url="plugins/textfield.swf"
         ath="285"
         atv="5"
@@ -787,19 +816,14 @@
         width="500"
         onclick="lookto(20,0,10,smooth(),true,true,js(videoPlayer(boatdeck)));
              js(xml.setCache(100,90))"
-        />
+        /> -->
 
       <hotspot name="Boatdeck-GIF"
-        url="../images/icons/gif_iconA.gif"
+        url="../images/nav_ring_blue.png"
         ath="255"
         atv="1"
         distorted="true"
-        alpha="1.0"
-        height="75"
-        width="75"
-        zorder="99"
-
-        scale="1.0"
+        scale=".3"
         onclick="lookto(20,0,10,smooth(),true,true,js(videoPlayer(boatdeck)));
              js(xml.setCache(100,90))"
         capture = "false"
@@ -816,6 +840,45 @@
              ## ##   ## ##   ##    ##   ## ##   ## ##  ### ##   ## ##   ## ##  ##
          #####   #####  ######     ##   ## ##   ## ##   ##  #####  ##   ## ##  ## -->
 
+    <scene name="subhangar_dark">
+
+      <view
+        hlookat="-10"
+        fov="90.0"
+        fovmax="120.0"
+        fovmin="4.0"
+      />
+
+<!--       limitview ="lookat"
+      hlookatmin ="NAN"
+      hlookatmax ="NaN"
+      vlookatmin ="20"
+      vlookatmax ="-45"
+ -->
+      <image>
+        <cube url="../offshore_panos/subhangar_pano_dark_%s.jpg" />
+      </image>
+
+      <hotspot name="engineRoom"
+        url="../images/nav_ring_blue.png"
+        ath="60"
+        atv="-9"
+        distorted="true"
+        scale="0.3"
+        onclick="js(xml.newPano('sequence_engineroom')))"
+
+      />
+
+      <hotspot name="turnLightOn"
+        url="../images/nav_ring_green.png"
+        ath="102"
+        atv="-9"
+          distorted="true"
+        scale="0.2"
+        onclick="js(xml.newPano('subhangar'))"
+
+      />
+</scene>
     <scene name="subhangar">
 
       <view
@@ -850,49 +913,37 @@
       </image>
 
 
-      <hotspot name="hallway exit" url="../images/hotspot.gif"
+      <hotspot name="hallway exit" url="../images/nav_ring_orange.png"
         ath="-30"
         atv="-20"
         distorted="true"
-        alpha="0"
-        height="50.0"
-        onclick="js(xml.zoom_and_change_pano('subhangar','theatre'))"
-        onhover="js(xml.hoverSound()) "
-        onout="js(xml.resetHoverSound());"
-        scale="3.0"
+        onclick="js(xml.newPano('sequence_corridor_hallway'))"
+        scale=".2"
         capture = "false"
         />
 
-      <hotspot name="into_sub" url="../images/hotspot-circle.gif"
-        ath="-55.15"
+      <hotspot name="into_sub" url="../images/nav_ring_orange.png"
+        ath="280"
         atv="-10.0"
         distorted="true"
-        alpha="0"
-        height="50.0"
-        onclick="js(xml.zoom_and_change_pano('subhangar','submarine'))"
-        onhover="js(xml.hoverSound()) "
-        onout="js(xml.resetHoverSound());"
-        scale="7.0"
+        onclick="js(xml.newPano('submarine'))"
+        scale=".2"
         capture = "false"
       />
 
 
       <!-- iPad -->
 
-      <hotspot name="iPad" url="../images/hotspot.gif"
+      <hotspot name="iPad" url="../images/nav_ring_blue.png"
         ath="24"
-        atv="25"
+        atv="15"
         distorted="true"
-        alpha="0.0"
-        height="30.0"
         onclick="js(master.loadOverlay(skype.html)); js(xml.setCache(40,90))"
-        onhover="js(xml.hoverSound())"
-        onout="js(xml.resetHoverSound());"
-        scale="3.0"
+        scale=".2"
         capture = "false"
         />
 
-      <hotspot name="iPad_gif"
+<!--       <hotspot name="iPad_gif"
         url="../images/icons/gif_iconB.gif"
         ath="24"
         atv="15"
@@ -903,30 +954,22 @@
         onclick="js(master.loadOverlay(skype.html));
              js(xml.setCache(40,90))"
         scale="0.7"
-      />
+      /> -->
 
 
       <!-- Video Player -->
 
-      <hotspot name="requiemgif"
-        url="../images/icons/gif_iconA.gif"
-        ath="60"
+      <hotspot name="engineRoom"
+        url="../images/nav_ring_green.png"
+        ath="102"
         atv="-9"
           distorted="true"
-        alpha="0.5"
-        width="140"
-        height="140"
-        borderwidth="0.0" borderwidthhover="1"
-        bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
-        scale="0.7"
-        onclick="if(vr, js(xml.newPano('sequence_approaching_rig')) );
-                 lookto(60,0,5,tween(easeOutQuad,2),true,true);
-                 set(hotspot[requiemgif].enabled,false);
-                 js(xml.setCache(-50,90))"
+        scale="0.2"
+        onclick="js(xml.newPano('subhangar_dark'))"
 
       />
 
-    <hotspot name="requiem"
+<!--     <hotspot name="requiem"
       url="plugins/textfield.swf"
       ath="85"
       atv="-10"
@@ -945,7 +988,7 @@
       onclick="lookto(60,0,5,tween(easeOutQuad,2),true,true);
            set(hotspot[requiem].enabled,false);
            js(xml.setCache(-50,90))"
-    />
+    /> -->
 
     </scene>
 
@@ -982,17 +1025,14 @@
        />
 
       <hotspot name="vrvideo_close"
-       url="../images/icons/close_icon.png"
-       ath="100"
+       url="../images/nav_ring_blue.png"
+       ath="80"
        atv="0"
        distorted="true"
-       inverserotation="true"
-       zorder2="1"
-       zoom="true"
-       onclick="js(overlayVR.close())"
-       alpha="0.5"
-       width="50"
-       height="50"
+
+       onclick="js(overlayVR.close('subhangar'))"
+       scale="0.3"
+ 
       />
 
 
@@ -1095,18 +1135,14 @@
                if(vr, js(xml.newPano('sequence_engineroom')) );"
     /> -->
 
-    <hotspot name="exitchem" url="../images/hotspot.gif"
+    <hotspot name="exitchem" 
+      url="../images/nav_ring_orange.png"
       ath="30"
       atv="-2"
-        distorted="true"
-        capture="false"
-        zorder="999"
-      handcursor="true"
-      alpha="0.0"
-      width="100.0"
-      height="300.0"
+      distorted="true"
       onclick="js(xml.newPano('darkroom_02'))"
-      scale="0.7"
+      scale="0.2"
+      zorder="99"
       />
 
     <!-- Medicine Cabinet -->
@@ -1118,11 +1154,33 @@
       atv="-5.1"
       distorted="true"
       alpha="0"
-      onclick="js(xml.corexit()); tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
+      enabled="false"
       scale="1.05"
     />
 
-    <hotspot name="Corexit_video"
+
+    <hotspot name="open_cabinet_btn" 
+      url="../images/nav_ring_green.png"
+      ath="55"
+      atv="-2"
+      distorted="true"
+      onclick="tween(hotspot[open_cabinet].alpha,1);tween(alpha,0);tween(hotspot[corexit_video].alpha,1);set(hotspot[open_cabinet_btn].enabled,false);set(hotspot[corexit_video].enabled,true)"
+      scale="0.2"
+      zorder="99"
+      />
+
+     <hotspot name="corexit_video"
+      url="../images/nav_ring_blue.png"
+      ath="60.4"
+      atv="-5.1"
+      distorted="true"
+      alpha="0"
+      enabled="false"
+      onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(xml.setCache(get(view.hlookat),90))"
+      scale=".2"
+      zorder="98"
+    />      
+<!--     <hotspot name="Corexit_video"
       url="../images/hotspot.gif"
       ath="54.4"
       atv="-5.1"
@@ -1155,11 +1213,11 @@
       onclick="lookto(get(currentX),0,180,smooth(),true,true,js(videoPlayer(corexit)));js(xml.setCache(get(view.hlookat),90))"
       enabled="false"
       alpha="0"
-    />
+    /> -->
 
     <!-- Poisoned -->
 
-    <hotspot name="Poisoned-Text"
+   <!--  <hotspot name="Poisoned-Text"
       url="plugins/textfield.swf"
       ath="230"
       atv="0"
@@ -1210,12 +1268,12 @@
       onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(poisoned)));
            js(xml.setCache(130,90))"
       scale="1.0"
-    />
+    /> -->
 
 
     <!-- In the Bloodstream -->
 
-    <hotspot name="James_Text"
+<!--     <hotspot name="James_Text"
       url="plugins/textfield.swf"
       ath="125"
       atv="-1"
@@ -1233,25 +1291,21 @@
       width="300"
       onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream)));
            js(xml.setCache(24,90))"
-    />
+    /> -->
 
     <hotspot name="James"
-      url="../images/hotspot.gif"
+      url="../images/nav_ring_blue.png"
       ath="115"
       atv="28"
       distorted="true"
       capture="false"
-      alpha="0.0"
-      width="220.0"
-      height="95.0"
-      borderwidth="0.0" borderwidthhover="1"
-      bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
+
       onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream)));
            js(xml.setCache(24,90))"
-      scale="1.0"
+      scale=".2"
     />
 
-    <hotspot name="James_GIF"
+<!--     <hotspot name="James_GIF"
       url="../images/icons/gif_iconC.gif"
       ath="115"
       atv="10"
@@ -1266,7 +1320,7 @@
       onclick="lookto(180,0,80,smooth(),true,true,js(videoPlayer(bloodstream))); js(xml.setCache(24,90))"
       scale="0.7"
       zorder="98"
-    />
+    /> -->
 
 
   </scene>
@@ -1292,15 +1346,14 @@
     </image>
 
     <hotspot name="Door"
-      url="../images/hotspot.gif"
+      url="../images/nav_ring_orange.png"
       ath="261"
       atv="5"
-      alpha="0"
-      width="90"
-      height="150.0"
+      scale=".3"  
       distorted="true"
       capture="false"
       onclick="js(xml.newPano('sequence_approaching_rig'));"
+      zorder="99"
     /> 
 
    <hotspot name="lights_on" url="../images/hotspots/hatchbutton.png"
@@ -1345,34 +1398,32 @@
 
 
     <hotspot name="Door"
-      url="../images/hotspot.gif"
+      url="../images/nav_ring_orange.png"
       ath="261"
       atv="5"
-      alpha="0"
-      width="90"
-      height="150.0"
+      scale=".2"  
       distorted="true"
       capture="false"
-      onclick="js(xml.newPano('darkroom_01'));"
-    />
+      keep="false"
+      onclick="js(xml.newPano('darkroom_01b'));"
+      zorder="99"
+    /> 
 
 
     <!-- Michael Klare video player -->
 
     <hotspot name="MK-GIF"
-      url="../images/icons/gif_iconA.gif"
-      alpha=".7"
-      height="70"
-      width="70"
+      url="../images/nav_ring_blue.png"
       ath="191"
-      atv="15"
+      atv="0"
+      scale=".2"
       distorted="true"
       capture="false"
       onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
            js(xml.setCache(get(view.hlookat),90))"
       />
 
-    <hotspot name="MK-Text"
+<!--     <hotspot name="MK-Text"
       url="plugins/textfield.swf"
       ath="170"
       atv="20"
@@ -1390,11 +1441,11 @@
       width="500"
       onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
            js(xml.setCache(get(view.hlookat),90))"
-      />
+      /> -->
 
     <!-- Main Monitors (all zoom to MK vids) -->
 
-    <hotspot name="Monitor Big"
+   <!--  <hotspot name="Monitor Big"
       url="../images/hotspot.gif"
       ath="190"
       atv="0"
@@ -1440,7 +1491,7 @@
       width="93"
       height="75"
       capture="false"
-      />
+      /> -->
 
     <!-- Big Red Button -->
 
@@ -1481,7 +1532,7 @@
 
 
     <!-- Dossier -->
-    <hotspot name="Filing_cabinet"
+<!--     <hotspot name="Filing_cabinet"
 
       ath="126.9"
       atv="16.4"
@@ -1490,8 +1541,8 @@
       onclick="js(master.loadOverlay(field_data.html)); js(xml.setCache(get(view.hlookat),90))"
       scale="0.68"
       />
-
-    <hotspot name="Filing_cabinet_text"
+ -->
+<!--     <hotspot name="Filing_cabinet_text"
       url="plugins/textfield.swf"
       ath="130"
       atv="16"
@@ -1508,20 +1559,16 @@
       vcenter="true"
       width="200"
       onclick="js(master.loadOverlay(field_data.html)); js(xml.setCache(get(view.hlookat),90))"
-    />
+    /> -->
 
     <hotspot name="Filing_cabinet_icon"
-      url="../images/icons/gif_documents.gif"
-      alpha=".5"
-      height="70"
-      width="70"
+      url="../images/nav_ring_blue.png"
+      scale=".2"
       ath="120"
       atv="20.4"
       distorted="true"
       capture="false"
       onclick="js(master.loadOverlay(field_data.html)); js(xml.setCache(get(view.hlookat),90))"
-      onhover="js(xml.hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-      onout="js(xml.resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
     />
 
 
@@ -1583,17 +1630,15 @@
     
 
     <hotspot name="vrvideo_close"
-     url="../images/icons/close_icon.png"
+     url="../images/nav_ring_blue.png"
      ath="20"
     
      distorted="true"
-     inverserotation="true"
+
      zorder2="1"
-     zoom="true"
-     onclick="js(overlayVR.close())"
-     alpha="0.8"
-     width="80"
-     height="80"
+
+     onclick="js(overlayVR.close(controlroom))"
+      scale=".3"
     />
 
 
@@ -1657,14 +1702,13 @@
       capture="false"
       /> -->
 
-    <hotspot name="chemroom_sign" url="../images/hotspot.gif"
+    <hotspot name="chemroom_sign" 
+      url="../images/nav_ring_orange.png"
       ath="-3"
-      atv="-21"
+      atv="-11"
       distorted="true"
-      alpha="0"
-      height="10"
-          onclick="js(xml.newPano('darkroom_02'))"
-      scale="5.0"
+      onclick="js(xml.newPano('darkroom_02'))"
+      scale=".3"
       capture="false"
       />
 
@@ -1683,15 +1727,15 @@
       /> -->
 
 
-    <hotspot name="theatre_sign" url="../images/hotspot.gif"
-      ath="270"
-      atv="-16"
+    <hotspot name="theatre_sign" 
+      url="../images/nav_ring_orange.png"
+      ath="273"
+      atv="-6"
       distorted="true"
-      alpha="0"
-      height="10"
+
           onclick="js(xml.zoom_and_change_pano('hallway','sequence_corridor_theatre'))"
       onout="js(xml.resetHoverSound());"
-      scale="5.0"
+      scale=".2"
       capture="false"
       />
 
@@ -1711,28 +1755,26 @@
       /> -->
 
 
-    <hotspot name="controlroom_sign" url="../images/hotspot.gif"
+    <hotspot name="controlroom_sign" 
+      url="../images/nav_ring_orange.png"
       ath="174"
-      atv="-16.5"
+      atv="-6.5"
       distorted="true"
-      alpha="0"
-      height="10.0"
       onclick="js(xml.newPano('darkroom_01'))"
-      scale="4.0"
+      scale=".2"
       capture="false"
       />
 
 
     <!-- Ladder -->
 
-    <hotspot name="ladder" url="../images/hotspot.gif"
+    <hotspot name="ladder" 
+      url="../images/nav_ring_orange.png"
       ath="105"
       atv="-40"
       distorted="true"
-      alpha="0.0"
-      height="120.0"
-      onclick=" if(vr, js(xml.newPano('sequence_shaftway_up')) ); if(!vr, js(xml.zoom_and_change_pano('hallway','lowerplatform')) ); "
-      scale="5.0"
+      onclick="js(xml.newPano('sequence_shaftway_up')) "
+      scale=".2"
       capture="false"
       />
 
@@ -1740,7 +1782,7 @@
 
     <!-- Video Player  -->
 
-    <hotspot name="Video-Player-Text"
+<!--     <hotspot name="Video-Player-Text"
       url="plugins/textfield.swf"
       ath="315"
       atv="0"
@@ -1758,23 +1800,21 @@
       width="500"
           onclick="lookto(315,-100,0,smooth(),true,true, js(videoPlayer(terminus)));
                js(xml.setCache(-140,90))"
-        />
+        /> -->
     <hotspot name="Video-Player-GIF"
-      url="../images/icons/gif_iconA.gif"
+      url="../images/nav_ring_blue.png"
       ath="315"
       atv="-5"
-      alpha="1.0"
-      height="80"
-      width="80"
       distorted="true"
       onclick="lookto(315,-100,0,smooth(),true,true,js(videoPlayer(terminus)));
              js(xml.setCache(-140,90))"
       capture="false"
+      scale=".3"
       />
 
     <!-- voices dossier -->
 
-    <hotspot name="Voices_Dossier_text"
+<!--     <hotspot name="Voices_Dossier_text"
       url="plugins/textfield.swf"
       ath="-110"
       atv="25"
@@ -1793,27 +1833,91 @@
       onclick="js(master.loadOverlay('debrief.html'));
            js(xml.setCache(get(view.hlookat),90))"
       />
-
+ -->
     <hotspot name="Voices_Dossier_icon"
-      url="../images/icons/gif_documents.gif"
-      alpha=".5"
-      height="70"
-      width="70"
+      url="../images/nav_ring_blue.png"
       ath="-110"
       atv="30"
       distorted="true"
       capture="false"
       onclick="js(master.loadOverlay('debrief.html'));
            js(xml.setCache(get(view.hlookat),90))"
-      onhover="js(xml.hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
-      onout="js(xml.resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
+      scale=".3"
       />
 
 
   </scene>
 
 
+<scene name="debrief_vr">
 
+    <view hlookat="145" fov="90.0" />
+    <image>
+        <left  url="../offshore_panos/hallway_pano_l.jpg" />
+        <front url="../offshore_panos/hallway_pano_f.jpg" />
+        <right url="../offshore_panos/hallway_pano_r.png" />
+        <back  url="../offshore_panos/hallway_pano_b.jpg" />
+        <up    url="../offshore_panos/hallway_pano_u.png" />
+        <down  url="../offshore_panos/hallway_pano_d.jpg" />
+
+        <tablet>
+            <left  url="../offshore_panos/512/hallway_pano_l.jpg" />
+            <front url="../offshore_panos/512/hallway_pano_f.jpg" />
+            <right url="../offshore_panos/512/hallway_pano_r.png" />
+            <back  url="../offshore_panos/512/hallway_pano_b.jpg" />
+            <up    url="../offshore_panos/512/hallway_pano_u.png" />
+            <down  url="../offshore_panos/512/hallway_pano_d.jpg" />
+        </tablet>
+    </image>
+
+    <plugin
+     name="db-cover"
+     url="./plugins/vr.overlay.js"
+     ath="145"
+     obj="../images/obj/book.obj"
+     texture="../images/books/debrief/vr-1.jpg"
+     />
+
+    <plugin
+     name="pages-1"
+     url="./plugins/vr.overlay.js"
+     ath="235"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/debrief/vr-pages-1.jpg"
+     />
+
+    <plugin
+     name="pages-2"
+     url="./plugins/vr.overlay.js"
+     ath="325"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/debrief/vr-pages-2.jpg"
+     />
+
+    <plugin
+     name="pages-3"
+     url="./plugins/vr.overlay.js"
+     ath="55"
+     obj="../images/obj/page-flat.obj"
+     texture="../images/books/debrief/vr-pages-3.jpg"
+     />
+
+    <hotspot name="vrvideo_close"
+     url="../images/nav_ring_blue.png"
+     ath="140"
+     atv="47"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(overlayVR.close('hallway'));"
+     alpha="0.5"
+     width="60"
+     height="60"
+    />
+
+
+  </scene>
 
 
 
@@ -1975,19 +2079,17 @@
     <!-- Video Player -->
 
     <hotspot name="Theatre-GIF"
-      url="../images/icons/gif_iconA.gif"
-      ath="0"
+      url="../images/nav_ring_blue.png"
+      ath="355"
       atv="0"
-      alpha=".7"
-      height="70"
-      width="70"
+      scale=".3"
       distorted="true"
       capture="false"
       onclick="lookto(355,0,40,smooth(),true,true,js(videoPlayer(theatre)));
            js(xml.setCache(-200,90))"
     />
 
-    <hotspot name="Theatre-Text"
+<!--     <hotspot name="Theatre-Text"
       url="plugins/textfield.swf"
       ath="340"
       atv="5"
@@ -2006,54 +2108,43 @@
       onclick="lookto(355,0,40,smooth(),true,true,js(videoPlayer(theatre)));
            js(xml.setCache(-200,90))"
     />
-
+ -->
     <!-- Investigations -->
 
-    <hotspot name="redbook" url="../images/hotspot.gif"
+    <hotspot name="redbook" url="../images/nav_ring_blue.png"
       ath="145"
-      atv="40"
+      atv="25"
       distorted="true"
-      alpha="0.0"
-      height="50.0"
       onclick="js(master.loadOverlay(redbook.html)); js(xml.setCache(-160,90));"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
-      scale="3.0"
+      scale=".2"
 
       capture="false"
     />
 
-    <hotspot name="leasemap" url="../images/hotspot.gif"
+    <hotspot name="leasemap" url="../images/nav_ring_blue.png"
       ath="265"
-      atv="5"
+      atv="0"
       distorted="true"
-      alpha="0.0"
-      height="70.0"
-      width="150.0"
       onclick="js(master.loadOverlay(leasemap.html));
            js(xml.setCache(get(view.hlookat),90))"
       onhover="js(xml.hoverSound()) "
       onout="js(xml.resetHoverSound());"
-      scale="3.0"
+      scale=".2"
 
       capture="false"
     />
 
     <!-- Exits -->
 
-    <hotspot name="corridor_01_sign" url="../images/hotspot.gif"
-      ath="23"
-      atv="-10"
+    <hotspot name="corridor_01_sign" url="../images/nav_ring_orange.png"
+      ath="34"
+      atv="0"
       distorted="true"
-      alpha="0.0"
-      height="30.0"
       onclick="if(vr, js(xml.newPano('sequence_corridor_hallway')) ); if(!vr, js(xml.zoom_and_change_pano('theatre','hallway')) ); "
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
-      scale="3.0"
+      scale="0.2"
       />
 
-    <hotspot name="corridor_01" url="../images/hotspot.gif"
+ <!--    <hotspot name="corridor_01" url="../images/hotspot.gif"
       ath="35"
       atv="2"
       distorted="true"
@@ -2063,20 +2154,15 @@
       onhover="js(xml.hoverSound()) "
       onout="js(xml.resetHoverSound());"
       scale="3.0"
-      />
+      /> -->
 
 
-    <hotspot name="corridor_02" url="../images/hotspot.gif"
-      ath="203"
-      atv="2"
+    <hotspot name="corridor_02" url="../images/nav_ring_orange.png"
+      ath="204"
+      atv="0"
       distorted="true"
-      alpha="0.0"
-      height="90.0"
-      width="50.0"
       onclick="js(xml.zoom_and_change_pano('theatre','subhangar'))"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
-      scale="3.0"
+      scale=".2"
       />
 
 
@@ -2145,7 +2231,7 @@
      />
 
     <hotspot name="vrvideo_close"
-     url="../images/icons/close_icon.png"
+     url="../images/nav_ring_blue.png"
      ath="140"
      atv="47"
      distorted="true"
@@ -2243,17 +2329,13 @@
      />
 
     <hotspot name="vrvideo_close"
-     url="../images/icons/close_icon.png"
+     url="../images/nav_ring_blue.png"
      ath="140"
      atv="47"
      distorted="true"
-     inverserotation="true"
-     zorder2="1"
+     scale=".3"
      zoom="true"
      onclick="js(overlayVR.close('theatre'));"
-     alpha="0.5"
-     width="60"
-     height="60"
     />
 
 
@@ -2425,7 +2507,7 @@
     <plugin name="vrsphere" 
       url="./plugins/vr.sphere.js" 
       vidsrc=""
-      onvideocomplete="js(videoPlayerVR.load('engineroom', 'chemicalroom'));"
+      onvideocomplete="js(videoPlayerVR.load('engineroom', 'subhangar_dark'));"
       />
 
   </scene>

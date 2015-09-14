@@ -34,7 +34,8 @@ var ExtControl = function(_role, _id){
 	// ********************************************************
 	// Socket
 
-	var url = "192.168.1.242";
+	console.log(document.domain)
+	var url = document.domain;
 	if(globals.config.extControlUrl) url = globals.config.extControlUrl;
 
 	url = 'http://' + url + ':3700'
@@ -305,7 +306,16 @@ var ExtControl = function(_role, _id){
 			return;
 		}
 
-		if(that.role === 'slave') krpano.set('autorotate.enabled',false);
+		if(that.role === 'slave'){ 
+
+			setTimeout(function(){
+
+				krpano.set('layer[webvr_enterbutton].alpha',0);
+				
+			}, 2000);
+			
+			krpano.set('autorotate.enabled',false)
+		};
 	}
 
 

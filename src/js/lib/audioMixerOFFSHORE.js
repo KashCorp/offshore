@@ -143,6 +143,8 @@
 	Mix.prototype.removeTrack = function(name){
 		// console.log("removing " + name)
 
+		if(!this.lookup[name]) return
+
 		var rest,
 			arr = this.tracks,
 			total = arr.length;
