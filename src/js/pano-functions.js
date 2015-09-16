@@ -87,7 +87,6 @@ var pano = (function(){
         xml:     xmlLoc,
         wmode:  "transparent",
         target: "panocontainer",
-        webglsettings:{depth:true},
         html5:  "only" + (globals.config.css ? '+css3d' : ''),
         passQueryParameters:true,
 
@@ -380,11 +379,12 @@ var pano = (function(){
         break;
 
       case "submarine" :
-        setTimeout(function(){
-          globals.$panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
-        },1000)
+        // setTimeout(function(){
+        //   globals.$panocontainer.before('<div class="dynamic underwater-hanger"></div><video autoplay class="dynamic hide fade video-underlay" id="video-underwater" preload="auto"></video>')
+        // },1000)
         overLayFile = 'Submersible'
-        underlayMute=true
+        underlayFile = 'Drone_3'
+        //underlayMute=true
         exports.video_underlay = true;
         break;
 
@@ -620,6 +620,8 @@ var pano = (function(){
     var overlayTrack = audiomaster.mix.getTrack('overlay_01')
     var underlayTrack = audiomaster.mix.getTrack('basetrack')
 
+    console.log (overlayTrack)
+
 
     if( underlayFile ){
 
@@ -681,6 +683,7 @@ var pano = (function(){
 
 
       if( overlayTrack){
+        console.log("lll")
 
         if(exports.noWebAudio) {
 

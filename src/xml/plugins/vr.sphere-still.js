@@ -118,8 +118,8 @@ function krpanoplugin() {
 
     // basic ThreeJS objects
     scene = new THREE.Scene();
-    camera = new THREE.Camera();
-    stereocamera = new THREE.Camera();
+    camera = new THREE.PerspectiveCamera( 45, 1, 1, 1000 );
+    stereocamera = new THREE.PerspectiveCamera( 45, 1, 1, 1000 );
     krpano_panoview_euler = new THREE.Euler();
 
     // build the ThreeJS scene (start adding custom code there)
@@ -131,23 +131,24 @@ function krpanoplugin() {
   var gl = null
 
   function restore_krpano_WebGL_state(){
-    var gl = krpano.webGL.context;
+    gl = krpano.webGL.context;
 
-    gl.disable(gl.DEPTH_TEST);
-    gl.cullFace(gl.FRONT);
-    gl.frontFace(gl.CCW);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    gl.activeTexture(gl.TEXTURE0);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
+    // gl.disable(gl.DEPTH_TEST);
+    // gl.cullFace(gl.FRONT);
+    // gl.frontFace(gl.CCW);
+    // gl.enable(gl.BLEND);
+    // gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    // gl.activeTexture(gl.TEXTURE0);
+    // gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    // gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    // gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
+    renderer.resetGLState();
   }
 
 
   function restore_ThreeJS_WebGL_state()
   {
-    var gl = krpano.webGL.context;
+    gl = krpano.webGL.context;
 
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
@@ -203,7 +204,8 @@ function krpanoplugin() {
 
   function render_frame()
   {
-    var gl = krpano.webGL.context;
+
+    gl = krpano.webGL.context;
     var vr = krpano.webVR && krpano.webVR.enabled ? krpano.webVR : null;
 
     //console.log(vr)
@@ -217,11 +219,14 @@ function krpanoplugin() {
 
     // set the camera/view rotation
     krpano_panoview = krpano.view.getState(krpano_panoview);  // the 'krpano_panoview' object will be created and cached inside getState()
+    
+
     krpano_panoview_euler.set(-krpano_panoview.v * M_RAD, (krpano_panoview.h-90) * M_RAD, krpano_panoview.r * M_RAD, "YXZ");
     camera.quaternion.setFromEuler(krpano_panoview_euler);
     camera.updateMatrixWorld(true);
 
     // set the camera/view projection
+
     krpano_projection_matrix(sw,sh, krpano_panoview.z, 0, krpano_panoview.yf);
     update_camera_matrix(camera);
 
@@ -234,13 +239,15 @@ function krpanoplugin() {
     if (krpano.display.stereo == false)
     {
       // normal rendering
-      console.log('mono')
+      //console.log('mono')
       renderer.setViewport(0,0, sw,sh);
       renderer.render(scene, camera);
     }
     else
     {
       // stereo / VR rendering
+
+
       sw *= 0.5;  // use half screen width
 
       var stereo_scale = 0.05;
@@ -461,9 +468,10 @@ function krpanoplugin() {
         texture.flipY = false
         var material   = new THREE.MeshBasicMaterial( { map : texture , transparent: true, side: THREE.DoubleSide } );
 
-        material.depthTest = true
-        material.depthWrite = true
+        material.depthTest = false
+        material.depthWrite = false
         mesh = new THREE.Mesh( geometry, material );
+        console.log(mesh)
         scene.add( mesh );
         assign_object_properties(mesh, "mesh", {ath:0, atv:0, depth: 0, zorder:0, alpha: .01, capture: true});
         update_object_properties(mesh);

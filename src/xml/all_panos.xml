@@ -2354,27 +2354,26 @@
 
 
   <scene name="underwater_01" onstart="js(videoPlayerVR.stillstart());">
-    <plugin name="vrsphere-still" 
-      url="./plugins/vr.sphere-still.js" 
-      zorder="999999"
 
-      />
     <image>
       <sphere  url="../offshore_panos/underwater_pano_01.jpg" />
     </image>
+
 
     <hotspot name="exit" url="../images/hotspot.gif"
       ath="90"
       atv="10"
       distorted="true"
       alpha="1.0"
-
       handcursor="true"
-
       scale="10.0"
-      zorder="999999" 
+      zorder="20" 
     />
+    <plugin name="vrsphere-still" 
+      url="./plugins/vr.sphere-still.js" 
+      zorder="-1"
 
+      />
   </scene>
 
   <scene name="sequence_outside_stairs_down" onstart="js(videoPlayerVR.spherestart(transition-downstairs));">
