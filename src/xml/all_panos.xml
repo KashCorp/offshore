@@ -364,7 +364,7 @@
     </image>
 
     <hotspot name="headphones" 
-      url="../images/nav_ring_red"
+      url="../images/nav_ring_red.png"
       ath="110"
       atv="-5"
       distorted="true"
@@ -402,7 +402,7 @@
       />
  -->
     <hotspot name="folder hotspot"
-      url="../images/nav_ring_blue"
+      url="../images/nav_ring_blue.png"
       ath="-37"
       atv="21"
       distorted="true"
