@@ -80,12 +80,49 @@
     <view hlookat="0" vlookat="0" fov="40" />
 
     <image>
-      <sphere  url="../offshore_panos/blank.png" />
+      <sphere  url="../offshore_panos/theatre_blue.jpg" />
     </image>
 
     <plugin name="vrvideo" url="./plugins/vr.video-v2.js" vidsrc="" />
 
     <hotspot name="vrvideo_close"
+     url="../images/nav_ring_blue.png"
+     ath="86"
+     atv="-7"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(closeVideoPlayer())"
+     scale="0.3"
+    />
+
+
+    <hotspot name="vrvideo_close2"
+     url="../images/nav_ring_blue.png"
+     ath="275"
+     atv="-7"
+     distorted="true"
+     inverserotation="true"
+     zorder2="1"
+     zoom="true"
+     onclick="js(closeVideoPlayer())"
+     scale="0.3"
+    />
+
+  </scene>
+
+  <scene name="vrvideo-sub" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart(ROV_Coral));">
+
+    <view hlookat="0" vlookat="0" fov="40" />
+
+    <image>
+      <sphere  url="../offshore_panos/underwater_pano_01.jpg" />
+    </image>
+
+    <plugin name="vrvideo" url="./plugins/vr.video-v2-bubbles.js" vidsrc="" />
+
+<!--     <hotspot name="vrvideo_close"
      url="../images/door_outside.png"
      ath="95"
      atv="0"
@@ -95,10 +132,9 @@
      zoom="true"
      onclick="js(closeVideoPlayer())"
      scale="0.5"
-    />
+    /> -->
 
   </scene>
-
 
   <scene name="darkroom_01" onstart="webvr.resetSensor(view.hlookat);">
 

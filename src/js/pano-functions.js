@@ -202,7 +202,7 @@ var pano = (function(){
 
     $('#ghost-canvas-trans').fadeOut()
 
-    if(!master.overlayOpen) globals.$compass.show()
+    //if(!master.overlayOpen) globals.$compass.show()
 
     setTimeout(function(){
 

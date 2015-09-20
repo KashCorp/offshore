@@ -1129,7 +1129,7 @@ var xml = {
 
 **************************************************************************
 **************************************************************************/
-
+var videoStorage = {}
 
 var videoPlayerVR = {
   data: {
@@ -1139,13 +1139,40 @@ var videoPlayerVR = {
   },
 
   load: function(groupName, back){
+
     console.log('VEEEE ARRRRRRRR VIDDDDD "%s"', groupName);
 
     // optionally specify a pano to return to
     videoPlayerVR.data.currentPano = (back) ? back: globals.pano;
-
     videoPlayerVR.data.videoGroup = globals.videoGroups[groupName];
-    videoPlayerVR.data.currentVideo = 0;
+
+    // logic to play next video in matrix if click on movie link more than once
+
+
+    if(videoStorage[groupName !== null]){
+
+      videoStorage[groupName] = 0
+      videoPlayerVR.data.currentVideo = 0;
+
+    } else{
+
+      if(videoStorage[groupName] < videoPlayerVR.data.videoGroup.length - 1){
+
+        videoStorage[groupName] ++
+        videoPlayerVR.data.currentVideo = videoStorage[groupName]
+
+      } else {
+
+        videoStorage[groupName] = 0
+        videoPlayerVR.data.currentVideo = 0;
+
+      }
+
+    }
+
+
+
+    
 
     xml.newPano('vrvideo');
 
@@ -1170,10 +1197,19 @@ var videoPlayerVR = {
     }, 500)
   },
 
-  onstart: function(){
-    console.log('HIHIHIHIHI');
+  onstart: function(_filename){
+
+    console.log(_filename)
+
     setTimeout(function(){
-      pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file + globals.videoType+');');
+      if(_filename){
+        
+        pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + _filename  + globals.videoType+');');
+
+      } else {
+        pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file  + globals.videoType+');');
+
+      }
       pano.krpano.set('plugin[vrvideo].muted', storage.get('muted'));
     }, 500)
   },
