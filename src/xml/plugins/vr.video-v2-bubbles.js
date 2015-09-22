@@ -19,15 +19,17 @@ function krpanoplugin() {
   var video, videoImage, videoImageContext, videoTexture;
 
   var vidsrc = false;
+  var texturesrc = false
 
   local.registerplugin = function(krpanointerface, pluginpath, pluginobject) {
     krpano = krpanointerface;
     device = krpano.device;
     plugin = pluginobject;
 
-    plugin.load = function(_vidsrc){
+    plugin.load = function(_vidsrc, _texturesrc){
       console.log('_vidsrc', _vidsrc);
       vidsrc = _vidsrc
+      texturesrc = _texturesrc
       scriptArray = ["./plugins/fresnel_shader.js"]
 
       load_scripts(scriptArray, function(){
@@ -237,16 +239,14 @@ function krpanoplugin() {
   {
 
 
-        var timer = 0.0001 * Date.now();
-
-
+        var timer = 0.00004 * Date.now();
 
         for ( var i = 0, il = spheres.length; i < il; i ++ ) {
 
           var sphere = spheres[ i ];
 
-          sphere.position.x = 5 * Math.cos( timer + i );
-          sphere.position.y = 5 * Math.sin( timer + i * .1 );
+          sphere.position.x = 2 * Math.cos( timer + i );
+          sphere.position.y = 2 * Math.sin( timer + i * .1 );
 
         }
 
@@ -458,9 +458,9 @@ function krpanoplugin() {
         scene.add( mesh );
 
           var urls = [
-           'offshore_panos/pos-x.png', 'offshore_panos/neg-x.png',
-           'offshore_panos/pos-y.png', 'offshore_panos/neg-y.png',
-           'offshore_panos/pos-z.png', 'offshore_panos/neg-z.png',
+           'offshore_panos/pos-x-'+texturesrc+'.png', 'offshore_panos/neg-x-'+texturesrc+'.png',
+           'offshore_panos/pos-y-'+texturesrc+'.png', 'offshore_panos/neg-y-'+texturesrc+'.png',
+           'offshore_panos/pos-z-'+texturesrc+'.png', 'offshore_panos/neg-z-'+texturesrc+'.png',
           ];
 
         var textureCube = THREE.ImageUtils.loadTextureCube( urls );
@@ -477,14 +477,14 @@ function krpanoplugin() {
 
         for ( var i = 0; i < 500; i ++ ) {
 
-          var meshsphere = new THREE.Mesh( new THREE.SphereGeometry( 250, 32, 16 ) , materialsphere );
+          var meshsphere = new THREE.Mesh( new THREE.SphereGeometry( 250, 16,16 ) , materialsphere );
 
           meshsphere.position.x = Math.random() * 40 - 20;
-          meshsphere.position.y = Math.random() * 100;
+          meshsphere.position.y = Math.random() * 50;
           meshsphere.position.z = Math.random() * 40 -20
-          meshsphere.opacity = .4
 
-          meshsphere.scale.x = meshsphere.scale.y = meshsphere.scale.z = Math.random() * .003;
+
+          meshsphere.scale.x = meshsphere.scale.y = meshsphere.scale.z = Math.random() * .0005;
 
           scene.add(meshsphere );
 

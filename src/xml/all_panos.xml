@@ -112,29 +112,7 @@
 
   </scene>
 
-  <scene name="vrvideo-sub" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart(ROV_Coral));">
 
-    <view hlookat="0" vlookat="0" fov="40" />
-
-    <image>
-      <sphere  url="../offshore_panos/underwater_pano_01.jpg" />
-    </image>
-
-    <plugin name="vrvideo" url="./plugins/vr.video-v2-bubbles.js" vidsrc="" />
-
-<!--     <hotspot name="vrvideo_close"
-     url="../images/door_outside.png"
-     ath="95"
-     atv="0"
-     distorted="true"
-     inverserotation="true"
-     zorder2="1"
-     zoom="true"
-     onclick="js(closeVideoPlayer())"
-     scale="0.5"
-    /> -->
-
-  </scene>
 
   <scene name="darkroom_01" onstart="webvr.resetSensor(view.hlookat);">
 
@@ -1362,6 +1340,50 @@
   </scene>
 
 
+<scene name="chemicalRoomDark">
+
+    <view
+      fovmax="120.0"
+      fovmin="5.0"
+    />
+
+  <!-- limitview ="lookat"
+  hlookatmin ="NAN"
+  hlookatmax ="NaN"
+  vlookatmin ="20"
+  vlookatmax ="-45" -->
+
+    <image>
+      <cube url="../offshore_panos/chemicalroom_pano_dark_%s.jpg" />
+    </image>
+
+
+    <hotspot name="engine_room" 
+      url="../images/nav_ring_blue.png"
+      ath="340"
+      atv="-2"
+      distorted="true"
+      onclick="js(xml.newPano('chemicalroom'));"
+      scale="0.3"
+      zorder="99"
+      />
+
+
+
+    <hotspot name="lights_on" 
+      url="../images/nav_ring_orange.png"
+      ath="15"
+      atv="-2"
+      distorted="true"
+      onclick="js(xml.newPano('chemicalroom'));"
+      scale="0.2"
+      zorder="99"
+      />
+
+
+
+
+  </scene>
 
 
   <!--  #####  ######  ###  ## ###### #####   ######  ##
@@ -1968,9 +1990,6 @@
 
     <view
       hlookat="84.0"
-      fov="65.0"
-      fovmax="120.0"
-      fovmin="15.0"
     />
 
     <!-- limitview ="lookat"
@@ -2006,9 +2025,7 @@
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(xml.loadUnderWater(ROV_Skate_Farm));"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
+      onclick="js(xml.newPano('vrvideo-sub-coral'))"
       scale="1.0"
       />
 
@@ -2018,9 +2035,7 @@
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(xml.loadUnderWater(ROV_Wellhead_1))"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
+      onclick="js(xml.newPano('vrvideo-sub-wellhead1'))"
       scale="1.0"
       />
 
@@ -2030,9 +2045,7 @@
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(xml.loadUnderWater(ROV_Wellhead_2))"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
+      onclick="js(xml.newPano('vrvideo-sub-wellhead2'))"
       scale="1.0"
       />
 
@@ -2042,9 +2055,7 @@
       distorted="true"
       alpha="0.0"
       height="50.0"
-      onclick="js(xml.loadUnderWater(ROV_Coral));"
-      onhover="js(xml.hoverSound()) "
-      onout="js(xml.resetHoverSound());"
+      onclick="js(xml.newPano('vrvideo-sub-skate'))"
       scale="1.0"
       />
 
@@ -2065,10 +2076,93 @@
   </scene>
 
 
+  <scene name="vrvideo-sub-coral" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart(ROV_Coral,coral));">
 
+    <view hlookat="0"/>
 
+    <image>
+      <sphere  url="../offshore_panos/coral.jpg" />
+    </image>
 
+    <plugin name="vrvideo" url="./plugins/vr.video-v2-bubbles.js" />
 
+    <hotspot name="vrvideo_close"
+     url="../images/nav_ring_blue.png"
+     ath="180"
+     atv="-85"
+     distorted="true"
+     zoom="true"
+     onclick="js(xml.newPano('submarine'))"
+     scale="0.5"
+    />
+
+  </scene>
+
+  <scene name="vrvideo-sub-wellhead1" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart(ROV_Wellhead_1,wellhead));">
+
+    <view hlookat="0"/>
+
+    <image>
+      <sphere  url="../offshore_panos/wellhead_01.jpg" />
+    </image>
+
+    <plugin name="vrvideo" url="./plugins/vr.video-v2-bubbles.js" />
+
+    <hotspot name="vrvideo_close"
+     url="../images/nav_ring_blue.png"
+     ath="180"
+     atv="-85"
+     distorted="true"
+     zoom="true"
+     onclick="js(xml.newPano('submarine'))"
+     scale="0.5"
+    />
+
+  </scene>
+
+  <scene name="vrvideo-sub-wellhead2" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart(ROV_Wellhead_2,wellhead));">
+
+    <view hlookat="0"/>
+
+    <image>
+      <sphere  url="../offshore_panos/wellhead_01.jpg" />
+    </image>
+
+    <plugin name="vrvideo" url="./plugins/vr.video-v2-bubbles.js" />
+
+    <hotspot name="vrvideo_close"
+     url="../images/nav_ring_blue.png"
+     ath="180"
+     atv="-85"
+     distorted="true"
+     zoom="true"
+     onclick="js(xml.newPano('submarine'))"
+     scale="0.5"
+    />
+
+  </scene>
+
+  <scene name="vrvideo-sub-skate" onstart="webvr.resetSensor(view.hlookat); js(videoPlayerVR.onstart(ROV_Skate_Farm,skate));">
+
+    <view hlookat="0"/>
+
+    <image>
+      <sphere  url="../offshore_panos/skate_01.jpg" />
+    </image>
+
+    <plugin name="vrvideo" url="./plugins/vr.video-v2-bubbles.js" />
+
+    <hotspot name="vrvideo_close"
+     url="../images/nav_ring_blue.png"
+     ath="180"
+     atv="-85"
+     distorted="true"
+     zoom="true"
+     onclick="js(xml.newPano('submarine'))"
+     scale="0.5"
+    />
+
+  </scene>
 
 
   <!-- ###### ##   ## ######  ##### ###### #####  ######

@@ -1197,14 +1197,14 @@ var videoPlayerVR = {
     }, 500)
   },
 
-  onstart: function(_filename){
+  onstart: function(_filename,_texture){
 
-    console.log(_filename)
+    console.log(_filename,_texture)
 
     setTimeout(function(){
-      if(_filename){
+      if(_filename && _texture){
         
-        pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + _filename  + globals.videoType+');');
+        pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + _filename  + globals.videoType+', ' +_texture+');');
 
       } else {
         pano.krpano.call('plugin[vrvideo].load('+globals.cdn_video + videoPlayerVR.data.videoGroup[videoPlayerVR.data.currentVideo].file  + globals.videoType+');');
