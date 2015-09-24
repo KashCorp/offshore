@@ -7,7 +7,9 @@ var globals = (function(){
   exports.cachedAth = 0;
   exports.cachedFov = 90;
 
-  exports.vr = false; // VR MODE
+  //exports.vr = false; // VR MODE
+
+  exports.vr = true;
 
   exports.isPreloaded = false;
 
