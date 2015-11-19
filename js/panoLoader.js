@@ -53,10 +53,10 @@
 			$('#panoDownloadStatusText').remove()
 			$('#panoDownloadStatus').remove()
 			master = new masterFunctions();
-			// master.init();
-			// master.check_start();
-			// pano = new pano_master();
-			// $('#wrapper').fadeIn(2000)
+			master.init();
+			master.check_start();
+			pano = new pano_master();
+			$('#wrapper').fadeIn(2000);
 		})
 
 		loader.start();

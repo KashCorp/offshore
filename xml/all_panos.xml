@@ -14,7 +14,7 @@
         speed="5.0"
     />
 
-    <control 
+    <control
        	usercontrol = "all"
        	mousetype="drag2d"
        	mousefriction="0"
@@ -22,17 +22,17 @@
         fovspeed="1.0"
         headswing="0"
     />
-	 
-	<events 
+
+	<events
 
 		onloadcomplete= "js(panoComplete())"
 
-		onmousedown="action(globalmousedown)" 
+		onmousedown="action(globalmousedown)"
 
 		onviewchange="action(viewchange)"
 	/>
-	 
-	<action name="globalmousedown">		
+
+	<action name="globalmousedown">
 		set(plugin[directions].visible,false);
 		set(autorotate.enabled,false);
 	</action>
@@ -66,11 +66,11 @@
 
 	<action name="hallway">
 		loadscene(hallway, null, MERGE);
-	</action>	
+	</action>
 
 	<action name="helicopter">
 		loadscene(helicopter, null, MERGE);
-	</action>	
+	</action>
 
 	<action name="platform">
 		loadscene(platform, null, MERGE);
@@ -103,16 +103,16 @@
 
 
 	<!-- lookto(horizontal, vertical, fieldofview, motiontype, shortestway, nonblocking, callback) -->
-	
-	                   
+
+
 
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		Prologue
-	
+
 	###########################################################################
 	####################################################################### -->
 
@@ -122,7 +122,7 @@
 
 	 		<progress showwait="none" />
 
-	 		<view 
+	 		<view
 	 			hlookat="60.0"
 	 			fov="90.0"
 	 			fovmax="180.0"
@@ -136,7 +136,7 @@
 	 			</mobile>
 	 		</image>
 
-	 			<hotspot name="LOGO" 
+	 			<hotspot name="LOGO"
 	 			url="../images/offshore_logo.png"
 	 			ath="211"
 	 			atv="-13"
@@ -147,7 +147,7 @@
 	 			capture="false"
 	 			/>
 
-	 			<hotspot name="ENTER" 
+	 			<hotspot name="ENTER"
 				url="../images/icons/gif_iconA.gif"
 				ath="211"
 				atv="-10"
@@ -161,7 +161,7 @@
 				capture = "false"
 				/>
 
-	 		
+
 
 	 	</scene>
 
@@ -169,17 +169,17 @@
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Helicopter
-	
+
 	###########################################################################
 	####################################################################### -->
-	
+
 
 	<scene name="helicopter">
 
-		<view 
+		<view
 			hlookat="160"
 			fov="90.0"
 			fovmax="120.0"
@@ -194,7 +194,7 @@
 		<image>
 			<cube url="../offshore_panos/helicopter_pano_%s.jpg" />
 	    	<tablet>
-		        <cube  url="../offshore_panos/512/helicopter_pano_%s.jpg" /> 
+		        <cube  url="../offshore_panos/512/helicopter_pano_%s.jpg" />
     		</tablet>
 		</image>
 
@@ -239,12 +239,12 @@
 			alpha="0"
 			scale="1"
 			height="90"
-			width="100"  
-			capture="false" 
+			width="100"
+			capture="false"
 			/>
-			
 
-		<!-- <hotspot name="entryhotspot" 
+
+		<!-- <hotspot name="entryhotspot"
 			url="../images/panos/platform/hotspots/entry.png"
 			alturl="../images/panos/platform/hotspots/entry.png"
 			ath="76"
@@ -262,16 +262,16 @@
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Platform
-	
+
 	###########################################################################
 	####################################################################### -->
 
 	<scene name="platform">
 
-		<view 
+		<view
 			hlookat="10"
 			fov="90.0"
 			fovmax="120.0"
@@ -280,20 +280,20 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"			
+			vlookatmax ="-45"
 		/>
 
 	 	<image>
-			<cube url="../offshore_panos/platform_pano_%s.jpg"/>	
+			<cube url="../offshore_panos/platform_pano_%s.jpg"/>
 
 			<tablet>
-		        <cube  url="../offshore_panos/512/platform_pano_%s.jpg" /> 
+		        <cube  url="../offshore_panos/512/platform_pano_%s.jpg" />
     		</tablet>
 
 		</image>
 
 
-		<hotspot name="FlightDeck_VO" 
+		<hotspot name="FlightDeck_VO"
 			url="../images/hotspot.gif"
 			ath="40"
 			atv="0"
@@ -306,7 +306,7 @@
 			capture="false"
 			/>
 
-		<hotspot name="entry_hotspot" 
+		<hotspot name="entry_hotspot"
 			url="../images/hotspot.gif"
 			ath="74.5"
 			atv="11.2"
@@ -320,7 +320,7 @@
 			capture="false"
 			/>
 
-		<hotspot name="heli_hotspot" 
+		<hotspot name="heli_hotspot"
 			url="../images/hotspot.gif"
 			ath="-129"
 			atv="8.0"
@@ -333,13 +333,13 @@
 			height="80"
 			width="48"
 			capture="false"
-			/>	
+			/>
 
 
 
 		<!-- Video Player -->
 
-		<hotspot name="Videos_gif" 
+		<hotspot name="Videos_gif"
 			url="../images/icons/gif_iconA.gif"
 			ath="10"
 			atv="1"
@@ -378,16 +378,16 @@
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Lower Platform
-	
+
 	###########################################################################
 	####################################################################### -->
 
 	<scene name="lowerplatform">
 
-		<view 
+		<view
 			hlookat="140"
 	  		fov="90.0"
 	  		fovmax="120.0"
@@ -396,15 +396,14 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"	  		
+			vlookatmax ="-45"
 	  	/>
 
 	 	<image>
 		    <cube url="../offshore_panos/lowerplatform_pano_%s.jpg" />
-
 			<tablet>
-		        <cube  url="../offshore_panos/512/lowerplatform_pano_%s.jpg" /> 
-    		</tablet>		    
+		    <cube  url="../offshore_panos/512/lowerplatform_pano_%s.jpg" />
+    	</tablet>
 		</image>
 
 		<hotspot name="hatch_open"
@@ -414,12 +413,12 @@
 			distorted="true"
 			onclick="lookto(79,8,15,smooth(),true,true,js(newPano(sequence_shaftway)))"
 			width = "420"
-			height = "220"			
+			height = "220"
 			capture="false"
 			alpha = "0"
 		/>
-		
-		
+
+
 		<hotspot name="helipad" url="../images/hotspot.gif"
 			ath="-23.8"
 			atv="2"
@@ -438,13 +437,13 @@
 			alpha="0.0"
 			width="105.0"
 			height="105.0"
-			
+
 			onclick="js(loadAFXPano(voice_overs/VO_03_Platform))"
 			scale="1.0"
 			capture="false"
 			/>
-		
-			
+
+
 		<hotspot name="controlroom" url="../images/hotspot.gif"
 			ath="-143"
 			atv="8"
@@ -454,10 +453,10 @@
 			scale="1"
 			width="70.0"
 			height="60.0"
-			
+
 			capture="false"
 			/>
-			
+
 		<!-- Video  -->
 
 		<hotspot name="Deep-Waters-text"
@@ -501,17 +500,17 @@
 
 		<!-- ######################################################################
 		###########################################################################
-			
+
 
 			> BOAT
-		
+
 		###########################################################################
 		####################################################################### -->
 
 		<scene name="boat" onstart="">
 
 
-			<view 
+			<view
 			  hlookat="240"
 			  fov="90.0"
 			  fovmax="120.0"
@@ -520,7 +519,7 @@
 				hlookatmin ="NAN"
 				hlookatmax ="NaN"
 				vlookatmin ="20"
-				vlookatmax ="-45"		  
+				vlookatmax ="-45"
 			  />
 
 		 	<image>
@@ -528,7 +527,7 @@
 
 			    <tablet>
 			        <cube  url="../offshore_panos/512/boat_pano_%s.jpg" />
-	    		</tablet>	
+	    		</tablet>
 			</image>
 	<!--
 			<image devices="Desktop">     <cube url="../images/panos/boat/pano_%s.jpg"   /> </image>
@@ -544,9 +543,9 @@
 				alpha="0.0"
 				visible="true"
 				/> -->
-				
 
-			<hotspot name="going_up_stairs1" 
+
+			<hotspot name="going_up_stairs1"
 				url="../images/hotspot.gif"
 				ath="90"
 				atv="-7.0"
@@ -559,7 +558,7 @@
 				capture="false"
 				/>
 
-			<hotspot name="going_up_stairs2" 
+			<hotspot name="going_up_stairs2"
 				url="../images/hotspot_diagonal.gif"
 				ath="75"
 				atv="-13"
@@ -573,7 +572,7 @@
 				/>
 
 
-			<hotspot name="life_preserver_starboard" 
+			<hotspot name="life_preserver_starboard"
 				url="../images/hotspot.gif"
 				ath="320"
 				atv="35"
@@ -587,7 +586,7 @@
 				capture="false"
 				/>
 
-			<hotspot name="life_preserver_port" 
+			<hotspot name="life_preserver_port"
 				url="../images/hotspot.gif"
 				ath="90"
 				atv="35"
@@ -600,7 +599,7 @@
 				scale="1.0"
 				capture="false"
 				/>
-				
+
 			<hotspot name="stairs back to platform"
 				device="flash"
 				keep="false"
@@ -655,7 +654,7 @@
 				color="0xffffff"
 				handcursor="true"
 				height="100"
-				
+
 				html="[h2]Shrimp And Oysters:[h2] [h3]Stories From Ground Zero of the Spill[h3]"
 				css="data:flag"
 				autoheight="false"
@@ -665,7 +664,7 @@
 						 js(setCache(100,90))"
 				/>
 
-			<hotspot name="Boatdeck-GIF" 
+			<hotspot name="Boatdeck-GIF"
 				url="../images/icons/gif_iconA.gif"
 				ath="255"
 				atv="1"
@@ -673,7 +672,7 @@
 				alpha=".5"
 				height="75"
 				width="75"
-				
+
 				scale="1.0"
 				onclick="lookto(20,0,10,smooth(),true,true,js(videoPlayer(boatdeck)));
 						 js(setCache(100,90))"
@@ -687,10 +686,10 @@
 
 		<!-- ######################################################################
 		###########################################################################
-			
+
 
 			> Sub Hanger
-		
+
 		###########################################################################
 		####################################################################### -->
 
@@ -698,7 +697,7 @@
 
 		<scene name="subhangar">
 
-			<view 
+			<view
 				hlookat="-10"
 				fov="90.0"
 				fovmax="120.0"
@@ -707,9 +706,9 @@
 				hlookatmin ="NAN"
 				hlookatmax ="NaN"
 				vlookatmin ="20"
-				vlookatmax ="-45"			
+				vlookatmax ="-45"
 			/>
-		 	
+
 		 	<image>
 			    <left  url="../offshore_panos/subhangar_pano_l.jpg" />
 			    <front url="../offshore_panos/subhangar_pano_f2.png" />
@@ -724,8 +723,8 @@
 			        <right url="../offshore_panos/512/subhangar_pano_r.png" />
 			        <back  url="../offshore_panos/512/subhangar_pano_b.jpg" />
 			        <up    url="../offshore_panos/512/subhangar_pano_u.jpg" />
-			        <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />    
-	    		</tablet>		    
+			        <down  url="../offshore_panos/512/subhangar_pano_d.jpg" />
+	    		</tablet>
 			</image>
 
 
@@ -754,8 +753,8 @@
 				scale="7.0"
 				capture = "false"
 			/>
-		
-			
+
+
 			<!-- iPad -->
 
 			<hotspot name="iPad" url="../images/hotspot.gif"
@@ -771,8 +770,8 @@
 				scale="3.0"
 				capture = "false"
 				/>
-			
-			<hotspot name="iPad_gif" 
+
+			<hotspot name="iPad_gif"
 				url="../images/icons/gif_iconB.gif"
 				ath="24"
 				atv="15"
@@ -788,7 +787,7 @@
 
 			<!-- Video Player -->
 
-			<hotspot name="requiemgif" 
+			<hotspot name="requiemgif"
 				url="../images/icons/gif_iconA.gif"
 				ath="60"
 				atv="-9"
@@ -831,21 +830,21 @@
 
 
 
-	
+
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Chemical Room
-	
+
 	###########################################################################
 	####################################################################### -->
-	
+
 
 
 	<scene name="chemicalRoom">
 
-		<view 
+		<view
 			hlookat="224.0"
 			fov="90.0"
 			fovmax="120.0"
@@ -854,7 +853,7 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"			
+			vlookatmax ="-45"
 		/>
 
 		<image>
@@ -871,8 +870,8 @@
 		        <right url="../offshore_panos/512/chemicalroom_pano_r.jpg" />
 		        <back  url="../offshore_panos/512/chemicalroom_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/chemicalroom_pano_u.jpg" />
-		        <down  url="../offshore_panos/512/chemicalroom_pano_d.jpg" />    
-    		</tablet>	    
+		        <down  url="../offshore_panos/512/chemicalroom_pano_d.jpg" />
+    		</tablet>
 		</image>
 
 
@@ -891,7 +890,7 @@
 		/>
 
 
-		<hotspot name="engineroomgif" 
+		<hotspot name="engineroomgif"
 			url="../images/icons/gif_iconA.gif"
 			ath="355"
 			atv="-5"
@@ -921,14 +920,14 @@
 			vcenter="true"
 			width="400"
 			onclick="lookto(335,0,5,tween(easeOutQuad,2),true,true);set(hotspot[engineroom].enabled,false);"
-		/>		
+		/>
 
 		<hotspot name="exit" url="../images/hotspot.gif"
 			ath="30"
 			atv="-2"
 		    distorted="true"
 		    capture="false"
-		    
+
 			alpha="0"
 			width="100.0"
 			height="300.0"
@@ -941,7 +940,7 @@
 		<!-- Medicine Cabinet -->
 
 
-		 <hotspot name="open_cabinet" 
+		 <hotspot name="open_cabinet"
 			url="../images/hotspots/cabinet.png"
 			ath="54.4"
 			atv="-5.1"
@@ -949,9 +948,9 @@
 			alpha="0"
 			onclick="tween(alpha,1);set(hotspot[Corexit_video].enabled,true);set(hotspot[open_cabinet].enabled,false);set(hotspot[Corexit_text].enabled,true);set(hotspot[Corexit_text].alpha,1)"
 			scale="1.05"
-		/>		
+		/>
 
-		<hotspot name="Corexit_video" 
+		<hotspot name="Corexit_video"
 			url="../images/hotspot.gif"
 			ath="54.4"
 			atv="-5.1"
@@ -965,7 +964,7 @@
 			scale="1.0"
 			enabled="false"
 		/>
-	
+
 		<hotspot name="Corexit_Text"
 			url="plugins/textfield.swf"
 			ath="64.4"
@@ -1041,7 +1040,7 @@
 			scale="1.0"
 		/>
 
-		
+
 		<!-- In the Bloodstream -->
 
 		<hotspot name="James_Text"
@@ -1064,7 +1063,7 @@
 					 js(setCache(24,90))"
 		/>
 
-		<hotspot name="James" 
+		<hotspot name="James"
 			url="../images/hotspot.gif"
 			ath="115"
 			atv="28"
@@ -1103,10 +1102,10 @@
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Control Room
-	
+
 	###########################################################################
 	####################################################################### -->
 
@@ -1115,7 +1114,7 @@
 
 		<progress showwait="none" />
 
-		<view 
+		<view
 			hlookat="-167"
 			fov="90.0"
 			fovmax="120.0"
@@ -1124,7 +1123,7 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"			
+			vlookatmax ="-45"
 			/>
 
 		<image>
@@ -1134,19 +1133,19 @@
 		    <back  url="../offshore_panos/controlroom_pano_b.png" />
 		    <up    url="../offshore_panos/controlroom_pano_u.jpg" />
 		    <down  url="../offshore_panos/controlroom_pano_d.jpg" />
-	    	
+
 	    	<tablet>
 		        <left  url="../offshore_panos/512/controlroom_pano_l.jpg" />
 		        <front url="../offshore_panos/512/controlroom_pano_f.jpg" />
 		        <right url="../offshore_panos/512/controlroom_pano_r.jpg" />
 		        <back  url="../offshore_panos/512/controlroom_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/controlroom_pano_u.jpg" />
-		        <down  url="../offshore_panos/512/controlroom_pano_d.jpg" />    
-    		</tablet>	
+		        <down  url="../offshore_panos/512/controlroom_pano_d.jpg" />
+    		</tablet>
 
 		</image>
-			
-		
+
+
 		<!-- Michael Klare video player -->
 
 		<hotspot name="MK-GIF"
@@ -1184,14 +1183,14 @@
 
 		<!-- Main Monitors (all zoom to MK vids) -->
 
-		<hotspot name="Monitor Big" 
+		<hotspot name="Monitor Big"
 			url="../images/hotspot.gif"
 			ath="190"
 			atv="0"
 			distorted="true"
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
@@ -1200,14 +1199,14 @@
 			capture="false"
 			/>
 
-		<hotspot name="Monitor Top Left" 
+		<hotspot name="Monitor Top Left"
 			url="../images/hotspot.gif"
 			ath="185"
 			atv="-15"
 			distorted="true"
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
@@ -1216,14 +1215,14 @@
 			capture="false"
 			/>
 
-		<hotspot name="Monitor Top Right" 
+		<hotspot name="Monitor Top Right"
 			url="../images/hotspot.gif"
 			ath="211"
 			atv="-13"
 			distorted="true"
 			alpha="0"
 			borderwidth="0.0" borderwidthhover="1"
-			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF" 
+			bordercolor="0xFFFFFF" bordercolorhover="0xFFFFFF"
 			onclick="lookto(190,0,1,tween(easeOutQuad,1.5),true,true,js(videoPlayer(extremeoil)));
 					 js(setCache(get(view.hlookat),90))"
 			scale="1.0"
@@ -1239,11 +1238,11 @@
 			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_1.webm"
 			ath="-199.25" atv="-0.8"
 			distorted="true"
-			scale="0.24" 
-			rx="0" 
-			ry="16" 
-			rz="0" 
-			
+			scale="0.24"
+			rx="0"
+			ry="16"
+			rz="0"
+
 
 			enabled="true"
 			alpha="0.5"
@@ -1260,9 +1259,9 @@
 			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_2.webm"
 			ath="-142.5" atv="-0.5"
 			distorted="true"
-			scale="0.195" 
-			rx="0" 
-			ry="-35" 
+			scale="0.195"
+			rx="0"
+			ry="-35"
 			rz="0"
 
 			enabled="true"
@@ -1271,10 +1270,10 @@
 					 js(setCache(get(view.hlookat),90))"
 			loop="true"
 		/>
-			
--->		
+
+-->
 		<!-- Big Red Button -->
-			
+
 		<hotspot name="openhatch" url="../images/hotspot.gif"
 			ath="17.95"
 			atv="-7.82"
@@ -1307,7 +1306,7 @@
 		/>
 
 
-		<!-- CCTV 
+		<!-- CCTV
 
 		<hotspot name="cctv0"
 			url="plugins/videoplayer_offshore_01.js"
@@ -1316,14 +1315,14 @@
 			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/ControlRoom_CCTV_Walkthrough.webm"
 			ath="-160.1" atv="-13.5"
 			distorted="true"
-			scale="0.130" 
-			rx="15" 
-			ry="0" 
-			rz="5.5" 
+			scale="0.130"
+			rx="15"
+			ry="0"
+			rz="5.5"
 			enabled="true"
 
 			alpha="0.4"
-			onclick="lookto(-160,-12,15,smooth(),true,true); 
+			onclick="lookto(-160,-12,15,smooth(),true,true);
 					 js(zoomIn());
 					 set(autorotate.enabled,false)"
 			loop="true"
@@ -1335,27 +1334,27 @@
 			alturl="plugins/videoplayer_offshore_01.js"
 			volume="0.00001"
 			videourl="http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/CONTROL-Nymex.mp4|http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/CONTROL-Nymex.webm"
-			ath="247.05" 
+			ath="247.05"
 			atv="-3.2"
 			distorted="true"
-			scale="0.105" 
-			rx="0" 
-			ry="-35" 
+			scale="0.105"
+			rx="0"
+			ry="-35"
 			rz="0"
 
 			enabled="true"
 			alpha="0.8"
-			onclick="lookto(247,-3,10,smooth(),true,true); 
+			onclick="lookto(247,-3,10,smooth(),true,true);
 					 js(setCache(get(view.hlookat),90))
 					 js(zoomIn());
 					 set(autorotate.enabled,false)"
 			loop="true"
 		/>
 
-		
+
 		<!-- Dossier -->
-		<hotspot name="Filing_cabinet" 
-			
+		<hotspot name="Filing_cabinet"
+
 			ath="126.9"
 			atv="16.4"
 			distorted="true"
@@ -1385,7 +1384,7 @@
 					 js(setCache(get(view.hlookat),90))"
 		/>
 
-		<hotspot name="Filing_cabinet_icon" 
+		<hotspot name="Filing_cabinet_icon"
 			url="../images/icons/gif_documents.gif"
 			alpha=".5"
 			height="70"
@@ -1404,8 +1403,8 @@
 
 
 		<!-- Door -->
-		
-		<hotspot name="Exit to hallway" 
+
+		<hotspot name="Exit to hallway"
 			url="../images/hotspot.gif"
 			ath="261"
 			atv="5"
@@ -1426,17 +1425,17 @@
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Hallway
-	
+
 	###########################################################################
 	####################################################################### -->
 
 
 	<scene name="hallway">
 
-		<view 
+		<view
 		  hlookat="-45"
 		  fov="90.0"
 		  fovmax="120.0"
@@ -1445,8 +1444,8 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"		  
-		 />		
+			vlookatmax ="-45"
+		 />
 
 		<image>
 		    <left  url="../offshore_panos/hallway_pano_l.jpg" />
@@ -1462,8 +1461,8 @@
 		        <right url="../offshore_panos/512/hallway_pano_r.png" />
 		        <back  url="../offshore_panos/512/hallway_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/hallway_pano_u.png" />
-		        <down  url="../offshore_panos/512/hallway_pano_d.jpg" />    
-    		</tablet>	
+		        <down  url="../offshore_panos/512/hallway_pano_d.jpg" />
+    		</tablet>
 
 		</image>
 
@@ -1545,7 +1544,7 @@
 			scale="4.0"
 			capture="false"
 			/>
-		
+
 		<hotspot name="ladder" url="../images/hotspot.gif"
 			ath="105"
 			atv="-40"
@@ -1558,7 +1557,7 @@
 			capture="false"
 			/>
 
-		
+
 
 		<!-- Video Player  -->
 
@@ -1616,7 +1615,7 @@
 					 js(setCache(get(view.hlookat),90))"
 		/>
 
-		<hotspot name="Voices_Dossier_icon" 
+		<hotspot name="Voices_Dossier_icon"
 			url="../images/icons/gif_documents.gif"
 			alpha=".5"
 			height="70"
@@ -1629,29 +1628,29 @@
 					 js(setCache(get(view.hlookat),90))"
 			onhover="js(hoverSound());tween(alpha,1.0);set(hotspot[go_about].visible,true);"
 			onout="js(resetHoverSound());tween(alpha,0);set(hotspot[go_about].visible,false);"
-		/>		
+		/>
 
 
 	</scene>
 
 
 
-	
+
 
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Submarine (ROV)
-	
+
 	###########################################################################
 	####################################################################### -->
 
-	
+
 	<scene name="submarine">
-		
-		<view 
+
+		<view
 			hlookat="84.0"
 			fov="65.0"
 			fovmax="120.0"
@@ -1660,7 +1659,7 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"			
+			vlookatmax ="-45"
 		/>
 
 		<image>
@@ -1677,7 +1676,7 @@
 		        <right url="../offshore_panos/512/interiorsub_pano_r.png" />
 		        <back  url="../offshore_panos/512/interiorsub_pano_b.jpg" />
 		        <up    url="../offshore_panos/512/interiorsub_pano_u.jpg" />
-		        <down  url="../offshore_panos/512/interiorsub_pano_d.jpg" />    
+		        <down  url="../offshore_panos/512/interiorsub_pano_d.jpg" />
     		</tablet>
 
 		</image>
@@ -1731,7 +1730,7 @@
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
-			/>	
+			/>
 
 		<hotspot name="under_water_04" url="../images/hotspot.gif"
 			ath="112.15"
@@ -1746,9 +1745,9 @@
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="1.0"
-			/>	
+			/>
 
-		
+
 
 
 		<!-- Door -->
@@ -1770,16 +1769,16 @@
 
 	<!-- ######################################################################
 	###########################################################################
-		
+
 
 		> Theatre
-	
+
 	###########################################################################
 	####################################################################### -->
 
 	<scene name="theatre">
 
-		<view 
+		<view
 			hlookat="0.0"
 			fov="90.0"
 			fovmax="120.0"
@@ -1788,9 +1787,9 @@
 			hlookatmin ="NAN"
 			hlookatmax ="NaN"
 			vlookatmin ="20"
-			vlookatmax ="-45"			
+			vlookatmax ="-45"
 		/>
-			
+
 		<image>
 		    <left  url="../offshore_panos/theatre_pano_l.jpg" />
 		    <front url="../offshore_panos/theatre_pano_f.jpg" />
@@ -1805,8 +1804,8 @@
 		        <right url="../offshore_panos/theatre_pano_r.jpg" />
 		        <back  url="../offshore_panos/theatre_pano_b.jpg" />
 		        <up    url="../offshore_panos/theatre_pano_u.jpg" />
-		        <down  url="../offshore_panos/theatre_pano_d.jpg" />    
-    		</tablet>		    
+		        <down  url="../offshore_panos/theatre_pano_d.jpg" />
+    		</tablet>
 		</image>
 
 
@@ -1859,7 +1858,7 @@
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
-			
+
 			capture="false"
 		/>
 
@@ -1875,7 +1874,7 @@
 			onhover="js(hoverSound()) "
 			onout="js(resetHoverSound());"
 			scale="3.0"
-		
+
 			capture="false"
 		/>
 
@@ -1924,8 +1923,8 @@
 
 	</scene>
 
-	
-	
+
+
 
 
 
@@ -1954,7 +1953,7 @@
 			font-size: 22px;
 			textAlign: center;
 			text-align: center;
-		}			
+		}
 	</data>
 
 
@@ -1963,7 +1962,7 @@
 		p {
 			color: #ffffff;
 			fontFamily: Helvetica, Arial, sans-serif;
-			fontSize: 16px;				
+			fontSize: 16px;
 			leading: 7;
 		}
 	</data>

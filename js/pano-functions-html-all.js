@@ -34,14 +34,24 @@
 
 var globalPano;
 
-function krpanoReady() {
+var krpanoIsReady = false
 
+function krpanoReady() {
+  if(krpanoIsReady) return
+  krpanoIsReady = true;
   if (parent.location.hash.slice(1) == "")
     pano.loadPanoScene('prologue')
   else
     pano.loadPanoScene(parent.location.hash.slice(1))
-
 }
+
+
+
+function loadAFXPano(_file, _start){
+  if(!_start) _start = 0
+  master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
+}
+
 
 var pano_master = function(){
 
@@ -60,29 +70,29 @@ var pano_master = function(){
 
   this.video_underlay = false;
 
-  that.noWebAudio = !!(Modernizr.webaudio)
+  that.noWebAudio = !Modernizr.webaudio
 
   this.visited = JSON.parse(localStorage.getItem('offshoreVisitedPanos'));
 
   if(!this.visited){
     this.visited = { // this gets cached in localStorage
-      platform : false,
-      lowerplatform : false,
-      hallway : false,
-      boat: false,
-      controlroom : false,
-      theatre : false,
-      chemicalroom : false,
-      subhangar : false
+      platform:      false,
+      lowerplatform: false,
+      hallway:       false,
+      boat:          false,
+      controlroom:   false,
+      theatre:       false,
+      chemicalroom:  false,
+      subhangar:     false
     }
     localStorage.setItem('offshoreVisitedPanos', JSON.stringify(this.visited))
   }
 
   var scrollTrigger,
-    scrollPercent=0,
-    sequenceHasWords,
-    linkForward,
-    linkBack;
+      scrollPercent=0,
+      sequenceHasWords,
+      linkForward,
+      linkBack;
 
   var overLayFile, underlayFile, underlayMute, underlayMuted
 
@@ -132,33 +142,26 @@ var pano_master = function(){
 
 
   $(parent).bind('hashchange', function(){
-    if(master.globalPano === parent.location.hash.slice(1)) {
-      return false;
-    }
+    if(master.globalPano === parent.location.hash.slice(1)) return false;
 
     if (parent.location.hash.slice(1) =="") {
       that.loadPanoScene('prologue')
-      return false
+      return false;
     }
 
     $("#walking-canvas-pano").addClass('hide')
-    //setTimeout(function(){
-
     that.loadPanoScene(parent.location.hash.slice(1))
-     // },1000)
   })
 
   // coming in from a deeplink
-
-
   var deeplinkfunction = function(){
     window.clearTimeout(deeplinktimeout)
     krpano = document.getElementById("krpanoObject");
+
     deeplinktimeout = window.setTimeout(function(){
 
       // make sure krpano has had a chance to load
       if(krpano) {
-
         if (parent.location.hash.slice(1) =="")
           that.loadPanoScene('prologue')
         else
@@ -183,16 +186,14 @@ var pano_master = function(){
 
 
   this.loadPanoScene = function(_pano) {
-
-    var d = document.location;
+    console.log('loadPanoScene');
     _gaq.push(['_trackPageview', '/'+ _pano])
 
     $("#loading").hide();
+    $('.oil-shot-bg').hide();
 
-    $('.oil-shot-bg').css('display','none')
-
-    $wrapper.removeClass('hide')
-    $panocontainer.removeClass('hide')
+    $wrapper.removeClass('hide');
+    $panocontainer.removeClass('hide');
 
     that.panoWalkthrough = null;
     that.video_underlay = false;
@@ -200,34 +201,23 @@ var pano_master = function(){
     $('.pan-directions').hide();
     if(that.panDirectionsShown === false) $('.pan-directions').show();
 
-
-    // Ghost Functions
-    if(that.ghostTransition) that.ghostTransition.killGhost();
-    if(that.walkthrough) that.walkthrough = false;
-
-    $('#ghost-canvas-trans').fadeOut()
-
     if(!master.overlayOpen) $compass.show()
 
+    // Clear out old ghosts
+    if(that.ghostTransition) that.ghostTransition.killGhost();
+    if(that.walkthrough) that.walkthrough = false;
+    $('#ghost-canvas-trans').fadeOut();
     setTimeout(function(){
-
       var canvas = document.getElementById('ghost-canvas-trans');
-
       var context = canvas.getContext('2d');
-
       context.clearRect(0, 0,320,180);
-
       canvas.width = 0
-
       canvas.width = 320
-
     },1000)
 
-
-    // calculate a random range for ghosts to appear
+    // calculate a random range for new ghosts to appear
     master.ghostMinCoord = Math.floor( Math.random() * 180 )
     master.ghostMaxCoord = master.ghostMinCoord + 100
-
 
     master.globalPano = _pano
 
@@ -237,37 +227,33 @@ var pano_master = function(){
 
     if(Modernizr.webaudio) {
       if(parent.audiomaster.mix.getTrack('overlay_02')){
-
         master.soundTrigger = null
-
         parent.audiomaster.mix.getTrack('overlay_02').gain(0.0001)
         parent.audiomaster.mix.removeTrack('overlay_02')
-
       }
-
       parent.audiomaster.mix.playing = true;
     }
 
 
-///// Decision to divert to image sequence
+    ////////// Decision to divert to image sequence //////////
+
     if(_pano.indexOf('sequence')!=-1) {
       loadSequenceScene(_pano);
       return false;
     }
 
-    $('#scroll-wrapper').fadeOut()
+    $('#scroll-wrapper').fadeOut();
 
 
     krpano = document.getElementById("krpanoObject");
-    krpano.call('action(' + _pano + ')')
 
-    // should add a krpano lookto call here, sometimes loads looking at ceiling
-    // krpano.call('lookto(0,0,90)'); // lookto(horizontal, vertical, fov)
+    // XXXXX
+    // the null loading bug is triggered by this krpano action:
+    krpano.call('action(' + _pano + ')')
+    // XXXXX
 
     krpano.set('view.fov','90');
     krpano.set('view.vlookat','0');
-
-     //},1000)
 
     // remove leftover dynamic elements
     $('.dynamic').remove()
@@ -457,7 +443,7 @@ var pano_master = function(){
   **************************************************************************/
 
 
-  var loadSequenceScene = function(_sequence) {
+  function loadSequenceScene(_sequence) {
 
     sequenceHasWords = false;
 
@@ -725,7 +711,7 @@ var pano_master = function(){
 
         var overlaysound
         if(that.noWebAudio) {
-          overlaysound = { decayFrom: overlayTrack.options.element.volume};
+          overlaysound = { decayFrom: overlayTrack.options.element.volume };
         } else {
           overlaysound = { decayFrom: overlayTrack.options.gainNode.gain.value};
         }
@@ -767,32 +753,28 @@ var pano_master = function(){
   **************************************************************************/
 
 
-  // $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/><div class="fastpan" id="fastpantop"/><div class="fastpan" id="fastpanbottom"/>')
   $panocontainer.after('<div class="fastpan" id="fastpanleft"/><div class="fastpan" id="fastpanright"/>')
 
-
   var mouse_start_x = 0,
-    mouse_start_y = 0,
-    mouse_start_x_end= 0,
-    mouse_start_y_end = 0,
-    mouse_x_diff = 0,
-    mouse_y_diff = 0,
-    driftTweenH, driftTweenV,
-    panAmount = 0, yawAmount = 0,
-    interactive = null,
-    view_x=0,view_y=0,
-    krpano,panX,panY
+      mouse_start_y = 0,
+      mouse_start_x_end= 0,
+      mouse_start_y_end = 0,
+      mouse_x_diff = 0,
+      mouse_y_diff = 0,
+      driftTweenH, driftTweenV,
+      panAmount = 0, yawAmount = 0,
+      interactive = null,
+      view_x=0,view_y=0,
+      krpano,panX,panY
 
-    document.addEventListener( 'mousedown', actionDown, false );
-    document.addEventListener( 'touchstart', actionDownTouch, false );
+  document.addEventListener( 'mousedown', actionDown, false );
+  document.addEventListener( 'touchstart', actionDownTouch, false );
 
-    document.addEventListener( 'mousemove', actionMove, false );
-    document.addEventListener( 'touchmove', actionMoveTouch, false );
+  document.addEventListener( 'mousemove', actionMove, false );
+  document.addEventListener( 'touchmove', actionMoveTouch, false );
 
-    document.addEventListener( 'mouseup', actionUp, false );
-    document.addEventListener( 'touchend', actionUp, false );
-
-
+  document.addEventListener( 'mouseup', actionUp, false );
+  document.addEventListener( 'touchend', actionUp, false );
 
   function finishPanX() {
     var dummy = { decayX:    panAmount};
@@ -1042,41 +1024,33 @@ var pano_master = function(){
   var runFrameRunner = function(){
 
     //// console the pano mouse interaction, loadPanoScene turns this on, loadSequence Scene turns this off
-
-      requestAnimationFrame(runFrameRunner);
-
-
-      if(TWEEN) TWEEN.update()
+    requestAnimationFrame(runFrameRunner);
+    if(TWEEN) TWEEN.update()
 
 
-      // update current time for hallway voiceover
+    // update current time for hallway voiceover
 
-      if(master.globalPano == 'hallway' && pano) {
-        pano.voiceCurrentTime = pano.cachedVoiceTime + ( (new Date()-pano.voiceStartTimer) / 1000 )
-        //console.log(pano.voiceCurrentTime/1000)
+    if(master.globalPano == 'hallway' && pano) {
+      pano.voiceCurrentTime = pano.cachedVoiceTime + ( (new Date()-pano.voiceStartTimer) / 1000 )
+      //console.log(pano.voiceCurrentTime/1000)
 
-        counter++;
-        if(counter == 60) {
-          counter = 0;
-          // console.log(pano.voiceCurrentTime)
-          localStorage.setItem('voiceCurrentTime',JSON.stringify(pano.voiceCurrentTime))
-        }
-
+      counter++;
+      if(counter == 60) {
+        counter = 0;
+        // console.log(pano.voiceCurrentTime)
+        localStorage.setItem('voiceCurrentTime',JSON.stringify(pano.voiceCurrentTime))
       }
 
+    }
 
-      if(parent.audiomaster) {
+
+    if(parent.audiomaster) {
 
       if(!navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false){
         for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){
           parent.audiomaster.mix.tracks[i].play()
         }
       }
-
-
-
-      //console.log(master.soundTrigger)
-
 
       if(!master.getCookie('muted')){
         if (master.overlayOpen) {
@@ -1091,78 +1065,40 @@ var pano_master = function(){
           }
         }
         //master.soundTrigger = false
-      }else{
-
+      } else {
         parent.audiomaster.mix.setGain(0)
-
       }
-      }
+    }
 
-      if(parent.location.hash.slice(1).indexOf('sequence') != -1){
-        scrollerFunction()
-        return false
-      }
+    if(parent.location.hash.slice(1).indexOf('sequence') != -1){
+      scrollerFunction()
+      return false
+    }
 
-      if(that.walkthroughPlaying) {
-        scrollerFunction()
-      }
+    if(that.walkthroughPlaying) {
+      scrollerFunction()
+    }
 
-      //krpano = document.getElementById('krpanoObject')
+    if(krpano != null && panAmount !=0){
+      panX = krpano.get('view.hlookat') + panAmount
+      krpano.set('view.hlookat',panX)
+    }
 
-      if(krpano != null && panAmount !=0){
+    if(krpano != null && yawAmount !=0){
+      panY = krpano.get('view.vlookat') + yawAmount //*.3
+      krpano.set('view.vlookat',panY)
+    }
 
-        panX = krpano.get('view.hlookat') + panAmount
-        krpano.set('view.hlookat',panX)
+    if(interactive){
+      mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
+      mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
+    }
 
-      }
-
-      if(krpano != null && yawAmount !=0){
-
-        panY = krpano.get('view.vlookat') + yawAmount //*.3
-        krpano.set('view.vlookat',panY)
-
-      }
-
-
-
-      if(interactive){
-        mouse_x_diff = (mouse_start_x - mouse_start_x_end)*.002;
-        mouse_y_diff = (mouse_start_y - mouse_start_y_end)*.001;
-      }
-
-      view_y += (mouse_y_diff)
-      view_x += (mouse_x_diff*0.01)
-
-
-
-
+    view_y += (mouse_y_diff)
+    view_x += (mouse_x_diff*0.01)
 
   }
-
 
   runFrameRunner();
 
 }
-
-
-
-var loadAFXPano = function (_file, _start){
-
-  if(!_start) _start = 0
-
-  //if(Modernizr.webaudio) {
-    master.AFXloadAudio( master.audio_path + _file + master.audioType,'overlay_02',0,1.0, _start)
-  //} else {
-    //console.log('[MODERNIZR] No web audio, NOT loading AFX')
-  //}
-
-}
-
-
-
-
-
-
-
-
-
