@@ -1,10 +1,7 @@
 ;(function(window, undefined){
-	var Mix, Track, debounce, on, off, trigger, solo, unsolo, log10, body,noWebAudio;
-	console.log("LOADED MIX")
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Just a reference to the body element
-	body = document.getElementsByTagName('body')[0];
+	var Mix, Track, debounce, on, off, trigger, solo, unsolo, log10, noWebAudio;
 
+	var body = document.getElementsByTagName('body')[0];
 
 	debounce = function(func, wait) {
 	    var timeout;
@@ -18,20 +15,20 @@
 	        timeout = setTimeout(later, wait);
 	    };
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Utility function for binding events
 	on = function( type, callback ){
 		this.events[type] = this.events[type] || [];
 		this.events[type].push( callback );
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Utility function for removing all events of a given type
 	off = function( type ){
 		this.events[type] = [];
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Utility function for trigger events
 	trigger = function( type ){
@@ -39,15 +36,15 @@
 		if ( !this.events[type] ) return;
 		var args = Array.prototype.slice.call(arguments, 1);
 		for (var i = 0, l = this.events[type].length; i < l;  i++)
-			if ( typeof this.events[type][i] == 'function' ) 
+			if ( typeof this.events[type][i] == 'function' )
 				this.events[type][i].apply(this, args);
 	};
-		
-	
+
+
 	Mix = function(opts){
 
 	  this.tracks = [];
-	  this.gain =  1;
+	  this.gain   =  1;
 	  this.events = {};
 	  this.lookup = {};
 
@@ -55,9 +52,9 @@
 
 	  if(Modernizr.webaudio === true) {
 	  	console.log('[MODERNIZR] Web Audio Supported')
-	  	if ( typeof AudioContext === 'function' ) 
+	  	if ( typeof AudioContext === 'function' )
 	  		this.context = new AudioContext();
-	  	else 
+	  	else
 	  		this.context = new webkitAudioContext();
 	  } else {
 	  	noWebAudio = true;
@@ -66,17 +63,17 @@
 
 
 
-		
-		
-							
+
+
+
 	}
-	
+
 	Mix.prototype.initMix = function(startTime){
-		
+
 
 
 	  this.startTime = startTime;
-		var defaults = {};	
+		var defaults = {};
 
 		this.on('load', function(){
 			var total = this.tracks.length;
@@ -86,9 +83,9 @@
 				this.trigger('ready');
 			}
 		});
-				
+
 	}
-	
+
 	Mix.prototype.createTrack = function(name, opts){
 
 		//if(Modernizr.webaudio === true) {
@@ -97,7 +94,7 @@
 
 			//if ( !name || this.lookup[name] ) return;
 			var track = new Track(name, opts, this);
-			
+
 			this.tracks.push( track );
 			this.lookup[name] = track;
 			return track;
@@ -106,8 +103,8 @@
 
 			//return false;
 		//}
-		
-		
+
+
 	};
 
 	Mix.prototype.getTrack = function(name){
@@ -117,13 +114,13 @@
 	Mix.prototype.createTrackZero = function(name, opts){
 		//if ( !name || this.lookup[name] ) return;
 		var track = new Track(name, opts, this);
-		
+
 		this.tracks[0] =  track;
 		this.lookup[name] = track;
 		return track;
-		
-	};	
-	
+
+	};
+
 	Mix.prototype.pause = function(){
 		var total = this.tracks.length;
 		this.playing = false;
@@ -134,10 +131,10 @@
 	};
 
 
-	
+
 	Mix.prototype.extend = function(){
 		var output = {}, args = arguments, l = args.length;
-		for ( var i = 0; i < l; i++ )		
+		for ( var i = 0; i < l; i++ )
 			for ( var key in args[i] )
 				if ( args[i].hasOwnProperty(key) )
 					output[key] = args[i][key];
@@ -147,8 +144,8 @@
 	Mix.prototype.removeTrack = function(name){
 		console.log("removing " + name)
 
-		var rest, 
-			arr = this.tracks, 
+		var rest,
+			arr = this.tracks,
 			total = arr.length;
 
 		for ( var i = 0; i < total; i++ ){
@@ -161,18 +158,18 @@
 
 		this.lookup[name].pause()
 		delete this.lookup[name];
-	};	
+	};
 
 	Mix.prototype.on = function(){
 		on.apply(this, arguments);
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Unind all events of a given type from a Track instance
 	Mix.prototype.off = function(){
 		off.apply(this, arguments);
 	};
-		
+
 	Mix.prototype.trigger = function(){
 		trigger.apply(this, arguments);
 	}
@@ -186,7 +183,7 @@
 	};
 
 	Mix.prototype.getGain = function( ){
-		
+
 		return this.gain;
 
 	};
@@ -205,7 +202,7 @@
 		this.set('afl', true);
 		this.set('currentTime', 0);
 		this.set('nolooping', this.options.nolooping);
-		this.set('start', this.options.start);		
+		this.set('start', this.options.start);
 
 		var self = this,
 			defaults = {
@@ -225,9 +222,9 @@
 
 			return
 		}
-		
 
- ///AudioContex supported use webaudio   
+
+ ///AudioContex supported use webaudio
 
 
 		if(typeof this.get('mix').context.createGainNode === 'function'){
@@ -240,8 +237,8 @@
 
 			this.set('gainNode', this.get('mix').context.createGain());
 			this.set('panner', this.get('mix').context.createPanner());
-			this.get('panner').panningModel = 'equalpower';	
-			this.get('panner').panningModel = "HRTF"; 		
+			this.get('panner').panningModel = 'equalpower';
+			this.get('panner').panningModel = "HRTF";
 		}
 
 		this.get('panner').setPosition(this.pan(),0,.1);
@@ -249,7 +246,7 @@
 
 
 		if ( this.get('source') ) this.loadBuffer( this.get('source'));
-					
+
   }
 
 
@@ -283,41 +280,30 @@
 
 
 	Track.prototype.loadBuffer = function( source ){
- 
+
 		var self = this;
 
 		var request = new XMLHttpRequest();
         request.open("GET", source, true);
         request.responseType = "arraybuffer";
 
-        console.log(source)
-
         // Our asynchronous callback
         request.onload = function() {
-
         	var audioData = request.response;
 
-
- 			if(typeof self.get('mix').context.createGainNode !== 'function') {
-
-
-				self.get('mix').context.decodeAudioData(audioData, function onSuccess(decodedBuffer) {
-				    
-				    console.log("web audio file decoded")
-
+		 			if(typeof self.get('mix').context.createGainNode !== 'function') {
+					self.get('mix').context.decodeAudioData(audioData, function onSuccess(decodedBuffer) {
 					self.set('source', self.get('mix').context.createBufferSource());
 
 					self.set('sourceBuffer', decodedBuffer);
 					self.get('source').buffer = self.get('sourceBuffer')
 					if(!self.get('nolooping')) self.get('source').loop = true
-					
+
 					self.get('source').connect(self.get('panner'));
 					self.get('panner').connect(self.get('gainNode'));
 					self.get('gainNode').connect(self.get('mix').context.destination);
 					self.ready = true;
 					self.get('mix').trigger('load', self);
-
-					// console.log("loading")
 
 				}, function onFailure() {
 				    console.log("Buggah!");
@@ -329,54 +315,44 @@
 				self.set('sourceBuffer', self.get('mix').context.createBuffer(audioData,true));
 				self.get('source').buffer = self.get('sourceBuffer')
 				if(!self.get('nolooping')) self.get('source').loop = true
-				
+
 				self.get('source').connect(self.get('panner'));
 				self.get('panner').connect(self.get('gainNode'));
 				self.get('gainNode').connect(self.get('mix').context.destination);
 				self.ready = true;
 				self.get('mix').trigger('load', self);
 
-				console.log("loading " + self.name)
-
  			}
 
-
-        };
-
-        request.send();
-		
-
-	   
+    };
+    request.send();
 	};
 
 
 
-	
 	Track.prototype.play = function(){
 
-		
-	
 		if ( !this.ready ){
-			
+
 			this.on('load', function(){
 				this.play();
 			});
 			return;
 		}
 
-		if ( this.options.playing ) {		
+		if ( this.options.playing ) {
 			return;
-		} 
+		}
 
 
 		if(this.ready && !this.options.playing) {
-			
+
 			this.options.playing = true;
 			this.play();
 		}
-		
+
 		//this.gain(this.options.gain)
-	
+
 		this.options.playing = true;
 
 		var isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
@@ -386,24 +362,16 @@
 			return
 		}
 
-//console.log(navigator.userAgent)
-
-
 		if(isIOS){
-
-			console.log(this.options.source + " is noting on at " + this.options.start)
-
 			this.options.source.noteOn(this.options.start)
 		}else{
-
-			console.log(this.options.source + " is starting at " + this.options.start)
-			if(typeof this.options.source.start === 'function') 
-				this.options.source.start(0,this.options.start)	
-				else 
+			if(typeof this.options.source.start === 'function')
+				this.options.source.start(0,this.options.start)
+			else
 				this.options.source.noteOn(this.options.start)
 		}
-		
-		
+
+
 		this.trigger('play');
 		/**/
 	};
@@ -417,41 +385,41 @@
 		}
 
 		this.options.playing = false;
-		// if(typeof this.options.source.noteOff === 'function')	
+		// if(typeof this.options.source.noteOff === 'function')
 		// this.options.source.noteOff(0);
 
-		// if(typeof this.options.source.stop === 'function')	
+		// if(typeof this.options.source.stop === 'function')
 		// this.options.source.stop(0);
 
 		this.trigger('pause');
 	};
-	
+
   ////////TRACKS UTILITIES
 
 Track.prototype.on = function(){
 		on.apply(this, arguments);
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Unind all events of a given type from a Track instance
 	Track.prototype.off = function(){
 		off.apply(this, arguments);
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Trigger events on a Track instance
 	Track.prototype.trigger = function(){
 		trigger.apply(this, arguments);
 	}
-	
+
 	Track.prototype.trigger = function(){
 		trigger.apply(this, arguments);
 	}
-		  
+
 	Track.prototype.get = function(prop){
 		return this.options[prop];
 	};
-	
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Set a property value for a Track instance
 	Track.prototype.set = function(prop, val){
@@ -459,16 +427,16 @@ Track.prototype.on = function(){
 		this.options[prop] = val;
 		return this.options[prop];
 	};
-	
+
 
 	Track.prototype.pan = function(val){
 		if(noWebAudio) return
-		if ( typeof val !== 'undefined' ) 
+		if ( typeof val !== 'undefined' )
 			this.get('panner').setPosition(val, 0, .1);
 		this.set('pan', val)
 		return this.get('pan') || 0;
 	};
-	
+
 
 	Track.prototype.gain = function(val, override){
 
@@ -480,7 +448,7 @@ Track.prototype.on = function(){
 					return this.options.element.volume
 				else
 					return 0
-			}	
+			}
 
 			if (val > 1) {val = 1}
 
@@ -495,17 +463,17 @@ Track.prototype.on = function(){
 			if ( !override ) this.set('gainCache', val);
 			if ( !this.get('_muted') || override ) this.get('gainNode').gain.value = val * master;
 		}
-			return this.get('gain') || this.get('gainNode').gain.value;		
+			return this.get('gain') || this.get('gainNode').gain.value;
 		}
 
 	};
-		
+
 	//~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Return a reference to the Track instance's parent Mix (no setter)
 	Track.prototype.mix = function(){
 		return this.get('mix');
-	} 
-	
+	}
+
 	window.Mix = Mix;
-	
+
 }(window));

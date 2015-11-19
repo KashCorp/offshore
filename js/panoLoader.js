@@ -1,4 +1,4 @@
-	
+
 	var isPreloaded,isOpeningLoaded;
 
 	var openingloader = function() {
@@ -30,16 +30,16 @@
 		var increment = window.innerWidth / loaderArray.length
 
 
-		for(var i=0; i < loaderArray.length; i++) { 
+		for(var i=0; i < loaderArray.length; i++) {
 
-		    var pxImage = new PxLoaderImage(loaderArray[i]); 
-		 
-		    //pxImage.imageNumber = i + 1; 
-		 
-		    loader.add(pxImage); 
-		} 
+		    var pxImage = new PxLoaderImage(loaderArray[i]);
 
-		loader.addProgressListener(function(e) { 
+		    //pxImage.imageNumber = i + 1;
+
+		    loader.add(pxImage);
+		}
+
+		loader.addProgressListener(function(e) {
 
 
 		   $('#panoDownloadStatus').css('width', e.completedCount * increment)
@@ -47,43 +47,25 @@
 		   var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
 
 		   $('#panoDownloadStatusText').html('Building OFFSHORE opening scene : ' + progressPercent + '% complete.')
-		}); 
+		});
 
-		loader.addCompletionListener(function() { 
-
+		loader.addCompletionListener(function() {
 			$('#panoDownloadStatusText').remove()
-
 			$('#panoDownloadStatus').remove()
-
 			master = new masterFunctions();
-			
-			master.init();
-			
-			master.check_start();
-
-			pano = new pano_master();
-
-			$('#wrapper').fadeIn(2000)
-
-
-
-
+			// master.init();
+			// master.check_start();
+			// pano = new pano_master();
+			// $('#wrapper').fadeIn(2000)
 		})
-		 
+
 		loader.start();
-
-
 	}
 
 
 	var preloader = function() {
 
 		isPreloaded = true;
-/*
-		var cdn = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/';
-		if(master.isIOS) cdn = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/512/';
-
-*/
 
 		var cdn = 'offshore_panos/';
 		if(master.isIOS) cdn = 'offshore_panos/512/';
@@ -161,16 +143,16 @@
 		var increment = window.innerWidth / loaderArray.length
 
 
-		for(var i=0; i < loaderArray.length; i++) { 
+		for(var i=0; i < loaderArray.length; i++) {
 
-		    var pxImage = new PxLoaderImage(loaderArray[i]); 
-		 
-		    //pxImage.imageNumber = i + 1; 
-		 
-		    loader.add(pxImage); 
-		} 
+		    var pxImage = new PxLoaderImage(loaderArray[i]);
 
-		loader.addProgressListener(function(e) { 
+		    //pxImage.imageNumber = i + 1;
+
+		    loader.add(pxImage);
+		}
+
+		loader.addProgressListener(function(e) {
 
 			$('.breadcrumb').css('display', 'none')
 			$('.breadcrumb').css('bottom', -40)
@@ -182,16 +164,16 @@
 		   var progressPercent = Math.floor(e.completedCount / e.totalCount * 100)
 
 		   $('#panoDownloadStatusText').html('Building SPARTAN 208 : ' + progressPercent + '% complete.')
-		}); 
+		});
 
-		loader.addCompletionListener(function() { 
+		loader.addCompletionListener(function() {
 
 			$('#panoDownloadStatusText').css('display', 'none')
 
 			$('#panoDownloadStatus').animate({'bottom': '-40px'}, 500, function() {
 				$('#panoDownloadStatus').css('display', 'block')
 				$('.breadcrumb').css('display', 'block')
-				$(".breadcrumb").animate({'bottom': '0'})	
+				$(".breadcrumb").animate({'bottom': '0'})
 			})
 
 			var krpano = document.getElementById("krpanoObject");
@@ -199,7 +181,7 @@
 
 
 		})
-		 
+
 		loader.start();
 
 }

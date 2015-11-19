@@ -1,7 +1,7 @@
 /**************************************************************************
-	
+
 	Master Functions
-	
+
 
 	Sections
 
@@ -39,23 +39,23 @@ var krpano;
 
 // let's cache some domz
 var $panocontainer = $('#panocontainer'),
-	$wrapper = $('#wrapper'),
-	$compass = $('.compass'),
-	$videooverlay = $("#video-overlay")
+    $wrapper = $('#wrapper'),
+    $compass = $('.compass'),
+    $videooverlay = $("#video-overlay")
 
 
 
 var masterFunctions = function() {
 	var fadeSpeed = 500,
-		pagepath = 'http://www.offshore-interactive.com/pages/',
-		that = this,
-		visitedPages = getCookie("visitedPages"),
-		audio = document.getElementsByTagName('audio'),
-		newPageTrigger,
-		isParent,
-		videoType = ".webm",
-		audioType = ".ogg",
-		css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
+		  pagepath = 'http://www.offshore-interactive.com/pages/',
+		  that = this,
+		  visitedPages = getCookie("visitedPages"),
+		  audio = document.getElementsByTagName('audio'),
+		  newPageTrigger,
+		  isParent,
+		  videoType = ".webm",
+		  audioType = ".ogg",
+	   	css3transitionend = 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend';
 
 
 	this.isIOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false;
@@ -67,8 +67,6 @@ var masterFunctions = function() {
 
 	if(this.isFireFox) this.multix = .4;
 
-	console.log(visitedPages)
-
 	this.ghostBuster = false
 	this.ghostMinc
 	this.viewedContentArray = []
@@ -78,19 +76,10 @@ var masterFunctions = function() {
 	var v = document.createElement('video');
 	var au = document.createElement('audio');
 
-	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) {
-	 	videoType = '.mp4';
-	}
+	if(v.canPlayType && v.canPlayType('video/mp4').replace(/no/, '')) videoType = '.mp4';
+	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) videoType = '.webm';
 
-	if(v.canPlayType && v.canPlayType('video/webm').replace(/no/, '')) {
-	 	videoType = '.webm';
-	}
-
-
-
-	if(au.canPlayType && au.canPlayType('audio/x-m4a').replace(/no/, '')) {
-	 	audioType = '.m4a';
-	}
+	if(au.canPlayType && au.canPlayType('audio/x-m4a').replace(/no/, '')) audioType = '.m4a';
 
 	if(this.isMSIE) {
 		$('.vignette').css('display','none')
@@ -98,172 +87,167 @@ var masterFunctions = function() {
 	}
 
 	this.videoType = videoType
-
 	this.audioType = audioType
 
-	if(this.isAndroid) {
+	if(this.isAndroid) this.videoType = '_360.webm';
 
-		this.videoType = '_360.webm';
+  try {
+    isParent = parent.IS_PARENT;
+  }catch(e){
+    isParent = false;
+  }
 
-	}
-
-    try {
-      isParent = parent.IS_PARENT;
-    }catch(e){
-      isParent = false;
-    }
-
-    this.mute = false
+  this.mute = false
 	that.overlayOpen = false // stops map icon, fastpan, etc from re-appearing when it shouldn't
 
-    // CDN URLs
-    this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
-    this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
-    this.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
+  // CDN URLs
+  this.cdn_imgseq = 'http://8ebf72528a85af39b7bf-e3520fb483eb859425be483d5cc39cf4.r48.cf2.rackcdn.com/'
+  this.cdn_panos  = 'http://51feb41d8c5706a8e6e7-4b718bfe00f3e21e7ec454784bd539a2.r98.cf2.rackcdn.com/'
+  this.cdn_video  = 'http://fe08d365603a52be8002-b68b5b3ce203a95e77baefdb31efdc2e.r46.cf2.rackcdn.com/'
 
-    //if(this.isAndroid) this.cdn_video  = 'http://192.168.1.139/~mike/offshore_repo/video/'
+  //if(this.isAndroid) this.cdn_video  = 'http://192.168.1.139/~mike/offshore_repo/video/'
 
-    this.audio_path = 'audio/'
+  this.audio_path = 'audio/'
 
-    this.movieMenu = false
+  this.movieMenu = false
 
-    isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
-    
-    this.isRetina = isRetinaFunction()
-     
-     $compass.click(function() {
-     	$(this).fadeOut(500)
-		that.loadOverlay('rigmap.php')
-     });
+  isRetinaFunction = function(){var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\ (min--moz-device-pixel-ratio: 1.5),\ (-o-min-device-pixel-ratio: 3/2),\ (min-resolution: 1.5dppx)"; if (window.devicePixelRatio > 1) return true; if (window.matchMedia && window.matchMedia(mediaQuery).matches) return true; return false; };
 
-    var delayNavSlide = function(){
-    	if(master.isIOS) {
-    		$(".breadcrumb").animate({'bottom': '-1'}, 500)
-    		$("#offshorelogo").animate({'bottom': '19'}, 500)
-    	} else{
-	    	$(".breadcrumb").animate({'bottom': '-40'}, 500)
-	    	$("#offshorelogo").animate({'bottom': '-10'}, 500)    		
+  this.isRetina = isRetinaFunction()
+
+   $compass.click(function() {
+   	$(this).fadeOut(500)
+	that.loadOverlay('rigmap.php')
+   });
+
+  var delayNavSlide = function(){
+  	if(master.isIOS) {
+  		$(".breadcrumb").animate({'bottom': '-1'}, 500)
+  		$("#offshorelogo").animate({'bottom': '19'}, 500)
+  	} else{
+    	$(".breadcrumb").animate({'bottom': '-40'}, 500)
+    	$("#offshorelogo").animate({'bottom': '-10'}, 500)
+  	}
+
+  }
+
+  var navInterval = setTimeout(delayNavSlide, 5000);
+
+  $('.breadcrumb').mouseover(function() {
+  	if(!master.overlayOpen) {
+
+		clearInterval(navInterval);
+
+		if(master.isIOS) {
+    		$(".breadcrumb").animate({'bottom': '39'}, 500)
+    	} else {
+	    	$(".breadcrumb").animate({'bottom': '0'}, 500)
     	}
 
-    }
+	  // $("#offshorelogo").animate({'bottom': '25'}, 500)
+  	}
 
-    var navInterval = setTimeout(delayNavSlide, 5000); 
-     
-    $('.breadcrumb').mouseover(function() {
-    	if(!master.overlayOpen) {
+  });
 
-			clearInterval(navInterval);
 
-			if(master.isIOS) {
-	    		$(".breadcrumb").animate({'bottom': '39'}, 500)
-	    	} else {
-		    	$(".breadcrumb").animate({'bottom': '0'}, 500)    		
-	    	}
-	
-		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
+  $('.breadcrumb').mouseleave(function() {
+     	clearInterval(navInterval);
+      navInterval = setTimeout(delayNavSlide, 1000);
+  });
+
+  $('.breadcrumb').on('touchstart', function() {
+  	if(!master.overlayOpen) {
+
+		clearInterval(navInterval);
+
+		if(master.isIOS) {
+    		$(".breadcrumb").animate({'bottom': '39'}, 500)
+    	} else {
+	    	$(".breadcrumb").animate({'bottom': '0'}, 500)
     	}
+	  // $("#offshorelogo").animate({'bottom': '25'}, 500)
+  	}
+  });
 
-    });
- 
- 
-    $('.breadcrumb').mouseleave(function() {
-       	clearInterval(navInterval);
-        navInterval = setTimeout(delayNavSlide, 1000);
-    }); 
+  $wrapper.on ('touchstart', function() {
 
-    $('.breadcrumb').on('touchstart', function() {
-    	if(!master.overlayOpen) {
+  	clearInterval(navInterval);
+      delayNavSlide()
 
-			clearInterval(navInterval);
-
-			if(master.isIOS) {
-	    		$(".breadcrumb").animate({'bottom': '39'}, 500)
-	    	} else {
-		    	$(".breadcrumb").animate({'bottom': '0'}, 500)    		
-	    	}
-		  // $("#offshorelogo").animate({'bottom': '25'}, 500)	
-    	}
-    }); 
-
-    $wrapper.on ('touchstart', function() {
-
-    	clearInterval(navInterval);
-        delayNavSlide()
-
-       $('.pan-directions').fadeOut(500)
-       pano.panDirectionsShown = true;
-       $wrapper.off('mousedown');
-    }); 
+     $('.pan-directions').fadeOut(500)
+     pano.panDirectionsShown = true;
+     $wrapper.off('mousedown');
+  });
 
 
 
-    $wrapper.on('mousedown',function(){
-       $('.pan-directions').fadeOut(500)
-       pano.panDirectionsShown = true;
-       $wrapper.off('mousedown');
-    }); 
+  $wrapper.on('mousedown',function(){
+     $('.pan-directions').fadeOut(500)
+     pano.panDirectionsShown = true;
+     $wrapper.off('mousedown');
+  });
 
 
 
 
 
-    /* iPad Functions */
+  /* iPad Functions */
 
-    if(Modernizr.touch) {
+  if(Modernizr.touch) {
 
-    	console.log('[MODERNIZR] Touch detected, enabling touch events')
+  	console.log('[MODERNIZR] Touch detected, enabling touch events')
 
-    	document.addEventListener('touchstart', function(e) {
-    		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){                                              
-                parent.audiomaster.mix.tracks[i].play()                                    
-            }    
-    	    $('.pan-directions').fadeOut(500)
-    	}, false);	
+  	document.addEventListener('touchstart', function(e) {
+  		for ( var i = 0, l = parent.audiomaster.mix.tracks.length; i < l; i++ ){
+              parent.audiomaster.mix.tracks[i].play()
+          }
+  	    $('.pan-directions').fadeOut(500)
+  	}, false);
 
 
-    	$(document).bind('touchend', function(e) {
-		    $(e.target).trigger('click');
-		});
-    }
-
-    
-     
-
-               
-    var transition_audio = $('#transition', window.parent.document)
-    
-    var hashouter = parent.window.location.hash;
-    
-    if( hashouter  == "#hatch.php"){
-    	transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
-    }
-    
-    if(!visitedPages){
-    	visitedPages = "empty"
-    	setCookie("visitedPages",visitedPages,365)
-    }
-    
-    this.url_array = [];
-    
-    this.divider = ((window.innerWidth-168) / this.url_array.length)
-
-    
-    //$('#panocontainer').after('<div class="vignette"/>')
+  	$(document).bind('touchend', function(e) {
+	    $(e.target).trigger('click');
+	});
+  }
 
 
 
-    /**************************************************************************
-    	
-    	Dynamic Resizing
 
-    	- all resizing functionality needs to be triggered inside resizeFunction(),
-    	  in order to function properly on iOS devices
 
-    **************************************************************************/
+  var transition_audio = $('#transition', window.parent.document)
 
-    that.globals = {
-	    cover:   {}, // fill screen at all times
-	    contain: {}  // maintain visibility of entire element
+  var hashouter = parent.window.location.hash;
+
+  if( hashouter  == "#hatch.php"){
+  	transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
+  }
+
+  if(!visitedPages){
+  	visitedPages = "empty"
+  	setCookie("visitedPages",visitedPages,365)
+  }
+
+  this.url_array = [];
+
+  this.divider = ((window.innerWidth-168) / this.url_array.length)
+
+
+  //$('#panocontainer').after('<div class="vignette"/>')
+
+
+
+  /**************************************************************************
+
+  	Dynamic Resizing
+
+  	- all resizing functionality needs to be triggered inside resizeFunction(),
+  	  in order to function properly on iOS devices
+
+  **************************************************************************/
+
+  that.globals = {
+    cover:   {}, // fill screen at all times
+    contain: {}  // maintain visibility of entire element
 	};
 
 	that.resize = {
@@ -286,28 +270,28 @@ var masterFunctions = function() {
 
 	    var ratio = 9/16,
 	    	w, h, t, l;
-		
+
 	    /***** CONTAIN *****/
 	    w = window.innerWidth;
     	h = w * ratio;
-    
+
     	if(h > window.innerHeight) {
     		h = window.innerHeight;
     		w = h / ratio;
     	}
-    
+
     	t = (window.innerHeight - h) / 2;
 	    l = (window.innerWidth - w) / 2;
-    
+
     	that.globals.contain.w = Math.round(w)
       	that.globals.contain.h = Math.round(h)
       	that.globals.contain.t = Math.round(t)
       	that.globals.contain.l = Math.round(l)
-    	
+
     	/***** COVER *****/
     	w = window.innerWidth;
 	    h = w * ratio;
-	    
+
 	    if(h < window.innerHeight) {
 	        h = window.innerHeight;
 	        w = h / ratio;
@@ -315,7 +299,7 @@ var masterFunctions = function() {
 
 	    t = (window.innerHeight - h) / 2;
 	    l = (window.innerWidth - w) / 2;
-	    	
+
     	that.globals.cover.w = Math.round(w)
       	that.globals.cover.h = Math.round(h)
       	that.globals.cover.t = Math.round(t)
@@ -332,7 +316,7 @@ var masterFunctions = function() {
       			'height' : master.globals.contain.h
       		})
 
-      		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)	
+      		$('.video-content-wrap .controls').css('bottom',master.globals.contain.t)
       	}
 
       	if(typeof pano != 'undefined') {
@@ -347,8 +331,8 @@ var masterFunctions = function() {
       			pano.ghostTransition.resize();
       		}
       	}
-      	
-    	
+
+
     }
 
     $(window).on('resize.global',that.debouncedResize)
@@ -362,13 +346,13 @@ var masterFunctions = function() {
 
 
   	/**********************************************************************
-		
-		
+
+
 		init
 
 
   	**********************************************************************/
-    	      
+
 	this.init = function(no_fade){
 
   		// this._frame = null
@@ -377,32 +361,32 @@ var masterFunctions = function() {
 
   		//$("#wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
   		//$("#scroll-wrapper").append('<a class="navlink"  data-url="index.php"><h1 id="offshorelogo"><span class="hidden">OFFSHORE</span></h1></a>');
-     	
+
      	$(".navlink").click(function(){
       		that.parentChange('index.php')
-	  	}) 
-	    
-  		
+	  	})
+
+
 
         var insertNav = function(price, change, percent) {
 
         	$(".breadcrumb").html('');
 
             var breadbox_string = '<div id="breadbox-container">';
-            
+
             if(that.isRetina)
             	breadbox_string += '<h1><img class="backtostart" src="images/splash_logo_small@2x.png" alt=""></h1>';
             else
             	breadbox_string += '<h1><img class="backtostart"  src="images/splash_logo_small.png" alt=""></h1>';
 
-           
+
 
             breadbox_string += '<nav class="left">';
             breadbox_string += '<ul><li><a id="about-link">About</a></li>';
             breadbox_string += '<ul><li><a id="credits-link">Credits</a></li>';
             breadbox_string += '<li><a href="http://offshore-interactive.com/blog/" target="_top">Blog</a></li>';
             breadbox_string += '<li><a href="http://offshore-interactive.com/blog/index.php/subscribe-to/" target="_top">Join Up</a></li>';
-            
+
             // breadbox_string += '<li><a href="resources.html">Resources</a></li></ul>';
             breadbox_string += '</nav>';
 
@@ -424,13 +408,13 @@ var masterFunctions = function() {
 
 
 			// '<a href="#" class="facebook" onclick="window.open(
-			//     \'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(location.href), 
+			//     \'https://www.facebook.com/sharer/sharer.php?u=\'+encodeURIComponent(location.href),
 			//     \'facebook-share-dialog\',\'width=626,height=436\');return false;">
 			//     Facebook
 			// </a>'
 
 			// '<a href="#" class="twitter" onclick="window.open(
-			//     \'http://twitter.com/intent/tweet?url=\'+encodeURIComponent(location.href), 
+			//     \'http://twitter.com/intent/tweet?url=\'+encodeURIComponent(location.href),
 			//     \'twitter-share-dialog\',\'width=626,height=300\');return false;">
 			//     Twitter
 			// </a>'
@@ -444,18 +428,18 @@ var masterFunctions = function() {
 
             $('#about-link').click(function(){
             	master.loadOverlay('about.php')
-            	
+
             })
 
 
             $('#credits-link').click(function(){
             	master.loadOverlay('credits.php')
-            	
+
             })
 
-           
+
         }
-  
+
   		var hash = parent.window.location.hash
 
   		var placer = that.divider, temp_icon;
@@ -466,7 +450,7 @@ var masterFunctions = function() {
         var m = d.getMonth();
         var y = d.getYear();
 
-        
+
 
 
         // Oil price ticker
@@ -485,11 +469,11 @@ var masterFunctions = function() {
             }
         });
 
-        
-			
+
+
   	// 	$(".breadbox").click(function(){
 			// that.pageChange($(this).data('url'))
-	  // 	}) 
+	  // 	})
 
   //     	$(".breadbox-rigmap").click(function(){
 		// 	that.loadOverlay('rigmap.php')
@@ -510,7 +494,7 @@ var masterFunctions = function() {
 
 
 	/********************************************************************************
-		
+
 
 		> Overlay Functionality
 
@@ -529,7 +513,7 @@ var masterFunctions = function() {
 		master.overlayOpen = true
 		master.ghostBuster = true
 
-		
+
 		$('.scroll-directions').fadeOut(500)
 		$compass.fadeOut(500,function(){
 			$panocontainer.addClass('hide')
@@ -573,7 +557,7 @@ var masterFunctions = function() {
 			krpano = document.getElementById("krpanoObject");
 			krpano.call("lookto("+cachedAuth+",0,"+cachedFov+",smooth(),true,true)")
 
-			$panocontainer.removeClass('hide') 
+			$panocontainer.removeClass('hide')
 
 			if(pano.video_underlay) $('.video-underlay').fadeIn(500)
 
@@ -601,9 +585,9 @@ var masterFunctions = function() {
 
 
 	/**************************************************************************
-		
+
 		Audio
-	
+
 	**************************************************************************/
 
 	// Audio Functionality
@@ -615,7 +599,7 @@ var masterFunctions = function() {
 		console.log('click -> isMuted: '+isMuted)
 		if (isMuted){
 			$('.volume-toggle').html('<i class="icon-volume-up"></i>')
-			delete_cookie('muted')	
+			delete_cookie('muted')
 			$('video').each(function(i,v){
 			$(v).prop('muted', false)
 			})
@@ -623,13 +607,13 @@ var masterFunctions = function() {
 			$('.volume-toggle').html('<i class="icon-volume-off"></i>')
 			setCookie('muted',true)
 			$('video').each(function(i,v){
-			 $(v).prop('muted', true)	
+			 $(v).prop('muted', true)
 			})
 		}
-					
+
 	})
 
-	
+
 
 	this.loadOverlayAudio = function(_file){
 
@@ -647,25 +631,21 @@ var masterFunctions = function() {
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
 				master.isTweeningAudio = false
-				//TWEEN.remove(driftTweenSounds); 
+				//TWEEN.remove(driftTweenSounds);
 				//driftTweenSounds = null
 			})
-			.start();               
+			.start();
 	}
 
 	this.WAAloadAudio = function(_file,_trackName,_pan,_targetVolume,_isLoop){
 
 		parent.audiomaster.loadAudio(_file ,_trackName,.0001,_pan,_isLoop)
 
-		var dummysounds = { s:  0};
-
-		console.log('waa' + _targetVolume)
+		var dummysounds = { s:  0 };
 
 		var driftTweenSounds = new TWEEN.Tween( dummysounds ).to( { s: _targetVolume}, 2000 )
 			.onUpdate( function() {
 				master.isTweeningAudio = true
-
-				
 
 				if(parent.audiomaster.mix.getTrack(_trackName)){
 					parent.audiomaster.mix.getTrack(_trackName).gain(this.s)
@@ -674,9 +654,9 @@ var masterFunctions = function() {
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
 				master.isTweeningAudio = false
-				//TWEEN.remove(driftTweenSounds); 
+				//TWEEN.remove(driftTweenSounds);
 			})
-			.start();               
+			.start();
 	}
 
 	this.AFXloadAudio = function(_file,_trackName,_pan,_targetVolume,_start){
@@ -685,15 +665,15 @@ var masterFunctions = function() {
 
         if(!navigator.userAgent.match(/(Safari)/g) ? true : false){
             multix = .3
-        }   
+        }
 
 		if(!_start) _start = 0
 
 		console.log('_trackName: '+'\t'+_trackName + " _ " + master.isPlayingVO)
 
 		if(parent.audiomaster.mix.getTrack(_trackName)) parent.audiomaster.mix.removeTrack(_trackName)
-		
-		/// toggle on/off logic 
+
+		/// toggle on/off logic
 
 		if(master.isPlayingVO) {
 			master.isPlayingVO = false;
@@ -722,21 +702,21 @@ var masterFunctions = function() {
 			.easing(TWEEN.Easing.Quadratic.Out )
 			.onComplete(function() {
 				master.isTweeningAudio = false
-				//TWEEN.remove(driftTweenSounds); 
+				//TWEEN.remove(driftTweenSounds);
 			})
-			.start();               
+			.start();
 	}
 
 
 
 	this.audioFadeAll = function(targetVolume){
-	 
+
 		if(isParent){
-			
+
 		var parent_audio = $('audio', window.parent.document)
-	     
+
 		parent_audio.each(function(i,s){
-			
+
 			var audio_obj = parent_audio[i]
 	        audioFadeOutTo(audio_obj,targetVolume)
 
@@ -754,17 +734,17 @@ var masterFunctions = function() {
 
 
 	/**************************************************************************
-		
+
 		Utilities
-	
+
 	**************************************************************************/
 
 	this.loadVideoUnderlay = function(_id,_popcorn,_load_menu){
 
 		console.log("video")
-	    
+
 		parent.audiomaster.mix.setGain(0.01)
-		
+
 	    if( this.popcorn) Popcorn.destroy(  this.popcorn );
 	    $('#footnote-container').html('')
 	    if(_popcorn){
@@ -775,7 +755,7 @@ var masterFunctions = function() {
 	      });
 	    }
 
-	    $("#video-underlay").fadeOut(1000, function() {        
+	    $("#video-underlay").fadeOut(1000, function() {
 	        $('#video-underlay source').attr('src', _id + master.videoType);
 	        $('#video-underlay video').load();
 	        $("#video-underlay")[0].load()
@@ -783,7 +763,7 @@ var masterFunctions = function() {
 	        $("#video-underlay").fadeIn(500)
 	        if(_load_menu) $('.movie-menu').css('display','block')
 	       // }
-	        
+
 	    })
 
 	}
@@ -794,8 +774,8 @@ var masterFunctions = function() {
 
 		}else{
 		var getGhost = this.ghost_array[Math.floor(Math.random()*this.ghost_array.length)]
-		this.ghostTrans(getGhost['ghost'],getGhost['frames'])		
-		}	
+		this.ghostTrans(getGhost['ghost'],getGhost['frames'])
+		}
 
 	}
 
@@ -804,7 +784,7 @@ var masterFunctions = function() {
 	    //$('body').append('<canvas id="ghost-canvas-trans" />')
 
 		var ghost = new ghostFunctions("ghost-canvas-trans",_id,numberOfFrames)
-	 
+
 		ghost.imageSequencer()
 
 		$('#ghost-canvas-trans').fadeIn()
@@ -815,12 +795,12 @@ var masterFunctions = function() {
 
 	}
 
-	
 
 
 
 
-		
+
+
 	function hasUserAgent(condition) {
 	    return navigator.userAgent.match(condition);
 	}
@@ -903,7 +883,7 @@ var masterFunctions = function() {
 	    // e// }
 	}
 
-	this.remove_start = function(){	  
+	this.remove_start = function(){
 	   delete_cookie("seen_frontpage");
 	}
 
@@ -921,8 +901,8 @@ var masterFunctions = function() {
 
 
 	this.setDeepLinking = function(deepLink){
-		var isParent 
-		
+		var isParent
+
 		if(visitedPages.indexOf(deepLink)== -1){
 		 	visitedPages += "~" + deepLink
 		 	setCookie("visitedPages",visitedPages,365)
@@ -933,20 +913,20 @@ var masterFunctions = function() {
 	    }catch(e){
 	        isParent = false;
 	    }
-	  
+
 		if(isParent){
 				//var transition_audio = $('#transition', window.parent.document)
 			if(getCookie('muted')!="true"){
 				//transition_audio[0].volume = .2
 				//transition_audio[0].play()
 				}
-			  	
+
 			parent.setHash(deepLink)
 
 		}else{
-			
+
 		}
-	  
+
 	}
 
 } // end master
@@ -973,7 +953,7 @@ openingloader();
 /**************************************************************************
 
 
-	
+
 	> Walkthrough
 
 
@@ -981,7 +961,7 @@ openingloader();
 **************************************************************************/
 
 var Walkthrough = function(canvasID,name,videoLength) {
-	
+
 	var that = this,
 		w = master.globals.cover.w,
 		h = master.globals.cover.h,
@@ -1029,7 +1009,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 	//video.removeEventListener('canplay');
 
 	video.addEventListener('canplay', function(e) {
-		
+
 		e.stopPropagation()
 
 		console.log("WALK THROUGH")
@@ -1041,7 +1021,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 	//video.removeEventListener('timeupdate');
 
 	video.addEventListener('timeupdate', function(e) {
-		
+
 		e.stopPropagation()
 
 		that.percent = video.currentTime / video.duration
@@ -1051,7 +1031,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 				$('.scroll-directions').fadeOut()
 				if(master.globalPano =='chemicalroom') videoPlayer("engineroom")
 				if(master.globalPano =='subhangar')    videoPlayer("subhangar")
-			}	
+			}
 
 
 	})
@@ -1062,7 +1042,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 	// Init/Close ********************************************************
 	// (additional logic in scrollFunction and scrollStopFunction)
-	
+
 	var walkthroughvideo = false;
 	if(master.globalPano =='chemicalroom' || master.globalPano =='subhangar') walkthroughvideo = true;
 	console.log('walkthroughvideo: '+'\t'+ walkthroughvideo)
@@ -1144,7 +1124,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
     	}
 
   		//that.play()
-    	
+
     })
 
     this.play = function(){
@@ -1168,13 +1148,13 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 		/* ***** Scroll Thumb ***** */
 		$.getScript("js/lib/jquery-ui-touch-punch.min.js", function(data, textStatus, jqxhr) {
-	   		$( ".scroll-directions" ).draggable({ 
+	   		$( ".scroll-directions" ).draggable({
 	   			axis: "y",
 	   			containment: 'parent',
 				drag: function() {
-					
+
 					that.autoplay = false // stop autoplay
-					
+
 					that.percent = parseInt($(this).css('top')) / (window.innerHeight-300)
 
 					that.scrollFunction()
@@ -1193,7 +1173,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 	        	$("#scroll-wrapper")[0].addEventListener("DOMMouseScroll", MouseWheelHandler, false); // Firefox
 			} else  $("#scroll-wrapper")[0].attachEvent("onmousewheel", MouseWheelHandler); // IE 6/7/8
 		}
-		
+
 		function MouseWheelHandler(e){
 
 			console.log('mouse wheel')
@@ -1239,7 +1219,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 		that.scrollFunction()
     }
-    
+
 
 	/* ***** Scroll Function ***** */
 
@@ -1247,12 +1227,12 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
       	// sanity check
 
-      	
+
 		if(that.percent <= 0) that.percent = 0.01
 		else if(that.percent > 1) that.percent = 1
 
 		var currentTime = videoLength * that.percent
-		
+
 		video.currentTime = currentTime;
 
 		console.log(video.currentTime)
@@ -1260,10 +1240,10 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 		if(walkthroughvideo) {
 
-		} 
+		}
 
     }
-              
+
 }
 
 
@@ -1282,7 +1262,7 @@ var Walkthrough = function(canvasID,name,videoLength) {
 
 /*************************************************************************
 
-	
+
 
 	> Ghost
 
@@ -1303,7 +1283,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 	  var str = '' + num;
 	  while (str.length < length) {
 	    str = '0' + str;
-	  } 
+	  }
 	  return str;
 	}
 
@@ -1327,7 +1307,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 	}
 	master.debouncedResize();
 
-	
+
 	var context = canvas.getContext('2d');
 	//context.globalCompositeOperation = "source-atop"
 
@@ -1335,7 +1315,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 		playHead=1,
 		ghostTimeout;
 
-	
+
 
 	this.killGhost = function(){
 
@@ -1363,7 +1343,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 			$('#'+ canvasid).css('display','block')
 	        imageSrc = filePathPre + name + zeroes(playHead,4)+".png";
-	        
+
 	        var img = new Image();
 	        img.src = imageSrc
 
@@ -1374,24 +1354,24 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 			img.onload = function(){
 
 		        context.drawImage(img, 0, 0,320,180);
-		         
+
 		        if(playHead < imageNumber){
 	        		playHead++
 	          	} else{
 	        		playHead =  1
 	          	}
 
-		
+
 	          	//requestAnimationFrame(that.imageSequencer);
-		    }  
+		    }
 		}
 
 			  	ghostTimeout = setTimeout(function() {
-					that.imageSequencer()				
-			  	}, 1000 / 8);	
+					that.imageSequencer()
+			  	}, 1000 / 8);
 
 
-   } //imageSequencer 
+   } //imageSequencer
 
    // preload
    this.preload = function(){
@@ -1408,8 +1388,8 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
    		img.src = filePathPre + name + zeroes(imageNumber,5)+".png";
    	}
    }
-   
-              
+
+
 } /// end ghost
 
 
@@ -1419,7 +1399,7 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 
 /*************************************************************************
 
-	
+
 
 	> Root Functions (so we can call them from the krpano XML)
 
@@ -1428,12 +1408,12 @@ var ghostFunctions = function(canvasid,name,imageNumber) {
 *************************************************************************/
 
 function newPage(URL) {
- 
+
  	newPageTrigger = false
  	master.audioFadeAll(0.0)
-	var transition_audio = $('#transition', window.parent.document)	
+	var transition_audio = $('#transition', window.parent.document)
 
-	
+
   if(transition_audio.length>0){
 
 	if(URL == "hatch.php"){
@@ -1443,7 +1423,7 @@ function newPage(URL) {
 		} else {
 			transition_audio[0].src = master.audio_path + "Hatch_Open.mp3"
 		}
-		
+
 	}else{
 
 		if (transition_audio[0].canPlayType('audio/ogg')){
@@ -1465,7 +1445,7 @@ function newPage(URL) {
 			master.pageChange(URL);
 		})
 
-	}	
+	}
 
 }
 
@@ -1487,7 +1467,7 @@ function newPano(_pano, fromPrologue) {
 		parent.location.hash = _pano
 
 		$panocontainer.addClass('hide')
-		
+
 		//$panocontainer.fadeOut(1000,function(){
 			//pano.loadPanoScene(_pano)
 
@@ -1519,25 +1499,25 @@ function panoComplete(){
 
 	// $panocontainer.fadeIn(1000,function(){
 		$('#video-underlay').show()
-	
+
 
 
 }
 
 
 /**************************************************************************
-  
+
   Misc Functions from individual scenes
 
 **************************************************************************/
-  
+
 // Control Room
 var startDrilling = function(stopping){
 
   // if(stopping){
   //   master.loadVideoUnderlay("video/transitions/oil_shot",null,true)
   // }else{
-  //   master.loadVideoUnderlay("video/transitions/action_04",null,true) 
+  //   master.loadVideoUnderlay("video/transitions/action_04",null,true)
   // }
 
   var transition_audio = $('#transition', window.parent.document)
@@ -1572,7 +1552,7 @@ function zoomIn() {
     krpano.call('set(autorotate.enabled,true)')
     $("#zoom-out").off('click')
     $('#zoom-out').remove()
-  })    
+  })
 }
 
 
@@ -1619,21 +1599,21 @@ var soundadjust = function(coord,fov) {
 
 	if(convCoord < 180 )  soundVector1 = convCoord/180;
 	else  				  soundVector1 = (360-convCoord)/180;
-	 
+
 	if(convCoord1 < 180 ) soundVector2 = (convCoord1)/180;
 	else  				  soundVector2 = (360-(convCoord1))/180;
 
 	if(Modernizr.webaudio === true) {
 		if(parent.audiomaster.mix.getTrack('overlay_01') && !master.isTweeningAudio){
 		  parent.audiomaster.mix.getTrack('basetrack').pan(soundVector2*2-1)
-		  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)       
+		  parent.audiomaster.mix.getTrack('overlay_01').pan(soundVector1*2-1)
 		}
 
 		if(parent.audiomaster.mix.getTrack('overlay_02') && !master.isTweeningAudio){
-		  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)       
+		  parent.audiomaster.mix.getTrack('overlay_02').pan(soundVector2*2-1)
 		}
 	}
-	
+
 
 	// show ghosts only in specific spot (recalculated every pano)
 	if(convCoord > master.ghostMinCoord && convCoord < master.ghostMaxCoord) {
@@ -1645,9 +1625,9 @@ var soundadjust = function(coord,fov) {
 
 	/* sequences */
 	if(master.globalPano === 'chemicalroom' || master.globalPano === 'subhangar' ) {
-		// fade in walkthrough	  
+		// fade in walkthrough
 		if(fov < 25 && !master.overlayOpen) {
-  
+
 	        $('.scroll-directions, .panoversion, #walking-exit').fadeIn()
 	        $('#panocontainer, .fastpan, .compass').addClass('hide')
 	        //pano.walkthrough.autoplay = true
@@ -1661,7 +1641,7 @@ var soundadjust = function(coord,fov) {
 
   		// fade out walkthrough
 	    }else{
-  
+
 	        if(!master.overlayOpen)
 	        	$('#panocontainer, .fastpan, .compass').removeClass('hide')
 
@@ -1674,7 +1654,7 @@ var soundadjust = function(coord,fov) {
 	        if(master.isIOS || master.isAndroid){
 	        	$('#walking-canvas-pano').css('display','none')
 	        }
-    
+
 	        $('#walking-canvas-pano').css('opacity', Math.abs(1-fov/90)+.4)
 	        pano.walkthroughPlaying = false;
 	    }
@@ -1765,7 +1745,7 @@ function videoPlayer(group, playerFadeTransition){
 	}else{
 		 $(".breadcrumb").animate({'bottom': '-40px'}, 500)
 	}
-   
+
 
 
 
@@ -1817,7 +1797,7 @@ function videoPlayer(group, playerFadeTransition){
 					switchVideo( $(v).next().data('file'),$(v).next().text() )
 				else
 					closeVideoPlayer()
-					
+
 				return false;
 			}
 
@@ -1880,7 +1860,7 @@ function videoPlayer(group, playerFadeTransition){
 			$(seek).slider({ slide: function( event, ui ) {
 			    time = video.duration * ($(seek).slider("value") / 100);
 			}});
-			
+
 			// video -> slider
 
 			if (!master.isAndroid){
@@ -1906,7 +1886,7 @@ function videoPlayer(group, playerFadeTransition){
 
 	videoControls()
 
-	
+
 	// Movie Menu autohide ---------------------------------------------
 
 	var autohide = (function(){
@@ -1947,7 +1927,7 @@ function videoPlayer(group, playerFadeTransition){
 			}, 2000)
 		})
 
-		$(document).on('mouseout',function(e){ 
+		$(document).on('mouseout',function(e){
 		    over=false
 
 		    window.clearTimeout(timeout)
@@ -1972,7 +1952,7 @@ function switchVideo(_id,_text){
 	$('#movieloading').fadeIn();
 
 
-	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
+	var viewedContent = $.grep(master.viewedContentArray, function (element, index) {
         return element.srcString == $videooverlay[0].src
     });
 
@@ -1986,7 +1966,7 @@ function switchVideo(_id,_text){
 		 master.viewedContentArray.push({'srcString' : $videooverlay[0].src, 'time' : $videooverlay[0].currentTime})
 	}
 
-	
+
 	// track number of seconds of video viewed (in localStorage)
 
 	var contentViewed = $('.movie-menu .viewedContentDiv')
@@ -2027,7 +2007,7 @@ function switchVideo(_id,_text){
 		if($(v).data('file') == _id)
 			$(this).addClass('active')
 	})
-	
+
 	// partial fade to pano
 	// $panocontainer.removeClass('hide')
 	$videooverlay.addClass('hide')
@@ -2045,7 +2025,7 @@ function switchVideo(_id,_text){
 
 
 		$videooverlay[0].src = master.cdn_video + _id + master.videoType
-		
+
 		$videooverlay[0].load()
 
 		if(master.isIOS || master.isAndroid){
@@ -2059,19 +2039,19 @@ function switchVideo(_id,_text){
 	$videooverlay[0].addEventListener('loadedmetadata', function(e) {
 		//$panocontainer.fadeOut(1000)
 		$('#walking-canvas-pano').css('display','none')
-		
+
 		//.controls
 	}, false);
 
 	if(master.isAndroid){
 		$videooverlay[0].addEventListener('click',function(){
 
-	
+
 	  		$videooverlay[0].play();
 		},false);
 	}
 
-	
+
 
 	$videooverlay[0].addEventListener('canplaythrough', function(e) {
 
@@ -2088,12 +2068,12 @@ function switchVideo(_id,_text){
 		$('.controls').css('display','block')
 
 		if(master.isAndroid){
-			
+
 		} else {
 
 		e.stopPropagation()
 
-		this.play();			
+		this.play();
 		}
 
 
@@ -2108,9 +2088,9 @@ function closeVideoPlayer(){
 	var $videocontentwrap = $(".video-content-wrap")
 
 
-	var viewedContent = $.grep(master.viewedContentArray, function (element, index) { 
+	var viewedContent = $.grep(master.viewedContentArray, function (element, index) {
                  return element.srcString == $('#video-overlay')[0].src
-        });	
+        });
 
 	if(viewedContent.length > 0 ){
 
@@ -2121,7 +2101,7 @@ function closeVideoPlayer(){
 	} else {
 		 master.viewedContentArray.push({'srcString' : $('#video-overlay')[0].src, 'time' : $('#video-overlay')[0].currentTime})
 	}
-		
+
 
 	console.log("closing Video Player")
 
@@ -2160,7 +2140,7 @@ function closeVideoPlayer(){
 	// master.overlayOpen = false
 	$videooverlay[0].pause(); // can't hurt
 	//parent.audiomaster.mix.setGain(1.0)
-	
+
 	$videocontentwrap.removeClass("open");
 	$videocontentwrap.removeClass("transtion-width");
 	$videocontentwrap.removeClass("transition-opacity");
@@ -2193,7 +2173,7 @@ function closeVideoPlayer(){
 
 /*************************************************************************
 
-	
+
 
 	> jQuery Extension
 
@@ -2203,90 +2183,90 @@ function closeVideoPlayer(){
 
 
 (function($){
-	
+
 /// Scrollin stuff
-    
+
     var special = jQuery.event.special,
         uid1 = 'D' + (+new Date()),
         uid2 = 'D' + (+new Date() + 1);
-        
+
     special.scrollstart = {
         setup: function() {
-            
+
             var timer,
                 handler =  function(evt) {
-                    
+
                     var _self = this,
                         _args = arguments;
-                    
+
                     if (timer) {
                         clearTimeout(timer);
                     } else {
                         evt.type = 'scrollstart';
                         jQuery.event.handle.apply(_self, _args);
                     }
-                    
+
                     timer = setTimeout( function(){
                         timer = null;
                     }, special.scrollstop.latency);
-                    
+
                 };
-            
+
             jQuery(this).bind('scroll', handler).data(uid1, handler);
-            
+
         },
         teardown: function(){
             jQuery(this).unbind( 'scroll', jQuery(this).data(uid1) );
         }
     };
-    
+
     special.scrollstop = {
         latency: 300,
         setup: function() {
-            
+
             var timer,
                     handler = function(evt) {
-                    
+
                     var _self = this,
                         _args = arguments;
-                    
+
                     if (timer) {
                         clearTimeout(timer);
                     }
-                    
+
                     timer = setTimeout( function(){
-                        
+
                         timer = null;
                         evt.type = 'scrollstop';
                         jQuery.event.handle.apply(_self, _args);
-                        
+
                     }, special.scrollstop.latency);
-                    
+
                 };
-            
+
             jQuery(this).bind('scroll', handler).data(uid2, handler);
-            
+
         },
         teardown: function() {
             jQuery(this).unbind( 'scroll', jQuery(this).data(uid2) );
         }
     };
-    
 
-		
+
+
 	$.fn.shuffleLetters = function(prop){
-	
+
 		var options = $.extend({
 			"step"		: 1,			// How many times should the letters be changed
 			"loop"		: false,			// loop?
-			"stats"		: false,	
+			"stats"		: false,
 			"fps"		: 25,			// Frames Per Second
 			"text"		: "", 			// Use this text instead of the contents
 			"callback"	: function(){}	// Run once the animation is complete
 		},prop)
 
 		return this.each(function(){
-			
+
 			var el = $(this),
 				str = "";
 
@@ -2296,29 +2276,29 @@ function closeVideoPlayer(){
 			if(el.data('animated')){
 				return true;
 			}
-			
+
 			el.data('animated',true);
-			
-			
+
+
 
 				if(options.stats) {
 				str = master.get_stat();
-				
+
 			  }else{
-			  str = master.get_tag();	
+			  str = master.get_tag();
 			  }
-			  
+
 			  if(options.comingsoon) {
 			  str = "OFFSHORE ... coming soon";
 			  }
-		
+
 			// $('meta[name=description]').attr('content', str);
-			 el.html("");			
+			 el.html("");
 
 			// Self executing named function expression:
-			
+
 			(function shuffle(start){
-				
+
 				// This code is run options.fps times per second
 				// and updates the contents of the page element
 				$('#inter-text').html(str).hide().fadeIn(1000, function(){
@@ -2331,7 +2311,7 @@ function closeVideoPlayer(){
 		      	    "stats": true
 		          });
 	          }, 6000);
-						
+
 					}else{
 						master.init()
 						master.check_start()
@@ -2342,16 +2322,16 @@ function closeVideoPlayer(){
 					return;
 
 				})
-					
+
 			})(-options.step);
-			
+
 
 		});
 	};
-	
+
 	function randomChar(type){
 		var pool = "";
-		
+
 		if (type == "lowerLetter"){
 			pool = "abcdefghijklmnopqrstuvwxyz0123456789";
 		}
@@ -2361,11 +2341,11 @@ function closeVideoPlayer(){
 		else if (type == "symbol"){
 			pool = ",.?/\\(^)![]{}*&^%$#'\"";
 		}
-		
+
 		var arr = pool.split('');
 		return arr[Math.floor(Math.random()*arr.length)];
 	}
-	
+
 })(jQuery);
 
 
@@ -2374,7 +2354,7 @@ function closeVideoPlayer(){
 
 
 /**************************************************************************
-	
+
 	> RAF
 
 **************************************************************************/
@@ -2386,11 +2366,11 @@ var cancelAnimationFrame = window.webkitRequestAnimationFrame || window.cancelAn
 
 window.requestAnimationFrame = (function() {
 
-	return  window.requestAnimationFrame       || 
-	        window.webkitRequestAnimationFrame || 
-	        window.mozRequestAnimationFrame    || 
-	        window.oRequestAnimationFrame      || 
-	        window.msRequestAnimationFrame     || 
+	return  window.requestAnimationFrame       ||
+	        window.webkitRequestAnimationFrame ||
+	        window.mozRequestAnimationFrame    ||
+	        window.oRequestAnimationFrame      ||
+	        window.msRequestAnimationFrame     ||
 	        function(/* function */ callback, /* DOMElement */ element){
 		        window.setTimeout(callback, 1000 / 60);
 		    };
